@@ -1,0 +1,24 @@
+Package: tic
+Type: Package
+Title: Tools for tic push stuff
+Version: 0.1.0
+Authors@R: c(
+    person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut", "cre")),
+    person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
+    person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut"))
+  )
+Description: More about what it does (maybe more than one line). Stuff!
+License: GPL (>= 2)
+LazyData: TRUE
+Depends:
+    R (>= 3.3.0)
+Imports:
+    httr,
+    yaml,
+    openssl,
+    github,
+    stringi,
+    jsonlite,
+    git2r,
+    devtools
+RoxygenNote: 5.0.1.9000
