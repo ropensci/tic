@@ -16,8 +16,6 @@ Imports:
     httr,
     yaml,
     openssl,
-    github,
-    jsonlite,
     git2r,
     devtools
 RoxygenNote: 5.0.1.9000
