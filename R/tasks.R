@@ -24,13 +24,7 @@ use_travis_vignettes <- function(pkg = ".", author_email = NULL) {
 
   # authenticate on github and travis and set up keys/vars
   gh <- github_info(pkg$path)
-  username <- gh$owner$login
-  repo <- gh$name
-  gtoken <- auth_github()
-  travis_token <- auth_travis(gtoken)
-
-  enc_id <- setup_keys(username, repo, gtoken, travis_token, key_path,
-                       enc_key_path)
+  enc_id <- setup_keys(gh$owner$login, gh$name, key_path, enc_key_path)
 
   # get push script to be run on travis
   script_src <- system.file("script", "push_gh_pages.sh",
