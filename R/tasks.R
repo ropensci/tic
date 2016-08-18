@@ -47,7 +47,7 @@ use_travis_vignettes <- function(pkg = ".", author_email = NULL) {
     git2r::add(r, ".travis.yml")
     git2r::add(r, script_file)
     git2r::add(r, enc_key_file)
-    git2r::commit(r, "set up travis pushing vignettes to gh-pages")
+    #git2r::commit(r, "set up travis pushing vignettes to gh-pages")
   }
 
 }
