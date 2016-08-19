@@ -24,13 +24,7 @@ use_travis_vignettes <- function(pkg = ".", author_email = NULL) {
 
   # authenticate on github and travis and set up keys/vars
   gh <- github_info(pkg$path)
-  username <- gh$owner$login
-  repo <- gh$name
-  gtoken <- auth_github()
-  travis_token <- auth_travis(gtoken)
-
-  enc_id <- setup_keys(username, repo, gtoken, travis_token, key_path,
-                       enc_key_path)
+  enc_id <- setup_keys(gh$owner$login, gh$name, key_path, enc_key_path)
 
   # get push script to be run on travis
   script_src <- system.file("script", "push_gh_pages.sh",
@@ -53,7 +47,7 @@ use_travis_vignettes <- function(pkg = ".", author_email = NULL) {
     git2r::add(r, ".travis.yml")
     git2r::add(r, script_file)
     git2r::add(r, enc_key_file)
-    git2r::commit(r, "set up travis pushing vignettes to gh-pages")
+    #git2r::commit(r, "set up travis pushing vignettes to gh-pages")
   }
 
 }
