@@ -4,13 +4,11 @@
 \alias{use_travis_vignettes}
 \title{Use travis vignettes}
 \usage{
-use_travis_vignettes(pkg = ".", author_email = NULL)
+use_travis_vignettes(pkg = ".")
 }
 \arguments{
 \item{pkg}{package description, can be path or package name. See
 \code{\link{as.package}} for more information.}
-
-\item{author_email}{Email that will be used for commits on your behalf.}
 }
 \description{
 Use travis vignettes
