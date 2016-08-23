@@ -2,8 +2,8 @@
 #             "TRAVIS_EVENT_TYPE" = "push",
 #             "TRAVIS_REPO_SLUG" = "mikabr/testpackage",
 #             "RCHECK_DIR" = "testpackage.Rcheck",
-#             "encryption_key" = tempkey,
-#             "encryption_iv" = iv)
+#             "encryption_key" = openssl::base64_encode(tempkey),
+#             "encryption_iv" = openssl::base64_encode(iv))
 
 #' @export
 deploy <- function() {
@@ -17,14 +17,15 @@ deploy <- function() {
   if (env[["TRAVIS_BRANCH"]] == "master" && env[["TRAVIS_EVENT_TYPE"]] == "push") {
 
     # decrypt deploy key
-    deploy_key <- openssl::aes_cbc_decrypt(".deploy_key.enc",
-                                           env[["encryption_key"]],
-                                           env[["encryption_iv"]])
+    deploy_key <- openssl::aes_cbc_decrypt(
+      ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
+      openssl::base64_decode(env[["encryption_iv"]])
+    )
     writeBin(deploy_key, ".deploy_key")
     cred <- git2r::cred_ssh_key(".deploy_key.pub", ".deploy_key")
 
     # configure repo
-    repo <- repository(".")
+    repo <- git2r::repository(".")
     author <- git2r::commits(repo)[[1]]@author
     git2r::config(repo, user.name = author@name, user.email = author@email)
     git2r::checkout(repo, branch = "gh-pages", create = TRUE)
@@ -45,6 +46,8 @@ deploy <- function() {
       git2r::commit(repo, message = "deploy to github pages")
       git2r::push(repo, "origin", "gh-pages", credentials = cred)
     }
+
+    unlink(".deploy_key")
 
   }
 
