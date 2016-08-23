@@ -1,10 +1,3 @@
-# env <- list("TRAVIS_BRANCH" = "master",
-#             "TRAVIS_EVENT_TYPE" = "push",
-#             "TRAVIS_REPO_SLUG" = "mikabr/testpackage",
-#             "RCHECK_DIR" = "testpackage.Rcheck",
-#             "encryption_key" = openssl::base64_encode(tempkey),
-#             "encryption_iv" = openssl::base64_encode(iv))
-
 #' @export
 deploy <- function() {
 
@@ -16,6 +9,13 @@ deploy <- function() {
   # only run on pushes to master
   if (env[["TRAVIS_BRANCH"]] == "master" && env[["TRAVIS_EVENT_TYPE"]] == "push") {
 
+    # clone repo
+    # TODO: is this right? cloning repo into already cloned repo seems bad...
+    repo_url <- sprintf("git@github.com:%s.git", env[["TRAVIS_REPO_SLUG"]])
+    repo <- git2r::clone(repo_url, local_path = env[["TRAVIS_REPO_SLUG"]],
+                         branch = "master")
+    setwd(env[["TRAVIS_REPO_SLUG"]])
+
     # decrypt deploy key
     deploy_key <- openssl::aes_cbc_decrypt(
       ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
@@ -24,18 +24,18 @@ deploy <- function() {
     writeBin(deploy_key, ".deploy_key")
     cred <- git2r::cred_ssh_key(".deploy_key.pub", ".deploy_key")
 
-    # configure repo
-    repo <- git2r::repository(".")
+    # configure repo and switch to gh-pages branch
     author <- git2r::commits(repo)[[1]]@author
     git2r::config(repo, user.name = author@name, user.email = author@email)
     git2r::checkout(repo, branch = "gh-pages", create = TRUE)
 
     # copy over rendered vignettes
     pkg_name <- unlist(strsplit(env[["RCHECK_DIR"]], ".Rcheck"))
-    src_dir <- sprintf("%s/00_pkg_src/%s/inst/doc", env[["RCHECK_DIR"]], pkg_name)
+    src_dir <- sprintf("../../%s/00_pkg_src/%s/inst/doc", env[["RCHECK_DIR"]],
+                       pkg_name)
     html_files <- list.files(src_dir, pattern = "*.html")
     file.copy(unlist(lapply(html_files,
-                            function(file) file.path(target_dir, file))),
+                            function(file) file.path(src_dir, file))),
               ".", overwrite = TRUE)
     unlink(env[["RCHECK_DIR"]], recursive = TRUE)
 
