@@ -6,6 +6,9 @@ deploy <- function() {
                       "RCHECK_DIR", "encryption_key", "encryption_iv"),
                     names = TRUE)
 
+  print(env)
+  print(getwd())
+
   # only run on pushes to master
   if (env[["TRAVIS_BRANCH"]] == "master" && env[["TRAVIS_EVENT_TYPE"]] == "push") {
 
