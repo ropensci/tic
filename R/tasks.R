@@ -8,6 +8,17 @@ task_setup_repo <- function() {
 
   env <- get("env", parent.frame())
 
+  # decrypt deploy key
+  deploy_key <- openssl::aes_cbc_decrypt(
+    ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
+    openssl::base64_decode(env[["encryption_iv"]])
+  )
+  deploy_key_path <- file.path("/tmp", ".deploy_key")
+  writeBin(deploy_key, deploy_key_path)
+  #cred <- git2r::cred_ssh_key(".deploy_key.pub", ".deploy_key")
+  Sys.chmod(deploy_key_path, "600")
+  system(sprintf("ssh-agent sh -c 'ssh-add %s'", deploy_key_path))
+
   # clone repo
   repo_url <- sprintf("git@github.com:%s.git", env[["TRAVIS_REPO_SLUG"]])
   local_path <- file.path("/tmp", env[["TRAVIS_REPO_SLUG"]])
@@ -17,17 +28,6 @@ task_setup_repo <- function() {
   # repo <- git2r::clone(repo_url, local_path = env[["TRAVIS_REPO_SLUG"]],
   #                      branch = "master")
   setwd(local_path)
-
-  # decrypt deploy key
-  deploy_key <- openssl::aes_cbc_decrypt(
-    ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
-    openssl::base64_decode(env[["encryption_iv"]])
-  )
-  deploy_key_path <- ".deploy_key"
-  writeBin(deploy_key, deploy_key_path)
-  #cred <- git2r::cred_ssh_key(".deploy_key.pub", ".deploy_key")
-  Sys.chmod(deploy_key_path, "600")
-  system(sprintf("ssh-agent sh -c 'ssh-add %s'", deploy_key_path))
 
   # configure repo
   # TODO: use TRAVIS_COMMIT instead of latest commit
