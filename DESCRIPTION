@@ -17,5 +17,6 @@ Imports:
     yaml,
     openssl,
     git2r,
+    memoise,
     devtools
 RoxygenNote: 5.0.1.9000
