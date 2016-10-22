@@ -7,8 +7,10 @@ deploy <- function(tasks) {
                       "encryption_key", "encryption_iv"),
                     names = TRUE)
 
-  # only run on pushes to master
-  if (env[["TRAVIS_BRANCH"]] == "master" && env[["TRAVIS_EVENT_TYPE"]] == "push") {
+  # only run on pushes
+  # specify which branches to push in the deploy/on/branch section in .travis.yml
+  # see also https://docs.travis-ci.com/user/deployment/script/
+  if (env[["TRAVIS_EVENT_TYPE"]] == "push") {
     for (task in tasks) {
       eval(parse(text = task))
     }
