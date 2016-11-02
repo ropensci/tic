@@ -5,7 +5,8 @@ prepare_deploy <- function(task_code = get_task_code()) {
 
   lapply(tasks, function(task) {
     task_name <- class(task)[[1L]]
-    if (body(task$prepare) != quote({})) {
+    # prepare() method overridden?
+    if (!identical(task$prepare, TravisTask$public_methods$prepare)) {
       if (!task$check()) {
         message("Skipping deploy preparation: ", task_name)
       } else {
