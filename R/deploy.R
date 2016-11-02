@@ -1,4 +1,20 @@
 #' @export
+install_deploy_dependencies <- function(task_code = get_task_code()) {
+
+    parsed <- parse_task_code(task_code)
+
+    packages <- unlist(lapply(parsed, attr, "packages"))
+
+    if (length(packages) == 0L) {
+      return(invisible())
+    }
+
+    message("Installing deploy dependencies: ", paste(packages, collapse = ", "))
+    install.packages(packages)
+
+}
+
+#' @export
 deploy <- function(task_code = get_task_code()) {
 
   parsed <- parse_task_code(task_code)
