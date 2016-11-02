@@ -55,8 +55,8 @@ before_install:
 
 #before_script
 before_script:
-- R -e 'travis::prepare_deploy()'
+- R -e 'devtools::load_all(); prepare_deploy()'
 
 #after_success (deploy to gh-pages)
 after_success:
-- R -e 'travis::deploy()'
+- R -e 'devtools::load_all(); deploy()'
