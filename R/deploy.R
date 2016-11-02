@@ -27,7 +27,7 @@ deploy <- function(task_code = get_task_code()) {
       message("Skipping deploy: ", task_name)
     } else {
       message("Deploying: ", task_name)
-      task$prepare()
+      task$run()
     }
   })
 
