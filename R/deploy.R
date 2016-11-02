@@ -10,7 +10,7 @@ install_deploy_dependencies <- function(task_code = get_task_code()) {
   }
 
   message("Installing deploy dependencies: ", paste(packages, collapse = ", "))
-  install.packages(packages)
+  devtools::install_cran(packages)
 
 }
 
