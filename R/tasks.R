@@ -4,7 +4,7 @@ task_test <- function() {
 }
 
 #' @export
-task_setup_repo <- function() {
+task_install_ssh_keys <- function() {
 
   env <- get("env", parent.frame())
 
@@ -19,6 +19,15 @@ task_setup_repo <- function() {
   }
   writeBin(deploy_key, deploy_key_path)
   Sys.chmod(deploy_key_path, "600")
+
+}
+
+#' @export
+task_setup_repo <- function() {
+
+  task_install_ssh_keys()
+
+  env <- get("env", parent.frame())
 
   # clone repo
   repo_url <- sprintf("git@github.com:%s.git", env[["TRAVIS_REPO_SLUG"]])
