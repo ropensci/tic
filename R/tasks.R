@@ -22,7 +22,7 @@ HelloWorld <- R6Class(
 )
 
 #' @export
-hello_world <- HelloWorld$new
+task_hello_world <- HelloWorld$new
 
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys", inherit = TravisTask,
@@ -56,7 +56,7 @@ InstallSSHKeys <- R6Class(
 )
 
 #' @export
-install_ssh_keys <- InstallSSHKeys$new
+task_install_ssh_keys <- InstallSSHKeys$new
 
 RunCovr <- R6Class(
   "RunCovr", inherit = TravisTask,
@@ -74,7 +74,7 @@ RunCovr <- R6Class(
 )
 
 #' @export
-run_covr <- RunCovr$new
+task_run_covr <- RunCovr$new
 
 BuildPkgdown <- R6Class(
   "BuildPkgdown", inherit = TravisTask,
@@ -104,7 +104,7 @@ BuildPkgdown <- R6Class(
 )
 
 #' @export
-build_pkgdown <- BuildPkgdown$new
+task_build_pkgdown <- BuildPkgdown$new
 
 run_setup_repo <- function() {
 
