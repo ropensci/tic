@@ -11,7 +11,7 @@ env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
   - MAKEFLAGS="-j 2"
-  - RTRAVIS_TASKS="covr::codecov();"
+  - RTRAVIS_TASKS="RunCovr$new();"
 
 #addons
 addons:
@@ -25,7 +25,7 @@ matrix:
   include:
   - r: release
     env:
-    - RTRAVIS_TASKS="${RTRAVIS_TASKS} pkgdown::build_site(); task_install_ssh_keys()'
+    - RTRAVIS_TASKS="${RTRAVIS_TASKS} BuildPkgdown$new(); InstallSSHKeys$new()'
   - r: oldrel
   - r: devel
   - os: osx
@@ -43,7 +43,6 @@ notifications:
 
 #r_github_packages
 r_github_packages:
-- ropenscilabs/travis@f-42-config
 
 #r_packages
 r_packages:
@@ -56,7 +55,7 @@ before_install:
 
 #before_script
 before_script:
-- R -e 'travis::install_deploy_dependencies()'
+- R -e 'travis::prepare_deploy()'
 
 #after_success (deploy to gh-pages)
 after_success:
