@@ -11,7 +11,6 @@ TravisTask <- R6Class(
   )
 )
 
-#' @export
 HelloWorld <- R6Class(
   "HelloWorld", inherit = TravisTask,
 
@@ -23,6 +22,8 @@ HelloWorld <- R6Class(
 )
 
 #' @export
+hello_world <- HelloWorld$new
+
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys", inherit = TravisTask,
 
@@ -57,6 +58,8 @@ InstallSSHKeys <- R6Class(
 )
 
 #' @export
+install_ssh_keys <- InstallSSHKeys$new
+
 RunCovr <- R6Class(
   "RunCovr", inherit = TravisTask,
 
@@ -73,6 +76,8 @@ RunCovr <- R6Class(
 )
 
 #' @export
+run_covr <- RunCovr$new
+
 BuildPkgdown <- R6Class(
   "BuildPkgdown", inherit = TravisTask,
 
@@ -99,6 +104,9 @@ BuildPkgdown <- R6Class(
     branch = NULL
   )
 )
+
+#' @export
+build_pkgdown <- BuildPkgdown$new
 
 run_setup_repo <- function() {
 
