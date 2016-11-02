@@ -2,6 +2,7 @@
 #' @export
 TravisTask <- R6Class(
   "TravisTask",
+  cloneable = FALSE,
 
   public = list(
     run = function() {},
@@ -12,7 +13,7 @@ TravisTask <- R6Class(
 
 #' @export
 HelloWorld <- R6Class(
-  "HelloWorld", inherit = "TravisTask",
+  "HelloWorld", inherit = TravisTask,
 
   public = list(
     run = function() {
@@ -23,7 +24,7 @@ HelloWorld <- R6Class(
 
 #' @export
 InstallSSHKeys <- R6Class(
-  "InstallSSHKeys", inherit = "TravisTask",
+  "InstallSSHKeys", inherit = TravisTask,
 
   public = list(
     run = function() {
@@ -57,7 +58,7 @@ InstallSSHKeys <- R6Class(
 
 #' @export
 RunCovr <- R6Class(
-  "RunCovr", inherit = "TravisTask",
+  "RunCovr", inherit = TravisTask,
 
   public = list(
     run = function() {
@@ -73,11 +74,11 @@ RunCovr <- R6Class(
 
 #' @export
 BuildPkgdown <- R6Class(
-  "BuildPkgdown", inherit = "TravisTask",
+  "BuildPkgdown", inherit = TravisTask,
 
   public = list(
     initialize = function(branch = "master") {
-      self$branch <- branch
+      private$branch <- branch
     },
 
     run = function() {
@@ -90,8 +91,12 @@ BuildPkgdown <- R6Class(
     },
 
     check = function() {
-      env[["TRAVIS_BRANCH"]] == self$branch
+      env[["TRAVIS_BRANCH"]] == private$branch
     }
+  ),
+
+  private = list(
+    branch = NULL
   )
 )
 
