@@ -1,55 +1,98 @@
+#' @importFrom R6 R6Class
 #' @export
-new_task <- function(fun, description = NULL, check_fun = NULL, packages = NULL) {
-  if (is.null(description)) {
-    description <- deparse(substitute(fun))
-  }
-  structure(
-    fun,
-    description = description,
-    check_fun = check_fun,
-    packages = packages,
-    class = "travis_task"
+TravisTask <- R6Class(
+  "TravisTask",
+
+  public = list(
+    run = function() {},
+    prepare = function() {},
+    check = function() TRUE
   )
-}
-
-run_test <- function() {
-  print("woof")
-}
+)
 
 #' @export
-task_test <- new_task(run_test)
+HelloWorld <- R6Class(
+  "HelloWorld", inherit = "TravisTask",
 
-run_install_ssh_keys <- function() {
-
-  env <- get("env", parent.frame())
-
-  message("Decrypting deploy key")
-  deploy_key <- openssl::aes_cbc_decrypt(
-    ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
-    openssl::base64_decode(env[["encryption_iv"]])
+  public = list(
+    run = function() {
+      print("Hello, world!")
+    }
   )
-  deploy_key_path <- file.path("~/.ssh", "id_rsa")
-  if (file.exists(deploy_key_path)) {
-    stop("Not overwriting key", call. = FALSE)
-  }
-  message("Writing deploy key to ", deploy_key_path)
-  writeBin(deploy_key, deploy_key_path)
-  Sys.chmod(deploy_key_path, "600")
-
-}
-
-check_install_ssh_keys <- function() {
-  # only run on pushes
-  # specify which branches to push in the deploy/on/branch section in .travis.yml
-  # see also https://docs.travis-ci.com/user/deployment/script/
-  Sys.getenv("TRAVIS_EVENT_TYPE") == "push"
-}
+)
 
 #' @export
-task_install_ssh_keys <- new_task(
-  run_install_ssh_keys,
-  check_fun = check_install_ssh_keys,
-  packages = c("openssl")
+InstallSSHKeys <- R6Class(
+  "InstallSSHKeys", inherit = "TravisTask",
+
+  public = list(
+    run = function() {
+      env <- Sys.getenv()
+
+      message("Decrypting deploy key")
+      deploy_key <- openssl::aes_cbc_decrypt(
+        ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
+        openssl::base64_decode(env[["encryption_iv"]])
+      )
+      deploy_key_path <- file.path("~/.ssh", "id_rsa")
+      if (file.exists(deploy_key_path)) {
+        stop("Not overwriting key", call. = FALSE)
+      }
+      message("Writing deploy key to ", deploy_key_path)
+      writeBin(deploy_key, deploy_key_path)
+      Sys.chmod(deploy_key_path, "600")
+    },
+
+    prepare = function() {
+      if (!requireNamespace("openssl", quietly = TRUE))
+        install.packages("openssl")
+    },
+
+    check = function() {
+      # only run on pushes
+      Sys.getenv("TRAVIS_EVENT_TYPE") == "push"
+    }
+  )
+)
+
+#' @export
+RunCovr <- R6Class(
+  "RunCovr", inherit = "TravisTask",
+
+  public = list(
+    run = function() {
+      covr::codecov()
+    },
+
+    prepare = function() {
+      if (!requireNamespace("covr", quietly = TRUE))
+        install.packages("covr")
+    }
+  )
+)
+
+#' @export
+BuildPkgdown <- R6Class(
+  "BuildPkgdown", inherit = "TravisTask",
+
+  public = list(
+    initialize = function(branch = "master") {
+      self$branch <- branch
+    },
+
+    run = function() {
+      pkgdown::build_site()
+    },
+
+    prepare = function() {
+      if (!requireNamespace("pkgdown", quietly = TRUE))
+        devtools::install_github("hadley/pkgdown")
+    },
+
+    check = function() {
+      env[["TRAVIS_BRANCH"]] == self$branch
+    }
+  )
 )
 
 run_setup_repo <- function() {
@@ -74,12 +117,6 @@ run_setup_repo <- function() {
   git2r::config(repo, user.name = author@name, user.email = author@email)
 
 }
-
-#' @export
-task_setup_repo <- new_task(
-  run_setup_repo,
-  packages = c("git2r")
-)
 
 run_push_vignettes <- function() {
 
@@ -113,8 +150,3 @@ run_push_vignettes <- function() {
   }
 
 }
-
-#' @export
-task_push_vignettes <- new_task(
-  run_push_vignettes
-)
