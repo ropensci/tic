@@ -23,6 +23,7 @@ deploy <- function(task_code = get_task_code()) {
   tasks <- parse_task_code(task_code)
 
   lapply(tasks, function(task) {
+    task_name <- class(task)[[1L]]
     if (!task$check()) {
       message("Skipping deploy: ", task_name)
     } else {
