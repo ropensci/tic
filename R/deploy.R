@@ -1,5 +1,5 @@
 #' @export
-deploy <- function(tasks) {
+deploy <- function(tasks = get_tasks()) {
 
   # get system environment variables
   env <- Sys.getenv(c("TRAVIS_BRANCH", "TRAVIS_EVENT_TYPE", "TRAVIS_REPO_SLUG",
@@ -16,4 +16,8 @@ deploy <- function(tasks) {
     }
   }
 
+}
+
+get_tasks <- function() {
+  character()
 }
