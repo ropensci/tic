@@ -19,3 +19,4 @@ Imports:
     git2r,
     devtools
 RoxygenNote: 5.0.1.9000
+Suggests: testthat
