@@ -13,11 +13,12 @@ LazyData: TRUE
 Depends:
     R (>= 3.2.0)
 Imports:
-    httr,
-    yaml,
-    openssl,
+    devtools,
     git2r,
+    httr,
     memoise,
-    devtools
+    openssl,
+    R6,
+    yaml
 RoxygenNote: 5.0.1.9000
 Suggests: testthat
