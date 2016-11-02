@@ -8,7 +8,7 @@ task_install_ssh_keys <- function() {
 
   env <- get("env", parent.frame())
 
-  # decrypt deploy key
+  message("Decrypting deploy key")
   deploy_key <- openssl::aes_cbc_decrypt(
     ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
     openssl::base64_decode(env[["encryption_iv"]])
@@ -17,6 +17,7 @@ task_install_ssh_keys <- function() {
   if (file.exists(deploy_key_path)) {
     stop("Not overwriting key", call. = FALSE)
   }
+  message("Writing deploy key to ", deploy_key_path)
   writeBin(deploy_key, deploy_key_path)
   Sys.chmod(deploy_key_path, "600")
 
