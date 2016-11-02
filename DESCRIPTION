@@ -20,5 +20,7 @@ Imports:
     openssl,
     R6,
     yaml
+Suggests:
+    roxygen2,
+    testthat
 RoxygenNote: 5.0.1.9000
-Suggests: testthat
