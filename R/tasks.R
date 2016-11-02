@@ -29,12 +29,10 @@ InstallSSHKeys <- R6Class(
 
   public = list(
     run = function() {
-      env <- Sys.getenv()
-
       message("Decrypting deploy key")
       deploy_key <- openssl::aes_cbc_decrypt(
-        ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
-        openssl::base64_decode(env[["encryption_iv"]])
+        ".deploy_key.enc", openssl::base64_decode(Sys.getenv("encryption_key")),
+        openssl::base64_decode(Sys.getenv("encryption_iv"))
       )
       deploy_key_path <- file.path("~/.ssh", "id_rsa")
       if (file.exists(deploy_key_path)) {
@@ -96,7 +94,7 @@ BuildPkgdown <- R6Class(
     },
 
     check = function() {
-      env[["TRAVIS_BRANCH"]] == private$branch
+      Sys.getenv("TRAVIS_BRANCH") == private$branch
     }
   ),
 
