@@ -13,11 +13,12 @@ task_setup_repo <- function() {
     ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
     openssl::base64_decode(env[["encryption_iv"]])
   )
-  deploy_key_path <- file.path("/tmp", ".deploy_key")
+  deploy_key_path <- file.path("~/.ssh", "id_rsa")
+  if (file.exists(deploy_key_path)) {
+    stop("Not overwriting key", call. = FALSE)
+  }
   writeBin(deploy_key, deploy_key_path)
-  #cred <- git2r::cred_ssh_key(".deploy_key.pub", ".deploy_key")
   Sys.chmod(deploy_key_path, "600")
-  system(sprintf("ssh-agent sh -c 'ssh-add %s'", deploy_key_path))
 
   # clone repo
   repo_url <- sprintf("git@github.com:%s.git", env[["TRAVIS_REPO_SLUG"]])
