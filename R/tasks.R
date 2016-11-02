@@ -1,10 +1,25 @@
 #' @export
-task_test <- function() {
+new_task <- function(fun, description = NULL, check_fun = NULL, packages = NULL) {
+  if (is.null(description)) {
+    description <- deparse(substitute(fun))
+  }
+  structure(
+    fun,
+    description = description,
+    check_fun = check_fun,
+    packages = packages,
+    class = "travis_task"
+  )
+}
+
+run_test <- function() {
   print("woof")
 }
 
 #' @export
-task_install_ssh_keys <- function() {
+task_test <- new_task(run_test)
+
+run_install_ssh_keys <- function() {
 
   env <- get("env", parent.frame())
 
@@ -23,8 +38,21 @@ task_install_ssh_keys <- function() {
 
 }
 
+check_install_ssh_keys <- function() {
+  # only run on pushes
+  # specify which branches to push in the deploy/on/branch section in .travis.yml
+  # see also https://docs.travis-ci.com/user/deployment/script/
+  Sys.getenv("TRAVIS_EVENT_TYPE") == "push"
+}
+
 #' @export
-task_setup_repo <- function() {
+task_install_ssh_keys <- new_task(
+  run_install_ssh_keys,
+  check_fun = check_install_ssh_keys,
+  packages = c("openssl")
+)
+
+run_setup_repo <- function() {
 
   task_install_ssh_keys()
 
@@ -48,9 +76,15 @@ task_setup_repo <- function() {
 }
 
 #' @export
-task_push_vignettes <- function() {
+task_setup_repo <- new_task(
+  run_setup_repo,
+  packages = c("git2r")
+)
 
-  env <- get("env", parent.frame())
+run_push_vignettes <- function() {
+
+  env <- Sys.getenv()
+
   local_path <- file.path("/tmp", env[["TRAVIS_REPO_SLUG"]])
   repo <- git2r::repository(local_path)
   setwd(local_path)
@@ -79,3 +113,8 @@ task_push_vignettes <- function() {
   }
 
 }
+
+#' @export
+task_push_vignettes <- new_task(
+  run_push_vignettes
+)
