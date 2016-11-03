@@ -1,30 +1,4 @@
-#' @export
-task_test <- function() {
-  print("woof")
-}
-
-#' @export
-task_install_ssh_keys <- function() {
-
-  env <- get("env", parent.frame())
-
-  message("Decrypting deploy key")
-  deploy_key <- openssl::aes_cbc_decrypt(
-    ".deploy_key.enc", openssl::base64_decode(env[["encryption_key"]]),
-    openssl::base64_decode(env[["encryption_iv"]])
-  )
-  deploy_key_path <- file.path("~/.ssh", "id_rsa")
-  if (file.exists(deploy_key_path)) {
-    stop("Not overwriting key", call. = FALSE)
-  }
-  message("Writing deploy key to ", deploy_key_path)
-  writeBin(deploy_key, deploy_key_path)
-  Sys.chmod(deploy_key_path, "600")
-
-}
-
-#' @export
-task_setup_repo <- function() {
+run_setup_repo <- function() {
 
   task_install_ssh_keys()
 
@@ -47,10 +21,10 @@ task_setup_repo <- function() {
 
 }
 
-#' @export
-task_push_vignettes <- function() {
+run_push_vignettes <- function() {
 
-  env <- get("env", parent.frame())
+  env <- Sys.getenv()
+
   local_path <- file.path("/tmp", env[["TRAVIS_REPO_SLUG"]])
   repo <- git2r::repository(local_path)
   setwd(local_path)

@@ -1,19 +1,46 @@
 #' @export
-deploy <- function(tasks) {
+prepare_deploy <- function(task_code = get_task_code()) {
 
-  # get system environment variables
-  env <- Sys.getenv(c("TRAVIS_BRANCH", "TRAVIS_EVENT_TYPE", "TRAVIS_REPO_SLUG",
-                      "RCHECK_DIR", "TRAVIS_BUILD_DIR", "TRAVIS_COMMIT",
-                      "encryption_key", "encryption_iv"),
-                    names = TRUE)
+  tasks <- parse_task_code(task_code)
 
-  # only run on pushes
-  # specify which branches to push in the deploy/on/branch section in .travis.yml
-  # see also https://docs.travis-ci.com/user/deployment/script/
-  if (env[["TRAVIS_EVENT_TYPE"]] == "push") {
-    for (task in tasks) {
-      eval(parse(text = task))
+  lapply(tasks, function(task) {
+    task_name <- class(task)[[1L]]
+    # prepare() method overridden?
+    if (!identical(task$prepare, TravisTask$public_methods$prepare)) {
+      if (!task$check()) {
+        message("Skipping deploy preparation: ", task_name)
+      } else {
+        message("Preparing deploy: ", task_name)
+        task$prepare()
+      }
     }
-  }
+  })
 
+}
+
+#' @export
+deploy <- function(task_code = get_task_code()) {
+
+  tasks <- parse_task_code(task_code)
+
+  lapply(tasks, function(task) {
+    task_name <- class(task)[[1L]]
+    if (!task$check()) {
+      message("Skipping deploy: ", task_name)
+    } else {
+      message("Deploying: ", task_name)
+      task$run()
+    }
+  })
+
+}
+
+get_task_code <- function() {
+  Sys.getenv("RTRAVIS_TASKS")
+}
+
+parse_task_code <- function(task_code) {
+  parsed <- as.list(parse(text = task_code))
+  names(parsed) <- vapply(parsed, deparse, nlines = 1L, character(1L))
+  lapply(parsed, eval)
 }
