@@ -134,10 +134,8 @@ PushDeploy <- R6Class(
 
     push = function() {
       message("Pushing to remote")
-      git2r::branch_rename(git2r::head(private$repo), private$branch)
-
       private$git("push", if (private$orphan) "--force", private$remote_name,
-                  paste0("refs/heads/", private$branch))
+                  paste0("HEAD:", private$branch))
     },
 
     git = function(...) {
