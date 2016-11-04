@@ -91,7 +91,7 @@ PushDeploy <- R6Class(
       message("Initializing Git repo at ", private$path)
       private$repo <- git2r::init(private$path)
 
-      latest_commit <- git2r::commits(git2r::repository("."), topological = FALSE, time = FALSE, n = 1L)[[1L]]
+      latest_commit <- get_head_commit(git2r::head(git2r::repository(".")))
       print(latest_commit)
 
       latest_author <- latest_commit@author
@@ -117,7 +117,7 @@ PushDeploy <- R6Class(
         remote_branch <- branches[[paste0(remote_name, "/", private$branch)]]
         print(remote_branch)
 
-        git2r::reset(git2r::lookup(private$repo, git2r::branch_target(remote_branch)))
+        git2r::reset(get_head_commit(remote_branch))
       }
     },
 
@@ -142,7 +142,7 @@ PushDeploy <- R6Class(
 
     git = function(...) {
       args <- c(...)
-      message(paste(git, paste(args, collapse = " ")))
+      message(paste("git", paste(args, collapse = " ")))
       withr::with_dir(private$path, system2("git", args))
     },
 
