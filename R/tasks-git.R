@@ -3,8 +3,8 @@ InstallSSHKeys <- R6Class(
 
   public = list(
     run = function() {
-      message("Writing deploy key to ", deploy_key_path)
       deploy_key_path <- file.path("~/.ssh", "id_rsa")
+      message("Writing deploy key to ", deploy_key_path)
       if (file.exists(deploy_key_path)) {
         stop("Not overwriting key", call. = FALSE)
       }
