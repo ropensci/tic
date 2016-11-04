@@ -149,7 +149,7 @@ PushDeploy <- R6Class(
     format_commit_message = function() {
       paste0(
         "Deploy from Travis build #", Sys.getenv("TRAVIS_BUILD_NUMBER"), "\n\n",
-        "Build URL: https://travis-ci.org/", Sys.getenv("TRAVIS_REPO_SLUG"), "/", Sys.getenv("TRAVIS_BUILD_ID"), "\n",
+        "Build URL: https://travis-ci.org/", Sys.getenv("TRAVIS_REPO_SLUG"), "/builds/", Sys.getenv("TRAVIS_BUILD_ID"), "\n",
         "Commit: ", Sys.getenv("TRAVIS_COMMIT")
       )
     }
