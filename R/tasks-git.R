@@ -88,7 +88,6 @@ PushDeploy <- R6Class(
     remote_name = "origin",
 
     init = function() {
-      unlink(file.path(private$path, ".git"), force = TRUE, recursive = TRUE)
       private$repo <- git2r::init(private$path)
 
       latest_commit <- git2r::commits(git2r::repository("."), topological = FALSE, time = FALSE, n = 1L)[[1L]]
