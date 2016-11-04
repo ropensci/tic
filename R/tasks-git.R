@@ -9,7 +9,8 @@ InstallSSHKeys <- R6Class(
         stop("Not overwriting key", call. = FALSE)
       }
       message("Writing deploy key to ", deploy_key_path)
-      writeLines(Sys.getenv("id_rsa"), deploy_key_path)
+      writeLines(rawToChar(openssl::base64_decode(Sys.getenv("id_rsa"))),
+                 deploy_key_path)
       Sys.chmod(deploy_key_path, "600")
     },
 
