@@ -106,7 +106,11 @@ PushDeploy <- R6Class(
       if (!private$orphan) {
         private$git("fetch", remote_name, paste0("refs/heads/", private$branch))
 
-        remote_branch <- git2r::branches(private$repo, "remote")[[paste0(remote_name, "/", private$branch)]]
+        branches <- git2r::branches(private$repo, "remote")
+        print(branches)
+        remote_branch <- branches[[paste0(remote_name, "/", private$branch)]]
+        print(remote_branch)
+
         git2r::reset(git2r::lookup(private$repo, git2r::branch_target(remote_branch)))
       }
     },
@@ -130,6 +134,7 @@ PushDeploy <- R6Class(
 
     git = function(...) {
       args <- c(...)
+      message(paste(git, paste(args, collapse = " ")))
       withr::with_dir(private$path, system2("git", args))
     },
 
