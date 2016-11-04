@@ -32,7 +32,7 @@ TestSSH <- R6Class(
   "TestSSH", inherit = TravisTask,
 
   public = list(
-    initialize = function(host) {
+    initialize = function(host = "git@github.com") {
       private$host <- host
     },
 
