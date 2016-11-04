@@ -60,10 +60,9 @@ before_script:
 #after_success (deploy to gh-pages)
 after_success:
 
-#deploy
+#deploy // https://github.com/travis-ci/travis-build/blob/85ef7108/lib/travis/build/addons/deploy/script.rb#L100-L107
 deploy:
   provider: script
   script: R -e 'devtools::load_all(); deploy()'
   on:
     all_branches: true
-    tags: true
