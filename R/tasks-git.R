@@ -32,18 +32,20 @@ TestSSH <- R6Class(
   "TestSSH", inherit = TravisTask,
 
   public = list(
-    initialize = function(host = "git@github.com") {
+    initialize = function(host = "git@github.com", verbose = "-v") {
       private$host <- host
+      private$verbose <- verbose
     },
 
     run = function() {
       message("Trying to ssh into git@github.com")
-      system2("ssh", c(private$host, "-vv"))
+      system2("ssh", c(private$host, private$verbose))
     }
   ),
 
   private = list(
-    host = NULL
+    host = NULL,
+    verbose = NULL
   )
 )
 
