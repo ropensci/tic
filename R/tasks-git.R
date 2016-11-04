@@ -104,8 +104,7 @@ PushDeploy <- R6Class(
       git2r::remote_add(private$repo, remote_name, private$remote_url)
 
       if (!private$orphan) {
-        git2r::fetch(private$repo, remote_name, refspec = paste0("refs/heads/", private$branch),
-                     credentials = git2r::cred_ssh_key())
+        private$git("fetch", remote_name, paste0("refs/heads/", private$branch))
 
         remote_branch <- git2r::branches(private$repo, "remote")[[paste0(remote_name, "/", private$branch)]]
         git2r::reset(git2r::lookup(private$repo, git2r::branch_target(remote_branch)))
@@ -125,9 +124,13 @@ PushDeploy <- R6Class(
     push = function() {
       git2r::branch_rename(git2r::head(private$repo), private$branch)
 
-      git2r::push(private$repo, "origin", paste0("refs/heads/", private$branch),
-                  force = private$orphan,
-                  credentials = git2r::cred_ssh_key())
+      private$git("push", if (private$orphan) "--force", private$remote_name,
+                  paste0("refs/heads/", private$branch))
+    },
+
+    git = function(...) {
+      args <- c(...)
+      withr::with_dir(private$path, system2("git", args))
     },
 
     format_commit_message = function() {
