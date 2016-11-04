@@ -48,4 +48,4 @@ TestSSH <- R6Class(
 )
 
 #' @export
-test_ssh <- TestSSH$new
+task_test_ssh <- TestSSH$new
