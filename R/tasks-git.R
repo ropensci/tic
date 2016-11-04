@@ -38,7 +38,7 @@ TestSSH <- R6Class(
 
     run = function() {
       message("Trying to ssh into git@github.com")
-      system2("ssh", private$host)
+      system2("ssh", c(private$host, "-vv"))
     }
   ),
 
