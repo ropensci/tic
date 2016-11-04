@@ -56,7 +56,7 @@ PushDeploy <- R6Class(
   "PushDeploy", inherit = TravisTask,
 
   public = list(
-    initialize = function(path = ".", branch = NULL, orphan = FALSE,
+    initialize = function(path = ".", branch = Sys.getenv("TRAVIS_BRANCH"), orphan = FALSE,
                           remote_url = paste0("git@github.com:", Sys.getenv("TRAVIS_REPO_SLUG"), ".git"),
                           commit_message = NULL) {
       private$path <- path
