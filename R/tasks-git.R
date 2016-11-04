@@ -88,6 +88,7 @@ PushDeploy <- R6Class(
     remote_name = "origin",
 
     init = function() {
+      message("Initializing Git repo at ", private$path)
       private$repo <- git2r::init(private$path)
 
       latest_commit <- git2r::commits(git2r::repository("."), topological = FALSE, time = FALSE, n = 1L)[[1L]]
@@ -96,6 +97,7 @@ PushDeploy <- R6Class(
     },
 
     fetch = function() {
+      message("Fetching from remote")
       remote_name <- private$remote_name
 
       if (remote_name %in% git2r::remotes(private$repo)) {
@@ -116,6 +118,7 @@ PushDeploy <- R6Class(
     },
 
     commit = function() {
+      message("Committing to ", private$path)
       git2r::add(private$repo, ".")
       status <- git2r::status(private$repo, staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
       if (length(status$staged) > 0) {
@@ -126,6 +129,7 @@ PushDeploy <- R6Class(
     },
 
     push = function() {
+      message("Pushing to remote")
       git2r::branch_rename(git2r::head(private$repo), private$branch)
 
       private$git("push", if (private$orphan) "--force", private$remote_name,
