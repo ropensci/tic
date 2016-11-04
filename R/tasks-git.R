@@ -3,12 +3,11 @@ InstallSSHKeys <- R6Class(
 
   public = list(
     run = function() {
-      message("Decrypting deploy key")
+      message("Writing deploy key to ", deploy_key_path)
       deploy_key_path <- file.path("~/.ssh", "id_rsa")
       if (file.exists(deploy_key_path)) {
         stop("Not overwriting key", call. = FALSE)
       }
-      message("Writing deploy key to ", deploy_key_path)
       writeLines(rawToChar(openssl::base64_decode(Sys.getenv("id_rsa"))),
                  deploy_key_path)
       Sys.chmod(deploy_key_path, "600")
