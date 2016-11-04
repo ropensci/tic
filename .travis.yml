@@ -65,4 +65,5 @@ deploy:
   provider: script
   script: R -e 'devtools::load_all(); deploy()'
   on:
-    branch: /.*/
+    all_branches: true
+    tags: true
