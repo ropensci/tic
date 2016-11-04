@@ -19,11 +19,33 @@ InstallSSHKeys <- R6Class(
     },
 
     check = function() {
-      # only run on pushes
-      Sys.getenv("TRAVIS_EVENT_TYPE") == "push"
+      # only if id_rsa is available
+      Sys.getenv("id_rsa") != ""
     }
   )
 )
 
 #' @export
 task_install_ssh_keys <- InstallSSHKeys$new
+
+TestSSH <- R6Class(
+  "TestSSH", inherit = TravisTask,
+
+  public = list(
+    initialize = function(host) {
+      private$host <- host
+    },
+
+    run = function() {
+      message("Trying to ssh into git@github.com")
+      system2("ssh", private$host)
+    }
+  ),
+
+  private = list(
+    host = NULL
+  )
+)
+
+#' @export
+test_ssh <- TestSSH$new
