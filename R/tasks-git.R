@@ -85,6 +85,7 @@ PushDeploy <- R6Class(
     commit_message = NULL,
 
     repo = NULL,
+    remote_name = "origin",
 
     init = function() {
       unlink(file.path(private$path, ".git"), force = TRUE, recursive = TRUE)
@@ -96,7 +97,7 @@ PushDeploy <- R6Class(
     },
 
     fetch = function() {
-      remote_name <- "origin"
+      remote_name <- private$remote_name
 
       if (remote_name %in% git2r::remotes(private$repo)) {
         git2r::remote_remove(private$repo, remote_name)
