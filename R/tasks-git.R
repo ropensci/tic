@@ -92,7 +92,11 @@ PushDeploy <- R6Class(
       private$repo <- git2r::init(private$path)
 
       latest_commit <- git2r::commits(git2r::repository("."), topological = FALSE, time = FALSE, n = 1L)[[1L]]
+      print(latest_commit)
+
       latest_author <- latest_commit@author
+      print(latest_author)
+
       git2r::config(private$repo, user.name = latest_author@name, user.email = latest_author@email)
     },
 
