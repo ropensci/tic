@@ -60,7 +60,7 @@ test_that("run tasks", {
 })
 
 test_that("top-level", {
-  expect_null(before_script(""))
-  expect_equal(after_success(""), setNames(list(), character()))
-  expect_equal(deploy(""), setNames(list(), character()))
+  expect_null(before_script(list()))
+  expect_equal(after_success(list()), setNames(list(), character()))
+  expect_equal(deploy(list()), setNames(list(), character()))
 })

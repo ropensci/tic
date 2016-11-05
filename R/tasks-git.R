@@ -58,13 +58,11 @@ PushDeploy <- R6Class(
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                           remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                          on_branch = "master",
                           commit_message = NULL) {
       if (branch == ci()$get_branch() && orphan) {
         stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
       }
 
-      super$initialize(on_branch = on_branch)
       private$path <- path
       private$branch <- branch
       private$orphan <- orphan
@@ -88,7 +86,6 @@ PushDeploy <- R6Class(
     branch = NULL,
     orphan = FALSE,
     remote_url = NULL,
-    on_branch = NULL,
     commit_message = NULL,
 
     repo = NULL,
