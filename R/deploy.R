@@ -2,6 +2,11 @@
 before_script <- function(task_code = c(get_deploy_task_code(), get_after_success_task_code())) {
 
   tasks <- parse_task_code(task_code)
+  exec_before_script(tasks)
+
+}
+
+exec_before_script <- function(tasks) {
 
   # prepare() method overridden?
   prepares <- lapply(tasks, "[[", "prepare")
@@ -32,7 +37,13 @@ after_success <- function(task_code = get_after_success_task_code()) {
 }
 
 run <- function(step, task_code) {
+
   tasks <- parse_task_code(task_code)
+  exec_run(step, tasks)
+
+}
+
+exec_run <- function(step, tasks) {
 
   check_results <- call_check(tasks, step)
 
