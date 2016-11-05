@@ -3,7 +3,7 @@ TravisCI <- R6Class(
   inherits = CI,
 
   public = list(
-    branch = function() {
+    get_branch = function() {
       Sys.getenv("TRAVIS_BRANCH")
     }
   )

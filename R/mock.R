@@ -3,7 +3,7 @@ MockCI <- R6Class(
   inherits = CI,
 
   public = list(
-    branch = function() {
+    get_branch = function() {
       "mock-ci-branch"
     }
   )

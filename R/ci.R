@@ -2,7 +2,7 @@ CI <- R6Class(
   "CI",
 
   public = list(
-    branch = function() {
+    get_branch = function() {
       stop("NYI")
     }
   )
