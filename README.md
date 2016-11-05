@@ -23,11 +23,21 @@ devtools::install_github("ropenscilabs/tic")
 Currently, the tic package supports the following tasks:
 
 - `task_hello_world`: Hello, World!
-- running a coverage analysis via [covr](https://github.com/jimhester/covr) (with upload to [Codecov](https://codecov.io/gh))
-- building package documentation via [pkgdown](https://github.com/hadley/pkgdown), with arguments:
-    - `on_branch`: specifies on which branch the task is run
-- deploying via SSH to GitHub (by installing a private SSH key installed by the [travis](https://github.com/ropenscilabs/travis) package
-- deploying via SSH to GitHub (by installing a private SSH key installed by the [travis](https://github.com/ropenscilabs/travis) package
+- `task_run_covr`: run a coverage analysis via [covr](https://github.com/jimhester/covr) (with upload to [Codecov](https://codecov.io/gh))
+- `task_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
+- `task_test_ssh`: test the SSH connection to GitHub
+- `task_build_pkgdown`: building package documentation via [pkgdown](https://github.com/hadley/pkgdown), with arguments:
+    - `on_branch`: on which branch(es) the task is run, default: `"master"`
+        - specify a character vector to check against multiple branches, a regex with `"/.../"`, or `NULL` to run on all branches
+- `task_push_deploy`: deploy to GitHub, with arguments:
+    - `on_branch`: on which branch(es) the task is run, default: `"master"`
+        - specify a character vector to check against multiple branches, a regex with `"/.../"`, or `NULL` to run on all branches
+    - `path`: which path to deploy, default: `"."`
+    - `branch`: which branch to deploy to, default: `Sys.getenv("TRAVIS_BRANCH")`
+    - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
+        - You must specify a `branch` if you set `orphan = TRUE`
+    - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
+    - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
 
 Writing a [custom task](#custom-tasks) is very easy, pull requests to this package are most welcome.
 
