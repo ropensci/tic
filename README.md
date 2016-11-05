@@ -72,7 +72,6 @@ deploy:
 ```
 
 
-
 ## Custom tasks
 
 A task is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
@@ -80,3 +79,26 @@ These members should be functions that are callable without arguments.
 The tic package uses [R6](https://github.com/wch/R6) to define a base class `TravisTask`.
 All tasks defined by tic, including the example `HelloWorld` task, are derived from `TravisTask`.
 See [`tasks-base.R`](https://github.com/krlmlr/tic/blob/master/R/tasks-base.R) for the implementation.
+
+The user specifies the tasks to be run as a semicolon-separated list of functions or expressions that create a task object.
+The `task_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
+I recommend following the same pattern for your custom tasks.
+
+In the following, the three methods which your derived class must override are described.
+
+### `check()`
+
+This function should return a logical scalar.
+The task will be prepared and run only if this function returns `TRUE`.
+
+
+### `prepare()`
+
+This method will be called by `before_script()`.
+You should install all dependent packages and run other preparation here.
+
+
+## How tasks are run
+
+By default, the `before_script()`, `after_success()` and `deploy()` methods query the environment variables ` `TIC_AFTER_SUCCESS_TASKS` and `TIC_DEPLOY_TASKS` (via the functions `get_after_success_task_code()` and `get_deploy_task_code()`).
+You are free to call these functions with a character vector instead.
