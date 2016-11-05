@@ -58,11 +58,13 @@ PushDeploy <- R6Class(
   public = list(
     initialize = function(path = ".", branch = Sys.getenv("TRAVIS_BRANCH"), orphan = FALSE,
                           remote_url = paste0("git@github.com:", Sys.getenv("TRAVIS_REPO_SLUG"), ".git"),
+                          on_branch = "master",
                           commit_message = NULL) {
       private$path <- path
       private$branch <- branch
       private$orphan <- orphan
       private$remote_url <- remote_url
+      private$on_branch <- on_branch
       if (is.null(commit_message)) {
         commit_message <- private$format_commit_message()
       }
@@ -74,6 +76,10 @@ PushDeploy <- R6Class(
       private$fetch()
       private$commit()
       private$push()
+    },
+
+    check = function() {
+      private$match_branch(Sys.getenv("TRAVIS_BRANCH"))
     }
   ),
 
@@ -82,6 +88,7 @@ PushDeploy <- R6Class(
     branch = NULL,
     orphan = FALSE,
     remote_url = NULL,
+    on_branch = NULL,
     commit_message = NULL,
 
     repo = NULL,
@@ -152,6 +159,17 @@ PushDeploy <- R6Class(
         "Build URL: https://travis-ci.org/", Sys.getenv("TRAVIS_REPO_SLUG"), "/builds/", Sys.getenv("TRAVIS_BUILD_ID"), "\n",
         "Commit: ", Sys.getenv("TRAVIS_COMMIT")
       )
+    },
+
+    match_branch = function(branch) {
+      match_regex <- "^/(.*)/$"
+      if (is.null(private$on_branch)) {
+        TRUE
+      } else if (grepl(match_regex, private$on_branch)) {
+        grepl(gsub(match_regex, "\\1", private$on_branch), branch)
+      } else {
+        branch %in% private$on_branch
+      }
     }
   )
 )
