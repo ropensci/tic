@@ -42,5 +42,5 @@ get_task_code <- function() {
 parse_task_code <- function(task_code) {
   parsed <- as.list(parse(text = task_code))
   names(parsed) <- vapply(parsed, deparse, nlines = 1L, character(1L))
-  lapply(parsed, eval)
+  lapply(parsed, eval, asNamespace(utils::packageName()))
 }
