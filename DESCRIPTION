@@ -15,15 +15,12 @@ LazyData: TRUE
 Depends:
     R (>= 3.0.0)
 Imports:
-    devtools,
+    remotes,
     git2r,
-    httr,
     memoise,
     openssl,
-    R6,
-    yaml
+    R6
 Suggests:
-    roxygen2,
     testthat
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
