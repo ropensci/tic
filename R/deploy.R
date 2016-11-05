@@ -1,5 +1,5 @@
 #' @export
-prepare <- function(task_code = c(get_deploy_task_code(), get_after_success_task_code())) {
+before_script <- function(task_code = c(get_deploy_task_code(), get_after_success_task_code())) {
   tasks <- parse_task_code(task_code)
 
   lapply(tasks, function(task) {
