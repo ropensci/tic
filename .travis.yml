@@ -1,0 +1,69 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+# Header
+language: r
+sudo: false
+cache: packages
+warnings_are_errors: false
+
+#env
+env:
+  global:
+  - _R_CHECK_FORCE_SUGGESTS_=false
+  - MAKEFLAGS="-j 2"
+  - TIC_AFTER_SUCCESS_TASKS="task_hello_world; task_run_covr"
+
+#addons
+addons:
+  apt:
+    packages:
+    - libmagick++-dev
+    - libssh2-1-dev
+
+#matrix: 3x Linux, 1x OS X
+matrix:
+  include:
+  - r: release
+    env:
+    - TIC_DEPLOY_TASKS="task_build_pkgdown; task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
+  - r: oldrel
+  - r: devel
+  - os: osx
+    osx_image: xcode7.2
+    r: release
+    latex: false
+
+#notifications
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+# Custom parts:
+
+#r_github_packages
+r_github_packages:
+
+#r_packages
+r_packages:
+
+#services
+services:
+
+#before_install
+before_install:
+
+#before_script
+before_script:
+- R -q -e 'devtools::load_all(); before_script()'
+
+#after_success (deploy to gh-pages)
+after_success:
+- R -q -e 'devtools::load_all(); after_success()'
+
+#deploy // https://github.com/travis-ci/travis-build/blob/85ef7108/lib/travis/build/addons/deploy/script.rb#L100-L107
+deploy:
+  provider: script
+  script: R -q -e 'devtools::load_all(); deploy()'
+  on:
+    all_branches: true
