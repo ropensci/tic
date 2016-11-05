@@ -1,17 +1,19 @@
 Package: tic
 Type: Package
-Title: Tools for tic push stuff
+Title: Tasks Integrating Continuously
 Version: 0.1.0
 Authors@R: c(
-    person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut", "cre")),
+    person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
+    person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
     person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut"))
   )
-Description: More about what it does (maybe more than one line). Stuff!
+Description: Faciliate deployment tasks for R packages tested by Travis CI,
+    'AppVeyor', or the CI tool of your choice.
 License: GPL (>= 2)
 LazyData: TRUE
 Depends:
-    R (>= 3.2.0)
+    R (>= 3.0.0)
 Imports:
     devtools,
     git2r,
@@ -23,4 +25,6 @@ Imports:
 Suggests:
     roxygen2,
     testthat
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 5.0.1.9000
+Encoding: UTF-8
