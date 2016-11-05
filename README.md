@@ -1,4 +1,4 @@
-# tic
+# tic [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.svg?branch=master)](https://travis-ci.org/krlmlr/tic)
 
 The goal of tic is to faciliate deployment tasks for R packages tested by [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 The intended usage is as follows:
