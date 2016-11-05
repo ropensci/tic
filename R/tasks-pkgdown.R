@@ -2,8 +2,8 @@ BuildPkgdown <- R6Class(
   "BuildPkgdown", inherit = TravisTask,
 
   public = list(
-    initialize = function(branch = "master") {
-      private$branch <- branch
+    initialize = function(on_branch = "master") {
+      super$initialize(on_branch = on_branch)
     },
 
     run = function() {
@@ -13,15 +13,7 @@ BuildPkgdown <- R6Class(
     prepare = function() {
       if (!requireNamespace("pkgdown", quietly = TRUE))
         devtools::install_github("hadley/pkgdown")
-    },
-
-    check = function() {
-      Sys.getenv("TRAVIS_BRANCH") == private$branch
     }
-  ),
-
-  private = list(
-    branch = NULL
   )
 )
 
