@@ -25,10 +25,10 @@ TravisTask <- R6Class(
       match_regex <- "^/(.*)/$"
       if (is.null(private$on_branch)) {
         TRUE
-      } else if (grepl(match_regex, private$on_branch)) {
+      } else if (length(private$on_branch) == 1 && grepl(match_regex, private$on_branch)) {
         grepl(gsub(match_regex, "\\1", private$on_branch), branch)
       } else {
-        branch %in% private$on_branch
+        any(private$on_branch %in% branch)
       }
     }
   )
