@@ -120,5 +120,5 @@ The main difference is that only failed `deploy` tasks will fail the build.
 
 ## How tasks are run
 
-By default, the `before_script()`, `after_success()` and `deploy()` methods query the environment variables ` `TIC_AFTER_SUCCESS_TASKS` and `TIC_DEPLOY_TASKS` (via the functions `get_after_success_task_code()` and `get_deploy_task_code()`).
+By default, the `before_script()`, `after_success()` and `deploy()` methods query the environment variables ``TIC_AFTER_SUCCESS_TASKS` and `TIC_DEPLOY_TASKS` (via the functions `get_after_success_task_code()` and `get_deploy_task_code()`).
 You are free to call these functions with a character vector instead.
