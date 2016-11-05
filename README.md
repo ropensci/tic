@@ -12,16 +12,71 @@ The intended usage is as follows:
 
 You can install tic from github with:
 
-
 ``` r
 # install.packages("devtools")
-devtools::install_github("krlmlr/tic")
+devtools::install_github("ropenscilabs/tic")
 ```
 
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Tasks
 
-``` r
-## basic example code
+Currently, the tic package supports the following tasks:
+
+- `task_hello_world`: Hello, World!
+- running a coverage analysis via [covr](https://github.com/jimhester/covr) (with upload to [Codecov](https://codecov.io/gh))
+- building package documentation via [pkgdown](https://github.com/hadley/pkgdown), with arguments:
+    - `on_branch`: specifies on which branch the task is run
+- deploying via SSH to GitHub (by installing a private SSH key installed by the [travis](https://github.com/ropenscilabs/travis) package
+- deploying via SSH to GitHub (by installing a private SSH key installed by the [travis](https://github.com/ropenscilabs/travis) package
+
+Writing a [custom task](#custom-tasks) is very easy, pull requests to this package are most welcome.
+
+
+## Extending CI configurations
+
+### Travis
+
+The following example runs a coverage check after a successful run, and builds pkgdown and deploys to GitHub Pages only on the `master` branch.
+
+```yml
+language: r
+
+#env
+env:
+  global:
+  - RTRAVIS_AFTER_SUCCESS_TASKS="task_run_covr"
+
+#matrix: 3x Linux
+matrix:
+  include:
+  - r: release
+    env:
+    - RTRAVIS_DEPLOY_TASKS="task_build_pkgdown; task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
+  - r: oldrel
+  - r: devel
+
+#before_script
+before_script:
+- R -q -e 'devtools::install_github("ropenscilabs/tic"); tic::before_script()'
+
+#after_success (deploy to gh-pages)
+after_success:
+- R -q -e 'tic::after_success()'
+
+#deploy
+deploy:
+  provider: script
+  script: R -q -e 'tic::deploy()'
+  on:
+    all_branches: true
 ```
+
+
+
+## Custom tasks
+
+A task is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
+These members should be functions that are callable without arguments.
+The tic package uses [R6](https://github.com/wch/R6) to define a base class `TravisTask`.
+All tasks defined by tic, including the example `HelloWorld` task, are derived from `TravisTask`.
+See [`tasks-base.R`](https://github.com/krlmlr/tic/blob/master/R/tasks-base.R) for the implementation.
