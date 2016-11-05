@@ -9,13 +9,7 @@ before_script <- function(task_code = c(get_deploy_task_code(), get_after_succes
 
   prepare_tasks <- tasks[!prepare_empty]
 
-  checks <- lapply(prepare_tasks, "[[", "check")
-  check_results <- vlapply(checks, do.call, args = list())
-
-  if (any(!check_results)) {
-    message("Skipping preparation:")
-    print(lapply(checks[!check_results], body))
-  }
+  check_results <- call_check(prepare_tasks, "before_script")
 
   lapply(prepare_tasks[check_results], function(task) {
     task_name <- class(task)[[1L]]
@@ -70,4 +64,16 @@ parse_task_code <- function(task_code) {
 
 parse_one <- function(code) {
   as.list(parse(text = code))
+}
+
+call_check <- function(tasks, action) {
+  checks <- lapply(tasks, "[[", "check")
+  check_results <- vlapply(checks, do.call, args = list())
+
+  if (any(!check_results)) {
+    message("Skipping ", action, ":")
+    print(lapply(checks[!check_results], body))
+  }
+
+  check_results
 }
