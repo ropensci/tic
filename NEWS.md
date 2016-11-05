@@ -1,6 +1,6 @@
 ## tic 0.2-1 (2016-11-05)
 
-- Support environment variables from both Travis and AppVeyor (#5).
+- Support environment variables from both Travis and AppVeyor (#6).
 - Add tests.
 - Rudimentary support for multiple CI systems.
 - Clean up dependencies.
