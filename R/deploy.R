@@ -1,19 +1,29 @@
 #' @export
 before_script <- function(task_code = c(get_deploy_task_code(), get_after_success_task_code())) {
+
   tasks <- parse_task_code(task_code)
 
-  lapply(tasks, function(task) {
+  # prepare() method overridden?
+  prepares <- lapply(tasks, "[[", "prepare")
+  prepare_empty <- vlapply(prepares, identical, TravisTask$public_methods$prepare)
+
+  prepare_tasks <- tasks[!prepare_empty]
+
+  checks <- lapply(prepare_tasks, "[[", "check")
+  check_results <- vlapply(checks, do.call, args = list())
+
+  if (any(!check_results)) {
+    message("Skipping preparation:")
+    print(lapply(checks[!check_results], body))
+  }
+
+  lapply(prepare_tasks[check_results], function(task) {
     task_name <- class(task)[[1L]]
-    # prepare() method overridden?
-    if (!identical(task$prepare, TravisTask$public_methods$prepare)) {
-      if (!task$check()) {
-        message("Skipping preparation: ", task_name)
-      } else {
-        message("Preparing: ", task_name)
-        task$prepare()
-      }
-    }
+    message("Preparing: ", task_name)
+    task$prepare()
   })
+
+  invisible()
 
 }
 
