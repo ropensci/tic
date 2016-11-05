@@ -2,11 +2,9 @@
 
 The goal of tic is to faciliate deployment tasks for R packages tested by [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 The intended usage is as follows:
-- You specify the tasks to be run (and their parameters) in a central location
-    - currently an environment variable, which makes the process compatible with a build matrix
-    - will soon be replaced by a more fancy method such as a `.yml` file
+- You specify the steps to be run (and their parameters) in a central location in a simple domain-specific language
 - You add boilerplate code for installation of tic, and three function calls into tic, to [`.travis.yml`](#travis)/`appveyor.yml`/... (shown below)
-- tic takes care of checking if a task is supposed to run, installation of dependencies (only if necessary), and running the tasks at the right time
+- tic takes care of checking if a step is supposed to run, installation of dependencies (only if necessary), and running the enabled steps at the right time
 
 ## Installation
 
@@ -18,6 +16,23 @@ devtools::install_github("ropenscilabs/tic")
 ```
 
 
+## Steps
+
+A step consists of:
+
+1. a [task](#tasks) definition
+2. a branch filter (optional)
+3. an environment variable name (optional)
+
+For each step, the corresponding task is run, if and only if the branch filter matches the current branch (if defined) and the environment variable has a non-zero value (if defined).
+A step without branch filter and environment variable name is always run.
+
+The environment variable name allow simple interaction with the build matrix of the CI system.
+You can enable or disable steps by simply setting an environment variable.
+
+By default, the steps for a CI run are loaded from the [`tic.R`](https://github.com/krlmlr/tic/blob/master/tic.R) file in the package root.
+
+
 ## Tasks
 
 Currently, the tic package supports the following tasks:
@@ -26,12 +41,8 @@ Currently, the tic package supports the following tasks:
 - `task_run_covr`: run a coverage analysis via [covr](https://github.com/jimhester/covr) (with upload to [Codecov](https://codecov.io/gh))
 - `task_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
 - `task_test_ssh`: test the SSH connection to GitHub
-- `task_build_pkgdown`: building package documentation via [pkgdown](https://github.com/hadley/pkgdown), with arguments:
-    - `on_branch`: on which branch(es) the task is run, default: `"master"`
-        - specify a character vector to check against multiple branches, a regex with `"/.../"`, or `NULL` to run on all branches
+- `task_build_pkgdown`: building package documentation via [pkgdown](https://github.com/hadley/pkgdown)
 - `task_push_deploy`: deploy to GitHub, with arguments:
-    - `on_branch`: on which branch(es) the task is run, default: `"master"`
-        - specify a character vector to check against multiple branches, a regex with `"/.../"`, or `NULL` to run on all branches
     - `path`: which path to deploy, default: `"."`
     - `branch`: which branch to deploy to, default: `ci()$get_branch()`
     - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
@@ -48,20 +59,18 @@ Writing a [custom task](#custom-tasks) is very easy, pull requests to this packa
 
 The following example runs a coverage check after a successful run, and builds pkgdown and deploys to the `gh-pages` branch only on the `production` branch.
 
+
+#### `.travis.yml`
+
 ```yml
 language: r
-
-#env
-env:
-  global:
-  - TIC_AFTER_SUCCESS_TASKS="task_run_covr"
 
 #matrix: 3x Linux
 matrix:
   include:
   - r: release
     env:
-    - TIC_DEPLOY_TASKS="task_build_pkgdown; task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
+    - BUILD_PKGDOWN=true
   - r: oldrel
   - r: devel
 
@@ -79,6 +88,21 @@ deploy:
   script: R -q -e 'tic::deploy()'
   on:
     all_branches: true
+```
+
+#### `tic.R`
+
+```r
+after_success <- list(
+  step(task_run_covr)
+)
+
+deploy <- list(
+  step(task_build_pkgdown, on_branch = "production", on_env = "BUILD_PKGDOWN"),
+  step(task_install_ssh_keys),
+  step(task_test_ssh),
+  step(task_push_deploy, path = 'docs', branch = 'gh-pages', on_branch = 'production', on_env = "BUILD_PKGDOWN")
+)
 ```
 
 
@@ -120,5 +144,5 @@ The main difference is that only failed `deploy` tasks will fail the build.
 
 ## How tasks are run
 
-By default, the `before_script()`, `after_success()` and `deploy()` methods query the environment variables ``TIC_AFTER_SUCCESS_TASKS` and `TIC_DEPLOY_TASKS` (via the functions `get_after_success_task_code()` and `get_deploy_task_code()`).
-You are free to call these functions with a character vector instead.
+By default, the `before_script()`, `after_success()` and `deploy()` methods call `get_after_success_steps()` and/or `get_deploy_steps()`, which source the `tic.R` file and extract the variables `after_success` or `deploy` from the result.
+You can also call these functions with a list of step objects (created with `step()`) instead.
