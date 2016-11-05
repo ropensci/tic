@@ -25,7 +25,7 @@ matrix:
   include:
   - r: release
     env:
-    - TIC_DEPLOY_TASKS="task_build_pkgdown; task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
+    - TIC_DEPLOY_TASKS="task_build_pkgdown(on_branch = 'production'); task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
   - r: oldrel
   - r: devel
   - os: osx
