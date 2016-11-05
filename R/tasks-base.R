@@ -9,7 +9,9 @@ TravisTask <- R6Class(
       private$on_branch = on_branch
 
     },
-    run = function() {},
+    run = function() {
+      stop("Please override the run() method to do something useful.", call. = FALSE)
+    },
     prepare = function() {},
     check = eval(bquote(function() {
       private$match_branch(Sys.getenv("TRAVIS_BRANCH"))
