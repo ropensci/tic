@@ -1,7 +1,7 @@
 Package: tic
 Type: Package
 Title: Tasks Integrating Continuously
-Version: 0.2
+Version: 0.2-1
 Authors@R: c(
     person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
@@ -15,16 +15,27 @@ LazyData: TRUE
 Depends:
     R (>= 3.0.0)
 Imports:
-    devtools,
+    remotes,
     git2r,
-    httr,
     memoise,
     openssl,
-    R6,
-    yaml
+    R6
 Suggests:
-    roxygen2,
     testthat
+URL: https://github.com/ropenscilabs/tic
+BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 5.0.1.9000
 Encoding: UTF-8
+Collate: 
+    'ci.R'
+    'appveyor.R'
+    'deploy.R'
+    'mock.R'
+    'tasks-base.R'
+    'tasks-covr.R'
+    'tasks-git.R'
+    'tasks-pkgdown.R'
+    'tic-package.R'
+    'travis.R'
+    'utils.R'

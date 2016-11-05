@@ -33,7 +33,7 @@ Currently, the tic package supports the following tasks:
     - `on_branch`: on which branch(es) the task is run, default: `"master"`
         - specify a character vector to check against multiple branches, a regex with `"/.../"`, or `NULL` to run on all branches
     - `path`: which path to deploy, default: `"."`
-    - `branch`: which branch to deploy to, default: `Sys.getenv("TRAVIS_BRANCH")`
+    - `branch`: which branch to deploy to, default: `ci()$get_branch()`
     - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
         - You must specify a `branch` if you set `orphan = TRUE`
     - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
