@@ -11,7 +11,7 @@ env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
   - MAKEFLAGS="-j 2"
-  - RTRAVIS_TASKS="task_run_covr();"
+  - RTRAVIS_AFTER_SUCCESS_TASKS="task_run_covr();"
 
 #addons
 addons:
@@ -25,7 +25,7 @@ matrix:
   include:
   - r: release
     env:
-    - RTRAVIS_TASKS="${RTRAVIS_TASKS} task_build_pkgdown(); task_install_ssh_keys(); task_test_ssh(); task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'master')"
+    - RTRAVIS_DEPLOY_TASKS="task_build_pkgdown(); task_install_ssh_keys(); task_test_ssh(); task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'master')"
   - r: oldrel
   - r: devel
   - os: osx
@@ -55,14 +55,15 @@ before_install:
 
 #before_script
 before_script:
-- R -e 'devtools::load_all(); prepare_deploy()'
+- R -q -e 'devtools::load_all(); before_script()'
 
 #after_success (deploy to gh-pages)
 after_success:
+- R -q -e 'devtools::load_all(); after_success()'
 
 #deploy // https://github.com/travis-ci/travis-build/blob/85ef7108/lib/travis/build/addons/deploy/script.rb#L100-L107
 deploy:
   provider: script
-  script: R -e 'devtools::load_all(); deploy()'
+  script: R -q -e 'devtools::load_all(); deploy()'
   on:
     all_branches: true
