@@ -56,11 +56,11 @@ PushDeploy <- R6Class(
   "PushDeploy", inherit = TravisTask,
 
   public = list(
-    initialize = function(path = ".", branch = Sys.getenv("TRAVIS_BRANCH"), orphan = FALSE,
+    initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                           remote_url = paste0("git@github.com:", Sys.getenv("TRAVIS_REPO_SLUG"), ".git"),
                           on_branch = "master",
                           commit_message = NULL) {
-      if (branch == Sys.getenv("TRAVIS_BRANCH") && orphan) {
+      if (branch == ci()$get_branch() && orphan) {
         stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
       }
 
