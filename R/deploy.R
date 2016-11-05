@@ -7,9 +7,9 @@ before_script <- function(task_code = c(get_deploy_task_code(), get_after_succes
     # prepare() method overridden?
     if (!identical(task$prepare, TravisTask$public_methods$prepare)) {
       if (!task$check()) {
-        message("Skipping ", step, " preparation: ", task_name)
+        message("Skipping preparation: ", task_name)
       } else {
-        message("Preparing deploy: ", task_name)
+        message("Preparing: ", task_name)
         task$prepare()
       }
     }
