@@ -60,6 +60,10 @@ PushDeploy <- R6Class(
                           remote_url = paste0("git@github.com:", Sys.getenv("TRAVIS_REPO_SLUG"), ".git"),
                           on_branch = "master",
                           commit_message = NULL) {
+      if (branch == Sys.getenv("TRAVIS_BRANCH") && orphan) {
+        stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
+      }
+
       super$initialize(on_branch = on_branch)
       private$path <- path
       private$branch <- branch
