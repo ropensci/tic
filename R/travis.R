@@ -1,3 +1,4 @@
+# nocov start
 #' @include ci.R
 TravisCI <- R6Class(
   "TravisCI",
@@ -9,3 +10,4 @@ TravisCI <- R6Class(
     }
   )
 )
+# nocov end

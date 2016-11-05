@@ -1,3 +1,4 @@
+# nocov start
 #' @include ci.R
 AppVeyorCI <- R6Class(
   "AppVeyorCI",
@@ -9,3 +10,4 @@ AppVeyorCI <- R6Class(
     }
   )
 )
+# nocov end
