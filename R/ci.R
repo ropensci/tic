@@ -4,6 +4,18 @@ CI <- R6Class(
   public = list(
     get_branch = function() {
       stop("NYI")
+    },
+    get_slug = function() {
+      stop("NYI")
+    },
+    get_build_number = function() {
+      stop("NYI")
+    },
+    get_build_url = function() {
+      stop("NYI")
+    },
+    get_commit = function() {
+      stop("NYI")
     }
   )
 )
