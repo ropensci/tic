@@ -57,7 +57,10 @@ get_after_success_task_code <- function() {
 parse_task_code <- function(task_code) {
   parsed <- Reduce(c, lapply(task_code, parse_one), list())
   names(parsed) <- vapply(parsed, deparse, nlines = 1L, character(1L))
-  lapply(parsed, eval, asNamespace(utils::packageName()))
+  eval_result <- lapply(parsed, eval, asNamespace(utils::packageName()))
+  funcs <- vlapply(eval_result, is.function)
+  eval_result[funcs] <- lapply(eval_result[funcs], do.call, args = list())
+  eval_result
 }
 
 parse_one <- function(code) {
