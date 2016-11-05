@@ -1,3 +1,8 @@
+## tic 0.2-2 (2016-11-05)
+
+- DSL to define steps via `step()`, which are tasks with a branch and/or env var filter (#6).
+
+
 ## tic 0.2-1 (2016-11-05)
 
 - Support environment variables from both Travis and AppVeyor (#6).
