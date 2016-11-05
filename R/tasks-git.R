@@ -117,7 +117,9 @@ PushDeploy <- R6Class(
         remote_branch <- branches[[paste0(remote_name, "/", private$branch)]]
         print(remote_branch)
 
-        git2r::reset(get_head_commit(remote_branch))
+        if (!is.null(remote_branch)) {
+          git2r::reset(get_head_commit(remote_branch))
+        }
       }
     },
 
