@@ -1,6 +1,7 @@
+#' @include ci.R
 TravisCI <- R6Class(
   "TravisCI",
-  inherits = CI,
+  inherit = CI,
 
   public = list(
     get_branch = function() {
