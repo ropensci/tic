@@ -34,14 +34,12 @@ after_success <- function(task_code = get_after_success_task_code()) {
 run <- function(step, task_code) {
   tasks <- parse_task_code(task_code)
 
-  lapply(tasks, function(task) {
+  check_results <- call_check(tasks, step)
+
+  lapply(tasks[check_results], function(task) {
     task_name <- class(task)[[1L]]
-    if (!task$check()) {
-      message("Skipping ", step, ": ", task_name)
-    } else {
-      message("Running ", step, ": ", task_name)
-      task$run()
-    }
+    message("Running ", step, ": ", task_name)
+    task$run()
   })
 
 }
