@@ -27,3 +27,16 @@ BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 5.0.1.9000
 Encoding: UTF-8
+Collate: 
+    'ci.R'
+    'appveyor.R'
+    'deploy.R'
+    'mock.R'
+    'tasks-base.R'
+    'tasks-covr.R'
+    'tasks-git.R'
+    'tasks-pkgdown.R'
+    'tasks.R'
+    'tic-package.R'
+    'travis.R'
+    'utils.R'
