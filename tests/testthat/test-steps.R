@@ -8,7 +8,6 @@ test_that("can restrict task to branches", {
 })
 
 test_that("will run base task if branches match", {
-  skip_on_cran()
   step_run <- list(step(task_hello_world, on_branch = c("mock-ci-branch", "falsy")))
   expect_equal(parse_steps(step_run), list(HelloWorld = task_hello_world()))
   step_run <- list(step(task_hello_world, on_branch = c("falsy", "mock-ci-branch")))
@@ -27,7 +26,7 @@ test_that("can restrict task to env var", {
   )
 })
 
-test_that("will run base task if branches match", {
+test_that("will run base task if env var matches", {
   withr::with_envvar(
     list(ENV_VAR = "some_value"),
     {

@@ -21,7 +21,8 @@ Imports:
     openssl,
     R6
 Suggests:
-    testthat
+    testthat,
+    withr
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)

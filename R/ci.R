@@ -21,7 +21,9 @@ CI <- R6Class(
 )
 
 ci_ <- function() {
-  if (Sys.getenv("TRAVIS") == "true") {
+  if (Sys.getenv("TIC_MOCK") == "true") {
+    MockCI$new()
+  } else if (Sys.getenv("TRAVIS") == "true") {
     TravisCI$new()
   } else if (Sys.getenv("APPVEYOR") == "True") {
     AppVeyorCI$new()
