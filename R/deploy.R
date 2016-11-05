@@ -57,12 +57,12 @@ exec_run <- function(stage, tasks) {
 
 #' @export
 get_after_success_steps <- function() {
-  Sys.getenv("TIC_AFTER_SUCCESS_TASKS")
+  run_tic()$after_success
 }
 
 #' @export
 get_deploy_steps <- function() {
-  Sys.getenv("TIC_DEPLOY_TASKS")
+  run_tic()$deploy
 }
 
 parse_steps <- function(steps) {
