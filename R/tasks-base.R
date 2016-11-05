@@ -14,7 +14,7 @@ TravisTask <- R6Class(
     },
     prepare = function() {},
     check = eval(bquote(function() {
-      private$match_branch(Sys.getenv("TRAVIS_BRANCH"))
+      private$match_branch(ci()$get_branch())
     }))
   ),
 
