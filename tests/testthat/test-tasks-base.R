@@ -22,6 +22,7 @@ test_that("can restrict base task to branches", {
 })
 
 test_that("will run base task if branches match", {
+  skip_on_cran()
   task_run <- TravisTask$new(on_branch = c("mock-ci-branch", "falsy"))
   expect_true(task_run$check())
   task_run <- TravisTask$new(on_branch = c("falsy", "mock-ci-branch"))
