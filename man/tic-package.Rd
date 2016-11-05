@@ -17,6 +17,14 @@ The \code{\link{travis_set_var}} and \code{\link{github_add_key}} functions
 interact with the GitHub and Travis configuration of your repository,
 and ask for permission the first time you call them.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ropenscilabs/tic}
+  \item Report bugs at \url{https://github.com/ropenscilabs/tic/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org}
 
