@@ -36,7 +36,6 @@ Collate:
     'tasks-covr.R'
     'tasks-git.R'
     'tasks-pkgdown.R'
-    'tasks.R'
     'tic-package.R'
     'travis.R'
     'utils.R'
