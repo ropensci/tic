@@ -45,13 +45,13 @@ run <- function(step, task_code) {
 }
 
 #' @export
-get_deploy_task_code <- function() {
-  Sys.getenv("TIC_DEPLOY_TASKS")
+get_after_success_task_code <- function() {
+  Sys.getenv("TIC_AFTER_SUCCESS_TASKS")
 }
 
 #' @export
-get_after_success_task_code <- function() {
-  Sys.getenv("TIC_AFTER_SUCCESS_TASKS")
+get_deploy_task_code <- function() {
+  Sys.getenv("TIC_DEPLOY_TASKS")
 }
 
 parse_task_code <- function(task_code) {
