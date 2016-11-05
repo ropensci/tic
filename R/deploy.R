@@ -49,7 +49,7 @@ get_deploy_task_code <- function() {
 
 #' @export
 get_after_success_task_code <- function() {
-  Sys.getenv("RTRAVIS_AFTER_success_TASKS")
+  Sys.getenv("RTRAVIS_AFTER_SUCCESS_TASKS")
 }
 
 parse_task_code <- function(task_code) {
