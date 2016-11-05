@@ -25,6 +25,8 @@ Imports:
 Suggests:
     roxygen2,
     testthat
+URL: https://github.com/ropenscilabs/tic
+BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 5.0.1.9000
 Encoding: UTF-8
