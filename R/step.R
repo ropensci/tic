@@ -1,9 +1,9 @@
 #' @export
-step <- function(task, args = list(), on_branch = NULL, on_env = NULL) {
+step <- function(task, ..., on_branch = NULL, on_env = NULL) {
   structure(
     list(
       task = task,
-      args = args,
+      args = list(...),
       on_branch = on_branch,
       on_env = on_env
     ),
