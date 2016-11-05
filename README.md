@@ -44,14 +44,14 @@ language: r
 #env
 env:
   global:
-  - RTRAVIS_AFTER_SUCCESS_TASKS="task_run_covr"
+  - TIC_AFTER_SUCCESS_TASKS="task_run_covr"
 
 #matrix: 3x Linux
 matrix:
   include:
   - r: release
     env:
-    - RTRAVIS_DEPLOY_TASKS="task_build_pkgdown; task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
+    - TIC_DEPLOY_TASKS="task_build_pkgdown; task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
   - r: oldrel
   - r: devel
 
