@@ -2,10 +2,6 @@ BuildPkgdown <- R6Class(
   "BuildPkgdown", inherit = TravisTask,
 
   public = list(
-    initialize = function(on_branch = "master") {
-      super$initialize(on_branch = on_branch)
-    },
-
     run = function() {
       pkgdown::build_site()
     },

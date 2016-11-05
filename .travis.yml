@@ -11,7 +11,6 @@ env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
   - MAKEFLAGS="-j 2"
-  - TIC_AFTER_SUCCESS_TASKS="task_hello_world; task_run_covr"
 
 #addons
 addons:
@@ -25,7 +24,7 @@ matrix:
   include:
   - r: release
     env:
-    - TIC_DEPLOY_TASKS="task_build_pkgdown(on_branch = 'production'); task_install_ssh_keys; task_test_ssh; task_push_deploy(path = 'docs', branch = 'gh-pages', on_branch = 'production')"
+    - BUILD_PKGDOWN=true
   - r: oldrel
   - r: devel
   - os: osx
@@ -55,7 +54,7 @@ before_install:
 
 #before_script
 before_script:
-- R -q -e 'devtools::load_all(); before_script()'
+- R -q -e 'devtools::install_cran("roxygen2"); devtools::load_all(); before_script()'
 
 #after_success (deploy to gh-pages)
 after_success:

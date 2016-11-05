@@ -1,7 +1,7 @@
 Package: tic
 Type: Package
 Title: Tasks Integrating Continuously
-Version: 0.2-1
+Version: 0.2-2
 Authors@R: c(
     person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
@@ -21,7 +21,8 @@ Imports:
     openssl,
     R6
 Suggests:
-    testthat
+    testthat,
+    withr
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
@@ -32,10 +33,12 @@ Collate:
     'appveyor.R'
     'deploy.R'
     'mock.R'
+    'step.R'
     'tasks-base.R'
     'tasks-covr.R'
     'tasks-git.R'
     'tasks-pkgdown.R'
     'tic-package.R'
+    'tic.R'
     'travis.R'
     'utils.R'
