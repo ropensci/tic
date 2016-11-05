@@ -105,7 +105,17 @@ The task will be prepared and run only if this function returns `TRUE`.
 ### `prepare()`
 
 This method will be called by `before_script()`.
-You should install all dependent packages and run other preparation here.
+It is intended to run in the `before_script` phase of the CI run.
+You should install all dependent packages here, which then can be cached by the CI system.
+You also may include further preparation code here.
+
+
+### `run()`
+
+This method will be called by `after_success()` or `deploy()`,
+depending on your configuration.
+It is intended to run in the `after_success` or `deploy` phases of the CI run.
+The main difference is that only failed `deploy` tasks will fail the build.
 
 
 ## How tasks are run
