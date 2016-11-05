@@ -1,7 +1,7 @@
 #' @export
-before_script <- function(task_code = c(get_deploy_task_code(), get_after_success_task_code())) {
+before_script <- function(steps = c(get_deploy_steps(), get_after_success_steps())) {
 
-  tasks <- parse_task_code(task_code)
+  tasks <- parse_steps(steps)
   exec_before_script(tasks)
 
 }
@@ -32,20 +32,20 @@ deploy <- function(task_code = get_deploy_task_code()) {
 }
 
 #' @export
-after_success <- function(task_code = get_after_success_task_code()) {
+after_success <- function(steps = get_after_success_tasks()) {
   run("after_success", task_code)
 }
 
-run <- function(step, task_code) {
+run <- function(stage, task_code) {
 
   tasks <- parse_task_code(task_code)
-  exec_run(step, tasks)
+  exec_run(stage, tasks)
 
 }
 
-exec_run <- function(step, tasks) {
+exec_run <- function(stage, tasks) {
 
-  check_results <- call_check(tasks, step)
+  check_results <- call_check(tasks, stage)
 
   lapply(tasks[check_results], function(task) {
     task_name <- class(task)[[1L]]
@@ -56,12 +56,12 @@ exec_run <- function(step, tasks) {
 }
 
 #' @export
-get_after_success_task_code <- function() {
+get_after_success_steps <- function() {
   Sys.getenv("TIC_AFTER_SUCCESS_TASKS")
 }
 
 #' @export
-get_deploy_task_code <- function() {
+get_deploy_steps <- function() {
   Sys.getenv("TIC_DEPLOY_TASKS")
 }
 
@@ -78,12 +78,12 @@ parse_one <- function(code) {
   as.list(parse(text = code))
 }
 
-call_check <- function(tasks, action) {
+call_check <- function(tasks, stage) {
   checks <- lapply(tasks, "[[", "check")
   check_results <- vlapply(checks, do.call, args = list())
 
   if (any(!check_results)) {
-    message("Skipping ", action, ":")
+    message("Skipping ", stage, ":")
     print(lapply(checks[!check_results], body))
   }
 
