@@ -46,7 +46,7 @@ Writing a [custom task](#custom-tasks) is very easy, pull requests to this packa
 
 ### Travis
 
-The following example runs a coverage check after a successful run, and builds pkgdown and deploys to GitHub Pages only on the `master` branch.
+The following example runs a coverage check after a successful run, and builds pkgdown and deploys to the `gh-pages` branch only on the `production` branch.
 
 ```yml
 language: r
