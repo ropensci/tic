@@ -3,6 +3,7 @@ BuildPkgdown <- R6Class(
 
   public = list(
     run = function() {
+      devtools::install(".")
       pkgdown::build_site()
     },
 
