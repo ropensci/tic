@@ -147,7 +147,10 @@ PushDeploy <- R6Class(
     git = function(...) {
       args <- c(...)
       message(paste("git", paste(args, collapse = " ")))
-      withr::with_dir(private$path, system2("git", args))
+      status <- withr::with_dir(private$path, system2("git", args))
+      if (status != 0) {
+        stopc("git exited with status ", status)
+      }
     },
 
     format_commit_message = function() {
