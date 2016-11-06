@@ -1,3 +1,8 @@
+## tic 0.2-3 (2016-11-06)
+
+- Install package for `task_build_pkgdown` task.
+
+
 ## tic 0.2-2 (2016-11-05)
 
 - DSL to define steps via `step()`, which are tasks with a branch and/or env var filter (#6).
