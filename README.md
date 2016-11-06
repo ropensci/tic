@@ -53,7 +53,7 @@ Currently, the tic package supports the following tasks:
 Writing a [custom task](#custom-tasks) is very easy, pull requests to this package are most welcome.
 
 
-## Extending CI configurations
+## CI configurations
 
 ### Travis
 
@@ -101,7 +101,7 @@ deploy <- list(
   step(task_build_pkgdown, on_branch = "production", on_env = "BUILD_PKGDOWN"),
   step(task_install_ssh_keys),
   step(task_test_ssh),
-  step(task_push_deploy, path = 'docs', branch = 'gh-pages', on_branch = 'production', on_env = "BUILD_PKGDOWN")
+  step(task_push_deploy, path = "docs", branch = "gh-pages", on_branch = "production", on_env = "BUILD_PKGDOWN")
 )
 ```
 
