@@ -105,8 +105,8 @@ PushDeploy <- R6Class(
     },
 
     fetch = function() {
-      message("Fetching from remote")
       remote_name <- private$remote_name
+      message("Fetching from remote ", remote_name)
 
       if (remote_name %in% git2r::remotes(private$repo)) {
         git2r::remote_remove(private$repo, remote_name)
@@ -114,17 +114,26 @@ PushDeploy <- R6Class(
       git2r::remote_add(private$repo, remote_name, private$remote_url)
 
       if (!private$orphan) {
-        private$git("fetch", remote_name, paste0("refs/heads/", private$branch))
-
-        branches <- git2r::branches(private$repo, "remote")
-        print(branches)
-        remote_branch <- branches[[paste0(remote_name, "/", private$branch)]]
-        print(remote_branch)
-
-        if (!is.null(remote_branch)) {
-          git2r::reset(get_head_commit(remote_branch))
-        }
+        tryCatch(
+          {
+            remote_branch <- private$try_fetch()
+            if (!is.null(remote_branch)) {
+              git2r::reset(get_head_commit(remote_branch))
+            }
+          },
+          error = function(e) {
+            message(conditionMessage(e),
+                    "\nCould not fetch branch, will attempt to create new")
+          }
+        )
       }
+    },
+
+    try_fetch = function() {
+      remote_name <- private$remote_name
+      private$git("fetch", remote_name, paste0("refs/heads/", private$branch))
+      branches <- git2r::branches(private$repo, "remote")
+      branches[[paste0(remote_name, "/", private$branch)]]
     },
 
     commit = function() {
