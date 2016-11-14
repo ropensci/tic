@@ -1,4 +1,4 @@
-# tic [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.svg?branch=master)](https://travis-ci.org/krlmlr/tic)
+# tic [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
 
 The goal of tic is to faciliate deployment tasks for R packages tested by [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 The intended usage is as follows:
@@ -30,7 +30,7 @@ A step without branch filter and environment variable name is always run.
 The environment variable name allow simple interaction with the build matrix of the CI system.
 You can enable or disable steps by simply setting an environment variable.
 
-By default, the steps for a CI run are loaded from the [`tic.R`](https://github.com/krlmlr/tic/blob/master/tic.R) file in the package root.
+By default, the steps for a CI run are loaded from the [`tic.R`](https://github.com/ropenscilabs/tic/blob/master/tic.R) file in the package root.
 
 
 ## Tasks
@@ -112,7 +112,7 @@ A task is an environment-like (or list-like) object with named members `check`, 
 These members should be functions that are callable without arguments.
 The tic package uses [R6](https://github.com/wch/R6) to define a base class `TravisTask`.
 All tasks defined by tic, including the example `HelloWorld` task, are derived from `TravisTask`.
-See [`tasks-base.R`](https://github.com/krlmlr/tic/blob/master/R/tasks-base.R) for the implementation.
+See [`tasks-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/tasks-base.R) for the implementation.
 
 The user specifies the tasks to be run as a semicolon-separated list of functions or expressions that create a task object.
 The `task_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
