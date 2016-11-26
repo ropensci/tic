@@ -65,46 +65,6 @@ get_deploy_steps <- function() {
   run_tic()$deploy
 }
 
-parse_steps <- function(steps) {
-  steps <- coerce_steps(steps)
-  valid_steps <- get_valid_steps(steps)
-  steps <- create_steps(valid_steps)
-  steps
-}
-
-coerce_steps <- function(steps) {
-  steps
-}
-
-get_valid_steps <- function(steps) {
-  correct_branch <- get_correct_branch(steps)
-  env_set <- get_env_set(steps)
-  steps[correct_branch & env_set]
-}
-
-get_correct_branch <- function(steps) {
-  on_branch <- lapply(steps, "[[", "on_branch")
-  vlapply(on_branch, match_branch)
-}
-
-get_env_set <- function(steps) {
-  on_env <- lapply(steps, "[[", "on_env")
-  is_null <- vlapply(on_env, is.null)
-  ret <- rep(TRUE, length(on_env))
-  ret[!is_null] <- (vcapply(on_env[!is_null], Sys.getenv) != "")
-  ret
-}
-
-create_steps <- function(steps) {
-  steps <- lapply(steps, create_step)
-  names(steps) <- vcapply(lapply(steps, class), "[[", 1L)
-  steps
-}
-
-create_step <- function(step) {
-  do.call(step$step, step$args)
-}
-
 call_check <- function(steps, stage) {
   checks <- lapply(steps, "[[", "check")
   check_results <- vlapply(checks, do.call, args = list())

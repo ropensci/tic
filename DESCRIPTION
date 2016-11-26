@@ -35,7 +35,6 @@ Collate:
     'local.R'
     'mock.R'
     'stage.R'
-    'step.R'
     'tasks-base.R'
     'tasks-covr.R'
     'tasks-git.R'
