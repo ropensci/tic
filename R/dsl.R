@@ -1,5 +1,5 @@
 load_from_file_ <- function(path = "tic.R") {
-  dsl <- create_dsl()
+  dsl <- create_dsl(envir = asNamespace(packageName()))
   source(path, local = dsl)
   dsl$get_stages()
 }
@@ -43,8 +43,8 @@ TicDSL <- R6Class(
   )
 )
 
-create_dsl <- function() {
+create_dsl <- function(envir = parent.frame()) {
   dsl <- TicDSL$new()
-  parent.env(dsl) <- asNamespace(packageName())
+  parent.env(dsl) <- envir
   dsl
 }

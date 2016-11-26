@@ -42,6 +42,7 @@ Stage <- R6Class(
 
       if (!isTRUE(step$check())) {
         message("Skipping prepare: ", step_name)
+        print(step$check)
         return()
       }
 
@@ -56,6 +57,7 @@ Stage <- R6Class(
 
       if (!isTRUE(step$check())) {
         message("Skipping ", private$name, ": ", step_name)
+        print(step$check)
         return()
       }
 
