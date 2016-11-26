@@ -33,7 +33,7 @@ TicDSL <- R6Class(
       stage$add_step(step)
     },
 
-    add_task = function(stage, run, check = function() TRUE, prepare = function() {}) {
+    add_task = function(stage, run, check = NULL, prepare = NULL) {
       stage$add_task(run, check, prepare)
     }
   ),

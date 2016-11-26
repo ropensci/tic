@@ -7,14 +7,17 @@ Stage <- R6Class(
     },
 
     add_step = function(step) {
-      private$steps <- c(private$steps, list(step))
-      invisible(self)
+      self$add_task(run = step$run, check = step$check, prepare = step$prepare)
     },
 
-    add_task = function(run, check = function() TRUE, prepare = function() {}) {
-      add_step(
-        list(run = run, check = check, prepare = prepare)
+    add_task = function(run, check = NULL, prepare = NULL) {
+      step <- list(
+        run = run,
+        check = check %||% function() TRUE,
+        prepare = prepare %||% function() {}
       )
+      private$steps <- c(private$steps, list(step))
+      invisible(self)
     },
 
     reset = function() {
