@@ -164,8 +164,8 @@ PushDeploy <- R6Class(
 
     format_commit_message = function() {
       paste0(
-        "Deploy from Travis build ", ci()$get_build_number(), " [ci skip]\n\n",
-        "Build URL: ", ci()$get_build_url(), "\n",
+        "Deploy from ", ci()$get_build_number(), " [ci skip]\n\n",
+        if (!is.null(ci()$get_build_url())) paste0("Build URL: ", ci()$get_build_url(), "\n"),
         "Commit: ", ci()$get_commit()
       )
     }

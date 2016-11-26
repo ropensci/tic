@@ -12,7 +12,7 @@ AppVeyorCI <- R6Class(
       Sys.getenv("APPVEYOR_PROJECT_SLUG")
     },
     get_build_number = function() {
-      Sys.getenv("APPVEYOR_BUILD_NUMBER")
+      paste0("AppVeyor build ", Sys.getenv("APPVEYOR_BUILD_NUMBER"))
     },
     get_build_url = function() {
       paste0("https://ci.appveyor.com/project/", self$get_slug(), "/build/", Sys.getenv("APPVEYOR_BUILD_VERSION"))

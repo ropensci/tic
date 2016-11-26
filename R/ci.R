@@ -27,10 +27,8 @@ ci_ <- function() {
     TravisCI$new()
   } else if (Sys.getenv("APPVEYOR") == "True") {
     AppVeyorCI$new()
-  } else if (Sys.getenv("CI") != "") {
-    stopc("Unknown CI system")
   } else {
-    MockCI$new()
+    LocalCI$new()
   }
 }
 
