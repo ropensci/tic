@@ -17,17 +17,50 @@ Stage <- R6Class(
       )
     },
 
-    get_steps = function() {
-      private$steps
-    },
-
     reset = function() {
       private$steps <- list()
+    },
+
+    prepare_all = function() {
+      lapply(private$steps, private$prepare_one)
+    },
+
+    run_all = function() {
+      lapply(private$steps, private$run_one)
     }
   ),
 
   private = list(
     name = NULL,
-    steps = list()
+    steps = list(),
+
+    prepare_one = function(step) {
+      if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
+        return()
+
+      step_name <- class(step)[[1L]]
+
+      if (!isTRUE(step$check())) {
+        message("Skipping prepare: ", step_name)
+        return()
+      }
+
+      message("Preparing: ", step_name)
+      step$prepare()
+
+      invisible()
+    },
+
+    run_one = function(step) {
+      step_name <- class(step)[[1L]]
+
+      if (!isTRUE(step$check())) {
+        message("Skipping ", private$name, ": ", step_name)
+        return()
+      }
+
+      message("Running ", private$name, ": ", step_name)
+      step$run()
+    }
   )
 )
