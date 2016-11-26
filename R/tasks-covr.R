@@ -1,5 +1,5 @@
 RunCovr <- R6Class(
-  "RunCovr", inherit = TravisStep,
+  "RunCovr", inherit = TicStep,
 
   public = list(
     run = function() {

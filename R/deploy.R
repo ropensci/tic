@@ -10,7 +10,7 @@ exec_before_script <- function(steps) {
 
   # prepare() method overridden?
   prepares <- lapply(steps, "[[", "prepare")
-  prepare_empty <- vlapply(prepares, identical, TravisStep$public_methods$prepare)
+  prepare_empty <- vlapply(prepares, identical, TicStep$public_methods$prepare)
 
   prepare_steps <- steps[!prepare_empty]
 

@@ -1,5 +1,5 @@
 BuildPkgdown <- R6Class(
-  "BuildPkgdown", inherit = TravisStep,
+  "BuildPkgdown", inherit = TicStep,
 
   public = list(
     run = function() {
