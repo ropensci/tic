@@ -10,7 +10,6 @@ load_from_file <- memoise::memoise(load_from_file_)
 #' @importFrom magrittr %>%
 TicDSL <- R6Class(
   "TicDSL",
-  parent_env = globalenv(),
 
   public = list(
     initialize = function() {
