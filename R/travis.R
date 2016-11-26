@@ -12,7 +12,7 @@ TravisCI <- R6Class(
       Sys.getenv("TRAVIS_REPO_SLUG")
     },
     get_build_number = function() {
-      Sys.getenv("TRAVIS_BUILD_NUMBER")
+      paste0("Travis build ", Sys.getenv("TRAVIS_BUILD_NUMBER"))
     },
     get_build_url = function() {
       paste0("https://travis-ci.org/", self$get_slug(), "/builds/", Sys.getenv("TRAVIS_BUILD_ID"))
