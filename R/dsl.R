@@ -7,6 +7,7 @@ load_from_file_ <- function(path = "tic.R") {
 #' @export
 load_from_file <- memoise::memoise(load_from_file_)
 
+#' @importFrom magrittr %>%
 TicDSL <- R6Class(
   "TicDSL",
   parent_env = globalenv(),
