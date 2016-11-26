@@ -5,12 +5,16 @@ before_script <- function(stages = load_from_file()) {
 
 #' @export
 deploy <- function(stage = load_from_file()$deploy) {
-  stage$run_all()
+  if (!is.null(stage)) {
+    stage$run_all()
+  }
 }
 
 #' @export
 after_success <- function(stage = load_from_file()$after_success) {
-  stage$run_all()
+  if (!is.null(stage)) {
+    stage$run_all()
+  }
 }
 
 call_check <- function(steps, stage) {

@@ -13,15 +13,13 @@ TicDSL <- R6Class(
 
   public = list(
     initialize = function() {
-      private$stages <- as.environment(
-        list(
-          after_success = Stage$new("after_success"),
-          deploy = Stage$new("deploy")
-        )
-      )
+      private$stages <- new.env(parent = emptyenv())
     },
 
     get_stage = function(name) {
+      if (!exists(name, private$stages)) {
+        assign(name, Stage$new(name), private$stages)
+      }
       get(name, private$stages)
     },
 
