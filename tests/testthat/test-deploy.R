@@ -2,7 +2,7 @@ context("deploy")
 
 Running <- R6Class(
   "Running",
-  inherit = TravisTask,
+  inherit = TicStep,
 
   public = list(
     initialize = function(running = TRUE) {
