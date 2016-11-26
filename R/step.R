@@ -1,8 +1,8 @@
 #' @export
-step <- function(task, ..., on_branch = NULL, on_env = NULL) {
+step <- function(step, ..., on_branch = NULL, on_env = NULL) {
   structure(
     list(
-      task = task,
+      step = step,
       args = list(...),
       on_branch = on_branch,
       on_env = on_env

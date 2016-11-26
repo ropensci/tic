@@ -1,25 +1,25 @@
 #' @export
 before_script <- function(steps = c(get_deploy_steps(), get_after_success_steps())) {
 
-  tasks <- parse_steps(steps)
-  exec_before_script(tasks)
+  steps <- parse_steps(steps)
+  exec_before_script(steps)
 
 }
 
-exec_before_script <- function(tasks) {
+exec_before_script <- function(steps) {
 
   # prepare() method overridden?
-  prepares <- lapply(tasks, "[[", "prepare")
-  prepare_empty <- vlapply(prepares, identical, TravisTask$public_methods$prepare)
+  prepares <- lapply(steps, "[[", "prepare")
+  prepare_empty <- vlapply(prepares, identical, TravisStep$public_methods$prepare)
 
-  prepare_tasks <- tasks[!prepare_empty]
+  prepare_steps <- steps[!prepare_empty]
 
-  check_results <- call_check(prepare_tasks, "before_script")
+  check_results <- call_check(prepare_steps, "before_script")
 
-  lapply(prepare_tasks[check_results], function(task) {
-    task_name <- class(task)[[1L]]
-    message("Preparing: ", task_name)
-    task$prepare()
+  lapply(prepare_steps[check_results], function(step) {
+    step_name <- class(step)[[1L]]
+    message("Preparing: ", step_name)
+    step$prepare()
   })
 
   invisible()
@@ -38,19 +38,19 @@ after_success <- function(steps = get_after_success_steps()) {
 
 run <- function(stage, steps) {
 
-  tasks <- parse_steps(steps)
-  exec_run(stage, tasks)
+  steps <- parse_steps(steps)
+  exec_run(stage, steps)
 
 }
 
-exec_run <- function(stage, tasks) {
+exec_run <- function(stage, steps) {
 
-  check_results <- call_check(tasks, stage)
+  check_results <- call_check(steps, stage)
 
-  lapply(tasks[check_results], function(task) {
-    task_name <- class(task)[[1L]]
-    message("Running ", stage, ": ", task_name)
-    task$run()
+  lapply(steps[check_results], function(step) {
+    step_name <- class(step)[[1L]]
+    message("Running ", stage, ": ", step_name)
+    step$run()
   })
 
 }
@@ -68,8 +68,8 @@ get_deploy_steps <- function() {
 parse_steps <- function(steps) {
   steps <- coerce_steps(steps)
   valid_steps <- get_valid_steps(steps)
-  tasks <- create_tasks(valid_steps)
-  tasks
+  steps <- create_steps(valid_steps)
+  steps
 }
 
 coerce_steps <- function(steps) {
@@ -95,18 +95,18 @@ get_env_set <- function(steps) {
   ret
 }
 
-create_tasks <- function(steps) {
-  tasks <- lapply(steps, create_task)
-  names(tasks) <- vcapply(lapply(tasks, class), "[[", 1L)
-  tasks
+create_steps <- function(steps) {
+  steps <- lapply(steps, create_step)
+  names(steps) <- vcapply(lapply(steps, class), "[[", 1L)
+  steps
 }
 
-create_task <- function(step) {
-  do.call(step$task, step$args)
+create_step <- function(step) {
+  do.call(step$step, step$args)
 }
 
-call_check <- function(tasks, stage) {
-  checks <- lapply(tasks, "[[", "check")
+call_check <- function(steps, stage) {
+  checks <- lapply(steps, "[[", "check")
   check_results <- vlapply(checks, do.call, args = list())
 
   if (any(!check_results)) {

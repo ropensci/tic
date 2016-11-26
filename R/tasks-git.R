@@ -1,5 +1,5 @@
 InstallSSHKeys <- R6Class(
-  "InstallSSHKeys", inherit = TravisTask,
+  "InstallSSHKeys", inherit = TravisStep,
 
   public = list(
     run = function() {
@@ -26,10 +26,10 @@ InstallSSHKeys <- R6Class(
 )
 
 #' @export
-task_install_ssh_keys <- InstallSSHKeys$new
+step_install_ssh_keys <- InstallSSHKeys$new
 
 TestSSH <- R6Class(
-  "TestSSH", inherit = TravisTask,
+  "TestSSH", inherit = TravisStep,
 
   public = list(
     initialize = function(host = "git@github.com", verbose = "-v") {
@@ -50,10 +50,10 @@ TestSSH <- R6Class(
 )
 
 #' @export
-task_test_ssh <- TestSSH$new
+step_test_ssh <- TestSSH$new
 
 PushDeploy <- R6Class(
-  "PushDeploy", inherit = TravisTask,
+  "PushDeploy", inherit = TravisStep,
 
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
@@ -173,4 +173,4 @@ PushDeploy <- R6Class(
 )
 
 #' @export
-task_push_deploy <- PushDeploy$new
+step_push_deploy <- PushDeploy$new

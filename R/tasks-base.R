@@ -1,7 +1,7 @@
 #' @importFrom R6 R6Class
 #' @export
-TravisTask <- R6Class(
-  "TravisTask",
+TravisStep <- R6Class(
+  "TravisStep",
   cloneable = FALSE,
 
   public = list(
@@ -14,7 +14,7 @@ TravisTask <- R6Class(
 )
 
 HelloWorld <- R6Class(
-  "HelloWorld", inherit = TravisTask,
+  "HelloWorld", inherit = TravisStep,
 
   public = list(
     run = function() {
@@ -24,4 +24,4 @@ HelloWorld <- R6Class(
 )
 
 #' @export
-task_hello_world <- HelloWorld$new
+step_hello_world <- HelloWorld$new

@@ -1,5 +1,5 @@
 RunCovr <- R6Class(
-  "RunCovr", inherit = TravisTask,
+  "RunCovr", inherit = TravisStep,
 
   public = list(
     run = function() {
@@ -14,4 +14,4 @@ RunCovr <- R6Class(
 )
 
 #' @export
-task_run_covr <- RunCovr$new
+step_run_covr <- RunCovr$new
