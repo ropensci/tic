@@ -17,6 +17,7 @@ Depends:
 Imports:
     remotes,
     git2r,
+    magrittr,
     memoise,
     openssl,
     R6
