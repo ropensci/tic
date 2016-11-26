@@ -17,6 +17,10 @@ Stage <- R6Class(
       )
     },
 
+    get_steps = function() {
+      private$steps
+    },
+
     reset = function() {
       private$steps <- list()
     }
@@ -27,25 +31,3 @@ Stage <- R6Class(
     steps = list()
   )
 )
-
-stages <- as.environment(
-  list(
-    after_success = Stage$new("after_success"),
-    deploy = Stage$new("deploy")
-  )
-)
-
-#' @export
-get_stage <- function(name) {
-  get(name, stages)
-}
-
-#' @export
-add_step <- function(stage, step) {
-  stage$add_step(step)
-}
-
-#' @export
-add_task <- function(stage, run, check = function() TRUE, prepare = function() {}) {
-  stage$add_task(run, check, prepare)
-}
