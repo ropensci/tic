@@ -32,6 +32,7 @@ Collate:
     'ci.R'
     'appveyor.R'
     'deploy.R'
+    'local.R'
     'mock.R'
     'step.R'
     'tasks-base.R'
