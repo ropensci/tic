@@ -1,5 +1,5 @@
 #' @export
-step <- function(step, ..., on_branch = NULL, on_env = NULL) {
+add_step <- function(step, ..., on_branch = NULL, on_env = NULL) {
   structure(
     list(
       step = step,

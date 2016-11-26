@@ -34,6 +34,7 @@ Collate:
     'deploy.R'
     'local.R'
     'mock.R'
+    'stage.R'
     'step.R'
     'tasks-base.R'
     'tasks-covr.R'
