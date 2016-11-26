@@ -1,9 +1,15 @@
 #' @export
-before_script <- function(steps = c(get_deploy_steps(), get_after_success_steps())) {
+before_script <- function(stages = load_from_file()) {
 
-  steps <- parse_steps(steps)
+  steps <- get_stage_steps(stages)
   exec_before_script(steps)
 
+}
+
+get_stage_steps <- function(stages) {
+  stage_steps <- lapply(unname(stages), "[[", "get_steps")
+  steps <- unlist(lapply(stage_steps, function(fun) fun()), recursive = FALSE)
+  steps
 }
 
 exec_before_script <- function(steps) {
@@ -27,24 +33,18 @@ exec_before_script <- function(steps) {
 }
 
 #' @export
-deploy <- function(steps = get_deploy_steps()) {
+deploy <- function(stage = load_from_file()$deploy) {
+  steps <- stage$get_steps()
   run("deploy", steps)
 }
 
 #' @export
-after_success <- function(steps = get_after_success_steps()) {
+after_success <- function(stage = load_from_file()$after_success) {
+  steps <- stage$get_steps()
   run("after_success", steps)
 }
 
 run <- function(stage, steps) {
-
-  steps <- parse_steps(steps)
-  exec_run(stage, steps)
-
-}
-
-exec_run <- function(stage, steps) {
-
   check_results <- call_check(steps, stage)
 
   lapply(steps[check_results], function(step) {
@@ -52,17 +52,6 @@ exec_run <- function(stage, steps) {
     message("Running ", stage, ": ", step_name)
     step$run()
   })
-
-}
-
-#' @export
-get_after_success_steps <- function() {
-  run_tic()$after_success
-}
-
-#' @export
-get_deploy_steps <- function() {
-  run_tic()$deploy
 }
 
 call_check <- function(steps, stage) {
