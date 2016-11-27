@@ -1,5 +1,5 @@
 BuildPkgdown <- R6Class(
-  "BuildPkgdown", inherit = TravisTask,
+  "BuildPkgdown", inherit = TicStep,
 
   public = list(
     run = function() {
@@ -15,4 +15,4 @@ BuildPkgdown <- R6Class(
 )
 
 #' @export
-task_build_pkgdown <- BuildPkgdown$new
+step_build_pkgdown <- BuildPkgdown$new

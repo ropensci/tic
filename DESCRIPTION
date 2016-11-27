@@ -17,6 +17,7 @@ Depends:
 Imports:
     remotes,
     git2r,
+    magrittr,
     memoise,
     openssl,
     R6
@@ -32,14 +33,14 @@ Collate:
     'ci.R'
     'appveyor.R'
     'deploy.R'
+    'dsl.R'
     'local.R'
     'mock.R'
-    'step.R'
-    'tasks-base.R'
-    'tasks-covr.R'
-    'tasks-git.R'
-    'tasks-pkgdown.R'
+    'stage.R'
+    'steps-base.R'
+    'steps-covr.R'
+    'steps-git.R'
+    'steps-pkgdown.R'
     'tic-package.R'
-    'tic.R'
     'travis.R'
     'utils.R'

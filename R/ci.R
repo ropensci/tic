@@ -32,4 +32,5 @@ ci_ <- function() {
   }
 }
 
+#' @export
 ci <- memoise::memoise(ci_)

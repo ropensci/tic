@@ -22,3 +22,7 @@ warningc <- function(...) {
 }
 
 warning_once <- memoise::memoise(warningc)
+
+`%||%` <- function(o1, o2) {
+  if (is.null(o1)) o2 else o1
+}
