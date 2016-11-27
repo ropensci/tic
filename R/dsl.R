@@ -1,3 +1,4 @@
+#' @importFrom utils packageName
 load_from_file_ <- function(path = "tic.R") {
   dsl <- create_dsl(envir = asNamespace(packageName()))
   source(path, local = dsl)
