@@ -17,7 +17,7 @@ after_success <- function(stage = load_from_file()) {
 }
 
 #' @export
-deploy <- function(stage = load_from_file()$deploy) {
+deploy <- function(stage = load_from_file()) {
   run_stage("deploy", stage = stage)
 }
 
