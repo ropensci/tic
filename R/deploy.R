@@ -4,10 +4,21 @@ prepare_all_stages <- function(stages = load_from_file()) {
 }
 
 #' @export
-deploy <- function(stage = load_from_file()$deploy) {
+run_stage <- function(name, stages = load_from_file()) {
+  stage <- stages[[name]]
   if (!is.null(stage)) {
     stage$run_all()
   }
+}
+
+#' @export
+after_success <- function(stage = load_from_file()) {
+  run_stage("after_success", stage = stage)
+}
+
+#' @export
+deploy <- function(stage = load_from_file()$deploy) {
+  run_stage("deploy", stage = stage)
 }
 
 #' @export
