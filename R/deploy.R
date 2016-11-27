@@ -21,13 +21,6 @@ deploy <- function(stage = load_from_file()$deploy) {
   run_stage("deploy", stage = stage)
 }
 
-#' @export
-after_success <- function(stage = load_from_file()$after_success) {
-  if (!is.null(stage)) {
-    stage$run_all()
-  }
-}
-
 call_check <- function(steps, stage) {
   checks <- lapply(steps, "[[", "check")
   check_results <- vlapply(checks, do.call, args = list())
