@@ -1,5 +1,5 @@
 #' @export
-before_script <- function(stages = load_from_file()) {
+prepare_all_stages <- function(stages = load_from_file()) {
   lapply(stages, function(stage) stage$prepare_all())
 }
 

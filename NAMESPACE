@@ -2,10 +2,10 @@
 
 export(TicStep)
 export(after_success)
-export(before_script)
 export(ci)
 export(deploy)
 export(load_from_file)
+export(prepare_all_stages)
 export(step_build_pkgdown)
 export(step_hello_world)
 export(step_install_ssh_keys)

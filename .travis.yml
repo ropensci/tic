@@ -54,9 +54,9 @@ before_install:
 
 #before_script
 before_script:
-- R -q -e 'devtools::install_cran("roxygen2"); devtools::load_all(); before_script()'
+- R -q -e 'devtools::install_cran("roxygen2"); devtools::load_all(); prepare_all_stages()'
 
-#after_success (deploy to gh-pages)
+#after_success
 after_success:
 - R -q -e 'devtools::load_all(); after_success()'
 
