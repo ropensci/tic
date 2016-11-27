@@ -1,3 +1,9 @@
+## tic 0.2-5 (2016-11-27)
+
+- Fix `after_success()` and `deploy()`.
+- Step names are now printed again.
+
+
 ## tic 0.2-4 (2016-11-27)
 
 - Use new DSL with the notion of stages with arbitrary names.
