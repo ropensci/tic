@@ -2,7 +2,7 @@ context("deploy")
 
 Running <- R6Class(
   "Running",
-  inherit = TravisTask,
+  inherit = TicStep,
 
   public = list(
     initialize = function(running = TRUE) {
@@ -26,10 +26,10 @@ Running <- R6Class(
 test_that("prepare tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
-  tasks <- list(running, not_running)
+  stage <- local(Stage$new("test") %>% add_step(running) %>% add_step(not_running), create_dsl())
 
   expect_output(
-    expect_message(exec_before_script(tasks), "Skipping"),
+    expect_message(stage$prepare_all(), "Skipping"),
     "private$running",
     fixed = TRUE)
 
@@ -44,10 +44,10 @@ test_that("prepare tasks", {
 test_that("run tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
-  tasks <- list(running, not_running)
+  stage <- local(Stage$new("asdfgh") %>% add_step(running) %>% add_step(not_running), create_dsl())
 
   expect_output(
-    expect_message(exec_run("asdfgh", tasks), "Skipping asdfgh"),
+    expect_message(stage$run_all(), "Skipping asdfgh"),
     "private$running",
     fixed = TRUE)
 
@@ -57,10 +57,4 @@ test_that("run tasks", {
   expect_equal(running$get_run_calls(), 1L)
   expect_equal(not_running$get_run_calls(), 0L)
 
-})
-
-test_that("top-level", {
-  expect_null(before_script(list()))
-  expect_equal(after_success(list()), setNames(list(), character()))
-  expect_equal(deploy(list()), setNames(list(), character()))
 })

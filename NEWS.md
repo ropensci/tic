@@ -1,3 +1,16 @@
+## tic 0.2-4 (2016-11-27)
+
+- Use new DSL with the notion of stages with arbitrary names.
+    - New `load_from_file()` replaces `get_xxx_steps()`
+    - `task_...()` has been renamed to `step_...()`
+    - A task is now something like an ad-hoc step
+    - `before_script()` is now `prepare_all_stages()`
+    - `TravisTask` is now `TicStep`
+    - `ci()` is now exported
+- If environment variable `CI` is undefinied, use `LocalCI` with sensible inference of repository and branch.
+- Stop if `git` exits with nonzero status.
+
+
 ## tic 0.2-3 (2016-11-06)
 
 - Install package for `task_build_pkgdown` task.

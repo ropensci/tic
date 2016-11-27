@@ -1,5 +1,5 @@
 InstallSSHKeys <- R6Class(
-  "InstallSSHKeys", inherit = TravisTask,
+  "InstallSSHKeys", inherit = TicStep,
 
   public = list(
     run = function() {
@@ -26,10 +26,10 @@ InstallSSHKeys <- R6Class(
 )
 
 #' @export
-task_install_ssh_keys <- InstallSSHKeys$new
+step_install_ssh_keys <- InstallSSHKeys$new
 
 TestSSH <- R6Class(
-  "TestSSH", inherit = TravisTask,
+  "TestSSH", inherit = TicStep,
 
   public = list(
     initialize = function(host = "git@github.com", verbose = "-v") {
@@ -50,10 +50,10 @@ TestSSH <- R6Class(
 )
 
 #' @export
-task_test_ssh <- TestSSH$new
+step_test_ssh <- TestSSH$new
 
 PushDeploy <- R6Class(
-  "PushDeploy", inherit = TravisTask,
+  "PushDeploy", inherit = TicStep,
 
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
@@ -105,8 +105,8 @@ PushDeploy <- R6Class(
     },
 
     fetch = function() {
-      message("Fetching from remote")
       remote_name <- private$remote_name
+      message("Fetching from remote ", remote_name)
 
       if (remote_name %in% git2r::remotes(private$repo)) {
         git2r::remote_remove(private$repo, remote_name)
@@ -114,17 +114,26 @@ PushDeploy <- R6Class(
       git2r::remote_add(private$repo, remote_name, private$remote_url)
 
       if (!private$orphan) {
-        private$git("fetch", remote_name, paste0("refs/heads/", private$branch))
-
-        branches <- git2r::branches(private$repo, "remote")
-        print(branches)
-        remote_branch <- branches[[paste0(remote_name, "/", private$branch)]]
-        print(remote_branch)
-
-        if (!is.null(remote_branch)) {
-          git2r::reset(get_head_commit(remote_branch))
-        }
+        tryCatch(
+          {
+            remote_branch <- private$try_fetch()
+            if (!is.null(remote_branch)) {
+              git2r::reset(get_head_commit(remote_branch))
+            }
+          },
+          error = function(e) {
+            message(conditionMessage(e),
+                    "\nCould not fetch branch, will attempt to create new")
+          }
+        )
       }
+    },
+
+    try_fetch = function() {
+      remote_name <- private$remote_name
+      private$git("fetch", remote_name, paste0("refs/heads/", private$branch))
+      branches <- git2r::branches(private$repo, "remote")
+      branches[[paste0(remote_name, "/", private$branch)]]
     },
 
     commit = function() {
@@ -147,13 +156,16 @@ PushDeploy <- R6Class(
     git = function(...) {
       args <- c(...)
       message(paste("git", paste(args, collapse = " ")))
-      withr::with_dir(private$path, system2("git", args))
+      status <- withr::with_dir(private$path, system2("git", args))
+      if (status != 0) {
+        stopc("git exited with status ", status)
+      }
     },
 
     format_commit_message = function() {
       paste0(
-        "Deploy from Travis build ", ci()$get_build_number(), " [ci skip]\n\n",
-        "Build URL: ", ci()$get_build_url(), "\n",
+        "Deploy from ", ci()$get_build_number(), " [ci skip]\n\n",
+        if (!is.null(ci()$get_build_url())) paste0("Build URL: ", ci()$get_build_url(), "\n"),
         "Commit: ", ci()$get_commit()
       )
     }
@@ -161,4 +173,4 @@ PushDeploy <- R6Class(
 )
 
 #' @export
-task_push_deploy <- PushDeploy$new
+step_push_deploy <- PushDeploy$new

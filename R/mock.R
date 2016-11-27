@@ -1,6 +1,6 @@
 #' @include ci.R
 MockCI <- R6Class(
-  "TravisCI",
+  "MockCI",
   inherit = CI,
 
   public = list(
