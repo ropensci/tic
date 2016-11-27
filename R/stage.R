@@ -7,14 +7,16 @@ Stage <- R6Class(
     },
 
     add_step = function(step) {
-      self$add_task(run = step$run, check = step$check, prepare = step$prepare)
+      self$add_task(run = step$run, check = step$check, prepare = step$prepare,
+                    name = class(step)[[1]])
     },
 
-    add_task = function(run, check = NULL, prepare = NULL) {
+    add_task = function(run, check = NULL, prepare = NULL, name = NULL) {
       step <- list(
         run = run,
         check = check %||% function() TRUE,
-        prepare = prepare %||% function() {}
+        prepare = prepare %||% function() {},
+        name = name %||% "<unknown task>"
       )
       private$steps <- c(private$steps, list(step))
       invisible(self)
@@ -41,30 +43,26 @@ Stage <- R6Class(
       if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
         return()
 
-      step_name <- class(step)[[1L]]
-
       if (!isTRUE(step$check())) {
-        message("Skipping prepare: ", step_name)
+        message("Skipping prepare: ", step$name)
         print(step$check)
         return()
       }
 
-      message("Preparing: ", step_name)
+      message("Preparing: ", step$name)
       step$prepare()
 
       invisible()
     },
 
     run_one = function(step) {
-      step_name <- class(step)[[1L]]
-
       if (!isTRUE(step$check())) {
-        message("Skipping ", private$name, ": ", step_name)
+        message("Skipping ", private$name, ": ", step$name)
         print(step$check)
         return()
       }
 
-      message("Running ", private$name, ": ", step_name)
+      message("Running ", private$name, ": ", step$name)
       step$run()
     }
   )
