@@ -4,7 +4,7 @@
 language: r
 sudo: false
 cache: packages
-warnings_are_errors: false
+warnings_are_errors: true
 
 #env
 env:
@@ -38,20 +38,6 @@ notifications:
     on_success: change
     on_failure: change
 
-# Custom parts:
-
-#r_github_packages
-r_github_packages:
-
-#r_packages
-r_packages:
-
-#services
-services:
-
-#before_install
-before_install:
-
 #before_script
 before_script:
 - R -q -e 'devtools::install_cran("roxygen2"); devtools::load_all(); prepare_all_stages()'
@@ -66,3 +52,17 @@ deploy:
   script: R -q -e 'devtools::load_all(); deploy()'
   on:
     all_branches: true
+
+# Custom parts:
+
+#r_github_packages
+r_github_packages:
+
+#r_packages
+r_packages:
+
+#services
+services:
+
+#before_install
+before_install:
