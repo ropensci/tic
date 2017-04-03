@@ -7,7 +7,7 @@ RunCovr <- R6Class(
     },
 
     run = function() {
-      do.call(covr::codecov, args)
+      do.call(covr::codecov, private$args)
     },
 
     prepare = function() {
