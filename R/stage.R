@@ -62,7 +62,7 @@ Stage <- R6Class(
         return()
       }
 
-      message("Running ", private$name, ": ", step$name)
+      cat_line(crayon::inverse("Running ", private$name, ": ", step$name))
       step$run()
     }
   )
