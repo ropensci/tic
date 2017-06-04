@@ -12,13 +12,13 @@ run_stage <- function(name, stages = load_from_file()) {
 }
 
 #' @export
-after_success <- function(stage = load_from_file()) {
-  run_stage("after_success", stage = stage)
+after_success <- function(stages = load_from_file()) {
+  run_stage("after_success", stages = stages)
 }
 
 #' @export
-deploy <- function(stage = load_from_file()) {
-  run_stage("deploy", stage = stage)
+deploy <- function(stages = load_from_file()) {
+  run_stage("deploy", stages = stages)
 }
 
 call_check <- function(steps, stage) {
