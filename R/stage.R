@@ -63,7 +63,7 @@ Stage <- R6Class(
       }
 
       ci()$cat_with_color(
-        crayon::inverse(paste0("Running ", private$name, ": ", step$name))
+        crayon::magenta(paste0("Running ", private$name, ": ", step$name))
       )
       step$run()
     }

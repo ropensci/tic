@@ -41,18 +41,16 @@ notifications:
 
 #before_script
 before_script:
-- echo -e "\e[31mtest\e[39m"
 - R -q -e 'devtools::install_cran("roxygen2"); devtools::load_all(); prepare_all_stages()'
 
 #after_success
 after_success:
-- echo -e "\e[31mtest\e[39m"
 - R -q -e 'devtools::load_all(); after_success()'
 
 #deploy // https://github.com/travis-ci/travis-build/blob/85ef7108/lib/travis/build/addons/deploy/script.rb#L100-L107
 deploy:
   provider: script
-  script: echo -e "\e[31mtest\e[39m"
+  script: 'devtools::load_all(); deploy()'
   on:
     all_branches: true
 
