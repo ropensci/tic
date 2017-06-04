@@ -62,7 +62,9 @@ Stage <- R6Class(
         return()
       }
 
-      message("Running ", private$name, ": ", step$name)
+      ci()$cat_with_color(
+        crayon::magenta(paste0("Running ", private$name, ": ", step$name))
+      )
       step$run()
     }
   )

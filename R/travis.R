@@ -19,6 +19,12 @@ TravisCI <- R6Class(
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
+    },
+    cat_with_color = function(code) {
+      withr::with_options(
+        list(crayon.enabled = TRUE),
+        cat_line(code)
+      )
     }
   )
 )
