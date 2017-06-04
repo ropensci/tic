@@ -21,10 +21,10 @@ Imports:
     memoise,
     openssl,
     remotes,
-    R6
-Suggests:
-    testthat,
+    R6,
     withr
+Suggests:
+    testthat
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
