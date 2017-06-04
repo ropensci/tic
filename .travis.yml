@@ -50,7 +50,7 @@ after_success:
 #deploy // https://github.com/travis-ci/travis-build/blob/85ef7108/lib/travis/build/addons/deploy/script.rb#L100-L107
 deploy:
   provider: script
-  script: 'devtools::load_all(); deploy()'
+  script: R -q -e 'devtools::load_all(); deploy()'
   on:
     all_branches: true
 
