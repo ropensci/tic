@@ -1,6 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 # Header
+dist: trusty
 language: r
 sudo: false
 cache: packages
