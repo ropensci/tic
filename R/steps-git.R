@@ -27,7 +27,7 @@ AddToKnownHosts <- R6Class(
 )
 
 #' @export
-add_to_known_hosts <- AddToKnownHosts$new
+step_add_to_known_hosts <- AddToKnownHosts$new
 
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys", inherit = TicStep,
