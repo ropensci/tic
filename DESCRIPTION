@@ -32,10 +32,10 @@ Encoding: UTF-8
 Collate: 
     'ci.R'
     'appveyor.R'
-    'deploy.R'
     'dsl.R'
     'local.R'
     'mock.R'
+    'run.R'
     'stage.R'
     'steps-base.R'
     'steps-covr.R'
