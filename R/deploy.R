@@ -20,15 +20,3 @@ after_success <- function(stages = load_from_file()) {
 deploy <- function(stages = load_from_file()) {
   run_stage("deploy", stages = stages)
 }
-
-call_check <- function(steps, stage) {
-  checks <- lapply(steps, "[[", "check")
-  check_results <- vlapply(checks, do.call, args = list())
-
-  if (any(!check_results)) {
-    message("Skipping ", stage, ":")
-    print(lapply(checks[!check_results], body))
-  }
-
-  check_results
-}
