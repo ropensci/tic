@@ -15,11 +15,12 @@ LazyData: TRUE
 Depends:
     R (>= 3.0.0)
 Imports:
-    remotes,
+    crayon,
     git2r,
     magrittr,
     memoise,
     openssl,
+    remotes,
     R6
 Suggests:
     testthat,
