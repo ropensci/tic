@@ -4,6 +4,7 @@ Stage <- R6Class(
   public = list(
     initialize = function(name) {
       private$name <- name
+      private$steps <- list()
     },
 
     add_step = function(step) {
@@ -37,7 +38,7 @@ Stage <- R6Class(
 
   private = list(
     name = NULL,
-    steps = list(),
+    steps = NULL,
 
     prepare_one = function(step) {
       if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
