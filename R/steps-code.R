@@ -8,7 +8,7 @@ RunCode <- R6Class(
     },
 
     run = function() {
-      eval(private$call, envir = baseenv())
+      eval(private$call, envir = .GlobalEnv)
     },
 
     prepare = function() {
