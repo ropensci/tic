@@ -49,7 +49,9 @@ Stage <- R6Class(
         return()
       }
 
-      message("Preparing: ", step$name)
+      ci()$cat_with_color(
+        crayon::magenta(paste0("Preparing: ", step$name))
+      )
       step$prepare()
 
       invisible()
