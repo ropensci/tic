@@ -44,7 +44,9 @@ Stage <- R6Class(
         return()
 
       if (!isTRUE(step$check())) {
-        message("Skipping prepare: ", step$name)
+        ci()$cat_with_color(
+          crayon::magenta(paste0("Skipping prepare: ", step$name))
+        )
         print(step$check)
         return()
       }
@@ -59,7 +61,9 @@ Stage <- R6Class(
 
     run_one = function(step) {
       if (!isTRUE(step$check())) {
-        message("Skipping ", private$name, ": ", step$name)
+        ci()$cat_with_color(
+          crayon::magenta(paste0("Skipping ", private$name, ": ", step$name))
+        )
         print(step$check)
         return()
       }
