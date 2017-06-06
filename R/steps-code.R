@@ -5,9 +5,11 @@ RunCode <- R6Class(
     initialize = function(call) {
       call <- substitute(call)
       private$call <- call
+      private$seed <- 123
     },
 
     run = function() {
+      set.seed(private$seed)
       eval(private$call, envir = .GlobalEnv)
     },
 
@@ -23,7 +25,8 @@ RunCode <- R6Class(
   ),
 
   private = list(
-    call = NULL
+    call = NULL,
+    seed = NULL
   )
 )
 
