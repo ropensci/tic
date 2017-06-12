@@ -18,6 +18,11 @@ AddToKnownHosts <- R6Class(
       known_hosts_path <- file.path("~", ".ssh", "known_hosts")
       message("Adding to ", known_hosts_path)
       write(keyscan_result, known_hosts_path, append = TRUE)
+    },
+
+    check = function() {
+      # only if non-interactive and keyscan is ssh-available
+      (!ci()$is_interactive()) && (Sys.which("ssh-keyscan") != "")
     }
   ),
 
@@ -50,8 +55,8 @@ InstallSSHKeys <- R6Class(
     },
 
     check = function() {
-      # only if id_rsa is available
-      Sys.getenv("id_rsa") != ""
+      # only if non-interactive and id_rsa env var is available
+      (!ci()$is_interactive()) && (Sys.getenv("id_rsa") != "")
     }
   )
 )
