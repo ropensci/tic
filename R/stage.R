@@ -32,7 +32,10 @@ Stage <- R6Class(
     },
 
     run_all = function() {
-      lapply(private$steps, private$run_one)
+      success <- vlapply(private$steps, private$run_one)
+      if (!all(success)) {
+        stopc("At least one step failed.")
+      }
     }
   ),
 
@@ -72,7 +75,17 @@ Stage <- R6Class(
       ci()$cat_with_color(
         crayon::magenta(paste0("Running ", private$name, ": ", step$name))
       )
-      step$run()
+
+      tryCatch(
+        {
+          step$run()
+          TRUE
+        },
+        function(e) {
+          print("Error: ", conditionMessage(e))
+          FALSE
+        }
+      )
     }
   )
 )
