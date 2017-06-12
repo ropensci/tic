@@ -8,6 +8,12 @@ AppVeyorCI <- R6Class(
     get_branch = function() {
       Sys.getenv("APPVEYOR_REPO_BRANCH")
     },
+    get_tag = function() {
+      Sys.getenv("APPVEYOR_REPO_TAG")
+    },
+    is_tag = function() {
+      get_tag() != ""
+    },
     get_slug = function() {
       Sys.getenv("APPVEYOR_PROJECT_SLUG")
     },

@@ -5,6 +5,12 @@ CI <- R6Class(
     get_branch = function() {
       stop("NYI")
     },
+    get_tag = function() {
+      stop("NYI")
+    },
+    is_tag = function() {
+      stop("NYI")
+    },
     get_slug = function() {
       stop("NYI")
     },

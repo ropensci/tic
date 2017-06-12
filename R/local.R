@@ -6,6 +6,12 @@ LocalCI <- R6Class(
     get_branch = function() {
       system2("git", "rev-parse --abbrev-ref HEAD", stdout = TRUE)
     },
+    get_tag = function() {
+      system2("git", "describe", stdout = TRUE)
+    },
+    is_tag = function() {
+      length(system2("git", c("tag", "--points-at", "HEAD"), stdout = TRUE)) > 0
+    },
     get_slug = function() {
       remote <- gh::gh_tree_remote()
       paste0(remote$username, "/", remote$repo)

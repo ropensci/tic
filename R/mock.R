@@ -7,7 +7,12 @@ MockCI <- R6Class(
     get_branch = function() {
       "mock-ci-branch"
     },
-
+    get_tag = function() {
+      "mock-ci-tag"
+    },
+    is_tag = function() {
+      FALSE
+    },
     is_interactive = function() {
       TRUE
     }
