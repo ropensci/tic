@@ -17,6 +17,10 @@ CI <- R6Class(
     get_commit = function() {
       stop("NYI")
     },
+    is_interactive = function() {
+      FALSE
+    },
+
     cat_with_color = function(code) {
       cat_line(code)
     }

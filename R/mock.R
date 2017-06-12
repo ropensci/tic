@@ -6,6 +6,10 @@ MockCI <- R6Class(
   public = list(
     get_branch = function() {
       "mock-ci-branch"
+    },
+
+    is_interactive = function() {
+      TRUE
     }
   )
 )

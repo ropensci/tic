@@ -18,6 +18,9 @@ LocalCI <- R6Class(
     },
     get_commit = function() {
       system2("git", "rev-parse HEAD", stdout = TRUE)
+    },
+    is_interactive = function() {
+      TRUE
     }
   )
 )
