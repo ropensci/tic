@@ -19,11 +19,11 @@ Imports:
     git2r,
     magrittr,
     memoise,
-    openssl,
     remotes,
     R6,
     withr
 Suggests:
+    openssl,
     testthat
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
