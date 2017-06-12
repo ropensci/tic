@@ -40,7 +40,6 @@ Collate:
     'stage.R'
     'steps-base.R'
     'steps-code.R'
-    'steps-covr.R'
     'steps-git.R'
     'steps-pkgdown.R'
     'tic-package.R'
