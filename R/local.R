@@ -1,5 +1,6 @@
 LocalCI <- R6Class(
   "LocalCI",
+  inherit = CI,
 
   public = list(
     get_branch = function() {
