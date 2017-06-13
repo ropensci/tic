@@ -1,9 +1,45 @@
+AddToKnownHosts <- R6Class(
+  "AddToKnownHosts", inherit = TicStep,
+
+  public = list(
+    initialize = function(host) {
+      private$host <- host
+    },
+
+    run = function() {
+      message("Running ssh-keyscan for ", private$host)
+      keyscan_result <- system2(
+        "ssh-keyscan",
+        c("-H", shQuote(private$host)),
+        stdout = TRUE
+      )
+      cat(keyscan_result, "\n", sep = "")
+
+      known_hosts_path <- file.path("~", ".ssh", "known_hosts")
+      message("Adding to ", known_hosts_path)
+      write(keyscan_result, known_hosts_path, append = TRUE)
+    },
+
+    check = function() {
+      # only if non-interactive and keyscan is ssh-available
+      (!ci()$is_interactive()) && (Sys.which("ssh-keyscan") != "")
+    }
+  ),
+
+  private = list(
+    host = NULL
+  )
+)
+
+#' @export
+step_add_to_known_hosts <- AddToKnownHosts$new
+
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys", inherit = TicStep,
 
   public = list(
     run = function() {
-      deploy_key_path <- file.path("~/.ssh", "id_rsa")
+      deploy_key_path <- file.path("~", ".ssh", "id_rsa")
       message("Writing deploy key to ", deploy_key_path)
       if (file.exists(deploy_key_path)) {
         stop("Not overwriting key", call. = FALSE)
@@ -19,8 +55,8 @@ InstallSSHKeys <- R6Class(
     },
 
     check = function() {
-      # only if id_rsa is available
-      Sys.getenv("id_rsa") != ""
+      # only if non-interactive and id_rsa env var is available
+      (!ci()$is_interactive()) && (Sys.getenv("id_rsa") != "")
     }
   )
 )

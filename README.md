@@ -50,9 +50,10 @@ get_stage("after_success") %>%
 
 get_stage("deploy") %>%
   add_step(step_install_ssh_keys()) %>%
+  add_step(step_add_to_known_hosts("github.com")) %>%
   add_step(step_test_ssh())
 
-if (ci()$get_branch() == "production" && Sys.getenv("BUILD_PKGDOWN") != "") {
+if (ci()$is_tag() && Sys.getenv("BUILD_PKGDOWN") != "") {
   get_stage("deploy") %>%
     add_step(step_build_pkgdown()) %>%
     add_step(step_push_deploy(path = "docs", branch = "gh-pages"))

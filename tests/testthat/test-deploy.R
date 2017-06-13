@@ -1,8 +1,7 @@
 context("deploy")
 
 Running <- R6Class(
-  "Running",
-  inherit = TicStep,
+  "Running", inherit = TicStep,
 
   public = list(
     initialize = function(running = TRUE) {
@@ -28,13 +27,11 @@ test_that("prepare tasks", {
   not_running <- Running$new(FALSE)
   stage <- local(Stage$new("test") %>% add_step(running) %>% add_step(not_running), create_dsl())
 
-  expect_output(
-    expect_message(stage$prepare_all(), "Skipping"),
-    "private$running",
-    fixed = TRUE)
-
+  expect_output(stage$prepare_all(), "Skipping", fixed = TRUE)
   expect_equal(running$get_prepare_calls(), 1L)
   expect_equal(not_running$get_prepare_calls(), 0L)
+
+  expect_output(stage$prepare_all(), "private$running", fixed = TRUE)
 
   expect_equal(running$get_run_calls(), 0L)
   expect_equal(not_running$get_run_calls(), 0L)
@@ -46,15 +43,14 @@ test_that("run tasks", {
   not_running <- Running$new(FALSE)
   stage <- local(Stage$new("asdfgh") %>% add_step(running) %>% add_step(not_running), create_dsl())
 
-  expect_output(
-    expect_message(stage$run_all(), "Skipping asdfgh"),
-    "private$running",
-    fixed = TRUE)
+  expect_output(stage$run_all(), "Skipping asdfgh", fixed = TRUE)
 
   expect_equal(running$get_prepare_calls(), 0L)
   expect_equal(not_running$get_prepare_calls(), 0L)
 
   expect_equal(running$get_run_calls(), 1L)
   expect_equal(not_running$get_run_calls(), 0L)
+
+  expect_output(stage$run_all(), "private$running", fixed = TRUE)
 
 })

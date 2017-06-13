@@ -4,6 +4,7 @@ Stage <- R6Class(
   public = list(
     initialize = function(name) {
       private$name <- name
+      private$steps <- list()
     },
 
     add_step = function(step) {
@@ -31,25 +32,32 @@ Stage <- R6Class(
     },
 
     run_all = function() {
-      lapply(private$steps, private$run_one)
+      success <- vlapply(private$steps, private$run_one)
+      if (!all(success)) {
+        stopc("At least one step failed.")
+      }
     }
   ),
 
   private = list(
     name = NULL,
-    steps = list(),
+    steps = NULL,
 
     prepare_one = function(step) {
       if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
         return()
 
       if (!isTRUE(step$check())) {
-        message("Skipping prepare: ", step$name)
+        ci()$cat_with_color(
+          crayon::magenta(paste0("Skipping prepare: ", step$name))
+        )
         print(step$check)
         return()
       }
 
-      message("Preparing: ", step$name)
+      ci()$cat_with_color(
+        crayon::magenta(paste0("Preparing: ", step$name))
+      )
       step$prepare()
 
       invisible()
@@ -57,13 +65,27 @@ Stage <- R6Class(
 
     run_one = function(step) {
       if (!isTRUE(step$check())) {
-        message("Skipping ", private$name, ": ", step$name)
+        ci()$cat_with_color(
+          crayon::magenta(paste0("Skipping ", private$name, ": ", step$name))
+        )
         print(step$check)
-        return()
+        return(TRUE)
       }
 
-      message("Running ", private$name, ": ", step$name)
-      step$run()
+      ci()$cat_with_color(
+        crayon::magenta(paste0("Running ", private$name, ": ", step$name))
+      )
+
+      tryCatch(
+        {
+          step$run()
+          TRUE
+        },
+        error = function(e) {
+          print("Error: ", conditionMessage(e))
+          FALSE
+        }
+      )
     }
   )
 )

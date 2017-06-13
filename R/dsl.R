@@ -1,5 +1,5 @@
 #' @importFrom utils packageName
-load_from_file_ <- function(path = "tic.R") {
+load_from_file_ <- function(path = "tic.R", ..., mtime = file.mtime(path)) {
   dsl <- create_dsl(envir = asNamespace(packageName()))
   source(path, local = dsl)
   dsl$get_stages()

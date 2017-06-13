@@ -1,12 +1,17 @@
 # nocov start
 #' @include ci.R
 AppVeyorCI <- R6Class(
-  "AppVeyorCI",
-  inherit = CI,
+  "AppVeyorCI", inherit = CI,
 
   public = list(
     get_branch = function() {
       Sys.getenv("APPVEYOR_REPO_BRANCH")
+    },
+    get_tag = function() {
+      Sys.getenv("APPVEYOR_REPO_TAG")
+    },
+    is_tag = function() {
+      self$get_tag() != ""
     },
     get_slug = function() {
       Sys.getenv("APPVEYOR_PROJECT_SLUG")

@@ -5,6 +5,12 @@ CI <- R6Class(
     get_branch = function() {
       stop("NYI")
     },
+    get_tag = function() {
+      stop("NYI")
+    },
+    is_tag = function() {
+      stop("NYI")
+    },
     get_slug = function() {
       stop("NYI")
     },
@@ -16,6 +22,13 @@ CI <- R6Class(
     },
     get_commit = function() {
       stop("NYI")
+    },
+    is_interactive = function() {
+      FALSE
+    },
+
+    cat_with_color = function(code) {
+      cat_line(code)
     }
   )
 )

@@ -1,12 +1,17 @@
 # nocov start
 #' @include ci.R
 TravisCI <- R6Class(
-  "TravisCI",
-  inherit = CI,
+  "TravisCI", inherit = CI,
 
   public = list(
     get_branch = function() {
       Sys.getenv("TRAVIS_BRANCH")
+    },
+    get_tag = function() {
+      Sys.getenv("TRAVIS_TAG")
+    },
+    is_tag = function() {
+      self$get_tag() != ""
     },
     get_slug = function() {
       Sys.getenv("TRAVIS_REPO_SLUG")
@@ -19,6 +24,12 @@ TravisCI <- R6Class(
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
+    },
+    cat_with_color = function(code) {
+      withr::with_options(
+        list(crayon.enabled = TRUE),
+        cat_line(code)
+      )
     }
   )
 )
