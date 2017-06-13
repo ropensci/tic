@@ -81,7 +81,7 @@ Stage <- R6Class(
           step$run()
           TRUE
         },
-        function(e) {
+        error = function(e) {
           print("Error: ", conditionMessage(e))
           FALSE
         }
