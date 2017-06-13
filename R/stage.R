@@ -69,7 +69,7 @@ Stage <- R6Class(
           crayon::magenta(paste0("Skipping ", private$name, ": ", step$name))
         )
         print(step$check)
-        return()
+        return(TRUE)
       }
 
       ci()$cat_with_color(
