@@ -1,8 +1,7 @@
 context("deploy")
 
 Running <- R6Class(
-  "Running",
-  inherit = TicStep,
+  "Running", inherit = TicStep,
 
   public = list(
     initialize = function(running = TRUE) {
