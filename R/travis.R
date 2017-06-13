@@ -12,7 +12,7 @@ TravisCI <- R6Class(
       Sys.getenv("TRAVIS_TAG")
     },
     is_tag = function() {
-      get_tag() != ""
+      self$get_tag() != ""
     },
     get_slug = function() {
       Sys.getenv("TRAVIS_REPO_SLUG")

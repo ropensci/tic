@@ -12,7 +12,7 @@ AppVeyorCI <- R6Class(
       Sys.getenv("APPVEYOR_REPO_TAG")
     },
     is_tag = function() {
-      get_tag() != ""
+      self$get_tag() != ""
     },
     get_slug = function() {
       Sys.getenv("APPVEYOR_PROJECT_SLUG")
