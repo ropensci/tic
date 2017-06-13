@@ -42,6 +42,7 @@ Collate:
     'steps-code.R'
     'steps-git.R'
     'steps-pkgdown.R'
+    'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
     'utils.R'
