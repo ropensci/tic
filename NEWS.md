@@ -1,3 +1,18 @@
+## tic 0.2-7 (2017-06-13)
+
+- New `step_write_text_file()` for creating arbitrary text files, including `~/.R/Makevars` (#14).
+- pkgdown documentation is now builded for tags by default (#13).
+- The "openssl" package is now only suggested, not imported.
+- Removed `step_run_covr()` in favor of the new `step_run_code()` (#18).
+- `load_from_file()` reloads the file from disk if its mtime changes (#11).
+- All steps of a stage are run even in case of previous errors, but the stage still fails if at least one of its steps failed (#10).
+- Adding to known hosts or installing a SSH keys now requires a non-interactive CI.
+- New `step_run_code()` to run arbitrary code. If the code is a call with the `pkg::fun()`, notation, pkg is installed if missing (#1, #3). `step_run_covr()` remains for compatibility but is scheduled for removal.
+- Color the start of each step in the log (#5).
+- New `step_add_to_known_hosts()` to work around configuration problems on OS X (#16).
+- Export runner methods for all stages defined in Travis CI and AppVeyor (#17).
+
+
 ## tic 0.2-6 (2017-06-04)
 
 - Technical release to synch master and production branches.
