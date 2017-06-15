@@ -82,7 +82,7 @@ Stage <- R6Class(
           TRUE
         },
         error = function(e) {
-          print("Error: ", conditionMessage(e))
+          ci()$cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
           FALSE
         }
       )
