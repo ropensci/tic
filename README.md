@@ -46,7 +46,7 @@ to install tic and call a tic function for each stage.
 ```r
 get_stage("after_success") %>%
   add_step(step_hello_world()) %>%
-  add_step(step_run_covr())
+  add_step(step_run_code(covr::codecov()))
 
 get_stage("deploy") %>%
   add_step(step_install_ssh_keys()) %>%
