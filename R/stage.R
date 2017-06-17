@@ -7,9 +7,9 @@ Stage <- R6Class(
       private$steps <- list()
     },
 
-    add_step = function(step) {
+    add_step = function(step, code) {
       self$add_task(run = step$run, check = step$check, prepare = step$prepare,
-                    name = class(step)[[1]])
+                    name = code)
     },
 
     add_task = function(run, check = NULL, prepare = NULL, name = NULL) {
