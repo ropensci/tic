@@ -1,3 +1,8 @@
+## tic 0.2-8 (2017-06-17)
+
+- An error occurring when running a step is printed in red (#5).
+
+
 ## tic 0.2-7 (2017-06-13)
 
 - New `step_write_text_file()` for creating arbitrary text files, including `~/.R/Makevars` (#14).
