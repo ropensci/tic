@@ -2,7 +2,7 @@ RCMDcheck <- R6Class(
   "RCMDcheck", inherit = TicStep,
 
   public = list(
-    init = function(warnings_are_errors = TRUE, notes_are_errors = FALSE, args = "--no-manual") {
+    initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE, args = "--no-manual") {
       private$warnings_are_errors <- warnings_are_errors
       private$notes_are_errors <- notes_are_errors
       private$args <- args
