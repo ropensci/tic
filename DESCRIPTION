@@ -24,6 +24,7 @@ Imports:
     withr
 Suggests:
     openssl,
+    rcmdcheck,
     testthat
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
