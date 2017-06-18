@@ -30,3 +30,10 @@ warning_once <- memoise::memoise(warningc)
 cat_line <- function(...) {
   cat(..., "\n", sep = "")
 }
+
+verify_install <- function(pkg_name) {
+  if (!requireNamespace(pkg_name, quietly = TRUE)) {
+    install.packages(pkg_name)
+    loadNamespace(pkg_name)
+  }
+}

@@ -50,8 +50,7 @@ InstallSSHKeys <- R6Class(
     },
 
     prepare = function() {
-      if (!requireNamespace("openssl", quietly = TRUE))
-        install.packages("openssl")
+      verify_install("openssl")
     },
 
     check = function() {
