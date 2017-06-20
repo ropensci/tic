@@ -32,8 +32,15 @@ cat_line <- function(...) {
 }
 
 verify_install <- function(pkg_name) {
-  if (!requireNamespace(pkg_name, quietly = TRUE)) {
+  if (!package_installed(pkg_name)) {
     install.packages(pkg_name)
-    loadNamespace(pkg_name)
+    if (!package_installed(pkg_name)) {
+      stopc("Error installing package ", pkg_name, " or one of its dependencies.")
+    }
   }
+}
+
+package_installed <- function(pkg_name) {
+  path <- system.file("DESCRIPTION", package = pkg_name)
+  file.exists(path)
 }
