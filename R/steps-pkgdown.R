@@ -4,7 +4,7 @@ BuildPkgdown <- R6Class(
   public = list(
     run = function() {
       remotes::install_local(".")
-      pkgdown::build_site()
+      pkgdown::build_site(preview = FALSE)
     },
 
     prepare = function() {
