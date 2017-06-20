@@ -29,6 +29,7 @@ Stage <- R6Class(
 
     prepare_all = function() {
       lapply(private$steps, private$prepare_one)
+      invisible()
     },
 
     run_all = function() {
