@@ -8,8 +8,9 @@ BuildPkgdown <- R6Class(
     },
 
     prepare = function() {
+      verify_install("remotes")
       if (!requireNamespace("pkgdown", quietly = TRUE))
-        devtools::install_github("hadley/pkgdown")
+        remotes::install_github("hadley/pkgdown")
     }
   )
 )
