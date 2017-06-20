@@ -3,7 +3,7 @@ BuildPkgdown <- R6Class(
 
   public = list(
     run = function() {
-      devtools::install(".")
+      remotes::install(".")
       pkgdown::build_site()
     },
 
