@@ -8,7 +8,7 @@ BuildPkgdown <- R6Class(
 
     prepare = function() {
       verify_install("remotes")
-      remotes::install_github("krlmr/pkgdown@b-pkgload")
+      remotes::install_github("krlmlr/pkgdown@b-pkgload")
     }
   )
 )
