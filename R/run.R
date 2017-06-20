@@ -1,6 +1,7 @@
 #' @export
 prepare_all_stages <- function(stages = load_from_file()) {
   lapply(stages, function(stage) stage$prepare_all())
+  invisible()
 }
 
 #' @export
