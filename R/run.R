@@ -1,6 +1,8 @@
 #' @export
 prepare_all_stages <- function(stages = load_from_file()) {
-  lapply(stages, function(stage) stage$prepare_all())
+  with_traceback(
+    lapply(stages, function(stage) stage$prepare_all())
+  )
   invisible()
 }
 
@@ -8,7 +10,9 @@ prepare_all_stages <- function(stages = load_from_file()) {
 run_stage <- function(name, stages = load_from_file()) {
   stage <- stages[[name]]
   if (!is.null(stage)) {
-    stage$run_all()
+    with_traceback(
+      stage$run_all()
+    )
   }
 }
 

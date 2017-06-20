@@ -44,3 +44,10 @@ package_installed <- function(pkg_name) {
   path <- system.file("DESCRIPTION", package = pkg_name)
   file.exists(path)
 }
+
+with_traceback <- function(...) {
+  withr::with_options(
+    list(error = expression({traceback(1); if (!interactive()) q(status = 1)})),
+    ...
+  )
+}
