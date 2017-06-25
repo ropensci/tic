@@ -109,11 +109,13 @@ PushDeploy <- R6Class(
     },
 
     prepare = function() {
-      private$init()
+      private$init_repo()
+      private$init_author()
       private$fetch()
     },
 
     run = function() {
+      private$init_repo()
       private$commit()
       private$push()
     }
@@ -129,10 +131,12 @@ PushDeploy <- R6Class(
     repo = NULL,
     remote_name = "origin",
 
-    init = function() {
+    init_repo = function() {
       message("Initializing Git repo at ", private$path)
       private$repo <- git2r::init(private$path)
+    },
 
+    init_author = function() {
       latest_commit <- get_head_commit(git2r::head(git2r::repository(".")))
       print(latest_commit)
 
