@@ -133,6 +133,7 @@ PushDeploy <- R6Class(
 
     init_repo = function() {
       message("Initializing Git repo at ", private$path)
+      dir.create(private$path, recursive = TRUE)
       private$repo <- git2r::init(private$path)
     },
 
