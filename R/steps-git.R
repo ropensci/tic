@@ -21,7 +21,7 @@ AddToKnownHosts <- R6Class(
     },
 
     check = function() {
-      # only if non-interactive and keyscan is ssh-available
+      # only if non-interactive and ssh-keyscan is available
       (!ci()$is_interactive()) && (Sys.which("ssh-keyscan") != "")
     }
   ),
