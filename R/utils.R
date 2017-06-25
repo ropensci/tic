@@ -51,3 +51,8 @@ with_traceback <- function(...) {
     ...
   )
 }
+
+format_traceback <- function() {
+  x <- .traceback(rev(sys.calls()))
+  paste0(format(seq_along(x)), ". ", x, collapse = "\n")
+}

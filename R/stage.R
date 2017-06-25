@@ -79,11 +79,19 @@ Stage <- R6Class(
 
       tryCatch(
         {
-          step$run()
-          TRUE
+          withCallingHandlers(
+            {
+              step$run()
+              TRUE
+            },
+            error = function(e) {
+              ci()$cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
+              tb <- format_traceback()
+              ci()$cat_with_color(crayon::yellow(tb))
+            }
+          )
         },
         error = function(e) {
-          ci()$cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
           FALSE
         }
       )

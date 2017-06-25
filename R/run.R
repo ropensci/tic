@@ -10,9 +10,7 @@ prepare_all_stages <- function(stages = load_from_file()) {
 run_stage <- function(name, stages = load_from_file()) {
   stage <- stages[[name]]
   if (!is.null(stage)) {
-    with_traceback(
-      stage$run_all()
-    )
+    stage$run_all()
   }
 }
 
