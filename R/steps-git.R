@@ -108,9 +108,12 @@ PushDeploy <- R6Class(
       private$commit_message <- commit_message
     },
 
-    run = function() {
+    prepare = function() {
       private$init()
       private$fetch()
+    },
+
+    run = function() {
       private$commit()
       private$push()
     }
