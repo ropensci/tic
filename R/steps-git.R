@@ -309,8 +309,8 @@ PushDeploy <- R6Class(
   ),
 
   private = list(
-    setup <- NULL,
-    do <- NULL
+    setup = NULL,
+    do = NULL
   )
 )
 
