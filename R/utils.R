@@ -31,7 +31,12 @@ cat_line <- function(...) {
   cat(..., "\n", sep = "")
 }
 
-verify_install <- function(pkg_name) {
+verify_install <- function(...) {
+  pkg_names <- c(...)
+  lapply(pkg_names, verify_install_one)
+}
+
+verify_install_one <- function(pkg_name) {
   if (!package_installed(pkg_name)) {
     install.packages(pkg_name)
     if (!package_installed(pkg_name)) {

@@ -22,6 +22,7 @@ Imports:
     R6,
     withr
 Suggests:
+    drat,
     openssl,
     rcmdcheck,
     remotes,
@@ -41,6 +42,7 @@ Collate:
     'stage.R'
     'steps-base.R'
     'steps-code.R'
+    'steps-drat.R'
     'steps-git.R'
     'steps-pkgdown.R'
     'steps-rcmdcheck.R'
