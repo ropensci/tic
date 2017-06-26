@@ -16,6 +16,7 @@ AddToKnownHosts <- R6Class(
       cat(keyscan_result, "\n", sep = "")
 
       known_hosts_path <- file.path("~", ".ssh", "known_hosts")
+      dir.create(dirname(known_hosts_path), showWarnings = FALSE, recursive = TRUE)
       message("Adding to ", known_hosts_path)
       write(keyscan_result, known_hosts_path, append = TRUE)
     },
