@@ -3,4 +3,6 @@
 #' this package. See [DSL] for an overview of \pkg{tic}'s domain-specific
 #' language for defining stages and steps, and [step_hello_world()] and the
 #' links therein for available steps.
+#' @importFrom crayon has_color
+#' @importFrom memoise memoise
 "_PACKAGE"
