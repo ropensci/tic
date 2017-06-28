@@ -38,7 +38,7 @@ verify_install <- function(...) {
 
 verify_install_one <- function(pkg_name) {
   if (!package_installed(pkg_name)) {
-    install.packages(pkg_name)
+    utils::install.packages(pkg_name)
     if (!package_installed(pkg_name)) {
       stopc("Error installing package ", pkg_name, " or one of its dependencies.")
     }

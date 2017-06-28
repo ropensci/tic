@@ -18,5 +18,11 @@ AddToDrat <- R6Class(
   )
 )
 
+#' Step: Add built package to a drat
+#'
+#' Builds a package (binary on OS X or Windows) and inserts it into an existing
+#' \pkg{drat} repository via [drat::insertPackage()].
+#'
+#' @family steps
 #' @export
 step_add_to_drat <- AddToDrat$new

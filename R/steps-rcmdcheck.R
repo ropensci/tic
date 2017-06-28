@@ -33,5 +33,15 @@ RCMDcheck <- R6Class(
   )
 )
 
+#' Step: Check a package
+#'
+#' Check a package using \pkg{rcmdcheck}, which ultimately calls `R CMD check`.
+#'
+#' @param warnings_are_errors `[flag]`\cr
+#'   Should warnings be treated as errors? Default: `TRUE`.
+#' @param notes_are_errors `[flag]`\cr
+#'   Should notes be treated as errors? Default: `FALSE`.
+#' @param args `[character]`\cr
+#'   Passed to `[rcmdcheck::rcmdcheck()]`, default: `"--no-manual"`.
 #' @export
 step_rcmdcheck <- RCMDcheck$new

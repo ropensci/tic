@@ -32,6 +32,12 @@ AddToKnownHosts <- R6Class(
   )
 )
 
+#' Step: Add to known hosts
+#'
+#' Adds a host name to the `~/.ssh/known_hosts` file to allow subsequent
+#' SSH access.
+#'
+#' @family steps
 #' @export
 step_add_to_known_hosts <- AddToKnownHosts$new
 
@@ -62,6 +68,15 @@ InstallSSHKeys <- R6Class(
   )
 )
 
+#' Step: Install an SSH key
+#'
+#' Writes a private SSH key encoded in the `id_rsa` environment variable
+#' to `~/.ssh/id_rsa`.
+#' Only run in non-interactive settings and if the `id_rsa` environment variable
+#' exists and is non-empty.
+#'
+#' @family steps
+#' @seealso [travis::use_travis_deploy()], [travis::use_tic()]
 #' @export
 step_install_ssh_keys <- InstallSSHKeys$new
 
@@ -86,6 +101,18 @@ TestSSH <- R6Class(
   )
 )
 
+#' Step: Test SSH connection
+#'
+#' Establishes an SSH connection.
+#' This step doesn't fail if the connection cannot be established,
+#' but prints verbose output by default.
+#'
+#' @param host `[string]\cr
+#'   URL to establish SSH connection with, by default `git@github.com`
+#' @param verbose `[string]`\cr
+#'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
+#'
+#' @family steps
 #' @export
 step_test_ssh <- TestSSH$new
 
@@ -219,6 +246,29 @@ SetupPushDeploy <- R6Class(
   )
 )
 
+#' Step: Setup push deploy
+#'
+#' Clones a repo, inits author information, and sets up remotes
+#' for a subsequent [step_do_push_deploy()].
+#'
+#' @param path `[string]`\cr
+#'   Path to the repository, default `"."` which means setting up the current
+#'   repository.
+#' @param branch `[string]\cr
+#'   Target branch, default: current branch
+#' @param orphan `[flag]\cr
+#'   Create and force-push an orphan branch consisting of only one commit?
+#'   This can be useful e.g. for `path = "docs", branch = "gh-pages"`,
+#'   but cannot be applied for pushing to the current branch.
+#' @param remote_url `[string]`\cr
+#'   The URL of the remote Git repository to push to, defaults to the
+#'   current GitHub repository.
+#' @param checkout `[flag]`\cr
+#'   Check out the current contents of the repository? Defaults to `FALSE`,
+#'   useful if the build process relies on existing contents.
+#'
+#' @family deploy steps
+#' @family steps
 #' @export
 step_setup_push_deploy <- SetupPushDeploy$new
 
@@ -283,6 +333,18 @@ DoPushDeploy <- R6Class(
   )
 )
 
+#' Step: Perform push deploy
+#'
+#' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
+#'
+#' @inheritParams step_setup_push_deploy
+#' @param commit_message `[string]`\cr
+#'   Commit message to use, defaults to a useful message linking to the CI build
+#'   and avoiding recursive CI runs.
+#'
+#' @family deploy steps
+#' @family steps
+#'
 #' @export
 step_do_push_deploy <- DoPushDeploy$new
 
@@ -316,5 +378,18 @@ PushDeploy <- R6Class(
   )
 )
 
+#' Step: Setup and perform push deploy
+#'
+#' Clones a repo, inits author information, sets up remotes,
+#' commits, and pushes.
+#' Combines [step_setup_push_deploy()] with `checkout = FALSE` and
+#' [step_do_push_deploy()].
+#'
+#' @inheritParams step_setup_push_deploy
+#' @inheritParams step_do_push_deploy
+#'
+#' @family deploy steps
+#' @family steps
+#'
 #' @export
 step_push_deploy <- PushDeploy$new

@@ -23,5 +23,15 @@ WriteTextFile <- R6Class(
   )
 )
 
+#' Step: Write a text file
+#'
+#' Creates a text file with arbitrary contents
+#'
+#' @param ... `[character]`\cr
+#'   Contents of the text file.
+#' @param path `[string]`\cr
+#'   Path to the new text file.
+#'
+#' @family steps
 #' @export
 step_write_text_file <- WriteTextFile$new

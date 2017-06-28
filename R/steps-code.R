@@ -28,5 +28,17 @@ RunCode <- R6Class(
   )
 )
 
+#' Step: Run arbitrary code
+#'
+#' Captures the expression and executes it when running the step.
+#' If the top-level expression is a qualified function call (of the format
+#' `package::fun()`), the package is installed during preparation.
+#'
+#' @family steps
+#' @examples
+#' step_run_code(update.packages(ask = FALSE))
+#'
+#' # Will install covr from CRAN during preparation:
+#' step_run_code(covr::codecov())
 #' @export
 step_run_code <- RunCode$new
