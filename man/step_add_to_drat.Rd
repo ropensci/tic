@@ -9,6 +9,7 @@ step_add_to_drat()
 \description{
 Builds a package (binary on OS X or Windows) and inserts it into an existing
 \pkg{drat} repository via \code{\link[drat:insertPackage]{drat::insertPackage()}}.
+Also knits the \code{index.Rmd} file of the drat if it exists.
 }
 \seealso{
 Other steps: \code{\link{step_add_to_known_hosts}},
