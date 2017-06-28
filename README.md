@@ -18,17 +18,23 @@ remotes::install_github("ropenscilabs/tic")
 
 ## Example applications
 
-- [R package with pkgdown documentation](https://github.com/krlmlr/tic.package) [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.package.svg?branch=master)](https://travis-ci.org/krlmlr/tic.package) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic-package?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic-package) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.package/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.package?branch=master)
+- [R package with pkgdown documentation](https://github.com/krlmlr/tic.package)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.package.svg?branch=master)](https://travis-ci.org/krlmlr/tic.package) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic-package?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic-package) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.package/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.package?branch=master)
 
-- [R package with packagedocs documentation](https://github.com/krlmlr/tic.packagedocs) [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.packagedocs.svg?branch=master)](https://travis-ci.org/krlmlr/tic.packagedocs) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.packagedocs?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic.packagedocs) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.packagedocs/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.packagedocs?branch=master)
+- [R package with packagedocs documentation](https://github.com/krlmlr/tic.packagedocs)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.packagedocs.svg?branch=master)](https://travis-ci.org/krlmlr/tic.packagedocs) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.packagedocs?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic.packagedocs) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.packagedocs/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.packagedocs?branch=master)
 
-- [R package with auto-deploy to drat](https://github.com/krlmlr/tic.drat) [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.drat.svg?branch=master)](https://travis-ci.org/krlmlr/tic.drat) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.drat?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic.drat) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.drat/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.drat?branch=master)
+- [R package with auto-deploy to drat](https://github.com/krlmlr/tic.drat)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.drat.svg?branch=master)](https://travis-ci.org/krlmlr/tic.drat) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.drat?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic.drat) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.drat/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.drat?branch=master)
 
-- [An rmarkdown website](https://github.com/krlmlr/tic.website) [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.website.svg?branch=master)](https://travis-ci.org/krlmlr/tic.website)
+- [An rmarkdown website](https://github.com/krlmlr/tic.website)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.website.svg?branch=master)](https://travis-ci.org/krlmlr/tic.website)
 
-- [A bookdown book](https://github.com/krlmlr/tic.bookdown) [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.bookdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.bookdown)
+- [A bookdown book](https://github.com/krlmlr/tic.bookdown)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.bookdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.bookdown)
 
-- [A blogdown blog](https://github.com/krlmlr/tic.blogdown) [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.blogdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.blogdown)
+- [A blogdown blog](https://github.com/krlmlr/tic.blogdown)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.blogdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.blogdown)
 
 
 
