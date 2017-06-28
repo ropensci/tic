@@ -29,7 +29,7 @@ TicDSL <- R6Class(
     },
 
     add_step = function(stage, step) {
-      stage$add_step(step)
+      stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
     },
 
     add_task = function(stage, run, check = NULL, prepare = NULL) {

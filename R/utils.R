@@ -30,3 +30,34 @@ warning_once <- memoise::memoise(warningc)
 cat_line <- function(...) {
   cat(..., "\n", sep = "")
 }
+
+verify_install <- function(...) {
+  pkg_names <- c(...)
+  lapply(pkg_names, verify_install_one)
+}
+
+verify_install_one <- function(pkg_name) {
+  if (!package_installed(pkg_name)) {
+    install.packages(pkg_name)
+    if (!package_installed(pkg_name)) {
+      stopc("Error installing package ", pkg_name, " or one of its dependencies.")
+    }
+  }
+}
+
+package_installed <- function(pkg_name) {
+  path <- system.file("DESCRIPTION", package = pkg_name)
+  file.exists(path)
+}
+
+with_traceback <- function(...) {
+  withr::with_options(
+    list(error = expression({traceback(1); if (!interactive()) q(status = 1)})),
+    ...
+  )
+}
+
+format_traceback <- function() {
+  x <- .traceback(rev(sys.calls()))
+  paste0(format(seq_along(x)), ". ", x, collapse = "\n")
+}

@@ -3,13 +3,12 @@ BuildPkgdown <- R6Class(
 
   public = list(
     run = function() {
-      devtools::install(".")
-      pkgdown::build_site()
+      pkgdown::build_site(preview = FALSE)
     },
 
     prepare = function() {
-      if (!requireNamespace("pkgdown", quietly = TRUE))
-        devtools::install_github("hadley/pkgdown")
+      verify_install("remotes")
+      remotes::install_github("hadley/pkgdown")
     }
   )
 )

@@ -1,7 +1,7 @@
 Package: tic
 Type: Package
 Title: Tasks Integrating Continuously
-Version: 0.2-8
+Version: 0.2-9
 Authors@R: c(
     person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
@@ -19,11 +19,13 @@ Imports:
     git2r,
     magrittr,
     memoise,
-    remotes,
     R6,
     withr
 Suggests:
+    drat,
     openssl,
+    rcmdcheck,
+    remotes,
     testthat
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
@@ -40,8 +42,10 @@ Collate:
     'stage.R'
     'steps-base.R'
     'steps-code.R'
+    'steps-drat.R'
     'steps-git.R'
     'steps-pkgdown.R'
+    'steps-rcmdcheck.R'
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'

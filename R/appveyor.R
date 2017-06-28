@@ -14,7 +14,7 @@ AppVeyorCI <- R6Class(
       self$get_tag() != ""
     },
     get_slug = function() {
-      Sys.getenv("APPVEYOR_PROJECT_SLUG")
+      Sys.getenv("APPVEYOR_REPO_NAME")
     },
     get_build_number = function() {
       paste0("AppVeyor build ", Sys.getenv("APPVEYOR_BUILD_NUMBER"))

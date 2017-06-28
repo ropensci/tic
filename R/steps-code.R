@@ -17,9 +17,7 @@ RunCode <- R6Class(
       func_name <- private$call[[1]]
       if (is.call(func_name) && func_name[[1]] == quote(`::`)) {
         pkg_name <- as.character(func_name[[2]])
-        if (!requireNamespace(pkg_name, quietly = TRUE)) {
-          install.packages(pkg_name)
-        }
+        verify_install(pkg_name)
       }
     }
   ),

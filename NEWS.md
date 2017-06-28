@@ -1,3 +1,15 @@
+## tic 0.2-9 (2017-06-28)
+
+- Fix `get_slug()` on AppVeyor to use `APPVEYOR_REPO_NAME`.
+- New `step_add_to_drat()`.
+- Split `step_push_deploy()` into `step_setup_push_deploy()` and `step_do_push_deploy()`.
+- Better traceback output.
+- Use "remotes" instead of "devtools".
+- Reduce output after preparation (#5).
+- New `step_rcmdcheck()`.
+- The deparsed code is used as step name (#5).
+
+
 ## tic 0.2-8 (2017-06-17)
 
 - An error occurring when running a step is printed in red (#5).

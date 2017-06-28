@@ -7,9 +7,9 @@ Stage <- R6Class(
       private$steps <- list()
     },
 
-    add_step = function(step) {
+    add_step = function(step, code) {
       self$add_task(run = step$run, check = step$check, prepare = step$prepare,
-                    name = class(step)[[1]])
+                    name = code)
     },
 
     add_task = function(run, check = NULL, prepare = NULL, name = NULL) {
@@ -29,6 +29,7 @@ Stage <- R6Class(
 
     prepare_all = function() {
       lapply(private$steps, private$prepare_one)
+      invisible()
     },
 
     run_all = function() {
@@ -78,11 +79,19 @@ Stage <- R6Class(
 
       tryCatch(
         {
-          step$run()
-          TRUE
+          withCallingHandlers(
+            {
+              step$run()
+              TRUE
+            },
+            error = function(e) {
+              ci()$cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
+              tb <- format_traceback()
+              ci()$cat_with_color(crayon::yellow(tb))
+            }
+          )
         },
         error = function(e) {
-          ci()$cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
           FALSE
         }
       )
