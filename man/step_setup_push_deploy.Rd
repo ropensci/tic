@@ -13,7 +13,7 @@ step_setup_push_deploy(path = ".", branch = ci()$get_branch(),
 Path to the repository, default \code{"."} which means setting up the current
 repository.}
 
-\item{branch}{`\link{string}\cr
+\item{branch}{\code{[string]}\cr
 Target branch, default: current branch}
 
 \item{orphan}{\code{[flag]\cr Create and force-push an orphan branch consisting of only one commit? This can be useful e.g. for}path = "docs", branch = "gh-pages"`,

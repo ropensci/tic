@@ -264,7 +264,7 @@ SetupPushDeploy <- R6Class(
 #' @param path `[string]`\cr
 #'   Path to the repository, default `"."` which means setting up the current
 #'   repository.
-#' @param branch `[string]\cr
+#' @param branch `[string]`\cr
 #'   Target branch, default: current branch
 #' @param orphan `[flag]\cr
 #'   Create and force-push an orphan branch consisting of only one commit?
