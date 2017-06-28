@@ -16,7 +16,9 @@ repository.}
 \item{branch}{\code{[string]}\cr
 Target branch, default: current branch}
 
-\item{orphan}{\code{[flag]\cr Create and force-push an orphan branch consisting of only one commit? This can be useful e.g. for}path = "docs", branch = "gh-pages"`,
+\item{orphan}{\code{[flag]}\cr
+Create and force-push an orphan branch consisting of only one commit?
+This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
 but cannot be applied for pushing to the current branch.}
 
 \item{remote_url}{\code{[string]}\cr

@@ -7,7 +7,8 @@
 step_test_ssh(host = "git@github.com", verbose = "-v")
 }
 \arguments{
-\item{host}{\code{[string]\cr URL to establish SSH connection with, by default}git@github.com`}
+\item{host}{\code{[string]}\cr
+URL to establish SSH connection with, by default \code{git@github.com}}
 
 \item{verbose}{\code{[string]}\cr
 Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}

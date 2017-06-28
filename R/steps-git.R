@@ -115,7 +115,7 @@ TestSSH <- R6Class(
 #' This step doesn't fail if the connection cannot be established,
 #' but prints verbose output by default.
 #'
-#' @param host `[string]\cr
+#' @param host `[string]`\cr
 #'   URL to establish SSH connection with, by default `git@github.com`
 #' @param verbose `[string]`\cr
 #'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
@@ -266,7 +266,7 @@ SetupPushDeploy <- R6Class(
 #'   repository.
 #' @param branch `[string]`\cr
 #'   Target branch, default: current branch
-#' @param orphan `[flag]\cr
+#' @param orphan `[flag]`\cr
 #'   Create and force-push an orphan branch consisting of only one commit?
 #'   This can be useful e.g. for `path = "docs", branch = "gh-pages"`,
 #'   but cannot be applied for pushing to the current branch.
