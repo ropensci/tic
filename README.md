@@ -11,8 +11,8 @@ The intended usage is as follows:
 You can install tic from github with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ropenscilabs/tic")
+# install.packages("remotes")
+remotes::install_github("ropenscilabs/tic")
 ```
 
 
