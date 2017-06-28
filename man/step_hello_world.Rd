@@ -2,12 +2,12 @@
 % Please edit documentation in R/steps-base.R
 \name{step_hello_world}
 \alias{step_hello_world}
-\title{Step: Hello World!}
+\title{Step: Hello, world!}
 \usage{
-step_hello_world(...)
+step_hello_world()
 }
 \description{
-Prints "Hello World!" to the console.
+Prints "Hello, world!" to the console.
 }
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},

@@ -47,10 +47,12 @@ HelloWorld <- R6Class(
   )
 )
 
-#' Step: Hello World!
+#' Step: Hello, world!
 #'
-#' Prints "Hello World!" to the console.
+#' Prints "Hello, world!" to the console.
 #'
 #' @family steps
 #' @export
-step_hello_world <- HelloWorld$new
+step_hello_world <- function() {
+  HelloWorld$new()
+}
