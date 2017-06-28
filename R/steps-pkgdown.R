@@ -19,4 +19,6 @@ BuildPkgdown <- R6Class(
 #'
 #' @family steps
 #' @export
-step_build_pkgdown <- BuildPkgdown$new
+step_build_pkgdown <- function() {
+  BuildPkgdown$new()
+}

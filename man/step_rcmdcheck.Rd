@@ -4,7 +4,8 @@
 \alias{step_rcmdcheck}
 \title{Step: Check a package}
 \usage{
-step_rcmdcheck(...)
+step_rcmdcheck(warnings_are_errors = TRUE, notes_are_errors = FALSE,
+  args = "--no-manual")
 }
 \arguments{
 \item{warnings_are_errors}{\code{[flag]}\cr

@@ -4,7 +4,11 @@
 \alias{step_run_code}
 \title{Step: Run arbitrary code}
 \usage{
-step_run_code(...)
+step_run_code(call)
+}
+\arguments{
+\item{call}{`\link{call}\cr
+An arbitrary expression.}
 }
 \description{
 Captures the expression and executes it when running the step.

@@ -2,7 +2,7 @@ AddToKnownHosts <- R6Class(
   "AddToKnownHosts", inherit = TicStep,
 
   public = list(
-    initialize = function(host) {
+    initialize = function(host = "github.com") {
       private$host <- host
     },
 
@@ -36,10 +36,16 @@ AddToKnownHosts <- R6Class(
 #'
 #' Adds a host name to the `~/.ssh/known_hosts` file to allow subsequent
 #' SSH access.
+#' Requires `ssh-keyscan` on the system `PATH`.
+#'
+#' @param host `[string]`\cr
+#'   The host name to add to the `known_hosts` file, default: `github.com`.
 #'
 #' @family steps
 #' @export
-step_add_to_known_hosts <- AddToKnownHosts$new
+step_add_to_known_hosts <- function(host = "github.com") {
+  AddToKnownHosts$new(host = host)
+}
 
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys", inherit = TicStep,
@@ -78,7 +84,9 @@ InstallSSHKeys <- R6Class(
 #' @family steps
 #' @seealso [travis::use_travis_deploy()], [travis::use_tic()]
 #' @export
-step_install_ssh_keys <- InstallSSHKeys$new
+step_install_ssh_keys <- function() {
+  InstallSSHKeys$new()
+}
 
 TestSSH <- R6Class(
   "TestSSH", inherit = TicStep,
@@ -114,7 +122,9 @@ TestSSH <- R6Class(
 #'
 #' @family steps
 #' @export
-step_test_ssh <- TestSSH$new
+step_test_ssh <- function(host = "git@github.com", verbose = "-v") {
+  TestSSH$new(host = host, verbose = verbose)
+}
 
 Git <- R6Class(
   "Git",
@@ -270,7 +280,14 @@ SetupPushDeploy <- R6Class(
 #' @family deploy steps
 #' @family steps
 #' @export
-step_setup_push_deploy <- SetupPushDeploy$new
+step_setup_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+                                   remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+                                   checkout = TRUE) {
+  SetupPushDeploy$new(
+    path = path, branch = branch, orphan = orphan,
+    remote_url = remote_url, checkout = TRUE
+  )
+}
 
 DoPushDeploy <- R6Class(
   "PushDeploy", inherit = TicStep,
@@ -346,7 +363,9 @@ DoPushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
-step_do_push_deploy <- DoPushDeploy$new
+step_do_push_deploy <- function(path = ".", commit_message = NULL) {
+  DoPushDeploy$new(path = path, commit_message = commit_message)
+}
 
 PushDeploy <- R6Class(
   "PushDeploy", inherit = TicStep,
@@ -392,4 +411,12 @@ PushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
-step_push_deploy <- PushDeploy$new
+step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+                             remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+                             commit_message = NULL) {
+  PushDeploy$new(
+    path = path, branch = branch, orphan = orphan,
+    remote_url = remote_url,
+    commit_message = commit_message
+  )
+}

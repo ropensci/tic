@@ -4,11 +4,16 @@
 \alias{step_add_to_known_hosts}
 \title{Step: Add to known hosts}
 \usage{
-step_add_to_known_hosts(...)
+step_add_to_known_hosts(host = "github.com")
+}
+\arguments{
+\item{host}{\code{[string]}\cr
+The host name to add to the \code{known_hosts} file, default: \code{github.com}.}
 }
 \description{
 Adds a host name to the \code{~/.ssh/known_hosts} file to allow subsequent
 SSH access.
+Requires \code{ssh-keyscan} on the system \code{PATH}.
 }
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},

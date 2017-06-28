@@ -25,4 +25,6 @@ AddToDrat <- R6Class(
 #'
 #' @family steps
 #' @export
-step_add_to_drat <- AddToDrat$new
+step_add_to_drat <- function() {
+  AddToDrat$new()
+}

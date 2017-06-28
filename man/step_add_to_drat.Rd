@@ -4,7 +4,7 @@
 \alias{step_add_to_drat}
 \title{Step: Add built package to a drat}
 \usage{
-step_add_to_drat(...)
+step_add_to_drat()
 }
 \description{
 Builds a package (binary on OS X or Windows) and inserts it into an existing

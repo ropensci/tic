@@ -4,9 +4,13 @@
 \alias{step_do_push_deploy}
 \title{Step: Perform push deploy}
 \usage{
-step_do_push_deploy(...)
+step_do_push_deploy(path = ".", commit_message = NULL)
 }
 \arguments{
+\item{path}{\code{[string]}\cr
+Path to the repository, default \code{"."} which means setting up the current
+repository.}
+
 \item{commit_message}{\code{[string]}\cr
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}

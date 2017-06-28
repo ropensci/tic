@@ -34,4 +34,6 @@ WriteTextFile <- R6Class(
 #'
 #' @family steps
 #' @export
-step_write_text_file <- WriteTextFile$new
+step_write_text_file <- function(..., path) {
+  WriteTextFile$new(..., path)
+}

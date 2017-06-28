@@ -4,7 +4,28 @@
 \alias{step_push_deploy}
 \title{Step: Setup and perform push deploy}
 \usage{
-step_push_deploy(...)
+step_push_deploy(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+  remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+  commit_message = NULL)
+}
+\arguments{
+\item{path}{\code{[string]}\cr
+Path to the repository, default \code{"."} which means setting up the current
+repository.}
+
+\item{branch}{`\link{string}\cr
+Target branch, default: current branch}
+
+\item{orphan}{\code{[flag]\cr Create and force-push an orphan branch consisting of only one commit? This can be useful e.g. for}path = "docs", branch = "gh-pages"`,
+but cannot be applied for pushing to the current branch.}
+
+\item{remote_url}{\code{[string]}\cr
+The URL of the remote Git repository to push to, defaults to the
+current GitHub repository.}
+
+\item{commit_message}{\code{[string]}\cr
+Commit message to use, defaults to a useful message linking to the CI build
+and avoiding recursive CI runs.}
 }
 \description{
 Clones a repo, inits author information, sets up remotes,

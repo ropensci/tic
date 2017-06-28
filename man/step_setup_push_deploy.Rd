@@ -4,7 +4,9 @@
 \alias{step_setup_push_deploy}
 \title{Step: Setup push deploy}
 \usage{
-step_setup_push_deploy(...)
+step_setup_push_deploy(path = ".", branch = ci()$get_branch(),
+  orphan = FALSE, remote_url = paste0("git@github.com:", ci()$get_slug(),
+  ".git"), checkout = TRUE)
 }
 \arguments{
 \item{path}{\code{[string]}\cr

@@ -4,7 +4,7 @@
 \alias{step_write_text_file}
 \title{Step: Write a text file}
 \usage{
-step_write_text_file(...)
+step_write_text_file(..., path)
 }
 \arguments{
 \item{...}{\code{[character]}\cr

@@ -4,7 +4,7 @@
 \alias{step_build_pkgdown}
 \title{Step: Build pkgdown documentation}
 \usage{
-step_build_pkgdown(...)
+step_build_pkgdown()
 }
 \description{
 Builds package documentation with the \pkg{pkgdown} package.
