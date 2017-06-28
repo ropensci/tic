@@ -26,6 +26,8 @@ prepare_all_stages <- function(stages = load_from_file()) {
 #' @seealso [TicStep]
 #' @family runners
 #'
+#' @param name `[string]`\cr
+#'   The name of the stage to run.
 #' @inheritParams prepare_all_stages
 #'
 #' @export

@@ -7,6 +7,9 @@
 run_stage(name, stages = load_from_file())
 }
 \arguments{
+\item{name}{\code{[string]}\cr
+The name of the stage to run.}
+
 \item{stages}{\code{[named list]}
 A named list of \code{Stage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
 by default loaded from \code{tic.R}.}
