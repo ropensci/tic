@@ -1,3 +1,12 @@
+## tic 0.2-11 (2017-06-29)
+
+- `add_package_checks()` gains arguments that are passed to `step_rcmdcheck()`.
+- New `step_setup_ssh()` (#24).
+- New `add_code_step()` (#21).
+- New `tic()` to run all steps locally (#23).
+- New `add_package_checks()` (#25).
+
+
 ## tic 0.2-10 (2017-06-29)
 
 - Document all exported functions and many classes (#8).
