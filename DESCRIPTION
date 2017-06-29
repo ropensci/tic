@@ -48,6 +48,7 @@ Collate:
     'steps-git.R'
     'steps-pkgdown.R'
     'steps-rcmdcheck.R'
+    'steps-ssh.R'
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
