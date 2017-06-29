@@ -56,6 +56,8 @@ InstallSSHKeys <- R6Class(
     },
 
     run = function() {
+      name <- private$name
+
       deploy_key_path <- file.path("~", ".ssh", name)
       dir.create(dirname(deploy_key_path), recursive = TRUE, showWarnings = FALSE)
       message("Writing deploy key to ", deploy_key_path)
