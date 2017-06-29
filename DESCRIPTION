@@ -1,7 +1,7 @@
 Package: tic
 Type: Package
 Title: Tasks Integrating Continuously
-Version: 0.2-10
+Version: 0.2-11
 Authors@R: c(
     person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
