@@ -136,3 +136,57 @@ TestSSH <- R6Class(
 step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
   TestSSH$new(url = url, verbose = verbose)
 }
+
+SetupSSH <- R6Class(
+  "SetupSSH", inherit = TicStep,
+
+  public = list(
+    initialize = function(name = "id_rsa", host = "github.com",
+                          url = paste0("git@", host), verbose = "-v") {
+      private$install_ssh_keys <- step_install_ssh_keys(name = name)
+      private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
+      private$test_ssh <- step_test_ssh(url = url, verbose = verbose)
+    },
+
+    prepare = function() {
+      private$install_ssh_keys$prepare()
+      private$add_to_known_hosts$prepare()
+      private$test_ssh$prepare()
+    },
+
+    run = function() {
+      private$install_ssh_keys$run()
+      private$add_to_known_hosts$run()
+      private$test_ssh$run()
+    },
+
+    check = function() {
+      if (!private$install_ssh_keys$check()) return(FALSE)
+      if (!private$add_to_known_hosts$check()) return(FALSE)
+      if (!private$test_ssh$check()) return(FALSE)
+      TRUE
+    }
+  ),
+
+  private = list(
+    add_to_known_hosts = NULL,
+    install_ssh_keys = NULL,
+    test_ssh = NULL
+  )
+)
+
+#' Step: Setup SSH
+#'
+#' Adds to known hosts, installs private key, and tests the connection.
+#' Chaining [step_install_ssh_keys()], [step_add_to_known_hosts()]
+#' and [step_test_ssh()].
+#'
+#' @inheritParams step_install_ssh_keys
+#' @inheritParams step_add_to_known_hosts
+#' @inheritParams step_test_ssh
+#'
+#' @export
+step_setup_ssh <- function(name = "id_rsa", host = "github.com",
+                           url = paste0("git@", host), verbose = "-v") {
+  SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
+}
