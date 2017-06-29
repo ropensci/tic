@@ -185,6 +185,8 @@ SetupSSH <- R6Class(
 #' @inheritParams step_add_to_known_hosts
 #' @inheritParams step_test_ssh
 #'
+#' @family steps
+#'
 #' @export
 step_setup_ssh <- function(name = "id_rsa", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
