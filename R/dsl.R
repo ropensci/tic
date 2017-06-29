@@ -114,6 +114,13 @@ DSL <- R6Class(
       add_step(stage, step)
     },
 
+    # NSE!
+    add_code_step = add_code_step,
+
+    add_package_checks = function() {
+      add_package_checks()
+    }
+
     add_task = function(stage, run, check = NULL, prepare = NULL) {
       stage$add_task(run, check, prepare)
     }
