@@ -140,8 +140,14 @@ DSL <- R6Class(
     # NSE!
     add_code_step = add_code_step,
 
-    add_package_checks = function() {
-      add_package_checks(private)
+    add_package_checks = function(warnings_are_errors = TRUE,
+                                  notes_are_errors = FALSE,
+                                  args = "--no-manual") {
+      add_package_checks(
+        warnings_are_errors = warnings_are_errors,
+        notes_are_errors = notes_are_errors,
+        args = args, private
+      )
     },
 
     add_task = function(stage, run, check = NULL, prepare = NULL) {
