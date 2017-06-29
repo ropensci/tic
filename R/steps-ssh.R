@@ -103,19 +103,19 @@ TestSSH <- R6Class(
   "TestSSH", inherit = TicStep,
 
   public = list(
-    initialize = function(host = "git@github.com", verbose = "-v") {
-      private$host <- host
+    initialize = function(url = "git@github.com", verbose = "-v") {
+      private$url <- url
       private$verbose <- verbose
     },
 
     run = function() {
-      message("Trying to ssh into git@github.com")
-      system2("ssh", c(private$host, private$verbose))
+      message("Trying to ssh into ", private$url)
+      system2("ssh", c(private$url, private$verbose))
     }
   ),
 
   private = list(
-    host = NULL,
+    url = NULL,
     verbose = NULL
   )
 )
@@ -126,13 +126,13 @@ TestSSH <- R6Class(
 #' This step doesn't fail if the connection cannot be established,
 #' but prints verbose output by default.
 #'
-#' @param host `[string]`\cr
+#' @param url `[string]`\cr
 #'   URL to establish SSH connection with, by default `git@github.com`
 #' @param verbose `[string]`\cr
 #'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
 #'
 #' @family steps
 #' @export
-step_test_ssh <- function(host = "git@github.com", verbose = "-v") {
-  TestSSH$new(host = host, verbose = verbose)
+step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
+  TestSSH$new(url = url, verbose = verbose)
 }

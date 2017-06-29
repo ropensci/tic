@@ -4,10 +4,10 @@
 \alias{step_test_ssh}
 \title{Step: Test SSH connection}
 \usage{
-step_test_ssh(host = "git@github.com", verbose = "-v")
+step_test_ssh(url = "git@github.com", verbose = "-v")
 }
 \arguments{
-\item{host}{\code{[string]}\cr
+\item{url}{\code{[string]}\cr
 URL to establish SSH connection with, by default \code{git@github.com}}
 
 \item{verbose}{\code{[string]}\cr
