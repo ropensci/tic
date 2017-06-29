@@ -29,12 +29,16 @@ load_from_file <- memoise::memoise(load_from_file_)
 #' @name DSL
 NULL
 
-#' @export
+#' @description
+#' `get_stage()` returns a Stage object for a stage given by name.
+#' This function only works when called by [load_from_file()].
+#'
 #' @param name `[string]`\cr
 #'   The name for the stage.
 #' @param private
 #'   For internal use.
 #' @rdname DSL
+#' @export
 get_stage <- function(name, private = NULL) {
   if (!exists(name, private$stages)) {
     assign(name, Stage$new(name), private$stages)
@@ -42,16 +46,23 @@ get_stage <- function(name, private = NULL) {
   get(name, private$stages)
 }
 
-#' @export
+#' @description
+#' `add_step()` adds a step to a stage, see [step_hello_world()]
+#' and the links therein for available steps.
+#'
 #' @param stage `[Stage]`\cr
 #'   A Stage object as returned by `get_stage()`.
 #' @param step `[function]`\cr
 #'   A function that constructs a Step object, such as [step_hello_world()].
 #' @rdname DSL
+#' @export
 add_step <- function(stage, step) {
   stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
 }
 
+#' @description
+#' `add_code_step()` is a shortcut for `add_step(step_run_code(...))`.
+#'
 #' @export
 #' @inheritParams step_run_code
 #' @rdname DSL
@@ -66,6 +77,20 @@ add_code_step <- function(stage, call) {
       ")"
     )
   )
+}
+
+#' @description
+#' `add_package_checks()` adds default steps related to package checks
+#' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
+#' stages.
+#'
+#' @rdname DSL
+#' @export
+add_package_checks <- function() {
+  add_code_step(get_stage("before_install"), utils::update.packages(ask = FALSE))
+  add_code_step(get_stage("install"), remotes::install_deps(dependencies = TRUE))
+  add_step(get_stage("script"), step_rcmdcheck())
+  add_code_step(get_stage("after_success"), covr::codecov(quiet = FALSE))
 }
 
 #' @importFrom magrittr %>%

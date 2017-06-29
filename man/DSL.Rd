@@ -5,6 +5,7 @@
 \alias{get_stage}
 \alias{add_step}
 \alias{add_code_step}
+\alias{add_package_checks}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name, private = NULL)
@@ -12,6 +13,8 @@ get_stage(name, private = NULL)
 add_step(stage, step)
 
 add_code_step(stage, call)
+
+add_package_checks()
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -31,4 +34,16 @@ An arbitrary expression.}
 \description{
 Functions to define stages and their constitutent
 steps.
+
+\code{get_stage()} returns a Stage object for a stage given by name.
+This function only works when called by \code{\link[=load_from_file]{load_from_file()}}.
+
+\code{add_step()} adds a step to a stage, see \code{\link[=step_hello_world]{step_hello_world()}}
+and the links therein for available steps.
+
+\code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
+
+\code{add_package_checks()} adds default steps related to package checks
+to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
+stages.
 }
