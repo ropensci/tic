@@ -119,7 +119,7 @@ DSL <- R6Class(
 
     add_package_checks = function() {
       add_package_checks()
-    }
+    },
 
     add_task = function(stage, run, check = NULL, prepare = NULL) {
       stage$add_task(run, check, prepare)
