@@ -146,7 +146,8 @@ DSL <- R6Class(
       add_package_checks(
         warnings_are_errors = warnings_are_errors,
         notes_are_errors = notes_are_errors,
-        args = args, private
+        args = args,
+        private = private
       )
     },
 
