@@ -1,14 +1,14 @@
 get_stage("before_install") %>%
-  add_step(step_run_code(update.packages(ask = FALSE)))
+  add_code_step(update.packages(ask = FALSE))
 
 get_stage("install") %>%
-  add_step(step_run_code(remotes::install_deps(dependencies = TRUE)))
+  add_code_step(remotes::install_deps(dependencies = TRUE))
 
 get_stage("script") %>%
   add_step(step_rcmdcheck())
 
 get_stage("after_success") %>%
-  add_step(step_run_code(covr::codecov(quiet = FALSE)))
+  add_code_step(covr::codecov(quiet = FALSE))
 
 if (ci()$is_tag() && Sys.getenv("BUILD_PKGDOWN") != "") {
   # pkgdown documentation can be built optionally. Other example criteria:

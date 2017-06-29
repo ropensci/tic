@@ -4,11 +4,14 @@
 \alias{DSL}
 \alias{get_stage}
 \alias{add_step}
+\alias{add_code_step}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name, private = NULL)
 
 add_step(stage, step)
+
+add_code_step(stage, call)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -21,6 +24,9 @@ A Stage object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
 A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
+
+\item{call}{\code{[call]}\cr
+An arbitrary expression.}
 }
 \description{
 Functions to define stages and their constitutent

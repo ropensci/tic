@@ -33,7 +33,7 @@ RunCode <- R6Class(
 #' If the top-level expression is a qualified function call (of the format
 #' `package::fun()`), the package is installed during preparation.
 #'
-#' @param call `[call]\cr
+#' @param call `[call]`\cr
 #'   An arbitrary expression.
 #'
 #' @family steps

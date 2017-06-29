@@ -52,6 +52,22 @@ add_step <- function(stage, step) {
   stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
 }
 
+#' @export
+#' @inheritParams step_run_code
+#' @rdname DSL
+add_code_step <- function(stage, call) {
+  call <- substitute(call)
+  step <- RunCode$new(.call = call)
+  stage$add_step(
+    step,
+    paste0(
+      "step_run_code(",
+      deparse(call, width.cutoff = 500, nlines = 1),
+      ")"
+    )
+  )
+}
+
 #' @importFrom magrittr %>%
 DSL <- R6Class(
   "DSL",
