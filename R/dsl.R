@@ -82,15 +82,26 @@ add_code_step <- function(stage, call) {
 #' @description
 #' `add_package_checks()` adds default steps related to package checks
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
-#' stages.
+#' stages:
 #'
 #' @rdname DSL
 #' @export
 add_package_checks <- function(private = NULL) {
+  #' @description
+  #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
+  #'    `"before_install"` stage (only for non-interactive CIs)
+  if (!ci()$is_interactive()) {
+    add_code_step(get_stage("before_install", private = private), utils::update.packages(ask = FALSE))
+  }
 
-  add_code_step(get_stage("before_install", private = private), utils::update.packages(ask = FALSE))
+  #' 1. A call to [remotes::install_deps()] with `dependencies = TRUE`
+  #'    in the `"install"` stage
   add_code_step(get_stage("install", private = private), remotes::install_deps(dependencies = TRUE))
+
+  #' 1. A [step_rcmdcheck()] in the `"script"` stage
   add_step(get_stage("script", private = private), step_rcmdcheck())
+
+  #' 1. A call to [covr::codecov()] in the `"after_success"` stage
   add_code_step(get_stage("after_success", private = private), covr::codecov(quiet = FALSE))
 }
 

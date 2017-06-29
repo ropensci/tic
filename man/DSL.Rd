@@ -14,7 +14,7 @@ add_step(stage, step)
 
 add_code_step(stage, call)
 
-add_package_checks()
+add_package_checks(private = NULL)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -45,5 +45,14 @@ and the links therein for available steps.
 
 \code{add_package_checks()} adds default steps related to package checks
 to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
-stages.
+stages:
+
+\enumerate{
+\item A call to \code{\link[utils:update.packages]{utils::update.packages()}} with \code{ask = FALSE} in the
+\code{"before_install"} stage (only for non-interactive CIs)
+\item A call to \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE}
+in the \code{"install"} stage
+\item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage
+\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage
+}
 }
