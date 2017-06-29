@@ -4,7 +4,7 @@
 \alias{step_install_ssh_keys}
 \title{Step: Install an SSH key}
 \usage{
-step_install_ssh_keys()
+step_install_ssh_keys(name = "id_rsa")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
