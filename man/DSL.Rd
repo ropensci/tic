@@ -62,7 +62,8 @@ stages:
 \code{"before_install"} stage (only for non-interactive CIs)
 \item A call to \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE}
 in the \code{"install"} stage
-\item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage
+\item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
+\code{warnings_are_errors}, \code{notes_are_errors} and \code{args} arguments
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage
 }
 }
