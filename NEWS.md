@@ -1,3 +1,8 @@
+## tic 0.2-12 (2017-06-29)
+
+- Fix `add_package_checks()`.
+
+
 ## tic 0.2-11 (2017-06-29)
 
 - `add_package_checks()` gains arguments that are passed to `step_rcmdcheck()`.
