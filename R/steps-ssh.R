@@ -51,14 +51,18 @@ InstallSSHKeys <- R6Class(
   "InstallSSHKeys", inherit = TicStep,
 
   public = list(
+    initialize = function(name = "id_rsa") {
+      private$name <- name
+    },
+
     run = function() {
-      deploy_key_path <- file.path("~", ".ssh", "id_rsa")
+      deploy_key_path <- file.path("~", ".ssh", name)
       dir.create(dirname(deploy_key_path), recursive = TRUE, showWarnings = FALSE)
       message("Writing deploy key to ", deploy_key_path)
       if (file.exists(deploy_key_path)) {
         stop("Not overwriting key", call. = FALSE)
       }
-      writeLines(rawToChar(openssl::base64_decode(Sys.getenv("id_rsa"))),
+      writeLines(rawToChar(openssl::base64_decode(Sys.getenv(name))),
                  deploy_key_path)
       Sys.chmod(deploy_key_path, "600")
     },
@@ -69,17 +73,24 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
       # only if non-interactive and id_rsa env var is available
-      (!ci()$is_interactive()) && (Sys.getenv("id_rsa") != "")
+      (!ci()$is_interactive()) && (Sys.getenv(private$name) != "")
     }
+  ),
+
+  private = list(
+    name = NULL
   )
 )
 
 #' Step: Install an SSH key
 #'
-#' Writes a private SSH key encoded in the `id_rsa` environment variable
-#' to `~/.ssh/id_rsa`.
-#' Only run in non-interactive settings and if the `id_rsa` environment variable
+#' Writes a private SSH key encoded in an environment variable
+#' to a file in `~/.ssh`.
+#' Only run in non-interactive settings and if the environment variable
 #' exists and is non-empty.
+#'
+#' @param name `[string]`\cr
+#'   Name of the environment variable and the target file, default: `"id_rsa"`.
 #'
 #' @family steps
 #' @seealso [travis::use_travis_deploy()], [travis::use_tic()]

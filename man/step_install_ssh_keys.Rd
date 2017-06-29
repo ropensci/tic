@@ -6,10 +6,14 @@
 \usage{
 step_install_ssh_keys()
 }
+\arguments{
+\item{name}{\code{[string]}\cr
+Name of the environment variable and the target file, default: \code{"id_rsa"}.}
+}
 \description{
-Writes a private SSH key encoded in the \code{id_rsa} environment variable
-to \code{~/.ssh/id_rsa}.
-Only run in non-interactive settings and if the \code{id_rsa} environment variable
+Writes a private SSH key encoded in an environment variable
+to a file in \code{~/.ssh}.
+Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
 }
 \seealso{
