@@ -11,9 +11,38 @@ The intended usage is as follows:
 You can install tic from github with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ropenscilabs/tic")
+# install.packages("remotes")
+remotes::install_github("ropenscilabs/tic")
 ```
+
+
+## Example applications
+
+- [R package with pkgdown documentation](https://github.com/krlmlr/tic.package)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.package.svg?branch=master)](https://travis-ci.org/krlmlr/tic.package) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic-package?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic-package) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.package/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.package?branch=master)
+
+- [R package with packagedocs documentation](https://github.com/krlmlr/tic.packagedocs)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.packagedocs.svg?branch=master)](https://travis-ci.org/krlmlr/tic.packagedocs) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.packagedocs?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic.packagedocs) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.packagedocs/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.packagedocs?branch=master)
+
+- [R package with auto-deploy to drat](https://github.com/krlmlr/tic.drat)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.drat.svg?branch=master)](https://travis-ci.org/krlmlr/tic.drat) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.drat?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic.drat) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.drat/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.drat?branch=master)
+
+- [An rmarkdown website](https://github.com/krlmlr/tic.website)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.website.svg?branch=master)](https://travis-ci.org/krlmlr/tic.website)
+
+- [A bookdown book](https://github.com/krlmlr/tic.bookdown)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.bookdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.bookdown)
+
+- [A blogdown blog](https://github.com/krlmlr/tic.blogdown)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.blogdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.blogdown)
+
+
 
 
 ## Stages and steps
@@ -21,78 +50,47 @@ devtools::install_github("ropenscilabs/tic")
 Many CI systems organize a run in stages, tic embraces this concept.
 Each stage has a name (e.g., `"after_success"`, `"deploy"`, ...)
 and has an arbitrary number of steps.
-
 Each step represents a self-contained action,
 which may require preparation (such as installing dependencies)
 and/or have arbitrary criteria if it is run.
-
 By default, the steps for a CI run are defined in the `tic.R` file
 in the package root.
-The next section shows an example (with a corresponding `.travis.yml`),
-see also the [example](https://github.com/ropenscilabs/tic/blob/master/tic.R)
-for the tic package itself.
 
-## Example Travis configuration
-
-The following example runs a coverage check after a successful run,
-and builds pkgdown and deploys to the `gh-pages` branch
-only on the `production` branch.
-Currently, it is also necessary to adapt `.travis.yml`
-to install tic and call a tic function for each stage.
-
-
-### `tic.R`
+The `tic.R` file is modeled after the following pattern:
 
 ```r
-get_stage("after_success") %>%
-  add_step(step_hello_world()) %>%
-  add_step(step_run_code(covr::codecov()))
-
-get_stage("deploy") %>%
-  add_step(step_install_ssh_keys()) %>%
-  add_step(step_add_to_known_hosts("github.com")) %>%
-  add_step(step_test_ssh())
-
-if (ci()$is_tag() && Sys.getenv("BUILD_PKGDOWN") != "") {
-  get_stage("deploy") %>%
-    add_step(step_build_pkgdown()) %>%
-    add_step(step_push_deploy(path = "docs", branch = "gh-pages"))
-}
+get_stage("<stage_name>") %>%
+  add_step(step_...(...)) %>%
+  ...
 ```
 
+Add the steps you want to run at each stage.
+You can also use more complex R code to add steps conditionally or to parametrize them.
 
-### `.travis.yml`
-
-```yml
-language: r
-
-#matrix: 3x Linux
-matrix:
-  include:
-  - r: release
-    env:
-    - BUILD_PKGDOWN=true
-  - r: oldrel
-  - r: devel
-
-#before_script
-before_script:
-- R -q -e 'devtools::install_github("ropenscilabs/tic"); tic::prepare_all_stages()'
-
-#after_success
-after_success:
-- R -q -e 'tic::after_success()'
-
-#deploy
-deploy:
-  provider: script
-  script: R -q -e 'tic::deploy()'
-  on:
-    all_branches: true
-```
+The `use_tic()` function in the [travis package](https://github.com/ropenscilabs/travis) creates default `.travis.yml`, `appveyor.yml` and `tic.R` files for many kinds of project.
+You are free to adapt/enhance the `tic.R` file, but you should only rarely need to edit `.travis.yml` or `appveyor.yml` (perhaps to define a build matrix or to preset an environment variable).
 
 
-## Preinstalled steps
+### Stages
+
+Stages can have arbitrary names, but the default `.travis.yml` and `appveyor.yml` files use the following stage names:
+
+- `before_install`
+- `install`
+- `after_install`
+- `before_script`
+- `script`
+- `after_success`
+- `after_failure`
+- `before_deploy`
+- `deploy`
+- `after_deploy`
+- `after_script`
+
+For each of the predefined stage names, a corresponding function that runs the steps of this stage is provided.
+
+
+### Steps
 
 Currently, the tic package defines the following steps:
 
