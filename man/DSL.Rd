@@ -14,7 +14,8 @@ add_step(stage, step)
 
 add_code_step(stage, call)
 
-add_package_checks(private = NULL)
+add_package_checks(warnings_are_errors = TRUE, notes_are_errors = FALSE,
+  args = "--no-manual", private = NULL)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -30,6 +31,15 @@ A function that constructs a Step object, such as \code{\link[=step_hello_world]
 
 \item{call}{\code{[call]}\cr
 An arbitrary expression.}
+
+\item{warnings_are_errors}{\code{[flag]}\cr
+Should warnings be treated as errors? Default: \code{TRUE}.}
+
+\item{notes_are_errors}{\code{[flag]}\cr
+Should notes be treated as errors? Default: \code{FALSE}.}
+
+\item{args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default: \code{"--no-manual"}.}
 }
 \description{
 Functions to define stages and their constitutent

@@ -84,9 +84,12 @@ add_code_step <- function(stage, call) {
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
+#' @inheritParams step_rcmdcheck
 #' @rdname DSL
 #' @export
-add_package_checks <- function(private = NULL) {
+add_package_checks <- function(warnings_are_errors = TRUE,
+                               notes_are_errors = FALSE,
+                               args = "--no-manual", private = NULL) {
   #' @description
   #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
   #'    `"before_install"` stage (only for non-interactive CIs)
@@ -98,8 +101,16 @@ add_package_checks <- function(private = NULL) {
   #'    in the `"install"` stage
   add_code_step(get_stage("install", private = private), remotes::install_deps(dependencies = TRUE))
 
-  #' 1. A [step_rcmdcheck()] in the `"script"` stage
-  add_step(get_stage("script", private = private), step_rcmdcheck())
+  #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
+  #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
+  add_step(
+    get_stage("script", private = private),
+    step_rcmdcheck(
+      warnings_are_errors = warnings_are_errors,
+      notes_are_errors = notes_are_errors,
+      args = args
+    )
+  )
 
   #' 1. A call to [covr::codecov()] in the `"after_success"` stage
   add_code_step(get_stage("after_success", private = private), covr::codecov(quiet = FALSE))
