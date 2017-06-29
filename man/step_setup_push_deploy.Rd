@@ -44,6 +44,8 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_hello_world}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}}, \code{\link{step_test_ssh}},
+  \code{\link{step_run_code}},
+  \code{\link{step_setup_ssh}},
+  \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
