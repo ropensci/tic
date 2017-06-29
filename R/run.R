@@ -38,6 +38,51 @@ run_stage <- function(name, stages = load_from_file()) {
   }
 }
 
+#' Emulate a CI run locally
+#'
+#' Runs predefined [stages] similarly to Travis CI and AppVeyor.
+#' The run aborts on error, the `after_failure` stage is never run.
+#'
+#'
+#' @inheritParams run_stage
+#' @export
+tic <- function(stages = load_from_file()) {
+  #' @details
+  #' The stages are run in the following order:
+  #'
+
+  #' 1. `before_install()`
+  before_install(stages)
+
+  #' 1. `install()`
+  install(stages)
+
+  #' 1. `after_install()`
+  after_install(stages)
+
+  #' 1. `before_script()`
+  before_script(stages)
+
+  #' 1. `script()`
+  script(stages)
+
+  #' 1. `after_success()`
+  after_success(stages)
+
+  #' 1. `before_deploy()`
+  before_deploy(stages)
+
+  #' 1. `deploy()`
+  deploy(stages)
+
+  #' 1. `after_deploy()`
+  after_deploy(stages)
+
+  #' 1. `after_script()`
+  after_script(stages)
+}
+
+
 #' Predefined stages
 #'
 #' Stages available in both Travis CI and AppVeyor, for which shortcuts
