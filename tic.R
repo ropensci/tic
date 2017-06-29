@@ -1,9 +1,9 @@
 add_package_checks()
 
-get_stage("before_deploy") %>%
-  add_step(step_setup_ssh())
-
 if (ci()$is_tag() && Sys.getenv("BUILD_PKGDOWN") != "") {
+  get_stage("before_deploy") %>%
+    add_step(step_setup_ssh())
+
   # pkgdown documentation can be built optionally. Other example criteria:
   # - `inherits(ci(), "TravisCI")`: Only for Travis CI
   # - `ci()$is_tag()`: Only for tags, not for branches
