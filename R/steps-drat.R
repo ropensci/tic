@@ -12,11 +12,22 @@ AddToDrat <- R6Class(
       drat::insertPackage(path)
       withr::with_dir(
         "~/git/drat",
-        knitr::knit("index.Rmd", "index.md")
+        if (file.exists("index.Rmd")) {
+          knitr::knit("index.Rmd", "index.md")
+        }
       )
     }
   )
 )
 
+#' Step: Add built package to a drat
+#'
+#' Builds a package (binary on OS X or Windows) and inserts it into an existing
+#' \pkg{drat} repository via [drat::insertPackage()].
+#' Also knits the `index.Rmd` file of the drat if it exists.
+#'
+#' @family steps
 #' @export
-step_add_to_drat <- AddToDrat$new
+step_add_to_drat <- function() {
+  AddToDrat$new()
+}

@@ -13,5 +13,12 @@ BuildPkgdown <- R6Class(
   )
 )
 
+#' Step: Build pkgdown documentation
+#'
+#' Builds package documentation with the \pkg{pkgdown} package.
+#'
+#' @family steps
 #' @export
-step_build_pkgdown <- BuildPkgdown$new
+step_build_pkgdown <- function() {
+  BuildPkgdown$new()
+}
