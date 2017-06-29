@@ -7,7 +7,7 @@
 step_run_code(call)
 }
 \arguments{
-\item{call}{`\link{call}\cr
+\item{call}{\code{[call]}\cr
 An arbitrary expression.}
 }
 \description{

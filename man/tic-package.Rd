@@ -2,8 +2,6 @@
 % Please edit documentation in R/tic-package.R
 \docType{package}
 \name{tic-package}
-\alias{tic}
-\alias{tic-package}
 \title{tic: Tasks Integrating Continuously}
 \description{
 Faciliate deployment tasks for R packages tested by Travis CI,
