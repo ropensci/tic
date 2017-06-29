@@ -1,3 +1,9 @@
+## tic 0.2-10 (2017-06-29)
+
+- Document all exported functions and many classes (#8).
+- `step_add_to_drat()` will also update the overview page if it exists.
+
+
 ## tic 0.2-9 (2017-06-28)
 
 - Fix `get_slug()` on AppVeyor to use `APPVEYOR_REPO_NAME`.
