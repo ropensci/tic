@@ -95,8 +95,8 @@ InstallSSHKeys <- R6Class(
 #' @family steps
 #' @seealso [travis::use_travis_deploy()], [travis::use_tic()]
 #' @export
-step_install_ssh_keys <- function() {
-  InstallSSHKeys$new()
+step_install_ssh_keys <- function(name = "id_rsa") {
+  InstallSSHKeys$new(name = name)
 }
 
 TestSSH <- R6Class(
