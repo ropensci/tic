@@ -8,7 +8,7 @@ Faciliate deployment tasks for R packages tested by Travis CI,
 'AppVeyor', or the CI tool of your choice.
 }
 \details{
-The \code{\link[travis:use_tic]{travis::use_tic()}} function prepares a code repository for use with
+The \code{travis::use_tic()} function prepares a code repository for use with
 this package. See \link{DSL} for an overview of \pkg{tic}'s domain-specific
 language for defining stages and steps, and \code{\link[=step_hello_world]{step_hello_world()}} and the
 links therein for available steps.

@@ -27,8 +27,7 @@ Suggests:
     openssl,
     rcmdcheck,
     remotes,
-    testthat,
-    travis
+    testthat
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
@@ -53,5 +52,3 @@ Collate:
     'tic-package.R'
     'travis.R'
     'utils.R'
-Remotes:
-    ropenscilabs/travis
