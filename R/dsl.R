@@ -87,13 +87,11 @@ add_code_step <- function(stage, call) {
 #' @rdname DSL
 #' @export
 add_package_checks <- function(private = NULL) {
-  # Stop if we're not called from load_from_file()
-  private$get_stage("before_install")
 
-  private$add_code_step(private$get_stage("before_install"), utils::update.packages(ask = FALSE))
-  private$add_code_step(private$get_stage("install"), remotes::install_deps(dependencies = TRUE))
-  private$add_step(private$get_stage("script"), step_rcmdcheck())
-  private$add_code_step(private$get_stage("after_success"), covr::codecov(quiet = FALSE))
+  add_code_step(get_stage("before_install", private = private), utils::update.packages(ask = FALSE))
+  add_code_step(get_stage("install", private = private), remotes::install_deps(dependencies = TRUE))
+  add_step(get_stage("script", private = private), step_rcmdcheck())
+  add_code_step(get_stage("after_success", private = private), covr::codecov(quiet = FALSE))
 }
 
 #' @importFrom magrittr %>%
