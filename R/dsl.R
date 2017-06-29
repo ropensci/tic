@@ -29,12 +29,16 @@ load_from_file <- memoise::memoise(load_from_file_)
 #' @name DSL
 NULL
 
-#' @export
+#' @description
+#' `get_stage()` returns a Stage object for a stage given by name.
+#' This function only works when called by [load_from_file()].
+#'
 #' @param name `[string]`\cr
 #'   The name for the stage.
 #' @param private
 #'   For internal use.
 #' @rdname DSL
+#' @export
 get_stage <- function(name, private = NULL) {
   if (!exists(name, private$stages)) {
     assign(name, Stage$new(name), private$stages)
@@ -42,14 +46,74 @@ get_stage <- function(name, private = NULL) {
   get(name, private$stages)
 }
 
-#' @export
+#' @description
+#' `add_step()` adds a step to a stage, see [step_hello_world()]
+#' and the links therein for available steps.
+#'
 #' @param stage `[Stage]`\cr
 #'   A Stage object as returned by `get_stage()`.
 #' @param step `[function]`\cr
 #'   A function that constructs a Step object, such as [step_hello_world()].
 #' @rdname DSL
+#' @export
 add_step <- function(stage, step) {
   stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
+}
+
+#' @description
+#' `add_code_step()` is a shortcut for `add_step(step_run_code(...))`.
+#'
+#' @export
+#' @inheritParams step_run_code
+#' @rdname DSL
+add_code_step <- function(stage, call) {
+  call <- substitute(call)
+  step <- RunCode$new(.call = call)
+  stage$add_step(
+    step,
+    paste0(
+      "step_run_code(",
+      deparse(call, width.cutoff = 500, nlines = 1),
+      ")"
+    )
+  )
+}
+
+#' @description
+#' `add_package_checks()` adds default steps related to package checks
+#' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
+#' stages:
+#'
+#' @inheritParams step_rcmdcheck
+#' @rdname DSL
+#' @export
+add_package_checks <- function(warnings_are_errors = TRUE,
+                               notes_are_errors = FALSE,
+                               args = "--no-manual", private = NULL) {
+  #' @description
+  #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
+  #'    `"before_install"` stage (only for non-interactive CIs)
+  if (!ci()$is_interactive()) {
+    add_code_step(get_stage("before_install", private = private), utils::update.packages(ask = FALSE))
+  }
+
+  #' 1. A call to [remotes::install_deps()] with `dependencies = TRUE`
+  #'    in the `"install"` stage
+  add_code_step(get_stage("install", private = private), remotes::install_deps(dependencies = TRUE))
+
+  #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
+  #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
+  add_step(
+    get_stage("script", private = private),
+    step_rcmdcheck(
+      warnings_are_errors = warnings_are_errors,
+      notes_are_errors = notes_are_errors,
+      args = args
+    )
+  )
+
+  #' 1. A call to [covr::codecov()] in the `"after_success"` stage
+  add_code_step(get_stage("after_success", private = private), covr::codecov(quiet = FALSE))
 }
 
 #' @importFrom magrittr %>%
@@ -71,6 +135,13 @@ DSL <- R6Class(
 
     add_step = function(stage, step) {
       add_step(stage, step)
+    },
+
+    # NSE!
+    add_code_step = add_code_step,
+
+    add_package_checks = function() {
+      add_package_checks(private)
     },
 
     add_task = function(stage, run, check = NULL, prepare = NULL) {

@@ -7,7 +7,7 @@
 step_run_code(call)
 }
 \arguments{
-\item{call}{`\link{call}\cr
+\item{call}{\code{[call]}\cr
 An arbitrary expression.}
 }
 \description{
@@ -30,6 +30,7 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
   \code{\link{step_setup_push_deploy}},
+  \code{\link{step_setup_ssh}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }

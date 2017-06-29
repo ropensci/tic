@@ -5,4 +5,5 @@
 #' links therein for available steps.
 #' @importFrom crayon has_color
 #' @importFrom memoise memoise
+#' @aliases NULL
 "_PACKAGE"

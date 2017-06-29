@@ -4,11 +4,18 @@
 \alias{DSL}
 \alias{get_stage}
 \alias{add_step}
+\alias{add_code_step}
+\alias{add_package_checks}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name, private = NULL)
 
 add_step(stage, step)
+
+add_code_step(stage, call)
+
+add_package_checks(warnings_are_errors = TRUE, notes_are_errors = FALSE,
+  args = "--no-manual", private = NULL)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -21,8 +28,42 @@ A Stage object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
 A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
+
+\item{call}{\code{[call]}\cr
+An arbitrary expression.}
+
+\item{warnings_are_errors}{\code{[flag]}\cr
+Should warnings be treated as errors? Default: \code{TRUE}.}
+
+\item{notes_are_errors}{\code{[flag]}\cr
+Should notes be treated as errors? Default: \code{FALSE}.}
+
+\item{args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default: \code{"--no-manual"}.}
 }
 \description{
 Functions to define stages and their constitutent
 steps.
+
+\code{get_stage()} returns a Stage object for a stage given by name.
+This function only works when called by \code{\link[=load_from_file]{load_from_file()}}.
+
+\code{add_step()} adds a step to a stage, see \code{\link[=step_hello_world]{step_hello_world()}}
+and the links therein for available steps.
+
+\code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
+
+\code{add_package_checks()} adds default steps related to package checks
+to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
+stages:
+
+\enumerate{
+\item A call to \code{\link[utils:update.packages]{utils::update.packages()}} with \code{ask = FALSE} in the
+\code{"before_install"} stage (only for non-interactive CIs)
+\item A call to \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE}
+in the \code{"install"} stage
+\item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
+\code{warnings_are_errors}, \code{notes_are_errors} and \code{args} arguments
+\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage
+}
 }
