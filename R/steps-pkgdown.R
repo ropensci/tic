@@ -3,7 +3,10 @@ BuildPkgdown <- R6Class(
 
   public = list(
     run = function() {
-      pkgdown::build_site(preview = FALSE)
+      withr::with_temp_libpaths({
+        remotes::install_local(".")
+        pkgdown::build_site(preview = FALSE)
+      })
     },
 
     prepare = function() {
