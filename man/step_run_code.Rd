@@ -4,7 +4,7 @@
 \alias{step_run_code}
 \title{Step: Run arbitrary code}
 \usage{
-step_run_code(call, prepare_call)
+step_run_code(call, prepare_call = NULL)
 }
 \arguments{
 \item{call}{\code{[call]}\cr

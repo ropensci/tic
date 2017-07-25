@@ -62,6 +62,6 @@ RunCode <- R6Class(
 #' # Will install covr from CRAN during preparation:
 #' step_run_code(covr::codecov())
 #' @export
-step_run_code <- function(call, prepare_call) {
+step_run_code <- function(call, prepare_call = NULL) {
   RunCode$new(.call = substitute(call), .prepare_call = substitute(prepare_call))
 }
