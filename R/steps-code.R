@@ -18,21 +18,26 @@ RunCode <- R6Class(
       # Needs to happen before auto-detection of package to be installed,
       # to allow installation of packages from nonstandard repositories
       if (!is.null(private$prepare_call)) {
+        private$install_call_dep(private$prepare_call)
         set.seed(private$seed)
         eval(private$prepare_call, envir = .GlobalEnv)
       }
 
-      func_name <- private$call[[1]]
-      if (is.call(func_name) && func_name[[1]] == quote(`::`)) {
-        pkg_name <- as.character(func_name[[2]])
-        verify_install(pkg_name)
-      }
+      private$install_call_dep(private$call)
     }
   ),
 
   private = list(
     call = NULL,
-    seed = NULL
+    seed = NULL,
+
+    install_call_dep = function(call) {
+      func_name <- call[[1]]
+      if (is.call(func_name) && func_name[[1]] == quote(`::`)) {
+        pkg_name <- as.character(func_name[[2]])
+        verify_install(pkg_name)
+      }
+    }
   )
 )
 
