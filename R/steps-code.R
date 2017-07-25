@@ -29,6 +29,7 @@ RunCode <- R6Class(
 
   private = list(
     call = NULL,
+    prepare_call = NULL,
     seed = NULL,
 
     install_call_dep = function(call) {
