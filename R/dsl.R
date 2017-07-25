@@ -66,14 +66,20 @@ add_step <- function(stage, step) {
 #' @export
 #' @inheritParams step_run_code
 #' @rdname DSL
-add_code_step <- function(stage, call) {
+add_code_step <- function(stage, call, prepare_call = NULL) {
   call <- substitute(call)
-  step <- RunCode$new(.call = call)
+  prepare_call <- substitute(prepare_call)
+  step <- RunCode$new(.call = call, .prepare_call = prepare_call)
   stage$add_step(
     step,
     paste0(
       "step_run_code(",
       deparse(call, width.cutoff = 500, nlines = 1),
+      if (!is.null(prepare_call)) {
+        paste0(
+          ", prepare_call = ",
+          deparse(prepare_call, width.cutoff = 500, nlines = 1))
+      },
       ")"
     )
   )

@@ -96,7 +96,7 @@ The `tic()` function runs most of these stages, this is useful for local debuggi
 Among others, the tic package defines the following steps:
 
 - `step_hello_world`: Hello, World!
-- `step_run_code`: run arbitrary code, install dependent packages
+- `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
 - `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
 - `step_test_ssh`: test the SSH connection to GitHub

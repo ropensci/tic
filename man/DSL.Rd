@@ -12,7 +12,7 @@ get_stage(name, private = NULL)
 
 add_step(stage, step)
 
-add_code_step(stage, call)
+add_code_step(stage, call, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE, notes_are_errors = FALSE,
   args = "--no-manual", private = NULL)
@@ -30,7 +30,11 @@ A Stage object as returned by \code{get_stage()}.}
 A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
 
 \item{call}{\code{[call]}\cr
-An arbitrary expression.}
+An arbitrary expression executed during the stage to which this step is
+added.}
+
+\item{prepare_call}{\code{[call]}\cr
+An optional arbitrary expression executed during preparation.}
 
 \item{warnings_are_errors}{\code{[flag]}\cr
 Should warnings be treated as errors? Default: \code{TRUE}.}
