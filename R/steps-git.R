@@ -67,7 +67,7 @@ SetupPushDeploy <- R6Class(
     checkout = FALSE,
 
     repo = NULL,
-    remote_name = "origin", # HACK
+    remote_name = "tic-remote", # HACK
 
     init_author = function() {
       latest_commit <- get_head_commit(git2r::head(git2r::repository(".")))
@@ -187,7 +187,7 @@ DoPushDeploy <- R6Class(
     commit_message = NULL,
 
     repo = NULL,
-    remote_name = "origin", # HACK
+    remote_name = "tic-remote", # HACK
 
     commit = function() {
       message("Committing to ", private$git$get_repo()@path)
