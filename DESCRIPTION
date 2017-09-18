@@ -28,6 +28,8 @@ Suggests:
     rcmdcheck,
     remotes,
     testthat
+Remotes: 
+    r-lib/rcmdcheck
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
