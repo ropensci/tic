@@ -11,7 +11,7 @@ RCMDcheck <- R6Class(
 
     run = function() {
       res <- rcmdcheck::rcmdcheck(args = private$args)
-      print(summary(res))
+      print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
       }
