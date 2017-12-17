@@ -146,8 +146,9 @@ SetupPushDeploy <- R6Class(
 #'   The URL of the remote Git repository to push to, defaults to the
 #'   current GitHub repository.
 #' @param checkout `[flag]`\cr
-#'   Check out the current contents of the repository? Defaults to `FALSE`,
-#'   useful if the build process relies on existing contents.
+#'   Check out the current contents of the repository? Defaults to `TRUE`,
+#'   set to `FALSE` if the build process relies on existing contents or
+#'   if you deploy to a different branch.
 #'
 #' @family deploy steps
 #' @family steps
@@ -157,7 +158,7 @@ step_setup_push_deploy <- function(path = ".", branch = ci()$get_branch(), orpha
                                    checkout = TRUE) {
   SetupPushDeploy$new(
     path = path, branch = branch, orphan = orphan,
-    remote_url = remote_url, checkout = TRUE
+    remote_url = remote_url, checkout = checkout
   )
 }
 
@@ -248,7 +249,8 @@ PushDeploy <- R6Class(
                           commit_message = NULL) {
 
       private$setup <- step_setup_push_deploy(
-        path = path, branch = branch, orphan = orphan, remote_url = remote_url
+        path = path, branch = branch, orphan = orphan, remote_url = remote_url,
+        checkout = FALSE
       )
 
       private$do <- step_do_push_deploy(
