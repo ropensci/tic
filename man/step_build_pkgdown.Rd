@@ -7,7 +7,7 @@
 step_build_pkgdown(...)
 }
 \arguments{
-\item{...}{Passed on to \code{\link[pkgdown:build_site]{pkgdown::build_site()}}}
+\item{...}{Passed on to \code{pkgdown::build_site()}}
 }
 \description{
 Builds package documentation with the \pkg{pkgdown} package.

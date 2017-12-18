@@ -27,7 +27,6 @@ Suggests:
     covr,
     drat,
     openssl,
-    pkgdown,
     rcmdcheck,
     remotes,
     testthat,
