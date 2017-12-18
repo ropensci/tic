@@ -4,7 +4,10 @@
 \alias{step_build_pkgdown}
 \title{Step: Build pkgdown documentation}
 \usage{
-step_build_pkgdown()
+step_build_pkgdown(...)
+}
+\arguments{
+\item{...}{Passed on to \code{\link[pkgdown:build_site]{pkgdown::build_site()}}}
 }
 \description{
 Builds package documentation with the \pkg{pkgdown} package.
