@@ -5,7 +5,7 @@
 \title{Step: Check a package}
 \usage{
 step_rcmdcheck(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  args = "--no-manual")
+  args = c("--no-manual", "--as-cran"))
 }
 \arguments{
 \item{warnings_are_errors}{\code{[flag]}\cr
@@ -15,7 +15,8 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 Should notes be treated as errors? Default: \code{FALSE}.}
 
 \item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default: \code{"--no-manual"}.}
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{c("--no-manual", "--as-cran")}.}
 }
 \description{
 Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
