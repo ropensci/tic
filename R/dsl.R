@@ -98,7 +98,8 @@ add_code_step <- function(stage, call, prepare_call = NULL) {
 #' @export
 add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
-                               args = "--no-manual", private = NULL) {
+                               args = c("--no-manual", "--as_cran"),
+                               private = NULL) {
   #' @description
   #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
   #'    `"before_install"` stage (only for non-interactive CIs)
