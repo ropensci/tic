@@ -15,7 +15,7 @@ BuildPkgdown <- R6Class(
 
     prepare = function() {
       verify_install("remotes")
-      remotes::install_github("hadley/pkgdown")
+      remotes::install_github("r-lib/pkgdown")
     }
   ),
 
