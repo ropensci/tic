@@ -33,11 +33,16 @@ RunCode <- R6Class(
     seed = NULL,
 
     install_call_dep = function(call) {
+      pkg_name <- private$get_packages_from_code(call)
+      verify_install(pkg_name)
+    },
+
+    get_packages_from_code <- function(call) {
       func_name <- call[[1]]
       if (is.call(func_name) && func_name[[1]] == quote(`::`)) {
-        pkg_name <- as.character(func_name[[2]])
-        verify_install(pkg_name)
+        return(as.character(func_name[[2]]))
       }
+      return(character())
     }
   )
 )
