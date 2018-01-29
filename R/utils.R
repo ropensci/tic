@@ -31,6 +31,18 @@ cat_line <- function(...) {
   cat(..., "\n", sep = "")
 }
 
+get_deps_from_code <- function(call) {
+  if (!is.call(call)) return(character())
+
+  if (identical(call[[1]], quote(`::`))) {
+    as.character(call[[2]])
+  }
+  else {
+    deps <- lapply(as.list(call), get_deps_from_code)
+    as.character(unlist(deps))
+  }
+}
+
 verify_install <- function(...) {
   pkg_names <- c(...)
   lapply(pkg_names, verify_install_one)
