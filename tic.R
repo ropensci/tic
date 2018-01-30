@@ -1,5 +1,8 @@
 add_package_checks()
 
+get_stage("deploy") %>%
+  add_step(step_build_pkgdown())
+
 if (Sys.getenv("BUILD_PKGDOWN") != "") {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
@@ -10,6 +13,5 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") {
   # - `Sys.getenv("BUILD_PKGDOWN") != ""`: If the env var "BUILD_PKGDOWN" is set
   # - `Sys.getenv("TRAVIS_EVENT_TYPE") == "cron"`: Only for Travis cron jobs
   get_stage("deploy") %>%
-    add_step(step_build_pkgdown()) %>%
     add_step(step_push_deploy())
 }
