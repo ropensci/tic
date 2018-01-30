@@ -1,6 +1,6 @@
 add_package_checks()
 
-if (ci()$is_tag() && Sys.getenv("BUILD_PKGDOWN") != "") {
+if (Sys.getenv("BUILD_PKGDOWN") != "") {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 
