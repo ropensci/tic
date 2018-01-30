@@ -42,6 +42,10 @@ remotes::install_github("ropenscilabs/tic")
 
     [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.blogdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.blogdown)
 
+- [Publishing to figshare](https://github.com/krlmlr/tic.figshare)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.figshare.svg?branch=master)](https://travis-ci.org/krlmlr/tic.figshare)
+
 
 
 
