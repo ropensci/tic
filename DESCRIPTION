@@ -1,6 +1,6 @@
 Package: tic
 Type: Package
-Title: Tasks Integrating Continuously
+Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.2-12
 Authors@R: c(
     person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
@@ -8,8 +8,12 @@ Authors@R: c(
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
     person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut"))
   )
-Description: Faciliate deployment tasks for R packages tested by Travis CI,
-    'AppVeyor', or the CI tool of your choice.
+Description: 
+    Provides a way to describe common build and deployment workflows for R-based
+    projects: packages, websites (e.g. blogdown, pkgdown), or data processing
+    (e.g. research compendia).  The recipe is described independent of the
+    continuous integration tool used for processing the workflow (e.g.
+    'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
 LazyData: TRUE
 Depends:
