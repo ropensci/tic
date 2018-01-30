@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tasks Integrating Continuously • tic</title>
+<title>Tasks Integrating Continuously: CI-Agnostic Workflow Definitions • tic</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -59,11 +59,11 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    <div id="tic-travis-ci-build-status" class="section level1">
+    <div id="tic" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#tic-travis-ci-build-status" class="anchor"></a>tic <a href="https://travis-ci.org/ropenscilabs/tic"><img src="https://travis-ci.org/ropenscilabs/tic.svg?branch=master" alt="Travis-CI Build Status"></a>
-</h1></div>
+<a href="#tic" class="anchor"></a>tic</h1></div>
 
+<p>The goal of tic is to faciliate deployment tasks for R packages tested by <a href="https://travis-ci.org">Travis CI</a>, <a href="https://www.appveyor.com/">AppVeyor</a>, or the CI tool of your choice. The intended usage is as follows:</p>
 <ul>
 <li>You specify the steps to be run at each stage in a central location in a simple domain-specific language</li>
 <li>You add boilerplate code for installation of tic, and three function calls into tic, to <a href="#travis"><code>.travis.yml</code></a>/<code>appveyor.yml</code>/… (shown below)</li>
@@ -238,8 +238,7 @@ remotes::<span class="kw">install_github</span>(<span class="st">"ropenscilabs/t
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org">Travis CI</a></li>
-<li><a href="https://www.appveyor.com/">AppVeyor</a></li>
+<li><a href="https://travis-ci.org/ropenscilabs/tic"><img src="https://travis-ci.org/ropenscilabs/tic.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 </ul>
 </div>
 </div>
