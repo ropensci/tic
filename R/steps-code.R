@@ -33,7 +33,7 @@ RunCode <- R6Class(
     seed = NULL,
 
     install_call_dep = function(call) {
-      pkg_name <- get_deps_from_code(call)
+      pkg_name <- unique(get_deps_from_code(call))
       verify_install(pkg_name)
     }
   )
