@@ -100,40 +100,22 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+            <h2 id="section-dsl" class="hasAnchor"><a href="#section-dsl" class="anchor"></a>DSL</h2>
             <p class="section-desc"></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="ci.html">ci</a></code> <code><a href="ci.html">CI</a></code> </p>
+            <p><code><a href="tic-package.html">tic-package</a></code> </p>
           </td>
-          <td><p>The current CI environment</p></td>
+          <td><p>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions</p></td>
         </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="DSL.html">get_stage</a></code> <code><a href="DSL.html">add_step</a></code> <code><a href="DSL.html">add_code_step</a></code> <code><a href="DSL.html">add_package_checks</a></code> </p>
           </td>
           <td><p>tic's domain-specific language</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="load_from_file.html">load_from_file</a></code> </p>
-          </td>
-          <td><p>Process a tic.R file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="prepare_all_stages.html">prepare_all_stages</a></code> </p>
-          </td>
-          <td><p>Prepare all stages</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="run_stage.html">run_stage</a></code> </p>
-          </td>
-          <td><p>Run a stage</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -221,10 +203,24 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="tic-package.html">tic-package</a></code> </p>
+            <p><code><a href="TicStep.html">TicStep</a></code> </p>
           </td>
-          <td><p>tic: Tasks Integrating Continuously</p></td>
+          <td><p>The base class for all steps</p></td>
         </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ci.html">ci</a></code> <code><a href="ci.html">CI</a></code> </p>
+          </td>
+          <td><p>The current CI environment</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-running" class="hasAnchor"><a href="#section-running" class="anchor"></a>Running</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
             <p><code><a href="tic.html">tic</a></code> </p>
@@ -233,9 +229,35 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="TicStep.html">TicStep</a></code> </p>
+            <p><code><a href="load_from_file.html">load_from_file</a></code> </p>
           </td>
-          <td><p>The base class for all steps</p></td>
+          <td><p>Process a tic.R file</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="prepare_all_stages.html">prepare_all_stages</a></code> </p>
+          </td>
+          <td><p>Prepare all stages</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="run_stage.html">run_stage</a></code> </p>
+          </td>
+          <td><p>Run a stage</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-serialization" class="hasAnchor"><a href="#section-serialization" class="anchor"></a>Serialization</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="base64serialize.html">base64serialize</a></code> <code><a href="base64serialize.html">base64unserialize</a></code> </p>
+          </td>
+          <td><p>Helpers for converting R objects to strings and back</p></td>
         </tr>
       </tbody>
       </table>
@@ -245,7 +267,9 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-dsl">DSL</a></li>
+      <li><a href="#section-running">Running</a></li>
+      <li><a href="#section-serialization">Serialization</a></li>
     </ul>
   </div>
 </div>

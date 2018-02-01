@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions — tic-package • tic</title>
+<title>Helpers for converting R objects to strings and back — base64serialize • tic</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,54 +83,49 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions</h1>
+    <h1>Helpers for converting R objects to strings and back</h1>
     </div>
 
     
-    <p>Provides a way to describe common build and deployment workflows for R-based
-projects: packages, websites (e.g. blogdown, pkgdown), or data processing
-(e.g. research compendia).  The recipe is described independent of the
-continuous integration tool used for processing the workflow (e.g.
-'Travis CI' or 'AppVeyor').</p>
+    <p><code>base64serialize()</code> converts an R object into a string suitable for storing
+in an environment variable. Use this function for encoding entire R objects
+(such as OAuth tokens) so that they can be used in Travis builds.
+
+    <code>base64unserialize()</code> is the inverse operation to <code>base64serialize()</code>.
+Use this function in your <code>tic.R</code> to access the R object previously encoded
+by <code>base64serialize()</code>.</p>
     
 
-        
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <pre class="usage"><span class='fu'>base64serialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)
 
-    <p>The <code><a href='http://www.rdocumentation.org/packages/travis/topics/use_tic'>travis::use_tic()</a></code> function prepares a code repository for use with
-this package. See <a href='DSL.html'>DSL</a> for an overview of <span class="pkg">tic</span>'s domain-specific
-language for defining stages and steps, and <code><a href='step_hello_world.html'>step_hello_world()</a></code> and the
-links therein for available steps.</p>
+<span class='fu'>base64unserialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)</pre>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p>Useful links:</p><ul>
-<li><p><a href='https://github.com/ropenscilabs/tic'>https://github.com/ropenscilabs/tic</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/ropenscilabs/tic/issues'>https://github.com/ropenscilabs/tic/issues</a></p></li>
-</ul>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Object to serialize or deserialize</p></td>
+    </tr>
+    <tr>
+      <th>compression</th>
+      <td><p>Passed on as <code>type</code> argument to <code>memCompress()</code> or
+<code>memDecompress()</code>.</p></td>
+    </tr>
+    </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>serial</span> <span class='kw'>&lt;-</span> <span class='fu'>base64serialize</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
+<span class='no'>serial</span></div><div class='output co'>#&gt; [1] "eJwdytEJACAMA9GzrVYF93P/SUz9eBCO3A0YHoa5Jkeqtd+hYkiXISlTVv0eIfMAwQ=="</div><div class='input'><span class='fu'>base64unserialize</span>(<span class='no'>serial</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    
-<strong>Maintainer</strong>: Kirill Müller <a href='mailto:krlmlr+r@mailbox.org'>krlmlr+r@mailbox.org</a>
-
-Authors:
-<ul>
-<li><p>Mika Braginsky <a href='mailto:mika.br@gmail.com'>mika.br@gmail.com</a></p></li>
-<li><p>Karthik Ram <a href='mailto:karthik.ram@gmail.com'>karthik.ram@gmail.com</a></p></li>
-<li><p>Jeroen Ooms <a href='mailto:jeroen.ooms@stat.ucla.edu'>jeroen.ooms@stat.ucla.edu</a></p></li>
-</ul>
-
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
