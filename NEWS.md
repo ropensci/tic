@@ -1,3 +1,11 @@
+## tic 0.2-13 (2018-02-01)
+
+- New `base64serialize()` and `base64unserialize()` (#37).
+- `add_code_step()` detects required packages also for complex expressions. Packages that need to be installed from GitHub still need to be installed manually (#36).
+- `step_rcmdcheck()` now prints a summary, which also shows e.g. details on installation failures.
+- New `prepare_call` argument to `step_run_code()` and `add_code_step()`.
+
+
 ## tic 0.2-12 (2017-06-29)
 
 - Fix `add_package_checks()`.
