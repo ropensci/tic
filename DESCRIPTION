@@ -20,6 +20,7 @@ Depends:
     R (>= 3.0.0)
 Imports:
     backports,
+    base64enc,
     crayon,
     git2r,
     magrittr,
@@ -46,6 +47,7 @@ Encoding: UTF-8
 Collate: 
     'ci.R'
     'appveyor.R'
+    'base64.R'
     'dsl.R'
     'local.R'
     'mock.R'
