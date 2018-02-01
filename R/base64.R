@@ -8,6 +8,7 @@
 #' @param x Object to serialize or deserialize
 #' @param compression Passed on as `type` argument to [memCompress()] or
 #'   [memDecomporess()].
+#' @export
 #' @examples
 #' serial <- base64serialize(1:10)
 #' serial
@@ -24,6 +25,7 @@ base64serialize <- function(x, compression = "gzip") {
 #' Use this function in your `tic.R` to access the R object previously encoded
 #' by `base64serialize()`.
 #'
+#' @export
 #' @examples
 #' base64unserialize(serial)
 base64unserialize <- function(x, compression = "gzip") {
