@@ -4,14 +4,20 @@
 \alias{step_run_code}
 \title{Step: Run arbitrary code}
 \usage{
-step_run_code(call)
+step_run_code(call, prepare_call = NULL)
 }
 \arguments{
 \item{call}{\code{[call]}\cr
-An arbitrary expression.}
+An arbitrary expression executed during the stage to which this step is
+added.}
+
+\item{prepare_call}{\code{[call]}\cr
+An optional arbitrary expression executed during preparation.}
 }
 \description{
 Captures the expression and executes it when running the step.
+An optional preparatory expression can be provided that is executed
+during preparation.
 If the top-level expression is a qualified function call (of the format
 \code{package::fun()}), the package is installed during preparation.
 }
@@ -34,3 +40,4 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{steps}

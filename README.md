@@ -1,4 +1,6 @@
-# tic [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
+# tic
+
+[![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
 
 The goal of tic is to faciliate deployment tasks for R packages tested by [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 The intended usage is as follows:
@@ -20,7 +22,7 @@ remotes::install_github("ropenscilabs/tic")
 
 - [R package with pkgdown documentation](https://github.com/krlmlr/tic.package)
 
-    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.package.svg?branch=master)](https://travis-ci.org/krlmlr/tic.package) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic-package?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic-package) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.package/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.package?branch=master)
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.package.svg?branch=master)](https://travis-ci.org/krlmlr/tic.package) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.package?branch=master&svg=true)](https://ci.appveyor.com/project/krlmlr/tic-package) [![Coverage Status](https://codecov.io/gh/krlmlr/tic.package/branch/master/graph/badge.svg)](https://codecov.io/github/krlmlr/tic.package?branch=master)
 
 - [R package with packagedocs documentation](https://github.com/krlmlr/tic.packagedocs)
 
@@ -41,6 +43,10 @@ remotes::install_github("ropenscilabs/tic")
 - [A blogdown blog](https://github.com/krlmlr/tic.blogdown)
 
     [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.blogdown.svg?branch=master)](https://travis-ci.org/krlmlr/tic.blogdown)
+
+- [Publishing to figshare](https://github.com/krlmlr/tic.figshare)
+
+    [![Travis-CI Build Status](https://travis-ci.org/krlmlr/tic.figshare.svg?branch=master)](https://travis-ci.org/krlmlr/tic.figshare)
 
 
 
@@ -96,7 +102,7 @@ The `tic()` function runs most of these stages, this is useful for local debuggi
 Among others, the tic package defines the following steps:
 
 - `step_hello_world`: Hello, World!
-- `step_run_code`: run arbitrary code, install dependent packages
+- `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
 - `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
 - `step_test_ssh`: test the SSH connection to GitHub

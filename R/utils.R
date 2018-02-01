@@ -31,6 +31,18 @@ cat_line <- function(...) {
   cat(..., "\n", sep = "")
 }
 
+get_deps_from_code <- function(call) {
+  if (!is.call(call)) return(character())
+
+  if (identical(call[[1]], quote(`::`))) {
+    as.character(call[[2]])
+  }
+  else {
+    deps <- lapply(as.list(call), get_deps_from_code)
+    as.character(unlist(deps))
+  }
+}
+
 verify_install <- function(...) {
   pkg_names <- c(...)
   lapply(pkg_names, verify_install_one)
@@ -52,7 +64,10 @@ package_installed <- function(pkg_name) {
 
 with_traceback <- function(...) {
   withr::with_options(
-    list(error = expression({traceback(1); if (!interactive()) q(status = 1)})),
+    list(
+      error = expression({traceback(1); if (!interactive()) q(status = 1)}),
+      deparse.max.lines = 2
+    ),
     ...
   )
 }

@@ -12,10 +12,10 @@ get_stage(name, private = NULL)
 
 add_step(stage, step)
 
-add_code_step(stage, call)
+add_code_step(stage, call, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  args = "--no-manual", private = NULL)
+  args = c("--no-manual", "--as_cran"), private = NULL)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -30,7 +30,11 @@ A Stage object as returned by \code{get_stage()}.}
 A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
 
 \item{call}{\code{[call]}\cr
-An arbitrary expression.}
+An arbitrary expression executed during the stage to which this step is
+added.}
+
+\item{prepare_call}{\code{[call]}\cr
+An optional arbitrary expression executed during preparation.}
 
 \item{warnings_are_errors}{\code{[flag]}\cr
 Should warnings be treated as errors? Default: \code{TRUE}.}
@@ -39,7 +43,8 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 Should notes be treated as errors? Default: \code{FALSE}.}
 
 \item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default: \code{"--no-manual"}.}
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{c("--no-manual", "--as-cran")}.}
 }
 \description{
 Functions to define stages and their constitutent

@@ -1,3 +1,6 @@
+#' @import backports
+NULL
+
 #' @importFrom utils packageName
 load_from_file_ <- function(path = "tic.R", ..., mtime = file.mtime(path)) {
   dsl <- create_dsl(envir = asNamespace(packageName()))
@@ -66,14 +69,20 @@ add_step <- function(stage, step) {
 #' @export
 #' @inheritParams step_run_code
 #' @rdname DSL
-add_code_step <- function(stage, call) {
+add_code_step <- function(stage, call, prepare_call = NULL) {
   call <- substitute(call)
-  step <- RunCode$new(.call = call)
+  prepare_call <- substitute(prepare_call)
+  step <- RunCode$new(.call = call, .prepare_call = prepare_call)
   stage$add_step(
     step,
     paste0(
       "step_run_code(",
       deparse(call, width.cutoff = 500, nlines = 1),
+      if (!is.null(prepare_call)) {
+        paste0(
+          ", prepare_call = ",
+          deparse(prepare_call, width.cutoff = 500, nlines = 1))
+      },
       ")"
     )
   )
@@ -89,7 +98,8 @@ add_code_step <- function(stage, call) {
 #' @export
 add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
-                               args = "--no-manual", private = NULL) {
+                               args = c("--no-manual", "--as_cran"),
+                               private = NULL) {
   #' @description
   #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
   #'    `"before_install"` stage (only for non-interactive CIs)
@@ -146,7 +156,8 @@ DSL <- R6Class(
       add_package_checks(
         warnings_are_errors = warnings_are_errors,
         notes_are_errors = notes_are_errors,
-        args = args, private
+        args = args,
+        private = private
       )
     },
 

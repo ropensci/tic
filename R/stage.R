@@ -33,8 +33,14 @@ Stage <- R6Class(
     },
 
     run_all = function() {
-      success <- vlapply(private$steps, private$run_one)
-      if (!all(success)) {
+      success <- TRUE
+      for (step in private$steps) {
+        if (!private$run_one(step)) success <- FALSE
+        if (!success && private$name == "deploy") {
+          stopc("Aborting early on failure in deploy stage.")
+        }
+      }
+      if (!success) {
         stopc("At least one step failed.")
       }
     }

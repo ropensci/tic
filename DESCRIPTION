@@ -1,24 +1,31 @@
 Package: tic
 Type: Package
-Title: Tasks Integrating Continuously
-Version: 0.2-12
+Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
+Version: 0.2-13
 Authors@R: c(
     person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
     person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut"))
   )
-Description: Faciliate deployment tasks for R packages tested by Travis CI,
-    'AppVeyor', or the CI tool of your choice.
+Description: 
+    Provides a way to describe common build and deployment workflows for R-based
+    projects: packages, websites (e.g. blogdown, pkgdown), or data processing
+    (e.g. research compendia).  The recipe is described independent of the
+    continuous integration tool used for processing the workflow (e.g.
+    'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
 LazyData: TRUE
 Depends:
     R (>= 3.0.0)
 Imports:
+    backports,
+    base64enc,
     crayon,
     git2r,
     magrittr,
     memoise,
+    methods,
     R6,
     withr
 Suggests:
@@ -29,14 +36,18 @@ Suggests:
     remotes,
     testthat,
     travis
+Remotes: 
+    r-lib/rcmdcheck,
+    ropenscilabs/travis
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Encoding: UTF-8
 Collate: 
     'ci.R'
     'appveyor.R'
+    'base64.R'
     'dsl.R'
     'local.R'
     'mock.R'
@@ -53,5 +64,3 @@ Collate:
     'tic-package.R'
     'travis.R'
     'utils.R'
-Remotes:
-    ropenscilabs/travis

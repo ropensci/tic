@@ -1,3 +1,24 @@
-templates:
+template:
   params:
     bootswatch: flatly # https://bootswatch.com/flatly/
+
+reference:
+- title: DSL
+  contents:
+  - tic-package
+  - DSL
+- title: Steps
+  contents:
+  - TicStep
+  - starts_with("step_")
+  - ci
+- title: Running
+  contents:
+  - tic
+  - stages
+  - load_from_file
+  - prepare_all_stages
+  - run_stage
+- title: Serialization
+  contents:
+  - starts_with("base64")

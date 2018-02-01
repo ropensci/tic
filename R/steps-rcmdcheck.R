@@ -11,6 +11,7 @@ RCMDcheck <- R6Class(
 
     run = function() {
       res <- rcmdcheck::rcmdcheck(args = private$args)
+      print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
       }
@@ -43,10 +44,11 @@ RCMDcheck <- R6Class(
 #' @param notes_are_errors `[flag]`\cr
 #'   Should notes be treated as errors? Default: `FALSE`.
 #' @param args `[character]`\cr
-#'   Passed to `[rcmdcheck::rcmdcheck()]`, default: `"--no-manual"`.
+#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   `c("--no-manual", "--as-cran")`.
 #' @export
 step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                           args = "--no-manual") {
+                           args = c("--no-manual", "--as-cran")) {
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,

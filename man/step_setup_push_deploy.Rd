@@ -26,8 +26,9 @@ The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.}
 
 \item{checkout}{\code{[flag]}\cr
-Check out the current contents of the repository? Defaults to \code{FALSE},
-useful if the build process relies on existing contents.}
+Check out the current contents of the repository? Defaults to \code{TRUE},
+set to \code{FALSE} if the build process relies on existing contents or
+if you deploy to a different branch.}
 }
 \description{
 Clones a repo, inits author information, and sets up remotes
@@ -49,3 +50,5 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{deploy steps}
+\concept{steps}
