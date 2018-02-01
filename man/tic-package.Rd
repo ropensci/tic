@@ -2,10 +2,13 @@
 % Please edit documentation in R/tic-package.R
 \docType{package}
 \name{tic-package}
-\title{tic: Tasks Integrating Continuously}
+\title{tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions}
 \description{
-Faciliate deployment tasks for R packages tested by Travis CI,
-'AppVeyor', or the CI tool of your choice.
+Provides a way to describe common build and deployment workflows for R-based
+projects: packages, websites (e.g. blogdown, pkgdown), or data processing
+(e.g. research compendia).  The recipe is described independent of the
+continuous integration tool used for processing the workflow (e.g.
+'Travis CI' or 'AppVeyor').
 }
 \details{
 The \code{travis::use_tic()} function prepares a code repository for use with
