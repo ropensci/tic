@@ -5,7 +5,7 @@
 #' links therein for available steps.
 #' @importFrom crayon has_color
 #' @importFrom memoise memoise
-#' @aliases NULL
+#' @aliases NULL tic-package
 "_PACKAGE"
 
 # Import methods, to make sure it is available when Rscript is used on Windows

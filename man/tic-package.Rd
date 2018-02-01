@@ -2,6 +2,7 @@
 % Please edit documentation in R/tic-package.R
 \docType{package}
 \name{tic-package}
+\alias{tic-package}
 \title{tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions}
 \description{
 Provides a way to describe common build and deployment workflows for R-based
