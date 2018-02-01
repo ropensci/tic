@@ -116,12 +116,20 @@
             <p><code><a href="DSL.html">get_stage</a></code> <code><a href="DSL.html">add_step</a></code> <code><a href="DSL.html">add_code_step</a></code> <code><a href="DSL.html">add_package_checks</a></code> </p>
           </td>
           <td><p>tic's domain-specific language</p></td>
-        </tr><tr>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-steps" class="hasAnchor"><a href="#section-steps" class="anchor"></a>Steps</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
-            <p><code><a href="stages.html">before_install</a></code> <code><a href="stages.html">install</a></code> <code><a href="stages.html">after_install</a></code> <code><a href="stages.html">before_script</a></code> <code><a href="stages.html">script</a></code> <code><a href="stages.html">before_cache</a></code> <code><a href="stages.html">after_success</a></code> <code><a href="stages.html">after_failure</a></code> <code><a href="stages.html">before_deploy</a></code> <code><a href="stages.html">deploy</a></code> <code><a href="stages.html">after_deploy</a></code> <code><a href="stages.html">after_script</a></code> </p>
+            <p><code><a href="TicStep.html">TicStep</a></code> </p>
           </td>
-          <td><p>Predefined stages</p></td>
+          <td><p>The base class for all steps</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -203,12 +211,6 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="TicStep.html">TicStep</a></code> </p>
-          </td>
-          <td><p>The base class for all steps</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="ci.html">ci</a></code> <code><a href="ci.html">CI</a></code> </p>
           </td>
           <td><p>The current CI environment</p></td>
@@ -226,6 +228,12 @@
             <p><code><a href="tic.html">tic</a></code> </p>
           </td>
           <td><p>Emulate a CI run locally</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="stages.html">before_install</a></code> <code><a href="stages.html">install</a></code> <code><a href="stages.html">after_install</a></code> <code><a href="stages.html">before_script</a></code> <code><a href="stages.html">script</a></code> <code><a href="stages.html">before_cache</a></code> <code><a href="stages.html">after_success</a></code> <code><a href="stages.html">after_failure</a></code> <code><a href="stages.html">before_deploy</a></code> <code><a href="stages.html">deploy</a></code> <code><a href="stages.html">after_deploy</a></code> <code><a href="stages.html">after_script</a></code> </p>
+          </td>
+          <td><p>Predefined stages</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -268,6 +276,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-dsl">DSL</a></li>
+      <li><a href="#section-steps">Steps</a></li>
       <li><a href="#section-running">Running</a></li>
       <li><a href="#section-serialization">Serialization</a></li>
     </ul>
