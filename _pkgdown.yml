@@ -7,13 +7,15 @@ reference:
   contents:
   - tic-package
   - DSL
-  - stages
-  - starts_with("step_")
+- title: Steps
+  contents:
   - TicStep
+  - starts_with("step_")
   - ci
 - title: Running
   contents:
   - tic
+  - stages
   - load_from_file
   - prepare_all_stages
   - run_stage
