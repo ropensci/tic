@@ -7,7 +7,7 @@
 #'
 #' @param x Object to serialize or deserialize
 #' @param compression Passed on as `type` argument to [memCompress()] or
-#'   [memDecomporess()].
+#'   [memDecompress()].
 #' @export
 #' @examples
 #' serial <- base64serialize(1:10)

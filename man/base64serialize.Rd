@@ -13,7 +13,7 @@ base64unserialize(x, compression = "gzip")
 \item{x}{Object to serialize or deserialize}
 
 \item{compression}{Passed on as \code{type} argument to \code{\link[=memCompress]{memCompress()}} or
-\code{\link[=memDecomporess]{memDecomporess()}}.}
+\code{\link[=memDecompress]{memDecompress()}}.}
 }
 \description{
 \code{base64serialize()} converts an R object into a string suitable for storing
