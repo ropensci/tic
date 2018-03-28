@@ -166,13 +166,14 @@ DoPushDeploy <- R6Class(
   "DoPushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", commit_message = NULL) {
+    initialize = function(path = ".", commit_message = NULL, subdir = ".") {
       private$git <- Git$new(path)
 
       if (is.null(commit_message)) {
         commit_message <- private$format_commit_message()
       }
       private$commit_message <- commit_message
+      private$subdir <- subdir
     },
 
     run = function() {
@@ -192,7 +193,7 @@ DoPushDeploy <- R6Class(
 
     commit = function() {
       message("Committing to ", private$git$get_repo()@path)
-      git2r::add(private$git$get_repo(), ".")
+      git2r::add(private$git$get_repo(), private$subdir)
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
       if (length(status$staged) > 0) {
         git2r::commit(private$git$get_repo(), private$commit_message)
@@ -231,13 +232,16 @@ DoPushDeploy <- R6Class(
 #' @param commit_message `[string]`\cr
 #'   Commit message to use, defaults to a useful message linking to the CI build
 #'   and avoiding recursive CI runs.
+#' @param subdir `[character]`\cr
+#'   Restrict the set of files added to Git before deploying. Default: deploy
+#'   all files.
 #'
 #' @family deploy steps
 #' @family steps
 #'
 #' @export
-step_do_push_deploy <- function(path = ".", commit_message = NULL) {
-  DoPushDeploy$new(path = path, commit_message = commit_message)
+step_do_push_deploy <- function(path = ".", commit_message = NULL, subdir = ".") {
+  DoPushDeploy$new(path = path, commit_message = commit_message, subdir = subdir)
 }
 
 PushDeploy <- R6Class(
@@ -246,7 +250,7 @@ PushDeploy <- R6Class(
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                           remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                          commit_message = NULL) {
+                          commit_message = NULL, subdir = ".") {
 
       private$setup <- step_setup_push_deploy(
         path = path, branch = branch, orphan = orphan, remote_url = remote_url,
@@ -254,7 +258,7 @@ PushDeploy <- R6Class(
       )
 
       private$do <- step_do_push_deploy(
-        path = path, commit_message = commit_message
+        path = path, commit_message = commit_message, subdir = subdir
       )
 
     },
@@ -287,10 +291,11 @@ PushDeploy <- R6Class(
 #' @export
 step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                              remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                             commit_message = NULL) {
+                             commit_message = NULL, subdir = ".") {
   PushDeploy$new(
     path = path, branch = branch, orphan = orphan,
     remote_url = remote_url,
-    commit_message = commit_message
+    commit_message = commit_message,
+    subdir = subdir
   )
 }
