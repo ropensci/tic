@@ -193,8 +193,9 @@ DoPushDeploy <- R6Class(
     remote_name = "tic-remote", # HACK
 
     commit = function() {
-      message("Committing to ", private$git$get_repo()@path)
+      message("Staging: ", paste(private$subdir, collapse = ", "))
       git2r::add(private$git$get_repo(), private$subdir)
+      message("Committing to ", private$git$get_repo()@path)
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
       if (length(status$staged) > 0) {
         git2r::commit(private$git$get_repo(), private$commit_message)
