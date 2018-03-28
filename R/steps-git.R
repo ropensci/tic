@@ -163,7 +163,7 @@ step_setup_push_deploy <- function(path = ".", branch = ci()$get_branch(), orpha
 }
 
 DoPushDeploy <- R6Class(
-  "PushDeploy", inherit = TicStep,
+  "DoPushDeploy", inherit = TicStep,
 
   public = list(
     initialize = function(path = ".", commit_message = NULL) {
