@@ -187,6 +187,7 @@ DoPushDeploy <- R6Class(
     git = NULL,
 
     commit_message = NULL,
+    subdir = NULL,
 
     repo = NULL,
     remote_name = "tic-remote", # HACK
