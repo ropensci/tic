@@ -96,7 +96,7 @@ step_do_push_deploy()." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Step: Setup and perform push deploy</h1>
@@ -112,7 +112,7 @@ Combines <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a
 
     <pre class="usage"><span class='fu'>step_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_branch</span>(), <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"git@github.com:"</span>, <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_slug</span>(), <span class='st'>".git"</span>),
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,16 +148,16 @@ Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></td>
     </tr>
     <tr>
-      <th>subdir</th>
+      <th>commit_paths</th>
       <td><p><code>[character]</code><br />
-Restrict the set of files added to Git before deploying. Default: deploy
-all files.</p></td>
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other deploy steps: <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
+    <div class='dont-index'><p>Other deploy steps: <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
   <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code></p>
 <p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
   <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
@@ -169,7 +169,7 @@ all files.</p></td>
   <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
   <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
   <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
-  <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p>
+  <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
     
 
   </div>

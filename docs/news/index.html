@@ -90,15 +90,13 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="contents">
     <div id="tic-0-2-13-2018-02-01" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tic-0-2-13-2018-02-01" class="anchor"></a>tic 0.2-13 (2018-02-01)</h2>
@@ -251,7 +249,6 @@
 <li>Rudimentary configuration based on task objects. A task object is a list/environment which contains at least the members <code>check()</code>, <code>prepare()</code> and <code>run()</code> – functions without arguments, only <code>check()</code> needs to return a <code>logical</code> scalar. These can be subclasses of the new <code>TravisTask</code> R6 class, the package now contains six subclasses: <code>HelloWorld</code>, <code>RunCovr</code>, <code>BuildPkgdown</code>, <code>InstallSSHKeys</code>, <code>TestSSH</code>, and <code>PushDeploy</code>. The <code>new</code> methods of theses subclasses are exported as <code>task_hello_world()</code>, <code>task_run_covr()</code>, <code>task_build_pkgdown()</code> <code>task_install_ssh_keys()</code>, <code>task_test_ssh()</code>, and <code>task_push_deploy()</code>, respectively. The three functions <code><a href="../reference/stages.html">before_script()</a></code>, <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code> accept a semicolon-separated list of task objects, which is by default taken from the <code>TIC_AFTER_SUCCESS_TASKS</code> and <code>TIC_DEPLOY_TASKS</code> environment variables. These functions call the <code>prepare()</code> and <code>run()</code> methods of the task objects if and only if the <code>check()</code> method returns <code>TRUE</code> (<a href='https://github.com/ropenscilabs/tic/issues/42'>#42</a>).</li>
 </ul>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
