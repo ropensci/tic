@@ -6,7 +6,7 @@
 \usage{
 step_push_deploy(path = ".", branch = ci()$get_branch(), orphan = FALSE,
   remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-  commit_message = NULL, subdir = ".")
+  commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -29,9 +29,9 @@ current GitHub repository.}
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
 
-\item{subdir}{\code{[character]}\cr
-Restrict the set of files added to Git before deploying. Default: deploy
-all files.}
+\item{commit_paths}{\code{[character]}\cr
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.}
 }
 \description{
 Clones a repo, inits author information, sets up remotes,

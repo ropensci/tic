@@ -166,14 +166,14 @@ DoPushDeploy <- R6Class(
   "DoPushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", commit_message = NULL, subdir = ".") {
+    initialize = function(path = ".", commit_message = NULL, commit_paths = ".") {
       private$git <- Git$new(path)
 
       if (is.null(commit_message)) {
         commit_message <- private$format_commit_message()
       }
       private$commit_message <- commit_message
-      private$subdir <- subdir
+      private$commit_paths <- commit_paths
     },
 
     run = function() {
@@ -187,14 +187,14 @@ DoPushDeploy <- R6Class(
     git = NULL,
 
     commit_message = NULL,
-    subdir = NULL,
+    commit_paths = NULL,
 
     repo = NULL,
     remote_name = "tic-remote", # HACK
 
     commit = function() {
-      message("Staging: ", paste(private$subdir, collapse = ", "))
-      git2r::add(private$git$get_repo(), private$subdir)
+      message("Staging: ", paste(private$commit_paths, collapse = ", "))
+      git2r::add(private$git$get_repo(), private$commit_paths)
       message("Committing to ", private$git$get_repo()@path)
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
       if (length(status$staged) > 0) {
@@ -234,16 +234,16 @@ DoPushDeploy <- R6Class(
 #' @param commit_message `[string]`\cr
 #'   Commit message to use, defaults to a useful message linking to the CI build
 #'   and avoiding recursive CI runs.
-#' @param subdir `[character]`\cr
-#'   Restrict the set of files added to Git before deploying. Default: deploy
-#'   all files.
+#' @param commit_paths `[character]`\cr
+#'   Restrict the set of directories and/or files added to Git before deploying.
+#'   Default: deploy all files.
 #'
 #' @family deploy steps
 #' @family steps
 #'
 #' @export
-step_do_push_deploy <- function(path = ".", commit_message = NULL, subdir = ".") {
-  DoPushDeploy$new(path = path, commit_message = commit_message, subdir = subdir)
+step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths = ".") {
+  DoPushDeploy$new(path = path, commit_message = commit_message, commit_paths = commit_paths)
 }
 
 PushDeploy <- R6Class(
@@ -252,7 +252,7 @@ PushDeploy <- R6Class(
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                           remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                          commit_message = NULL, subdir = ".") {
+                          commit_message = NULL, commit_paths = ".") {
 
       private$setup <- step_setup_push_deploy(
         path = path, branch = branch, orphan = orphan, remote_url = remote_url,
@@ -260,7 +260,7 @@ PushDeploy <- R6Class(
       )
 
       private$do <- step_do_push_deploy(
-        path = path, commit_message = commit_message, subdir = subdir
+        path = path, commit_message = commit_message, commit_paths = commit_paths
       )
 
     },
@@ -293,11 +293,11 @@ PushDeploy <- R6Class(
 #' @export
 step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                              remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                             commit_message = NULL, subdir = ".") {
+                             commit_message = NULL, commit_paths = ".") {
   PushDeploy$new(
     path = path, branch = branch, orphan = orphan,
     remote_url = remote_url,
     commit_message = commit_message,
-    subdir = subdir
+    commit_paths = commit_paths
   )
 }
