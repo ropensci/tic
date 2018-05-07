@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Step: Add built package to a drat — step_add_to_drat" />
 
 <meta property="og:description" content="Builds a package (binary on OS X or Windows) and inserts it into an existing
@@ -40,8 +43,6 @@ Also knits the index.Rmd file of the drat if it exists." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -99,14 +100,17 @@ Also knits the index.Rmd file of the drat if it exists." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Step: Add built package to a drat</h1>
-    <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-drat.R'><code>R/steps-drat.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-drat.R'><code>R/steps-drat.R</code></a></small>
+    <div class="hidden name"><code>step_add_to_drat.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Builds a package (binary on OS X or Windows) and inserts it into an existing
 <span class="pkg">drat</span> repository via <code><a href='http://www.rdocumentation.org/packages/drat/topics/insertPackage'>drat::insertPackage()</a></code>.
 Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>step_add_to_drat</span>()</pre>
         
@@ -138,7 +142,7 @@ Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Helpers for converting R objects to strings and back — base64serialize" />
 
 <meta property="og:description" content="base64serialize() converts an R object into a string suitable for storing
@@ -43,8 +46,6 @@ by base64serialize()." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -102,9 +103,11 @@ by base64serialize()." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Helpers for converting R objects to strings and back</h1>
-    <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/base64.R'><code>R/base64.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/base64.R'><code>R/base64.R</code></a></small>
+    <div class="hidden name"><code>base64serialize.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>base64serialize()</code> converts an R object into a string suitable for storing
 in an environment variable. Use this function for encoding entire R objects
@@ -113,6 +116,7 @@ in an environment variable. Use this function for encoding entire R objects
 Use this function in your <code>tic.R</code> to access the R object previously encoded
 by <code>base64serialize()</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>base64serialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)
 
@@ -135,7 +139,7 @@ by <code>base64serialize()</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>serial</span> <span class='kw'>&lt;-</span> <span class='fu'>base64serialize</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='no'>serial</span></div><div class='output co'>#&gt; [1] "eJwdytEJACAMA9GzrVYF93P/SUz9eBCO3A0YHoG5Jkeqtd+hYkiXISlTVv0eIl0Aww=="</div><div class='input'><span class='fu'>base64unserialize</span>(<span class='no'>serial</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
+<span class='no'>serial</span></div><div class='output co'>#&gt; [1] "eJwdyskNACAMxEBzHxL90X8lODwmiqy9G8iU5i2+HEVLv0PEKgd0DU2t2D0hvwDA"</div><div class='input'><span class='fu'>base64unserialize</span>(<span class='no'>serial</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -150,7 +154,7 @@ by <code>base64serialize()</code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
