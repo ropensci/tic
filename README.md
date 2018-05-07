@@ -166,3 +166,7 @@ This method will be called by `after_success()` or `deploy()`,
 depending on your configuration.
 It is intended to run in the `after_success` or `deploy` phases of the CI run.
 The main difference is that only failed `deploy` tasks will fail the build.
+
+---
+
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
