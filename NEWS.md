@@ -1,3 +1,8 @@
+# tic 0.2.13.9001
+
+- The _pkgdown_ package is installed from CRAN.
+
+
 # tic 0.2.13.9000
 
 - New `subdir` argument to `step_push_deploy()` and `step_do_push_deploy()`, allows restricting the set of files to be committed to Git (#42).
