@@ -20,4 +20,3 @@ Run the \code{prepare()} method for all defined steps for which the
 
 Other runners: \code{\link{run_stage}}
 }
-\concept{runners}

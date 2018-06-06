@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -38,18 +40,19 @@ add_step() adds a step to a stage, see step_hello_world()
 and the links therein for available steps.
 add_code_step() is a shortcut for add_step(step_run_code(...)).
 add_package_checks() adds default steps related to package checks
-to the "before_install", "install", "script" and "after_success"
+to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
 
 A call to utils::update.packages() with ask = FALSE in the
-"before_install" stage (only for non-interactive CIs)
+&quot;before_install&quot; stage (only for non-interactive CIs)
 A call to remotes::install_deps() with dependencies = TRUE
-in the "install" stage
-A step_rcmdcheck() in the "script" stage, using the
+in the &quot;install&quot; stage
+A step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors and args arguments
-A call to covr::codecov() in the "after_success" stage
+A call to covr::codecov() in the &quot;after_success&quot; stage
 " />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -76,7 +79,7 @@ A call to covr::codecov() in the "after_success" stage
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
       </span>
     </div>
 

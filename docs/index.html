@@ -8,8 +8,8 @@
 <title>Tasks Integrating Continuously: CI-Agnostic Workflow Definitions • tic</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Tasks Integrating Continuously: CI-Agnostic Workflow Definitions">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Tasks Integrating Continuously: CI-Agnostic Workflow Definitions">
 <meta property="og:description" content="
     Provides a way to describe common build and deployment workflows for R-based
     projects: packages, websites (e.g. blogdown, pkgdown), or data processing
@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
       </span>
     </div>
 
@@ -85,8 +85,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install tic from github with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("remotes")</span>
-remotes::<span class="kw">install_github</span>(<span class="st">"ropenscilabs/tic"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"ropenscilabs/tic"</span>)</a></code></pre></div>
 </div>
 <div id="example-applications" class="section level2">
 <h2 class="hasAnchor">
@@ -127,9 +127,9 @@ remotes::<span class="kw">install_github</span>(<span class="st">"ropenscilabs/t
 <a href="#stages-and-steps" class="anchor"></a>Stages and steps</h2>
 <p>Many CI systems organize a run in stages, tic embraces this concept. Each stage has a name (e.g., <code>"after_success"</code>, <code>"deploy"</code>, …) and has an arbitrary number of steps. Each step represents a self-contained action, which may require preparation (such as installing dependencies) and/or have arbitrary criteria if it is run. By default, the steps for a CI run are defined in the <code>tic.R</code> file in the package root.</p>
 <p>The <code>tic.R</code> file is modeled after the following pattern:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/DSL.html">get_stage</a></span>(<span class="st">"&lt;stage_name&gt;"</span>) %&gt;%
-<span class="st">  </span><span class="kw"><a href="reference/DSL.html">add_step</a></span>(<span class="kw">step_...</span>(...)) %&gt;%
-<span class="st">  </span>...</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="reference/DSL.html">get_stage</a></span>(<span class="st">"&lt;stage_name&gt;"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/DSL.html">add_step</a></span>(<span class="kw">step_...</span>(...)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span>...</a></code></pre></div>
 <p>Add the steps you want to run at each stage. You can also use more complex R code to add steps conditionally or to parametrize them.</p>
 <p>The <code>use_tic()</code> function in the <a href="https://github.com/ropenscilabs/travis">travis package</a> creates default <code>.travis.yml</code>, <code>appveyor.yml</code> and <code>tic.R</code> files for many kinds of project. You are free to adapt/enhance the <code>tic.R</code> file, but you should only rarely need to edit <code>.travis.yml</code> or <code>appveyor.yml</code> (perhaps to define a build matrix or to preset an environment variable).</p>
 <div id="stages" class="section level3">
