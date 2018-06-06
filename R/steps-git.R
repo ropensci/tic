@@ -70,13 +70,17 @@ SetupPushDeploy <- R6Class(
     remote_name = "tic-remote", # HACK
 
     init_author = function() {
-      latest_commit <- get_head_commit(git2r::head(git2r::repository(".")))
+      latest_commit <- get_head_commit(git2r_head(git2r::repository(".")))
       print(latest_commit)
 
-      latest_author <- latest_commit@author
+      latest_author <- git2r_attrib(latest_commit, "author")
       print(latest_author)
 
-      git2r::config(private$git$get_repo(), user.name = latest_author@name, user.email = latest_author@email)
+      git2r::config(
+        private$git$get_repo(),
+        user.name = git2r_attrib(latest_author, "name"),
+        user.email = git2r_attrib(latest_author, "email")
+      )
     },
 
     fetch = function() {
@@ -178,7 +182,7 @@ DoPushDeploy <- R6Class(
 
     run = function() {
       private$git$init_repo()
-      maybe_orphan <- is.null(git2r::head(private$git$get_repo()))
+      maybe_orphan <- is.null(git2r_head(private$git$get_repo()))
       if (private$commit()) private$push(force = maybe_orphan)
     }
   ),
@@ -195,7 +199,9 @@ DoPushDeploy <- R6Class(
     commit = function() {
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
       git2r::add(private$git$get_repo(), private$commit_paths)
-      message("Committing to ", private$git$get_repo()@path)
+
+      repo_path <- git2r_attrib(private$git$get_repo(), "path")
+      message("Committing to ", repo_path)
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
       if (length(status$staged) > 0) {
         git2r::commit(private$git$get_repo(), private$commit_message)

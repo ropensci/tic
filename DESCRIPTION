@@ -50,6 +50,7 @@ Collate:
     'appveyor.R'
     'base64.R'
     'dsl.R'
+    'git2r.R'
     'local.R'
     'mock.R'
     'run.R'
