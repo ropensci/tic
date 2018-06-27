@@ -125,12 +125,6 @@ script <- function(stages = load_from_file()) {
 
 #' @rdname stages
 #' @export
-before_cache <- function(stages = load_from_file()) {
-  run_stage("before_cache", stages = stages)
-}
-
-#' @rdname stages
-#' @export
 after_success <- function(stages = load_from_file()) {
   run_stage("after_success", stages = stages)
 }

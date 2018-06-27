@@ -7,7 +7,6 @@
 \alias{after_install}
 \alias{before_script}
 \alias{script}
-\alias{before_cache}
 \alias{after_success}
 \alias{after_failure}
 \alias{before_deploy}
@@ -25,8 +24,6 @@ after_install(stages = load_from_file())
 before_script(stages = load_from_file())
 
 script(stages = load_from_file())
-
-before_cache(stages = load_from_file())
 
 after_success(stages = load_from_file())
 

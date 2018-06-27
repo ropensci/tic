@@ -2,7 +2,7 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
 
-The goal of tic is to faciliate deployment tasks for R packages tested by [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
+The goal of tic is to faciliate testing and deployment tasks for R packages in [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 The intended usage is as follows:
 - You specify the steps to be run at each stage in a central location in a simple domain-specific language
 - You add boilerplate code for installation of tic, and three function calls into tic, to [`.travis.yml`](#travis)/`appveyor.yml`/... (shown below)
@@ -79,7 +79,7 @@ You are free to adapt/enhance the `tic.R` file, but you should only rarely need 
 
 ### Stages
 
-Stages can have arbitrary names, but the default `.travis.yml` and `appveyor.yml` files use the following stage names:
+The following build stages are available:
 
 - `before_install`
 - `install`
