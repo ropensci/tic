@@ -17,6 +17,18 @@ You can install tic from github with:
 remotes::install_github("ropenscilabs/tic")
 ```
 
+## Setup
+
+1. Set up GitHub, Travis CI, and GitHub PAT and deploy key:
+
+    ``` r
+    # install.packages("remotes")
+    remotes::install_github("ropenscilabs/travis")
+    travis::use_tic()
+    ```
+
+2. Edit `tic.R` as appropriate.
+
 
 ## Example applications
 
