@@ -36,7 +36,9 @@ Suggests:
     rcmdcheck,
     remotes,
     testthat,
-    travis
+    travis,
+    knitr,
+    rmarkdown
 Remotes: 
     r-lib/rcmdcheck,
     ropenscilabs/travis
@@ -66,3 +68,4 @@ Collate:
     'tic-package.R'
     'travis.R'
     'utils.R'
+VignetteBuilder: knitr

@@ -114,6 +114,7 @@ The `tic()` function runs most of these stages, this is useful for local debuggi
 Among others, the tic package defines the following steps:
 
 - `step_hello_world`: print "Hello, World!" to the console, helps testing a tic setup
+- `step_rcmdcheck`: run `R CMD check` via the _rcmdcheck_ package
 - `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
 - `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
@@ -126,8 +127,6 @@ Among others, the tic package defines the following steps:
         - You must specify a `branch` if you set `orphan = TRUE`
     - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
     - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
-
-Writing a [custom step](#custom-steps) is very easy, pull requests to this package are most welcome.
 
 
 ## How steps are run
@@ -145,39 +144,6 @@ call `load_from_file()` and run the corresponding stage,
 they are intended to run from their corresponding CI stages.
 Other tic stages can be run easily with `run_stage()`.
 
-
-## Custom steps
-
-A step is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
-These members should be functions that are callable without arguments.
-The tic package uses [R6](https://github.com/wch/R6) to define a base class `TicStep`.
-All steps defined by tic, including the example `HelloWorld` step, use `TicStep` as a base class.
-See [`steps-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R) for the implementation.
-The `step_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
-I recommend following the same pattern for your custom steps.
-
-In the following, the three methods which your derived class must override are described.
-
-### `check()`
-
-This function should return a logical scalar.
-The task will be prepared and run only if this function returns `TRUE`.
-
-
-### `prepare()`
-
-This method will be called by `before_script()`.
-It is intended to run in the `before_script` phase of the CI run.
-You should install all dependent packages here, which then can be cached by the CI system.
-You also may include further preparation code here.
-
-
-### `run()`
-
-This method will be called by `after_success()` or `deploy()`,
-depending on your configuration.
-It is intended to run in the `after_success` or `deploy` phases of the CI run.
-The main difference is that only failed `deploy` tasks will fail the build.
 
 ---
 
