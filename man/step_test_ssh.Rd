@@ -17,6 +17,7 @@ Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
 Establishes an SSH connection.
 This step doesn't fail if the connection cannot be established,
 but prints verbose output by default.
+It is useful for troubleshooting deployment problems.
 }
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
