@@ -23,4 +23,3 @@ Run the \code{run_all()} method for all defined steps of a stage for which the
 
 Other runners: \code{\link{prepare_all_stages}}
 }
-\concept{runners}
