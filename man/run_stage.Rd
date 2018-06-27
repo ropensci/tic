@@ -15,7 +15,7 @@ A named list of \code{Stage} objects as returned by \code{\link[=load_from_file]
 by default loaded from \code{tic.R}.}
 }
 \description{
-Run the \code{prepare()} method for all defined steps of a stage for which the
+Run the \code{run_all()} method for all defined steps of a stage for which the
 \code{check()} method returns \code{TRUE}.
 }
 \seealso{

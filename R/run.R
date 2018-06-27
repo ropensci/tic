@@ -20,7 +20,7 @@ prepare_all_stages <- function(stages = load_from_file()) {
 
 #' Run a stage
 #'
-#' Run the `prepare()` method for all defined steps of a stage for which the
+#' Run the `run_all()` method for all defined steps of a stage for which the
 #' `check()` method returns `TRUE`.
 #'
 #' @seealso [TicStep]
