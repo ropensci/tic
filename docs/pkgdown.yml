@@ -3,4 +3,5 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   custom-steps: custom-steps.html
+  tic: tic.html
 
