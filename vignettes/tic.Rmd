@@ -37,6 +37,10 @@ What's the advantage of using _tic_?
 - Internal: Decouple R-specific workflow from main travis-ci repo
     - Travis only installs R and system deps, _tic_ handles workflow
 
+What's not covered yet?
+
+- `SystemRequirements`
+
 
 ## Architecture
 
