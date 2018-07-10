@@ -1,0 +1,48 @@
+---
+title: "Custom steps"
+author: "Kirill Müller"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Custom steps}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+A step is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
+These members should be functions that are callable without arguments.
+The tic package uses [R6](https://github.com/wch/R6) to define a base class `TicStep`.
+All steps defined by tic, including the example `HelloWorld` step, use `TicStep` as a base class.
+See [`steps-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R) for the implementation.
+The `step_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
+I recommend following the same pattern for your custom steps.
+
+In the following, the three methods which your derived class must override are described.
+
+### `check()`
+
+This function should return a logical scalar.
+The task will be prepared and run only if this function returns `TRUE`.
+
+
+### `prepare()`
+
+This method will be called by `before_script()`.
+It is intended to run in the `before_script` phase of the CI run.
+You should install all dependent packages here, which then can be cached by the CI system.
+You also may include further preparation code here.
+
+
+### `run()`
+
+This method will be called by `after_success()` or `deploy()`,
+depending on your configuration.
+It is intended to run in the `after_success` or `deploy` phases of the CI run.
+The main difference is that only failed `deploy` tasks will fail the build.

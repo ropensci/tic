@@ -2,7 +2,7 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
 
-The goal of tic is to faciliate deployment tasks for R packages tested by [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
+The goal of tic is to facilitate testing and deployment tasks for R packages in [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 The intended usage is as follows:
 - You specify the steps to be run at each stage in a central location in a simple domain-specific language
 - You add boilerplate code for installation of tic, and three function calls into tic, to [`.travis.yml`](#travis)/`appveyor.yml`/... (shown below)
@@ -16,6 +16,18 @@ You can install tic from github with:
 # install.packages("remotes")
 remotes::install_github("ropenscilabs/tic")
 ```
+
+## Setup
+
+1. Set up GitHub, Travis CI, and GitHub PAT and deploy key:
+
+    ``` r
+    # install.packages("remotes")
+    remotes::install_github("ropenscilabs/travis")
+    travis::use_tic()
+    ```
+
+2. Edit `tic.R` as appropriate.
 
 
 ## Example applications
@@ -79,7 +91,7 @@ You are free to adapt/enhance the `tic.R` file, but you should only rarely need 
 
 ### Stages
 
-Stages can have arbitrary names, but the default `.travis.yml` and `appveyor.yml` files use the following stage names:
+The following build stages are available:
 
 - `before_install`
 - `install`
@@ -101,11 +113,12 @@ The `tic()` function runs most of these stages, this is useful for local debuggi
 
 Among others, the tic package defines the following steps:
 
-- `step_hello_world`: Hello, World!
+- `step_hello_world`: print "Hello, World!" to the console, helps testing a tic setup
+- `step_rcmdcheck`: run `R CMD check` via the _rcmdcheck_ package
 - `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
 - `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
-- `step_test_ssh`: test the SSH connection to GitHub
+- `step_test_ssh`: test the SSH connection to GitHub, helps troubleshooting deploy problems
 - `step_build_pkgdown`: building package documentation via [pkgdown](https://github.com/hadley/pkgdown)
 - `step_push_deploy`: deploy to GitHub, with arguments:
     - `path`: which path to deploy, default: `"."`
@@ -114,8 +127,6 @@ Among others, the tic package defines the following steps:
         - You must specify a `branch` if you set `orphan = TRUE`
     - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
     - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
-
-Writing a [custom step](#custom-steps) is very easy, pull requests to this package are most welcome.
 
 
 ## How steps are run
@@ -134,35 +145,6 @@ they are intended to run from their corresponding CI stages.
 Other tic stages can be run easily with `run_stage()`.
 
 
-## Custom steps
+---
 
-A step is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
-These members should be functions that are callable without arguments.
-The tic package uses [R6](https://github.com/wch/R6) to define a base class `TicStep`.
-All steps defined by tic, including the example `HelloWorld` step, use `TicStep` as a base class.
-See [`steps-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R) for the implementation.
-The `step_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
-I recommend following the same pattern for your custom steps.
-
-In the following, the three methods which your derived class must override are described.
-
-### `check()`
-
-This function should return a logical scalar.
-The task will be prepared and run only if this function returns `TRUE`.
-
-
-### `prepare()`
-
-This method will be called by `before_script()`.
-It is intended to run in the `before_script` phase of the CI run.
-You should install all dependent packages here, which then can be cached by the CI system.
-You also may include further preparation code here.
-
-
-### `run()`
-
-This method will be called by `after_success()` or `deploy()`,
-depending on your configuration.
-It is intended to run in the `after_success` or `deploy` phases of the CI run.
-The main difference is that only failed `deploy` tasks will fail the build.
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

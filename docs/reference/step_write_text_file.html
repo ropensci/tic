@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Step: Write a text file — step_write_text_file" />
+
+<meta property="og:description" content="Creates a text file with arbitrary contents" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tic</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tic</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -60,8 +76,20 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-steps.html">Custom steps</a>
+    </li>
+  </ul>
+</li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -73,6 +101,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,36 +109,40 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Step: Write a text file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-write-text-file.R'><code>R/steps-write-text-file.R</code></a></small>
+    <div class="hidden name"><code>step_write_text_file.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Creates a text file with arbitrary contents</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>step_write_text_file</span>(<span class='no'>...</span>, <span class='no'>path</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p><code>[character]</code>
+      <td><p><code>[character]</code><br />
 Contents of the text file.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p><code>[string]</code>
+      <td><p><code>[string]</code><br />
 Path to the new text file.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
+    <div class='dont-index'><p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
   <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
   <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
@@ -118,7 +151,7 @@ Path to the new text file.</p></td>
   <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
   <code><a href='step_run_code.html'>step_run_code</a></code>,
   <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
-  <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>, <code><a href='step_test_ssh.html'>step_test_ssh</a></code></p>
+  <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>, <code><a href='step_test_ssh.html'>step_test_ssh</a></code></p></div>
     
 
   </div>
@@ -135,7 +168,7 @@ Path to the new text file.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
@@ -145,5 +178,8 @@ Path to the new text file.</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

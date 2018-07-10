@@ -2,7 +2,7 @@ get_head_commit <- function(branch) {
   if (git2r::is_commit(branch)) {
     return(branch)
   }
-  git2r::lookup(branch@repo, git2r::branch_target(branch))
+  git2r::lookup(git2r_attrib(branch, "repo"), git2r::branch_target(branch))
 }
 
 vlapply <- function(X, FUN, ..., USE.NAMES = TRUE) {

@@ -70,13 +70,17 @@ SetupPushDeploy <- R6Class(
     remote_name = "tic-remote", # HACK
 
     init_author = function() {
-      latest_commit <- get_head_commit(git2r::head(git2r::repository(".")))
+      latest_commit <- get_head_commit(git2r_head(git2r::repository(".")))
       print(latest_commit)
 
-      latest_author <- latest_commit@author
+      latest_author <- git2r_attrib(latest_commit, "author")
       print(latest_author)
 
-      git2r::config(private$git$get_repo(), user.name = latest_author@name, user.email = latest_author@email)
+      git2r::config(
+        private$git$get_repo(),
+        user.name = git2r_attrib(latest_author, "name"),
+        user.email = git2r_attrib(latest_author, "email")
+      )
     },
 
     fetch = function() {
@@ -163,21 +167,22 @@ step_setup_push_deploy <- function(path = ".", branch = ci()$get_branch(), orpha
 }
 
 DoPushDeploy <- R6Class(
-  "PushDeploy", inherit = TicStep,
+  "DoPushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", commit_message = NULL) {
+    initialize = function(path = ".", commit_message = NULL, commit_paths = ".") {
       private$git <- Git$new(path)
 
       if (is.null(commit_message)) {
         commit_message <- private$format_commit_message()
       }
       private$commit_message <- commit_message
+      private$commit_paths <- commit_paths
     },
 
     run = function() {
       private$git$init_repo()
-      maybe_orphan <- is.null(git2r::head(private$git$get_repo()))
+      maybe_orphan <- is.null(git2r_head(private$git$get_repo()))
       if (private$commit()) private$push(force = maybe_orphan)
     }
   ),
@@ -186,13 +191,17 @@ DoPushDeploy <- R6Class(
     git = NULL,
 
     commit_message = NULL,
+    commit_paths = NULL,
 
     repo = NULL,
     remote_name = "tic-remote", # HACK
 
     commit = function() {
-      message("Committing to ", private$git$get_repo()@path)
-      git2r::add(private$git$get_repo(), ".")
+      message("Staging: ", paste(private$commit_paths, collapse = ", "))
+      git2r::add(private$git$get_repo(), private$commit_paths)
+
+      repo_path <- git2r_attrib(private$git$get_repo(), "path")
+      message("Committing to ", repo_path)
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
       if (length(status$staged) > 0) {
         git2r::commit(private$git$get_repo(), private$commit_message)
@@ -231,13 +240,16 @@ DoPushDeploy <- R6Class(
 #' @param commit_message `[string]`\cr
 #'   Commit message to use, defaults to a useful message linking to the CI build
 #'   and avoiding recursive CI runs.
+#' @param commit_paths `[character]`\cr
+#'   Restrict the set of directories and/or files added to Git before deploying.
+#'   Default: deploy all files.
 #'
 #' @family deploy steps
 #' @family steps
 #'
 #' @export
-step_do_push_deploy <- function(path = ".", commit_message = NULL) {
-  DoPushDeploy$new(path = path, commit_message = commit_message)
+step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths = ".") {
+  DoPushDeploy$new(path = path, commit_message = commit_message, commit_paths = commit_paths)
 }
 
 PushDeploy <- R6Class(
@@ -246,7 +258,7 @@ PushDeploy <- R6Class(
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                           remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                          commit_message = NULL) {
+                          commit_message = NULL, commit_paths = ".") {
 
       private$setup <- step_setup_push_deploy(
         path = path, branch = branch, orphan = orphan, remote_url = remote_url,
@@ -254,7 +266,7 @@ PushDeploy <- R6Class(
       )
 
       private$do <- step_do_push_deploy(
-        path = path, commit_message = commit_message
+        path = path, commit_message = commit_message, commit_paths = commit_paths
       )
 
     },
@@ -287,10 +299,11 @@ PushDeploy <- R6Class(
 #' @export
 step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
                              remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                             commit_message = NULL) {
+                             commit_message = NULL, commit_paths = ".") {
   PushDeploy$new(
     path = path, branch = branch, orphan = orphan,
     remote_url = remote_url,
-    commit_message = commit_message
+    commit_message = commit_message,
+    commit_paths = commit_paths
   )
 }

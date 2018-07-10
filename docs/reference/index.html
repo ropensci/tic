@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tic</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tic</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -60,8 +73,20 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-steps.html">Custom steps</a>
+    </li>
+  </ul>
+</li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -73,6 +98,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,196 +106,192 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.2-13</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-dsl" class="hasAnchor"><a href="#section-dsl" class="anchor"></a>DSL</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tic-package.html">tic-package</a></code> </p>
-          </td>
-          <td><p>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="DSL.html">get_stage</a></code> <code><a href="DSL.html">add_step</a></code> <code><a href="DSL.html">add_code_step</a></code> <code><a href="DSL.html">add_package_checks</a></code> </p>
-          </td>
-          <td><p>tic's domain-specific language</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-steps" class="hasAnchor"><a href="#section-steps" class="anchor"></a>Steps</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="TicStep.html">TicStep</a></code> </p>
-          </td>
-          <td><p>The base class for all steps</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_add_to_drat.html">step_add_to_drat</a></code> </p>
-          </td>
-          <td><p>Step: Add built package to a drat</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_add_to_known_hosts.html">step_add_to_known_hosts</a></code> </p>
-          </td>
-          <td><p>Step: Add to known hosts</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_build_pkgdown.html">step_build_pkgdown</a></code> </p>
-          </td>
-          <td><p>Step: Build pkgdown documentation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_do_push_deploy.html">step_do_push_deploy</a></code> </p>
-          </td>
-          <td><p>Step: Perform push deploy</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_hello_world.html">step_hello_world</a></code> </p>
-          </td>
-          <td><p>Step: Hello, world!</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_install_ssh_keys.html">step_install_ssh_keys</a></code> </p>
-          </td>
-          <td><p>Step: Install an SSH key</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_push_deploy.html">step_push_deploy</a></code> </p>
-          </td>
-          <td><p>Step: Setup and perform push deploy</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_rcmdcheck.html">step_rcmdcheck</a></code> </p>
-          </td>
-          <td><p>Step: Check a package</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_run_code.html">step_run_code</a></code> </p>
-          </td>
-          <td><p>Step: Run arbitrary code</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_setup_push_deploy.html">step_setup_push_deploy</a></code> </p>
-          </td>
-          <td><p>Step: Setup push deploy</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_setup_ssh.html">step_setup_ssh</a></code> </p>
-          </td>
-          <td><p>Step: Setup SSH</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_test_ssh.html">step_test_ssh</a></code> </p>
-          </td>
-          <td><p>Step: Test SSH connection</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="step_write_text_file.html">step_write_text_file</a></code> </p>
-          </td>
-          <td><p>Step: Write a text file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ci.html">ci</a></code> <code><a href="ci.html">CI</a></code> </p>
-          </td>
-          <td><p>The current CI environment</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-running" class="hasAnchor"><a href="#section-running" class="anchor"></a>Running</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tic.html">tic</a></code> </p>
-          </td>
-          <td><p>Emulate a CI run locally</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="stages.html">before_install</a></code> <code><a href="stages.html">install</a></code> <code><a href="stages.html">after_install</a></code> <code><a href="stages.html">before_script</a></code> <code><a href="stages.html">script</a></code> <code><a href="stages.html">before_cache</a></code> <code><a href="stages.html">after_success</a></code> <code><a href="stages.html">after_failure</a></code> <code><a href="stages.html">before_deploy</a></code> <code><a href="stages.html">deploy</a></code> <code><a href="stages.html">after_deploy</a></code> <code><a href="stages.html">after_script</a></code> </p>
-          </td>
-          <td><p>Predefined stages</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="load_from_file.html">load_from_file</a></code> </p>
-          </td>
-          <td><p>Process a tic.R file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="prepare_all_stages.html">prepare_all_stages</a></code> </p>
-          </td>
-          <td><p>Prepare all stages</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="run_stage.html">run_stage</a></code> </p>
-          </td>
-          <td><p>Run a stage</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-serialization" class="hasAnchor"><a href="#section-serialization" class="anchor"></a>Serialization</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="base64serialize.html">base64serialize</a></code> <code><a href="base64serialize.html">base64unserialize</a></code> </p>
-          </td>
-          <td><p>Helpers for converting R objects to strings and back</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-dsl" class="hasAnchor"><a href="#section-dsl" class="anchor"></a>DSL</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="tic-package.html">tic-package</a></code> </p>
+        </td>
+        <td><p>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DSL.html">get_stage()</a></code> <code><a href="DSL.html">add_step()</a></code> <code><a href="DSL.html">add_code_step()</a></code> <code><a href="DSL.html">add_package_checks()</a></code> </p>
+        </td>
+        <td><p>tic's domain-specific language</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-steps" class="hasAnchor"><a href="#section-steps" class="anchor"></a>Steps</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="TicStep.html">TicStep</a></code> </p>
+        </td>
+        <td><p>The base class for all steps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_add_to_drat.html">step_add_to_drat()</a></code> </p>
+        </td>
+        <td><p>Step: Add built package to a drat</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_add_to_known_hosts.html">step_add_to_known_hosts()</a></code> </p>
+        </td>
+        <td><p>Step: Add to known hosts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_build_pkgdown.html">step_build_pkgdown()</a></code> </p>
+        </td>
+        <td><p>Step: Build pkgdown documentation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_do_push_deploy.html">step_do_push_deploy()</a></code> </p>
+        </td>
+        <td><p>Step: Perform push deploy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_hello_world.html">step_hello_world()</a></code> </p>
+        </td>
+        <td><p>Step: Hello, world!</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_install_ssh_keys.html">step_install_ssh_keys()</a></code> </p>
+        </td>
+        <td><p>Step: Install an SSH key</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_push_deploy.html">step_push_deploy()</a></code> </p>
+        </td>
+        <td><p>Step: Setup and perform push deploy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_rcmdcheck.html">step_rcmdcheck()</a></code> </p>
+        </td>
+        <td><p>Step: Check a package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_run_code.html">step_run_code()</a></code> </p>
+        </td>
+        <td><p>Step: Run arbitrary code</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_setup_push_deploy.html">step_setup_push_deploy()</a></code> </p>
+        </td>
+        <td><p>Step: Setup push deploy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_setup_ssh.html">step_setup_ssh()</a></code> </p>
+        </td>
+        <td><p>Step: Setup SSH</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_test_ssh.html">step_test_ssh()</a></code> </p>
+        </td>
+        <td><p>Step: Test SSH connection</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_write_text_file.html">step_write_text_file()</a></code> </p>
+        </td>
+        <td><p>Step: Write a text file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ci.html">ci()</a></code> <code><a href="ci.html">CI</a></code> </p>
+        </td>
+        <td><p>The current CI environment</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-running" class="hasAnchor"><a href="#section-running" class="anchor"></a>Running</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="tic.html">tic()</a></code> </p>
+        </td>
+        <td><p>Emulate a CI run locally</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stages.html">before_install()</a></code> <code><a href="stages.html">install()</a></code> <code><a href="stages.html">after_install()</a></code> <code><a href="stages.html">before_script()</a></code> <code><a href="stages.html">script()</a></code> <code><a href="stages.html">after_success()</a></code> <code><a href="stages.html">after_failure()</a></code> <code><a href="stages.html">before_deploy()</a></code> <code><a href="stages.html">deploy()</a></code> <code><a href="stages.html">after_deploy()</a></code> <code><a href="stages.html">after_script()</a></code> </p>
+        </td>
+        <td><p>Predefined stages</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="load_from_file.html">load_from_file()</a></code> </p>
+        </td>
+        <td><p>Process a tic.R file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prepare_all_stages.html">prepare_all_stages()</a></code> </p>
+        </td>
+        <td><p>Prepare all stages</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_stage.html">run_stage()</a></code> </p>
+        </td>
+        <td><p>Run a stage</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-serialization" class="hasAnchor"><a href="#section-serialization" class="anchor"></a>Serialization</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="base64serialize.html">base64serialize()</a></code> <code><a href="base64serialize.html">base64unserialize()</a></code> </p>
+        </td>
+        <td><p>Helpers for converting R objects to strings and back</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -285,7 +307,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
@@ -295,5 +317,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -43,10 +43,11 @@ NULL
 #' @rdname DSL
 #' @export
 get_stage <- function(name, private = NULL) {
-  if (!exists(name, private$stages)) {
-    assign(name, Stage$new(name), private$stages)
+  stage <- private$stages[[name]]
+  if (is.null(stage)) {
+    stop("Unknown stage ", name, ".", call. = FALSE)
   }
-  get(name, private$stages)
+  stage
 }
 
 #' @description
@@ -132,7 +133,21 @@ DSL <- R6Class(
 
   public = list(
     initialize = function() {
-      private$stages <- new.env(parent = emptyenv())
+      stage_names <- c(
+        "before_install",
+        "install",
+        "after_install",
+        "before_script",
+        "script",
+        "after_success",
+        "after_failure",
+        "before_deploy",
+        "deploy",
+        "after_deploy",
+        "after_script"
+      )
+
+      private$stages <- lapply(stats::setNames(nm = stage_names), Stage$new)
     },
 
     get_stage = function(name) {
@@ -140,7 +155,7 @@ DSL <- R6Class(
     },
 
     get_stages = function() {
-      as.list(private$stages)
+      private$stages
     },
 
     add_step = function(stage, step) {

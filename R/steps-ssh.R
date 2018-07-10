@@ -127,6 +127,7 @@ TestSSH <- R6Class(
 #' Establishes an SSH connection.
 #' This step doesn't fail if the connection cannot be established,
 #' but prints verbose output by default.
+#' It is useful for troubleshooting deployment problems.
 #'
 #' @param url `[string]`\cr
 #'   URL to establish SSH connection with, by default `git@github.com`

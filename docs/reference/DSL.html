@@ -18,13 +18,43 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="tic's domain-specific language — DSL" />
+
+<meta property="og:description" content="Functions to define stages and their constitutent
+steps.
+get_stage() returns a Stage object for a stage given by name.
+This function only works when called by load_from_file().
+add_step() adds a step to a stage, see step_hello_world()
+and the links therein for available steps.
+add_code_step() is a shortcut for add_step(step_run_code(...)).
+add_package_checks() adds default steps related to package checks
+to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
+stages:
+
+A call to utils::update.packages() with ask = FALSE in the
+&quot;before_install&quot; stage (only for non-interactive CIs)
+A call to remotes::install_deps() with dependencies = TRUE
+in the &quot;install&quot; stage
+A step_rcmdcheck() in the &quot;script&quot; stage, using the
+warnings_are_errors, notes_are_errors and args arguments
+A call to covr::codecov() in the &quot;after_success&quot; stage
+" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +77,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tic</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tic</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -60,8 +94,20 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom-steps.html">Custom steps</a>
+    </li>
+  </ul>
+</li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -73,6 +119,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,27 +127,27 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tic's domain-specific language</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/dsl.R'><code>R/dsl.R</code></a></small>
+    <div class="hidden name"><code>DSL.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Functions to define stages and their constitutent
-steps.
-
-    <code>get_stage()</code> returns a Stage object for a stage given by name.
-This function only works when called by <code><a href='load_from_file.html'>load_from_file()</a></code>.
-
-    <code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
-and the links therein for available steps.
-
-    <code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.
-
-    <code>add_package_checks()</code> adds default steps related to package checks
+steps.</p>
+<p><code>get_stage()</code> returns a Stage object for a stage given by name.
+This function only works when called by <code><a href='load_from_file.html'>load_from_file()</a></code>.</p>
+<p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
+and the links therein for available steps.</p>
+<p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
+<p><code>add_package_checks()</code> adds default steps related to package checks
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
-stages:</p><ol>
+stages:</p>
+<ol>
 <li><p>A call to <code><a href='http://www.rdocumentation.org/packages/utils/topics/update.packages'>utils::update.packages()</a></code> with <code>ask = FALSE</code> in the
 <code>"before_install"</code> stage (only for non-interactive CIs)</p></li>
 <li><p>A call to <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>
@@ -110,6 +157,7 @@ in the <code>"install"</code> stage</p></li>
 <li><p>A call to <code><a href='http://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage</p></li>
 </ol>
     
+    </div>
 
     <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>, <span class='kw'>private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
@@ -120,12 +168,12 @@ in the <code>"install"</code> stage</p></li>
 <span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>), <span class='kw'>private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p><code>[string]</code>
+      <td><p><code>[string]</code><br />
 The name for the stage.</p></td>
     </tr>
     <tr>
@@ -134,40 +182,40 @@ The name for the stage.</p></td>
     </tr>
     <tr>
       <th>stage</th>
-      <td><p><code>[Stage]</code>
+      <td><p><code>[Stage]</code><br />
 A Stage object as returned by <code>get_stage()</code>.</p></td>
     </tr>
     <tr>
       <th>step</th>
-      <td><p><code>[function]</code>
+      <td><p><code>[function]</code><br />
 A function that constructs a Step object, such as <code><a href='step_hello_world.html'>step_hello_world()</a></code>.</p></td>
     </tr>
     <tr>
       <th>call</th>
-      <td><p><code>[call]</code>
+      <td><p><code>[call]</code><br />
 An arbitrary expression executed during the stage to which this step is
 added.</p></td>
     </tr>
     <tr>
       <th>prepare_call</th>
-      <td><p><code>[call]</code>
+      <td><p><code>[call]</code><br />
 An optional arbitrary expression executed during preparation.</p></td>
     </tr>
     <tr>
       <th>warnings_are_errors</th>
-      <td><p><code>[flag]</code>
+      <td><p><code>[flag]</code><br />
 Should warnings be treated as errors? Default: <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>notes_are_errors</th>
-      <td><p><code>[flag]</code>
+      <td><p><code>[flag]</code><br />
 Should notes be treated as errors? Default: <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>args</th>
-      <td><p><code>[character]</code>
-Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
-<code>c("--no-manual", "--as-cran")</code>.</p></td>
+      <td><p><code>[character]</code><br />
+Passed to <code>[rcmdcheck::rcmdcheck()]</code> (after splitting at spaces), default:
+<code>"--no-manual --as-cran"</code>.</p></td>
     </tr>
     </table>
     
@@ -184,7 +232,7 @@ Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
@@ -194,5 +242,8 @@ Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -4,7 +4,7 @@
 \alias{step_do_push_deploy}
 \title{Step: Perform push deploy}
 \usage{
-step_do_push_deploy(path = ".", commit_message = NULL)
+step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -14,6 +14,10 @@ repository.}
 \item{commit_message}{\code{[string]}\cr
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
+
+\item{commit_paths}{\code{[character]}\cr
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.}
 }
 \description{
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
@@ -34,5 +38,3 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
-\concept{deploy steps}
-\concept{steps}

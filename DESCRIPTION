@@ -1,12 +1,13 @@
 Package: tic
 Type: Package
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
-Version: 0.2-13
+Version: 0.2.13.9001
 Authors@R: c(
-    person("Kirill", "Müller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre")),
+    person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
-    person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut"))
+    person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut")),
+    person("rOpenSci", role = c("fnd"))
   )
 Description: 
     Provides a way to describe common build and deployment workflows for R-based
@@ -35,9 +36,13 @@ Suggests:
     rcmdcheck,
     remotes,
     testthat,
-    travis
+    travis,
+    knitr,
+    rmarkdown
 Remotes: 
     r-lib/rcmdcheck,
+    krlmlr/callr@b-55-vignette-builder,
+    ropensci/git2r,
     ropenscilabs/travis
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
@@ -49,6 +54,7 @@ Collate:
     'appveyor.R'
     'base64.R'
     'dsl.R'
+    'git2r.R'
     'local.R'
     'mock.R'
     'run.R'
@@ -64,3 +70,4 @@ Collate:
     'tic-package.R'
     'travis.R'
     'utils.R'
+VignetteBuilder: knitr
