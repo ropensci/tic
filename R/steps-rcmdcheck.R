@@ -59,7 +59,7 @@ step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
-    check_args = strsplit(args, "[[:blank:]]+")[[1]],
+    check_args = strsplit(check_args, "[[:blank:]]+")[[1]],
     build_args = build_args
   )
 }
