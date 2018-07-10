@@ -15,7 +15,8 @@ add_step(stage, step)
 add_code_step(stage, call, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  args = c("--no-manual", "--as_cran"), private = NULL)
+  check_args = c("--no-manual", "--as_cran"), build_args = character(),
+  private = NULL)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -41,6 +42,13 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 
 \item{notes_are_errors}{\code{[flag]}\cr
 Should notes be treated as errors? Default: \code{FALSE}.}
+
+\item{check_args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
+\code{"--no-manual --as-cran"}.}
+
+\item{build_args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}}
 }
 \description{
 Functions to define stages and their constitutent

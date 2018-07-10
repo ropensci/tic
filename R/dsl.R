@@ -99,7 +99,8 @@ add_code_step <- function(stage, call, prepare_call = NULL) {
 #' @export
 add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
-                               args = c("--no-manual", "--as_cran"),
+                               check_args = c("--no-manual", "--as_cran"),
+                               build_args = character(),
                                private = NULL) {
   #' @description
   #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
@@ -119,7 +120,8 @@ add_package_checks <- function(warnings_are_errors = TRUE,
     step_rcmdcheck(
       warnings_are_errors = warnings_are_errors,
       notes_are_errors = notes_are_errors,
-      args = args
+      check_args = check_args,
+      build_args = build_args
     )
   )
 
@@ -167,11 +169,13 @@ DSL <- R6Class(
 
     add_package_checks = function(warnings_are_errors = TRUE,
                                   notes_are_errors = FALSE,
-                                  args = "--no-manual") {
+                                  check_args = "--no-manual",
+                                  build_args = character()) {
       add_package_checks(
         warnings_are_errors = warnings_are_errors,
         notes_are_errors = notes_are_errors,
-        args = args,
+        check_args = check_args,
+        build_args = build_args,
         private = private
       )
     },
