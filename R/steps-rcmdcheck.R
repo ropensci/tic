@@ -3,14 +3,16 @@ RCMDcheck <- R6Class(
 
   public = list(
     initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                          args = "--no-manual") {
+                          check_args = "--no-manual") {
       private$warnings_are_errors <- warnings_are_errors
       private$notes_are_errors <- notes_are_errors
-      private$args <- args
+      private$check_args <- check_args
+      private$build_args <- build_args
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(args = private$args)
+      res <- rcmdcheck::rcmdcheck(check_args = private$check_args,
+                                  build_args = private$build_args)
       saveRDS(res, "$HOME/rcmdcheck.rda")
       print(res)
       if (length(res$errors) > 0) {
@@ -32,7 +34,8 @@ RCMDcheck <- R6Class(
   private = list(
     warnings_are_errors = NULL,
     notes_are_errors = NULL,
-    args = NULL
+    check_args = NULL,
+    build_args = NULL
   )
 )
 
@@ -44,15 +47,19 @@ RCMDcheck <- R6Class(
 #'   Should warnings be treated as errors? Default: `TRUE`.
 #' @param notes_are_errors `[flag]`\cr
 #'   Should notes be treated as errors? Default: `FALSE`.
-#' @param args `[character]`\cr
+#' @param check_args `[character]`\cr
 #'   Passed to `[rcmdcheck::rcmdcheck()]` (after splitting at spaces), default:
 #'   `"--no-manual --as-cran"`.
+#' @param build_args `[character]`\cr
+#'   Passed to `[rcmdcheck::rcmdcheck()]`
 #' @export
 step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                           args = "--no-manual --as-cran") {
+                           check_args = "--no-manual --as-cran",
+                           build_args = build_args) {
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
-    args = strsplit(args, "[[:blank:]]+")[[1]]
+    check_args = strsplit(args, "[[:blank:]]+")[[1]],
+    build_args = build_args
   )
 }
