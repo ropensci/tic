@@ -41,10 +41,6 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 
 \item{notes_are_errors}{\code{[flag]}\cr
 Should notes be treated as errors? Default: \code{FALSE}.}
-
-\item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
-\code{"--no-manual --as-cran"}.}
 }
 \description{
 Functions to define stages and their constitutent

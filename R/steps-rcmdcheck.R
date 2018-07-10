@@ -3,7 +3,7 @@ RCMDcheck <- R6Class(
 
   public = list(
     initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                          check_args = "--no-manual") {
+                          check_args = "--no-manual", build_args = character()) {
       private$warnings_are_errors <- warnings_are_errors
       private$notes_are_errors <- notes_are_errors
       private$check_args <- check_args
