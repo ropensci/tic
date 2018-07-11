@@ -60,6 +60,6 @@ step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
     check_args = strsplit(check_args, "[[:blank:]]+")[[1]],
-    build_args = build_args
+    build_args = strsplit(build_args, "[[:blank:]]+")[[1]]
   )
 }
