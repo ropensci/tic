@@ -13,7 +13,6 @@ RCMDcheck <- R6Class(
     run = function() {
       res <- rcmdcheck::rcmdcheck(check_args = private$check_args,
                                   build_args = private$build_args)
-      saveRDS(res, "$HOME/rcmdcheck.rda")
       print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
