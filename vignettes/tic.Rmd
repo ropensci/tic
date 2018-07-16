@@ -1,6 +1,6 @@
 ---
 title: "Getting started with CI for R"
-author: "Kirill Müller"
+author: "Patrick Schratz, Kirill Müller"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -16,15 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overall structure
-
-Some sections below should be a separate vignette, with a very short summary and pointers in this "Getting started" vignette.
-
-- Architecture and build lifecycle: In "Getting started" we only have images and flow charts
-- Setup: We show how to set up a simple package check + pkgdown deployment, with links to further details
-- Advanced: A full description of the DSL, with link to the "Implementation" vignette for custom steps
-
-## Prerequisites
+# Prerequisites
 
 If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following ressources:
 
@@ -32,130 +24,146 @@ If you are completely unfamiliar with the term Continuous Integration (CI), we h
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you might wonder what the `tic` package does do make the world even simpler.
+Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the `tic` package does do make the world even simpler.
 
-## Scope
+# Initialization
 
-So, what's the advantage of using _tic_?
+The easiest way to use `tic` for CI services is to call `usethis::use_ci()`.
+This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
+The `usethis` package is used because it contains various other useful `use_*` functions that simplify R package development.
+The hard work in the background is actually doen by the R packages `travis` and `tic`. 
+See [here](tic-usethis-travis.html) for more detailed information on how everything works together.
 
-### CI-Agnostic workflows
+# Setup
 
-What does that mean, "CI-Agnostic" and why do we need it?
+### R packages
 
-You may have heard that multiple CI services exist in the wild.
-Some are operating system specific (e.g. Appveyor = Windows), some only support certain languages and others cost money to be used.
-What all have in common: They have their own way to specify their setup file, which is most often written in YAML and stored at the top-level directory of your repo.
-This setup file controls what will be done in each run.
+After having called `usethis::use_ci()` you will find `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
+The default templates will trigger builds on both CI services that do the following:
 
-To give you an example how different these files can be, take a look at these two examples from [Travis](https://github.com/tidyverse/dplyr/blob/master/.travis.yml) and [Appveyor](https://github.com/tidyverse/dplyr/blob/master/appveyor.yml).
-While `Travis` is the only free CI services with a stable support for R (maintained by the community, specifically by @jimhester), `Appveyor` needs custom shell scripts (e.g. `travis-tool.sh`) that do some magic in the background. 
+- Install required dependecies of the R package
+- Run `rcmdcheck::rcmdcheck()` on the package (see [here] for more details)
+- Build a `pkgdown` site and deploy it to the `docs/` folder of the `master` branch
+- Run a code coverage on the package and upload it to [codecov.io](https://codecov.io/)
 
-We could list way more differences - but that's exactly the point when `tic` comes in!
-Rather than using the YAML synatx of Travis or the custom shell scripts on Appveyor, `tic` enables you to specify the complete workflow of the CI build in an external file called `tic.R`.
-This file is pure R code and the commands do the same on all supported CI systems.
+The commands that are going to be executed in each stage of each service are specified in a centralised file `tic.R` - read [here](tic-advantages.html) for a more thorough explanation of all advantages of `tic`.
 
-So instead of learning how to specify one specific task on different CI platforms, the user only needs to get used to the R based approach of `tic`.
+### Examples
 
-### Easier deployment
+`tic` also works with `bookdown`, `blogdown`, `rmarkdown`, `drat`, and `packagedocs`  projects. 
+It can also be used to publish to `figshare`.
+See the example projects below for more information.
 
-You may have heard that you can also automatically deploy files via CI system. 
-This means that these tools can e.g. build your `pkgdown` site on every run and conditionally push changes to your repo.
-So, you do not have to build the whole `pkgdown` site locally and then commit manually all the changed files - Travis will do it for you! 
+- [tic.blogdown](https://github.com/krlmlr/tic.blogdown)
+- [ŧic.bookdown](https://github.com/krlmlr/tic.bookdown)
+- [tic.drat](https://github.com/krlmlr/tic.drat)
+- [tic.R-package](https://github.com/krlmlr/tic.package)
+- [tic.rmarkdown](https://github.com/krlmlr/tic.website)
+- [tic.figshare](https://github.com/krlmlr/tic.figshare).
 
-How many R packages on Github liked the idea of having a `pkgdowm` site for their package which presents all the well-written vignettes and function documentation.
-But this is only valuable if the information also reflects the most recent repo state!
-To let you focus on updating the content and your functions, give the work of building and deploying the documentation to Travis. 
-Travis won't forget and won't complain.
+# Build lifecycle
 
-`tic` initiates the deployment in the `.travis.yml` file with the following block:
+## Stages
+
+CI services run builds in stages.
+Stages are ordered as follows:
+
+- `before_install`
+- `install`
+- `after_install`
+- `before_script`
+- `script`
+- `after_success`
+- `after_failure`
+- `before_deploy`
+- `deploy`
+- `after_deploy`
+- `after_script`
+
+The `after_xxx` stages are only for notifications and will not fail a build.
+They are started conditionally, dependent on their name.
+E.g. the `after_success` stage will only be run if there was a successfull execution of the `script` stage.
+The `after_deploy` stage will only be run if there the `deploy` stage was run before.
+
+`tic` also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic R-like way.
 
 ```yml
+before_install: 
+  - R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic")
+  - R -q -e 'tic::prepare_all_stages()'
+install: R -q -e 'tic::install()'
+after_install: R -q -e 'tic::after_install()'
+before_script: R -q -e 'tic::before_script()'
+script: R -q -e 'tic::script()'
+after_success: R -q -e 'tic::after_success()'
+after_failure: R -q -e 'tic::after_failure()'
 before_deploy: R -q -e 'tic::before_deploy()'
 deploy:
   provider: script
   script: R -q -e 'tic::deploy()'
   on:
-    branches: master
+    all_branches: true
+after_deploy: R -q -e 'tic::after_deploy()'
+after_script: R -q -e 'tic::after_script()'
 ```
 
-Let's break it down:
+In a nutshell, the workflow is like this:
 
-1. Travis executes `tic::before_deploy()` which will search for instructions regarding the `before_deploy()` stage in `tic.R`. By default this looks like
+`.travis.yml`/`appveyor.yml` -> `tic.R` -> commands to execute
 
-```r
-if (Sys.getenv("BUILD_PKGDOWN") != "") {
-  get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
-}
-```
+The most important stage for `tic` is the `before_install` stage.
+Here, `tic` gets installed and runs `prepare_all_stages()`.
+This magical function makes sure that all subsequent steps can be executed, e.g. by installing required R packages.
+Note however that this is not the function that takes cares of installing package dependecies.
+This is triggered by the wrapper function `add_package_checks()`.
+This wrapper function adds four important commands to specific stages in the build cycle:
 
-Essentially here the function `step_setup_ ssh()` will be called if the environment variable `"BUILD_PKGDOWN"` is set.
-That is just one condition among many that you can set to run certain commands conditionally.
-After the prerequisites of setting up an ssh key for the upcoming deployment has been finished, 
+1. A call to `utils::update.packages()` with `ask = FALSE` in the "before_install" stage (only for non-interactive CIs)
 
+2. A call to `remotes::install_deps()` with `dependencies = TRUE` in the "install" stage
 
-2. You tell Travis to use a script (provider: script) that holds the instructions for the deployment you want to do.
-3. This script is calling `tic::deploy()`
-4. This happens only on the `master` branch, meaning that other branches do not trigger a deploy with this setting.
+3. A `step_rcmdcheck()` in the "script" stage, using the `warnings_are_errors`, `notes_are_errors` and `args` arguments
 
-What happens is now that `tic::deploy()` searches again in `tic.R` for the "deploy" stage and then runs whatever you have specified there.
+4. A call to `covr::codecov()` in the "after_success" stage
 
-By default, the following will be executed:
+If you specify these stages on your own in `tic.R`, the commands above will not be executed. 
+So don't forget to add the commands manually to make sure that everything works!
 
-```r
-get_stage("deploy") %>%
-  add_step(step_build_pkgdown()) %>% 
-  add_step(step_push_deploy())
-```
+All R packages that should be stored in the Travis cache for R packages should be either installed in the `install` or `before_install` stage.
+This applies for example to Github packages.
+See [here](tic-advantages.html) for details.
 
-First, `step_build_pkgdown()` will build your `pkgdown` site and afterwards (note the `pipe` operator), `step_push_deploy()` takes care to push the results to your repo.
-By default this will be the `docs/` directory of the `master` branch.
+## Steps
 
-You may optionally set the deployment to the `gh-pages` branch and then change the branch for the serving of your site in your Github repo settings to `gh-pages`.
-By this you do not have all the commits from Travis in your `master` branch but your `pkgdown` site will be silently updated in the backgroud without any disturbance.
-Simply set the `branch` argument to `gh-pages` and `orphan = TRUE` so that a force git push is initiated.
-Now, `step_push_deploy(branch = "gh-pages", orphan = TRUE)` will deploy the resulting files of your `pkgdown` site to the 'gh-pages` branch of your repo.
+Among others, the tic package defines the following steps:
 
+- `step_hello_world`: print "Hello, World!" to the console, helps testing a tic setup
+- `step_rcmdcheck`: run `R CMD check` via the _rcmdcheck_ package
+- `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
+    - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
+- `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
+- `step_test_ssh`: test the SSH connection to GitHub, helps troubleshooting deploy problems
+- `step_build_pkgdown`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
+- `step_push_deploy`: deploy to GitHub, with arguments:
+    - `path`: which path to deploy, default: `"."`
+    - `branch`: which branch to deploy to, default: `ci()$get_branch()`
+    - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
+        - You must specify a `branch` if you set `orphan = TRUE`
+    - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
+    - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
+    - `commit_paths`: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.
 
+# What's not covered yet?
 
-- Easier deployment (why needed?)
-- Consistent R-based DSL, easier local testing
-- Internal: Decouple R-specific workflow from main travis-ci repo
-    - Travis only installs R and system deps, _tic_ handles workflow
+- `SystemRequirements`: `tic` is not yet capable of automatically determing system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically add an "addons: apt: " entry to `.travis.yml` that installs the required system libraries.
 
-What's not covered yet?
+# Advanced
 
-- `SystemRequirements`
+The advanced usage of `tic` is described in more detail in article [Advanced Usage](advanced.html):
 
-
-## Architecture
-
-How do Travis CI, the _travis_ and _tic_ packages and `tic.R` interact?
-
-## Build lifecycle
-
-`after_xxx` are for notification only, failures anywhere else lead to build failures, see also https://travis-ci.org/krlmlr/ci-lifecycle/builds/397482622
-
-- Flow chart?
-- Caching in the build lifecycle
-- Mapping of `tic` steps to the build lifecycle
-    - figure in the middle of http://ctlente.com/en/purrr-magic/: `.travis.yml` -> `tic.R` -> code
-    
-## Setup
-
-Link to motivation: "Easier deployment"
-
-- Description of the tic.* example repos and the steps necessary to recreate them
-    - Setup using _travis_
-- Interaction with private environment variables
-- Serializing R objects to strings
-
-## Advanced
-
-Link to motivation: "Run tests locally, R-based DSL"
-
-- Meta-information: `ci()`
-- Run _tic_ locally
-- Troubleshooting
+- [Options for `pkgdown` deployment](advanced.html#pkgdown-deployment) 
+- Using Travis CI Meta-information: `ci()` -> link to vignette "advanced"
+- Running `tic` locally: -> link to vignette "advanced"
+- Troubleshooting -> link to vignette "advanced"
     - Linting `.travis.yml`
     - Debugging on Travis CI ("if you must")

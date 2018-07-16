@@ -1,0 +1,67 @@
+---
+title: "tic, travis and usethis - an overview"
+author: "Kirill Müller"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overall structure
+
+Some sections below should be a separate vignette, with a very short summary and pointers in this "Getting started" vignette.
+
+- Architecture and build lifecycle: In "Getting started" we only have images and flow charts
+- Setup: We show how to set up a simple package check + pkgdown deployment, with links to further details
+- Advanced: A full description of the DSL, with link to the "Implementation" vignette for custom steps
+
+# Prerequisites
+
+If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following ressources:
+
+- https://ropensci.github.io/dev_guide/ci.html
+- https://juliasilge.com/blog/beginners-guide-to-travis/
+- http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
+
+Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the `tic` package does do make the world even simpler.
+
+# Architecture
+
+How do Travis CI, the _travis_ and _tic_ packages and `tic.R` interact?
+
+# Build lifecycle
+
+`after_xxx` are for notification only, failures anywhere else lead to build failures, see also https://travis-ci.org/krlmlr/ci-lifecycle/builds/397482622
+
+- Flow chart?
+- Caching in the build lifecycle
+- Mapping of `tic` steps to the build lifecycle
+    - figure in the middle of http://ctlente.com/en/purrr-magic/: `.travis.yml` -> `tic.R` -> code
+    
+# Setup
+
+Link to motivation: "Easier deployment"
+
+- Description of the tic.* example repos and the steps necessary to recreate them
+    - Setup using _travis_
+- Interaction with private environment variables
+- Serializing R objects to strings
+
+# Advanced
+
+Link to motivation: "Run tests locally, R-based DSL"
+
+- Meta-information: `ci()`
+- Run _tic_ locally
+- Troubleshooting
+    - Linting `.travis.yml`
+    - Debugging on Travis CI ("if you must")

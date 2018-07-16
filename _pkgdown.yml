@@ -22,3 +22,24 @@ reference:
 - title: Serialization
   contents:
   - starts_with("base64")
+
+navbar:
+  title:
+  type: default
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Get started
+    href: articles/tic.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: tic advantages
+      href: articles/tic-advantages.html
+    - text: tic, travis and usethis
+      href: articles/tic-usethis-travis.html
+    - text: Advanced usage
+      href: articles/advanced.html
+    - text: Custom steps
+      href: articles/custom_steps.html
