@@ -117,9 +117,9 @@ Among others, the tic package defines the following steps:
 - `step_rcmdcheck`: run `R CMD check` via the _rcmdcheck_ package
 - `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
-- `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`travis`](https://github.com/ropenscilabs/travis)`::use_travis_deploy()`)
+- `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
 - `step_test_ssh`: test the SSH connection to GitHub, helps troubleshooting deploy problems
-- `step_build_pkgdown`: building package documentation via [pkgdown](https://github.com/hadley/pkgdown)
+- `step_build_pkgdown`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
 - `step_push_deploy`: deploy to GitHub, with arguments:
     - `path`: which path to deploy, default: `"."`
     - `branch`: which branch to deploy to, default: `ci()$get_branch()`
@@ -127,6 +127,7 @@ Among others, the tic package defines the following steps:
         - You must specify a `branch` if you set `orphan = TRUE`
     - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
     - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
+    - `commit_paths`: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.
 
 
 ## How steps are run
