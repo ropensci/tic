@@ -1,0 +1,76 @@
+---
+title: "Advanced Usage"
+author: "Kirill Müller"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# pkgdown deployment
+
+You may optionally set the deployment to the `gh-pages` branch and then change the branch serving your site in the Github repo settings (change it to `gh-pages`).
+By this you do not have all the commits from Travis in your `master` branch but your `pkgdown` site will be silently updated in the backgroud without any disturbance.
+Simply set the `branch` argument to `gh-pages` and `orphan = TRUE` so that a force git push is initiated.
+Now, `step_push_deploy(branch = "gh-pages", orphan = TRUE)` will deploy the resulting files of your `pkgdown` site to the 'gh-pages` branch of your repo.
+
+# Committing single files
+
+The `tic` function `step_push_deploy()` has the ability to only commit and push single files if they have changed in a build.
+This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if they are automatically created via Travis.
+
+# Running stages on conditionally
+
+If you run multiple Travis builds on every push (e.g. if you test on multiple R versions or if you are using "build stages" on Travis (i.e. multiple builds that start sequentially after each other)), you often need to condition the `tic` stages based on environment variables.
+The most common use case is the testing on multiple R versions.
+
+Usually, `tic` initiates a code coverage testing in the `after_success` stage (see `?add_package_checks()`).
+Now you do not want that this is run on every R version as the outcome will always be the same. 
+Furthermore, it might trigger problems when all coverages are pushed at roughly the same time.
+So, it is sufficient to just run it on one R version, e.g. "release".
+When you use multiple R versions, Travis automatically sets up a build matrix with each build having [set an environmental variable for the R version](https://docs.travis-ci.com/user/languages/r/#Environment-Variables) used.
+So all you need to do is to condition the stage execution on this env variable:
+
+```r
+if (Sys.getenv("TRAVIS_R_VERSION") == "release") {
+  get_stage("after_success") %>%
+    add_step(covr::codecov())
+}
+```
+
+Setting the `after_success` stage explicitly will overwrite what `add_package_checks()` would trigger.
+
+You may want to do the same for the deployment of the `pkgdown` site.
+
+# Installing Github packages
+
+While Github packages can be installed by directly specyifing them in the `.travis.yml` file, its better to do it in `tic.R`.
+Sometimes the specification in `.travis.yml` is not run; this often happens when build matrices are used.
+Also, you want to set the command once to trigger in on all CI-systems.
+Github packages should be installed in the `install` stage:
+
+```r
+get_stage("install") %>%
+  add_code_step(devtools::install_github("r-lib/rcmdcheck"))
+```
+
+# Installing CRAN packages
+
+Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package.
+For example, to create a favicon in `pkgdown`, the `magick` package is required.
+To install the package only if it does not exist in the cache, run the following:
+
+```r
+get_stage("install") %>%
+  add_code_step(if (length(find.package("magick", quiet = TRUE)) == 0) install.packages("magick"))
+```

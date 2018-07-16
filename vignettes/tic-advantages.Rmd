@@ -1,0 +1,112 @@
+---
+title: "The advantages of tic"
+author: "Kirill Müller"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# The advantages of tic
+
+So, what's the advantage of using `tic` over the standard CI process?
+
+## CI-Agnostic workflows
+
+What "CI-Agnostic" mean and why do we need it?
+
+You may have heard that multiple CI services exist in the wild.
+Some are OS specific (e.g. Appveyor = Windows), some only support certain languages and others cost money to be used.
+What all have in common: They have their own way to specify their setup file, which is most often written in YAML and stored at the top-level directory of your repo.
+This setup file controls what will be done in each run.
+
+To give you an example how different these files can be, take a look at these two examples from [Travis](https://github.com/tidyverse/dplyr/blob/master/.travis.yml) and [Appveyor](https://github.com/tidyverse/dplyr/blob/master/appveyor.yml).
+While `Travis` is the only free CI services with a stable support for R (maintained by the community, specifically by @jimhester), `Appveyor` needs custom shell scripts (e.g. `travis-tool.sh`) that do some magic in the background. 
+
+We could list way more differences - but that's exactly the point when `tic` comes in!
+Rather than using the YAML synatx of Travis or the custom shell scripts on Appveyor, `tic` enables the specification of the complete workflow in an external R script file `tic.R`.
+The commands specified in there will be understood on every CI service that is supported by `tic`.
+
+So instead of learning how to specify one specific task on different CI platforms, the user only needs to get used to the R based approach of `tic`.
+
+## Easier deployment
+
+You may know that you can also automatically deploy files via CI systems. 
+This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
+A common use case is to build your `pkgdown` site and conditionally push changes to your repo.
+This practice saves you from building the whole `pkgdown` site locally and then commit manually all the changed files - Travis will do it for you! 
+
+It becomes more and more standard to have a `pkgdown` site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version.
+But this is only valuable if the information also reflects the most recent state of the repo.
+Do not waste time on updating documentation manually - automate such tasks!
+
+`tic` initiates the deployment in the `.travis.yml` file with the following block:
+
+```yml
+before_deploy: R -q -e 'tic::before_deploy()'
+deploy:
+  provider: script
+  script: R -q -e 'tic::deploy()'
+  on:
+    branches: master
+```
+
+Let's break down what happens here:
+
+1. Travis executes `tic::before_deploy()` which will search for instructions regarding the `before_deploy()` stage in `tic.R`. By default this looks like
+
+```r
+if (Sys.getenv("BUILD_PKGDOWN") != "") {
+  get_stage("before_deploy") %>%
+    add_step(step_setup_ssh())
+}
+```
+
+This block finally executes the function `step_setup_ ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build.
+That is just one condition among many that you can set to run certain commands conditionally (EXPLAIN MORE USEFUL OTHER CONDITIONS WITH EXAMPLES).
+After the prerequisite of setting up an ssh key for the upcoming deployment has been finished, 
+
+
+2. Travis is told to use a "script" (provider: script) for the deployment (which holds further instructions).
+3. This "script" is then calling `tic::deploy()`.
+4. All this is only happening on the `master` branch, meaning that other branches do not trigger a deploy with this condition set.
+
+What happens now is that `tic::deploy()` again searches in `tic.R` for the "deploy" stage and then runs whatever you have specified there.
+
+With the default template of `tic.R`, the following will be executed:
+
+```r
+get_stage("deploy") %>%
+  add_step(step_build_pkgdown()) %>% 
+  add_step(step_push_deploy())
+```
+
+First, `step_build_pkgdown()` will build your `pkgdown` site and afterwards (note the `pipe` operator), `step_push_deploy()` takes care to push the results to your repo.
+By default this will be the `docs/` directory of the `master` branch.
+
+## `rcmdcheck()` > R CMD check
+
+Usually Travis will run `R CMD check` to check the R package.
+`tic` instead uses  [`rcmdcheck`](https://github.com/r-lib/rcmdcheck), an optimized version of `R CMD check` developed by [@gaborcsardi](https://github.com/gaborcsardi).
+It comes with several enhancements:
+
+- Coloring of important steps on Travis, simplyfing the readability of the log
+- Enhanced and extended tracebacks of errors, especially errors in tests
+
+Especially the extended log printing of errors is a huge advantage - often enough, the important information is not printed by Travis when using `R CMD check` making it hard for the user to debug the problem.
+
+# tic for blogdown, bookdown and other sites
+
+`tic` is smart by automatically setting up templates that are tailored towards different repo types.
+For example, instead of a package you may work on a book using `bookdown` or want to deploy your website created via `blogdown`.
+`tic` automatically detects the repo type and adjust the template accordingly to meet the needs.
+
