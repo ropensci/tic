@@ -1,6 +1,6 @@
 ---
 title: "tic, travis and usethis - an overview"
-author: "Kirill Müller"
+author: "Patrick Schratz, Kirill Müller"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -16,52 +16,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Overall structure
+You may be a bit confused about all the different packages and their specific scopes in the world of R package development.
+The three packages can be arranged in the following structure, from the outer to the inner level:
 
-Some sections below should be a separate vignette, with a very short summary and pointers in this "Getting started" vignette.
+usethis -> tic -> travis
 
-- Architecture and build lifecycle: In "Getting started" we only have images and flow charts
-- Setup: We show how to set up a simple package check + pkgdown deployment, with links to further details
-- Advanced: A full description of the DSL, with link to the "Implementation" vignette for custom steps
+The `usethis` package holds all the utility wrapper functions to simplify R package development.
+From cloning a Github repo `create_from_github()` over using `roxygen2` for documentation (`use_roxygen()`) to setting up CI for your package (`use_ci()`).
+The latter function effectively calls a mixture of `travis` and `tic` functions that do the work in the background. 
+Most of the stuff that needs to be done for Travis is handled by the `travis` package. 
+These are tasks like enabling the repo in travis-ci.org, setting up ssh deployment keys for your repo on Travis and others.
 
-# Prerequisites
+After everything is ready, `usethis` and `travis` have done their jobs and the rest of the work goes to `tic`.
+By this we mean the handling of the actual CI workflow: What commands are going to be executed at all, which stage runs a specific command, how is the deployment handled.
 
-If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following ressources:
+So in summary, the three packages can be described like this:
 
-- https://ropensci.github.io/dev_guide/ci.html
-- https://juliasilge.com/blog/beginners-guide-to-travis/
-- http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
-
-Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the `tic` package does do make the world even simpler.
-
-# Architecture
-
-How do Travis CI, the _travis_ and _tic_ packages and `tic.R` interact?
-
-# Build lifecycle
-
-`after_xxx` are for notification only, failures anywhere else lead to build failures, see also https://travis-ci.org/krlmlr/ci-lifecycle/builds/397482622
-
-- Flow chart?
-- Caching in the build lifecycle
-- Mapping of `tic` steps to the build lifecycle
-    - figure in the middle of http://ctlente.com/en/purrr-magic/: `.travis.yml` -> `tic.R` -> code
-    
-# Setup
-
-Link to motivation: "Easier deployment"
-
-- Description of the tic.* example repos and the steps necessary to recreate them
-    - Setup using _travis_
-- Interaction with private environment variables
-- Serializing R objects to strings
-
-# Advanced
-
-Link to motivation: "Run tests locally, R-based DSL"
-
-- Meta-information: `ci()`
-- Run _tic_ locally
-- Troubleshooting
-    - Linting `.travis.yml`
-    - Debugging on Travis CI ("if you must")
+`usethis`: Package holding utility wrapper functions to simplify R package development
+`travis`: Responsible for setting up all CI related stuff and taking care of permissions
+`tic`: Package to specify the CI workflow (which stages are run, which commands are used)

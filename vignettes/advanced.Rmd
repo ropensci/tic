@@ -1,6 +1,6 @@
 ---
-title: "Advanced Usage"
-author: "Kirill Müller"
+title: "Advanced usage"
+author: "Patrick Schratz, Kirill Müller"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -16,20 +16,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Deployment
 
-# pkgdown deployment
+## pkgdown deployment
 
 You may optionally set the deployment to the `gh-pages` branch and then change the branch serving your site in the Github repo settings (change it to `gh-pages`).
 By this you do not have all the commits from Travis in your `master` branch but your `pkgdown` site will be silently updated in the backgroud without any disturbance.
 Simply set the `branch` argument to `gh-pages` and `orphan = TRUE` so that a force git push is initiated.
-Now, `step_push_deploy(branch = "gh-pages", orphan = TRUE)` will deploy the resulting files of your `pkgdown` site to the 'gh-pages` branch of your repo.
+Now, `step_push_deploy(branch = "gh-pages", orphan = TRUE)` will deploy the resulting files of your `pkgdown` site to the `gh-pages` branch of your repo.
 
-# Committing single files
+## Committing single files
 
-The `tic` function `step_push_deploy()` has the ability to only commit and push single files if they have changed in a build.
-This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if they are automatically created via Travis.
+Function `step_push_deploy()` has the ability to only commit and push single files if they have changed during a CI build.
+This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if these are automatically created via Travis.
+Simply add the desired files to argument `commit_paths` in `step_push_deploy()`.
 
-# Running stages on conditionally
+# Running stages conditionally
 
 If you run multiple Travis builds on every push (e.g. if you test on multiple R versions or if you are using "build stages" on Travis (i.e. multiple builds that start sequentially after each other)), you often need to condition the `tic` stages based on environment variables.
 The most common use case is the testing on multiple R versions.
@@ -52,7 +54,9 @@ Setting the `after_success` stage explicitly will overwrite what `add_package_ch
 
 You may want to do the same for the deployment of the `pkgdown` site.
 
-# Installing Github packages
+# Installing packages
+
+## Github packages
 
 While Github packages can be installed by directly specyifing them in the `.travis.yml` file, its better to do it in `tic.R`.
 Sometimes the specification in `.travis.yml` is not run; this often happens when build matrices are used.
@@ -64,7 +68,7 @@ get_stage("install") %>%
   add_code_step(devtools::install_github("r-lib/rcmdcheck"))
 ```
 
-# Installing CRAN packages
+## CRAN packages
 
 Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package.
 For example, to create a favicon in `pkgdown`, the `magick` package is required.
@@ -74,3 +78,51 @@ To install the package only if it does not exist in the cache, run the following
 get_stage("install") %>%
   add_code_step(if (length(find.package("magick", quiet = TRUE)) == 0) install.packages("magick"))
 ```
+
+# Using Travis CI Meta-information
+
+The `ci()` function holds valuable information about the used CI system. 
+It can be used to query information that can be used for conditioning stages or steps.
+
+For example, the user can make the deployment only to be run on Travis by using `inherits(ci(), "TravisCI")`:
+
+
+```r
+if (inherits(ci(), "TravisCI")) {
+  get_stage("before_deploy") %>%
+    add_step(step_setup_ssh())
+
+  get_stage("deploy") %>%
+    add_step(step_push_deploy())
+}
+```
+
+See `?ci` for more information on which information can be extracted from this function.
+
+# Troubleshooting: Running tic locally
+
+You can run `tic` locally by using `load_from_file()`.
+This function sources your `tic.R` file and reports eventual problems.
+
+# Troubleshooting: Entering the CI build
+
+If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via `ssh`.
+To do so, your repository must be [opt-in](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode) for "ssh debugging".
+
+Aftewards, you can call the following shell script locally by replacing `<id>` with the Travis job ID (you find it in the first lines of each build) and `<token>` with your Travis API token (you can find it in your Travis profile page).
+
+```sh
+$ curl -s -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Travis-API-Version: 3" \
+  -H "Authorization: token <token>" \
+  -d "{\"quiet\": true}" \
+  https://api.travis-ci.com/job/$<id>/debug
+```
+
+After executing the script, the build will restart.
+Wait a few minutes until the build arrives at the point when it prints you the `ssh` command you can use to log in.
+It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
+
+Once you are in the buildm [check](https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM) these handy functions to execute specific stages.

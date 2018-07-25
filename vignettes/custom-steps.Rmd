@@ -1,5 +1,5 @@
 ---
-title: "Custom steps"
+title: "Contributing: Writing custom steps"
 author: "Kirill Müller"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -16,21 +16,25 @@ knitr::opts_chunk$set(
 )
 ```
 
+Most steps run on CI systems are [already implemented](tic.html#steps) into `tic`.
+The following vignette shows how new steps can be created and how `tic` defines them.
+Internally, all steps are defined as [R6](https://github.com/wch/R6) classes.
 A step is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
 These members should be functions that are callable without arguments.
-The tic package uses [R6](https://github.com/wch/R6) to define a base class `TicStep`.
-All steps defined by tic, including the example `HelloWorld` step, use `TicStep` as a base class.
+
+The base class of a step that is `TicStep`.
+All steps defined by tic, including the example `HelloWorld` step, use `TicStep` as the base class.
 See [`steps-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R) for the implementation.
 The `step_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
-I recommend following the same pattern for your custom steps.
+We recommend following the same pattern for your custom steps.
 
-In the following, the three methods which your derived class must override are described.
+In the following, we describe the three methods which your derived step class must override:
 
 ### `check()`
 
 This function should return a logical scalar.
 The task will be prepared and run only if this function returns `TRUE`.
-
+Step `ssh_add_to_known_hosts()` uses this functionality to [check](https://github.com/ropenscilabs/tic/blob/a328680ba37d7a83c98a853c00240bbcbe2b01a3/R/steps-ssh.R#L77-L78) if the environment is non-interactive and if the "id_rsa" environment variable is available.
 
 ### `prepare()`
 
@@ -38,11 +42,26 @@ This method will be called by `before_script()`.
 It is intended to run in the `before_script` phase of the CI run.
 You should install all dependent packages here, which then can be cached by the CI system.
 You also may include further preparation code here.
-
+For example `step_rcmdcheck` verifies that the R package `rcmdcheck` is installed in this [method](https://github.com/ropenscilabs/tic/blob/a328680ba37d7a83c98a853c00240bbcbe2b01a3/R/steps-rcmdcheck.R#L26-L27).
 
 ### `run()`
 
-This method will be called by `after_success()` or `deploy()`,
-depending on your configuration.
-It is intended to run in the `after_success` or `deploy` phases of the CI run.
-The main difference is that only failed `deploy` tasks will fail the build.
+This method holds the commands that execute the essential calls in the end.
+It is called when a new element of that step class is created, e.g. `RCMDcheck$new`.
+For example, the `run()` function of class `RCMDcheck` looks as follows:
+
+```r
+run = function() {
+res <- rcmdcheck::rcmdcheck(args = private$args)
+  print(res)
+  if (length(res$errors) > 0) {
+    stopc("Errors found.")
+  }
+  if (private$warnings_are_errors && length(res$warnings) > 0) {
+    stopc("Warnings found, and warnings_are_errors is set.")
+  }
+  if (private$notes_are_errors && length(res$notes) > 0) {
+    stopc("Notes found, and notes_are_errors is set.")
+ }
+}
+```
