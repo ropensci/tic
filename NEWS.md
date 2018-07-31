@@ -1,3 +1,7 @@
+# tic 0.2.13.9002
+
+- The `openssl` package moved from 'Suggests' to 'Imports' because `get_public_key()` and `get_private_key()` were moved from package `travis` to this here.
+
 # tic 0.2.13.9001
 
 - The _pkgdown_ package is installed from CRAN.
