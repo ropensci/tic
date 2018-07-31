@@ -27,6 +27,7 @@ Imports:
     magrittr,
     memoise,
     methods,
+    openssl,
     R6,
     withr
 Suggests:
