@@ -4,9 +4,9 @@
 \alias{step_push_deploy}
 \title{Step: Setup and perform push deploy}
 \usage{
-step_push_deploy(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-  remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-  commit_message = NULL, commit_paths = ".")
+step_push_deploy(path = ".", branch = ci()$get_branch(),
+  orphan = FALSE, remote_url = paste0("git@github.com:",
+  ci()$get_slug(), ".git"), commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -55,3 +55,5 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{deploy steps}
+\concept{steps}
