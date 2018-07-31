@@ -2,17 +2,21 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
 
-The goal of tic is to facilitate testing and deployment tasks for R packages in [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
+The goal of tic is to facilitate testing and deployment tasks for R projects in [Travis CI](https://travis-ci.org), [AppVeyor](https://www.appveyor.com/), or the CI tool of your choice.
 
-In a nutshell, it does the following:
-- Installs required dependencies of an R package
-- Run `rcmdcheck::rcmdcheck()` on the package
-- Build a `pkgdown` site and deploy it to the `docs/` folder of the `master` branch (Travis only)
-- Run a code coverage on the package and upload it to [codecov.io](https://codecov.io/) (Travis only)
+In a nutshell, `tic` does the following:  
+
+- Installation of required dependencies for the project  
+- Satisfying dependencies of steps to be run in all CI stages
+- Running `rcmdcheck::rcmdcheck()` (if the project is an R package)  
+- Building of a `pkgdown` site and deployment to the `docs/` folder of the `master` branch (Travis only, R package only)  
+- Running a code coverage and uploading it to [codecov.io](https://codecov.io/) (Travis only, R package only)  
+
+It comes with pre-defined templates for various R projects (package, bookdown, blogdown, etc.) and provides CI-agnostic workflow definitions (for the CI stages).
 
 ## Installation
 
-You can install tic from github with:
+It can be installed from Github with:
 
 ``` r
 # install.packages("remotes")
@@ -21,16 +25,16 @@ remotes::install_github("ropenscilabs/tic")
 
 ## Setup
 
-[Getting started](https://ropenscilabs/tic/articles/tic.html#setup) with `tic`.
+When using `tic` it is helpful to be somewhat familiar with the concept of [continuous integration](https://ropenscilabs/tic/articles/tic.html#prerequisites) (CI).  
+By calling `usethis::use_ci()` a production ready setup for the respective R project is initialized.  
+This function will create a CI setup for both providers Travis and Appveyor.  
+For more information see the [Getting started](https://ropenscilabs/tic/articles/tic.html#setup) vignette.
 
-## Example applications
+## Further reading
 
-See [here](https://ropenscilabs/tic/articles/tic.html#examples).
-
-
-## Advanced usage 
-
-See [here](https://ropenscilabs/tic/articles/advanced.html).
+- [Example projects](https://ropenscilabs/tic/articles/tic.html#examples)  
+- [Advanced usage](https://ropenscilabs/tic/articles/advanced.html)
+- [Developer information](https://ropenscilabs/tic/articles/custom-steps.html)
 
 ---
 
