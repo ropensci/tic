@@ -33,6 +33,7 @@ Imports:
 Suggests:
     covr,
     drat,
+    openssl,
     rcmdcheck,
     remotes,
     testthat,
