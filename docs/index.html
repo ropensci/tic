@@ -96,35 +96,44 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tic" class="anchor"></a>tic</h1></div>
 
-<p>The goal of tic is to facilitate testing and deployment tasks for R packages in <a href="https://travis-ci.org">Travis CI</a>, <a href="https://www.appveyor.com/">AppVeyor</a>, or the CI tool of your choice.</p>
-<p>In a nutshell, it does the following:</p>
+<p>The goal of tic is to facilitate testing and deployment tasks for R projects in <a href="https://travis-ci.org">Travis CI</a>, <a href="https://www.appveyor.com/">AppVeyor</a>, or the CI tool of your choice.</p>
+<p>In a nutshell, <code>tic</code> does the following:</p>
 <ul>
-<li>Installs required dependencies of an R package</li>
-<li>Run <code><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> on the package</li>
-<li>Build a <code>pkgdown</code> site and deploy it to the <code>docs/</code> folder of the <code>master</code> branch (Travis only)</li>
-<li>Run a code coverage on the package and upload it to <a href="https://codecov.io/">codecov.io</a> (Travis only)</li>
+<li>Installation of required dependencies for the project<br>
+</li>
+<li>Satisfying dependencies of steps to be run in all CI stages</li>
+<li>Running <code><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> (if the project is an R package)<br>
+</li>
+<li>Building of a <code>pkgdown</code> site and deployment to the <code>docs/</code> folder of the <code>master</code> branch (Travis only, R package only)<br>
+</li>
+<li>Running a code coverage and uploading it to <a href="https://codecov.io/">codecov.io</a> (Travis only, R package only)</li>
 </ul>
+<p>It comes with pre-defined templates for various R projects (package, bookdown, blogdown, etc.) and provides CI-agnostic workflow definitions (for the CI stages).</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install tic from github with:</p>
+<p>It can be installed from Github with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"ropenscilabs/tic"</span>)</a></code></pre></div>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p><a href="https://ropenscilabs/tic/articles/tic.html#setup">Getting started</a> with <code>tic</code>.</p>
+<p>When using <code>tic</code> it is helpful to be somewhat familiar with the concept of <a href="https://ropenscilabs/tic/articles/tic.html#prerequisites">continuous integration</a> (CI).<br>
+By calling <code>usethis::use_ci()</code> a production ready setup for the respective R project is initialized.<br>
+This function will create a CI setup for both providers Travis and Appveyor.<br>
+For more information see the <a href="https://ropenscilabs/tic/articles/tic.html#setup">Getting started</a> vignette.</p>
 </div>
-<div id="example-applications" class="section level2">
+<div id="further-reading" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-applications" class="anchor"></a>Example applications</h2>
-<p>See <a href="https://ropenscilabs/tic/articles/tic.html#examples">here</a>.</p>
-</div>
-<div id="advanced-usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#advanced-usage" class="anchor"></a>Advanced usage</h2>
-<p>See <a href="https://ropenscilabs/tic/articles/advanced.html">here</a>.</p>
+<a href="#further-reading" class="anchor"></a>Further reading</h2>
+<ul>
+<li>
+<a href="https://ropenscilabs/tic/articles/tic.html#examples">Example projects</a><br>
+</li>
+<li><a href="https://ropenscilabs/tic/articles/advanced.html">Advanced usage</a></li>
+<li><a href="https://ropenscilabs/tic/articles/custom-steps.html">Developer information</a></li>
+</ul>
 <hr>
 <p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/ropensci_footer.png" alt="ropensci_footer"></a></p>
 </div>
