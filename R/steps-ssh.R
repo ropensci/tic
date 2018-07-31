@@ -196,12 +196,23 @@ step_setup_ssh <- function(name = "id_rsa", host = "github.com",
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
 }
 
+#' Get public RSA key
+#'
+#' Gets a public RSA keygen
+#'
 #' @importFrom openssl base64_encode
+#' @param key RSA key, as returned by [openssl::rsa_keygen()]
+#' @export
 get_public_key <- function(key) {
   as.list(key)$pubkey
 }
 
+#' Encode a private RSA key
+#'
+#' Encodes a private RSA keygen
+#' @inheritParams get_public_key
 #' @importFrom openssl write_pem
+#' @export
 encode_private_key <- function(key) {
   conn <- textConnection(NULL, "w")
   write_pem(key, conn, password = NULL)
