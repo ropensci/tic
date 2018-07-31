@@ -33,6 +33,7 @@ Imports:
 Suggests:
     covr,
     drat,
+    openssl,
     rcmdcheck,
     remotes,
     testthat,
@@ -47,7 +48,7 @@ Remotes:
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.0
 Encoding: UTF-8
 Collate: 
     'ci.R'
