@@ -33,6 +33,7 @@ Authors:
   \item Mika Braginsky \email{mika.br@gmail.com}
   \item Karthik Ram \email{karthik.ram@gmail.com}
   \item Jeroen Ooms \email{jeroen.ooms@stat.ucla.edu}
+  \item Patrick Schratz \email{patrick.schratz@gmail.com} (0000-0003-0748-6624)
 }
 
 Other contributors:

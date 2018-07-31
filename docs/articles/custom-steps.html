@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Custom steps • tic</title>
+<title>Contributing: Writing custom steps • tic</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Custom steps">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Contributing: Writing custom steps">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -37,7 +37,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -55,12 +55,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="../articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="../articles/custom_steps.html">Custom steps</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -82,10 +88,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Custom steps</h1>
+      <h1>Contributing: Writing custom steps</h1>
                         <h4 class="author">Kirill Müller</h4>
             
-            <h4 class="date">2018-06-28</h4>
+            <h4 class="date">2018-07-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/custom-steps.Rmd"><code>vignettes/custom-steps.Rmd</code></a></small>
       <div class="hidden name"><code>custom-steps.Rmd</code></div>
@@ -94,25 +100,39 @@
 
     
     
-<p>A step is an environment-like (or list-like) object with named members <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments. The tic package uses <a href="https://github.com/wch/R6">R6</a> to define a base class <code>TicStep</code>. All steps defined by tic, including the example <code>HelloWorld</code> step, use <code>TicStep</code> as a base class. See <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R"><code>steps-base.R</code></a> for the implementation. The <code>step_...</code> functions in tic are simply the <code>new()</code> methods of the corresponding R6 class objects. I recommend following the same pattern for your custom steps.</p>
-<p>In the following, the three methods which your derived class must override are described.</p>
+<p>Most steps run on CI systems are <a href="tic.html#steps">already implemented</a> into <code>tic</code>. The following vignette shows how new steps can be created and how <code>tic</code> defines them. Internally, all steps are defined as <a href="https://github.com/wch/R6">R6</a> classes. A step is an environment-like (or list-like) object with named members <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments.</p>
+<p>The base class of a step that is <code>TicStep</code>. All steps defined by tic, including the example <code>HelloWorld</code> step, use <code>TicStep</code> as the base class. See <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R"><code>steps-base.R</code></a> for the implementation. The <code>step_...</code> functions in tic are simply the <code>new()</code> methods of the corresponding R6 class objects. We recommend following the same pattern for your custom steps.</p>
+<p>In the following, we describe the three methods which your derived step class must override:</p>
 <div id="check" class="section level3">
 <h3 class="hasAnchor">
 <a href="#check" class="anchor"></a><code>check()</code>
 </h3>
-<p>This function should return a logical scalar. The task will be prepared and run only if this function returns <code>TRUE</code>.</p>
+<p>This function should return a logical scalar. The task will be prepared and run only if this function returns <code>TRUE</code>. Step <code>ssh_add_to_known_hosts()</code> uses this functionality to <a href="https://github.com/ropenscilabs/tic/blob/a328680ba37d7a83c98a853c00240bbcbe2b01a3/R/steps-ssh.R#L77-L78">check</a> if the environment is non-interactive and if the “id_rsa” environment variable is available.</p>
 </div>
 <div id="prepare" class="section level3">
 <h3 class="hasAnchor">
 <a href="#prepare" class="anchor"></a><code>prepare()</code>
 </h3>
-<p>This method will be called by <code><a href="../reference/stages.html">before_script()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. You should install all dependent packages here, which then can be cached by the CI system. You also may include further preparation code here.</p>
+<p>This method will be called by <code><a href="../reference/stages.html">before_script()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. You should install all dependent packages here, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R package <code>rcmdcheck</code> is installed in this <a href="https://github.com/ropenscilabs/tic/blob/a328680ba37d7a83c98a853c00240bbcbe2b01a3/R/steps-rcmdcheck.R#L26-L27">method</a>.</p>
 </div>
 <div id="run" class="section level3">
 <h3 class="hasAnchor">
 <a href="#run" class="anchor"></a><code>run()</code>
 </h3>
-<p>This method will be called by <code><a href="../reference/stages.html">after_success()</a></code> or <code><a href="../reference/stages.html">deploy()</a></code>, depending on your configuration. It is intended to run in the <code>after_success</code> or <code>deploy</code> phases of the CI run. The main difference is that only failed <code>deploy</code> tasks will fail the build.</p>
+<p>This method holds the commands that execute the essential calls in the end. It is called when a new element of that step class is created, e.g. <code>RCMDcheck$new</code>. For example, the <code>run()</code> function of class <code>RCMDcheck</code> looks as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">run =<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">res &lt;-<span class="st"> </span>rcmdcheck<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck</a></span>(<span class="dt">args =</span> private<span class="op">$</span>args)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">print</span>(res)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="cf">if</span> (<span class="kw">length</span>(res<span class="op">$</span>errors) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">stopc</span>(<span class="st">"Errors found."</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  }</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="cf">if</span> (private<span class="op">$</span>warnings_are_errors <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">length</span>(res<span class="op">$</span>warnings) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">stopc</span>(<span class="st">"Warnings found, and warnings_are_errors is set."</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="cf">if</span> (private<span class="op">$</span>notes_are_errors <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">length</span>(res<span class="op">$</span>notes) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">    <span class="kw">stopc</span>(<span class="st">"Notes found, and notes_are_errors is set."</span>)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"> }</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">}</a></code></pre></div>
 </div>
   </div>
 
@@ -123,7 +143,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

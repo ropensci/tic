@@ -42,7 +42,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -60,12 +60,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/custom-steps.html">Custom steps</a>
+      <a href="articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="articles/custom_steps.html">Custom steps</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -90,11 +96,13 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tic" class="anchor"></a>tic</h1></div>
 
-<p>The goal of tic is to facilitate testing and deployment tasks for R packages in <a href="https://travis-ci.org">Travis CI</a>, <a href="https://www.appveyor.com/">AppVeyor</a>, or the CI tool of your choice. The intended usage is as follows:</p>
+<p>The goal of tic is to facilitate testing and deployment tasks for R packages in <a href="https://travis-ci.org">Travis CI</a>, <a href="https://www.appveyor.com/">AppVeyor</a>, or the CI tool of your choice.</p>
+<p>In a nutshell, it does the following:</p>
 <ul>
-<li>You specify the steps to be run at each stage in a central location in a simple domain-specific language</li>
-<li>You add boilerplate code for installation of tic, and three function calls into tic, to <a href="#travis"><code>.travis.yml</code></a>/<code>appveyor.yml</code>/… (shown below)</li>
-<li>tic takes care of checking if a step is supposed to run, preparing the step if necessary (e.g., installation of dependencies), and running the enabled steps at the right time</li>
+<li>Installs required dependencies of an R package</li>
+<li>Run <code><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> on the package</li>
+<li>Build a <code>pkgdown</code> site and deploy it to the <code>docs/</code> folder of the <code>master</code> branch (Travis only)</li>
+<li>Run a code coverage on the package and upload it to <a href="https://codecov.io/">codecov.io</a> (Travis only)</li>
 </ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -106,132 +114,17 @@
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<ol>
-<li>
-<p>Set up GitHub, Travis CI, and GitHub PAT and deploy key:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"ropenscilabs/travis"</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/use_tic">use_tic</a></span>()</a></code></pre></div>
-</li>
-<li><p>Edit <code>tic.R</code> as appropriate.</p></li>
-</ol>
+<p><a href="https://ropenscilabs/tic/articles/tic.html#setup">Getting started</a> with <code>tic</code>.</p>
 </div>
 <div id="example-applications" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-applications" class="anchor"></a>Example applications</h2>
-<ul>
-<li>
-<p><a href="https://github.com/krlmlr/tic.package">R package with pkgdown documentation</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.package"><img src="https://travis-ci.org/krlmlr/tic.package.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/krlmlr/tic-package"><embed src="https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.package?branch=master&amp;svg=true"></embed></a> <a href="https://codecov.io/github/krlmlr/tic.package?branch=master"><img src="https://codecov.io/gh/krlmlr/tic.package/branch/master/graph/badge.svg" alt="Coverage Status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/krlmlr/tic.packagedocs">R package with packagedocs documentation</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.packagedocs"><img src="https://travis-ci.org/krlmlr/tic.packagedocs.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/krlmlr/tic.packagedocs"><embed src="https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.packagedocs?branch=master&amp;svg=true"></embed></a> <a href="https://codecov.io/github/krlmlr/tic.packagedocs?branch=master"><img src="https://codecov.io/gh/krlmlr/tic.packagedocs/branch/master/graph/badge.svg" alt="Coverage Status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/krlmlr/tic.drat">R package with auto-deploy to drat</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.drat"><img src="https://travis-ci.org/krlmlr/tic.drat.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/krlmlr/tic.drat"><embed src="https://ci.appveyor.com/api/projects/status/github/krlmlr/tic.drat?branch=master&amp;svg=true"></embed></a> <a href="https://codecov.io/github/krlmlr/tic.drat?branch=master"><img src="https://codecov.io/gh/krlmlr/tic.drat/branch/master/graph/badge.svg" alt="Coverage Status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/krlmlr/tic.website">An rmarkdown website</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.website"><img src="https://travis-ci.org/krlmlr/tic.website.svg?branch=master" alt="Travis-CI Build Status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/krlmlr/tic.bookdown">A bookdown book</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.bookdown"><img src="https://travis-ci.org/krlmlr/tic.bookdown.svg?branch=master" alt="Travis-CI Build Status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/krlmlr/tic.blogdown">A blogdown blog</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.blogdown"><img src="https://travis-ci.org/krlmlr/tic.blogdown.svg?branch=master" alt="Travis-CI Build Status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/krlmlr/tic.figshare">Publishing to figshare</a></p>
-<p><a href="https://travis-ci.org/krlmlr/tic.figshare"><img src="https://travis-ci.org/krlmlr/tic.figshare.svg?branch=master" alt="Travis-CI Build Status"></a></p>
-</li>
-</ul>
+<p>See <a href="https://ropenscilabs/tic/articles/tic.html#examples">here</a>.</p>
 </div>
-<div id="stages-and-steps" class="section level2">
+<div id="advanced-usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#stages-and-steps" class="anchor"></a>Stages and steps</h2>
-<p>Many CI systems organize a run in stages, tic embraces this concept. Each stage has a name (e.g., <code>"after_success"</code>, <code>"deploy"</code>, …) and has an arbitrary number of steps. Each step represents a self-contained action, which may require preparation (such as installing dependencies) and/or have arbitrary criteria if it is run. By default, the steps for a CI run are defined in the <code>tic.R</code> file in the package root.</p>
-<p>The <code>tic.R</code> file is modeled after the following pattern:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/DSL.html">get_stage</a></span>(<span class="st">"&lt;stage_name&gt;"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/DSL.html">add_step</a></span>(<span class="kw">step_...</span>(...)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>...</a></code></pre></div>
-<p>Add the steps you want to run at each stage. You can also use more complex R code to add steps conditionally or to parametrize them.</p>
-<p>The <code>use_tic()</code> function in the <a href="https://github.com/ropenscilabs/travis">travis package</a> creates default <code>.travis.yml</code>, <code>appveyor.yml</code> and <code>tic.R</code> files for many kinds of project. You are free to adapt/enhance the <code>tic.R</code> file, but you should only rarely need to edit <code>.travis.yml</code> or <code>appveyor.yml</code> (perhaps to define a build matrix or to preset an environment variable).</p>
-<div id="stages" class="section level3">
-<h3 class="hasAnchor">
-<a href="#stages" class="anchor"></a>Stages</h3>
-<p>The following build stages are available:</p>
-<ul>
-<li><code>before_install</code></li>
-<li><code>install</code></li>
-<li><code>after_install</code></li>
-<li><code>before_script</code></li>
-<li><code>script</code></li>
-<li><code>after_success</code></li>
-<li><code>after_failure</code></li>
-<li><code>before_deploy</code></li>
-<li><code>deploy</code></li>
-<li><code>after_deploy</code></li>
-<li><code>after_script</code></li>
-</ul>
-<p>For each of the predefined stage names, a corresponding function that runs the steps of this stage is provided. The <code><a href="reference/tic.html">tic()</a></code> function runs most of these stages, this is useful for local debugging.</p>
-</div>
-<div id="steps" class="section level3">
-<h3 class="hasAnchor">
-<a href="#steps" class="anchor"></a>Steps</h3>
-<p>Among others, the tic package defines the following steps:</p>
-<ul>
-<li>
-<code>step_hello_world</code>: print “Hello, World!” to the console, helps testing a tic setup</li>
-<li>
-<code>step_rcmdcheck</code>: run <code>R CMD check</code> via the <em>rcmdcheck</em> package</li>
-<li>
-<code>step_run_code</code>: run arbitrary code, optionally run preparatory code and install dependent packages
-<ul>
-<li>
-<code><a href="reference/DSL.html">add_step(step_run_code(...))</a></code> can be abbreviated with <code><a href="reference/DSL.html">add_code_step(...)</a></code>
-</li>
-</ul>
-</li>
-<li>
-<code>step_install_ssh_key</code>: make available a private SSH key (which has been added before to your project by <a href="https://github.com/ropenscilabs/travis"><code>travis</code></a><code>::use_travis_deploy()</code>)</li>
-<li>
-<code>step_test_ssh</code>: test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
-<li>
-<code>step_build_pkgdown</code>: building package documentation via <a href="https://github.com/hadley/pkgdown">pkgdown</a>
-</li>
-<li>
-<code>step_push_deploy</code>: deploy to GitHub, with arguments:
-<ul>
-<li>
-<code>path</code>: which path to deploy, default: <code>"."</code>
-</li>
-<li>
-<code>branch</code>: which branch to deploy to, default: <code>ci()$get_branch()</code>
-</li>
-<li>
-<code>orphan</code>: should the branch consist of a single commit that contains all changes (<code>TRUE</code>), or should it be updated incrementally (<code>FALSE</code>, default)
-<ul>
-<li>You must specify a <code>branch</code> if you set <code>orphan = TRUE</code>
-</li>
-</ul>
-</li>
-<li>
-<code>remote_url</code>: the remote URL to push to, default: the URL related to the Travis run</li>
-<li>
-<code>commit_message</code>: the commit message, will by default contain <code>[ci skip]</code> to avoid a loop, and useful information related to the CI run</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div id="how-steps-are-run" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-steps-are-run" class="anchor"></a>How steps are run</h2>
-<p>The <code><a href="reference/load_from_file.html">load_from_file()</a></code> sources the <code>tic.R</code> file and returns the stages defined there (as a list of <a href="https://github.com/ropenscilabs/tic/blob/master/R/stage.R"><code>Stage</code></a> objects). You can call this function locally to troubleshoot your <code>tic.R</code> file. By default, the <code><a href="reference/prepare_all_stages.html">prepare_all_stages()</a></code> function calls <code><a href="reference/load_from_file.html">load_from_file()</a></code> and prepares all running steps in all stages. It is intended to be run in the <code>before_script</code> (or similar) stage of the CI run, because the preparation may involve the installation of heavy dependencies which then can be cached. The <code><a href="reference/stages.html">after_success()</a></code> and <code><a href="reference/stages.html">deploy()</a></code> functions also call <code><a href="reference/load_from_file.html">load_from_file()</a></code> and run the corresponding stage, they are intended to run from their corresponding CI stages. Other tic stages can be run easily with <code><a href="reference/run_stage.html">run_stage()</a></code>.</p>
+<a href="#advanced-usage" class="anchor"></a>Advanced usage</h2>
+<p>See <a href="https://ropenscilabs/tic/articles/advanced.html">here</a>.</p>
 <hr>
 <p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/ropensci_footer.png" alt="ropensci_footer"></a></p>
 </div>
@@ -261,6 +154,7 @@
 <li>Mika Braginsky <br><small class="roles"> Author </small>  </li>
 <li>Karthik Ram <br><small class="roles"> Author </small>  </li>
 <li>Jeroen Ooms <br><small class="roles"> Author </small>  </li>
+<li>Patrick Schratz <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0748-6624" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>rOpenSci <br><small class="roles"> Funder </small>  </li>
 </ul>
 </div>
@@ -276,7 +170,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
