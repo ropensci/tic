@@ -224,24 +224,15 @@ See `?ci` for more information on which information can be extracted from this f
 You can run `tic` locally by using `load_from_file()`.
 This function sources your `tic.R` file and reports eventual problems.
 
+To emulate a CI run locally, you can simply call `tic()` and the CI run will be executed in your local R console.
+
 # Troubleshooting: Entering the CI build
 
 If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via `ssh`.
 To do so, your repository must be [opt-in](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode) for "ssh debugging".
 
-Aftewards, you can call the following shell script locally by replacing `<id>` with the Travis job ID (you find it in the first lines of each build) and `<token>` with your Travis API token (you can find it in your Travis profile page).
+Afterwards, you can simply call `travis::travis_debug_job(<jobID>)` and the build will restart.
 
-```sh
-$ curl -s -X POST \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -H "Travis-API-Version: 3" \
-  -H "Authorization: token <token>" \
-  -d "{\"quiet\": true}" \
-  https://api.travis-ci.com/job/$<id>/debug
-```
-
-After executing the script, the build will restart.
 Wait a few minutes until the build arrives at the point when it prints you the `ssh` command you can use to log in.
 It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
 
