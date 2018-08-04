@@ -40,6 +40,9 @@ There are two ways to restrict the deployment with `tic` and environment variabl
 
 Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2).
 There is no practical difference between both approaches.
+However, conditioning like shown here does only work for the "deploy" stage in `.travis.yml`.
+For [conditioning other stages](advanced.html#running-stages-conditionally), you need to use the `tic` appraoch.
+
 In the following we prepared an example for each option:
 
 1. Specifically set the env variable `BUILD_PKGDOWN` in `.travis.yml` and add the condition in `tic.R` to only run the deploy stage when this env variable evaluates to TRUE:
@@ -140,14 +143,18 @@ get_stage("before_deploy") %>%
                               commit_paths = c("NAMESPACE", "man/*")))
 ```
 
+Applying this idea of course depends on your overall R package development strategy: Commit files like `/man/` and `NS` directly or let them be created by Travis? 
+An example project that uses the latter strategy is [mlr](https://github.com/mlr-org/mlrng/blob/master/tic.R).
+
 # Running stages conditionally
 
-AS introduced in the prior section, conditioning of commands is based on env variables.
+As introduced in the [prior section](advanced.html#deployment), conditioning of commands is based on env variables.
 The most common use case is the testing on multiple R versions but if you test on multiple CI services you may also want to only run certain tasks on one of them.
+We already explained [how to do so](advanced.html#pkgdown-deployment) if you are deploying a`pkgdown` site.
 
-Usually, `tic` initiates a code coverage testing in the `after_success` stage (see `?add_package_checks()`).
-Now you do not want that this is run on every R version as the outcome will always be the same. 
-Furthermore, it might trigger problems when all coverages are pushed at roughly the same time.
+Another task is the code coverage generation.
+You do not want to run this on every R version as the outcome will always be the same. 
+Also it increases the build time on every build which is not what you want!
 So, it is sufficient to just run it on one R version, e.g. "release".
 When you use multiple R versions, Travis automatically sets up a build matrix with each build having [set an environmental variable for the R version](https://docs.travis-ci.com/user/languages/r/#Environment-Variables) used.
 So all you need to do is to condition the stage execution on this env variable:
@@ -159,9 +166,16 @@ if (Sys.getenv("TRAVIS_R_VERSION") == "release") {
 }
 ```
 
-Setting the `after_success` stage explicitly will overwrite what `add_package_checks()` would trigger.
+Note that setting the `after_success` stage explicitly will overwrite what `add_package_checks()` would do in the background for this particular stage (which is what you want if you define the step on your own).
 
-You may want to do the same for the deployment of the `pkgdown` site.
+Another condition that comes in handy is to run certain stages only on Travis CI (e.g. the code coverage step):
+
+```r
+if (inherits(ci(), "TravisCI") {
+  get_stage("after_success") %>%
+    add_step(covr::codecov())
+}
+```
 
 # Installing packages
 
@@ -174,7 +188,7 @@ Github packages should be installed in the `install` stage:
 
 ```r
 get_stage("install") %>%
-  add_code_step(devtools::install_github("r-lib/rcmdcheck"))
+  add_code_step(remotes::install_github("r-lib/rcmdcheck"))
 ```
 
 ## CRAN packages
