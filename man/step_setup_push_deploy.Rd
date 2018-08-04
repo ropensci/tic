@@ -5,8 +5,8 @@
 \title{Step: Setup push deploy}
 \usage{
 step_setup_push_deploy(path = ".", branch = ci()$get_branch(),
-  orphan = FALSE, remote_url = paste0("git@github.com:", ci()$get_slug(),
-  ".git"), checkout = TRUE)
+  orphan = FALSE, remote_url = paste0("git@github.com:",
+  ci()$get_slug(), ".git"), checkout = TRUE)
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -43,6 +43,8 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_build_pkgdown}},
   \code{\link{step_do_push_deploy}},
   \code{\link{step_hello_world}},
+  \code{\link{step_install_cran}},
+  \code{\link{step_install_github}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
   \code{\link{step_run_code}},
@@ -50,3 +52,5 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{deploy steps}
+\concept{steps}

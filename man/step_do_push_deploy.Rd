@@ -4,7 +4,8 @@
 \alias{step_do_push_deploy}
 \title{Step: Perform push deploy}
 \usage{
-step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = ".")
+step_do_push_deploy(path = ".", commit_message = NULL,
+  commit_paths = ".")
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -30,6 +31,8 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},
   \code{\link{step_build_pkgdown}},
   \code{\link{step_hello_world}},
+  \code{\link{step_install_cran}},
+  \code{\link{step_install_github}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
   \code{\link{step_run_code}},
@@ -38,3 +41,5 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{deploy steps}
+\concept{steps}
