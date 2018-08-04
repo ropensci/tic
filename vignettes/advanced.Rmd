@@ -181,9 +181,6 @@ if (inherits(ci(), "TravisCI") {
 
 ## Github packages
 
-While Github packages can be installed by directly specyifing them in the `.travis.yml` file, its better to do it in `tic.R`.
-Sometimes the specification in `.travis.yml` is not run; this often happens when build matrices are used.
-Also, you want to set the command once to trigger in on all CI-systems.
 Github packages should be installed in the `install` stage:
 
 ```r
