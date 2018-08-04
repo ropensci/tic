@@ -41,5 +41,5 @@ navbar:
       href: articles/tic-usethis-travis.html
     - text: Advanced usage
       href: articles/advanced.html
-    - text: Custom steps
+    - text: Dev - custom steps
       href: articles/custom_steps.html

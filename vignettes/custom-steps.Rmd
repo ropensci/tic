@@ -1,5 +1,5 @@
 ---
-title: "Contributing: Writing custom steps"
+title: "Developer info: Writing custom steps"
 author: "Kirill Müller"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -65,3 +65,18 @@ res <- rcmdcheck::rcmdcheck(args = private$args)
  }
 }
 ```
+
+If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed onto each function:
+Consider function [step_rcmdcheck()](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R).
+The user input first goes into 
+
+```
+step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
+                           args = "--no-manual --as-cran") 
+```
+
+Here, a new instance of the defined `R6` class "RCMDcheck" is initiated with `RCMDcheck$new()`.
+These arguments are then passed onto the `initialize()` function of the `R6` class.
+Here, the arguments are assigned to the "private" objects (e.g. `private$args`).
+Next, the private objects are used in the `run()` function which does the actual work in the end.
+You can read more about `R6` in Hadley's [book](https://adv-r.hadley.nz/r6.html).
