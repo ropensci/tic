@@ -224,7 +224,8 @@ See `?ci` for more information on which information can be extracted from this f
 You can run `tic` locally by using `load_from_file()`.
 This function sources your `tic.R` file and reports eventual problems.
 
-To emulate a CI run locally, you can simply call `tic()` and the CI run will be executed in your local R console.
+To emulate a CI run locally, you can simply call `tic()` and the stages and steps will be executed in your local R console.
+Note that doing this will use your local system libraries and not the Travis environment.
 
 # Troubleshooting: Entering the CI build
 
