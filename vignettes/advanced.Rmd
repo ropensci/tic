@@ -185,18 +185,20 @@ Github packages should be installed in the `install` stage:
 
 ```r
 get_stage("install") %>%
-  add_code_step(remotes::install_github("r-lib/rcmdcheck"))
+  add_code_step(step_install_github("r-lib/rcmdcheck"))
 ```
+
+Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_code_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis"))`.
 
 ## CRAN packages
 
 Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package.
 For example, to create a favicon in `pkgdown`, the `magick` package is required.
-To install the package only if it does not exist in the cache, run the following:
+To install the package (only if it does not exist in the cache already), run the following:
 
 ```r
 get_stage("install") %>%
-  add_code_step(if (length(find.package("magick", quiet = TRUE)) == 0) install.packages("magick"))
+  add_code_step(step_install_cran("magick"))
 ```
 
 # Using Travis CI Meta-information
