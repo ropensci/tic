@@ -48,6 +48,8 @@ You may know that CI services can be used to automatically deploy files.
 This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
 A common use case is to build your `pkgdown` site and conditionally push changes to your repo.
 This practice saves you from building the whole `pkgdown` site locally and then committing manually all the changed files - Travis will do it for you! 
+`tic` takes care of all the setup work (setting up ssh keys, permission granting for the repo on Github and Travis).
+In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
 
 Today, it becomes more and more the standard to have a `pkgdown` site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version.
 But this is only valuable if the information also reflects the most recent state of the repo.
@@ -61,7 +63,7 @@ deploy:
   provider: script
   script: R -q -e 'tic::deploy()'
   on:
-    branches: master
+    all_branches: true
 ```
 
 Let's break down what happens here:
