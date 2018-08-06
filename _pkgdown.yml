@@ -39,6 +39,8 @@ navbar:
       href: articles/tic-advantages.html
     - text: tic, travis and usethis
       href: articles/tic-usethis-travis.html
+    - text: Build lifecycle
+      href: articles/build-lifecycle.html
     - text: Advanced usage
       href: articles/advanced.html
     - text: Dev - custom steps
