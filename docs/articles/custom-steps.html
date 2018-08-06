@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contributing: Writing custom steps • tic</title>
+<title>Developer info: Writing custom steps • tic</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Contributing: Writing custom steps">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Developer info: Writing custom steps">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -61,10 +61,13 @@
       <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
     </li>
     <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/custom_steps.html">Custom steps</a>
+      <a href="../articles/custom_steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -88,10 +91,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Contributing: Writing custom steps</h1>
+      <h1>Developer info: Writing custom steps</h1>
                         <h4 class="author">Kirill Müller</h4>
             
-            <h4 class="date">2018-07-31</h4>
+            <h4 class="date">2018-08-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/custom-steps.Rmd"><code>vignettes/custom-steps.Rmd</code></a></small>
       <div class="hidden name"><code>custom-steps.Rmd</code></div>
@@ -133,6 +136,10 @@
 <a class="sourceLine" id="cb1-11" data-line-number="11">    <span class="kw">stopc</span>(<span class="st">"Notes found, and notes_are_errors is set."</span>)</a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"> }</a>
 <a class="sourceLine" id="cb1-13" data-line-number="13">}</a></code></pre></div>
+<p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed onto each function: Consider function <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R">step_rcmdcheck()</a>. The user input first goes into</p>
+<pre><code>step_rcmdcheck &lt;- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
+                           args = "--no-manual --as-cran") </code></pre>
+<p>Here, a new instance of the defined <code>R6</code> class “RCMDcheck” is initiated with <code>RCMDcheck$new()</code>. These arguments are then passed onto the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” objects (e.g. <code>private$args</code>). Next, the private objects are used in the <code>run()</code> function which does the actual work in the end. You can read more about <code>R6</code> in Hadley’s <a href="https://adv-r.hadley.nz/r6.html">book</a>.</p>
 </div>
   </div>
 

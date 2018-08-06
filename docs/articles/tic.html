@@ -61,10 +61,13 @@
       <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
     </li>
     <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/custom_steps.html">Custom steps</a>
+      <a href="../articles/custom_steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -91,7 +94,7 @@
       <h1>Getting started with CI for R</h1>
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
-            <h4 class="date">2018-07-31</h4>
+            <h4 class="date">2018-08-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
       <div class="hidden name"><code>tic.Rmd</code></div>
@@ -109,7 +112,7 @@
 <li><a href="https://juliasilge.com/blog/beginners-guide-to-travis/" class="uri">https://juliasilge.com/blog/beginners-guide-to-travis/</a></li>
 <li><a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/" class="uri">http://mahugh.com/2016/09/02/travis-ci-for-test-automation/</a></li>
 </ul>
-<p>Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the <code>tic</code> package does do make the world even simpler.</p>
+<p>Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the <code>tic</code> package does to make the world even simpler? For example, writing CI-agnostic code that works across CI systems! But that’s just the beginning. We summarized all the advantages of using <code>tic</code> in an own <a href="tic-advantages.html">vignette</a>.</p>
 </div>
 <div id="initialization" class="section level1">
 <h1 class="hasAnchor">
@@ -119,9 +122,9 @@
 <div id="setup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h1>
-<div id="r-packages" class="section level3">
-<h3 class="hasAnchor">
-<a href="#r-packages" class="anchor"></a>R packages</h3>
+<div id="r-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#r-packages" class="anchor"></a>R packages</h2>
 <p>After having called <code>usethis::use_ci()</code> you will find <code>.travis.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo. The default template will trigger builds on both CI services that do the following:</p>
 <ul>
 <li>Install required dependecies of the R package</li>
@@ -131,9 +134,9 @@
 </ul>
 <p>The commands that are going to be executed in each stage of each service are specified in a centralised file <code>tic.R</code> - read <a href="tic-advantages.html">here</a> for a more thorough explanation of all advantages of <code>tic</code>.</p>
 </div>
-<div id="examples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h3>
+<div id="examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h2>
 <p><code>tic</code> can also be used for <code>bookdown</code>, <code>blogdown</code>, <code>rmarkdown</code>, <code>drat</code>, and <code>packagedocs</code> projects. It can also publish to <code>figshare</code>. See the example projects below for more information.</p>
 <ul>
 <li><a href="https://github.com/krlmlr/tic.blogdown">tic.blogdown</a></li>
@@ -146,118 +149,13 @@
 </ul>
 </div>
 </div>
-<div id="build-lifecycle" class="section level1">
-<h1 class="hasAnchor">
-<a href="#build-lifecycle" class="anchor"></a>Build lifecycle</h1>
-<div id="stages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#stages" class="anchor"></a>Stages</h2>
-<p>CI services run builds in stages. Stages are ordered as follows:</p>
-<ul>
-<li><code>before_install</code></li>
-<li><code>install</code></li>
-<li><code>after_install</code></li>
-<li><code>before_script</code></li>
-<li><code>script</code></li>
-<li><code>after_success</code></li>
-<li><code>after_failure</code></li>
-<li><code>before_deploy</code></li>
-<li><code>deploy</code></li>
-<li><code>after_deploy</code></li>
-<li><code>after_script</code></li>
-</ul>
-<p>The <code>after_xxx</code> stages are only for notifications and will not fail a build. They are started conditionally, dependent on their name. For example stage <code>after_success</code> will only be run of if there was a successfull execution of the whole build process, i.e. no error in any stage. The <code>after_deploy</code> stage will only be run if there the <code>deploy</code> stage was run before.</p>
-<p><code>tic</code> also uses the stages approach and simply fowards all the commands that should be run in stage to the <code>tic.R</code> file where these will specified in an CI-agnostic way using R syntax.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_install:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">R -q -e 'install.packages("remotes"); remotes:</span><span class="at">:install_github("ropenscilabs/tic")</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">-</span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages()'</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a></code></pre></div>
-<p>In a nutshell, the workflow is like this:</p>
-<p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands to execute</p>
-<p>The most important stage for <code>tic</code> is the <code>before_install</code> stage. Here, <code>tic</code> gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This magical function makes sure that all subsequent steps can be executed, e.g. by installing required R packages. Note however that this is not the function that takes cares of installing dependencies of your R package but only to ensure that the commands specified in <code>tic.R</code> can be executed. The installation of R package dependencies is triggered by the wrapper function <code><a href="../reference/DSL.html">add_package_checks()</a></code>. This wrapper function adds four important commands to specific stages in the build cycle:</p>
-<ol style="list-style-type: decimal">
-<li><p>A call to <code><a href="http://www.rdocumentation.org/packages/utils/topics/update.packages">utils::update.packages()</a></code> with <code>ask = FALSE</code> in the “before_install” stage (only for non-interactive CIs)</p></li>
-<li><p>A call to <code><a href="http://www.rdocumentation.org/packages/remotes/topics/install_deps">remotes::install_deps()</a></code> with <code>dependencies = TRUE</code> in the “install” stage</p></li>
-<li><p>A <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the “script” stage, using the <code>warnings_are_errors</code>, <code>notes_are_errors</code> and <code>args</code> arguments</p></li>
-<li><p>A call to <code><a href="http://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the “after_success” stage</p></li>
-</ol>
-<p>If you specify these stages on your own in <code>tic.R</code>, the commands above will not be executed. So don’t forget to add the commands manually to make sure that everything works!</p>
-<p>Note: All R packages that should be stored in the Travis cache for R packages should be either installed in the <code>install</code> or <code>before_install</code> stage. This applies for example to Github packages. See <a href="tic-advantages.html">here</a> for details.</p>
-</div>
-<div id="steps" class="section level2">
-<h2 class="hasAnchor">
-<a href="#steps" class="anchor"></a>Steps</h2>
-<p>Steps are essentially the commands that are executed in each stage. <code>tic</code> uses the pipe operator to chain steps in <code>tic.R</code>, for example</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
-<p>This step is chained to stage “deploy” and subsequently only run in this stage. More steps that should be run in this stage could just by piped after the <code><a href="../reference/DSL.html">add_step(step_build_pkgdown())</a></code> step. Steps are usually defined using two nested commands: <code><a href="../reference/DSL.html">add_step()</a></code> and the corrsponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
-<p>The tic package defines the following steps:</p>
-<ul>
-<li>
-<code>step_hello_world</code>: print “Hello, World!” to the console, helps testing a tic setup</li>
-<li>
-<code>step_rcmdcheck</code>: run <code>R CMD check</code> via the <em>rcmdcheck</em> package</li>
-<li>
-<code>step_run_code</code>: run arbitrary code, optionally run preparatory code and install dependent packages
-<ul>
-<li>
-<code><a href="../reference/DSL.html">add_step(step_run_code(...))</a></code> can be abbreviated with <code><a href="../reference/DSL.html">add_code_step(...)</a></code>
-</li>
-</ul>
-</li>
-<li>
-<code>step_install_ssh_key</code>: make available a private SSH key (which has been added before to your project by <a href="https://github.com/r-lib/usethis"><code>usethis</code></a><code>::use_travis_deploy()</code>)</li>
-<li>
-<code>step_test_ssh</code>: test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
-<li>
-<code>step_build_pkgdown</code>: building package documentation via <a href="https://github.com/r-lib/pkgdown">pkgdown</a>
-</li>
-<li>
-<code>step_push_deploy</code>: deploy to GitHub, with arguments:
-<ul>
-<li>
-<code>path</code>: which path to deploy, default: <code>"."</code>
-</li>
-<li>
-<code>branch</code>: which branch to deploy to, default: <code>ci()$get_branch()</code>
-</li>
-<li>
-<code>orphan</code>: should the branch consist of a single commit that contains all changes (<code>TRUE</code>), or should it be updated incrementally (<code>FALSE</code>, default)
-<ul>
-<li>You must specify a <code>branch</code> if you set <code>orphan = TRUE</code>
-</li>
-</ul>
-</li>
-<li>
-<code>remote_url</code>: the remote URL to push to, default: the URL related to the Travis run</li>
-<li>
-<code>commit_message</code>: the commit message, will by default contain <code>[ci skip]</code> to avoid a loop, and useful information related to the CI run</li>
-<li>
-<code>commit_paths</code>: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
 <div id="whats-not-covered-yet" class="section level1">
 <h1 class="hasAnchor">
 <a href="#whats-not-covered-yet" class="anchor"></a>What’s not covered yet?</h1>
 <ul>
 <li>
-<code>SystemRequirements</code>: <code>tic</code> is not yet capable of automatically determing system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically add an “addons: apt:” entry to <code>.travis.yml</code> that installs the required system libraries.</li>
+<code>SystemRequirements</code>: <code>tic</code> is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically provide suggestions like “Please add addons: apt: <library> to <code>.travis.yml</code>”.</library>
+</li>
 </ul>
 </div>
 <div id="advanced" class="section level1">
@@ -271,6 +169,7 @@
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Enter into the Travis build</a></li>
 <li><a href="custom-steps.html">Writing custom steps</a></li>
 </ul>
+<p>The build lifecycle when using <code>tic</code> is explained in detail <a href="build-lifecycle.html">here</a>.</p>
 </div>
   </div>
 
@@ -281,11 +180,10 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#initialization">Initialization</a></li>
-      <li><a href="#setup">Setup</a></li>
       <li>
-<a href="#build-lifecycle">Build lifecycle</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#stages">Stages</a></li>
-      <li><a href="#steps">Steps</a></li>
+<a href="#setup">Setup</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#r-packages">R packages</a></li>
+      <li><a href="#examples">Examples</a></li>
       </ul>
 </li>
       <li><a href="#whats-not-covered-yet">What’s not covered yet?</a></li>

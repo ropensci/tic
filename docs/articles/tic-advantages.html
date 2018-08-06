@@ -61,10 +61,13 @@
       <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
     </li>
     <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/custom_steps.html">Custom steps</a>
+      <a href="../articles/custom_steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -91,7 +94,7 @@
       <h1>The advantages of tic</h1>
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
-            <h4 class="date">2018-07-31</h4>
+            <h4 class="date">2018-08-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic-advantages.Rmd"><code>vignettes/tic-advantages.Rmd</code></a></small>
       <div class="hidden name"><code>tic-advantages.Rmd</code></div>
@@ -104,19 +107,26 @@
 <h1 class="hasAnchor">
 <a href="#the-advantages-of-tic" class="anchor"></a>The advantages of tic</h1>
 <p>So, what’s the advantage of using <code>tic</code> over the standard CI process?</p>
+<ul>
+<li>CI-agnostic workflow definitions (in R!)</li>
+<li>Simplified deployment (e.g. <code>pkgdown</code> site)</li>
+<li>Improved package checking via <a href="https://github.com/r-lib/rcmdcheck">rcmdcheck</a>
+</li>
+<li>Robust caching approach</li>
+</ul>
 <div id="ci-agnostic-workflows" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ci-agnostic-workflows" class="anchor"></a>CI-Agnostic workflows</h2>
 <p>What does “CI-Agnostic” mean and why do we need it?</p>
 <p>You may have heard that multiple CI services exist in the wild. Some are OS specific (e.g. Appveyor = Windows), some only support certain languages and for some you need to pay a monthly rate to use them. What all have in common: They have their own way to specify their setup file, which is most often written in YAML and stored at the top-level directory of your repo. This setup file controls what will be done in each run.</p>
 <p>To give you an example how different these files can be, take a look at these two examples from <a href="https://github.com/tidyverse/dplyr/blob/master/.travis.yml">Travis</a> and <a href="https://github.com/tidyverse/dplyr/blob/master/appveyor.yml">Appveyor</a>. While <code>Travis</code> is the only free CI services with a stable support for R (maintained by the community, specifically by <span class="citation">@jimhester</span>), <code>Appveyor</code> currently requires quite some magic (e.g. <code>travis-tool.sh</code>) in the background to install a working R framework in the first place.</p>
-<p>We could list way more differences - but that’s exactly the point when <code>tic</code> comes in! Rather than dealing with all the CI differences, <code>tic</code> enables the specification of the complete workflow in an external R script file <code>tic.R</code>. The commands specified in there will be understood on every CI service that is supported by <code>tic</code>.</p>
+<p>We could list way more differences - but that’s exactly the point when <code>tic</code> comes in! Rather than dealing with all the CI differences, <code>tic</code> enables the specification of the complete workflow in an external R script file <code>tic.R</code>. The commands specified in there will be understood on every CI service that is supported by <code>tic</code>. Furthermore, you can emulate all the stages and steps locally by calling <code><a href="../reference/tic.html">tic()</a></code>. And you are independent of all the changes that are being made on the R setup for Travis or Appveyor [LINKS TO SETUPS].</p>
 <p>So instead of learning how to specify one specific task on different CI platforms, the user only needs to get used to the R based approach of <code>tic</code>.</p>
 </div>
 <div id="easier-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#easier-deployment" class="anchor"></a>Easier deployment</h2>
-<p>You may know that CI services can be used to automatically deploy files. This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.). A common use case is to build your <code>pkgdown</code> site and conditionally push changes to your repo. This practice saves you from building the whole <code>pkgdown</code> site locally and then committing manually all the changed files - Travis will do it for you!</p>
+<p>You may know that CI services can be used to automatically deploy files. This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.). A common use case is to build your <code>pkgdown</code> site and conditionally push changes to your repo. This practice saves you from building the whole <code>pkgdown</code> site locally and then committing manually all the changed files - Travis will do it for you! <code>tic</code> takes care of all the setup work (setting up ssh keys, permission granting for the repo on Github and Travis). In combination with <code>usethis::use_ci()</code> this whole preparation process is streamlined and needs only be called once for every repo by the user.</p>
 <p>Today, it becomes more and more the standard to have a <code>pkgdown</code> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. Do not waste time on updating your site manually - automate such tasks!</p>
 <p><code>tic</code> initiates the deployment in the <code>.travis.yml</code> file with the following block:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
@@ -124,7 +134,7 @@
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="fu">branches:</span><span class="at"> master</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
 <p>Let’s break down what happens here:</p>
 <ol style="list-style-type: decimal">
 <li>Travis executes <code><a href="../reference/stages.html">tic::before_deploy()</a></code> which will search for instructions regarding the <code><a href="../reference/stages.html">before_deploy()</a></code> stage in <code>tic.R</code>. By default this looks like</li>
@@ -156,6 +166,11 @@
 </ul>
 <p>Especially the extended log printing of errors is a huge advantage - often enough, the important information is not printed by Travis when using <code>R CMD check</code> making it hard for the user to debug the problem.</p>
 </div>
+<div id="caching-of-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#caching-of-packages" class="anchor"></a>Caching of packages</h2>
+<p>When using <code>tic</code> all dependencies (not only the ones of the package) are installed in the “before_install” stage. This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.</p>
+</div>
 </div>
   </div>
 
@@ -169,6 +184,7 @@
 <li><a href="#ci-agnostic-workflows">CI-Agnostic workflows</a></li>
       <li><a href="#easier-deployment">Easier deployment</a></li>
       <li><a href="#rcmdcheck-r-cmd-check"><code>rcmdcheck()</code> &gt; R CMD check</a></li>
+      <li><a href="#caching-of-packages">Caching of packages</a></li>
       </ul>
 </li>
       </ul>
