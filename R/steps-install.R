@@ -2,7 +2,7 @@ InstallCRAN <- R6Class(
   "InstallCRAN", inherit = TicStep,
 
   public = list(
-    initialize = function(package = NULL, ...) {
+    initialize = function(package, ...) {
       private$package <- package
       private$install_args <- list(...)
     },
@@ -31,15 +31,21 @@ InstallCRAN <- R6Class(
 #' @param ... Passed on to `base::install.packages()`
 #' @family steps
 #' @export
-step_install_cran <- function(repo = NULL, ...) {
-  InstallCRAN$new(repo = repo, ...)
+step_install_cran <- function(package = NULL, ...) {
+  InstallCRAN$new(package = package, ...)
 }
+
+
+
+
+
+
 
 InstallGithub <- R6Class(
   "InstallGithub", inherit = TicStep,
 
   public = list(
-    initialize = function(repo = NULL, ...) {
+    initialize = function(repo, ...) {
       private$repo <- repo
       private$install_args <- list(...)
     },
