@@ -39,6 +39,7 @@ While `Travis` is the only free CI services with a stable support for R (maintai
 We could list way more differences - but that's exactly the point when `tic` comes in!
 Rather than dealing with all the CI differences, `tic` enables the specification of the complete workflow in an external R script file `tic.R`.
 The commands specified in there will be understood on every CI service that is supported by `tic`.
+Furthermore, you can emulate all the stages and steps locally by calling `tic()`.
 
 So instead of learning how to specify one specific task on different CI platforms, the user only needs to get used to the R based approach of `tic`.
 
