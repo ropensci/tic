@@ -161,7 +161,7 @@
 <a href="#rcmdcheck-r-cmd-check" class="anchor"></a><code>rcmdcheck()</code> &gt; R CMD check</h2>
 <p>Usually Travis will run <code>R CMD check</code> to check the R package. <code>tic</code> instead uses <a href="https://github.com/r-lib/rcmdcheck"><code>rcmdcheck</code></a>, an optimized version of <code>R CMD check</code> developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. It comes with several enhancements:</p>
 <ul>
-<li>Coloring of important steps on Travis, simplyfing the readability of the log</li>
+<li>Coloring of important steps on Travis, simplifying the readability of the log</li>
 <li>Enhanced and extended tracebacks of errors, especially errors in tests</li>
 </ul>
 <p>Especially the extended log printing of errors is a huge advantage - often enough, the important information is not printed by Travis when using <code>R CMD check</code> making it hard for the user to debug the problem.</p>
