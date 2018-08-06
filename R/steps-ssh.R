@@ -201,6 +201,9 @@ step_setup_ssh <- function(name = "id_rsa", host = "github.com",
 #' Gets a public RSA keygen
 #'
 #' @param key RSA key, as returned by [openssl::rsa_keygen()]
+#' @seealso [usethis::use_ci()] [usethis::use_travis_deploy()]
+#' @seealso [step_install_ssh_keys()] [step_test_ssh()] [step_setup_ssh()]
+#' @keywords internal
 #' @export
 get_public_key <- function(key) {
   as.list(key)$pubkey
@@ -210,6 +213,9 @@ get_public_key <- function(key) {
 #'
 #' Encodes a private RSA keygen
 #' @inheritParams get_public_key
+#' @seealso [usethis::use_ci()] [usethis::use_travis_deploy()]
+#' @seealso [step_install_ssh_keys()] [step_test_ssh()] [step_setup_ssh()]
+#' @keywords internal
 #' @export
 encode_private_key <- function(key) {
   conn <- textConnection(NULL, "w")
