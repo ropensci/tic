@@ -117,7 +117,7 @@
 </li>
 <li>Setting the condition directly in <code>.travis.yml</code> in the “deploy” section</li>
 </ol>
-<p>Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2) (or by Travis itself, see <a href="advanced.html#travis-ci-meta-information">Travis CI Meta-Information</a>). There is no practical difference between both approaches. However, conditioning like shown here does only work for the “deploy” stage in <code>.travis.yml</code>. For <a href="advanced.html#running-stages-conditionally">conditioning other stages</a>, you need to use the <code>tic</code> appraoch.</p>
+<p>Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2) (or by Travis itself, see <a href="advanced.html#travis-ci-meta-information">Travis CI Meta-Information</a>). There is no practical difference between both approaches. However, conditioning like shown here does only work for the “deploy” stage in <code>.travis.yml</code>. For <a href="advanced.html#running-stages-conditionally">conditioning other stages</a>, you need to use the <code>tic</code> approach.</p>
 <p>In the following we prepared an example for each option:</p>
 <ol style="list-style-type: decimal">
 <li>Specifically set the env variable <code>BUILD_PKGDOWN</code> in <code>.travis.yml</code> and add the condition in <code>tic.R</code> to only run the deploy stage when this env variable evaluates to TRUE:</li>
@@ -259,7 +259,7 @@
 <p>If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via <code>ssh</code>. To do so, your repository must be <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode">opt-in</a> for “ssh debugging”.</p>
 <p>Afterwards, you can simply call <code>travis::travis_debug_job(&lt;jobID&gt;)</code> and the build will restart.</p>
 <p>Wait a few minutes until the build arrives at the point when it prints you the <code>ssh</code> command you can use to log in. It should look similar to <code>ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io</code>.</p>
-<p>Once you are in the buildm <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM">check</a> these handy functions to execute specific stages.</p>
+<p>Once you are in the build <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM">check</a> these handy functions to execute specific stages.</p>
 </div>
   </div>
 

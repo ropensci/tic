@@ -106,13 +106,13 @@
 <div id="prerequisites" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
-<p>If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following ressources:</p>
+<p>If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:</p>
 <ul>
 <li><a href="https://ropensci.github.io/dev_guide/ci.html" class="uri">https://ropensci.github.io/dev_guide/ci.html</a></li>
 <li><a href="https://juliasilge.com/blog/beginners-guide-to-travis/" class="uri">https://juliasilge.com/blog/beginners-guide-to-travis/</a></li>
 <li><a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/" class="uri">http://mahugh.com/2016/09/02/travis-ci-for-test-automation/</a></li>
 </ul>
-<p>Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the <code>tic</code> package does to make the world even simpler? For example, writing CI-agnostic code that works across CI systems! But that’s just the beginning. We summarized all the advantages of using <code>tic</code> in an own <a href="tic-advantages.html">vignette</a>.</p>
+<p>Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environment, you probably wonder what the <code>tic</code> package does to make the world even simpler? For example, writing CI-agnostic code that works across CI systems! But that’s just the beginning. We summarized all the advantages of using <code>tic</code> in an own <a href="tic-advantages.html">vignette</a>.</p>
 </div>
 <div id="initialization" class="section level1">
 <h1 class="hasAnchor">
@@ -127,12 +127,12 @@
 <a href="#r-packages" class="anchor"></a>R packages</h2>
 <p>After having called <code>usethis::use_ci()</code> you will find <code>.travis.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo. The default template will trigger builds on both CI services that do the following:</p>
 <ul>
-<li>Install required dependecies of the R package</li>
+<li>Install required dependencies of the R package</li>
 <li>Run <code><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> on the package (see <a href="tic-advantages#rcmdcheck-r-cmd-check">here</a> for more details)</li>
 <li>Build a <code>pkgdown</code> site and deploy it to the <code>docs/</code> folder of the <code>master</code> branch (Travis only)</li>
 <li>Run a code coverage on the package and upload it to <a href="https://codecov.io/">codecov.io</a> (Travis only)</li>
 </ul>
-<p>The commands that are going to be executed in each stage of each service are specified in a centralised file <code>tic.R</code> - read <a href="tic-advantages.html">here</a> for a more thorough explanation of all advantages of <code>tic</code>.</p>
+<p>The commands that are going to be executed in each stage of each service are specified in a centralized file <code>tic.R</code> - read <a href="tic-advantages.html">here</a> for a more thorough explanation of all advantages of <code>tic</code>.</p>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
