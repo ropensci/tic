@@ -20,6 +20,10 @@ knitr::opts_chunk$set(
 
 So, what's the advantage of using `tic` over the standard CI process?
 
+- CI-agnostic workflow definitions (in R!)
+- Simplified deployment (e.g. `pkgdown` site)
+- Improved package checking via [rcmdcheck](https://github.com/r-lib/rcmdcheck)
+
 ## CI-Agnostic workflows
 
 What does "CI-Agnostic" mean and why do we need it?
@@ -102,3 +106,8 @@ It comes with several enhancements:
 - Enhanced and extended tracebacks of errors, especially errors in tests
 
 Especially the extended log printing of errors is a huge advantage - often enough, the important information is not printed by Travis when using `R CMD check` making it hard for the user to debug the problem.
+
+## Caching of packages
+
+When using `tic` all dependencies (not only the ones of the package) are installed in the "before_install" stage. 
+This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
