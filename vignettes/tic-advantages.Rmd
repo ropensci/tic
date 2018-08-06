@@ -23,6 +23,7 @@ So, what's the advantage of using `tic` over the standard CI process?
 - CI-agnostic workflow definitions (in R!)
 - Simplified deployment (e.g. `pkgdown` site)
 - Improved package checking via [rcmdcheck](https://github.com/r-lib/rcmdcheck)
+- Robust caching approach
 
 ## CI-Agnostic workflows
 
@@ -40,6 +41,7 @@ We could list way more differences - but that's exactly the point when `tic` com
 Rather than dealing with all the CI differences, `tic` enables the specification of the complete workflow in an external R script file `tic.R`.
 The commands specified in there will be understood on every CI service that is supported by `tic`.
 Furthermore, you can emulate all the stages and steps locally by calling `tic()`.
+And you are independent of all the changes that are being made on the R setup for Travis or Appveyor [LINKS TO SETUPS].
 
 So instead of learning how to specify one specific task on different CI platforms, the user only needs to get used to the R based approach of `tic`.
 
