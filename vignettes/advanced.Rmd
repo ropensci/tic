@@ -38,7 +38,7 @@ There are two ways to restrict the deployment with `tic` and environment variabl
 1. Setting the condition in `tic.R`
 2. Setting the condition directly in `.travis.yml` in the "deploy" section
 
-Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2).
+Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2) (or by Travis itself, see [Travis CI Meta-Information](advanced.html#travis-ci-meta-information)).
 There is no practical difference between both approaches.
 However, conditioning like shown here does only work for the "deploy" stage in `.travis.yml`.
 For [conditioning other stages](advanced.html#running-stages-conditionally), you need to use the `tic` appraoch.
@@ -201,13 +201,12 @@ get_stage("install") %>%
   add_code_step(step_install_cran("magick"))
 ```
 
-# Using Travis CI Meta-information
+# Travis CI Meta-Information
 
-The `ci()` function holds valuable information about the used CI system. 
-It can be used to query information that can be used for conditioning stages or steps.
+The `ci()` function holds valuable information about the CI system. 
+It can be used to query information that can be again be utilized for conditioning stages or steps.
 
-For example, the user can make the deployment only to be run on Travis by using `inherits(ci(), "TravisCI")`:
-
+For example, the user may wish to only deploy on Travis by using `inherits(ci(), "TravisCI")`:
 
 ```r
 if (inherits(ci(), "TravisCI")) {
