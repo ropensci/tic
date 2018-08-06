@@ -21,19 +21,18 @@ Depends:
     R (>= 3.0.0)
 Imports:
     backports,
-    base64enc,
     crayon,
-    git2r,
     magrittr,
     memoise,
     methods,
-    openssl,
     R6,
     withr
 Suggests:
+    base64enc,
     covr,
     drat,
     rcmdcheck,
+        git2r,
     remotes,
     testthat,
     travis,
