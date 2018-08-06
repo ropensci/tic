@@ -39,7 +39,7 @@ See [here](tic-usethis-travis.html) for more detailed information on how `tic`, 
 
 # Setup
 
-### R packages
+## R packages
 
 After having called `usethis::use_ci()` you will find `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
 The default template will trigger builds on both CI services that do the following:
@@ -51,7 +51,7 @@ The default template will trigger builds on both CI services that do the followi
 
 The commands that are going to be executed in each stage of each service are specified in a centralised file `tic.R` - read [here](tic-advantages.html) for a more thorough explanation of all advantages of `tic`.
 
-### Examples
+## Examples
 
 `tic` can also be used for `bookdown`, `blogdown`, `rmarkdown`, `drat`, and `packagedocs`  projects. 
 It can also publish to `figshare`.
@@ -63,110 +63,6 @@ See the example projects below for more information.
 - [tic.R-package](https://github.com/krlmlr/tic.package)
 - [tic.rmarkdown](https://github.com/krlmlr/tic.website)
 - [tic.figshare](https://github.com/krlmlr/tic.figshare).
-
-# Build lifecycle
-
-## Stages
-
-CI services run builds in stages.
-Stages are ordered as follows:
-
-- `before_install`
-- `install`
-- `after_install`
-- `before_script`
-- `script`
-- `after_success`
-- `after_failure`
-- `before_deploy`
-- `deploy`
-- `after_deploy`
-- `after_script`
-
-The `after_xxx` stages are only for notifications and will not fail a build.
-They are started conditionally, dependent on their name.
-For example stage `after_success` will only be run of if there was a successfull execution of the whole build process, i.e. no error in any stage.
-The `after_deploy` stage will only be run if there the `deploy` stage was run before.
-
-`tic` also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic way using R syntax.
-
-```yml
-before_install: 
-  - R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic")
-  - R -q -e 'tic::prepare_all_stages()'
-install: R -q -e 'tic::install()'
-after_install: R -q -e 'tic::after_install()'
-before_script: R -q -e 'tic::before_script()'
-script: R -q -e 'tic::script()'
-after_success: R -q -e 'tic::after_success()'
-after_failure: R -q -e 'tic::after_failure()'
-before_deploy: R -q -e 'tic::before_deploy()'
-deploy:
-  provider: script
-  script: R -q -e 'tic::deploy()'
-  on:
-    all_branches: true
-after_deploy: R -q -e 'tic::after_deploy()'
-after_script: R -q -e 'tic::after_script()'
-```
-
-In a nutshell, the workflow is like this:
-
-`.travis.yml`/`appveyor.yml` -> `tic.R` -> commands to execute
-
-The most important stage for `tic` is the `before_install` stage.
-Here, `tic` gets installed and runs `prepare_all_stages()`.
-This magical function makes sure that all subsequent steps can be executed, e.g. by installing required R packages.
-Note however that this is not the function that takes cares of installing dependencies of your R package but only to ensure that the commands specified in `tic.R` can be executed.
-The installation of R package dependencies is triggered by the wrapper function `add_package_checks()`.
-This wrapper function adds four important commands to specific stages in the build cycle:
-
-1. A call to `utils::update.packages()` with `ask = FALSE` in the "before_install" stage (only for non-interactive CIs)
-
-2. A call to `remotes::install_deps()` with `dependencies = TRUE` in the "install" stage
-
-3. A `step_rcmdcheck()` in the "script" stage, using the `warnings_are_errors`, `notes_are_errors` and `args` arguments
-
-4. A call to `covr::codecov()` in the "after_success" stage
-
-If you specify these stages on your own in `tic.R`, the commands above will not be executed. 
-So don't forget to add the commands manually to make sure that everything works!
-
-Note: All R packages that should be stored in the Travis cache for R packages should be either installed in the `install` or `before_install` stage.
-This applies for example to Github packages.
-See [here](tic-advantages.html) for details.
-
-## Steps
-
-Steps are essentially the commands that are executed in each stage.
-`tic` uses the pipe operator to chain steps in `tic.R`, for example
-
-```r
-get_stage("deploy") %>%
-  add_step(step_build_pkgdown())
-```
-
-This step is chained to stage "deploy" and subsequently only run in this stage.
-More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
-Steps are usually defined using two nested commands: `add_step()` and the corrsponding step, here `step_build_pkgdown()`.
-
-The tic package defines the following steps:
-
-- `step_hello_world`: print "Hello, World!" to the console, helps testing a tic setup
-- `step_rcmdcheck`: run `R CMD check` via the _rcmdcheck_ package
-- `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
-    - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
-- `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
-- `step_test_ssh`: test the SSH connection to GitHub, helps troubleshooting deploy problems
-- `step_build_pkgdown`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
-- `step_push_deploy`: deploy to GitHub, with arguments:
-    - `path`: which path to deploy, default: `"."`
-    - `branch`: which branch to deploy to, default: `ci()$get_branch()`
-    - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
-        - You must specify a `branch` if you set `orphan = TRUE`
-    - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
-    - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
-    - `commit_paths`: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.
 
 # What's not covered yet?
 
@@ -182,3 +78,5 @@ The advanced usage of `tic` is described in more detail in article [Advanced Usa
 - [Troubleshooting: Running `tic` locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 - [Writing custom steps](custom-steps.html)
+
+The build lifecycle when using `tic` is explained in detail [here](build-lifecycle.html).
