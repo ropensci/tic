@@ -18,13 +18,13 @@ knitr::opts_chunk$set(
 
 # Prerequisites
 
-If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:
+If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following ressources:
 
 - https://ropensci.github.io/dev_guide/ci.html
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environment, you probably wonder what the `tic` package does to make the world even simpler?
+Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environmnent, you probably wonder what the `tic` package does to make the world even simpler?
 For example, writing CI-agnostic code that works across CI systems!
 But that's just the beginning. 
 We summarized all the advantages of using `tic` in an own [vignette](tic-advantages.html).
@@ -44,12 +44,12 @@ See [here](tic-usethis-travis.html) for more detailed information on how `tic`, 
 After having called `usethis::use_ci()` you will find `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
 The default template will trigger builds on both CI services that do the following:
 
-- Install required dependencies of the R package
+- Install required dependecies of the R package
 - Run `rcmdcheck::rcmdcheck()` on the package (see [here](tic-advantages#rcmdcheck-r-cmd-check) for more details)
 - Build a `pkgdown` site and deploy it to the `docs/` folder of the `master` branch (Travis only)
 - Run a code coverage on the package and upload it to [codecov.io](https://codecov.io/) (Travis only)
 
-The commands that are going to be executed in each stage of each service are specified in a centralized file `tic.R` - read [here](tic-advantages.html) for a more thorough explanation of all advantages of `tic`.
+The commands that are going to be executed in each stage of each service are specified in a centralised file `tic.R` - read [here](tic-advantages.html) for a more thorough explanation of all advantages of `tic`.
 
 ## Examples
 

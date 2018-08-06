@@ -95,10 +95,13 @@ and step_test_ssh()." />
       <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
     </li>
     <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/custom_steps.html">Custom steps</a>
+      <a href="../articles/custom_steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -136,8 +139,8 @@ and <code><a href='step_test_ssh.html'>step_test_ssh()</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_setup_ssh</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>, <span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"git@"</span>,
-  <span class='no'>host</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_setup_ssh</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"git@"</span>, <span class='no'>host</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

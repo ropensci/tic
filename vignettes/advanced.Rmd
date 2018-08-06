@@ -41,7 +41,7 @@ There are two ways to restrict the deployment with `tic` and environment variabl
 Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2) (or by Travis itself, see [Travis CI Meta-Information](advanced.html#travis-ci-meta-information)).
 There is no practical difference between both approaches.
 However, conditioning like shown here does only work for the "deploy" stage in `.travis.yml`.
-For [conditioning other stages](advanced.html#running-stages-conditionally), you need to use the `tic` approach.
+For [conditioning other stages](advanced.html#running-stages-conditionally), you need to use the `tic` appraoch.
 
 In the following we prepared an example for each option:
 
@@ -238,4 +238,4 @@ Afterwards, you can simply call `travis::travis_debug_job(<jobID>)` and the buil
 Wait a few minutes until the build arrives at the point when it prints you the `ssh` command you can use to log in.
 It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
 
-Once you are in the build [check](https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM) these handy functions to execute specific stages.
+Once you are in the buildm [check](https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM) these handy functions to execute specific stages.

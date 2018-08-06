@@ -111,10 +111,13 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
       <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
     </li>
     <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/custom_steps.html">Custom steps</a>
+      <a href="../articles/custom_steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -174,8 +177,9 @@ in the <code>"install"</code> stage</p></li>
 
 <span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='no'>call</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>), <span class='kw'>private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>),
+  <span class='kw'>private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

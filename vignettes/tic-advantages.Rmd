@@ -107,7 +107,7 @@ Usually Travis will run `R CMD check` to check the R package.
 `tic` instead uses  [`rcmdcheck`](https://github.com/r-lib/rcmdcheck), an optimized version of `R CMD check` developed by [Gabor Csardi](https://github.com/gaborcsardi).
 It comes with several enhancements:
 
-- Coloring of important steps on Travis, simplifying the readability of the log
+- Coloring of important steps on Travis, simplyfing the readability of the log
 - Enhanced and extended tracebacks of errors, especially errors in tests
 
 Especially the extended log printing of errors is a huge advantage - often enough, the important information is not printed by Travis when using `R CMD check` making it hard for the user to debug the problem.

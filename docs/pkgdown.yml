@@ -3,6 +3,7 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   advanced: advanced.html
+  build-lifecycle: build-lifecycle.html
   custom-steps: custom-steps.html
   tic-advantages: tic-advantages.html
   tic-usethis-travis: tic-usethis-travis.html
