@@ -42,7 +42,6 @@ Suggests:
 Remotes: 
     r-lib/rcmdcheck,
     krlmlr/callr@b-55-vignette-builder,
-    ropensci/git2r,
     ropenscilabs/travis
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
