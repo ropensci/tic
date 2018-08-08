@@ -65,12 +65,11 @@ stages:
 
 \enumerate{
 \item A call to \code{\link[utils:update.packages]{utils::update.packages()}} with \code{ask = FALSE} in the
-\code{"before_install"} stage (only for non-interactive CIs,
-not if run locally via \code{\link[=tic]{tic()}})
+\code{"before_install"} stage (only for non-interactive CIs)
 \item A call to \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE}
 in the \code{"install"} stage
 \item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors} and \code{args} arguments
-\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
+\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage
 }
 }
