@@ -18,7 +18,7 @@ test_that("integration test: package", {
           tic::tic()
         },
         show = TRUE,
-        env = c(callr::rcmd_safe_env(), TIC_LOCAL=true)
+        env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
       )
     }
   )
