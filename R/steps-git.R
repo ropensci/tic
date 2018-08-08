@@ -102,6 +102,7 @@ SetupPushDeploy <- R6Class(
           {
             remote_branch <- private$try_fetch()
             if (!is.null(remote_branch)) {
+              message("Remote branch is ", remote_branch)
               if (private$checkout) {
                 git2r::checkout(
                   private$git$get_repo(),
