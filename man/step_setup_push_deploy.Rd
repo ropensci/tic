@@ -5,8 +5,8 @@
 \title{Step: Setup push deploy}
 \usage{
 step_setup_push_deploy(path = ".", branch = ci()$get_branch(),
-  orphan = FALSE, remote_url = paste0("git@github.com:",
-  ci()$get_slug(), ".git"), checkout = TRUE)
+  orphan = FALSE, remote_url = git2r::remote_url(remote = "origin"),
+  checkout = TRUE)
 }
 \arguments{
 \item{path}{\code{[string]}\cr
