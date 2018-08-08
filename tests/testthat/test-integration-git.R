@@ -32,7 +32,9 @@ test_that("integration test: git", {
     package_path,
     {
       callr::r(
-        function() tic::tic(),
+        function() {
+          tic::tic()
+        },
         show = TRUE
       )
     }
