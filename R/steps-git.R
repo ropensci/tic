@@ -37,7 +37,7 @@ SetupPushDeploy <- R6Class(
 
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-                          remote_url = git2r::remote_url(remote = "origin"),
+                          remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                           checkout = TRUE) {
 
       if (branch == ci()$get_branch() && orphan) {
@@ -158,7 +158,7 @@ SetupPushDeploy <- R6Class(
 #' @family steps
 #' @export
 step_setup_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-                                   remote_url = git2r::remote_url(remote = "origin"),
+                                   remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                                    checkout = TRUE) {
   SetupPushDeploy$new(
     path = path, branch = branch, orphan = orphan,
@@ -257,7 +257,7 @@ PushDeploy <- R6Class(
 
   public = list(
     initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-                          remote_url = git2r::remote_url(remote = "origin"),
+                          remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                           commit_message = NULL, commit_paths = ".") {
 
       private$setup <- step_setup_push_deploy(
@@ -298,7 +298,7 @@ PushDeploy <- R6Class(
 #'
 #' @export
 step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-                             remote_url = git2r::remote_url(remote = "origin"),
+                             remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                              commit_message = NULL, commit_paths = ".") {
   PushDeploy$new(
     path = path, branch = branch, orphan = orphan,
