@@ -35,7 +35,8 @@ test_that("integration test: git", {
         function() {
           tic::tic()
         },
-        show = TRUE
+        show = TRUE,
+        env = c(callr::rcmd_safe_env(), TIC_LOCAL=true)
       )
     }
   )

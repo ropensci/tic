@@ -1,5 +1,7 @@
 ci_ <- function() {
-  if (Sys.getenv("TIC_MOCK") == "true") {
+  if (Sys.getenv("TIC_LOCAL") == "true") {
+    LocalCI$new()
+  } else if (Sys.getenv("TIC_MOCK") == "true") {
     MockCI$new()
   } else if (Sys.getenv("TRAVIS") == "true") {
     TravisCI$new()
