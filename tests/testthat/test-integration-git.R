@@ -17,7 +17,7 @@ test_that("integration test: git", {
         c(
           'get_stage("deploy") %>%',
           '  add_code_step(writeLines(as.character(Sys.time()), "time.txt")) %>%',
-          '  add_step(step_push_deploy())'
+          paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '"))')
         ),
         "tic.R"
       )
