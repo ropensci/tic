@@ -8,7 +8,6 @@ test_that("integration test: package", {
   withr::with_dir(
     package_path,
     {
-      writeLines("# Empty source file for codecov", "R/test.R")
       writeLines("add_package_checks()", "tic.R")
       git2r::init()
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
