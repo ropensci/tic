@@ -146,8 +146,9 @@ The value is retrieved only once and then cached.</p>
 <dt><code>get_commit()</code></dt><dd><p>The SHA1 of the current commit.</p></dd>
 <dt><code>is_interactive()</code></dt><dd><p>Global setup operations shouldn't be run on an interactive CI,
 only on unattended CIs where this method returns <code>FALSE</code>.</p></dd>
-<dt><code>cat_with_color(text)</code></dt><dd><p>Colored output targeted to the CI log.
-The <code>text</code> argument can be a call to a <span class="pkg">crayon</span> function,
+<dt><code>cat_with_color(code)</code></dt><dd><p>Colored output targeted to the CI log.
+The <code>code</code> argument can be an unevaluated call to a
+<span class="pkg">crayon</span> function,
 the style will be applied even if it normally wouldn't be.</p></dd>
 </dl>
     
