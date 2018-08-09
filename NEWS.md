@@ -1,3 +1,14 @@
+# tic 0.2.13.9002
+
+- Better strategy for handling race conditions during deployment, new changes are no longer silently overwritten with `step_push_deploy()` (#45).
+- Add integration test for package checks and race conditions (#62).
+- Clarify error message upon step failure.
+- `add_package_checks()` adds coverage checks only for non-interactive CIs.
+- Add reference to `use_tic()` (#55).
+- Document purpose of testing steps (#49).
+- Allow only predefined stage names (#48).
+
+
 # tic 0.2.13.9001
 
 - The _pkgdown_ package is installed from CRAN.
