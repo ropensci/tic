@@ -22,16 +22,20 @@ Default: deploy all files.}
 }
 \description{
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
+It is highly recommended to restrict the set of files
+touched by the deployment with the \code{commit_paths} argument:
+this step assumes that it can freely overwrite all changes to all files
+below \code{commit_paths}, and will not warn in case of conflicts.
 }
 \details{
-To mitigate race conditions to the greatest extent possible,
+To mitigate conflicts race conditions to the greatest extent possible,
 the following strategy is used:
 \itemize{
 \item Before committing the changes from deployment,
 the current branch name is queried and its head is detached
 \item New commits are fetched with \code{git pull --ff-only}
 \item The commit is then applied to the current tip of the repository
-using \code{git cherry-pick}
+using \code{git cherry-pick -X theirs}
 }
 
 If no new commits were pushed after the CI run has started,
