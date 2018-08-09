@@ -235,7 +235,17 @@ DoPushDeploy <- R6Class(
       private$git$cmd("pull --ff-only")
 
       message("Cherry-picking new commit")
-      private$git$cmd("cherry-pick ", new_commit)
+      private$git$cmd("cherry-pick -X theirs --no-commit", new_commit)
+
+      message("Checking changed files again")
+      status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
+      if (length(status$staged) == 0) {
+        message("Nothing to commit!")
+        return(FALSE)
+      }
+
+      message("Committing cherry-picked file")
+      private$git$cmd("commit --no-edit")
 
       TRUE
     },
@@ -263,15 +273,19 @@ DoPushDeploy <- R6Class(
 #' Step: Perform push deploy
 #'
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
+#' It is highly recommended to restrict the set of files
+#' touched by the deployment with the `commit_paths` argument:
+#' this step assumes that it can freely overwrite all changes to all files
+#' below `commit_paths`, and will not warn in case of conflicts.
 #'
-#' To mitigate race conditions to the greatest extent possible,
+#' To mitigate conflicts race conditions to the greatest extent possible,
 #' the following strategy is used:
 #'
 #' - Before committing the changes from deployment,
 #'   the current branch name is queried and its head is detached
 #' - New commits are fetched with `git pull --ff-only`
 #' - The commit is then applied to the current tip of the repository
-#'   using `git cherry-pick`
+#'   using `git cherry-pick -X theirs`
 #'
 #' If no new commits were pushed after the CI run has started,
 #' this strategy is equivalent to simply committing and pushing.
