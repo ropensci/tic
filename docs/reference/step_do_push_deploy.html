@@ -149,6 +149,21 @@ Default: deploy all files.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To mitigate race conditions to the greatest extent possible,
+the following strategy is used:</p><ul>
+<li><p>Before committing the changes from deployment,
+the current branch name is queried and its head is detached</p></li>
+<li><p>New commits are fetched with <code>git pull --ff-only</code></p></li>
+<li><p>The commit is then applied to the current tip of the repository
+using <code>git cherry-pick</code></p></li>
+</ul>
+    <p>If no new commits were pushed after the CI run has started,
+this strategy is equivalent to simply committing and pushing.
+In the opposite case, if the remote repo has new commits,
+the deployment is safely applied to the current tip.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other deploy steps: <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
@@ -172,6 +187,8 @@ Default: deploy all files.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
           </ul>
 
