@@ -23,6 +23,22 @@ Default: deploy all files.}
 \description{
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
 }
+\details{
+To mitigate race conditions to the greatest extent possible,
+the following strategy is used:
+\itemize{
+\item Before committing the changes from deployment,
+the current branch name is queried and its head is detached
+\item New commits are fetched with \code{git pull --ff-only}
+\item The commit is then applied to the current tip of the repository
+using \code{git cherry-pick}
+}
+
+If no new commits were pushed after the CI run has started,
+this strategy is equivalent to simply committing and pushing.
+In the opposite case, if the remote repo has new commits,
+the deployment is safely applied to the current tip.
+}
 \seealso{
 Other deploy steps: \code{\link{step_push_deploy}},
   \code{\link{step_setup_push_deploy}}

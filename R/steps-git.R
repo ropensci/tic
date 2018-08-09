@@ -15,6 +15,12 @@ Git <- R6Class(
       }
     },
 
+    query = function(...) {
+      args <- c(...)
+      message(paste("git", paste(args, collapse = " ")))
+      withr::with_dir(private$path, system2("git", args, stdout = TRUE))
+    },
+
     init_repo = function() {
       message("Initializing Git repo at ", private$path)
       dir.create(private$path, recursive = TRUE, showWarnings = FALSE)
@@ -110,8 +116,6 @@ SetupPushDeploy <- R6Class(
                   create = TRUE,
                   force = TRUE
                 )
-              } else {
-                git2r::reset(get_head_commit(remote_branch))
               }
             }
           },
@@ -201,16 +205,39 @@ DoPushDeploy <- R6Class(
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
       git2r::add(private$git$get_repo(), private$commit_paths)
 
-      repo_path <- git2r_attrib(private$git$get_repo(), "path")
-      message("Committing to ", repo_path)
+      message("Checking changed files")
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
-      if (length(status$staged) > 0) {
-        git2r::commit(private$git$get_repo(), private$commit_message)
-        TRUE
-      } else {
+      if (length(status$staged) == 0) {
         message("Nothing to commit!")
-        FALSE
+        return(FALSE)
       }
+
+      message("Fetching name of current branch")
+      # https://stackoverflow.com/a/12142066/946850
+      current_branch <- private$git$query("rev-parse --abbrev-ref HEAD")
+
+      message("Detaching from branch ", current_branch)
+      # https://stackoverflow.com/a/38620761/946850
+      private$git$cmd("checkout --detach HEAD")
+
+      message("Committing to ", git2r_attrib(private$git$get_repo(), "path"))
+      git2r::commit(private$git$get_repo(), private$commit_message)
+
+      new_commit <- git2r_head(private$git$get_repo())$sha
+
+      message("Checking out branch ", current_branch)
+      git2r::checkout(private$git$get_repo(), branch = current_branch, force = TRUE)
+
+      message("Pruning new files")
+      private$git$cmd("clean -fdx")
+
+      message("Pulling new changes")
+      private$git$cmd("pull --ff-only")
+
+      message("Cherry-picking new commit")
+      private$git$cmd("cherry-pick ", new_commit)
+
+      TRUE
     },
 
     push = function(force) {
@@ -236,6 +263,20 @@ DoPushDeploy <- R6Class(
 #' Step: Perform push deploy
 #'
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
+#'
+#' To mitigate race conditions to the greatest extent possible,
+#' the following strategy is used:
+#'
+#' - Before committing the changes from deployment,
+#'   the current branch name is queried and its head is detached
+#' - New commits are fetched with `git pull --ff-only`
+#' - The commit is then applied to the current tip of the repository
+#'   using `git cherry-pick`
+#'
+#' If no new commits were pushed after the CI run has started,
+#' this strategy is equivalent to simply committing and pushing.
+#' In the opposite case, if the remote repo has new commits,
+#' the deployment is safely applied to the current tip.
 #'
 #' @inheritParams step_setup_push_deploy
 #' @param commit_message `[string]`\cr
