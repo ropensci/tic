@@ -32,7 +32,11 @@
 
 <meta property="og:title" content="Step: Perform push deploy — step_do_push_deploy" />
 
-<meta property="og:description" content="Commits and pushes to a repo prepared by step_setup_push_deploy()." />
+<meta property="og:description" content="Commits and pushes to a repo prepared by step_setup_push_deploy().
+It is highly recommended to restrict the set of files
+touched by the deployment with the commit_paths argument:
+this step assumes that it can freely overwrite all changes to all files
+below commit_paths, and will not warn in case of conflicts." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,7 +123,11 @@
 
     <div class="ref-description">
     
-    <p>Commits and pushes to a repo prepared by <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code>.</p>
+    <p>Commits and pushes to a repo prepared by <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code>.
+It is highly recommended to restrict the set of files
+touched by the deployment with the <code>commit_paths</code> argument:
+this step assumes that it can freely overwrite all changes to all files
+below <code>commit_paths</code>, and will not warn in case of conflicts.</p>
     
     </div>
 
@@ -151,13 +159,13 @@ Default: deploy all files.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To mitigate race conditions to the greatest extent possible,
+    <p>To mitigate conflicts race conditions to the greatest extent possible,
 the following strategy is used:</p><ul>
 <li><p>Before committing the changes from deployment,
 the current branch name is queried and its head is detached</p></li>
 <li><p>New commits are fetched with <code>git pull --ff-only</code></p></li>
 <li><p>The commit is then applied to the current tip of the repository
-using <code>git cherry-pick</code></p></li>
+using <code>git cherry-pick -X theirs</code></p></li>
 </ul>
     <p>If no new commits were pushed after the CI run has started,
 this strategy is equivalent to simply committing and pushing.
