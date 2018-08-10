@@ -31,11 +31,8 @@ below \code{commit_paths}, and will not warn in case of conflicts.
 To mitigate conflicts race conditions to the greatest extent possible,
 the following strategy is used:
 \itemize{
-\item Before committing the changes from deployment,
-the current branch name is queried and its head is detached
-\item New commits are fetched with \code{git pull --ff-only}
-\item The commit is then applied to the current tip of the repository
-using \code{git cherry-pick -X theirs}
+\item The changes are committed to the branch
+\item Before pushing, new commits are fetched with \code{git pull --rebase -X theirs}
 }
 
 If no new commits were pushed after the CI run has started,

@@ -217,30 +217,26 @@ DoPushDeploy <- R6Class(
       message("Committing to ", git2r_attrib(private$git$get_repo(), "path"))
       new_commit <- git2r::commit(private$git$get_repo(), private$commit_message)$sha
 
-      message("Resetting to HEAD^")
-      private$git$cmd("reset --hard HEAD^")
+      local <- git2r_head(private$git$get_repo())
+      upstream <- git2r::branch_get_upstream(local)
+      if (is.null(upstream)) {
+        message("No upstream branch found")
+        return(TRUE)
+      }
 
       message("Wiping repository")
       private$git$cmd("checkout .")
       private$git$cmd("clean -fdx")
 
       message("Pulling new changes")
-      private$git$cmd("pull --ff-only")
+      private$git$cmd("pull --rebase -X theirs")
 
-      message("Cherry-picking new commit ", new_commit)
-      private$git$cmd("cherry-pick -X theirs --no-commit", new_commit)
+      c_local <- git2r::lookup(private$git$get_repo(), git2r::branch_target(local))
+      c_upstream <- git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
 
-      message("Checking changed files again")
-      status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
-      if (length(status$staged) == 0) {
-        message("Nothing to commit!")
-        return(FALSE)
-      }
-
-      message("Committing cherry-picked file")
-      private$git$cmd("commit --no-edit")
-
-      TRUE
+      ab <- git2r::ahead_behind(c_local, c_upstream)
+      message("Ahead: ", ab[[1]], ", behind: ", ab[[2]])
+      ab[[1]] > 0
     },
 
     push = function(force) {
@@ -274,11 +270,8 @@ DoPushDeploy <- R6Class(
 #' To mitigate conflicts race conditions to the greatest extent possible,
 #' the following strategy is used:
 #'
-#' - Before committing the changes from deployment,
-#'   the current branch name is queried and its head is detached
-#' - New commits are fetched with `git pull --ff-only`
-#' - The commit is then applied to the current tip of the repository
-#'   using `git cherry-pick -X theirs`
+#' - The changes are committed to the branch
+#' - Before pushing, new commits are fetched with `git pull --rebase -X theirs`
 #'
 #' If no new commits were pushed after the CI run has started,
 #' this strategy is equivalent to simply committing and pushing.
