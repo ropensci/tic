@@ -14,7 +14,7 @@ Path to the repository, default \code{"."} which means setting up the current
 repository.}
 
 \item{branch}{\code{[string]}\cr
-Target branch, default: current branch}
+Target branch, default: current branch.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
