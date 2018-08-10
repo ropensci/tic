@@ -188,7 +188,9 @@ DoPushDeploy <- R6Class(
     run = function() {
       private$git$init_repo()
       maybe_orphan <- is.null(git2r_head(private$git$get_repo()))
-      if (private$commit()) private$push(force = maybe_orphan)
+      if (private$commit()) {
+        private$push(force = maybe_orphan)
+      }
     }
   ),
 
