@@ -146,7 +146,7 @@ SetupPushDeploy <- R6Class(
 #'   Path to the repository, default `"."` which means setting up the current
 #'   repository.
 #' @param branch `[string]`\cr
-#'   Target branch, default: current branch
+#'   Target branch, default: current branch.
 #' @param orphan `[flag]`\cr
 #'   Create and force-push an orphan branch consisting of only one commit?
 #'   This can be useful e.g. for `path = "docs", branch = "gh-pages"`,
@@ -212,29 +212,20 @@ DoPushDeploy <- R6Class(
         return(FALSE)
       }
 
-      message("Fetching name of current branch")
-      # https://stackoverflow.com/a/12142066/946850
-      current_branch <- private$git$query("rev-parse --abbrev-ref HEAD")
-
-      message("Detaching from branch ", current_branch)
-      # https://stackoverflow.com/a/38620761/946850
-      private$git$cmd("checkout --detach HEAD")
-
       message("Committing to ", git2r_attrib(private$git$get_repo(), "path"))
-      git2r::commit(private$git$get_repo(), private$commit_message)
+      new_commit <- git2r::commit(private$git$get_repo(), private$commit_message)$sha
 
-      new_commit <- git2r_head(private$git$get_repo())$sha
+      message("Resetting to HEAD^")
+      private$git$cmd("reset --hard HEAD^")
 
-      message("Checking out branch ", current_branch)
-      git2r::checkout(private$git$get_repo(), branch = current_branch, force = TRUE)
-
-      message("Pruning new files")
+      message("Wiping repository")
+      private$git$cmd("checkout .")
       private$git$cmd("clean -fdx")
 
       message("Pulling new changes")
       private$git$cmd("pull --ff-only")
 
-      message("Cherry-picking new commit")
+      message("Cherry-picking new commit ", new_commit)
       private$git$cmd("cherry-pick -X theirs --no-commit", new_commit)
 
       message("Checking changed files again")
