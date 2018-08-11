@@ -5,8 +5,8 @@
 \title{Step: Setup and perform push deploy}
 \usage{
 step_push_deploy(path = ".", branch = ci()$get_branch(),
-  orphan = FALSE, remote_url = paste0("git@github.com:",
-  ci()$get_slug(), ".git"), commit_message = NULL, commit_paths = ".")
+  remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+  commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -15,11 +15,6 @@ repository.}
 
 \item{branch}{\code{[string]}\cr
 Target branch, default: current branch.}
-
-\item{orphan}{\code{[flag]}\cr
-Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
-but cannot be applied for pushing to the current branch.}
 
 \item{remote_url}{\code{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
@@ -37,7 +32,19 @@ Default: deploy all files.}
 Clones a repo, inits author information, sets up remotes,
 commits, and pushes.
 Combines \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} with \code{checkout = FALSE} and
-\code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
+a suitable \code{orphan} argument,
+and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
+}
+\details{
+Setup and deployment are combined in one step,
+the files to be deployed must be prepared in a previous step.
+This poses some restrictions on how the repository can be initialized,
+in particular for a nonstandard \code{path} argument only \code{orphan = TRUE}
+can be supported (and will be used).
+
+For more control, create two separate steps with
+\code{step_setup_push_deploy()} and \code{step_do_push_deploy()},
+and create the files to be deployed inbetween these steps.
 }
 \seealso{
 Other deploy steps: \code{\link{step_do_push_deploy}},
