@@ -18,8 +18,6 @@ from where \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}} will pi
 with deployment rights.
 }
 \seealso{
-\code{\link[usethis:use_ci]{usethis::use_ci()}} \code{\link[usethis:use_travis_deploy]{usethis::use_travis_deploy()}}
-
 \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}} \code{\link[=step_test_ssh]{step_test_ssh()}} \code{\link[=step_setup_ssh]{step_setup_ssh()}}
 }
 \keyword{internal}

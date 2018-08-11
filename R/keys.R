@@ -5,8 +5,6 @@
 #' This key can be installed as a deploy key for a GitHub repository.
 #'
 #' @param key RSA key, as returned by `openssl::rsa_keygen()`
-#' @seealso [usethis::use_ci()] [usethis::use_travis_deploy()]
-#' @seealso [step_install_ssh_keys()] [step_test_ssh()] [step_setup_ssh()]
 #' @keywords internal
 #' @export
 get_public_key <- function(key) {
@@ -23,7 +21,6 @@ get_public_key <- function(key) {
 #' with deployment rights.
 #'
 #' @inheritParams get_public_key
-#' @seealso [usethis::use_ci()] [usethis::use_travis_deploy()]
 #' @seealso [step_install_ssh_keys()] [step_test_ssh()] [step_setup_ssh()]
 #' @keywords internal
 #' @export
