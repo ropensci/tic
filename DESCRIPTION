@@ -1,5 +1,5 @@
-Package: tic
 Type: Package
+Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.2.13.9003
 Authors@R: c(
@@ -16,10 +16,11 @@ Description:
     continuous integration tool used for processing the workflow (e.g.
     'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
-LazyData: TRUE
-Depends:
+URL: https://github.com/ropenscilabs/tic
+BugReports: https://github.com/ropenscilabs/tic/issues
+Depends: 
     R (>= 3.0.0)
-Imports:
+Imports: 
     backports,
     crayon,
     magrittr,
@@ -27,27 +28,28 @@ Imports:
     methods,
     R6,
     withr
-Suggests:
+Suggests: 
     base64enc,
     covr,
     drat,
+    git2r,
+    knitr,
     openssl,
     rcmdcheck,
-        git2r,
     remotes,
+    rmarkdown,
     testthat,
-    travis,
-    knitr,
-    rmarkdown
+    travis
+VignetteBuilder: knitr
 Remotes: 
-    r-lib/rcmdcheck,
     krlmlr/callr@b-55-vignette-builder,
+    r-lib/rcmdcheck,
     ropenscilabs/travis
-URL: https://github.com/ropenscilabs/tic
-BugReports: https://github.com/ropenscilabs/tic/issues
+ByteCompile: No
+Encoding: UTF-8
+LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
-Encoding: UTF-8
 Collate: 
     'ci.R'
     'appveyor.R'
@@ -70,5 +72,3 @@ Collate:
     'tic-package.R'
     'travis.R'
     'utils.R'
-VignetteBuilder: knitr
-ByteCompile: No
