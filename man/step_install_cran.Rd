@@ -4,12 +4,12 @@
 \alias{step_install_cran}
 \title{Step: Install packages from Github}
 \usage{
-step_install_cran(repo = NULL, ...)
+step_install_cran(package = NULL, ...)
 }
 \arguments{
-\item{...}{Passed on to \code{base::install.packages()}}
-
 \item{package}{Package to install}
+
+\item{...}{Passed on to \code{base::install.packages()}}
 }
 \description{
 Install one or more packages from Github
