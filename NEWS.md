@@ -1,3 +1,10 @@
+# tic 0.2.13.9003
+
+- Added integration tests for package checks and deployment, covering various common cases (#62).
+- Add integration test for deploying from a subdirectory.
+- Remove `orphan` argument from `step_push_deploy()`, because there's no easy way to implement it reliably. If only a subdirectory is deployed to a separate branch (i.e., the `path` argument is set), `orphan = TRUE` is required.
+
+
 # tic 0.2.13.9002
 
 - Better strategy for handling race conditions during deployment, new changes are no longer silently overwritten with `step_push_deploy()` (#45).
