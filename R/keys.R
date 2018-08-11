@@ -20,6 +20,10 @@ get_public_key <- function(key) {
 #' @keywords internal
 #' @export
 encode_private_key <- function(key) {
+  if (!requireNamespace("openssl", quietly = FALSE)) {
+    stopc("Please install the openssl package.")
+  }
+
   conn <- textConnection(NULL, "w")
   openssl::write_pem(key, conn, password = NULL)
   private_key <- textConnectionValue(conn)
