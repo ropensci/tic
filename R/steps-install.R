@@ -32,7 +32,7 @@ InstallCRAN <- R6Class(
 #' but only if it's not already installed.
 #'
 #' @param package Package(s) to install
-#' @param ... Passed on to `install.packages()`.
+#' @param ... Passed on to `install.packages()` or `remotes::install_github()`.
 #' @family steps
 #' @export
 #' @name step_install_pkg
@@ -73,7 +73,6 @@ InstallGithub <- R6Class(
 #' GitHub version is different from the locally installed version.
 #'
 #' @param repo Package to install in the "user/repo" format.
-#' @param ... Passed on to `remotes::install_github()`.
 #' @family steps
 #' @export
 #' @rdname step_install_pkg

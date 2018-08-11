@@ -13,11 +13,9 @@ step_install_github(repo = NULL, ...)
 \arguments{
 \item{package}{Package(s) to install}
 
-\item{...}{Passed on to \code{install.packages()}.}
+\item{...}{Passed on to \code{install.packages()} or \code{remotes::install_github()}.}
 
 \item{repo}{Package to install in the "user/repo" format.}
-
-\item{...}{Passed on to \code{remotes::install_github()}.}
 }
 \description{
 These steps are useful if your CI run needs packages which are not declared
