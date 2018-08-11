@@ -62,6 +62,7 @@ Collate:
     'steps-code.R'
     'steps-drat.R'
     'steps-git.R'
+    'steps-install.R'
     'steps-pkgdown.R'
     'steps-rcmdcheck.R'
     'steps-ssh.R'
