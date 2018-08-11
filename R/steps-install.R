@@ -3,6 +3,7 @@ InstallCRAN <- R6Class(
 
   public = list(
     initialize = function(package, ...) {
+      stopifnot(length(package) == 1)
       private$package <- package
       private$install_args <- list(...)
     },
