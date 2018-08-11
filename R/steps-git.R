@@ -50,6 +50,14 @@ SetupPushDeploy <- R6Class(
         stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
       }
 
+      if (branch == ci()$get_branch() && path != ".") {
+        stop("Must specify branch name if `path` is given.", call. = FALSE)
+      }
+
+      if (path != "." && !checkout && !orphan) {
+        stop("If `checkout` is FALSE and `path` is set, `orphan` must be TRUE.")
+      }
+
       private$git <- Git$new(path)
       private$branch <- branch
       private$orphan <- orphan
@@ -298,9 +306,11 @@ PushDeploy <- R6Class(
   "PushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+    initialize = function(path = ".", branch = ci()$get_branch(),
                           remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                           commit_message = NULL, commit_paths = ".") {
+
+      orphan <- (path != ".")
 
       private$setup <- step_setup_push_deploy(
         path = path, branch = branch, orphan = orphan, remote_url = remote_url,
@@ -330,8 +340,18 @@ PushDeploy <- R6Class(
 #' Clones a repo, inits author information, sets up remotes,
 #' commits, and pushes.
 #' Combines [step_setup_push_deploy()] with `checkout = FALSE` and
-#' [step_do_push_deploy()].
+#' a suitable `orphan` argument,
+#' and [step_do_push_deploy()].
 #'
+#' Setup and deployment are combined in one step,
+#' the files to be deployed must be prepared in a previous step.
+#' This poses some restrictions on how the repository can be initialized,
+#' in particular for a nonstandard `path` argument only `orphan = TRUE`
+#' can be supported (and will be used).
+#'
+#' For more control, create two separate steps with
+#' `step_setup_push_deploy()` and `step_do_push_deploy()`,
+#' and create the files to be deployed inbetween these steps.
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #'
@@ -339,11 +359,11 @@ PushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
-step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+step_push_deploy <- function(path = ".", branch = ci()$get_branch(),
                              remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                              commit_message = NULL, commit_paths = ".") {
   PushDeploy$new(
-    path = path, branch = branch, orphan = orphan,
+    path = path, branch = branch,
     remote_url = remote_url,
     commit_message = commit_message,
     commit_paths = commit_paths
