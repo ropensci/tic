@@ -1,3 +1,9 @@
+# tic 0.2.13.9004
+
+- New `get_public_key()` and `encode_private_key()` moved from _travis_ (#71, @pat-s).
+- Add `step_install_cran()` and `step_install_github()` (#65, @pat-s).
+
+
 # tic 0.2.13.9003
 
 - Added integration tests for package checks and deployment, covering various common cases (#62).
