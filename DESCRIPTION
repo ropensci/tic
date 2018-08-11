@@ -56,6 +56,7 @@ Collate:
     'base64.R'
     'dsl.R'
     'git2r.R'
+    'keys.R'
     'local.R'
     'mock.R'
     'run.R'
