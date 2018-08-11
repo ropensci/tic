@@ -1,5 +1,7 @@
 ci_ <- function() {
-  if (Sys.getenv("TIC_MOCK") == "true") {
+  if (Sys.getenv("TIC_LOCAL") == "true") {
+    LocalCI$new()
+  } else if (Sys.getenv("TIC_MOCK") == "true") {
     MockCI$new()
   } else if (Sys.getenv("TRAVIS") == "true") {
     TravisCI$new()
@@ -60,13 +62,14 @@ CI <- R6Class(
       FALSE
     },
 
-    #'   \item{`cat_with_color(text)`}{
+    #'   \item{`cat_with_color(code)`}{
     #'     Colored output targeted to the CI log.
-    #'     The `text` argument can be a call to a \pkg{crayon} function,
+    #'     The `code` argument can be an unevaluated call to a
+    #'     \pkg{crayon} function,
     #'     the style will be applied even if it normally wouldn't be.
     #'   }
-    cat_with_color = function(text) {
-      cat_line(text)
+    cat_with_color = function(code) {
+      cat_line(code)
     }
 
     #' }

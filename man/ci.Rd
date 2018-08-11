@@ -28,9 +28,10 @@ The value is retrieved only once and then cached.
 \item{\code{is_interactive()}}{
 Global setup operations shouldn't be run on an interactive CI,
 only on unattended CIs where this method returns \code{FALSE}.}
-\item{\code{cat_with_color(text)}}{
+\item{\code{cat_with_color(code)}}{
 Colored output targeted to the CI log.
-The \code{text} argument can be a call to a \pkg{crayon} function,
+The \code{code} argument can be an unevaluated call to a
+\pkg{crayon} function,
 the style will be applied even if it normally wouldn't be.
 }
 }

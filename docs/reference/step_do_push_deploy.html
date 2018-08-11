@@ -32,7 +32,11 @@
 
 <meta property="og:title" content="Step: Perform push deploy — step_do_push_deploy" />
 
-<meta property="og:description" content="Commits and pushes to a repo prepared by step_setup_push_deploy()." />
+<meta property="og:description" content="Commits and pushes to a repo prepared by step_setup_push_deploy().
+It is highly recommended to restrict the set of files
+touched by the deployment with the commit_paths argument:
+this step assumes that it can freely overwrite all changes to all files
+below commit_paths, and will not warn in case of conflicts." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9002</span>
       </span>
     </div>
 
@@ -119,11 +123,16 @@
 
     <div class="ref-description">
     
-    <p>Commits and pushes to a repo prepared by <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code>.</p>
+    <p>Commits and pushes to a repo prepared by <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code>.
+It is highly recommended to restrict the set of files
+touched by the deployment with the <code>commit_paths</code> argument:
+this step assumes that it can freely overwrite all changes to all files
+below <code>commit_paths</code>, and will not warn in case of conflicts.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +157,21 @@ Default: deploy all files.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To mitigate conflicts race conditions to the greatest extent possible,
+the following strategy is used:</p><ul>
+<li><p>Before committing the changes from deployment,
+the current branch name is queried and its head is detached</p></li>
+<li><p>New commits are fetched with <code>git pull --ff-only</code></p></li>
+<li><p>The commit is then applied to the current tip of the repository
+using <code>git cherry-pick -X theirs</code></p></li>
+</ul>
+    <p>If no new commits were pushed after the CI run has started,
+this strategy is equivalent to simply committing and pushing.
+In the opposite case, if the remote repo has new commits,
+the deployment is safely applied to the current tip.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other deploy steps: <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
@@ -171,6 +195,8 @@ Default: deploy all files.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
           </ul>
 
