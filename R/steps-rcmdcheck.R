@@ -7,10 +7,17 @@ RCMDcheck <- R6Class(
       private$warnings_are_errors <- warnings_are_errors
       private$notes_are_errors <- notes_are_errors
       private$args <- args
+
+      private$lib <- file.path(.libPaths()[[1]], "tic-lib")
+      dir.create(private$lib, showWarnings = FALSE)
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(args = private$args)
+      f_rcmdcheck <- rcmdcheck::rcmdcheck
+      withr::with_libpaths(
+        private$lib, action = "replace",
+        res <- f_rcmdcheck(args = private$args)
+      )
       print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
@@ -25,14 +32,24 @@ RCMDcheck <- R6Class(
 
     prepare = function() {
       verify_install(c("remotes", "rcmdcheck"))
-      remotes::install_deps(dependencies = TRUE)
+
+      f_install_deps <- remotes::install_deps
+      withr::with_libpaths(
+        private$lib, action = "replace",
+        {
+          f_install_deps(dependencies = TRUE)
+          utils::update.packages(ask = FALSE)
+        }
+      )
     }
   ),
 
   private = list(
     warnings_are_errors = NULL,
     notes_are_errors = NULL,
-    args = NULL
+    args = NULL,
+
+    lib = NULL
   )
 )
 
@@ -40,7 +57,15 @@ RCMDcheck <- R6Class(
 #'
 #' Check a package using \pkg{rcmdcheck}, which ultimately calls `R CMD check`.
 #' The preparation consists of installing package dependencies
-#' via [remotes::install_deps()] with `dependencies = TRUE`.
+#' via [remotes::install_deps()] with `dependencies = TRUE`,
+#' and updating all packages.
+#'
+#' This step uses a dedicated library,
+#' a subdirectory `tic-pkg` of the current user library
+#' (the first element of [.libPaths()]),
+#' for the checks.
+#' This is done to minimize conflicts between dependent packages
+#' and packages that are required for running the various steps.
 #'
 #' @param warnings_are_errors `[flag]`\cr
 #'   Should warnings be treated as errors? Default: `TRUE`.

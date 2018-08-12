@@ -100,14 +100,6 @@ add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
                                args = c("--no-manual", "--as_cran")) {
   #' @description
-  #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
-  #'    `"before_install"` stage (only for non-interactive CIs,
-  #'    not if run locally via [tic()])
-  if (!ci()$is_interactive()) {
-    get_stage("before_install") %>%
-      add_code_step(utils::update.packages(ask = FALSE))
-  }
-
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments.
   get_stage("script") %>%
