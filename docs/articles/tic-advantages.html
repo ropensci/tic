@@ -131,20 +131,20 @@
 <p>You may know that CI services can be used to automatically deploy files. This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.). A common use case is to build your <code>pkgdown</code> site and conditionally push changes to your repo. This practice saves you from building the whole <code>pkgdown</code> site locally and then committing manually all the changed files - Travis will do it for you! <code>tic</code> takes care of all the setup work (setting up ssh keys, permission granting for the repo on Github and Travis). In combination with <code>usethis::use_ci()</code> this whole preparation process is streamlined and needs only be called once for every repo by the user.</p>
 <p>Today, it becomes more and more the standard to have a <code>pkgdown</code> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. Do not waste time on updating your site manually - automate such tasks!</p>
 <p><code>tic</code> initiates the deployment in the <code>.travis.yml</code> file with the following block:</p>
-<div class="sourceCode"><pre class="sourceCode yml"><code class="sourceCode yaml"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span>
-<span class="fu">deploy:</span>
-  <span class="fu">provider:</span><span class="at"> script</span>
-  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span>
-  <span class="fu">on:</span>
-    <span class="fu">all_branches:</span><span class="at"> true</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
 <p>Let’s break down what happens here:</p>
 <ol style="list-style-type: decimal">
 <li>Travis executes <code><a href="../reference/stages.html">tic::before_deploy()</a></code> which will search for instructions regarding the <code><a href="../reference/stages.html">before_deploy()</a></code> stage in <code>tic.R</code>. By default this looks like</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {
-  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
-}</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
 <p>This block finally executes the function <code>step_setup_ ssh()</code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. That is just one condition among many that you can set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">here</a> for more examples). After the prerequisite of setting up an ssh key for the upcoming deployment has been finished,</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Travis is told to use a “script” (provider: script) for the deployment (which holds further instructions).</li>
@@ -153,9 +153,9 @@
 </ol>
 <p>What happens now is that <code><a href="../reference/stages.html">tic::deploy()</a></code> again searches in <code>tic.R</code> for the “deploy” stage and then runs whatever you have specified there.</p>
 <p>With the default template of <code>tic.R</code>, the following will be executed:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <code>pkgdown</code> site and afterwards (note the <code>pipe</code> operator), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care to push the results to your repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
 </div>
 <div id="rcmdcheck-r-cmd-check" class="section level2">
