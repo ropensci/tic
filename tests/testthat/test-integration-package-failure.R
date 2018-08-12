@@ -19,7 +19,7 @@ test_that("integration test: package", {
           show = TRUE,
           env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
         ),
-        'At least one step failed in stage "script"'
+        'A step failed in stage "script"'
       )
     }
   )
