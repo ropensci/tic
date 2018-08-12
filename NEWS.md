@@ -1,3 +1,9 @@
+# tic 0.2.13.9008
+
+- The `step_rcmdcheck()` step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The `add_package_checks()` macro no longer includes an `update.packages()` call (#35).
+- The `step_rcmdcheck()` step now installs all dependencies during preparation. The `add_package_checks()` macro no longer adds the code step that installs dependencies.
+
+
 # tic 0.2.13.9007
 
 - The `step_do_push_deploy()` and `step_push_deploy()` steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (#27).
