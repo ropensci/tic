@@ -108,13 +108,8 @@ add_package_checks <- function(warnings_are_errors = TRUE,
       add_code_step(utils::update.packages(ask = FALSE))
   }
 
-  #' 1. A call to [remotes::install_deps()] with `dependencies = TRUE`
-  #'    in the `"install"` stage
-  get_stage("install") %>%
-    add_code_step(remotes::install_deps(dependencies = TRUE))
-
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
-  #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
+  #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments.
   get_stage("script") %>%
     add_step(
       step_rcmdcheck(

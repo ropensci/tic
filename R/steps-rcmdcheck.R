@@ -16,15 +16,16 @@ RCMDcheck <- R6Class(
         stopc("Errors found.")
       }
       if (private$warnings_are_errors && length(res$warnings) > 0) {
-        stopc("Warnings found, and warnings_are_errors is set.")
+        stopc("Warnings found, and `warnings_are_errors` is set.")
       }
       if (private$notes_are_errors && length(res$notes) > 0) {
-        stopc("Notes found, and notes_are_errors is set.")
+        stopc("Notes found, and `notes_are_errors` is set.")
       }
     },
 
     prepare = function() {
-      verify_install("rcmdcheck")
+      verify_install(c("remotes", "rcmdcheck"))
+      remotes::install_deps(dependencies = TRUE)
     }
   ),
 
@@ -38,6 +39,8 @@ RCMDcheck <- R6Class(
 #' Step: Check a package
 #'
 #' Check a package using \pkg{rcmdcheck}, which ultimately calls `R CMD check`.
+#' The preparation consists of installing package dependencies
+#' via [remotes::install_deps()] with `dependencies = TRUE`.
 #'
 #' @param warnings_are_errors `[flag]`\cr
 #'   Should warnings be treated as errors? Default: `TRUE`.

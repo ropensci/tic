@@ -20,4 +20,6 @@ Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
 }
 \description{
 Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
+The preparation consists of installing package dependencies
+via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE}.
 }
