@@ -44,12 +44,13 @@ to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &
 stages:
 
 A call to utils::update.packages() with ask = FALSE in the
-&quot;before_install&quot; stage (only for non-interactive CIs)
+&quot;before_install&quot; stage (only for non-interactive CIs,
+not if run locally via tic())
 A call to remotes::install_deps() with dependencies = TRUE
 in the &quot;install&quot; stage
 A step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors and args arguments
-A call to covr::codecov() in the &quot;after_success&quot; stage
+A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
 " />
 <meta name="twitter:card" content="summary" />
 
@@ -79,7 +80,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9004</span>
       </span>
     </div>
 
@@ -161,12 +162,13 @@ to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</co
 stages:</p>
 <ol>
 <li><p>A call to <code><a href='http://www.rdocumentation.org/packages/utils/topics/update.packages'>utils::update.packages()</a></code> with <code>ask = FALSE</code> in the
-<code>"before_install"</code> stage (only for non-interactive CIs)</p></li>
+<code>"before_install"</code> stage (only for non-interactive CIs,
+not if run locally via <code><a href='tic.html'>tic()</a></code>)</p></li>
 <li><p>A call to <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>
 in the <code>"install"</code> stage</p></li>
 <li><p>A <code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code> and <code>args</code> arguments</p></li>
-<li><p>A call to <code><a href='http://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage</p></li>
+<li><p>A call to <code><a href='http://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
 </ol>
     
     </div>

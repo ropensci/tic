@@ -103,7 +103,8 @@ add_package_checks <- function(warnings_are_errors = TRUE,
                                private = NULL) {
   #' @description
   #' 1. A call to [utils::update.packages()] with `ask = FALSE` in the
-  #'    `"before_install"` stage (only for non-interactive CIs)
+  #'    `"before_install"` stage (only for non-interactive CIs,
+  #'    not if run locally via [tic()])
   if (!ci()$is_interactive()) {
     add_code_step(get_stage("before_install", private = private), utils::update.packages(ask = FALSE))
   }
@@ -123,8 +124,10 @@ add_package_checks <- function(warnings_are_errors = TRUE,
     )
   )
 
-  #' 1. A call to [covr::codecov()] in the `"after_success"` stage
-  add_code_step(get_stage("after_success", private = private), covr::codecov(quiet = FALSE))
+  #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
+  if (!ci()$is_interactive()) {
+    add_code_step(get_stage("after_success", private = private), covr::codecov(quiet = FALSE))
+  }
 }
 
 #' @importFrom magrittr %>%

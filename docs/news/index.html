@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9004</span>
       </span>
     </div>
 
@@ -125,6 +125,37 @@
       <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0-2-13-9004" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9004" class="anchor"></a>tic 0.2.13.9004</h1>
+<ul>
+<li>New <code><a href="../reference/get_public_key.html">get_public_key()</a></code> and <code><a href="../reference/encode_private_key.html">encode_private_key()</a></code> moved from <em>travis</em> (<a href='https://github.com/ropenscilabs/tic/issues/71'>#71</a>, <a href='http://github.com/pat'>@pat</a>-s).</li>
+<li>Add <code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code> and <code><a href="../reference/step_install_pkg.html">step_install_github()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/65'>#65</a>, <a href='http://github.com/pat'>@pat</a>-s).</li>
+</ul>
+</div>
+    <div id="tic-0-2-13-9003" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9003" class="anchor"></a>tic 0.2.13.9003</h1>
+<ul>
+<li>Added integration tests for package checks and deployment, covering various common cases (<a href='https://github.com/ropenscilabs/tic/issues/62'>#62</a>).</li>
+<li>Add integration test for deploying from a subdirectory.</li>
+<li>Remove <code>orphan</code> argument from <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>, because there’s no easy way to implement it reliably. If only a subdirectory is deployed to a separate branch (i.e., the <code>path</code> argument is set), <code>orphan = TRUE</code> is required.</li>
+</ul>
+</div>
+    <div id="tic-0-2-13-9002" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9002" class="anchor"></a>tic 0.2.13.9002</h1>
+<ul>
+<li>Better strategy for handling race conditions during deployment, new changes are no longer silently overwritten with <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/45'>#45</a>).</li>
+<li>Add integration test for package checks and race conditions (<a href='https://github.com/ropenscilabs/tic/issues/62'>#62</a>).</li>
+<li>Clarify error message upon step failure.</li>
+<li>
+<code><a href="../reference/DSL.html">add_package_checks()</a></code> adds coverage checks only for non-interactive CIs.</li>
+<li>Add reference to <code>use_tic()</code> (<a href='https://github.com/ropenscilabs/tic/issues/55'>#55</a>).</li>
+<li>Document purpose of testing steps (<a href='https://github.com/ropenscilabs/tic/issues/49'>#49</a>).</li>
+<li>Allow only predefined stage names (<a href='https://github.com/ropenscilabs/tic/issues/48'>#48</a>).</li>
+</ul>
+</div>
     <div id="tic-0-2-13-9001" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9001" class="anchor"></a>tic 0.2.13.9001</h1>
@@ -297,6 +328,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tic-0-2-13-9004">0.2.13.9004</a></li>
+        <li><a href="#tic-0-2-13-9003">0.2.13.9003</a></li>
+        <li><a href="#tic-0-2-13-9002">0.2.13.9002</a></li>
         <li><a href="#tic-0-2-13-9001">0.2.13.9001</a></li>
         <li><a href="#tic-0-2-13-9000">0.2.13.9000</a></li>
         <li><a href="#tic-0-2-13-2018-02-01">0.2-13</a></li>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Add built package to a drat — step_add_to_drat • tic</title>
+<title>Step: Install packages — step_install_pkg • tic</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,11 +30,16 @@
 
 
 
-<meta property="og:title" content="Step: Add built package to a drat — step_add_to_drat" />
+<meta property="og:title" content="Step: Install packages — step_install_pkg" />
 
-<meta property="og:description" content="Builds a package (binary on OS X or Windows) and inserts it into an existing
-drat repository via drat::insertPackage().
-Also knits the index.Rmd file of the drat if it exists." />
+<meta property="og:description" content="These steps are useful if your CI run needs packages which are not declared
+as dependencies in your DESCRIPTION.
+Usually you should declare these dependencies, but this may not always be desired.
+A step_install_cran() step installs one package from CRAN via install.packages(),
+but only if it's not already installed.
+A step_install_github() step installs one or more packages from GitHub
+via remotes::install_github(), the packages are only installed if their
+GitHub version is different from the locally installed version." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -71,12 +76,9 @@ Also knits the index.Rmd file of the drat if it exists." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
-</li>
-<li>
-  <a href="../articles/tic.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -89,21 +91,12 @@ Also knits the index.Rmd file of the drat if it exists." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tic-advantages.html">tic advantages</a>
-    </li>
-    <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
-    </li>
-    <li>
-      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/advanced.html">Advanced usage</a>
-    </li>
-    <li>
-      <a href="../articles/custom_steps.html">Dev - custom steps</a>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -126,28 +119,64 @@ Also knits the index.Rmd file of the drat if it exists." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Add built package to a drat</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-drat.R'><code>R/steps-drat.R</code></a></small>
-    <div class="hidden name"><code>step_add_to_drat.Rd</code></div>
+    <h1>Step: Install packages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-install.R'><code>R/steps-install.R</code></a></small>
+    <div class="hidden name"><code>step_install_pkg.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Builds a package (binary on OS X or Windows) and inserts it into an existing
-<span class="pkg">drat</span> repository via <code><a href='http://www.rdocumentation.org/packages/drat/topics/insertPackage'>drat::insertPackage()</a></code>.
-Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
+    <p>These steps are useful if your CI run needs packages which are not declared
+as dependencies in your <code>DESCRIPTION</code>.
+Usually you should declare these dependencies, but this may not always be desired.</p>
+<p>A <code>step_install_cran()</code> step installs one package from CRAN via <code>install.packages()</code>,
+but only if it's not already installed.</p>
+<p>A <code>step_install_github()</code> step installs one or more packages from GitHub
+via <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_github'>remotes::install_github()</a></code>, the packages are only installed if their
+GitHub version is different from the locally installed version.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_add_to_drat</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>step_install_github</span>(<span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>package</th>
+      <td><p>Package(s) to install</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Passed on to <code>install.packages()</code> or <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_github'>remotes::install_github()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>repo</th>
+      <td><p>Package to install in the "user/repo" format.</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other steps: <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
+    <div class='dont-index'><p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
+  <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
   <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
   <code><a href='step_hello_world.html'>step_hello_world</a></code>,
-  <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
+  <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
+  <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
+  <code><a href='step_run_code.html'>step_run_code</a></code>,
+  <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
+  <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
+  <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
+  <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p>
+<p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
+  <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
+  <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
+  <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
+  <code><a href='step_hello_world.html'>step_hello_world</a></code>,
   <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
   <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
   <code><a href='step_run_code.html'>step_run_code</a></code>,
@@ -161,6 +190,7 @@ Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#see-also">See also</a></li>
           </ul>
@@ -170,7 +200,7 @@ Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

@@ -22,7 +22,7 @@ LocalCI <- R6Class(
       NULL
     },
     get_commit = function() {
-      system2("git", "rev-parse HEAD", stdout = TRUE)
+      git2r::revparse_single(revision = "HEAD")$sha
     },
     is_interactive = function() {
       TRUE

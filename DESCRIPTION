@@ -1,7 +1,7 @@
-Package: tic
 Type: Package
+Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
-Version: 0.2.13.9001
+Version: 0.2.13.9004
 Authors@R: c(
     person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
@@ -17,44 +17,47 @@ Description:
     continuous integration tool used for processing the workflow (e.g.
     'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
-LazyData: TRUE
-Depends:
+URL: https://github.com/ropenscilabs/tic
+BugReports: https://github.com/ropenscilabs/tic/issues
+Depends: 
     R (>= 3.0.0)
-Imports:
+Imports: 
     backports,
-    base64enc,
     crayon,
-    git2r,
     magrittr,
     memoise,
     methods,
     R6,
     withr
-Suggests:
+Suggests: 
+    base64enc,
     covr,
     drat,
+    git2r,
+    knitr,
     openssl,
     rcmdcheck,
     remotes,
+    rmarkdown,
     testthat,
-    travis,
-    knitr,
-    rmarkdown
+    travis
+VignetteBuilder: knitr
 Remotes: 
+    krlmlr/callr@b-55-vignette-builder,
     r-lib/rcmdcheck,
-    ropensci/git2r,
     ropenscilabs/travis
-URL: https://github.com/ropenscilabs/tic
-BugReports: https://github.com/ropenscilabs/tic/issues
+ByteCompile: No
+Encoding: UTF-8
+LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
-Encoding: UTF-8
 Collate: 
     'ci.R'
     'appveyor.R'
     'base64.R'
     'dsl.R'
     'git2r.R'
+    'keys.R'
     'local.R'
     'mock.R'
     'run.R'
@@ -63,6 +66,7 @@ Collate:
     'steps-code.R'
     'steps-drat.R'
     'steps-git.R'
+    'steps-install.R'
     'steps-pkgdown.R'
     'steps-rcmdcheck.R'
     'steps-ssh.R'
@@ -70,4 +74,3 @@ Collate:
     'tic-package.R'
     'travis.R'
     'utils.R'
-VignetteBuilder: knitr

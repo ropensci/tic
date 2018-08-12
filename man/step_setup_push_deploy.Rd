@@ -14,7 +14,7 @@ Path to the repository, default \code{"."} which means setting up the current
 repository.}
 
 \item{branch}{\code{[string]}\cr
-Target branch, default: current branch}
+Target branch, default: current branch.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
@@ -43,6 +43,7 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_build_pkgdown}},
   \code{\link{step_do_push_deploy}},
   \code{\link{step_hello_world}},
+  \code{\link{step_install_pkg}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
   \code{\link{step_run_code}},

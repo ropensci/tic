@@ -41,7 +41,7 @@ Stage <- R6Class(
         }
       }
       if (!success) {
-        stopc("At least one step failed.")
+        stopc('At least one step failed in stage "', private$name, '".')
       }
     }
   ),

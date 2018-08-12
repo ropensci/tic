@@ -15,6 +15,12 @@ Git <- R6Class(
       }
     },
 
+    query = function(...) {
+      args <- c(...)
+      message(paste("git", paste(args, collapse = " ")))
+      withr::with_dir(private$path, system2("git", args, stdout = TRUE))
+    },
+
     init_repo = function() {
       message("Initializing Git repo at ", private$path)
       dir.create(private$path, recursive = TRUE, showWarnings = FALSE)
@@ -42,6 +48,14 @@ SetupPushDeploy <- R6Class(
 
       if (branch == ci()$get_branch() && orphan) {
         stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
+      }
+
+      if (branch == ci()$get_branch() && path != ".") {
+        stop("Must specify branch name if `path` is given.", call. = FALSE)
+      }
+
+      if (path != "." && !checkout && !orphan) {
+        stop("If `checkout` is FALSE and `path` is set, `orphan` must be TRUE.")
       }
 
       private$git <- Git$new(path)
@@ -102,6 +116,7 @@ SetupPushDeploy <- R6Class(
           {
             remote_branch <- private$try_fetch()
             if (!is.null(remote_branch)) {
+              message("Remote branch is ", remote_branch)
               if (private$checkout) {
                 git2r::checkout(
                   private$git$get_repo(),
@@ -109,8 +124,6 @@ SetupPushDeploy <- R6Class(
                   create = TRUE,
                   force = TRUE
                 )
-              } else {
-                git2r::reset(get_head_commit(remote_branch))
               }
             }
           },
@@ -141,7 +154,7 @@ SetupPushDeploy <- R6Class(
 #'   Path to the repository, default `"."` which means setting up the current
 #'   repository.
 #' @param branch `[string]`\cr
-#'   Target branch, default: current branch
+#'   Target branch, default: current branch.
 #' @param orphan `[flag]`\cr
 #'   Create and force-push an orphan branch consisting of only one commit?
 #'   This can be useful e.g. for `path = "docs", branch = "gh-pages"`,
@@ -183,7 +196,9 @@ DoPushDeploy <- R6Class(
     run = function() {
       private$git$init_repo()
       maybe_orphan <- is.null(git2r_head(private$git$get_repo()))
-      if (private$commit()) private$push(force = maybe_orphan)
+      if (private$commit()) {
+        private$push(force = maybe_orphan)
+      }
     }
   ),
 
@@ -200,16 +215,36 @@ DoPushDeploy <- R6Class(
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
       git2r::add(private$git$get_repo(), private$commit_paths)
 
-      repo_path <- git2r_attrib(private$git$get_repo(), "path")
-      message("Committing to ", repo_path)
+      message("Checking changed files")
       status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
-      if (length(status$staged) > 0) {
-        git2r::commit(private$git$get_repo(), private$commit_message)
-        TRUE
-      } else {
+      if (length(status$staged) == 0) {
         message("Nothing to commit!")
-        FALSE
+        return(FALSE)
       }
+
+      message("Committing to ", git2r_attrib(private$git$get_repo(), "path"))
+      new_commit <- git2r::commit(private$git$get_repo(), private$commit_message)$sha
+
+      local <- git2r_head(private$git$get_repo())
+      upstream <- git2r::branch_get_upstream(local)
+      if (is.null(upstream)) {
+        message("No upstream branch found")
+        return(TRUE)
+      }
+
+      message("Wiping repository")
+      private$git$cmd("checkout .")
+      private$git$cmd("clean -fdx")
+
+      message("Pulling new changes")
+      private$git$cmd("pull --rebase -X theirs")
+
+      c_local <- git2r::lookup(private$git$get_repo(), git2r::branch_target(local))
+      c_upstream <- git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
+
+      ab <- git2r::ahead_behind(c_local, c_upstream)
+      message("Ahead: ", ab[[1]], ", behind: ", ab[[2]])
+      ab[[1]] > 0
     },
 
     push = function(force) {
@@ -235,6 +270,21 @@ DoPushDeploy <- R6Class(
 #' Step: Perform push deploy
 #'
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
+#' It is highly recommended to restrict the set of files
+#' touched by the deployment with the `commit_paths` argument:
+#' this step assumes that it can freely overwrite all changes to all files
+#' below `commit_paths`, and will not warn in case of conflicts.
+#'
+#' To mitigate conflicts race conditions to the greatest extent possible,
+#' the following strategy is used:
+#'
+#' - The changes are committed to the branch
+#' - Before pushing, new commits are fetched with `git pull --rebase -X theirs`
+#'
+#' If no new commits were pushed after the CI run has started,
+#' this strategy is equivalent to simply committing and pushing.
+#' In the opposite case, if the remote repo has new commits,
+#' the deployment is safely applied to the current tip.
 #'
 #' @inheritParams step_setup_push_deploy
 #' @param commit_message `[string]`\cr
@@ -256,9 +306,11 @@ PushDeploy <- R6Class(
   "PushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+    initialize = function(path = ".", branch = ci()$get_branch(),
                           remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                           commit_message = NULL, commit_paths = ".") {
+
+      orphan <- (path != ".")
 
       private$setup <- step_setup_push_deploy(
         path = path, branch = branch, orphan = orphan, remote_url = remote_url,
@@ -288,8 +340,18 @@ PushDeploy <- R6Class(
 #' Clones a repo, inits author information, sets up remotes,
 #' commits, and pushes.
 #' Combines [step_setup_push_deploy()] with `checkout = FALSE` and
-#' [step_do_push_deploy()].
+#' a suitable `orphan` argument,
+#' and [step_do_push_deploy()].
 #'
+#' Setup and deployment are combined in one step,
+#' the files to be deployed must be prepared in a previous step.
+#' This poses some restrictions on how the repository can be initialized,
+#' in particular for a nonstandard `path` argument only `orphan = TRUE`
+#' can be supported (and will be used).
+#'
+#' For more control, create two separate steps with
+#' `step_setup_push_deploy()` and `step_do_push_deploy()`,
+#' and create the files to be deployed inbetween these steps.
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #'
@@ -297,11 +359,11 @@ PushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
-step_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
+step_push_deploy <- function(path = ".", branch = ci()$get_branch(),
                              remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
                              commit_message = NULL, commit_paths = ".") {
   PushDeploy$new(
-    path = path, branch = branch, orphan = orphan,
+    path = path, branch = branch,
     remote_url = remote_url,
     commit_message = commit_message,
     commit_paths = commit_paths
