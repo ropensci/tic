@@ -1,3 +1,9 @@
+# tic 0.2.13.9006
+
+- Support creating variables in `tic.R` by sourcing `tic.R` in a modifiable environment (#33).
+- Replaced `private` arguments with an environment that keeps track of internal state, now the code from `add_package_checks()` can be copied to a `tic.R` file (#74).
+
+
 # tic 0.2.13.9005
 
 - A failing step immediately fails the entire stage, subsequent steps are not run (#59).
