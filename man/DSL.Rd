@@ -8,21 +8,18 @@
 \alias{add_package_checks}
 \title{tic's domain-specific language}
 \usage{
-get_stage(name, private = NULL)
+get_stage(name)
 
 add_step(stage, step)
 
 add_code_step(stage, call, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE,
-  notes_are_errors = FALSE, args = c("--no-manual", "--as_cran"),
-  private = NULL)
+  notes_are_errors = FALSE, args = c("--no-manual", "--as_cran"))
 }
 \arguments{
 \item{name}{\code{[string]}\cr
 The name for the stage.}
-
-\item{private}{For internal use.}
 
 \item{stage}{\code{[Stage]}\cr
 A Stage object as returned by \code{get_stage()}.}
