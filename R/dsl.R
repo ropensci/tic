@@ -3,11 +3,12 @@ NULL
 
 #' @importFrom utils packageName
 load_from_file_ <- function(path = "tic.R", ..., mtime = file.mtime(path)) {
-  envir <- asNamespace(packageName())
-  dsl <- create_dsl(envir = envir)
+  env <- asNamespace(packageName())
+  source_env <- new.env(parent = env)
+  dsl <- create_dsl(envir = env)
   .dsl_storage$dsl <- dsl
   on.exit(.dsl_storage$dsl <- NULL, add = TRUE)
-  source(path, local = envir)
+  source(path, local = source_env)
   dsl$get_stages()
 }
 
