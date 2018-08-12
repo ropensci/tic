@@ -1,7 +1,6 @@
 ---
 title: "Build lifecycle"
 author: "Patrick Schratz, Kirill Müller"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Kirill Müller}

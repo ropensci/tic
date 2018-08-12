@@ -1,7 +1,6 @@
 ---
 title: "Developer info: Writing custom steps"
 author: "Kirill Müller"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Custom steps}
