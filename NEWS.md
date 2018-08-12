@@ -1,3 +1,8 @@
+# tic 0.2.13.9007
+
+- The `step_do_push_deploy()` and `step_push_deploy()` steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (#27).
+
+
 # tic 0.2.13.9006
 
 - Support creating variables in `tic.R` by sourcing `tic.R` in a modifiable environment (#33).
