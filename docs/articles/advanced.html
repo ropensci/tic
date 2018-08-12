@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9004</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -94,7 +97,7 @@
       <h1>Advanced usage</h1>
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
-            <h4 class="date">2018-08-06</h4>
+            <h4 class="date">2018-08-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/advanced.Rmd"><code>vignettes/advanced.Rmd</code></a></small>
       <div class="hidden name"><code>advanced.Rmd</code></div>
@@ -122,36 +125,36 @@
 <ol style="list-style-type: decimal">
 <li>Specifically set the env variable <code>BUILD_PKGDOWN</code> in <code>.travis.yml</code> and add the condition in <code>tic.R</code> to only run the deploy stage when this env variable evaluates to TRUE:</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">jobs:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">include:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="kw">-</span> <span class="fu">stage:</span><span class="at"> stage1</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">      <span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">      <span class="kw">[</span>...<span class="kw">]</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">      <span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">        <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">        <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">          <span class="fu">all_branches:</span><span class="at"> true</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    <span class="kw">-</span> <span class="fu">stage:</span><span class="at"> stage2</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">      <span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">      <span class="kw">[</span>...<span class="kw">]</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">      <span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">        <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">        <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">          <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode yml"><code class="sourceCode yaml"><span class="fu">jobs:</span>
+  <span class="fu">include:</span>
+    <span class="kw">-</span> <span class="fu">stage:</span><span class="at"> stage1</span>
+      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span>
+      <span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'</span>
+      <span class="kw">[</span>...<span class="kw">]</span>
+      <span class="fu">deploy:</span>
+        <span class="fu">provider:</span><span class="at"> script</span>
+        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span>
+        <span class="fu">on:</span>
+          <span class="fu">all_branches:</span><span class="at"> true</span>
+    <span class="kw">-</span> <span class="fu">stage:</span><span class="at"> stage2</span>
+      <span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'</span>
+      <span class="kw">[</span>...<span class="kw">]</span>
+      <span class="fu">deploy:</span>
+        <span class="fu">provider:</span><span class="at"> script</span>
+        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span>
+        <span class="fu">on:</span>
+          <span class="fu">all_branches:</span><span class="at"> true</span></code></pre></div>
 <p><code>tic.R</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
+}
+
+<span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
+}</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Setting the condition directly in <code>.travis.yml</code> in the “deploy” section:</li>
 </ol>
@@ -166,35 +169,35 @@
 <li>No CRON job (<a href="https://docs.travis-ci.com/user/cron-jobs/">CRON jobs</a> are builds that are started automatically after no build was triggered after a specific time)</li>
 <li>Only for builds that use the R “devel” version</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">   <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">   <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">   <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">     <span class="fu">branch:</span><span class="at"> master</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">     <span class="fu">condition:</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">       <span class="kw">-</span> $TRAVIS_PULL_REQUEST = false</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">       <span class="kw">-</span> $TRAVIS_EVENT_TYPE != cron</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">       <span class="kw">-</span> $TRAVIS_R_VERSION_STRING = devel</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode yml"><code class="sourceCode yaml"><span class="fu">deploy:</span>
+   <span class="fu">provider:</span><span class="at"> script</span>
+   <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span>
+   <span class="fu">on:</span>
+     <span class="fu">branch:</span><span class="at"> master</span>
+     <span class="fu">condition:</span>
+       <span class="kw">-</span> $TRAVIS_PULL_REQUEST = false
+       <span class="kw">-</span> $TRAVIS_EVENT_TYPE != cron
+       <span class="kw">-</span> $TRAVIS_R_VERSION_STRING = devel</code></pre></div>
 <p>The same could optionally also be specified in <code>tic.R</code>. There is no difference between the two approaches:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span> <span class="op">&amp;&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_EVENT_TYPE"</span>) <span class="op">!=</span><span class="st"> "cron"</span> <span class="op">&amp;&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_R_VERSION_STRING"</span>) <span class="op">==</span><span class="st"> "devel"</span>) {</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span> <span class="op">&amp;&amp;</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_EVENT_TYPE"</span>) <span class="op">!=</span><span class="st"> "cron"</span> <span class="op">&amp;&amp;</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_R_VERSION_STRING"</span>) <span class="op">==</span><span class="st"> "devel"</span>) {
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
+}</code></pre></div>
 </div>
 <div id="committing-single-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
 <p>Function <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> has the ability to only commit and push single files if they have changed during a CI build. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created via Travis. First, you need to make sure these files are created correctly by calling <code><a href="http://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code>. Then, simply add the desired paths to argument <code>commit_paths</code> in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and push to your desired branch (here <code>master</code>):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>(<span class="dt">roclets=</span><span class="kw">c</span>(<span class="st">'rd'</span>, <span class="st">'collate'</span>, <span class="st">'namespace'</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">orphan =</span> <span class="ot">FALSE</span>, <span class="dt">branch =</span> <span class="st">"master"</span>, </a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">                              <span class="dt">commit_paths =</span> <span class="kw">c</span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
+
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>(<span class="dt">roclets=</span><span class="kw">c</span>(<span class="st">'rd'</span>, <span class="st">'collate'</span>, <span class="st">'namespace'</span>))) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">orphan =</span> <span class="ot">FALSE</span>, <span class="dt">branch =</span> <span class="st">"master"</span>, 
+                              <span class="dt">commit_paths =</span> <span class="kw">c</span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</code></pre></div>
 <p>Applying this idea of course depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NS</code> directly or let them be created by Travis? An example project that uses the latter strategy is <a href="https://github.com/mlr-org/mlrng/blob/master/tic.R">mlr</a>.</p>
 </div>
 </div>
@@ -203,16 +206,16 @@
 <a href="#running-stages-conditionally" class="anchor"></a>Running stages conditionally</h1>
 <p>As introduced in the <a href="advanced.html#deployment">prior section</a>, conditioning of commands is based on env variables. The most common use case is the testing on multiple R versions but if you test on multiple CI services you may also want to only run certain tasks on one of them. We already explained <a href="advanced.html#pkgdown-deployment">how to do so</a> if you are deploying a<code>pkgdown</code> site.</p>
 <p>Another task is the code coverage generation. You do not want to run this on every R version as the outcome will always be the same. Also it increases the build time on every build which is not what you want! So, it is sufficient to just run it on one R version, e.g. “release”. When you use multiple R versions, Travis automatically sets up a build matrix with each build having <a href="https://docs.travis-ci.com/user/languages/r/#Environment-Variables">set an environmental variable for the R version</a> used. So all you need to do is to condition the stage execution on this env variable:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_R_VERSION"</span>) <span class="op">==</span><span class="st"> "release"</span>) {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(covr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/covr/topics/codecov">codecov</a></span>())</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_R_VERSION"</span>) <span class="op">==</span><span class="st"> "release"</span>) {
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(covr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/covr/topics/codecov">codecov</a></span>())
+}</code></pre></div>
 <p>Note that setting the <code>after_success</code> stage explicitly will overwrite what <code><a href="../reference/DSL.html">add_package_checks()</a></code> would do in the background for this particular stage (which is what you want if you define the step on your own).</p>
 <p>Another condition that comes in handy is to run certain stages only on Travis CI (e.g. the code coverage step):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">inherits</span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>) {</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(covr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/covr/topics/codecov">codecov</a></span>())</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">inherits</span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>) {
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(covr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/covr/topics/codecov">codecov</a></span>())
+}</code></pre></div>
 </div>
 <div id="installing-packages" class="section level1">
 <h1 class="hasAnchor">
@@ -221,16 +224,16 @@
 <h2 class="hasAnchor">
 <a href="#github-packages" class="anchor"></a>Github packages</h2>
 <p>Github packages should be installed in the <code>install</code> stage:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(<span class="kw">step_install_github</span>(<span class="st">"r-lib/rcmdcheck"</span>))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_github</a></span>(<span class="st">"r-lib/rcmdcheck"</span>))</code></pre></div>
 <p>Note that the underlying <code><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call: <code>add_code_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis"))</code>.</p>
 </div>
 <div id="cran-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cran-packages" class="anchor"></a>CRAN packages</h2>
 <p>Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package. For example, to create a favicon in <code>pkgdown</code>, the <code>magick</code> package is required. To install the package (only if it does not exist in the cache already), run the following:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(<span class="kw">step_install_cran</span>(<span class="st">"magick"</span>))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_cran</a></span>(<span class="st">"magick"</span>))</code></pre></div>
 </div>
 </div>
 <div id="travis-ci-meta-information" class="section level1">
@@ -238,13 +241,13 @@
 <a href="#travis-ci-meta-information" class="anchor"></a>Travis CI Meta-Information</h1>
 <p>The <code><a href="../reference/ci.html">ci()</a></code> function holds valuable information about the CI system. It can be used to query information that can be again be utilized for conditioning stages or steps.</p>
 <p>For example, the user may wish to only deploy on Travis by using <code>inherits(ci(), "TravisCI")</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">inherits</span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>)) {</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
-<a class="sourceLine" id="cb11-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">inherits</span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>)) {
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
+
+  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
+}</code></pre></div>
 <p>See <code><a href="../reference/ci.html">?ci</a></code> for more information on which information can be extracted from this function.</p>
 </div>
 <div id="troubleshooting-running-tic-locally" class="section level1">

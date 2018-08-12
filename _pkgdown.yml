@@ -45,3 +45,5 @@ navbar:
       href: articles/advanced.html
     - text: Dev - custom steps
       href: articles/custom_steps.html
+  - text: Changelog
+    href: news/index.html
