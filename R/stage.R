@@ -35,13 +35,9 @@ Stage <- R6Class(
     run_all = function() {
       success <- TRUE
       for (step in private$steps) {
-        if (!private$run_one(step)) success <- FALSE
-        if (!success && private$name == "deploy") {
-          stopc("Aborting early on failure in deploy stage.")
+        if (!private$run_one(step)) {
+          stopc('A step failed in stage "', private$name, '": ', private$name, '.')
         }
-      }
-      if (!success) {
-        stopc('At least one step failed in stage "', private$name, '".')
       }
     }
   ),
