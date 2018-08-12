@@ -1,3 +1,8 @@
+# tic 0.2.13.9005
+
+- A failing step immediately fails the entire stage, subsequent steps are not run (#59).
+
+
 # tic 0.2.13.9004
 
 - New `get_public_key()` and `encode_private_key()` moved from _travis_ (#71, @pat-s).
