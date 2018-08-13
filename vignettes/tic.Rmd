@@ -47,23 +47,67 @@ The functionality is integrated in the [`usethis`](http://usethis.r-lib.org/) pa
 However, the heavy lifting in the background is actually done by the R packages `travis` and `tic`. 
 See [here](tic-usethis-travis.html) for more detailed information on how `tic`, `travis` and `usethis` work together.
 
-# Setup
+# Explanation of the basic template
 
-## R packages
+After having called `usethis::use_ci()` you will find a `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
+Usually you do not need to touch `appveyor.yml` and `.travis.yml` anymore.
+All build customizations are done in `tic.R` and apply to both services.
+If you want more information about the whole build lifecycle, check the [Build lifecycle](build-lifecycle.html) vignette.
 
-After having called `usethis::use_ci()` you will find `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
-The default template will trigger builds on both CI services that do the following:
+The basic `tic.R` template looks as follows:
 
-- Install required dependencies of the R package
-- Run `rcmdcheck::rcmdcheck()` on the package (see [here](tic-advantages#rcmdcheck-r-cmd-check) for more details)
-- Build a `pkgdown` site and deploy it to the `docs/` folder of the `master` branch (Travis only)
-- Run a code coverage on the package and upload it to [codecov.io](https://codecov.io/) (Travis only)
+```r
+add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
 
-The commands that are going to be executed in each stage of each service are specified in a centralized file `tic.R` - read [here](tic-advantages.html) for a more thorough explanation of all advantages of `tic`.
+if (Sys.getenv("BUILD_PKGDOWN") != "") {
+  get_stage("before_deploy") %>%
+    add_step(step_setup_ssh())
 
-## Examples
+  get_stage("deploy") %>%
+    add_step(step_push_deploy()) %>% 
+    add_step(step_build_pkgdown())
+}
+```
 
-`tic` can also be used for `bookdown`, `blogdown`, `rmarkdown`, `drat`, and `packagedocs`  projects. 
+Let's break done what happens here:
+
+```r
+add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
+```
+
+Is a convenient function which adds essential steps to various stages of a CI run. For example, it adds `utils::update_packages(ask = FALSE)` to the "before_install" stage. Check `?add_package_checks()` to see a list of all added steps by this wrapper function.
+
+```r
+if (Sys.getenv("BUILD_PKGDOWN") != "") { }
+```
+
+This line conditions its contents on the existence of the environment variable `"BUILD_PKGDOWN"`.
+The env variable is set in [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47), conditioned on the job that runs on the current R-release version:
+
+```yml
+- r: release
+env:
+ - BUILD_PKGDOWN=true
+```
+
+If the if-condition evaluates to `TRUE`, the following is executed.
+Function `step_setup_ssh()`  sets up the SSH connection needed for deployment.
+
+```r
+get_stage("before_deploy") %>%
+  add_step(step_setup_ssh())
+```
+
+Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [`pkgdown`](http://pkgdown.r-lib.org/) site if the project is an R package.
+
+```r
+get_stage("deploy") %>%
+  add_step(step_build_pkgdown())
+```
+
+# Examples projects
+
+`tic` can be used for various R projects. 
 It can also publish to `figshare`.
 See the example projects below for more information.
 
