@@ -107,21 +107,38 @@ get_stage("deploy") %>%
 
 # Examples projects
 
-`tic` can be used for various R projects. 
-It can also publish to `figshare`.
-See the example projects below for more information.
+`tic` can be used for various R projects (see below). 
 
 - [tic.blogdown](https://github.com/krlmlr/tic.blogdown)
 - [ŧic.bookdown](https://github.com/krlmlr/tic.bookdown)
 - [tic.drat](https://github.com/krlmlr/tic.drat)
-- [tic.R-package](https://github.com/krlmlr/tic.package)
-- [tic.rmarkdown](https://github.com/krlmlr/tic.website)
+- [tic.package](https://github.com/krlmlr/tic.package)
+- [tic.website](https://github.com/krlmlr/tic.website)
 - [tic.figshare](https://github.com/krlmlr/tic.figshare).
 
-# What's not covered yet?
+As an example, we explain a "blogdown" project in more detail.
+[`blogdown`](https://bookdown.org/yihui/blogdown/) is a R package for publishing websites.
+Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
 
-- `SystemRequirements`: `tic` is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
-Our plan is to automatically provide suggestions like "Please add addons: apt: <library> to `.travis.yml`".
+```r
+get_stage("install") %>%
+  add_code_step(blogdown::install_hugo(), prepare_call = remotes::install_github("rstudio/blogdown"))
+```
+
+Then the website is build and deployed.
+The `blogdown::build_site()` function for websites is the equivalent to `pkgdown::build_site()` for R packages.
+
+```r
+get_stage("deploy") %>%
+    add_code_step(blogdown::build_site()) %>%
+    add_step(step_push_deploy())
+```
+
+You see, steps and stages differ between projects (here between a "blogdown" website and a "package").
+`tic` is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
+
+**Note:** Currently, publishing to https://figshare.com/ doesn't work.
+Also, publishing to https://zenodo.org/ is work in progress.
 
 # Advanced
 
