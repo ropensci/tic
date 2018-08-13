@@ -32,7 +32,10 @@
 
 <meta property="og:title" content="Step: Check a package — step_rcmdcheck" />
 
-<meta property="og:description" content="Check a package using rcmdcheck, which ultimately calls R CMD check." />
+<meta property="og:description" content="Check a package using rcmdcheck, which ultimately calls R CMD check.
+The preparation consists of installing package dependencies
+via remotes::install_deps() with dependencies = TRUE,
+and updating all packages." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9007</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
       </span>
     </div>
 
@@ -134,7 +137,10 @@
 
     <div class="ref-description">
     
-    <p>Check a package using <span class="pkg">rcmdcheck</span>, which ultimately calls <code>R CMD check</code>.</p>
+    <p>Check a package using <span class="pkg">rcmdcheck</span>, which ultimately calls <code>R CMD check</code>.
+The preparation consists of installing package dependencies
+via <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>,
+and updating all packages.</p>
     
     </div>
 
@@ -162,13 +168,24 @@ Passed to <code>[rcmdcheck::rcmdcheck()]</code> (after splitting at spaces), def
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This step uses a dedicated library,
+a subdirectory <code>tic-pkg</code> of the current user library
+(the first element of <code>.libPaths()</code>),
+for the checks.
+This is done to minimize conflicts between dependent packages
+and packages that are required for running the various steps.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
