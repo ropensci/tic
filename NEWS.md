@@ -1,3 +1,25 @@
+# tic 0.2.13.9008
+
+- The `step_rcmdcheck()` step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The `add_package_checks()` macro no longer includes an `update.packages()` call (#35).
+- The `step_rcmdcheck()` step now installs all dependencies during preparation. The `add_package_checks()` macro no longer adds the code step that installs dependencies.
+
+
+# tic 0.2.13.9007
+
+- The `step_do_push_deploy()` and `step_push_deploy()` steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (#27).
+
+
+# tic 0.2.13.9006
+
+- Support creating variables in `tic.R` by sourcing `tic.R` in a modifiable environment (#33).
+- Replaced `private` arguments with an environment that keeps track of internal state, now the code from `add_package_checks()` can be copied to a `tic.R` file (#74).
+
+
+# tic 0.2.13.9005
+
+- A failing step immediately fails the entire stage, subsequent steps are not run (#59).
+
+
 # tic 0.2.13.9004
 
 - New `get_public_key()` and `encode_private_key()` moved from _travis_ (#71, @pat-s).

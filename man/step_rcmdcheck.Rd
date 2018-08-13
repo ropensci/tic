@@ -20,4 +20,15 @@ Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
 }
 \description{
 Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
+The preparation consists of installing package dependencies
+via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
+and updating all packages.
+}
+\details{
+This step uses a dedicated library,
+a subdirectory \code{tic-pkg} of the current user library
+(the first element of \code{\link[=.libPaths]{.libPaths()}}),
+for the checks.
+This is done to minimize conflicts between dependent packages
+and packages that are required for running the various steps.
 }

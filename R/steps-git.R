@@ -193,6 +193,10 @@ DoPushDeploy <- R6Class(
       private$commit_paths <- commit_paths
     },
 
+    check = function() {
+      !ci()$is_tag()
+    },
+
     run = function() {
       private$git$init_repo()
       maybe_orphan <- is.null(git2r_head(private$git$get_repo()))
@@ -321,6 +325,10 @@ PushDeploy <- R6Class(
         path = path, commit_message = commit_message, commit_paths = commit_paths
       )
 
+    },
+
+    check = function() {
+      private$setup$check() && private$do$check()
     },
 
     run = function() {
