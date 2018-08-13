@@ -17,16 +17,20 @@ knitr::opts_chunk$set(
 
 # Prerequisites
 
-If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:
+If you are unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:
 
 - https://ropensci.github.io/dev_guide/ci.html
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environment, you probably wonder what the `tic` package does to make the world even simpler?
-For example, writing CI-agnostic code that works across CI systems!
-But that's just the beginning. 
-We summarized all the advantages of using `tic` in an own [vignette](tic-advantages.html).
+The advantages of using `tic` for R-related CI workflows are: 
+
+- CI-agnostic workflow definitions (in R!)
+- Simplified deployment (e.g. automatic deployment of a `pkgdown` site for a R package)
+- Improved package checking via [rcmdcheck](https://github.com/r-lib/rcmdcheck)
+- Robust caching approach
+
+A more comprehensive summary of all advantages can be found in the [tic-advantages](tic-advantages.html) vignette.
 
 # Initialization
 
