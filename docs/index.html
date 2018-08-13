@@ -110,9 +110,9 @@
 <li>Satisfying dependencies of steps to be run in all CI stages</li>
 <li>Running <code><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> (if the project is an R package)<br>
 </li>
-<li>Building of a <code>pkgdown</code> site and deployment to the <code>docs/</code> folder of the <code>master</code> branch (Travis only, R package only)<br>
+<li>Building of a <code>pkgdown</code> site and deployment to the <code>docs/</code> folder of the <code>master</code> branch</li>
+<li>Running a code coverage and uploading it to <a href="https://codecov.io/">codecov.io</a>
 </li>
-<li>Running a code coverage and uploading it to <a href="https://codecov.io/">codecov.io</a> (Travis only, R package only)</li>
 </ul>
 <p>It comes with pre-defined templates for various R projects (package, bookdown, blogdown, etc.) and provides CI-agnostic workflow definitions (for the CI stages).</p>
 <div id="installation" class="section level2">
@@ -125,19 +125,18 @@
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>When using <code>tic</code> it is helpful to be somewhat familiar with the concept of <a href="https://ropenscilabs/tic/articles/tic.html#prerequisites">continuous integration</a> (CI).<br>
-By calling <code>usethis::use_ci()</code> a production ready setup for the respective R project is initialized.<br>
-This function will create a CI setup for both providers Travis and Appveyor.<br>
-For more information see the <a href="https://ropenscilabs/tic/articles/tic.html#setup">Getting started</a> vignette.</p>
+<p>When using <code>tic</code> some basic knowledge about continuous integration (CI) is required. You may find <a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/">this resource</a> and our <a href="https://ropenscilabs/tic/articles/tic.html#prerequisites">Getting Started</a> vignette helpful. The latter also contains links to minimal example repositories for various R projects (package, blogdown, bookdown and more).</p>
+<p>By calling <code>usethis::use_ci()</code> a production ready CI setup is initialized, tailored to your specific R project.<br>
+The created templates will use the providers <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://appveyor.com" class="uri">https://appveyor.com</a>.</p>
 </div>
-<div id="further-reading" class="section level2">
+<div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#further-reading" class="anchor"></a>Further reading</h2>
+<a href="#vignettes" class="anchor"></a>Vignettes</h2>
 <ul>
-<li>
-<a href="https://ropenscilabs/tic/articles/tic.html#examples">Example projects</a><br>
-</li>
 <li><a href="https://ropenscilabs/tic/articles/advanced.html">Advanced usage</a></li>
+<li><a href="https://ropenscilabs/tic/articles/build-lifecycle.html">Build lifecycle</a></li>
+<li><a href="https://ropenscilabs/tic/articles/tic-advantages.html">tic advantages</a></li>
+<li><a href="https://ropenscilabs/tic/articles/tic-usethis-travis.html">tic, travis and usethis</a></li>
 <li><a href="https://ropenscilabs/tic/articles/custom-steps.html">Developer information</a></li>
 </ul>
 <hr>
