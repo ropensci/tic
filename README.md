@@ -11,8 +11,8 @@ In a nutshell, `tic` does the following:
 - Installation of required dependencies for the project  
 - Satisfying dependencies of steps to be run in all CI stages
 - Running `rcmdcheck::rcmdcheck()` (if the project is an R package)  
-- Building of a `pkgdown` site and deployment to the `docs/` folder of the `master` branch (Travis only, R package only)  
-- Running a code coverage and uploading it to [codecov.io](https://codecov.io/) (Travis only, R package only)  
+- Building of a `pkgdown` site and deployment to the `docs/` folder of the `master` branch
+- Running a code coverage and uploading it to [codecov.io](https://codecov.io/)
 
 It comes with pre-defined templates for various R projects (package, bookdown, blogdown, etc.) and provides CI-agnostic workflow definitions (for the CI stages).
 
@@ -27,15 +27,19 @@ remotes::install_github("ropenscilabs/tic")
 
 ## Setup
 
-When using `tic` it is helpful to be somewhat familiar with the concept of [continuous integration](https://ropenscilabs/tic/articles/tic.html#prerequisites) (CI).  
-By calling `usethis::use_ci()` a production ready setup for the respective R project is initialized.  
-This function will create a CI setup for both providers Travis and Appveyor.  
-For more information see the [Getting started](https://ropenscilabs/tic/articles/tic.html#setup) vignette.
+When using `tic` some basic knowledge about continuous integration (CI) is required.
+You may find [this resource](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://ropenscilabs/tic/articles/tic.html#prerequisites) vignette helpful. 
+The latter also contains links to minimal example repositories for various R projects (package, blogdown, bookdown and more).
 
-## Further reading
+By calling `usethis::use_ci()` a production ready CI setup is initialized, tailored to your specific R project.  
+The created templates will use the providers https://travis-ci.org and https://appveyor.com.
 
-- [Example projects](https://ropenscilabs/tic/articles/tic.html#examples)  
+## Vignettes
+
 - [Advanced usage](https://ropenscilabs/tic/articles/advanced.html)
+- [Build lifecycle](https://ropenscilabs/tic/articles/build-lifecycle.html)
+- [tic advantages](https://ropenscilabs/tic/articles/tic-advantages.html)
+- [tic, travis and usethis](https://ropenscilabs/tic/articles/tic-usethis-travis.html)
 - [Developer information](https://ropenscilabs/tic/articles/custom-steps.html)
 
 ---
