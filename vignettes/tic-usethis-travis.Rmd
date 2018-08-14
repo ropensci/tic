@@ -18,19 +18,21 @@ knitr::opts_chunk$set(
 You may be a bit confused about all the different packages and their specific scopes in the world of R package development.
 The three packages can be arranged in the following structure, from the outer to the inner level:
 
-usethis -> tic -> travis
+usethis - tic - travis
 
 The `usethis` package holds all the utility wrapper functions to simplify R package development.
 From cloning a Github repo `create_from_github()` over using `roxygen2` for documentation (`use_roxygen()`) to setting up CI for your package (`use_ci()`).
-The latter function effectively calls a mixture of `travis` and `tic` functions that do the work in the background. 
+The latter effectively calls a mixture of `travis` and `tic` functions that do the work in the background. 
 Most of the stuff that needs to be done for Travis is handled by the `travis` package. 
-These are tasks like enabling the repo in travis-ci.org, setting up ssh deployment keys for your repo on Travis and others.
+These are tasks like enabling the repo in travis-ci.org, setting up SSH deployment keys for your repo on Travis and others.
 
 After everything is ready, `usethis` and `travis` have done their jobs and the rest of the work goes to `tic`.
-By this we mean the handling of the actual CI workflow: What commands are going to be executed at all, which stage runs a specific command, how is the deployment handled.
+By this we refer to the handling of the actual CI workflow: What commands are going to be executed, which steps are run in the stages, how the deployment is handled.
 
-So in summary, the three packages can be described like this:
+So in summary, the interaction between the three packages can be described like this:
 
-`usethis`: Package holding utility wrapper functions to simplify R package development
-`travis`: Responsible for setting up all CI related stuff and taking care of permissions
-`tic`: Package to specify the CI workflow (which stages are run, which commands are used)
+- `usethis`: Package holding utility wrapper functions to simplify R package development  
+
+- `travis`: Responsible for setting up all CI related stuff and taking care of permissions  
+
+- `tic`: Package to specify the CI workflow (which stages are run, which commands are used)  
