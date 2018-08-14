@@ -108,9 +108,6 @@
 
     
     
-<div id="build-lifecycle" class="section level1">
-<h1 class="hasAnchor">
-<a href="#build-lifecycle" class="anchor"></a>Build lifecycle</h1>
 <div id="stages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#stages" class="anchor"></a>Stages</h2>
@@ -129,27 +126,39 @@
 <li><code>after_script</code></li>
 </ul>
 <p>The <code>after_xxx</code> stages are only for notifications and will not fail a build. They are started conditionally, dependent on their name. For example stage <code>after_success</code> will only be run of if there was a successfull execution of the whole build process, i.e. no error in any stage. The <code>after_deploy</code> stage will only be run if there the <code>deploy</code> stage was run before.</p>
-<p><code>tic</code> also uses the stages approach and simply fowards all the commands that should be run in stage to the <code>tic.R</code> file where these will specified in an CI-agnostic way using R syntax.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_install:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">-</span> <span class="fu">R -q -e 'install.packages("remotes"); remotes:</span><span class="at">:install_github("ropenscilabs/tic")</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">-</span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages()'</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a></code></pre></div>
+<p><code>tic</code> also uses the stages approach and simply fowards all the commands that should be run in stage to the <code>tic.R</code> file where these will specified in an CI-agnostic way using R syntax. The <code>.travis.yml</code> file is subsequently not meant to be edited anymore (at least not for the specification of the stages).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># DO NOT CHANGE THE CODE BELOW</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages(c("remotes", "curl")); remotes::install_local(getwd()); tic::prepare_all_stages(); tic::before_install()'</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
 <p>In a nutshell, the workflow is like this:</p>
 <p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands to execute</p>
-<p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by emulating a CI build locally using <code><a href="../reference/tic.html">tic()</a></code>.</p>
+<p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by emulating a CI build locally using <code><a href="../reference/tic.html">tic()</a></code>. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more info about this point.</p>
+<div id="accessing-a-single-stage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#accessing-a-single-stage" class="anchor"></a>Accessing a single stage</h3>
+<p>Which steps are executed in each stage is specified in <code>tic.R</code>. A stage is executed by calling the respective <code>tic</code> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This function then sources <code>tic.R</code> and searches for a call to <code>get_stage(&lt;stage name&gt;)</code>. In this case it searches for <code><a href="../reference/DSL.html">get_stage("deploy")</a></code> in particular. If this call was found, all subsequent steps declared in this stage will be run. Again, remember that the order of the calls is fixed (see <a href="build-lifecyle.html#stages">here</a>) and it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
+<p>Usually, steps are appended to stages by a pipe operator:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
+<p>You can test this yourself by calling <code><a href="../reference/stages.html">tic::deploy()</a></code> locally if you have a <code>tic.R</code> file in your repo.</p>
+</div>
+<div id="details-of-stages" class="section level3">
+<h3 class="hasAnchor">
+<a href="#details-of-stages" class="anchor"></a>Details of stages</h3>
 <p>The most important stage for <code>tic</code> is the <code>before_install</code> stage. Here, <code>tic</code> gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This magical function makes sure that all subsequent steps can be executed, e.g. by installing required R packages. Note however that this is not the function that takes cares of installing dependencies of your R package but only to ensure that the commands specified in <code>tic.R</code> can be executed. The installation of R package dependencies is triggered by the wrapper function <code><a href="../reference/DSL.html">add_package_checks()</a></code>. This wrapper function adds four important commands to specific stages in the build cycle:</p>
 <ol style="list-style-type: decimal">
 <li><p>A call to <code><a href="http://www.rdocumentation.org/packages/utils/topics/update.packages">utils::update.packages()</a></code> with <code>ask = FALSE</code> in the “before_install” stage (only for non-interactive CIs)</p></li>
@@ -160,12 +169,13 @@
 <p>If you specify these stages on your own in <code>tic.R</code>, the commands above will not be executed. So don’t forget to add the commands manually to make sure that everything works!</p>
 <p>Note: All R packages that should be stored in the Travis cache for R packages should be either installed in the <code>install</code> or <code>before_install</code> stage. This applies for example to Github packages. See <a href="tic-advantages.html">here</a> for details.</p>
 </div>
+</div>
 <div id="steps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#steps" class="anchor"></a>Steps</h2>
 <p>Steps are essentially the commands that are executed in each stage. <code>tic</code> uses the pipe operator to chain steps in <code>tic.R</code>, for example</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
 <p>This step is chained to stage “deploy” and subsequently only run in this stage. More steps that should be run in this stage could just by piped after the <code><a href="../reference/DSL.html">add_step(step_build_pkgdown())</a></code> step. Steps are usually defined using two nested commands: <code><a href="../reference/DSL.html">add_step()</a></code> and the corrsponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
 <p>The tic package defines the following steps:</p>
 <ul>
@@ -214,7 +224,6 @@
 </li>
 </ul>
 </div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -222,12 +231,8 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#build-lifecycle">Build lifecycle</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#stages">Stages</a></li>
       <li><a href="#steps">Steps</a></li>
-      </ul>
-</li>
       </ul>
 </div>
       </div>

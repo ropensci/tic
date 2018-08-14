@@ -127,8 +127,8 @@
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
 <p>This block finally executes the function <code>step_setup_ ssh()</code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. That is just one condition among many that you can set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">here</a> for more examples). After the prerequisite of setting up an ssh key for the upcoming deployment has been finished,</p>
 </li>
-<li>Travis is told to use a “script” (provider: script) for the deployment (which holds further instructions).</li>
-<li>This “script” is then calling <code><a href="../reference/stages.html">tic::deploy()</a></code>.</li>
+<li><p>Travis is told to use a “script” (provider: script) for the deployment (which holds further instructions).</p></li>
+<li><p>This “script” is then calling <code><a href="../reference/stages.html">tic::deploy()</a></code>.</p></li>
 <li>
 <p>All this is only happening on the <code>master</code> branch, meaning that other branches do not trigger a deploy with this condition set.</p>
 <p>What happens now is that <code><a href="../reference/stages.html">tic::deploy()</a></code> again searches in <code>tic.R</code> for the “deploy” stage and then runs whatever you have specified there.</p>
