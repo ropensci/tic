@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# The advantages of tic
-
 So, what's the advantage of using `tic` over the standard CI process?
 
 - CI-agnostic workflow definitions (in R!)
