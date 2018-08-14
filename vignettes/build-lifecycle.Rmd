@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Build lifecycle
-
 ## Stages
 
 CI services run builds in stages.
@@ -40,11 +38,12 @@ For example stage `after_success` will only be run of if there was a successfull
 The `after_deploy` stage will only be run if there the `deploy` stage was run before.
 
 `tic` also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic way using R syntax.
+The `.travis.yml` file is subsequently not meant to be edited anymore (at least not for the specification of the stages).
+
 
 ```yml
-before_install: 
-  - R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic")
-  - R -q -e 'tic::prepare_all_stages()'
+# DO NOT CHANGE THE CODE BELOW
+before_install: R -q -e 'install.packages(c("remotes", "curl")); remotes::install_local(getwd()); tic::prepare_all_stages(); tic::before_install()'
 install: R -q -e 'tic::install()'
 after_install: R -q -e 'tic::after_install()'
 before_script: R -q -e 'tic::before_script()'
@@ -59,6 +58,7 @@ deploy:
     all_branches: true
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
+# DO NOT CHANGE THE CODE ABOVE
 ```
 
 In a nutshell, the workflow is like this:
@@ -69,6 +69,27 @@ An important point to note: The R code declared in `tic.R` is not meant to be ru
 It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
 For testing purposes, all stages and steps defined in `tic.R` can be executed by emulating a CI build locally using `tic()`.
+See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) for more info about this point.
+
+### Accessing a single stage
+
+Which steps are executed in each stage is specified in `tic.R`.
+A stage is executed by calling the respective `tic` function; for example for stage "deploy" `tic::deploy()`.
+This function then sources `tic.R` and searches for a call to `get_stage(<stage name>)`.
+In this case it searches for `get_stage("deploy")` in particular.
+If this call was found, all subsequent steps declared in this stage will be run.
+Again, remember that the order of the calls is fixed (see [here](build-lifecyle.html#stages)) and it does not matter in which order you declare the stages in `tic.R`.
+
+Usually, steps are appended to stages by a pipe operator:
+
+```r
+get_stage("deploy") %>%
+  add_step(step_build_pkgdown())
+```
+
+You can test this yourself by calling `tic::deploy()` locally if you have a `tic.R` file in your repo.
+
+### Details of stages
 
 The most important stage for `tic` is the `before_install` stage.
 Here, `tic` gets installed and runs `prepare_all_stages()`.
