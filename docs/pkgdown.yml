@@ -5,6 +5,7 @@ articles:
   advanced: advanced.html
   build-lifecycle: build-lifecycle.html
   custom-steps: custom-steps.html
+  deployment: deployment.html
   tic-advantages: tic-advantages.html
   tic-usethis-travis: tic-usethis-travis.html
   tic: tic.html

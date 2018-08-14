@@ -67,6 +67,9 @@
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
+      <a href="../articles/deployment.html">How deployment works</a>
+    </li>
+    <li>
       <a href="../articles/custom-steps.html">Dev - custom steps</a>
     </li>
   </ul>
@@ -105,9 +108,6 @@
 
     
     
-<div id="the-advantages-of-tic" class="section level1">
-<h1 class="hasAnchor">
-<a href="#the-advantages-of-tic" class="anchor"></a>The advantages of tic</h1>
 <p>So, what’s the advantage of using <code>tic</code> over the standard CI process?</p>
 <ul>
 <li>CI-agnostic workflow definitions (in R!)</li>
@@ -120,43 +120,23 @@
 <h2 class="hasAnchor">
 <a href="#ci-agnostic-workflows" class="anchor"></a>CI-Agnostic workflows</h2>
 <p>What does “CI-Agnostic” mean and why do we need it?</p>
-<p>You may have heard that multiple CI services exist in the wild. Some are OS specific (e.g. Appveyor = Windows), some only support certain languages and for some you need to pay a monthly rate to use them. What all have in common: They have their own way to specify their setup file, which is most often written in YAML and stored at the top-level directory of your repo. This setup file controls what will be done in each run.</p>
-<p>To give you an example how different these files can be, take a look at these two examples from <a href="https://github.com/tidyverse/dplyr/blob/master/.travis.yml">Travis</a> and <a href="https://github.com/tidyverse/dplyr/blob/master/appveyor.yml">Appveyor</a>. While <code>Travis</code> is the only free CI services with a stable support for R (maintained by the community, specifically by <span class="citation">@jimhester</span>), <code>Appveyor</code> currently requires quite some magic (e.g. <code>travis-tool.sh</code>) in the background to install a working R framework in the first place.</p>
-<p>We could list way more differences - but that’s exactly the point when <code>tic</code> comes in! Rather than dealing with all the CI differences, <code>tic</code> enables the specification of the complete workflow in an external R script file <code>tic.R</code>. The commands specified in there will be understood on every CI service that is supported by <code>tic</code>. Furthermore, you can emulate all the stages and steps locally by calling <code><a href="../reference/tic.html">tic()</a></code>. And you are independent of all the changes that are being made on the R setup for Travis or Appveyor [LINKS TO SETUPS].</p>
-<p>So instead of learning how to specify one specific task on different CI platforms, the user only needs to get used to the R based approach of <code>tic</code>.</p>
+<p>You may have heard that multiple CI services exist in the wild. Some only support specific operating systems or certain languages and for some you need to pay a monthly rate to use them. What all have in common: They have their own way to specify their setup file, which is most often written in YAML and stored at the top-level directory of your repo. This setup file controls what will be done in each run.</p>
+<p>To give you an example how different these control files can be, take a look at these two examples from <a href="https://github.com/tidyverse/dplyr/blob/master/.travis.yml">Travis</a> and <a href="https://github.com/tidyverse/dplyr/blob/master/appveyor.yml">Appveyor</a>. While Travis is the only free CI service with an “official” support for R (maintained by the community, specifically by <span class="citation">@jimhester</span>), <code>Appveyor</code> currently requires quite some magic (e.g. <code>travis-tool.sh</code>) in the background to install a working R framework.</p>
+<p>We could list way more differences - but that’s exactly the point when <code>tic</code> comes in!</p>
+<ul>
+<li>Rather than dealing with all the CI differences, <code>tic</code> enables the specification of the complete workflow in an external R script file <code>tic.R</code>.</li>
+<li>The commands specified in there will be understood on every CI service that is supported by <code>tic</code>.</li>
+<li>Furthermore, you can <a href="advantages.html#less-dependency-on-external-ci-control-commands">emulate all the stages and steps locally</a> by calling <code><a href="../reference/tic.html">tic()</a></code>.</li>
+<li>You are independent from all the changes that are being made on the R setup for Travis or Appveyor (<a href="(advantages.html#less-dependency-on-external-ci-control-commands)">more info</a>.</li>
+<li>A <code>tic.R</code> workflow is usually shorter and easier to parse than a <code>.travis.yml</code> or <code>appveyor.yml</code> file.</li>
+</ul>
+<p>So instead of learning how to specify specific tasks on different CI platforms, you only need to learn how to do with R commands.</p>
 </div>
 <div id="easier-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#easier-deployment" class="anchor"></a>Easier deployment</h2>
-<p>You may know that CI services can be used to automatically deploy files. This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.). A common use case is to build your <code>pkgdown</code> site and conditionally push changes to your repo. This practice saves you from building the whole <code>pkgdown</code> site locally and then committing manually all the changed files - Travis will do it for you! <code>tic</code> takes care of all the setup work (setting up ssh keys, permission granting for the repo on Github and Travis). In combination with <code>usethis::use_ci()</code> this whole preparation process is streamlined and needs only be called once for every repo by the user.</p>
-<p>Today, it becomes more and more the standard to have a <code>pkgdown</code> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. Do not waste time on updating your site manually - automate such tasks!</p>
-<p><code>tic</code> initiates the deployment in the <code>.travis.yml</code> file with the following block:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
-<p>Let’s break down what happens here:</p>
-<ol style="list-style-type: decimal">
-<li>Travis executes <code><a href="../reference/stages.html">tic::before_deploy()</a></code> which will search for instructions regarding the <code><a href="../reference/stages.html">before_deploy()</a></code> stage in <code>tic.R</code>. By default this looks like</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
-<p>This block finally executes the function <code>step_setup_ ssh()</code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. That is just one condition among many that you can set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">here</a> for more examples). After the prerequisite of setting up an ssh key for the upcoming deployment has been finished,</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Travis is told to use a “script” (provider: script) for the deployment (which holds further instructions).</li>
-<li>This “script” is then calling <code><a href="../reference/stages.html">tic::deploy()</a></code>.</li>
-<li>All this is only happening on the <code>master</code> branch, meaning that other branches do not trigger a deploy with this condition set.</li>
-</ol>
-<p>What happens now is that <code><a href="../reference/stages.html">tic::deploy()</a></code> again searches in <code>tic.R</code> for the “deploy” stage and then runs whatever you have specified there.</p>
-<p>With the default template of <code>tic.R</code>, the following will be executed:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <code>pkgdown</code> site and afterwards (note the <code>pipe</code> operator), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care to push the results to your repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
+<p>You may know that CI services can be used to automatically deploy files. This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.). A common use case is to build your <code>pkgdown</code> site and conditionally push changes to your repo. This practice saves you from building the whole <code>pkgdown</code> site locally and then committing manually all the changed files - either Travis or Appveyor will do it for you! <code>tic</code> takes care of all the setup work (setting up SSH keys, permission granting for the repo on Github and the CI services). In combination with <code>usethis::use_ci()</code> this whole preparation process is streamlined and needs only be called once for every repo by the user.</p>
+<p>For more information on automatic deployment in <code>tic</code>, take a look <a href="deplyoment.html">here</a>.</p>
 </div>
 <div id="rcmdcheck-r-cmd-check" class="section level2">
 <h2 class="hasAnchor">
@@ -173,6 +153,23 @@
 <a href="#caching-of-packages" class="anchor"></a>Caching of packages</h2>
 <p>When using <code>tic</code> all dependencies (not only the ones of the package) are installed in the “before_install” stage. This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.</p>
 </div>
+<div id="easier-troubleshooting" class="section level2">
+<h2 class="hasAnchor">
+<a href="#easier-troubleshooting" class="anchor"></a>Easier troubleshooting</h2>
+<p><code>tic</code> comes with the ability to emulate the CI run locally and debug potential problems. This is possible because <code>tic.R</code> is a plain R file that will be sourced when calling <code><a href="../reference/tic.html">tic()</a></code>. It will run all the stages and steps in the same order as it would happen on the CI service.</p>
+<p>Sometimes CI builds error (even multiple times) and you don’t know whether the error is caused by the CI service or by a wrong workflow specification on your side.</p>
+<p>To make sure that you have no syntax errors in your <code>tic.R</code> file, all you need to do is to call <code><a href="../reference/load_from_file.html">load_from_file()</a></code>. In case you have errors, you will see them directly. For example, removing a closing bracket on purpose in <code>tic.R</code> would return the following when calling <code><a href="../reference/load_from_file.html">load_from_file()</a></code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/load_from_file.html">load_from_file</a></span>()</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">Error <span class="cf">in</span> <span class="kw">source</span>(path, <span class="dt">local =</span> dsl) <span class="op">:</span><span class="st"> </span>tic.R<span class="op">:</span><span class="dv">16</span><span class="op">:</span><span class="dv">1</span><span class="op">:</span><span class="st"> </span>unexpected <span class="st">'}'</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="dv">15</span><span class="op">:</span><span class="st">     </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="dv">16</span><span class="op">:</span><span class="st"> </span><span class="er">}</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="op">^</span></a></code></pre></div>
+<p>See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> and <a href="advanced#troubleshooting-entering-the-cI-build">Troubleshooting: Entering the CI build</a> for instructions on how to debug your CI build in more detail.</p>
+</div>
+<div id="less-dependency-on-external-ci-control-commands" class="section level2">
+<h2 class="hasAnchor">
+<a href="#less-dependency-on-external-ci-control-commands" class="anchor"></a>Less dependency on external CI control commands</h2>
+<p>Most CI services come with no (native) support for the R programming language. For Travis and Appveyor, the support is provided by the R community. For example, <a href="https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb">r.rb</a> controls what happens if you set <code>language: r</code> on Travis. All of the commands and arguments specified there can also be set in <code>tic.R</code> using R syntax. So you are no longer dependent on the syntax and restrictions coming from <a href="https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb">r.rb</a> but able to control the whole CI workflow in a single R file.</p>
 </div>
   </div>
 
@@ -181,14 +178,12 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#the-advantages-of-tic">The advantages of tic</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#ci-agnostic-workflows">CI-Agnostic workflows</a></li>
       <li><a href="#easier-deployment">Easier deployment</a></li>
       <li><a href="#rcmdcheck-r-cmd-check"><code>rcmdcheck()</code> &gt; R CMD check</a></li>
       <li><a href="#caching-of-packages">Caching of packages</a></li>
-      </ul>
-</li>
+      <li><a href="#easier-troubleshooting">Easier troubleshooting</a></li>
+      <li><a href="#less-dependency-on-external-ci-control-commands">Less dependency on external CI control commands</a></li>
       </ul>
 </div>
       </div>
