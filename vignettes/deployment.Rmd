@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+old.hooks = fansi::set_knit_hooks(knitr::knit_hooks)
+options(crayon.enabled = TRUE)
 ```
 
 Today, it becomes more and more standard to have a `pkgdown` site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version.
@@ -49,7 +51,9 @@ Let's break down what happens here:
     After the prerequisite of setting up an ssh key for the upcoming deployment has been finished, 
 
 2. Travis is told to use a "script" (provider: script) for the deployment (which holds further instructions).
+
 3. This "script" is then calling `tic::deploy()`.
+
 4. All this is only happening on the `master` branch, meaning that other branches do not trigger a deploy with this condition set.
 
     What happens now is that `tic::deploy()` again searches in `tic.R` for the "deploy" stage and then runs whatever you have specified there.
