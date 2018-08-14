@@ -43,6 +43,8 @@ navbar:
       href: articles/build-lifecycle.html
     - text: Advanced usage
       href: articles/advanced.html
+    - text: How deployment works
+      href: articles/deployment.html
     - text: Dev - custom steps
       href: articles/custom-steps.html
   - text: Changelog
