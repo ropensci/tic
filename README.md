@@ -30,7 +30,7 @@ remotes::install_github("ropenscilabs/tic")
 When using `tic` it is helpful to be somewhat familiar with the concept of [continuous integration](https://ropenscilabs/tic/articles/tic.html#prerequisites) (CI).  
 By calling `usethis::use_ci()` a production ready setup for the respective R project is initialized.  
 This function will create a CI setup for both providers Travis and Appveyor.  
-For more information see the [Getting started](https://ropenscilabs/tic/articles/tic.html#setup) vignette.
+For more information see the [Getting started](https://ropenscilabs.github.io/tic/articles/tic.html#setup) vignette.
 
 ## Further reading
 
