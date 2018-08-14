@@ -72,37 +72,19 @@ It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 
 Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output ot the console early, omitting important information about the error. 
 
-Here is an example of the improved log output by `rcmdcheck` including an error message:
+Here is an short excerpt of the improved log output by `rcmdcheck` including an error message:
 
 ```r
-✔  checking for unstated dependencies in ‘tests’
-─  checking tests ...
-✔  Running ‘testthat.R’
-✔  checking for unstated dependencies in vignettes ...
-✔  checking package vignettes in ‘inst/doc’ ...
-─  checking running R code from vignettes ...
-      ‘advanced.Rmd’ using ‘UTF-8’ ... OK
-      ‘build-lifecycle.Rmd’ using ‘UTF-8’ ... OK
-      ‘custom-steps.Rmd’ using ‘UTF-8’ ... OK
-      ‘deployment.Rmd’ using ‘UTF-8’ ... OK
-      ‘tic-advantages.Rmd’ using ‘UTF-8’ ... OK
-      ‘tic-usethis-travis.Rmd’ using ‘UTF-8’ ... OK
-      ‘tic.Rmd’ using ‘UTF-8’ ... OK
-    NONE
-✔  checking re-building of vignette outputs (1.8s)
-✔  checking PDF version of manual (2.1s)
-   
-   
-── R CMD check results ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tic 0.2.13.9008 ────
-Duration: 33.9s
 
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
 
 ## Caching of packages
 
-When using `tic` all dependencies (not only the ones of the package) are installed in the "before_install" stage. 
+When using `tic` all dependencies (the ones of the package and of also the ones of all stages of the CI build) are installed in the "before_install" stage. 
 This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
+`tic` uses two distinct R libraries for caching: One for the dependencies that are used for checking the R package and another R package library for all other dependencies (e.g. for packages that are used during the "deploy" stage).
+The reason for that is that sometimes dependencies for specific stages (e.g. "the deploy" stage) may cause errors when checking the R package because these contain breaking changes which the package is not able to deal with (e.g. if the Github version of a package is installed).
+More information about the whole CI workflow can be found in the [Build lifecyle](build-lifecycle.html) vignette.
 
 ## Easier troubleshooting
 
