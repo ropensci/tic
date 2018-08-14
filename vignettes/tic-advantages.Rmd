@@ -113,3 +113,33 @@ Especially the extended log printing of errors is a huge advantage - often enoug
 
 When using `tic` all dependencies (not only the ones of the package) are installed in the "before_install" stage. 
 This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
+
+## Easier troubleshooting
+
+`tic` comes with the ability to emulate the CI run locally and debug potential problems. 
+This is possible because `tic.R` is a plain R file that will be sourced when calling `tic()`.
+It will run all the stages and steps in the same order as it would happen on the CI service.
+
+Sometimes CI builds error (even multiple times) and you don't know whether the error is caused by the CI service or by a wrong workflow specification on your side.
+
+To make sure that you have no syntax errors in your `tic.R` file, all you need to do is to call `load_from_file()`.
+In case you have errors, you will see them directly.
+For example, removing a closing bracket on purpose in `tic.R` would return the following when calling `load_from_file()`:
+
+```r
+load_from_file()
+Error in source(path, local = dsl) : tic.R:16:1: unexpected '}'
+15:     add_step(step_push_deploy())
+16: }
+    ^
+```
+
+See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) and [Troubleshooting: Entering the CI build](advanced#troubleshooting-entering-the-cI-build) for instructions on how to debug your CI build in more detail.
+
+## Less dependency on external CI control commands
+
+Most CI services come with no (native) support for the R programming language.
+For Travis and Appveyor, the support is provided by the R community.
+For example, [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
+All of the commands and arguments specified there can also be set in `tic.R` using R syntax.
+So you are no longer dependent on the syntax and restrictions coming from [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.
