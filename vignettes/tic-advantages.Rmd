@@ -13,6 +13,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+old.hooks = fansi::set_knit_hooks(knitr::knit_hooks)
+options(crayon.enabled = TRUE)
 ```
 
 So, what's the advantage of using `tic` over the standard CI process?
@@ -53,18 +56,48 @@ This practice saves you from building the whole `pkgdown` site locally and then 
 `tic` takes care of all the setup work (setting up SSH keys, permission granting for the repo on Github and the CI services).
 In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
 
-For more information on automatic deployment in `tic`, take a look [here](deplyoment.html).
+For more information on automatic deployment in `tic`, take a look [here](deployment.html).
 
-## `rcmdcheck()` > R CMD check
+## Enhanced R package checking: `rcmdcheck()` > R CMD check
 
-Usually Travis will run `R CMD check` to check the R package.
-`tic` instead uses  [`rcmdcheck`](https://github.com/r-lib/rcmdcheck), an optimized version of `R CMD check` developed by [Gabor Csardi](https://github.com/gaborcsardi).
-It comes with several enhancements:
+As a R package developer you are most likely used to call `devtools::check()` or directly `R CMD check` on your built package.
+Usually also Travis will run `R CMD check` to check the R package.
+`tic` instead uses  [`rcmdcheck`](https://github.com/r-lib/rcmdcheck), which can be seen as a wrapper around `R CMD build` and `R CMD check`.
+It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
+`rcmdcheck` comes with several enhancements:
 
-- Coloring of important steps on Travis, simplifying the readability of the log
+- Coloring of important steps, simplifying the readability of the log
 - Enhanced and extended tracebacks of errors, especially errors in tests
+- The whole check process is returned in a R object, making it easier to inspect eventual errros/warnings
 
-Especially the extended log printing of errors is a huge advantage - often enough, the important information is not printed by Travis when using `R CMD check` making it hard for the user to debug the problem.
+Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output ot the console early, omitting important information about the error. 
+
+Here is an example of the improved log output by `rcmdcheck` including an error message:
+
+```r
+✔  checking for unstated dependencies in ‘tests’
+─  checking tests ...
+✔  Running ‘testthat.R’
+✔  checking for unstated dependencies in vignettes ...
+✔  checking package vignettes in ‘inst/doc’ ...
+─  checking running R code from vignettes ...
+      ‘advanced.Rmd’ using ‘UTF-8’ ... OK
+      ‘build-lifecycle.Rmd’ using ‘UTF-8’ ... OK
+      ‘custom-steps.Rmd’ using ‘UTF-8’ ... OK
+      ‘deployment.Rmd’ using ‘UTF-8’ ... OK
+      ‘tic-advantages.Rmd’ using ‘UTF-8’ ... OK
+      ‘tic-usethis-travis.Rmd’ using ‘UTF-8’ ... OK
+      ‘tic.Rmd’ using ‘UTF-8’ ... OK
+    NONE
+✔  checking re-building of vignette outputs (1.8s)
+✔  checking PDF version of manual (2.1s)
+   
+   
+── R CMD check results ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tic 0.2.13.9008 ────
+Duration: 33.9s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```
 
 ## Caching of packages
 
