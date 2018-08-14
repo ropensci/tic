@@ -49,56 +49,11 @@ So instead of learning how to specify specific tasks on different CI platforms, 
 You may know that CI services can be used to automatically deploy files. 
 This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
 A common use case is to build your `pkgdown` site and conditionally push changes to your repo.
-This practice saves you from building the whole `pkgdown` site locally and then committing manually all the changed files - Travis will do it for you! 
-`tic` takes care of all the setup work (setting up ssh keys, permission granting for the repo on Github and Travis).
+This practice saves you from building the whole `pkgdown` site locally and then committing manually all the changed files - either Travis or Appveyor will do it for you! 
+`tic` takes care of all the setup work (setting up SSH keys, permission granting for the repo on Github and the CI services).
 In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
 
-Today, it becomes more and more the standard to have a `pkgdown` site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version.
-But this is only valuable if the information also reflects the most recent state of the repo.
-Do not waste time on updating your site manually - automate such tasks!
-
-`tic` initiates the deployment in the `.travis.yml` file with the following block:
-
-```yml
-before_deploy: R -q -e 'tic::before_deploy()'
-deploy:
-  provider: script
-  script: R -q -e 'tic::deploy()'
-  on:
-    all_branches: true
-```
-
-Let's break down what happens here:
-
-1. Travis executes `tic::before_deploy()` which will search for instructions regarding the `before_deploy()` stage in `tic.R`. By default this looks like
-
-```r
-if (Sys.getenv("BUILD_PKGDOWN") != "") {
-  get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
-}
-```
-
-This block finally executes the function `step_setup_ ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build.
-That is just one condition among many that you can set to run certain commands (or stages) conditionally (see [here](advanced.html#running-stages-conditionally) for more examples).
-After the prerequisite of setting up an ssh key for the upcoming deployment has been finished, 
-
-2. Travis is told to use a "script" (provider: script) for the deployment (which holds further instructions).
-3. This "script" is then calling `tic::deploy()`.
-4. All this is only happening on the `master` branch, meaning that other branches do not trigger a deploy with this condition set.
-
-What happens now is that `tic::deploy()` again searches in `tic.R` for the "deploy" stage and then runs whatever you have specified there.
-
-With the default template of `tic.R`, the following will be executed:
-
-```r
-get_stage("deploy") %>%
-  add_step(step_build_pkgdown()) %>% 
-  add_step(step_push_deploy())
-```
-
-First, `step_build_pkgdown()` will build your `pkgdown` site and afterwards (note the `pipe` operator), `step_push_deploy()` takes care to push the results to your repo.
-By default this will be the `docs/` directory of the `master` branch.
+For more information on automatic deployment in `tic`, take a look [here](deplyoment.html).
 
 ## `rcmdcheck()` > R CMD check
 
