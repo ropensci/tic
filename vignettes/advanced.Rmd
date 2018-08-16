@@ -11,11 +11,14 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 
 old.hooks = fansi::set_knit_hooks(knitr::knit_hooks)
 options(crayon.enabled = TRUE)
+
+library(tic)
 ```
 
 # Running stages conditionally
@@ -64,16 +67,23 @@ And don't forget: All of these conditioning is specified in `tic.R`, which is a 
 
 # Installing packages
 
+Note that manual installation of Github or CRAN packages should only be used in non-interactive CI runs. 
+This can be checked with the condition `ci()$is_interactive()`.
+
+Usually required packages should be installed based on the DESCRIPTION file of a package.
+You should only use the following steps in extraordinary circumstances.
+One could be the requirement of the `magick()` package for a successfull favicon creation for a `pkgdown` website.
+
 ## Github packages
 
 Github packages should be installed in the `install` stage:
 
 ```r
 get_stage("install") %>%
-  add_code_step(step_install_github("r-lib/rcmdcheck"))
+  add_step(step_install_github("r-lib/rcmdcheck"))
 ```
 
-Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_code_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis"))`.
+Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis"))`.
 
 ## CRAN packages
 
@@ -83,10 +93,10 @@ To install the package (only if it does not exist in the cache already), run the
 
 ```r
 get_stage("install") %>%
-  add_code_step(step_install_cran("magick"))
+  add_step(step_install_cran("magick"))
 ```
 
-# Travis CI Meta-Information
+# CI Meta-Information
 
 The `ci()` function holds valuable information about the CI system. 
 It can be used to query information that can be again be utilized for conditioning stages or steps.
@@ -107,21 +117,112 @@ See `?ci` for more information on which information can be extracted from this f
 
 # Troubleshooting: Running tic locally
 
-You can run `tic` locally by using `load_from_file()`.
-This function sources your `tic.R` file and reports eventual problems.
+We introduced how to run `tic` locally when discussing the [advantages of using tic](tic-advantages.html#easier-troubleshooting).
 
-To emulate a CI run locally, you can simply call `tic()` and the stages and steps will be executed in your local R console.
-Note that doing this will use your local system libraries and not the Travis environment.
+Recall, that `tic` can be emulated locally in two ways:
+
+You can run check on possible syntax errors in `tic.R` using `load_from_file()`.
+This function will just source `tic.R` to check for possible misspecification errors.
+If everything is ok, it will return a list with all stages that are run in the CI build, formatted in the `R6` class style.
+Here is a preview of the first two stages:
+    
+```{r, eval = FALSE}
+load_from_file()
+    
+$before_install
+<Stage>
+  Public:
+    add_step: function (step, code) 
+    add_task: function (run, check = NULL, prepare = NULL, name = NULL) 
+    clone: function (deep = FALSE) 
+    initialize: function (name) 
+    prepare_all: function () 
+    reset: function () 
+    run_all: function () 
+  Private:
+    name: before_install
+    prepare_one: function (step) 
+    run_one: function (step) 
+    steps: list
+
+$install
+<Stage>
+  Public:
+    add_step: function (step, code) 
+    add_task: function (run, check = NULL, prepare = NULL, name = NULL) 
+    clone: function (deep = FALSE) 
+    initialize: function (name) 
+    prepare_all: function () 
+    reset: function () 
+    run_all: function () 
+  Private:
+    name: install
+    prepare_one: function (step) 
+    run_one: function (step) 
+    steps: list
+```
+
+To emulate a real CI run locally, you can call `tic()` and the stages and steps will be executed in your local R console.
+Note that doing this will of course use your local system libraries and not the CI environment.
+
+Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `add_package_checks()`.
 
 # Troubleshooting: Entering the CI build
 
-If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via `ssh`.
+If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via SSH.
 To do so, your repository must be [opt-in](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode) for "ssh debugging".
+This means you need to write the Travis CI team an e-mail, asking whether your repo can be [activated for debugging](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode).
+Usually you get a reply within one day with some additional information on how to enter the build.
+However, rathern than going the manual way, just take the easy route by calling `travis::travis_debug_job()`.
 
-Afterwards, you can simply call `travis::travis_debug_job(<jobID>)` and the build will restart.
+All it needs is the "Job ID" of the respective build you want to enter.
 
-Wait a few minutes until the build arrives at the point when it prints you the `ssh` command you can use to log in.
+```{r, echo = FALSE, eval = TRUE, fig.align='center', dpi = 50}
+knitr::include_graphics("img/travis-job-id.png")
+```
+
+Rather than going to the web interface and getting the "Job ID" there, you can also do it from the command line.
+First, you need to query the overall "Build ID" of the run:
+
+```{r}
+travis::travis_get_builds()
+
+A collection of 25 Travis CI builds:
+- id: 416858821, number: 342, state: errored, duration: 3820, event_type: push, ...
+- id: 416834229, number: 341, state: errored, duration: 3738, event_type: push, ...
+- id: 416135954, number: 340, state: errored, duration: 3338, event_type: push, ...
+- id: 416107143, number: 339, state: errored, duration: 3670, event_type: push, ...
+- id: 416095854, number: 338, state: passed, duration: 3135, event_type: push, ...
+```
+
+Because every "build" has multiple "Jobs", you can now query the "Job ID".
+For example, when you know that you want to enter the latest build, you can combine both commands:
+
+```{r}
+build_id = travis::travis_get_builds()[[1]]$id
+travis::travis_get_jobs(build_id)
+
+A collection of 7 Travis CI jobs:
+- id: 416858822, allow_failure: FALSE, number: 342.1, state: passed, started_at: 2018-08-16T15:02:52Z, ...
+- id: 416858823, allow_failure: FALSE, number: 342.2, state: passed, started_at: 2018-08-16T15:02:18Z, ...
+- id: 416858824, allow_failure: FALSE, number: 342.3, state: passed, started_at: 2018-08-16T15:02:43Z, ...
+- id: 416858825, allow_failure: FALSE, number: 342.4, state: passed, started_at: 2018-08-16T15:02:23Z, ...
+- id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...
+```
+
+Finally, the build can be entered by calling `travis::travis_debug_job()`:
+
+```{r}
+job_id = travis::travis_get_jobs(build_id)[[1]]$id
+
+travis::travis_debug_job(job_id)
+
+Finished restarting debug job 416983664 from Travis CI.
+```
+
+Wait a few minutes until the build arrives at the point when it tells you the SSH command you can use to enter the build.
 It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
+If you still do not want to use the browser manullay, simple call `travis::browse()` to open your project on Travis.
 
 Once you are in the build [check](https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM) these handy functions to execute specific stages.
 
