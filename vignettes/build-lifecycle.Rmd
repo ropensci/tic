@@ -115,7 +115,7 @@ See [here](tic-advantages.html) for details.
 
 ## Steps
 
-Steps are essentially the commands that are executed in each stage.
+Steps are the commands that are executed in each stage.
 `tic` uses the pipe operator to chain steps in `tic.R`, for example
 
 ```r
@@ -123,20 +123,20 @@ get_stage("deploy") %>%
   add_step(step_build_pkgdown())
 ```
 
-This step is chained to stage "deploy" and subsequently only run in this stage.
+`step_build_pkgdown()` here is chained to stage "deploy" and subsequently only run in this stage.
 More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
 Steps are usually defined using two nested commands: `add_step()` and the corrsponding step, here `step_build_pkgdown()`.
 
 The tic package defines the following steps:
 
-- `step_hello_world`: print "Hello, World!" to the console, helps testing a tic setup
-- `step_rcmdcheck`: run `R CMD check` via the _rcmdcheck_ package
-- `step_run_code`: run arbitrary code, optionally run preparatory code and install dependent packages
-    - `add_step(step_run_code(...))` can be abbreviated with `add_code_step(...)`
-- `step_install_ssh_key`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
-- `step_test_ssh`: test the SSH connection to GitHub, helps troubleshooting deploy problems
-- `step_build_pkgdown`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
-- `step_push_deploy`: deploy to GitHub, with arguments:
+- `step_hello_world()`: print "Hello, World!" to the console, helps testing a tic setup
+- `step_rcmdcheck()`: run `R CMD check` via the _rcmdcheck_ package
+- `step_run_code()`: run arbitrary code, optionally run preparatory code and install dependent packages
+    - `add_step(step_run_code())` can be abbreviated with `add_code_step()`
+- `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
+- `step_test_ssh()`: test the SSH connection to GitHub, helps troubleshooting deploy problems
+- `step_build_pkgdown()`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
+- `step_push_deploy()`: deploy to GitHub, with arguments:
     - `path`: which path to deploy, default: `"."`
     - `branch`: which branch to deploy to, default: `ci()$get_branch()`
     - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
