@@ -127,7 +127,8 @@ get_stage("deploy") %>%
 More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
 Steps are usually defined using two nested commands: `add_step()` and the corrsponding step, here `step_build_pkgdown()`.
 
-The `tic` package defines the following steps:
+We grouped the steps defined by the `tic` package in the following.
+Please see the respective help pages of the functions for a more detailed documentation.
 
 #### Basic
 
