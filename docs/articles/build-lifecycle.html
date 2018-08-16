@@ -173,33 +173,65 @@
 <div id="steps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#steps" class="anchor"></a>Steps</h2>
-<p>Steps are essentially the commands that are executed in each stage. <code>tic</code> uses the pipe operator to chain steps in <code>tic.R</code>, for example</p>
+<p>Steps are the commands that are executed in each stage. <code>tic</code> uses the pipe operator to chain steps in <code>tic.R</code>, for example</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
-<p>This step is chained to stage “deploy” and subsequently only run in this stage. More steps that should be run in this stage could just by piped after the <code><a href="../reference/DSL.html">add_step(step_build_pkgdown())</a></code> step. Steps are usually defined using two nested commands: <code><a href="../reference/DSL.html">add_step()</a></code> and the corrsponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
-<p>The tic package defines the following steps:</p>
+<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> here is chained to stage “deploy” and subsequently only run in this stage. More steps that should be run in this stage could just by piped after the <code><a href="../reference/DSL.html">add_step(step_build_pkgdown())</a></code> step. Steps are usually defined using two nested commands: <code><a href="../reference/DSL.html">add_step()</a></code> and the corrsponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
+<p>We grouped the steps defined by the <code>tic</code> package in the following. Please see the respective help pages of the functions for a more detailed documentation.</p>
+<div id="basic" class="section level4">
+<h4 class="hasAnchor">
+<a href="#basic" class="anchor"></a>Basic</h4>
 <ul>
 <li>
-<code>step_hello_world</code>: print “Hello, World!” to the console, helps testing a tic setup</li>
+<code><a href="../reference/step_hello_world.html">step_hello_world()</a></code>: print “Hello, World!” to the console, helps testing a tic setup</li>
 <li>
-<code>step_rcmdcheck</code>: run <code>R CMD check</code> via the <em>rcmdcheck</em> package</li>
-<li>
-<code>step_run_code</code>: run arbitrary code, optionally run preparatory code and install dependent packages
+<code><a href="../reference/step_run_code.html">step_run_code()</a></code>: run arbitrary code, optionally run preparatory code and install dependent packages
 <ul>
 <li>
-<code><a href="../reference/DSL.html">add_step(step_run_code(...))</a></code> can be abbreviated with <code><a href="../reference/DSL.html">add_code_step(...)</a></code>
+<code><a href="../reference/DSL.html">add_step(step_run_code())</a></code> can be abbreviated with <code><a href="../reference/DSL.html">add_code_step()</a></code>
 </li>
 </ul>
 </li>
 <li>
-<code>step_install_ssh_key</code>: make available a private SSH key (which has been added before to your project by <a href="https://github.com/r-lib/usethis"><code>usethis</code></a><code>::use_travis_deploy()</code>)</li>
+<code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code>: Creates a text file with arbitrary contents</li>
+</ul>
+</div>
+<div id="installation" class="section level4">
+<h4 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h4>
+<ul>
 <li>
-<code>step_test_ssh</code>: test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
+<code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code>: Installs one package from CRAN via <code>install.packages()</code>, but only if it’s not already installed.</li>
 <li>
-<code>step_build_pkgdown</code>: building package documentation via <a href="https://github.com/r-lib/pkgdown">pkgdown</a>
+<code><a href="../reference/step_install_pkg.html">step_install_github()</a></code>: Installs one or more packages from GitHub via <code><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code>
+</li>
+</ul>
+</div>
+<div id="r-package-specific" class="section level4">
+<h4 class="hasAnchor">
+<a href="#r-package-specific" class="anchor"></a>R package specific</h4>
+<ul>
+<li>
+<code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>: building package documentation via <a href="https://github.com/r-lib/pkgdown">pkgdown</a>
 </li>
 <li>
-<code>step_push_deploy</code>: deploy to GitHub, with arguments:
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: run <code>R CMD check</code> via the <em>rcmdcheck</em> package</li>
+</ul>
+<div id="deployment" class="section level5">
+<h5 class="hasAnchor">
+<a href="#deployment" class="anchor"></a>Deployment</h5>
+<ul>
+<li>
+<code>step_install_ssh_key()</code>: make available a private SSH key (which has been added before to your project by <a href="https://github.com/r-lib/usethis"><code>usethis</code></a><code>::use_travis_deploy()</code>)</li>
+<li>
+<code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code>: test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
+<li>
+<code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code>: Adds to known hosts, installs private key, and tests the connection</li>
+<li>
+<code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code>: Clones a repo, inits author information, and sets up remotes for a subsequent <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>
+</li>
+<li>
+<code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>: deploy to GitHub, with arguments:
 <ul>
 <li>
 <code>path</code>: which path to deploy, default: <code>"."</code>
@@ -223,6 +255,16 @@
 </ul>
 </li>
 </ul>
+</div>
+</div>
+<div id="macros" class="section level3">
+<h3 class="hasAnchor">
+<a href="#macros" class="anchor"></a>Macros</h3>
+<p>Macros in <code>tic</code> are combinations of steps for reoccuring workflows.</p>
+<p>We already <a href="build-lifecycle.html#details-of-stages">mentioned</a> <code><a href="../reference/DSL.html">add_package_checks()</a></code> which is essentially a macro for testing R packages that add steps across several stages.</p>
+<p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
+<p>Currently, <code><a href="../reference/DSL.html">add_package_checks()</a></code> is the only macro implemented. We will add more macros in the future. If you have a good usecase for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
+</div>
 </div>
   </div>
 
