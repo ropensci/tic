@@ -127,15 +127,31 @@ get_stage("deploy") %>%
 More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
 Steps are usually defined using two nested commands: `add_step()` and the corrsponding step, here `step_build_pkgdown()`.
 
-The tic package defines the following steps:
+The `tic` package defines the following steps:
+
+#### Basic
 
 - `step_hello_world()`: print "Hello, World!" to the console, helps testing a tic setup
-- `step_rcmdcheck()`: run `R CMD check` via the _rcmdcheck_ package
 - `step_run_code()`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code())` can be abbreviated with `add_code_step()`
+- `step_write_text_file()`: Creates a text file with arbitrary contents
+    
+#### Installation
+
+- `step_install_cran()`: Installs one package from CRAN via `install.packages()`, but only if it's not already installed.
+- `step_install_github()`: Installs one or more packages from GitHub via `remotes::install_github()`
+
+#### R package specific
+
+- `step_build_pkgdown()`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
+- `step_rcmdcheck()`: run `R CMD check` via the _rcmdcheck_ package
+    
+##### Deployment
+
 - `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
 - `step_test_ssh()`: test the SSH connection to GitHub, helps troubleshooting deploy problems
-- `step_build_pkgdown()`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
+- `step_setup_ssh()`: Adds to known hosts, installs private key, and tests the connection
+- `step_setup_push_deploy()`: Clones a repo, inits author information, and sets up remotes for a subsequent `step_do_push_deploy()`
 - `step_push_deploy()`: deploy to GitHub, with arguments:
     - `path`: which path to deploy, default: `"."`
     - `branch`: which branch to deploy to, default: `ci()$get_branch()`
