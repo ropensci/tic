@@ -108,8 +108,21 @@
 
     
     
-<p>Today, it becomes more and more standard to have a <code>pkgdown</code> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. Do not waste time on updating your site manually - automate such tasks!</p>
-<p>As an example, we show you how <code>tic</code> initiates the deployment on Travis. In the <code>.travis.yml</code> file:</p>
+<p><code>tic</code> handles the deployment as follows:</p>
+<ol style="list-style-type: decimal">
+<li>When calling <code><a href="http://www.rdocumentation.org/packages/travis/topics/use_travis_deploy">travis::use_travis_deploy()</a></code> (either directly or indirectly by using <code>usethis::use_ci()</code>), a public key is added to GitHub repository under the “Deploy keys” section and the user receives an e-mail</li>
+</ol>
+<p><img src="img/ssh-deploy-key.png" style="display: block; margin: auto;"></p>
+<ol start="2" style="list-style-type: decimal">
+<li>A private key is encoded in base64 and stored in an environment variable on Travis, and installed in the ~/.ssh directory during the CI run</li>
+</ol>
+<p><img src="img/private-key-travis.png" style="display: block; margin: auto;"></p>
+<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated. Additionally,when calling <code>use_ci()</code> a Personal Access token (PAT) is created (by <code>travis::create_github_pat()</code>) to avoid the errors caused by Githubs download rate limitations.</p>
+<div id="pkgdown-deployment" class="section level2">
+<h2 class="hasAnchor">
+<a href="#pkgdown-deployment" class="anchor"></a>pkgdown deployment</h2>
+<p>Today, it becomes more and more standard to have a <code>pkgdown</code> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. To not waste time on updating the site manually, <code>tic</code> takes care of an automatic deployment if contents have changed.</p>
+<p>As an example, we show you how <code>tic</code> deploys on Travis. In the <code>.travis.yml</code> file:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">deploy:</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
@@ -120,28 +133,151 @@
 <ol style="list-style-type: decimal">
 <li>
 <p>Travis executes <code><a href="../reference/stages.html">tic::before_deploy()</a></code> which will search for instructions regarding the <code><a href="../reference/stages.html">before_deploy()</a></code> stage in <code>tic.R</code>.</p>
-<p>By default this looks like</p>
+<p>By default this stage looks like</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
-<p>This block finally executes the function <code>step_setup_ ssh()</code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. That is just one condition among many that you can set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">here</a> for more examples). After the prerequisite of setting up an ssh key for the upcoming deployment has been finished,</p>
+<p>This block calls the function <code>step_setup_ ssh()</code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. That is just an example of an option that can be set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">here</a> for more examples). After the prerequisite of setting up an ssh key for the upcoming deployment has been finished,</p>
 </li>
 <li><p>Travis is told to use a “script” (provider: script) for the deployment (which holds further instructions).</p></li>
-<li><p>This “script” is then calling <code><a href="../reference/stages.html">tic::deploy()</a></code>.</p></li>
+<li><p>This “script” is calling <code><a href="../reference/stages.html">tic::deploy()</a></code>.</p></li>
 <li>
-<p>All this is only happening on the <code>master</code> branch, meaning that other branches do not trigger a deploy with this condition set.</p>
-<p>What happens now is that <code><a href="../reference/stages.html">tic::deploy()</a></code> again searches in <code>tic.R</code> for the “deploy” stage and then runs whatever you have specified there.</p>
+<p>All this is happening on every branch. If you want to restrict it to certain branches only, you need to set a condition in <code>tic.</code>.</p>
+<p>What happens now is that <code><a href="../reference/stages.html">tic::deploy()</a></code> again searches in <code>tic.R</code> for the “deploy” stage and then runs whatever is specified there.</p>
 <p>With the default template of <code>tic.R</code>, the following will be executed:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <code>pkgdown</code> site and afterwards (note the <code>pipe</code> operator), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care to push the results to your repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
+<p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <code>pkgdown</code> site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
 </li>
 </ol>
+<div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
+<h3 class="hasAnchor">
+<a href="#deploying-to-docs-master-or-gh-pages-branch" class="anchor"></a>Deploying to docs/ (master) or gh-pages branch</h3>
+<div id="master-branch" class="section level4">
+<h4 class="hasAnchor">
+<a href="#master-branch" class="anchor"></a>master branch</h4>
+<p>By default the deployment is done to the <code>docs/</code> directory of the <code>master</code> branch. This option has the following advantages:</p>
+<ul>
+<li>You can have per-branch versions of your <code>pkgdown</code> site</li>
+<li>Per-branch versions enable the possibility to have preview for pull requests via <a href="https://www.netlify.com/" class="uri">https://www.netlify.com/</a>
+</li>
+</ul>
+<p>A disadvantage is that the <code>master</code> branch will be cluttered by automatic commits triggered by Travis that push the changes of the <code>pkgdown</code> site to the <code>master</code> branch.</p>
 </div>
+<div id="gh-pages-branch" class="section level4">
+<h4 class="hasAnchor">
+<a href="#gh-pages-branch" class="anchor"></a>gh-pages branch</h4>
+<p>You can optionally set the deployment branch to <code>gh-pages</code> and then change the branch serving your site in the Github repo settings (change it to <code>gh-pages</code>). This option has the advantage</p>
+<ul>
+<li>to not have all the automatic commits from Travis in the <code>master</code> branch -&gt; the <code>pkgdown</code> site will be “silently” updated in the background in the <code>gh-pages</code> branch.</li>
+</ul>
+<p>A disadvantage is that you cannot have per-branch versions of your site and hence no pull request previews of the site.</p>
+<p>To use this option with <code>tic</code>, set the <code>branch</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> to <code>gh-pages</code> and set <code>path = "docs"</code>. As the site serving in this setting will use the root of the branch, the <code>gh-pages</code> branch will only consist of the public <code>pkgdown</code> files used to serve the site.</p>
+</div>
+</div>
+<div id="avoiding-duplicate-site-creations-in-build-matrices" class="section level3">
+<h3 class="hasAnchor">
+<a href="#avoiding-duplicate-site-creations-in-build-matrices" class="anchor"></a>Avoiding duplicate site creations in build matrices</h3>
+<p>If you are running a build matrix or build stages on Travis, you only want to run the <code>pkgdown</code> building and deployment once. However, sometimes you want to deploy multiple files in different stages. You can restrict on which stage/job a task is executed with the help of environment variables. There are two ways to restrict the deployment with <code>tic</code> and environment variables:</p>
+<ol style="list-style-type: decimal">
+<li>Setting the condition in <code>tic.R</code>
+</li>
+<li>Setting the condition directly in <code>.travis.yml</code> in the “deploy” section</li>
+</ol>
+<p>Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2) (or by Travis itself, see <a href="advanced.html#travis-ci-meta-information">Travis CI Meta-Information</a>). There is no practical difference between both approaches. However, conditioning like shown here does only work for the “deploy” stage in <code>.travis.yml</code>. For <a href="advanced.html#running-stages-conditionally">conditioning other stages</a>, you need to use the <code>tic</code> approach.</p>
+<p>In the following we prepared an example for each option:</p>
+<ol style="list-style-type: decimal">
+<li>Specifically set the env variable <code>BUILD_PKGDOWN</code> in <code>.travis.yml</code> and add the condition in <code>tic.R</code> to only run the deploy stage when this env variable evaluates to TRUE:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">jobs:</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="fu">include:</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw">-</span> <span class="fu">stage:</span><span class="at"> stage1</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">      <span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">      <span class="kw">[</span>...<span class="kw">]</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">        <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">          <span class="fu">all_branches:</span><span class="at"> true</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">    <span class="kw">-</span> <span class="fu">stage:</span><span class="at"> stage2</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">      <span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">      <span class="kw">[</span>...<span class="kw">]</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">        <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">        <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">          <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
+<p><code>tic.R</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">}</a></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Setting the condition directly in <code>.travis.yml</code> in the “deploy” section:</li>
+</ol>
+<p>This can be useful when you run a build matrix which tests multiple R versions that has the same workflow for every job:</p>
+<pre><code>r:
+  - release
+  - devel
+  - oldrel</code></pre>
+<p>Here we restrict the deployment on three conditions:</p>
+<ul>
+<li>No Pull Request</li>
+<li>No CRON job (<a href="https://docs.travis-ci.com/user/cron-jobs/">CRON jobs</a> are builds that are started automatically after no build was triggered after a specific time)</li>
+<li>Only for builds that use the R “devel” version</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">   <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">   <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">   <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">     <span class="fu">branch:</span><span class="at"> master</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">     <span class="fu">condition:</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">       <span class="kw">-</span> $TRAVIS_PULL_REQUEST = false</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">       <span class="kw">-</span> $TRAVIS_EVENT_TYPE != cron</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">       <span class="kw">-</span> $TRAVIS_R_VERSION_STRING = devel</a></code></pre></div>
+<p>The same could optionally also be specified in <code>tic.R</code>. There is no difference between the two approaches:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span> <span class="op">&amp;&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_EVENT_TYPE"</span>) <span class="op">!=</span><span class="st"> "cron"</span> <span class="op">&amp;&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">Sys.getenv</span>(<span class="st">"TRAVIS_R_VERSION_STRING"</span>) <span class="op">==</span><span class="st"> "devel"</span>) {</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">}</a></code></pre></div>
+</div>
+</div>
+<div id="committing-single-files" class="section level2">
+<h2 class="hasAnchor">
+<a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
+<p>Function <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> has the ability to only commit and push single files if they have changed during a CI build. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created via Travis. First, you need to make sure these files are created correctly by calling <code><a href="http://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code>. Then, simply add the desired paths to argument <code>commit_paths</code> in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and push to your desired branch (here <code>master</code>):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>(<span class="dt">roclets=</span><span class="kw">c</span>(<span class="st">'rd'</span>, <span class="st">'collate'</span>, <span class="st">'namespace'</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">orphan =</span> <span class="ot">FALSE</span>, <span class="dt">branch =</span> <span class="st">"master"</span>, </a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">                              <span class="dt">commit_paths =</span> <span class="kw">c</span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
+<p>Applying this idea of course depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NS</code> directly or let them be created by Travis? An example project that uses the latter strategy is <a href="https://github.com/mlr-org/mlrng/blob/master/tic.R">mlr</a>.</p>
+</div>
+  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#pkgdown-deployment">pkgdown deployment</a></li>
+      <li><a href="#committing-single-files">Committing single files</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
