@@ -144,3 +144,15 @@ The tic package defines the following steps:
     - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
     - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
     - `commit_paths`: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.
+    
+### Macros
+
+Macros in `tic` are combinations of steps for reoccuring workflows.
+
+We already [mentioned](build-lifecycle.html#details-of-stages) `add_package_checks()` which is essentially a macro for testing R packages that add steps across several stages.
+
+Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.
+
+Currently, `add_package_checks()` is the only macro implemented. 
+We will add more macros in the future.
+If you have a good usecase for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
