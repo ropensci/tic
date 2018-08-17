@@ -224,7 +224,26 @@ Wait a few minutes until the build arrives at the point when it tells you the SS
 It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
 If you still do not want to use the browser manullay, simple call `travis::browse()` to open your project on Travis.
 
-Once you are in the build [check](https://docs.travis-ci.com/user/running-build-in-debug-mode/#Things-to-do-once-you-are-inside-the-debug-VM) these handy functions to execute specific stages.
+Once you are in the build you can use bash functions defined by Travis to to execute specific stages:
+
+```sh
+travis_run_before_install
+travis_run_install
+travis_run_before_script
+travis_run_script
+travis_run_after_success
+travis_run_after_failure
+travis_run_after_script
+```
+
+The debug session is a VM running a [`tmate`](https://tmate.io/) session.
+You can use some shortcuts to act in the VM:
+
+- Create multiple windows with `crtl-b c`.  
+- Switch to a different window: `crtl-b <window index>` where the indeces start with 0, 1, 2 and so on.  
+- Scrolling up and down the history: `crtl-b [`. Press `q` to exit the scroll mode.  
+
+Keep in mind that you only have 30 mins before the VM will be terminated automatically!
 
 # What's not covered yet?
 
