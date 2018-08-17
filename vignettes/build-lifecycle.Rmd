@@ -111,7 +111,7 @@ So don't forget to add the commands manually to make sure that everything works!
 
 Note: All R packages that should be stored in the Travis cache for R packages should be either installed in the `install` or `before_install` stage.
 This applies for example to Github packages.
-See [here](tic-advantages.html) for details.
+See [here](advantages.html) for details.
 
 ## Steps
 

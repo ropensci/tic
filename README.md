@@ -38,7 +38,7 @@ The created templates will use the providers https://travis-ci.org and https://a
 
 - [Advanced usage](https://ropenscilabs/tic/articles/advanced.html)
 - [Build lifecycle](https://ropenscilabs/tic/articles/build-lifecycle.html)
-- [tic advantages](https://ropenscilabs/tic/articles/tic-advantages.html)
+- [tic advantages](https://ropenscilabs/tic/articles/advantages.html)
 - [tic, travis and usethis](https://ropenscilabs/tic/articles/tic-usethis-travis.html)
 - [Developer information](https://ropenscilabs/tic/articles/custom-steps.html)
 

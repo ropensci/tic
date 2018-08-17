@@ -117,7 +117,7 @@ See `?ci` for more information on which information can be extracted from this f
 
 # Troubleshooting: Running tic locally
 
-We introduced how to run `tic` locally when discussing the [advantages of using tic](tic-advantages.html#easier-troubleshooting).
+We introduced how to run `tic` locally when discussing the [advantages of using tic](advantages.html#easier-troubleshooting).
 
 Recall, that `tic` can be emulated locally in two ways:
 

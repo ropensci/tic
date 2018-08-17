@@ -36,7 +36,7 @@ navbar:
   - text: Articles
     menu:
     - text: tic advantages
-      href: articles/tic-advantages.html
+      href: articles/advantages.html
     - text: tic, travis and usethis
       href: articles/tic-usethis-travis.html
     - text: Build lifecycle

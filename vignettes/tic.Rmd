@@ -30,7 +30,7 @@ The advantages of using `tic` for R-related CI workflows are:
 - Improved package checking via [rcmdcheck](https://github.com/r-lib/rcmdcheck)
 - Robust caching approach
 
-A more comprehensive summary of all advantages can be found in the [tic-advantages](tic-advantages.html) vignette.
+A more comprehensive summary of all advantages can be found in the [advantages](advantages.html) vignette.
 
 # Initialization
 
