@@ -5,7 +5,7 @@
 \title{Step: Check a package}
 \usage{
 step_rcmdcheck(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  check_args = "--no-manual --as-cran", build_args = build_args)
+  check_args = "--no-manual --as-cran", build_args = " --no-multiarch")
 }
 \arguments{
 \item{warnings_are_errors}{\code{[flag]}\cr

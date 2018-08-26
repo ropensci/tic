@@ -16,7 +16,7 @@ add_code_step(stage, call, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE,
   notes_are_errors = FALSE, check_args = c("--no-manual", "--as_cran"),
-  build_args = character(), private = NULL)
+  build_args = " --no-multiarch")
 }
 \arguments{
 \item{name}{\code{[string]}\cr

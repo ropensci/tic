@@ -99,8 +99,7 @@ add_code_step <- function(stage, call, prepare_call = NULL) {
 add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
                                check_args = c("--no-manual", "--as_cran"),
-                               build_args = character(),
-                               private = NULL) {
+                               build_args = " --no-multiarch") {
   #' @description
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
@@ -166,13 +165,12 @@ DSL <- R6Class(
     add_package_checks = function(warnings_are_errors = TRUE,
                                   notes_are_errors = FALSE,
                                   check_args = "--no-manual",
-                                  build_args = character()) {
+                                  build_args = " --no-multiarch") {
       add_package_checks(
         warnings_are_errors = warnings_are_errors,
         notes_are_errors = notes_are_errors,
         check_args = check_args,
-        build_args = build_args,
-        private = private
+        build_args = build_args
       )
     },
 
