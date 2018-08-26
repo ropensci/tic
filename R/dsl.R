@@ -105,7 +105,7 @@ add_package_checks <- function(warnings_are_errors = TRUE,
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
   add_step(
-    get_stage("script", private = private),
+    get_stage("script"),
     step_rcmdcheck(
       warnings_are_errors = warnings_are_errors,
       notes_are_errors = notes_are_errors,
