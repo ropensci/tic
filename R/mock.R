@@ -12,6 +12,18 @@ MockCI <- R6Class(
     is_tag = function() {
       FALSE
     },
+    get_slug = function() {
+      "user/repo"
+    },
+    get_build_number = function() {
+      "mock build"
+    },
+    get_build_url = function() {
+      "http://build.url"
+    },
+    get_commit = function() {
+      "00000000000000000000000000000000"
+    },
     is_interactive = function() {
       TRUE
     }

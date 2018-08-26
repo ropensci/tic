@@ -16,6 +16,7 @@ Other steps: \code{\link{step_add_to_known_hosts}},
   \code{\link{step_build_pkgdown}},
   \code{\link{step_do_push_deploy}},
   \code{\link{step_hello_world}},
+  \code{\link{step_install_pkg}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
   \code{\link{step_run_code}},
@@ -24,3 +25,4 @@ Other steps: \code{\link{step_add_to_known_hosts}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{steps}

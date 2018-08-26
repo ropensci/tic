@@ -63,7 +63,7 @@ and step_test_ssh()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
       </span>
     </div>
 
@@ -71,9 +71,12 @@ and step_test_ssh()." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/tic.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -86,7 +89,19 @@ and step_test_ssh()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -127,8 +142,8 @@ and <code><a href='step_test_ssh.html'>step_test_ssh()</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_setup_ssh</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>, <span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"git@"</span>,
-  <span class='no'>host</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_setup_ssh</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"git@"</span>, <span class='no'>host</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,6 +177,7 @@ Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbos
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
   <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
   <code><a href='step_hello_world.html'>step_hello_world</a></code>,
+  <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
   <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
   <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
   <code><a href='step_run_code.html'>step_run_code</a></code>,
@@ -184,7 +200,7 @@ Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbos
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

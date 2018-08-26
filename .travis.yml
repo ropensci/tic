@@ -3,7 +3,7 @@
 # Usually you shouldn't need to change the first part of the file
 
 # DO NOT CHANGE THE CODE BELOW
-before_install: R -q -e 'install.packages("remotes"); remotes::install_local(getwd()); tic::prepare_all_stages(); tic::before_install()'
+before_install: R -q -e 'install.packages(c("remotes", "curl")); remotes::install_local(getwd()); tic::prepare_all_stages(); tic::before_install()'
 install: R -q -e 'tic::install()'
 after_install: R -q -e 'tic::after_install()'
 before_script: R -q -e 'tic::before_script()'
@@ -38,10 +38,13 @@ env:
 #matrix: 3x Linux, 1x OS X
 matrix:
   include:
+  - r: 3.1
+  - r: 3.2
+  - r: 3.3
+  - r: 3.4
   - r: release
     env:
     - BUILD_PKGDOWN=true
-  - r: oldrel
   - r: devel
   - os: osx
     osx_image: xcode7.3

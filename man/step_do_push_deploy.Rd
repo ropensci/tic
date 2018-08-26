@@ -4,7 +4,8 @@
 \alias{step_do_push_deploy}
 \title{Step: Perform push deploy}
 \usage{
-step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = ".")
+step_do_push_deploy(path = ".", commit_message = NULL,
+  commit_paths = ".")
 }
 \arguments{
 \item{path}{\code{[string]}\cr
@@ -21,6 +22,23 @@ Default: deploy all files.}
 }
 \description{
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
+It is highly recommended to restrict the set of files
+touched by the deployment with the \code{commit_paths} argument:
+this step assumes that it can freely overwrite all changes to all files
+below \code{commit_paths}, and will not warn in case of conflicts.
+}
+\details{
+To mitigate conflicts race conditions to the greatest extent possible,
+the following strategy is used:
+\itemize{
+\item The changes are committed to the branch
+\item Before pushing, new commits are fetched with \code{git pull --rebase -X theirs}
+}
+
+If no new commits were pushed after the CI run has started,
+this strategy is equivalent to simply committing and pushing.
+In the opposite case, if the remote repo has new commits,
+the deployment is safely applied to the current tip.
 }
 \seealso{
 Other deploy steps: \code{\link{step_push_deploy}},
@@ -30,6 +48,7 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},
   \code{\link{step_build_pkgdown}},
   \code{\link{step_hello_world}},
+  \code{\link{step_install_pkg}},
   \code{\link{step_install_ssh_keys}},
   \code{\link{step_push_deploy}},
   \code{\link{step_run_code}},
@@ -38,3 +57,5 @@ Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_test_ssh}},
   \code{\link{step_write_text_file}}
 }
+\concept{deploy steps}
+\concept{steps}

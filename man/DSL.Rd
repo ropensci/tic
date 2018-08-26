@@ -8,21 +8,19 @@
 \alias{add_package_checks}
 \title{tic's domain-specific language}
 \usage{
-get_stage(name, private = NULL)
+get_stage(name)
 
 add_step(stage, step)
 
 add_code_step(stage, call, prepare_call = NULL)
 
-add_package_checks(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  check_args = c("--no-manual", "--as_cran"), build_args = character(),
-  private = NULL)
+add_package_checks(warnings_are_errors = TRUE,
+  notes_are_errors = FALSE, check_args = c("--no-manual", "--as_cran"),
+  build_args = character(), private = NULL)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
 The name for the stage.}
-
-\item{private}{For internal use.}
 
 \item{stage}{\code{[Stage]}\cr
 A Stage object as returned by \code{get_stage()}.}
@@ -67,12 +65,8 @@ to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"aft
 stages:
 
 \enumerate{
-\item A call to \code{\link[utils:update.packages]{utils::update.packages()}} with \code{ask = FALSE} in the
-\code{"before_install"} stage (only for non-interactive CIs)
-\item A call to \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE}
-in the \code{"install"} stage
 \item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors} and \code{args} arguments
-\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage
+\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
 }
 }

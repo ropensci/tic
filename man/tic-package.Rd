@@ -6,10 +6,10 @@
 \title{tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions}
 \description{
 Provides a way to describe common build and deployment workflows for R-based
-projects: packages, websites (e.g. blogdown, pkgdown), or data processing
-(e.g. research compendia).  The recipe is described independent of the
-continuous integration tool used for processing the workflow (e.g.
-'Travis CI' or 'AppVeyor').
+    projects: packages, websites (e.g. blogdown, pkgdown), or data processing
+    (e.g. research compendia).  The recipe is described independent of the
+    continuous integration tool used for processing the workflow (e.g.
+    'Travis CI' or 'AppVeyor').
 }
 \details{
 The \code{travis::use_tic()} function prepares a code repository for use with
@@ -33,6 +33,7 @@ Authors:
   \item Mika Braginsky \email{mika.br@gmail.com}
   \item Karthik Ram \email{karthik.ram@gmail.com}
   \item Jeroen Ooms \email{jeroen.ooms@stat.ucla.edu}
+  \item Patrick Schratz \email{patrick.schratz@gmail.com} (0000-0003-0748-6624)
 }
 
 Other contributors:

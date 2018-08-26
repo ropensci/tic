@@ -8,25 +8,41 @@ RCMDcheck <- R6Class(
       private$notes_are_errors <- notes_are_errors
       private$check_args <- check_args
       private$build_args <- build_args
+
+      private$lib <- file.path(.libPaths()[[1]], "tic-lib")
+      dir.create(private$lib, showWarnings = FALSE)
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(check_args = private$check_args,
-                                  build_args = private$build_args)
+      f_rcmdcheck <- rcmdcheck::rcmdcheck
+      withr::with_libpaths(
+        private$lib, action = "replace",
+        res <- f_rcmdcheck(check_args = private$check_args,
+                           build_args = private$build_args)
+      )
       print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
       }
       if (private$warnings_are_errors && length(res$warnings) > 0) {
-        stopc("Warnings found, and warnings_are_errors is set.")
+        stopc("Warnings found, and `warnings_are_errors` is set.")
       }
       if (private$notes_are_errors && length(res$notes) > 0) {
-        stopc("Notes found, and notes_are_errors is set.")
+        stopc("Notes found, and `notes_are_errors` is set.")
       }
     },
 
     prepare = function() {
-      verify_install("rcmdcheck")
+      verify_install(c("remotes", "rcmdcheck"))
+
+      f_install_deps <- remotes::install_deps
+      withr::with_libpaths(
+        private$lib, action = "replace",
+        {
+          f_install_deps(dependencies = TRUE)
+          utils::update.packages(ask = FALSE)
+        }
+      )
     }
   ),
 
@@ -34,13 +50,24 @@ RCMDcheck <- R6Class(
     warnings_are_errors = NULL,
     notes_are_errors = NULL,
     check_args = NULL,
-    build_args = NULL
+    build_args = NULL,
+    lib = NULL
   )
 )
 
 #' Step: Check a package
 #'
 #' Check a package using \pkg{rcmdcheck}, which ultimately calls `R CMD check`.
+#' The preparation consists of installing package dependencies
+#' via [remotes::install_deps()] with `dependencies = TRUE`,
+#' and updating all packages.
+#'
+#' This step uses a dedicated library,
+#' a subdirectory `tic-pkg` of the current user library
+#' (the first element of [.libPaths()]),
+#' for the checks.
+#' This is done to minimize conflicts between dependent packages
+#' and packages that are required for running the various steps.
 #'
 #' @param warnings_are_errors `[flag]`\cr
 #'   Should warnings be treated as errors? Default: `TRUE`.

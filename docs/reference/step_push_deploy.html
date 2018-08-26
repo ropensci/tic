@@ -35,7 +35,8 @@
 <meta property="og:description" content="Clones a repo, inits author information, sets up remotes,
 commits, and pushes.
 Combines step_setup_push_deploy() with checkout = FALSE and
-step_do_push_deploy()." />
+a suitable orphan argument,
+and step_do_push_deploy()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -64,7 +65,7 @@ step_do_push_deploy()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
       </span>
     </div>
 
@@ -72,9 +73,12 @@ step_do_push_deploy()." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/tic.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -87,7 +91,19 @@ step_do_push_deploy()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -125,11 +141,12 @@ step_do_push_deploy()." />
     <p>Clones a repo, inits author information, sets up remotes,
 commits, and pushes.
 Combines <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> with <code>checkout = FALSE</code> and
-<code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</p>
+a suitable <code>orphan</code> argument,
+and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_branch</span>(), <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>step_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_branch</span>(),
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"git@github.com:"</span>, <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_slug</span>(), <span class='st'>".git"</span>),
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
@@ -145,14 +162,7 @@ repository.</p></td>
     <tr>
       <th>branch</th>
       <td><p><code>[string]</code><br />
-Target branch, default: current branch</p></td>
-    </tr>
-    <tr>
-      <th>orphan</th>
-      <td><p><code>[flag]</code><br />
-Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
-but cannot be applied for pushing to the current branch.</p></td>
+Target branch, default: current branch.</p></td>
     </tr>
     <tr>
       <th>remote_url</th>
@@ -174,6 +184,17 @@ Default: deploy all files.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Setup and deployment are combined in one step,
+the files to be deployed must be prepared in a previous step.
+This poses some restrictions on how the repository can be initialized,
+in particular for a nonstandard <code>path</code> argument only <code>orphan = TRUE</code>
+can be supported (and will be used).</p>
+<p>For more control, create two separate steps with
+<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>,
+and create the files to be deployed inbetween these steps.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other deploy steps: <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
@@ -183,6 +204,7 @@ Default: deploy all files.</p></td>
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
   <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
   <code><a href='step_hello_world.html'>step_hello_world</a></code>,
+  <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
   <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
   <code><a href='step_run_code.html'>step_run_code</a></code>,
   <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
@@ -197,6 +219,8 @@ Default: deploy all files.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
           </ul>
 
@@ -205,7 +229,7 @@ Default: deploy all files.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

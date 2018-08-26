@@ -32,7 +32,11 @@
 
 <meta property="og:title" content="Step: Perform push deploy — step_do_push_deploy" />
 
-<meta property="og:description" content="Commits and pushes to a repo prepared by step_setup_push_deploy()." />
+<meta property="og:description" content="Commits and pushes to a repo prepared by step_setup_push_deploy().
+It is highly recommended to restrict the set of files
+touched by the deployment with the commit_paths argument:
+this step assumes that it can freely overwrite all changes to all files
+below commit_paths, and will not warn in case of conflicts." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
       </span>
     </div>
 
@@ -69,9 +73,12 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/tic.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -84,7 +91,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -119,11 +138,16 @@
 
     <div class="ref-description">
     
-    <p>Commits and pushes to a repo prepared by <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code>.</p>
+    <p>Commits and pushes to a repo prepared by <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code>.
+It is highly recommended to restrict the set of files
+touched by the deployment with the <code>commit_paths</code> argument:
+this step assumes that it can freely overwrite all changes to all files
+below <code>commit_paths</code>, and will not warn in case of conflicts.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +172,18 @@ Default: deploy all files.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To mitigate conflicts race conditions to the greatest extent possible,
+the following strategy is used:</p><ul>
+<li><p>The changes are committed to the branch</p></li>
+<li><p>Before pushing, new commits are fetched with <code>git pull --rebase -X theirs</code></p></li>
+</ul>
+    <p>If no new commits were pushed after the CI run has started,
+this strategy is equivalent to simply committing and pushing.
+In the opposite case, if the remote repo has new commits,
+the deployment is safely applied to the current tip.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other deploy steps: <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
@@ -156,6 +192,7 @@ Default: deploy all files.</p></td>
   <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
   <code><a href='step_hello_world.html'>step_hello_world</a></code>,
+  <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
   <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
   <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
   <code><a href='step_run_code.html'>step_run_code</a></code>,
@@ -171,6 +208,8 @@ Default: deploy all files.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
           </ul>
 
@@ -179,7 +218,7 @@ Default: deploy all files.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

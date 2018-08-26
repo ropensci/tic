@@ -43,13 +43,9 @@ add_package_checks() adds default steps related to package checks
 to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
 
-A call to utils::update.packages() with ask = FALSE in the
-&quot;before_install&quot; stage (only for non-interactive CIs)
-A call to remotes::install_deps() with dependencies = TRUE
-in the &quot;install&quot; stage
 A step_rcmdcheck() in the &quot;script&quot; stage, using the
-warnings_are_errors, notes_are_errors and args arguments
-A call to covr::codecov() in the &quot;after_success&quot; stage
+warnings_are_errors, notes_are_errors and args arguments.
+A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
 " />
 <meta name="twitter:card" content="summary" />
 
@@ -79,7 +75,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
       </span>
     </div>
 
@@ -87,9 +83,12 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/tic.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -102,7 +101,19 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -148,25 +159,21 @@ and the links therein for available steps.</p>
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
 stages:</p>
 <ol>
-<li><p>A call to <code><a href='http://www.rdocumentation.org/packages/utils/topics/update.packages'>utils::update.packages()</a></code> with <code>ask = FALSE</code> in the
-<code>"before_install"</code> stage (only for non-interactive CIs)</p></li>
-<li><p>A call to <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>
-in the <code>"install"</code> stage</p></li>
 <li><p>A <code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
-<code>warnings_are_errors</code>, <code>notes_are_errors</code> and <code>args</code> arguments</p></li>
-<li><p>A call to <code><a href='http://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage</p></li>
+<code>warnings_are_errors</code>, <code>notes_are_errors</code> and <code>args</code> arguments.</p></li>
+<li><p>A call to <code><a href='http://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
 </ol>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>, <span class='kw'>private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>)
 
 <span class='fu'>add_step</span>(<span class='no'>stage</span>, <span class='no'>step</span>)
 
 <span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='no'>call</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>), <span class='kw'>private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,10 +182,6 @@ in the <code>"install"</code> stage</p></li>
       <th>name</th>
       <td><p><code>[string]</code><br />
 The name for the stage.</p></td>
-    </tr>
-    <tr>
-      <th>private</th>
-      <td><p>For internal use.</p></td>
     </tr>
     <tr>
       <th>stage</th>
@@ -232,7 +235,7 @@ Passed to <code>[rcmdcheck::rcmdcheck()]</code> (after splitting at spaces), def
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

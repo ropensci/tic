@@ -32,7 +32,10 @@
 
 <meta property="og:title" content="Step: Check a package — step_rcmdcheck" />
 
-<meta property="og:description" content="Check a package using rcmdcheck, which ultimately calls R CMD check." />
+<meta property="og:description" content="Check a package using rcmdcheck, which ultimately calls R CMD check.
+The preparation consists of installing package dependencies
+via remotes::install_deps() with dependencies = TRUE,
+and updating all packages." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
       </span>
     </div>
 
@@ -69,9 +72,12 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/tic.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -84,7 +90,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/tic-advantages.html">tic advantages</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/advanced.html">Advanced usage</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Dev - custom steps</a>
     </li>
   </ul>
 </li>
@@ -119,7 +137,10 @@
 
     <div class="ref-description">
     
-    <p>Check a package using <span class="pkg">rcmdcheck</span>, which ultimately calls <code>R CMD check</code>.</p>
+    <p>Check a package using <span class="pkg">rcmdcheck</span>, which ultimately calls <code>R CMD check</code>.
+The preparation consists of installing package dependencies
+via <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>,
+and updating all packages.</p>
     
     </div>
 
@@ -147,20 +168,31 @@ Passed to <code>[rcmdcheck::rcmdcheck()]</code> (after splitting at spaces), def
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This step uses a dedicated library,
+a subdirectory <code>tic-pkg</code> of the current user library
+(the first element of <code>.libPaths()</code>),
+for the checks.
+This is done to minimize conflicts between dependent packages
+and packages that are required for running the various steps.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">

@@ -1,0 +1,81 @@
+---
+title: "Getting started with CI for R"
+author: "Patrick Schratz, Kirill Müller"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Prerequisites
+
+If you are completely unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:
+
+- https://ropensci.github.io/dev_guide/ci.html
+- https://juliasilge.com/blog/beginners-guide-to-travis/
+- http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
+
+Now that you know that CI can help you a lot in R package development by automatically checking your package in a clean environment, you probably wonder what the `tic` package does to make the world even simpler?
+For example, writing CI-agnostic code that works across CI systems!
+But that's just the beginning. 
+We summarized all the advantages of using `tic` in an own [vignette](tic-advantages.html).
+
+# Initialization
+
+The easiest way to use `tic` for CI services is to call `usethis::use_ci()`.
+This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
+The `usethis` package is used because it contains various other useful `use_*` functions that simplify R package development.
+The hard work in the background is actually done by the R packages `travis` and `tic`. 
+See [here](tic-usethis-travis.html) for more detailed information on how `tic`, `travis` and `usethis` work together.
+
+# Setup
+
+## R packages
+
+After having called `usethis::use_ci()` you will find `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
+The default template will trigger builds on both CI services that do the following:
+
+- Install required dependencies of the R package
+- Run `rcmdcheck::rcmdcheck()` on the package (see [here](tic-advantages#rcmdcheck-r-cmd-check) for more details)
+- Build a `pkgdown` site and deploy it to the `docs/` folder of the `master` branch (Travis only)
+- Run a code coverage on the package and upload it to [codecov.io](https://codecov.io/) (Travis only)
+
+The commands that are going to be executed in each stage of each service are specified in a centralized file `tic.R` - read [here](tic-advantages.html) for a more thorough explanation of all advantages of `tic`.
+
+## Examples
+
+`tic` can also be used for `bookdown`, `blogdown`, `rmarkdown`, `drat`, and `packagedocs`  projects. 
+It can also publish to `figshare`.
+See the example projects below for more information.
+
+- [tic.blogdown](https://github.com/krlmlr/tic.blogdown)
+- [ŧic.bookdown](https://github.com/krlmlr/tic.bookdown)
+- [tic.drat](https://github.com/krlmlr/tic.drat)
+- [tic.R-package](https://github.com/krlmlr/tic.package)
+- [tic.rmarkdown](https://github.com/krlmlr/tic.website)
+- [tic.figshare](https://github.com/krlmlr/tic.figshare).
+
+# What's not covered yet?
+
+- `SystemRequirements`: `tic` is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
+Our plan is to automatically provide suggestions like "Please add addons: apt: <library> to `.travis.yml`".
+
+# Advanced
+
+The advanced usage of `tic` is described in more detail in article [Advanced Usage](advanced.html):
+
+- [Options for `pkgdown` deployment](advanced.html#pkgdown-deployment) 
+- [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
+- [Troubleshooting: Running `tic` locally](advanced.html#troubleshooting-running-tic-locally)
+- [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
+- [Writing custom steps](custom-steps.html)
+
+The build lifecycle when using `tic` is explained in detail [here](build-lifecycle.html).
