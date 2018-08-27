@@ -44,7 +44,7 @@ Suggests:
 VignetteBuilder: knitr
 Remotes: 
     krlmlr/callr@b-55-vignette-builder,
-    r-lib/rcmdcheck,
+    pat-s/rcmdcheck@build-args,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
