@@ -103,15 +103,13 @@ add_package_checks <- function(warnings_are_errors = TRUE,
   #' @description
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
-  add_step(
-    get_stage("script"),
+  get_stage("script") %>%
     step_rcmdcheck(
       warnings_are_errors = warnings_are_errors,
       notes_are_errors = notes_are_errors,
       check_args = check_args,
       build_args = build_args
     )
-  )
 
   #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
   if (!ci()$is_interactive()) {
@@ -153,29 +151,6 @@ DSL <- R6Class(
 
     get_stages = function() {
       private$stages
-    },
-
-    add_step = function(stage, step) {
-      add_step(stage, step)
-    },
-
-    # NSE!
-    add_code_step = add_code_step,
-
-    add_package_checks = function(warnings_are_errors = TRUE,
-                                  notes_are_errors = FALSE,
-                                  check_args = "--no-manual",
-                                  build_args = " --no-multiarch") {
-      add_package_checks(
-        warnings_are_errors = warnings_are_errors,
-        notes_are_errors = notes_are_errors,
-        check_args = check_args,
-        build_args = build_args
-      )
-    },
-
-    add_task = function(stage, run, check = NULL, prepare = NULL) {
-      stage$add_task(run, check, prepare)
     }
   ),
 
