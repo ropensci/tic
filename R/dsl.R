@@ -104,11 +104,13 @@ add_package_checks <- function(warnings_are_errors = TRUE,
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments
   get_stage("script") %>%
-    step_rcmdcheck(
-      warnings_are_errors = warnings_are_errors,
-      notes_are_errors = notes_are_errors,
-      check_args = check_args,
-      build_args = build_args
+    add_step(
+      step_rcmdcheck(
+        warnings_are_errors = warnings_are_errors,
+        notes_are_errors = notes_are_errors,
+        check_args = check_args,
+        build_args = build_args
+      )
     )
 
   #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
