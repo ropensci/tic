@@ -39,11 +39,105 @@ This will create templates for both "Travis CI" and "Appveyor" and initialize al
 During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized.
 Also a Personal Access Token (PAT) will be created for Travis, using a private Github PAT variable.
 Read [here](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) why this is important.
-Note that this procedure cannot be fully automated currently.
+The PAT creation cannot be fully automated as some input from the user on Github is required when creating the PAT.
 
-[ADD CODE OUTPUT OF use_ci()]
+First, authentication with Travis (a browser window opens) and Github is initiated (another browser window opens).
+Also, the repo is actived on Travis.
 
-The functionality is integrated in the [`usethis`](http://usethis.r-lib.org/) package because it contains various other useful `use_*` functions that simplify R (package) development.
+```{r, eval = FALSE}
+usethis::use_ci()
+✔ Setting active project to '/home/pjs/git/tic.package'
+✔ GitHub is already initialized
+Authenticating with GitHub
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+Authenticating with Travis
+Authenticating with GitHub
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+Finished activating repo pat-s/tic.package on Travis CI.
+```
+
+Next, you will be asked if the current `.travis.yml` should be replaced with the template from `tic` (if one exists).
+Otherwise, the template is added without asking.
+
+```{r, eval = FALSE}
+Overwrite pre-existing file '.travis.yml'?
+1: Absolutely not
+2: Nope
+3: Yeah
+```
+
+The same is done for Appveyor.
+
+```{r, eval = FALSE}
+Selection: 3
+✔ Writing '.travis.yml'
+Overwrite pre-existing file 'appveyor.yml'?
+1: Yeah
+2: Nope
+3: No way
+
+Selection: 1
+✔ Writing 'appveyor.yml'
+```
+
+And also for the `tic.R` file.
+Additionally, its added to `.Rbuildignore` to not interfer with the package building.
+
+```{r, eval = FALSE}
+Overwrite tic.R? 
+
+1: Yes
+2: No
+
+Selection: 1
+Added tic.R from template.
+✔ Adding '^tic\\.R$' to '.Rbuildignore'
+```
+
+Next, the `private deploy key for Travis is added to the Github repo.
+This is needed to give Travis permissions to deploy into the Github repo.
+
+```{r, eval = FALSE}
+Authenticating with GitHub
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+Finished adding deploy keys on GitHub for repo pat-s/tic.package.
+Successfully added public deploy key 'travis+tic for pat-s/tic.package' to GitHub for 
+pat-s/tic.package. You should receive a confirmation e-mail from GitHub. Delete the 
+key in the repository's settings when you no longer need it.
+```
+
+Besides the private deploy key, also the public deploy key need to be added as an environment variable to Travis.
+As its a SSH key, its named `id_rsa` by default.
+
+```{r, eval = FALSE}
+Finished adding private environment variable id_rsa to pat-s/tic.package on Travis CI.
+Successfully added private deploy key to pat-s/tic.package as secure environment variable
+id_rsa to Travis CI.
+```
+
+Last, a PAT is created to avoid the download limit of Github packages on Travis.
+You now see two environment variables in your setting on Travis CI: `GITHUB_PAT` and `id_rsa`.
+
+```{r, eval = FALSE}
+Create a personal access token, make sure that you are signed in as the correct user. 
+The suggested description 'travis+tic for pat-s/tic.package' has been copied to the 
+clipboard. If you use this token only to avoid GitHubs rate limit, you can leave 
+all scopes unchecked. Then, copy the new token to the clipboard, it will be 
+detected and applied automatically. Please visit
+  https://github.com/settings/tokens/new
+A browser window will be opened.
+Waiting for PAT to appear on the clipboard.
+Detected PAT, clearing clipboard.
+Finished adding private environment variable GITHUB_PAT to pat-s/tic.package on Travis CI.
+```
+
+All this functionality is integrated in the [`usethis`](http://usethis.r-lib.org/) package because it contains various other useful `use_*` functions that simplify R (package) development.
 However, the heavy lifting in the background is actually done by the R packages `travis` and `tic`. 
 See [here](tic-usethis-travis.html) for more detailed information on how `tic`, `travis` and `usethis` work together.
 
