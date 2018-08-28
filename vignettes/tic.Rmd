@@ -75,7 +75,9 @@ Let's break done what happens here:
 add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
 ```
 
-Is a convenient function which adds essential steps to various stages of a CI run. For example, it adds `utils::update_packages(ask = FALSE)` to the "before_install" stage. Check `?add_package_checks()` to see a list of all added steps by this wrapper function.
+Is a macro which adds essential steps to various stages of a CI run. 
+For example, it adds `step_rcmdcheck()` to the "script" stage. 
+Check `?add_package_checks()` to see a list of all added steps by this convenience function.
 
 ```r
 if (Sys.getenv("BUILD_PKGDOWN") != "") { }
@@ -85,13 +87,15 @@ This line conditions its contents on the existence of the environment variable `
 The env variable is set in [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47), conditioned on the job that runs on the current R-release version:
 
 ```yml
+- r: 3.3
+- r: 3.4
 - r: release
-env:
- - BUILD_PKGDOWN=true
+  env:
+    - BUILD_PKGDOWN=true
 ```
 
-If the if-condition evaluates to `TRUE`, the following is executed.
-Function `step_setup_ssh()`  sets up the SSH connection needed for deployment.
+If the if-condition evaluates to `TRUE`, the following is executed:
+First, `step_setup_ssh()` sets up the SSH connection needed for deployment.
 
 ```r
 get_stage("before_deploy") %>%
@@ -116,13 +120,14 @@ get_stage("deploy") %>%
 - [tic.website](https://github.com/krlmlr/tic.website)
 - [tic.figshare](https://github.com/krlmlr/tic.figshare).
 
-As an example, we explain a "blogdown" project in more detail.
+As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is a R package for publishing websites.
 Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
 
 ```r
 get_stage("install") %>%
-  add_code_step(blogdown::install_hugo(), prepare_call = remotes::install_github("rstudio/blogdown"))
+  add_code_step(blogdown::install_hugo(), 
+                prepare_call = remotes::install_github("rstudio/blogdown"))
 ```
 
 Then the website is build and deployed.
@@ -134,7 +139,7 @@ get_stage("deploy") %>%
     add_step(step_push_deploy())
 ```
 
-You see, steps and stages differ between projects (here between a "blogdown" website and a "package").
+You see, steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
 `tic` is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
