@@ -98,8 +98,8 @@ add_code_step <- function(stage, call, prepare_call = NULL) {
 #' @importFrom magrittr %>%
 add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
-                               check_args = c("--no-manual", "--as_cran"),
-                               build_args = " --no-multiarch") {
+                               check_args = c("--as_cran"),
+                               build_args = "--force") {
   #' @description
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments

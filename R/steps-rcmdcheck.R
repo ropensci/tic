@@ -3,7 +3,7 @@ RCMDcheck <- R6Class(
 
   public = list(
     initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                          check_args = "--no-manual", build_args = "--no-multiarch") {
+                          check_args = "--as-cran", build_args = "--force") {
       private$warnings_are_errors <- warnings_are_errors
       private$notes_are_errors <- notes_are_errors
       private$check_args <- check_args
@@ -80,8 +80,8 @@ RCMDcheck <- R6Class(
 #'   Passed to `[rcmdcheck::rcmdcheck()]`
 #' @export
 step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                           check_args = "--no-manual --as-cran",
-                           build_args = "--no-multiarch") {
+                           check_args = "--as-cran",
+                           build_args = "--force") {
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
