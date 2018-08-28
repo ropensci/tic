@@ -43,7 +43,7 @@ Suggests:
     travis
 VignetteBuilder: knitr
 Remotes: 
-    krlmlr/callr@b-55-vignette-builder,
+    r-lib/callr,
     r-lib/rcmdcheck,
     ropenscilabs/travis
 ByteCompile: No
