@@ -43,8 +43,8 @@ Suggests:
     travis
 VignetteBuilder: knitr
 Remotes: 
-    krlmlr/callr@b-55-vignette-builder,
     pat-s/rcmdcheck@build-args,
+    r-lib/callr,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
