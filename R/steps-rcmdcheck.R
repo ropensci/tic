@@ -14,8 +14,6 @@ RCMDcheck <- R6Class(
 
     run = function() {
       f_rcmdcheck <- rcmdcheck::rcmdcheck
-      # Make sure the dev version of the package is loaded
-      callr_r <- callr::r
       withr::with_libpaths(
         private$lib, action = "replace",
         res <- f_rcmdcheck(args = private$args)
