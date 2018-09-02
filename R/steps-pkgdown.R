@@ -9,7 +9,10 @@ BuildPkgdown <- R6Class(
     },
 
     run = function() {
-      do.call(pkgdown::build_site, c(list(preview = FALSE), private$pkgdown_args))
+      withr::with_libpaths(
+        super$get_lib(), action = "replace",
+        do.call(pkgdown::build_site, c(list(preview = FALSE), private$pkgdown_args))
+      )
     },
 
     prepare = function() {

@@ -18,6 +18,10 @@ TicStepWithPrivateLib <- R6Class(
           utils::update.packages(ask = FALSE)
         }
       )
+    },
+
+    get_lib = function() {
+      private$lib
     }
   ),
 
@@ -42,7 +46,7 @@ RCMDcheck <- R6Class(
     run = function() {
       f_rcmdcheck <- rcmdcheck::rcmdcheck
       withr::with_libpaths(
-        private$lib, action = "replace",
+        super$get_lib(), action = "replace",
         res <- f_rcmdcheck(args = private$args)
       )
       print(res)
@@ -66,9 +70,7 @@ RCMDcheck <- R6Class(
   private = list(
     warnings_are_errors = NULL,
     notes_are_errors = NULL,
-    args = NULL,
-
-    lib = NULL
+    args = NULL
   )
 )
 
