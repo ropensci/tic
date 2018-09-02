@@ -44,11 +44,8 @@ RCMDcheck <- R6Class(
     },
 
     run = function() {
-      f_rcmdcheck <- rcmdcheck::rcmdcheck
-      withr::with_libpaths(
-        super$get_lib(), action = "replace",
-        res <- f_rcmdcheck(args = private$args)
-      )
+      res <- rcmdcheck::rcmdcheck(args = private$args, libpath = super$get_lib())
+
       print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
