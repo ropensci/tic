@@ -1,9 +1,11 @@
+#' @include steps-rcmdcheck.R
 BuildPkgdown <- R6Class(
-  "BuildPkgdown", inherit = TicStep,
+  "BuildPkgdown", inherit = TicStepWithPrivateLib,
 
   public = list(
     initialize = function(...) {
       private$pkgdown_args <- list(...)
+      super$initialize()
     },
 
     run = function() {
@@ -12,6 +14,7 @@ BuildPkgdown <- R6Class(
 
     prepare = function() {
       verify_install("pkgdown")
+      super$prepare()
     }
   ),
 
