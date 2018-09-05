@@ -1,3 +1,8 @@
+# tic 0.2.13.9010
+
+- No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (#86, #88).
+
+
 # tic 0.2.13.9009
 
 - The `step_build_pkgdown()` step now uses the same dedicated library as `step_rcmdcheck()`.
