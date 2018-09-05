@@ -12,7 +12,7 @@ get_stage(name)
 
 add_step(stage, step)
 
-add_code_step(stage, call, prepare_call = NULL)
+add_code_step(stage, call = NULL, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE,
   notes_are_errors = FALSE, args = c("--no-manual", "--as_cran"))
