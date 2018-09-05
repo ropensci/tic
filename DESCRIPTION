@@ -43,7 +43,7 @@ Suggests:
     travis
 VignetteBuilder: knitr
 Remotes: 
-    krlmlr/rcmdcheck@f-libpath-build,
+    r-lib/rcmdcheck,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
