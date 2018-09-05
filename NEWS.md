@@ -1,3 +1,10 @@
+# tic 0.2.13.9009
+
+- The `step_build_pkgdown()` step now uses the same dedicated library as `step_rcmdcheck()` (#84).
+- Using the development version of _rcmdcheck_ to work around problems finding the vignette builder (#87).
+- Draft for new "Get started" vignette (#63, @pat-s).
+
+
 # tic 0.2.13.9008
 
 - The `step_rcmdcheck()` step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The `add_package_checks()` macro no longer includes an `update.packages()` call (#35).
