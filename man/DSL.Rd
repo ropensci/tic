@@ -41,7 +41,7 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 Should notes be treated as errors? Default: \code{FALSE}.}
 
 \item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
+Passed on to \code{[rcmdcheck::rcmdcheck()]}, default:
 \code{"--no-manual --as-cran"}.}
 }
 \description{
