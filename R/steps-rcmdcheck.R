@@ -12,7 +12,7 @@ TicStepWithPrivateLib <- R6Class(
 
       f_install_deps <- remotes::install_deps
       withr::with_libpaths(
-        get_lib(), action = "replace",
+        self$get_lib(), action = "replace",
         {
           f_install_deps(dependencies = TRUE)
           utils::update.packages(ask = FALSE)
