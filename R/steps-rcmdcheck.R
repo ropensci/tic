@@ -3,8 +3,8 @@ TicStepWithPrivateLib <- R6Class(
 
   public = list(
     initialize = function() {
-      private$lib <- c(file.path(.libPaths()[[1]], "tic-lib"), .Library.site, .Library)
-      dir.create(private$lib[[1]], showWarnings = FALSE)
+      private$lib <- file.path(.libPaths()[[1]], "tic-lib")
+      dir.create(private$lib, showWarnings = FALSE)
     },
 
     prepare = function() {
@@ -15,7 +15,7 @@ TicStepWithPrivateLib <- R6Class(
         self$get_lib(), action = "replace",
         {
           f_install_deps(dependencies = TRUE)
-          utils::update.packages(ask = FALSE)
+          utils::update.packages(lib.loc = self$get_lib(), ask = FALSE)
         }
       )
     },
