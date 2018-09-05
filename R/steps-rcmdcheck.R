@@ -1,27 +1,37 @@
-TicStepWithPackageDeps <- R6Class(
-  "TicStepWithPackageDeps", inherit = TicStep,
+TicStepWithPrivateLib <- R6Class(
+  "TicStepWithPrivateLib", inherit = TicStep,
 
   public = list(
-    initialize = function() {},
+    initialize = function() {
+      private$lib <- file.path(.libPaths()[[1]], "tic-lib")
+      dir.create(private$lib, showWarnings = FALSE)
+    },
 
     prepare = function() {
       verify_install("remotes")
 
-      remotes::install_deps(dependencies = TRUE)
-      utils::update.packages(ask = FALSE)
+      f_install_deps <- remotes::install_deps
+      withr::with_libpaths(
+        private$lib, action = "replace",
+        {
+          f_install_deps(dependencies = TRUE)
+          utils::update.packages(ask = FALSE)
+        }
+      )
     },
 
     get_lib = function() {
-      # Using a separate library for "build dependencies"
-      # (which might well be ahead of CRAN)
-      # works very poorly with rcmdcheck and pkgdown.
-      .libPaths()
+      private$lib
     }
   ),
+
+  private = list(
+    lib = NULL
+  )
 )
 
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStepWithPackageDeps,
+  "RCMDcheck", inherit = TicStepWithPrivateLib,
 
   public = list(
     initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
