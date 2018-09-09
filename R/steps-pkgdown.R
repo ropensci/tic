@@ -1,17 +1,24 @@
+#' @include steps-rcmdcheck.R
 BuildPkgdown <- R6Class(
-  "BuildPkgdown", inherit = TicStep,
+  "BuildPkgdown", inherit = TicStepWithPackageDeps,
 
   public = list(
     initialize = function(...) {
       private$pkgdown_args <- list(...)
+      super$initialize()
     },
 
     run = function() {
-      do.call(pkgdown::build_site, c(list(preview = FALSE), private$pkgdown_args))
+      # Don't need to be super-strict when building pkgdown
+      withr::with_libpaths(
+        super$get_lib(), action = "prefix",
+        do.call(pkgdown::build_site, c(list(preview = FALSE), private$pkgdown_args))
+      )
     },
 
     prepare = function() {
       verify_install("pkgdown")
+      super$prepare()
     }
   ),
 

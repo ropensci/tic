@@ -68,7 +68,7 @@ add_step <- function(stage, step) {
 #' @export
 #' @inheritParams step_run_code
 #' @rdname DSL
-add_code_step <- function(stage, call, prepare_call = NULL) {
+add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call <- substitute(call)
   prepare_call <- substitute(prepare_call)
   step <- RunCode$new(.call = call, .prepare_call = prepare_call)

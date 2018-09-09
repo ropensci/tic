@@ -1,5 +1,28 @@
+TicStepWithPackageDeps <- R6Class(
+  "TicStepWithPackageDeps", inherit = TicStep,
+
+  public = list(
+    initialize = function() {},
+
+    prepare = function() {
+      verify_install("remotes")
+
+      remotes::install_deps(dependencies = TRUE)
+      utils::update.packages(lib.loc = self$get_lib()[[1]], ask = FALSE)
+    },
+
+    get_lib = function() {
+      # Using a separate library for "build dependencies"
+      # (which might well be ahead of CRAN)
+      # works very poorly with custom steps that are not aware
+      # of this shadow library.
+      .libPaths()
+    }
+  ),
+)
+
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStep,
+  "RCMDcheck", inherit = TicStepWithPackageDeps,
 
   public = list(
     initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
@@ -9,17 +32,12 @@ RCMDcheck <- R6Class(
       private$check_args <- check_args
       private$build_args <- build_args
 
-      private$lib <- file.path(.libPaths()[[1]], "tic-lib")
-      dir.create(private$lib, showWarnings = FALSE)
+      super$initialize()
     },
 
     run = function() {
-      f_rcmdcheck <- rcmdcheck::rcmdcheck
-      withr::with_libpaths(
-        private$lib, action = "replace",
-        res <- f_rcmdcheck(check_args = private$check_args,
-                           build_args = private$build_args)
-      )
+      res <- rcmdcheck::rcmdcheck(args = private$args, libpath = super$get_lib())
+
       print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
@@ -33,16 +51,8 @@ RCMDcheck <- R6Class(
     },
 
     prepare = function() {
-      verify_install(c("remotes", "rcmdcheck"))
-
-      f_install_deps <- remotes::install_deps
-      withr::with_libpaths(
-        private$lib, action = "replace",
-        {
-          f_install_deps(dependencies = TRUE)
-          utils::update.packages(ask = FALSE)
-        }
-      )
+      verify_install("rcmdcheck")
+      super$prepare()
     }
   ),
 
@@ -50,8 +60,7 @@ RCMDcheck <- R6Class(
     warnings_are_errors = NULL,
     notes_are_errors = NULL,
     check_args = NULL,
-    build_args = NULL,
-    lib = NULL
+    build_args = NULL
   )
 )
 
@@ -75,9 +84,10 @@ RCMDcheck <- R6Class(
 #'   Should notes be treated as errors? Default: `FALSE`.
 #' @param check_args `[character]`\cr
 #'   Passed to `[rcmdcheck::rcmdcheck()]` (after splitting at spaces), default:
-#'   `"--no-manual --as-cran"`.
+#'   `"--as-cran"`.
 #' @param build_args `[character]`\cr
-#'   Passed to `[rcmdcheck::rcmdcheck()]`
+#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   `"--force"`.
 #' @export
 step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
                            check_args = "--as-cran",

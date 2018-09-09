@@ -16,10 +16,11 @@ Should notes be treated as errors? Default: \code{FALSE}.}
 
 \item{check_args}{\code{[character]}\cr
 Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
-\code{"--no-manual --as-cran"}.}
+\code{"--as-cran"}.}
 
 \item{build_args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}}
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{"--force"}.}
 }
 \description{
 Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.

@@ -65,7 +65,7 @@ package::fun()), the package is installed during preparation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9010</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@ If the top-level expression is a qualified function call (of the format
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_run_code</span>(<span class='no'>call</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>step_run_code</span>(<span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,7 +155,8 @@ If the top-level expression is a qualified function call (of the format
       <th>call</th>
       <td><p><code>[call]</code><br />
 An arbitrary expression executed during the stage to which this step is
-added.</p></td>
+added.
+The default is useful if you only pass <code>prepare_call</code>.</p></td>
     </tr>
     <tr>
       <th>prepare_call</th>

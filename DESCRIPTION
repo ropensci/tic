@@ -1,7 +1,7 @@
 Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
-Version: 0.2.13.9008
+Version: 0.2.13.9010
 Authors@R: c(
     person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
@@ -43,8 +43,7 @@ Suggests:
     travis
 VignetteBuilder: knitr
 Remotes: 
-    pat-s/rcmdcheck@build-args,
-    r-lib/callr,
+    krlmlr/rcmdcheck@f-fix-build,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
@@ -67,8 +66,8 @@ Collate:
     'steps-drat.R'
     'steps-git.R'
     'steps-install.R'
-    'steps-pkgdown.R'
     'steps-rcmdcheck.R'
+    'steps-pkgdown.R'
     'steps-ssh.R'
     'steps-write-text-file.R'
     'tic-package.R'
