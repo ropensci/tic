@@ -8,15 +8,12 @@ TicStepWithPackageDeps <- R6Class(
       verify_install("remotes")
 
       remotes::install_deps(dependencies = TRUE)
-      utils::update.packages(lib.loc = self$get_lib()[[1]], ask = FALSE)
-    },
 
-    get_lib = function() {
       # Using a separate library for "build dependencies"
       # (which might well be ahead of CRAN)
       # works very poorly with custom steps that are not aware
       # of this shadow library.
-      .libPaths()
+      utils::update.packages(ask = FALSE)
     }
   ),
 )
@@ -36,7 +33,7 @@ RCMDcheck <- R6Class(
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(args = private$args, libpath = super$get_lib())
+      res <- rcmdcheck::rcmdcheck(args = private$args)
 
       print(res)
       if (length(res$errors) > 0) {
