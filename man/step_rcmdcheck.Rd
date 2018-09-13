@@ -5,7 +5,7 @@
 \title{Step: Check a package}
 \usage{
 step_rcmdcheck(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  check_args = "--as-cran", build_args = "--force")
+  args = c("--no-manual", "--as-cran"), build_args = "--force")
 }
 \arguments{
 \item{warnings_are_errors}{\code{[flag]}\cr
@@ -14,9 +14,9 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 \item{notes_are_errors}{\code{[flag]}\cr
 Should notes be treated as errors? Default: \code{FALSE}.}
 
-\item{check_args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
-\code{"--as-cran"}.}
+\item{args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
 Passed to \code{[rcmdcheck::rcmdcheck()]}, default:

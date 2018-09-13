@@ -15,7 +15,7 @@ add_step(stage, step)
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE,
-  notes_are_errors = FALSE, check_args = c("--as-cran"),
+  notes_are_errors = FALSE, args = c("--no-manual", "--as_cran"),
   build_args = "--force")
 }
 \arguments{
@@ -42,9 +42,9 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 \item{notes_are_errors}{\code{[flag]}\cr
 Should notes be treated as errors? Default: \code{FALSE}.}
 
-\item{check_args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
-\code{"--as-cran"}.}
+\item{args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
 Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
@@ -68,7 +68,8 @@ stages:
 
 \enumerate{
 \item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
-\code{warnings_are_errors}, \code{notes_are_errors} and \code{args} arguments
+\code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
+\code{build_args} arguments.
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
 }
 }
