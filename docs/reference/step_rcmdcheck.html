@@ -145,7 +145,7 @@ and updating all packages.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_rcmdcheck</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='st'>"--no-manual --as-cran"</span>)</pre>
+  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>), <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,8 +163,14 @@ Should notes be treated as errors? Default: <code>FALSE</code>.</p></td>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
-Passed on to <code>[rcmdcheck::rcmdcheck()]</code>, default:
-<code>"--no-manual --as-cran"</code>.</p></td>
+Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+<code>c("--no-manual", "--as-cran")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>build_args</th>
+      <td><p><code>[character]</code><br />
+Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+<code>"--force"</code>.</p></td>
     </tr>
     </table>
     
