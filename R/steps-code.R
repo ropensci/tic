@@ -50,6 +50,7 @@ RunCode <- R6Class(
 #' @param call `[call]`\cr
 #'   An arbitrary expression executed during the stage to which this step is
 #'   added.
+#'   The default is useful if you only pass `prepare_call`.
 #' @param prepare_call `[call]`\cr
 #'   An optional arbitrary expression executed during preparation.
 #' @family steps
@@ -59,6 +60,6 @@ RunCode <- R6Class(
 #' # Will install covr from CRAN during preparation:
 #' step_run_code(covr::codecov())
 #' @export
-step_run_code <- function(call, prepare_call = NULL) {
+step_run_code <- function(call = NULL, prepare_call = NULL) {
   RunCode$new(.call = substitute(call), .prepare_call = substitute(prepare_call))
 }

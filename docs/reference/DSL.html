@@ -44,7 +44,8 @@ to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &
 stages:
 
 A step_rcmdcheck() in the &quot;script&quot; stage, using the
-warnings_are_errors, notes_are_errors and args arguments.
+warnings_are_errors, notes_are_errors, args, and
+build_args arguments.
 A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
 " />
 <meta name="twitter:card" content="summary" />
@@ -75,7 +76,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-i
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9008</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.13.9010</span>
       </span>
     </div>
 
@@ -163,7 +164,8 @@ to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</co
 stages:</p>
 <ol>
 <li><p>A <code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
-<code>warnings_are_errors</code>, <code>notes_are_errors</code> and <code>args</code> arguments.</p></li>
+<code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
+<code>build_args</code> arguments.</p></li>
 <li><p>A call to <code><a href='http://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
 </ol>
     
@@ -173,10 +175,11 @@ stages:</p>
 
 <span class='fu'>add_step</span>(<span class='no'>stage</span>, <span class='no'>step</span>)
 
-<span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='no'>call</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>))</pre>
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as_cran"</span>),
+  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,7 +203,8 @@ A function that constructs a Step object, such as <code><a href='step_hello_worl
       <th>call</th>
       <td><p><code>[call]</code><br />
 An arbitrary expression executed during the stage to which this step is
-added.</p></td>
+added.
+The default is useful if you only pass <code>prepare_call</code>.</p></td>
     </tr>
     <tr>
       <th>prepare_call</th>
@@ -220,8 +224,14 @@ Should notes be treated as errors? Default: <code>FALSE</code>.</p></td>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
-Passed to <code>[rcmdcheck::rcmdcheck()]</code> (after splitting at spaces), default:
-<code>"--no-manual --as-cran"</code>.</p></td>
+Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+<code>c("--no-manual", "--as-cran")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>build_args</th>
+      <td><p><code>[character]</code><br />
+Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+<code>"--force"</code>.</p></td>
     </tr>
     </table>
     

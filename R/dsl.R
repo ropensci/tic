@@ -68,7 +68,7 @@ add_step <- function(stage, step) {
 #' @export
 #' @inheritParams step_run_code
 #' @rdname DSL
-add_code_step <- function(stage, call, prepare_call = NULL) {
+add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call <- substitute(call)
   prepare_call <- substitute(prepare_call)
   step <- RunCode$new(.call = call, .prepare_call = prepare_call)
@@ -98,16 +98,19 @@ add_code_step <- function(stage, call, prepare_call = NULL) {
 #' @importFrom magrittr %>%
 add_package_checks <- function(warnings_are_errors = TRUE,
                                notes_are_errors = FALSE,
-                               args = c("--no-manual", "--as_cran")) {
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force") {
   #' @description
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
-  #'    `warnings_are_errors`, `notes_are_errors` and `args` arguments.
+  #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
+  #'    `build_args` arguments.
   get_stage("script") %>%
     add_step(
       step_rcmdcheck(
         warnings_are_errors = warnings_are_errors,
         notes_are_errors = notes_are_errors,
-        args = args
+        args = args,
+        build_args = build_args
       )
     )
 

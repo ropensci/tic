@@ -4,12 +4,13 @@
 \alias{step_run_code}
 \title{Step: Run arbitrary code}
 \usage{
-step_run_code(call, prepare_call = NULL)
+step_run_code(call = NULL, prepare_call = NULL)
 }
 \arguments{
 \item{call}{\code{[call]}\cr
 An arbitrary expression executed during the stage to which this step is
-added.}
+added.
+The default is useful if you only pass \code{prepare_call}.}
 
 \item{prepare_call}{\code{[call]}\cr
 An optional arbitrary expression executed during preparation.}

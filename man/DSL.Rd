@@ -12,10 +12,11 @@ get_stage(name)
 
 add_step(stage, step)
 
-add_code_step(stage, call, prepare_call = NULL)
+add_code_step(stage, call = NULL, prepare_call = NULL)
 
 add_package_checks(warnings_are_errors = TRUE,
-  notes_are_errors = FALSE, args = c("--no-manual", "--as_cran"))
+  notes_are_errors = FALSE, args = c("--no-manual", "--as-cran"),
+  build_args = "--force")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -29,7 +30,8 @@ A function that constructs a Step object, such as \code{\link[=step_hello_world]
 
 \item{call}{\code{[call]}\cr
 An arbitrary expression executed during the stage to which this step is
-added.}
+added.
+The default is useful if you only pass \code{prepare_call}.}
 
 \item{prepare_call}{\code{[call]}\cr
 An optional arbitrary expression executed during preparation.}
@@ -41,8 +43,12 @@ Should warnings be treated as errors? Default: \code{TRUE}.}
 Should notes be treated as errors? Default: \code{FALSE}.}
 
 \item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]} (after splitting at spaces), default:
-\code{"--no-manual --as-cran"}.}
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{c("--no-manual", "--as-cran")}.}
+
+\item{build_args}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{"--force"}.}
 }
 \description{
 Functions to define stages and their constitutent
@@ -62,7 +68,8 @@ stages:
 
 \enumerate{
 \item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
-\code{warnings_are_errors}, \code{notes_are_errors} and \code{args} arguments.
+\code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
+\code{build_args} arguments.
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
 }
 }
