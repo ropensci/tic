@@ -40,7 +40,8 @@ Suggests:
     remotes,
     rmarkdown,
     testthat,
-    travis
+    travis,
+    usethis
 VignetteBuilder: knitr
 Remotes: 
     krlmlr/callr@b-55-vignette-builder,
