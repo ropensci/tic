@@ -24,12 +24,12 @@ Stages are ordered as follows:
 knitr::include_graphics("img/build-lifecycle.png")
 ```
 
-The `after_xxx` stages are run conditionally, dependent on their super-class name.
-For example stage `after_success` will only be run of if there was a successfull execution of the "script" stage, i.e. no error.
+The `after_xxx` stages are run unconditionally, dependent on their super-class name.
+For example stage `after_success` will only be run if the "script" stage executed successfully, i.e. without error.
 The `after_deploy` stage will only be run if there the `deploy` stage was run before.
 
 `tic` also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic way using R syntax.
-The `.travis.yml` file is subsequently not meant to be edited anymore (at least not for the specification of the stages).
+Parts of the `.travis.yml` file are not meant to be edited anymore (at least not for the specification of the stages).
 
 
 ```yml
@@ -59,31 +59,23 @@ In a nutshell, the workflow is as follows:
 An important point to note: The R code declared in `tic.R` is not meant to be run manually.
 It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
-For testing purposes, all stages and steps defined in `tic.R` can be executed by emulating a CI build locally using `tic()`.
+For testing purposes, all stages and steps defined in `tic.R` can be executed by calling `tic()`.
+This emulates a CI build on your local system.
 See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) for more information.
 
 ### Accessing a single stage
 
-Which steps are executed in each stage is specified in `tic.R`.
+The steps which are executed in each stage are specified in `tic.R`.
 A stage is executed by calling the respective `tic` function; for example for stage "deploy" `tic::deploy()`.
-This function then sources `tic.R` and searches for a call to `get_stage(<stage name>)`.
-For the "deploy" stage a search for `get_stage("deploy")` would be triggered.
-If this call was found, all subsequent steps declared in this stage will get executed.
-Again, remember that the order of the calls is fixed (see [here](build-lifecyle.html#stages)) and it does not matter in which order you declare the stages in `tic.R`.
-
-Usually, steps are appended to stages using the pipe operator:
-
-```r
-get_stage("deploy") %>%
-  add_step(step_build_pkgdown())
-```
+This function then sources `tic.R` and collects all steps added to `get_stage(<stage name>)`, e.g. `get_stage("deploy")` for the "deploy" stage".
+Again, remember that the order of the stages is fixed (see [here](#stages)), it does not matter in which order you declare the stages in `tic.R`.
 
 ### Details of stages
 
 #### before_install & install
 
 An important stage for `tic` is the `before_install` stage.
-Here, `tic` gets installed and runs `prepare_all_stages()`.
+Here, `tic` itself gets installed and runs `prepare_all_stages()`.
 This function ensures that all subsequent steps can be executed by installing the required R packages.
 
 Essentially it calls the `prepare()` function of all steps that were declared in `tic.R`.
@@ -94,7 +86,7 @@ All packages that should be stored in the "cache" of the CI service (so that the
 #### script
 
 The script stage is responsible to execute the important tasks of the CI run: For a package, it runs `R CMD check`, for a blogdown site it builds the site, etc..
-In this stage all dependencies should be installed for a successful run.
+In this stage all dependencies for a successful run already are installed.
 
 #### deploy
 
@@ -105,7 +97,7 @@ See [the vignette about deployment](deployment.html) for more information.
 ## Steps
 
 Steps are the commands that are executed in each stage.
-`tic` uses the pipe operator to chain steps in `tic.R`, for example
+`tic` uses the [pipe operator](https://magrittr.tidyverse.org/) to and the `add_step()` function to chain steps in `tic.R`, for example
 
 ```r
 get_stage("deploy") %>%
@@ -114,10 +106,10 @@ get_stage("deploy") %>%
 
 `step_build_pkgdown()` here is chained to stage "deploy" and subsequently only run in this stage.
 More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
-Steps are usually defined using two nested commands: `add_step()` and the corrsponding step, here `step_build_pkgdown()`.
+Steps are usually defined using two nested commands: `add_step()` and the corresponding step, here `step_build_pkgdown()`.
 
 We grouped the steps defined by the `tic` package in the following.
-Please see the respective help pages of the functions for a more detailed documentation.
+Please see the respective help pages of the functions for more detailed documentation.
 
 #### Basic
 
@@ -157,7 +149,7 @@ Macros in `tic` are combinations of steps for reoccuring workflows to keep `tic.
 The macro function `add_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 
-1. `step_rcmdcheck()` in the "script" stage, using the `warnings_are_errors`, `notes_are_errors` and `args` arguments.
+1. `step_rcmdcheck()` in the "script" stage, using the `warnings_are_errors`, `notes_are_errors`, `args` and `build_args` arguments.
 
 2. A call to `covr::codecov()` in the "after_success" stage.
 
@@ -167,4 +159,4 @@ Macros do not need to include steps across stages, they can also just cover a se
 
 Currently, `add_package_checks()` is the only macro implemented. 
 We will add more macros in the future.
-If you have a good usecase for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
+If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).

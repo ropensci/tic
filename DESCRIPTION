@@ -33,6 +33,7 @@ Suggests:
     base64enc,
     covr,
     drat,
+    fansi,
     git2r,
     knitr,
     openssl,

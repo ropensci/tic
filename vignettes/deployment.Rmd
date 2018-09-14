@@ -21,18 +21,18 @@ options(crayon.enabled = TRUE)
 
 1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `usethis::use_ci()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail
 
-```{r, echo = FALSE, fig.align='center', dpi = 10}
-knitr::include_graphics("img/ssh-deploy-key.png")
-```
-
+    ```{r, echo = FALSE, fig.align='center', dpi = 10}
+    knitr::include_graphics("img/ssh-deploy-key.png")
+    ```
+    
 2. A private key is encoded in base64 and stored in an environment variable on Travis, and installed in the ~/.ssh directory during the CI run
 
-```{r, echo = FALSE, fig.align='center', dpi = 10}
-knitr::include_graphics("img/private-key-travis.png")
-```
-
-Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
-Additionally,when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by Githubs download rate limitations. 
+    ```{r, echo = FALSE, fig.align='center', dpi = 10}
+    knitr::include_graphics("img/private-key-travis.png")
+    ```
+    
+    Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
+    Additionally,when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by Githubs download rate limitations. 
 
 ## pkgdown deployment
 
@@ -73,7 +73,7 @@ Let's break down what happens here:
 
 3. This "script" is calling `tic::deploy()`.
 
-4. All this is happening on every branch. If you want to restrict it to certain branches only, you need to set a condition in `tic.`.
+4. All this is happening on every branch. If you want to restrict it to certain branches only, you need to set a condition in `tic.R`.
 
     What happens now is that `tic::deploy()` again searches in `tic.R` for the "deploy" stage and then runs whatever is specified there.
 
@@ -109,7 +109,7 @@ This option has the advantage
 
 A disadvantage is that you cannot have per-branch versions of your site and hence no pull request previews of the site.
 
-To use this option with `tic`, set the `branch` argument in `step_push_deploy()` to `gh-pages` and set `path = "docs"`.
+To use this option with `tic`, specify `branch = "gh-pages", path = "docs"` in `step_push_deploy()`.
 As the site serving in this setting will use the root of the branch, the `gh-pages` branch will only consist of the public `pkgdown` files used to serve the site. 
 
 ### Avoiding duplicate site creations in build matrices
@@ -221,11 +221,10 @@ Then, simply add the desired paths to argument `commit_paths` in `step_push_depl
 get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 
-  get_stage("deploy") %>%
-    add_code_step(devtools::document(roclets=c('rd', 'collate', 'namespace'))) %>%
-    add_step(step_push_deploy(orphan = FALSE, branch = "master", 
-                              commit_paths = c("NAMESPACE", "man/*")))
+get_stage("deploy") %>%
+  add_code_step(devtools::document(roclets = c("rd", "collate", "namespace"))) %>%
+  add_step(step_push_deploy(branch = "master", commit_paths = c("NAMESPACE", "man/*")))
 ```
 
-Applying this idea of course depends on your overall R package development strategy: Commit files like `/man/` and `NS` directly or let them be created by Travis? 
+Applying this idea of course depends on your overall R package development strategy: Commit files like `/man/` and `NS` directly or let them be created by Travis?
 An example project that uses the latter strategy is [mlr](https://github.com/mlr-org/mlrng/blob/master/tic.R).

@@ -158,8 +158,8 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") {
     add_step(step_setup_ssh())
 
   get_stage("deploy") %>%
-    add_step(step_push_deploy()) %>% 
-    add_step(step_build_pkgdown())
+    add_step(step_build_pkgdown()) %>% 
+    add_step(step_push_deploy())
 }
 ```
 
@@ -177,7 +177,7 @@ Check `?add_package_checks()` to see a list of all added steps by this convenien
 if (Sys.getenv("BUILD_PKGDOWN") != "") { }
 ```
 
-This line conditions its contents on the existence of the environment variable `"BUILD_PKGDOWN"`.
+This line conditions the contents of the block inside the braces `{ }` on the existence of the environment variable `"BUILD_PKGDOWN"`.
 The env variable is set in [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47), conditioned on the job that runs on the current R-release version:
 
 ```yml
@@ -188,7 +188,7 @@ The env variable is set in [`.travis.yml`](https://github.com/ropenscilabs/tic/b
     - BUILD_PKGDOWN=true
 ```
 
-If the if-condition evaluates to `TRUE`, the following is executed:
+If the `if`-condition evaluates to `TRUE`, the following is executed:
 First, `step_setup_ssh()` sets up the SSH connection needed for deployment.
 
 ```r
@@ -196,26 +196,27 @@ get_stage("before_deploy") %>%
   add_step(step_setup_ssh())
 ```
 
-Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [`pkgdown`](http://pkgdown.r-lib.org/) site if the project is an R package.
+Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [`pkgdown`](http://pkgdown.r-lib.org/) site if the project is an R package, and the `step_push_deploy()` step will push the updated files (if any) to Git.
 
 ```r
 get_stage("deploy") %>%
-  add_step(step_build_pkgdown())
+  add_step(step_build_pkgdown()) %>% 
+  add_step(step_push_deploy())
 ```
 
 # Examples projects
 
-`tic` can be used for various R projects (see below). 
+`tic` can be used for various R projects:
 
-- [tic.blogdown](https://github.com/krlmlr/tic.blogdown)
-- [ŧic.bookdown](https://github.com/krlmlr/tic.bookdown)
-- [tic.drat](https://github.com/krlmlr/tic.drat)
-- [tic.package](https://github.com/krlmlr/tic.package)
-- [tic.website](https://github.com/krlmlr/tic.website)
-- [tic.figshare](https://github.com/krlmlr/tic.figshare).
+- [tic.package](https://github.com/krlmlr/tic.package): R packages
+- [tic.blogdown](https://github.com/krlmlr/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
+- [ŧic.bookdown](https://github.com/krlmlr/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
+- [tic.drat](https://github.com/krlmlr/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
+- [tic.website](https://github.com/krlmlr/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
+- [tic.figshare](https://github.com/krlmlr/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 
 As a show case, we explain a "blogdown" project in more detail.
-[`blogdown`](https://bookdown.org/yihui/blogdown/) is a R package for publishing websites.
+[`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
 Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
 
 ```r
@@ -224,7 +225,7 @@ get_stage("install") %>%
                 prepare_call = remotes::install_github("rstudio/blogdown"))
 ```
 
-Then the website is build and deployed.
+Then the website is built and deployed.
 The `blogdown::build_site()` function for websites is the equivalent to `pkgdown::build_site()` for R packages.
 
 ```r
@@ -233,7 +234,7 @@ get_stage("deploy") %>%
     add_step(step_push_deploy())
 ```
 
-You see, steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
+Steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
 `tic` is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
@@ -241,7 +242,7 @@ Also, publishing to https://zenodo.org/ is work in progress.
 
 # Advanced
 
-The advanced usage of `tic` is described in more detail in article [Advanced Usage](advanced.html):
+The advanced usage of `tic` is described in more detail in the [Advanced Usage](advanced.html) article:
 
 - [Options for `pkgdown` deployment](advanced.html#pkgdown-deployment) 
 - [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
@@ -249,4 +250,4 @@ The advanced usage of `tic` is described in more detail in article [Advanced Usa
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 - [Writing custom steps](custom-steps.html)
 
-The build lifecycle when using `tic` is explained in detail [here](build-lifecycle.html).
+The build lifecycle when using `tic` is explained in the [Build lifecycle](build-lifecycle.html) article.

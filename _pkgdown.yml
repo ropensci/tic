@@ -43,9 +43,9 @@ navbar:
       href: articles/tic-usethis-travis.html
     - text: Advanced usage
       href: articles/advanced.html
-    - text: Everything related to deployment
+    - text: Deployment
       href: articles/deployment.html
-    - text: Developer - custom steps
+    - text: Custom steps
       href: articles/custom-steps.html
   - text: Changelog
     href: news/index.html

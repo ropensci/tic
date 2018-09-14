@@ -112,16 +112,23 @@ step_hello_world <- function() {
 # Further information on the R6 class system
 
 If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed onto each function:
-Consider function [step_rcmdcheck()](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R).
-The user input first goes into 
+Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R)):
 
 ```{r}
 step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                           args = "--no-manual --as-cran") 
+                           args = c("--no-manual", "--as-cran"),
+                           build_args = "--force") {
+  RCMDcheck$new(
+    warnings_are_errors = warnings_are_errors,
+    notes_are_errors = notes_are_errors,
+    args = args,
+    build_args = build_args
+  )
+}
 ```
 
-Here, a new instance of the defined `R6` class "RCMDcheck" is initiated with `RCMDcheck$new()`.
-These arguments are then passed onto the `initialize()` function of the `R6` class.
+Here, a new instance of the defined `R6` class `RCMDcheck` is initiated with `RCMDcheck$new()`.
+The arguments to `step_rcmdcheck()` are passed on to the `initialize()` function of the `R6` class.
 Here, the arguments are assigned to the "private" objects (e.g. `private$args`).
 Next, the private objects are used in the `run()` function which does the actual work in the end.
 You can read more about `R6` in Hadley's [book](https://adv-r.hadley.nz/r6.html).
