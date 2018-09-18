@@ -117,9 +117,9 @@ See `?ci` for more information on which information can be extracted from this f
 
 # Troubleshooting: Running tic locally
 
-We introduced how to run `tic` locally when discussing the [advantages of using tic](advantages.html#easier-troubleshooting).
+We introduced how to run *tic* locally when discussing the [advantages of using tic](advantages.html#easier-troubleshooting).
 
-Recall, that `tic` can be emulated locally in two ways:
+Recall, that *tic* can be emulated locally in two ways:
 
 You can run check on possible syntax errors in `tic.R` using `load_from_file()`.
 This function will just source `tic.R` to check for possible misspecification errors.
@@ -254,5 +254,5 @@ Keep in mind that you only have 30 minutes before the VM will be terminated auto
 
 # What's not covered yet?
 
-- `SystemRequirements`: `tic` is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
+- `SystemRequirements`: *tic* is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
 Our plan is to automatically provide suggestions like "Please add addons: apt: <library> to `.travis.yml`".

@@ -28,7 +28,7 @@ The `after_xxx` stages are run unconditionally, dependent on their super-class n
 For example stage `after_success` will only be run if the "script" stage executed successfully, i.e. without error.
 The `after_deploy` stage will only be run if there the `deploy` stage was run before.
 
-`tic` also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic way using R syntax.
+*tic* also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic way using R syntax.
 Parts of the `.travis.yml` file are not meant to be edited anymore (at least not for the specification of the stages).
 
 
@@ -66,7 +66,7 @@ See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-
 ### Accessing a single stage
 
 The steps which are executed in each stage are specified in `tic.R`.
-A stage is executed by calling the respective `tic` function; for example for stage "deploy" `tic::deploy()`.
+A stage is executed by calling the respective *tic* function; for example for stage "deploy" `tic::deploy()`.
 This function then sources `tic.R` and collects all steps added to `get_stage(<stage name>)`, e.g. `get_stage("deploy")` for the "deploy" stage".
 Again, remember that the order of the stages is fixed (see [here](#stages)), it does not matter in which order you declare the stages in `tic.R`.
 
@@ -74,8 +74,8 @@ Again, remember that the order of the stages is fixed (see [here](#stages)), it 
 
 #### before_install & install
 
-An important stage for `tic` is the `before_install` stage.
-Here, `tic` itself gets installed and runs `prepare_all_stages()`.
+An important stage for *tic* is the `before_install` stage.
+Here, *tic* itself gets installed and runs `prepare_all_stages()`.
 This function ensures that all subsequent steps can be executed by installing the required R packages.
 
 Essentially it calls the `prepare()` function of all steps that were declared in `tic.R`.
@@ -97,7 +97,7 @@ See [the vignette about deployment](deployment.html) for more information.
 ## Steps
 
 Steps are the commands that are executed in each stage.
-`tic` uses the [pipe operator](https://magrittr.tidyverse.org/) to and the `add_step()` function to chain steps in `tic.R`, for example
+*tic* uses the [pipe operator](https://magrittr.tidyverse.org/) to and the `add_step()` function to chain steps in `tic.R`, for example
 
 ```r
 get_stage("deploy") %>%
@@ -108,7 +108,7 @@ get_stage("deploy") %>%
 More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
 Steps are usually defined using two nested commands: `add_step()` and the corresponding step, here `step_build_pkgdown()`.
 
-We grouped the steps defined by the `tic` package in the following.
+We grouped the steps defined by the *tic* package in the following.
 Please see the respective help pages of the functions for more detailed documentation.
 
 #### Basic
@@ -133,7 +133,7 @@ Please see the respective help pages of the functions for more detailed document
 - `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
 - `step_test_ssh()`: test the SSH connection to GitHub, helps troubleshooting deploy problems
 - `step_setup_ssh()`: Adds to known hosts, installs private key, and tests the connection
-- `step_setup_push_deploy()`: Clones a repo, inits author information, and sets up remotes for a subsequent `step_do_push_deploy()`
+- `step_setup_push_deploy()`: Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`
 - `step_push_deploy()`: deploy to GitHub, with arguments:
     - `path`: which path to deploy, default: `"."`
     - `branch`: which branch to deploy to, default: `ci()$get_branch()`
@@ -145,7 +145,7 @@ Please see the respective help pages of the functions for more detailed document
     
 ### Macros
 
-Macros in `tic` are combinations of steps for reoccuring workflows to keep `tic.R` tidy.
+Macros in *tic* are combinations of steps for reoccuring workflows to keep `tic.R` tidy.
 The macro function `add_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 

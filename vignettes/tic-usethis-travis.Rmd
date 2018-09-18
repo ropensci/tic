@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The following diagram shows how the packages `tic`, `travis` and `usethis` are connected:
+The following diagram shows how the packages *tic*, `travis` and `usethis` are connected:
 
 ```{r, echo = FALSE, fig.align='center', dpi = 60}
 knitr::include_graphics("img/tic-travis-usethis.png")
@@ -23,12 +23,12 @@ knitr::include_graphics("img/tic-travis-usethis.png")
 
 The `usethis` package holds all the utility wrapper functions to simplify R package development.
 From cloning a Github repo (`create_from_github()`) over using `roxygen2` for documentation purposes (`use_roxygen()`) to setting up CI for your package (`use_ci()`).
-The latter effectively calls a mixture of `travis` and `tic` functions that do the work in the background. 
+The latter effectively calls a mixture of `travis` and *tic* functions that do the work in the background. 
 
 Most of the work that needs to be done for Travis is handled by the `travis` package. 
 These are tasks like enabling the repo in [travis-ci.org](travis-ci.org), setting up SSH deployment keys for your repo on Travis and others.
 
-After everything is set up, `usethis` and `travis` have done their jobs and the rest of the work goes to `tic`.
+After everything is set up, `usethis` and `travis` have done their jobs and the rest of the work goes to *tic*.
 By this we mean the handling of the actual CI workflow: Which steps are going to be run, how the deployment is handled and so on.
 
 In summary, the interaction is as follows:
@@ -37,4 +37,4 @@ In summary, the interaction is as follows:
 
 - `travis`: Responsible for setting up all CI related stuff and taking care of permissions.
 
-- `tic`: Package to specify the CI workflow (which stages are run, which commands are used).
+- *tic*: Package to specify the CI workflow (which stages are run, which commands are used).
