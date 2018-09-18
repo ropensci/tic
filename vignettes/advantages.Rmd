@@ -106,9 +106,6 @@ Here is an short excerpt of the improved log output by `rcmdcheck` including an 
 
 When using *tic* all dependencies (the ones of the package and of also the ones of all stages of the CI build) are installed in the "before_install" stage. 
 This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
-*tic* uses two distinct R libraries for caching: One for the dependencies that are used for checking the R package and another R package library for all other dependencies (e.g. for packages that are used during the "deploy" stage).
-The reason for that is that sometimes dependencies for specific stages (e.g. "the deploy" stage) may cause errors when checking the R package because these contain breaking changes which the package is not able to deal with (e.g. if the Github version of a package is installed).
-You do not need to worry about this in practice - both will be cached and handled in the background for you!
 
 More information about the whole CI workflow can be found in the [Build lifecyle](build-lifecycle.html) vignette.
 
