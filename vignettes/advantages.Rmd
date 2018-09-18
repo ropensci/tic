@@ -31,6 +31,25 @@ So, what's the advantage of using *tic* over the standard CI process?
    
 Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking a and robust caching approach of dependencies.
 
+## Easier deployment
+
+You may know that CI services can be used to automatically deploy files. 
+This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
+A common use case is to build your `pkgdown` site and conditionally push changes to your repo.
+This practice saves you from building the whole `pkgdown` site locally and then committing manually all the changed files - either Travis or Appveyor will do it for you! 
+*tic* takes care of all the setup work (setting up SSH keys, permission granting for the repo on Github and the CI services).
+In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
+
+For more information on automatic deployment in *tic*, take a look [here](deployment.html).
+
+## Support for various R projects
+
+*tic* was developed with the aim to not only simplify R package development using CI services but also to support many other R project types (bookdown, blogdown, drat, website and fighshare deployment). 
+
+Each of these projects has its own standardized structure. 
+*tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `usethis::use_ci()`.
+See [here](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
+
 ## CI-Agnostic workflows
 
 What does "CI-Agnostic" mean and why do we need it?
@@ -53,25 +72,6 @@ We could list way more differences - but that's exactly the point when *tic* com
 
 So instead of learning how to specify specific tasks on different CI platforms, you only need to learn how to do with R commands.
 
-## Easier deployment
-
-You may know that CI services can be used to automatically deploy files. 
-This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
-A common use case is to build your `pkgdown` site and conditionally push changes to your repo.
-This practice saves you from building the whole `pkgdown` site locally and then committing manually all the changed files - either Travis or Appveyor will do it for you! 
-*tic* takes care of all the setup work (setting up SSH keys, permission granting for the repo on Github and the CI services).
-In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
-
-For more information on automatic deployment in *tic*, take a look [here](deployment.html).
-
-## Support for various R projects
-
-*tic* was developed with the aim to not only simplify R package development using CI services but also to support many other R project types (bookdown, blogdown, drat, website and fighshare deployment). 
-
-Each of these projects has its own standardized structure. 
-*tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `usethis::use_ci()`.
-See [here](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
-
 ## Less dependency on external CI control commands
 
 Most CI services come with no (native) support for the R programming language.
@@ -79,8 +79,6 @@ For Travis and Appveyor, the support is provided by the R community.
 For example, [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
 All of the commands and arguments specified there can also be set in `tic.R` using R syntax.
 So you are no longer dependent on the syntax and restrictions coming from [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.
-
-
 
 ## Enhanced R package checking: `rcmdcheck()` > R CMD check
 
