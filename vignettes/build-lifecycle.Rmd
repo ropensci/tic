@@ -28,7 +28,8 @@ The `after_xxx` stages are run unconditionally, dependent on their super-class n
 For example stage `after_success` will only be run if the "script" stage executed successfully, i.e. without error.
 The `after_deploy` stage will only be run if there the `deploy` stage was run before.
 
-*tic* also uses the stages approach and simply fowards all the commands that should be run in stage to the `tic.R` file where these will specified in an CI-agnostic way using R syntax.
+*tic* also uses the stages approach and forwards all action specifications that should be run in a stage to the `tic.R` file.
+The steps can then be specified in an CI-agnostic way using R syntax.
 Parts of the `.travis.yml` file are not meant to be edited anymore (at least not for the specification of the stages).
 
 
