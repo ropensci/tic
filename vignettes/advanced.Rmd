@@ -44,8 +44,8 @@ if ((getRversion() == "release")) {
 ```
 
 A special use case here would be to evaluate the R version inside an argument of `step_rcmdcheck()`.
-Here, we set `warnings_are_errors = TRUE` for all R versions < v3.2.
-Of course this only has an effect if testing on R versions < 3.2 is actually specified in `.travis.yml`.
+Here, we set `warnings_are_errors = TRUE` for `getRversion() >= "3.2")`.
+Of course this only has an effect if testing on `getRversion() >= "3.2")` is actually specified in `.travis.yml` (see [here](https://github.com/ropenscilabs/tic/blob/36a1b88797e8eb7218cfb767b65490452d47ad8e/.travis.yml#L39-L45) for an example).
 
 ```{r}
 add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
@@ -130,7 +130,7 @@ Here is a preview of the first two stages:
 load_from_file()
 ```
 
-```
+```r
 $before_install
 <Stage>
   Public:
