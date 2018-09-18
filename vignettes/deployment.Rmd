@@ -112,10 +112,12 @@ A disadvantage is that you cannot have per-branch versions of your site and henc
 To use this option with *tic*, specify `branch = "gh-pages", path = "docs"` in `step_push_deploy()`.
 As the site serving in this setting will use the root of the branch, the `gh-pages` branch will only consist of the public `pkgdown` files used to serve the site. 
 
-### Avoiding duplicate site creations in build matrices
+### Conditional deployment
 
-If you are running a build matrix or build stages on Travis, you only want to run the `pkgdown` building and deployment once.
-However, sometimes you want to deploy multiple files in different stages.
+If you are running a build matrix or build stages on Travis, you want to run certain tasks only once during a build. 
+The creation of a `pkgdown` site is a common task which applies to this.
+
+Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
 You can restrict on which stage/job a task is executed with the help of environment variables.
 There are two ways to restrict the deployment with *tic* and environment variables: 
 
@@ -127,9 +129,9 @@ There is no practical difference between both approaches.
 However, conditioning like shown here does only work for the "deploy" stage in `.travis.yml`.
 For [conditioning other stages](advanced.html#running-stages-conditionally), you need to use the *tic* approach.
 
-In the following we prepared an example for each option:
+In the following we show an example for each the *tic* way as this is the suggested method to use for all conditioning:
 
-1. Specifically set the env variable `BUILD_PKGDOWN` in `.travis.yml` and add the condition in `tic.R` to only run the deploy stage when this env variable evaluates to TRUE:
+Set the env variable `BUILD_PKGDOWN` in `.travis.yml` and add the condition in `tic.R` to only run the deploy stage when this env variable evaluates to TRUE:
 
 ```yml
 jobs:
@@ -162,48 +164,6 @@ if (Sys.getenv("id_rsa") != "") {
 }
 
 if (Sys.getenv("BUILD_PKGDOWN") != "") {
-  get_stage("deploy") %>%
-    add_step(step_build_pkgdown()) %>%
-    add_step(step_push_deploy())
-}
-```
-
-2. Setting the condition directly in `.travis.yml` in the "deploy" section:
-
-This can be useful when you run a build matrix which tests multiple R versions that has the same workflow for every job:
-
-```
-r:
-  - release
-  - devel
-  - oldrel
-```
-
-Here we restrict the deployment on three conditions: 
-
-- No Pull Request
-- No CRON job ([CRON jobs](https://docs.travis-ci.com/user/cron-jobs/) are builds that are started automatically after no build was triggered after a specific time)
-- Only for builds that use the R "devel" version
-
-```yml
-deploy:
-   provider: script
-   script: R -q -e 'tic::deploy()'
-   on:
-     branch: master
-     condition:
-       - $TRAVIS_PULL_REQUEST = false
-       - $TRAVIS_EVENT_TYPE != cron
-       - $TRAVIS_R_VERSION_STRING = devel
-```
-
-The same could optionally also be specified in `tic.R`. 
-There is no difference between the two approaches:
-
-```r
-if (Sys.getenv("BUILD_PKGDOWN") != "" && 
-  Sys.getenv("TRAVIS_EVENT_TYPE") != "cron" && 
-    Sys.getenv("TRAVIS_R_VERSION_STRING") == "devel") {
   get_stage("deploy") %>%
     add_step(step_build_pkgdown()) %>%
     add_step(step_push_deploy())
