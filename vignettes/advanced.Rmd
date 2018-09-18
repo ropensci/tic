@@ -117,9 +117,9 @@ See `?ci` for more information on which information can be extracted from this f
 
 # Troubleshooting: Running tic locally
 
-We introduced how to run *tic* locally when discussing the [advantages of using tic](advantages.html#easier-troubleshooting).
+*tic* can be emulated locally in two ways:
 
-Recall, that *tic* can be emulated locally in two ways:
+## Check for syntax errors
 
 You can run check on possible syntax errors in `tic.R` using `load_from_file()`.
 This function will just source `tic.R` to check for possible misspecification errors.
@@ -163,6 +163,8 @@ $install
     run_one: function (step) 
     steps: list
 ```
+
+## Emulate a CI run locally
 
 To emulate a real CI run locally, you can call `tic()` and the stages and steps will be executed in your local R console.
 Note that doing this will of course use your local system libraries and not the CI environment.
