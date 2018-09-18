@@ -20,7 +20,8 @@ options(crayon.enabled = TRUE)
 
 So, what's the advantage of using *tic* over the standard CI process?
 
-1. Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.
+1. Deployment to a Git repository is greatly simplified. 
+   Update your repository with results from the CI build.
 
 1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
    Set up your project to deploy rendered versions of your book or blog with a single push to Git.
@@ -65,7 +66,11 @@ For more information on automatic deployment in *tic*, take a look [here](deploy
 
 ## Support for various R projects
 
+*tic* was developed with the aim to not only simplify R package development using CI services but also to support many other R project types (bookdown, blogdown, drat, website and fighshare deployment). 
 
+Each of these projects has its own standardized structure. 
+*tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `usethis::use_ci()`.
+See [here](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
 
 ## Less dependency on external CI control commands
 
