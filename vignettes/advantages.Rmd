@@ -20,10 +20,15 @@ options(crayon.enabled = TRUE)
 
 So, what's the advantage of using `tic` over the standard CI process?
 
-- CI-agnostic workflow definitions (in R!)
-- Simplified deployment (e.g. `pkgdown` site)
-- Improved package checking via [rcmdcheck](https://github.com/r-lib/rcmdcheck)
-- Robust caching approach
+1. Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.
+
+1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
+   Set up your project to deploy rendered versions of your book or blog with a single push to Git.
+
+1. Workflow specification in a single `.R` file, regardless of CI system used.  
+   Forget about `.yml` files or web browser configurations.
+   
+Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking a and robust caching approach of dependencies.
 
 ## CI-Agnostic workflows
 
@@ -57,6 +62,18 @@ This practice saves you from building the whole `pkgdown` site locally and then 
 In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
 
 For more information on automatic deployment in `tic`, take a look [here](deployment.html).
+
+## Support for various R projects
+
+## Less dependency on external CI control commands
+
+Most CI services come with no (native) support for the R programming language.
+For Travis and Appveyor, the support is provided by the R community.
+For example, [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
+All of the commands and arguments specified there can also be set in `tic.R` using R syntax.
+So you are no longer dependent on the syntax and restrictions coming from [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.
+
+
 
 ## Enhanced R package checking: `rcmdcheck()` > R CMD check
 
@@ -109,11 +126,3 @@ Error in source(path, local = dsl) : tic.R:16:1: unexpected '}'
 ```
 
 See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) and [Troubleshooting: Entering the CI build](advanced#troubleshooting-entering-the-cI-build) for instructions on how to debug your CI build in more detail.
-
-## Less dependency on external CI control commands
-
-Most CI services come with no (native) support for the R programming language.
-For Travis and Appveyor, the support is provided by the R community.
-For example, [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
-All of the commands and arguments specified there can also be set in `tic.R` using R syntax.
-So you are no longer dependent on the syntax and restrictions coming from [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.

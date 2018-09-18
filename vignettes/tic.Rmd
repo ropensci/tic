@@ -23,18 +23,23 @@ If you are unfamiliar with the term Continuous Integration (CI), we highly recom
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-The advantages of using `tic` for R-related CI workflows are: 
+The most important improvements over existing solutions are:
 
-- CI-agnostic workflow definitions (in R!)
-- Simplified deployment (e.g. automatic deployment of a `pkgdown` site for a R package)
-- Improved package checking via [rcmdcheck](https://github.com/r-lib/rcmdcheck)
-- Robust caching approach
+1. Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.
+
+1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
+   Set up your project to deploy rendered versions of your book or blog with a single push to Git.
+
+1. Workflow specification in a single `.R` file, regardless of CI system used.  
+   Forget about `.yml` files or web browser configurations.
+   
+Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking a and robust caching approach of dependencies.
 
 A more comprehensive summary of all advantages can be found in the [advantages](advantages.html) vignette.
 
 # Initialization
 
-The easiest way to use `tic` for CI services is to call `usethis::use_ci()`.
+The easiest way to use `tic`  for CI services is to call `usethis::use_ci()`.
 This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
 During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized.
 Also a Personal Access Token (PAT) will be created for Travis, using a private Github PAT variable.
@@ -60,7 +65,7 @@ Authentication complete.
 Finished activating repo pat-s/tic.package on Travis CI.
 ```
 
-Next, you will be asked if the current `.travis.yml` should be replaced with the template from `tic` (if one exists).
+Next, you will be asked if the current `.travis.yml` should be replaced with the template from `tic`  (if one exists).
 Otherwise, the template is added without asking.
 
 ```{r, eval = FALSE}
@@ -85,7 +90,7 @@ Selection: 1
 ```
 
 And also for the `tic.R` file.
-Additionally, its added to `.Rbuildignore` to not interfer with the package building.
+Additionally, it is added to `.Rbuildignore` to not interfer with the package building.
 
 ```{r, eval = FALSE}
 Overwrite tic.R? 
@@ -113,7 +118,7 @@ key in the repository's settings when you no longer need it.
 ```
 
 Besides the private deploy key, also the public deploy key need to be added as an environment variable to Travis.
-As its a SSH key, its named `id_rsa` by default.
+As it is a SSH key, its named `id_rsa` by default.
 
 ```{r, eval = FALSE}
 Finished adding private environment variable id_rsa to pat-s/tic.package on Travis CI.
@@ -138,8 +143,8 @@ Finished adding private environment variable GITHUB_PAT to pat-s/tic.package on 
 ```
 
 All this functionality is integrated in the [`usethis`](http://usethis.r-lib.org/) package because it contains various other useful `use_*` functions that simplify R (package) development.
-However, the heavy lifting in the background is actually done by the R packages `travis` and `tic`. 
-See [here](tic-usethis-travis.html) for more detailed information on how `tic`, `travis` and `usethis` work together.
+However, the heavy lifting in the background is actually done by the R packages `travis` and `tic` . 
+See [here](tic-usethis-travis.html) for more detailed information on how `tic` , `travis` and `usethis` work together.
 
 # Explanation of the basic template
 
@@ -206,7 +211,7 @@ get_stage("deploy") %>%
 
 # Examples projects
 
-`tic` can be used for various R projects:
+`tic`  can be used for various R projects:
 
 - [tic.package](https://github.com/krlmlr/tic.package): R packages
 - [tic.blogdown](https://github.com/krlmlr/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
@@ -235,19 +240,19 @@ get_stage("deploy") %>%
 ```
 
 Steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
-`tic` is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
+`tic`  is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
 Also, publishing to https://zenodo.org/ is work in progress.
 
 # Advanced
 
-The advanced usage of `tic` is described in more detail in the [Advanced Usage](advanced.html) article:
+The advanced usage of `tic`  is described in more detail in the [Advanced Usage](advanced.html) article:
 
 - [Options for `pkgdown` deployment](advanced.html#pkgdown-deployment) 
 - [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
-- [Troubleshooting: Running `tic` locally](advanced.html#troubleshooting-running-tic-locally)
+- [Troubleshooting: Running `tic`  locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 - [Writing custom steps](custom-steps.html)
 
-The build lifecycle when using `tic` is explained in the [Build lifecycle](build-lifecycle.html) article.
+The build lifecycle when using `tic`  is explained in the [Build lifecycle](build-lifecycle.html) article.
