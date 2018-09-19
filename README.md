@@ -37,7 +37,7 @@ For an R package, the following steps will be set up for the CI workflow:
 - Building of a `pkgdown` site, with deployment to the `docs/` directory of the `master` branch
 - Running a code coverage and uploading it to [codecov.io](https://codecov.io/)
 
-See the [Getting Started](https://ropenscilabs/tic/articles/tic.html) vignette for more information and links to minimal example repositories for various R projects (package, blogdown, bookdown and more).
+See the [Getting Started](https://ropenscilabs/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://ropenscilabs/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
 
 ## Vignettes
 
