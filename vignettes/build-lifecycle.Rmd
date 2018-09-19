@@ -146,7 +146,7 @@ Please see the respective help pages of the functions for more detailed document
     
 ### Macros
 
-Macros in *tic* are combinations of steps for reoccuring workflows to keep `tic.R` tidy.
+Macros in *tic* are combinations of steps for reoccurring workflows to keep `tic.R` tidy.
 The macro function `add_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 

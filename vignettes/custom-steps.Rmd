@@ -80,8 +80,8 @@ res <- rcmdcheck::rcmdcheck(args = private$args)
 
 You can take a look at [this PR](https://github.com/ropenscilabs/tic/pull/75/files) to see how a new step implementation can look like.
 
-The most minimalistic version is the "Hello World" [example step](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R).
-This new classs only contains a `run()` function which does nothing more than printing "Hello World" to the console.
+The most minimalist version is the "Hello World" [example step](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R).
+This new class only contains a `run()` function which does nothing more than printing "Hello World" to the console.
 It is initialized by calling `step_hello_world()` which creates a new instances of this class.
 
 ```{r}

@@ -90,9 +90,9 @@ It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 
 - Coloring of important steps, simplifying the readability of the log
 - Enhanced and extended tracebacks of errors, especially errors in tests
-- The whole check process is returned in a R object, making it easier to inspect eventual errros/warnings
+- The whole check process is returned in a R object, making it easier to inspect eventual errors/warnings
 
-Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output ot the console early, omitting important information about the error. 
+Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output of the console early, omitting important information about the error. 
 
 Here is an short excerpt of the improved log output by `rcmdcheck` including an error message:
 

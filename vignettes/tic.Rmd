@@ -104,7 +104,7 @@ Added tic.R from template.
 ✔ Adding '^tic\\.R$' to '.Rbuildignore'
 ```
 
-Next, the `private deploy key for Travis is added to the Github repo.
+Next, the private deploy key for Travis is added to the Github repo.
 This is needed to give Travis permissions to deploy into the Github repo.
 
 ```{r, eval = FALSE}
@@ -118,7 +118,7 @@ pat-s/tic.package. You should receive a confirmation e-mail from GitHub. Delete 
 key in the repository's settings when you no longer need it.
 ```
 
-Besides the private deploy key, also the public deploy key need to be added as an environment variable to Travis.
+Besides the private deploy key, also the public deploy key needs to be added as an environment variable to Travis.
 As it is a SSH key, its named `id_rsa` by default.
 
 ```{r, eval = FALSE}
@@ -184,7 +184,7 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") { }
 ```
 
 This line conditions the contents of the block inside the braces `{ }` on the existence of the environment variable `"BUILD_PKGDOWN"`.
-The env variable is set in [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47), conditioned on the job that runs on the current R-release version:
+The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, conditioned on the job that runs on the current R-release version:
 
 ```yml
 - r: 3.3
@@ -194,7 +194,7 @@ The env variable is set in [`.travis.yml`](https://github.com/ropenscilabs/tic/b
     - BUILD_PKGDOWN=true
 ```
 
-If the `if`-condition evaluates to `TRUE`, the following is executed:
+When the `if`-condition evaluates to `TRUE`, the following gets executed:  
 First, `step_setup_ssh()` sets up the SSH connection needed for deployment.
 
 ```r
