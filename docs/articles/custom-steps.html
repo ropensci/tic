@@ -67,10 +67,10 @@
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/deployment.html">Everything related to deployment</a>
+      <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Developer - custom steps</a>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
 </li>
@@ -108,7 +108,7 @@
 
     
     
-<p>Many important steps running on CI systems are <a href="tic.html#steps">already implemented</a> into <code>tic</code>. The following vignette shows how new steps can be created and how <code>tic</code> defines them. Internally, all steps are defined as <a href="https://github.com/wch/R6">R6</a> classes. A step is an environment-like (or list-like) object with named members <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments.</p>
+<p>Many important steps running on CI systems are <a href="tic.html#steps">already implemented</a> into <em>tic</em>. The following vignette shows how new steps can be created and how <em>tic</em> defines them. Internally, all steps are defined as <a href="https://github.com/wch/R6">R6</a> classes. A step is an environment-like (or list-like) object with named members <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments.</p>
 <p>The base class of a step that is <code>TicStep</code>. All steps defined by tic, including the example <code>HelloWorld</code> step, use <code>TicStep</code> as the base class. See <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R"><code>steps-base.R</code></a> for the implementation. The <code>step_...</code> functions in tic are simply the <code>new()</code> methods of the corresponding R6 class objects. We recommend following the same pattern for your custom steps.</p>
 <p>Usually, there should be no need to write steps on your own. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/DSL.html">add_code_step()</a></code>, please let us know so in the repo by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a> so that we can discuss whether it makes sense to implement it as a custom step.</p>
 <p>In the following, we describe the three methods which the new step class must override:</p>
@@ -176,10 +176,18 @@
 <div id="further-information-on-the-r6-class-system" class="section level1">
 <h1 class="hasAnchor">
 <a href="#further-information-on-the-r6-class-system" class="anchor"></a>Further information on the R6 class system</h1>
-<p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed onto each function: Consider function <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R">step_rcmdcheck()</a>. The user input first goes into</p>
+<p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed onto each function: Consider the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R">link to source</a>):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">step_rcmdcheck &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">warnings_are_errors =</span> <span class="ot">TRUE</span>, <span class="dt">notes_are_errors =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">                           <span class="dt">args =</span> <span class="st">"--no-manual --as-cran"</span>) </a></code></pre></div>
-<p>Here, a new instance of the defined <code>R6</code> class “RCMDcheck” is initiated with <code>RCMDcheck$new()</code>. These arguments are then passed onto the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” objects (e.g. <code>private$args</code>). Next, the private objects are used in the <code>run()</code> function which does the actual work in the end. You can read more about <code>R6</code> in Hadley’s <a href="https://adv-r.hadley.nz/r6.html">book</a>.</p>
+<a class="sourceLine" id="cb4-2" data-line-number="2">                           <span class="dt">args =</span> <span class="kw">c</span>(<span class="st">"--no-manual"</span>, <span class="st">"--as-cran"</span>),</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">                           <span class="dt">build_args =</span> <span class="st">"--force"</span>) {</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  RCMDcheck<span class="op">$</span><span class="kw">new</span>(</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">warnings_are_errors =</span> warnings_are_errors,</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="dt">notes_are_errors =</span> notes_are_errors,</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="dt">args =</span> args,</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="dt">build_args =</span> build_args</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">  )</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">}</a></code></pre></div>
+<p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” objects (e.g. <code>private$args</code>). Next, the private objects are used in the <code>run()</code> function which does the actual work in the end. You can read more about <code>R6</code> in Hadley’s <a href="https://adv-r.hadley.nz/r6.html">book</a>.</p>
 </div>
   </div>
 
