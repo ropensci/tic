@@ -130,7 +130,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="initialization" class="section level1">
 <h1 class="hasAnchor">
 <a href="#initialization" class="anchor"></a>Initialization</h1>
-<p>The easiest way to use <code>tic</code> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created for Travis, using a private Github PAT variable. Read <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">here</a> why this is important. The PAT creation cannot be fully automated as some input from the user on Github is required when creating the PAT.</p>
+<p>The easiest way to use <em>tic</em> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created for Travis, using a private Github PAT variable. Read <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">here</a> why this is important. The PAT creation cannot be fully automated as some input from the user on Github is required when creating the PAT.</p>
 <p>First, authentication with Travis (a browser window opens) and Github is initiated (another browser window opens). Also, the repo is actived on Travis.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_ci</span>()</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">✔ Setting active project to <span class="st">'/home/pjs/git/tic.package'</span></a>
@@ -145,7 +145,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb1-11" data-line-number="11">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
 <a class="sourceLine" id="cb1-12" data-line-number="12">Authentication complete.</a>
 <a class="sourceLine" id="cb1-13" data-line-number="13">Finished activating repo pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a></code></pre></div>
-<p>Next, you will be asked if the current <code>.travis.yml</code> should be replaced with the template from <code>tic</code> (if one exists). Otherwise, the template is added without asking.</p>
+<p>Next, you will be asked if the current <code>.travis.yml</code> should be replaced with the template from <em>tic</em> (if one exists). Otherwise, the template is added without asking.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">Overwrite pre<span class="op">-</span>existing file <span class="st">'.travis.yml'</span>?</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Absolutely not</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="dv">2</span><span class="op">:</span><span class="st"> </span>Nope</a>
@@ -193,7 +193,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb7-8" data-line-number="8">Waiting <span class="cf">for</span> PAT to appear on the clipboard.</a>
 <a class="sourceLine" id="cb7-9" data-line-number="9">Detected PAT, clearing clipboard.</a>
 <a class="sourceLine" id="cb7-10" data-line-number="10">Finished adding private environment variable GITHUB_PAT to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a></code></pre></div>
-<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><code>usethis</code></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <code>travis</code> and <code>tic</code> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <code>tic</code> , <code>travis</code> and <code>usethis</code> work together.</p>
+<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><code>usethis</code></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <code>travis</code> and <em>tic</em> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <em>tic</em> , <code>travis</code> and <code>usethis</code> work together.</p>
 </div>
 <div id="explanation-of-the-basic-template" class="section level1">
 <h1 class="hasAnchor">
@@ -232,7 +232,7 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <div id="examples-projects" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples-projects" class="anchor"></a>Examples projects</h1>
-<p><code>tic</code> can be used for various R projects:</p>
+<p><em>tic</em> can be used for various R projects:</p>
 <ul>
 <li>
 <a href="https://github.com/krlmlr/tic.package">tic.package</a>: R packages</li>
@@ -259,21 +259,21 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <code>tic</code> is smart enough to detect your project automatically when calling <code>usethis::use_ci()</code> and will add the correct template.</p>
+<p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <em>tic</em> is smart enough to detect your project automatically when calling <code>usethis::use_ci()</code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 </div>
 <div id="advanced" class="section level1">
 <h1 class="hasAnchor">
 <a href="#advanced" class="anchor"></a>Advanced</h1>
-<p>The advanced usage of <code>tic</code> is described in more detail in the <a href="advanced.html">Advanced Usage</a> article:</p>
+<p>The advanced usage of <em>tic</em> is described in more detail in the <a href="advanced.html">Advanced Usage</a> article:</p>
 <ul>
 <li><a href="advanced.html#pkgdown-deployment">Options for <code>pkgdown</code> deployment</a></li>
 <li><a href="advanced.html#using-travis-ci-meta-information">Using Travis CI Meta-information</a></li>
-<li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Running <code>tic</code> locally</a></li>
+<li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Running <em>tic</em> locally</a></li>
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Enter into the Travis build</a></li>
 <li><a href="custom-steps.html">Writing custom steps</a></li>
 </ul>
-<p>The build lifecycle when using <code>tic</code> is explained in the <a href="build-lifecycle.html">Build lifecycle</a> article.</p>
+<p>The build lifecycle when using <em>tic</em> is explained in the <a href="build-lifecycle.html">Build lifecycle</a> article.</p>
 </div>
   </div>
 
