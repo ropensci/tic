@@ -32,7 +32,7 @@ If you test on multiple CI services you may also want to run certain tasks on on
 
 Take the execution of `covr::codecov()` as an example.
 This call generates a coverage report of how much lines of a R package are covered by unit tests.
-It has little benefit to run this on multiple R versions as the outcome will usually be the same. 
+It has little benefit to run this on different R versions as the outcome will usually be the same. 
 Also it increases the build time on every build without adding value.
 It is sufficient to just run it on one R version, e.g. "release".
 

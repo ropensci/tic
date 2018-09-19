@@ -44,7 +44,7 @@ For more information on automatic deployment in *tic*, take a look [here](deploy
 
 ## Support for various R projects
 
-*tic* was developed with the aim to not only simplify R package development using CI services but also to support many other R project types (bookdown, blogdown, drat, website and fighshare deployment). 
+*tic* was developed with the aim to not only simplify R package development using CI services but also to support other R project types (bookdown, blogdown, drat, website and fighshare deployment). 
 
 Each of these projects has its own standardized structure. 
 *tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `usethis::use_ci()`.

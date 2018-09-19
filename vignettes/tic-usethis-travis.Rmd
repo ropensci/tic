@@ -35,6 +35,6 @@ In summary, the interaction is as follows:
 
 - `usethis`: Package containing utility wrapper functions to simplify R package development, including `use_ci()`.
 
-- `travis`: Responsible for setting up all CI related stuff and taking care of permissions.
+- `travis`: Responsible for setting up all CI related tasks and taking care of permissions.
 
 - *tic*: Package to specify the CI workflow (which stages are run, which commands are used).
