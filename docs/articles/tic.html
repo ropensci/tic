@@ -67,10 +67,10 @@
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/deployment.html">Everything related to deployment</a>
+      <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Developer - custom steps</a>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
 </li>
@@ -117,14 +117,14 @@
 <li><a href="https://juliasilge.com/blog/beginners-guide-to-travis/" class="uri">https://juliasilge.com/blog/beginners-guide-to-travis/</a></li>
 <li><a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/" class="uri">http://mahugh.com/2016/09/02/travis-ci-for-test-automation/</a></li>
 </ul>
-<p>The advantages of using <code>tic</code> for R-related CI workflows are:</p>
-<ul>
-<li>CI-agnostic workflow definitions (in R!)</li>
-<li>Simplified deployment (e.g. automatic deployment of a <code>pkgdown</code> site for a R package)</li>
-<li>Improved package checking via <a href="https://github.com/r-lib/rcmdcheck">rcmdcheck</a>
-</li>
-<li>Robust caching approach</li>
-</ul>
+<p>The most important improvements over existing solutions are:</p>
+<ol style="list-style-type: decimal">
+<li><p>Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.</p></li>
+<li><p>Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. Set up your project to deploy rendered versions of your book or blog with a single push to Git.</p></li>
+<li><p>Workflow specification in a single <code>.R</code> file, regardless of CI system used.<br>
+Forget about <code>.yml</code> files or web browser configurations.</p></li>
+</ol>
+<p>Other minor advantages include the use of <code><a href="http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> for package checking a and robust caching approach of dependencies.</p>
 <p>A more comprehensive summary of all advantages can be found in the <a href="advantages.html">advantages</a> vignette.</p>
 </div>
 <div id="initialization" class="section level1">
@@ -160,7 +160,7 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">Selection<span class="op">:</span><span class="st"> </span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">✔ Writing <span class="st">'appveyor.yml'</span></a></code></pre></div>
-<p>And also for the <code>tic.R</code> file. Additionally, its added to <code>.Rbuildignore</code> to not interfer with the package building.</p>
+<p>And also for the <code>tic.R</code> file. Additionally, it is added to <code>.Rbuildignore</code> to not interfer with the package building.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">Overwrite tic.R? </a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Yes</a>
@@ -178,7 +178,7 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6">Successfully added public deploy key <span class="st">'travis+tic for pat-s/tic.package'</span> to GitHub <span class="cf">for</span> </a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">pat<span class="op">-</span>s<span class="op">/</span>tic.package. You should receive a confirmation e<span class="op">-</span>mail from GitHub. Delete the </a>
 <a class="sourceLine" id="cb5-8" data-line-number="8">key <span class="cf">in</span> the repository<span class="st">'s settings when you no longer need it.</span></a></code></pre></div>
-<p>Besides the private deploy key, also the public deploy key need to be added as an environment variable to Travis. As its a SSH key, its named <code>id_rsa</code> by default.</p>
+<p>Besides the private deploy key, also the public deploy key need to be added as an environment variable to Travis. As it is a SSH key, its named <code>id_rsa</code> by default.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Finished adding private environment variable id_rsa to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">Successfully added private deploy key to pat<span class="op">-</span>s<span class="op">/</span>tic.package as secure environment variable</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">id_rsa to Travis CI.</a></code></pre></div>
@@ -193,7 +193,7 @@
 <a class="sourceLine" id="cb7-8" data-line-number="8">Waiting <span class="cf">for</span> PAT to appear on the clipboard.</a>
 <a class="sourceLine" id="cb7-9" data-line-number="9">Detected PAT, clearing clipboard.</a>
 <a class="sourceLine" id="cb7-10" data-line-number="10">Finished adding private environment variable GITHUB_PAT to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a></code></pre></div>
-<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><code>usethis</code></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <code>travis</code> and <code>tic</code>. See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <code>tic</code>, <code>travis</code> and <code>usethis</code> work together.</p>
+<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><code>usethis</code></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <code>travis</code> and <code>tic</code> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <code>tic</code> , <code>travis</code> and <code>usethis</code> work together.</p>
 </div>
 <div id="explanation-of-the-basic-template" class="section level1">
 <h1 class="hasAnchor">
@@ -207,54 +207,64 @@
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb8-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
 <a class="sourceLine" id="cb8-10" data-line-number="10">}</a></code></pre></div>
 <p>Let’s break done what happens here:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">add_package_checks</a></span>(<span class="dt">warnings_are_errors =</span> (<span class="kw">getRversion</span>() <span class="op">&gt;=</span><span class="st"> "3.2"</span>))</a></code></pre></div>
 <p>Is a macro which adds essential steps to various stages of a CI run. For example, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. Check <code>?add_package_checks()</code> to see a list of all added steps by this convenience function.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">Sys.getenv</span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) { }</a></code></pre></div>
-<p>This line conditions its contents on the existence of the environment variable <code>"BUILD_PKGDOWN"</code>. The env variable is set in <a href="https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47"><code>.travis.yml</code></a>, conditioned on the job that runs on the current R-release version:</p>
+<p>This line conditions the contents of the block inside the braces <code>{ }</code> on the existence of the environment variable <code>"BUILD_PKGDOWN"</code>. The env variable is set in <a href="https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47"><code>.travis.yml</code></a>, conditioned on the job that runs on the current R-release version:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">-</span> <span class="fu">r:</span><span class="at"> 3.3</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">-</span> <span class="fu">r:</span><span class="at"> 3.4</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">-</span> <span class="fu">r:</span><span class="at"> release</span></a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">  <span class="fu">env:</span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="kw">-</span> BUILD_PKGDOWN=true</a></code></pre></div>
-<p>If the if-condition evaluates to <code>TRUE</code>, the following is executed: First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> sets up the SSH connection needed for deployment.</p>
+<p>If the <code>if</code>-condition evaluates to <code>TRUE</code>, the following is executed: First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> sets up the SSH connection needed for deployment.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a></code></pre></div>
-<p>Then, in the “deploy” stage of the CI run, function <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build a <a href="http://pkgdown.r-lib.org/"><code>pkgdown</code></a> site if the project is an R package.</p>
+<p>Then, in the “deploy” stage of the CI run, function <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build a <a href="http://pkgdown.r-lib.org/"><code>pkgdown</code></a> site if the project is an R package, and the <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step will push the updated files (if any) to Git.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 </div>
 <div id="examples-projects" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples-projects" class="anchor"></a>Examples projects</h1>
-<p><code>tic</code> can be used for various R projects (see below).</p>
+<p><code>tic</code> can be used for various R projects:</p>
 <ul>
-<li><a href="https://github.com/krlmlr/tic.blogdown">tic.blogdown</a></li>
-<li><a href="https://github.com/krlmlr/tic.bookdown">ŧic.bookdown</a></li>
-<li><a href="https://github.com/krlmlr/tic.drat">tic.drat</a></li>
-<li><a href="https://github.com/krlmlr/tic.package">tic.package</a></li>
-<li><a href="https://github.com/krlmlr/tic.website">tic.website</a></li>
 <li>
-<a href="https://github.com/krlmlr/tic.figshare">tic.figshare</a>.</li>
+<a href="https://github.com/krlmlr/tic.package">tic.package</a>: R packages</li>
+<li>
+<a href="https://github.com/krlmlr/tic.blogdown">tic.blogdown</a>: Blogs with <a href="https://bookdown.org/yihui/blogdown/"><em>blogdown</em></a>
+</li>
+<li>
+<a href="https://github.com/krlmlr/tic.bookdown">ŧic.bookdown</a>: Books with <a href="https://bookdown.org/"><em>bookdown</em></a>
+</li>
+<li>
+<a href="https://github.com/krlmlr/tic.drat">tic.drat</a>: CRAN-like package repositories with <a href="http://dirk.eddelbuettel.com/code/drat.html"><em>drat</em></a>
+</li>
+<li>
+<a href="https://github.com/krlmlr/tic.website">tic.website</a>: Websites with <a href="https://rmarkdown.rstudio.com/"><em>rmarkdown</em></a>
+</li>
+<li>
+<a href="https://github.com/krlmlr/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</li>
 </ul>
-<p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is a R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
+<p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>(), </a>
 <a class="sourceLine" id="cb14-3" data-line-number="3">                <span class="dt">prepare_call =</span> remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"rstudio/blogdown"</span>))</a></code></pre></div>
-<p>Then the website is build and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="http://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
+<p>Then the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="http://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>You see, steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <code>tic</code> is smart enough to detect your project automatically when calling <code>usethis::use_ci()</code> and will add the correct template.</p>
+<p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <code>tic</code> is smart enough to detect your project automatically when calling <code>usethis::use_ci()</code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 </div>
 <div id="advanced" class="section level1">
 <h1 class="hasAnchor">
 <a href="#advanced" class="anchor"></a>Advanced</h1>
-<p>The advanced usage of <code>tic</code> is described in more detail in article <a href="advanced.html">Advanced Usage</a>:</p>
+<p>The advanced usage of <code>tic</code> is described in more detail in the <a href="advanced.html">Advanced Usage</a> article:</p>
 <ul>
 <li><a href="advanced.html#pkgdown-deployment">Options for <code>pkgdown</code> deployment</a></li>
 <li><a href="advanced.html#using-travis-ci-meta-information">Using Travis CI Meta-information</a></li>
@@ -262,7 +272,7 @@
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Enter into the Travis build</a></li>
 <li><a href="custom-steps.html">Writing custom steps</a></li>
 </ul>
-<p>The build lifecycle when using <code>tic</code> is explained in detail <a href="build-lifecycle.html">here</a>.</p>
+<p>The build lifecycle when using <code>tic</code> is explained in the <a href="build-lifecycle.html">Build lifecycle</a> article.</p>
 </div>
   </div>
 

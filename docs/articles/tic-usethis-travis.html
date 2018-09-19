@@ -67,10 +67,10 @@
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/deployment.html">Everything related to deployment</a>
+      <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Developer - custom steps</a>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
 </li>
@@ -108,16 +108,16 @@
 
     
     
-<p>The following diagram shows how the packages <code>tic</code>, <code>travis</code> and <code>usethis</code> are connected:</p>
+<p>The following diagram shows how the packages <em>tic</em>, <code>travis</code> and <code>usethis</code> are connected:</p>
 <p><img src="img/tic-travis-usethis.png" style="display: block; margin: auto;"></p>
-<p>The <code>usethis</code> package holds all the utility wrapper functions to simplify R package development. From cloning a Github repo (<code>create_from_github()</code>) over using <code>roxygen2</code> for documentation purposes (<code>use_roxygen()</code>) to setting up CI for your package (<code>use_ci()</code>). The latter effectively calls a mixture of <code>travis</code> and <code>tic</code> functions that do the work in the background.</p>
+<p>The <code>usethis</code> package holds all the utility wrapper functions to simplify R package development. From cloning a Github repo (<code>create_from_github()</code>) over using <code>roxygen2</code> for documentation purposes (<code>use_roxygen()</code>) to setting up CI for your package (<code>use_ci()</code>). The latter effectively calls a mixture of <code>travis</code> and <em>tic</em> functions that do the work in the background.</p>
 <p>Most of the work that needs to be done for Travis is handled by the <code>travis</code> package. These are tasks like enabling the repo in <a href="travis-ci.org" class="uri">travis-ci.org</a>, setting up SSH deployment keys for your repo on Travis and others.</p>
-<p>After everything is set up, <code>usethis</code> and <code>travis</code> have done their jobs and the rest of the work goes to <code>tic</code>. By this we mean the handling of the actual CI workflow: Which steps are going to be run, how the deployment is handled and so on.</p>
+<p>After everything is set up, <code>usethis</code> and <code>travis</code> have done their jobs and the rest of the work goes to <em>tic</em>. By this we mean the handling of the actual CI workflow: Which steps are going to be run, how the deployment is handled and so on.</p>
 <p>In summary, the interaction is as follows:</p>
 <ul>
 <li><p><code>usethis</code>: Package containing utility wrapper functions to simplify R package development, including <code>use_ci()</code>.</p></li>
 <li><p><code>travis</code>: Responsible for setting up all CI related stuff and taking care of permissions.</p></li>
-<li><p><code>tic</code>: Package to specify the CI workflow (which stages are run, which commands are used).</p></li>
+<li><p><em>tic</em>: Package to specify the CI workflow (which stages are run, which commands are used).</p></li>
 </ul>
 </div>
 
