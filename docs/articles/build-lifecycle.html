@@ -252,7 +252,7 @@
 <div id="macros" class="section level3">
 <h3 class="hasAnchor">
 <a href="#macros" class="anchor"></a>Macros</h3>
-<p>Macros in <em>tic</em> are combinations of steps for reoccuring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/DSL.html">add_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
+<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/DSL.html">add_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
 <ol style="list-style-type: decimal">
 <li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the “script” stage, using the <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code> and <code>build_args</code> arguments.</p></li>
 <li><p>A call to <code><a href="http://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the “after_success” stage.</p></li>
