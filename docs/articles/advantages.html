@@ -125,7 +125,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="support-for-various-r-projects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#support-for-various-r-projects" class="anchor"></a>Support for various R projects</h2>
-<p><em>tic</em> was developed with the aim to not only simplify R package development using CI services but also to support many other R project types (bookdown, blogdown, drat, website and fighshare deployment).</p>
+<p><em>tic</em> was developed with the aim to not only simplify R package development using CI services but also to support other R project types (bookdown, blogdown, drat, website and fighshare deployment).</p>
 <p>Each of these projects has its own standardized structure. <em>tic</em> detects this structure and adds templates tailored towards this specific project type to the repository when calling <code>usethis::use_ci()</code>. See <a href="tic.html#example-projects">here</a> for a list of supported project types including links to minimal example repositories.</p>
 </div>
 <div id="ci-agnostic-workflows" class="section level2">
@@ -156,9 +156,9 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <ul>
 <li>Coloring of important steps, simplifying the readability of the log</li>
 <li>Enhanced and extended tracebacks of errors, especially errors in tests</li>
-<li>The whole check process is returned in a R object, making it easier to inspect eventual errros/warnings</li>
+<li>The whole check process is returned in a R object, making it easier to inspect eventual errors/warnings</li>
 </ul>
-<p>Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output ot the console early, omitting important information about the error.</p>
+<p>Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output of the console early, omitting important information about the error.</p>
 <p>Here is an short excerpt of the improved log output by <code>rcmdcheck</code> including an error message:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"></code></pre></div>
 </div>
