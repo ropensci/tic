@@ -15,10 +15,13 @@ knitr::opts_chunk$set(
   eval = FALSE
 )
 
-old.hooks = fansi::set_knit_hooks(knitr::knit_hooks)
 options(crayon.enabled = TRUE)
 
 library(tic)
+```
+
+```{r, comment="", results="asis", echo = FALSE}
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 ```
 
 # Running stages conditionally
