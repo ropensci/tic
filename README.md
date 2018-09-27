@@ -34,9 +34,9 @@ For more information see the [Getting started](https://ropenscilabs.github.io/ti
 
 ## Further reading
 
-- [Example projects](https://ropenscilabs/tic/articles/tic.html#examples)  
-- [Advanced usage](https://ropenscilabs/tic/articles/advanced.html)
-- [Developer information](https://ropenscilabs/tic/articles/custom-steps.html)
+- [Example projects](https://ropenscilabs.github.io/tic/articles/tic.html#examples)  
+- [Advanced usage](https://ropenscilabs.github.io/tic/articles/advanced.html)
+- [Developer information](https://ropenscilabs.github.io/tic/articles/custom-steps.html)
 
 ---
 
