@@ -84,9 +84,9 @@ So you are no longer dependent on the syntax and restrictions coming from [r.rb]
 
 As a R package developer you are most likely used to call `devtools::check()` or directly `R CMD check` on your built package.
 Usually also Travis will run `R CMD check` to check the R package.
-*tic* instead uses  [`rcmdcheck`](https://github.com/r-lib/rcmdcheck), which can be seen as a wrapper around `R CMD build` and `R CMD check`.
+*tic* instead uses  [*rcmdcheck*](https://github.com/r-lib/rcmdcheck), which can be seen as a wrapper around `R CMD build` and `R CMD check`.
 It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
-`rcmdcheck` comes with several enhancements:
+*rcmdcheck* comes with several enhancements:
 
 - Coloring of important steps, simplifying the readability of the log
 - Enhanced and extended tracebacks of errors, especially errors in tests
@@ -94,7 +94,7 @@ It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 
 Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output of the console early, omitting important information about the error. 
 
-Here is an short excerpt of the improved log output by `rcmdcheck` including an error message:
+Here is an short excerpt of the improved log output by *rcmdcheck* including an error message:
 
 ```r
 

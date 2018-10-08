@@ -39,7 +39,7 @@ This method will be called by `prepare_all_stages()`.
 It is intended to run in the `before_script` phase of the CI run.
 You should install all dependent packages here that the step requires, which then can be cached by the CI system.
 You also may include further preparation code here.
-For example `step_rcmdcheck` verifies that the R packages `rcmdcheck` and `remotes` are installed:
+For example `step_rcmdcheck` verifies that the R packages *rcmdcheck* and `remotes` are installed:
 
 ```{r}
 prepare = function() {
