@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Developer info: Writing custom steps • tic</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -38,7 +38,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -56,22 +56,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/advantages.html">Why you should use tic</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/advantages.html">The advantages of tic</a>
+      <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
-    </li>
-    <li>
-      <a href="../articles/deployment.html">How deployment works</a>
-    </li>
-    <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis - an overview</a>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
 </li>
@@ -96,19 +96,28 @@
 
       
       </header><div class="row">
-  <div class="col-md-9 contents">
+  <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Developer info: Writing custom steps</h1>
                         <h4 class="author">Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/custom-steps.Rmd"><code>vignettes/custom-steps.Rmd</code></a></small>
-      <div class="hidden name"><code>custom-steps.Rmd</code></div>
+      <!--The 'toc' block was inserted manually by @pat-s. It triggeres the inline ToC in the vignettes.-->
+            <div id="toc">
+      <h3 class="hasAnchor">
+<a href="#toc" class="anchor"></a>Table of Contents</h3>
+      <ul>
+<li><a href="#further-information-on-the-r6-class-system">Further information on the R6 class system</a></li>
+      </ul>
+</div>
+      
+      <small>Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/custom-steps.Rmd"><code>vignettes/custom-steps.Rmd</code></a></small>
 
     </div>
 
     
     
+<div class="contents">
 <p>Many important steps running on CI systems are <a href="tic.html#steps">already implemented</a> into <em>tic</em>. The following vignette shows how new steps can be created and how <em>tic</em> defines them. Internally, all steps are defined as <a href="https://github.com/wch/R6">R6</a> classes. A step is an environment-like (or list-like) object with named members <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments.</p>
 <p>The base class of a step that is <code>TicStep</code>. All steps defined by tic, including the example <code>HelloWorld</code> step, use <code>TicStep</code> as the base class. See <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R"><code>steps-base.R</code></a> for the implementation. The <code>step_...</code> functions in tic are simply the <code>new()</code> methods of the corresponding R6 class objects. We recommend following the same pattern for your custom steps.</p>
 <p>There should be no need to write steps on your own. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/DSL.html">add_code_step()</a></code>, please let us know so in the repo by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a> so that we can discuss whether it makes sense to implement it as a custom step.</p>
@@ -117,7 +126,7 @@
 <h3 class="hasAnchor">
 <a href="#prepare" class="anchor"></a><code>prepare()</code>
 </h3>
-<p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. You should install all dependent packages here that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <code>rcmdcheck</code> and <code>remotes</code> are installed:</p>
+<p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. You should install all dependent packages here that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <em>rcmdcheck</em> and <code>remotes</code> are installed:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">prepare =<span class="st"> </span><span class="cf">function</span>() {</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">verify_install</span>(<span class="kw">c</span>(<span class="st">"remotes"</span>, <span class="st">"rcmdcheck"</span>))</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  </a>
@@ -189,6 +198,7 @@
 <a class="sourceLine" id="cb4-9" data-line-number="9">  )</a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">}</a></code></pre></div>
 <p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” objects (e.g. <code>private$args</code>). Next, the private objects are used in the <code>run()</code> function which does the actual work in the end. You can read more about <code>R6</code> in Hadley’s <a href="https://adv-r.hadley.nz/r6.html">book</a>.</p>
+</div>
 </div>
   </div>
 

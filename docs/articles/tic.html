@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting started with CI for R • tic</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -38,7 +38,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -56,22 +56,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/advantages.html">Why you should use tic</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/advantages.html">The advantages of tic</a>
+      <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
-    </li>
-    <li>
-      <a href="../articles/deployment.html">How deployment works</a>
-    </li>
-    <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis - an overview</a>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
 </li>
@@ -96,19 +96,36 @@
 
       
       </header><div class="row">
-  <div class="col-md-9 contents">
+  <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Getting started with CI for R</h1>
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
-      <div class="hidden name"><code>tic.Rmd</code></div>
+      <!--The 'toc' block was inserted manually by @pat-s. It triggeres the inline ToC in the vignettes.-->
+            <div id="toc">
+      <h3 class="hasAnchor">
+<a href="#toc" class="anchor"></a>Table of Contents</h3>
+      <ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#initialization">Initialization</a></li>
+      <li><a href="#explanation-of-the-basic-template">Explanation of the basic template</a></li>
+      <li>
+<a href="#examples-projects">Examples projects</a><ul>
+<li><a href="#tic-based-r-projects-from-the-community"><em>tic</em> based R projects from the community</a></li>
+      </ul>
+</li>
+      <li><a href="#advanced">Advanced</a></li>
+      </ul>
+</div>
+      
+      <small>Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
 
     </div>
 
     
     
+<div class="contents">
 <div id="prerequisites" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
@@ -194,7 +211,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb7-8" data-line-number="8">Waiting <span class="cf">for</span> PAT to appear on the clipboard.</a>
 <a class="sourceLine" id="cb7-9" data-line-number="9">Detected PAT, clearing clipboard.</a>
 <a class="sourceLine" id="cb7-10" data-line-number="10">Finished adding private environment variable GITHUB_PAT to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a></code></pre></div>
-<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><code>usethis</code></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <code>travis</code> and <em>tic</em> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <em>tic</em> , <code>travis</code> and <code>usethis</code> work together.</p>
+<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><em>usethis</em></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <em>travis</em> and <em>tic</em> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <em>tic</em> , <em>travis</em> and <em>usethis</em> work together.</p>
 </div>
 <div id="explanation-of-the-basic-template" class="section level1">
 <h1 class="hasAnchor">
@@ -262,6 +279,28 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <em>tic</em> is smart enough to detect your project automatically when calling <code>usethis::use_ci()</code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
+<div id="tic-based-r-projects-from-the-community" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tic-based-r-projects-from-the-community" class="anchor"></a><em>tic</em> based R projects from the community</h2>
+<p>The templates we provide with <em>tic</em> are minimal working examples. In the following we list various R projects with non-standard/tailored <em>tic</em>-based workflows. You may find inspiration for your own project there. (Please contact us if you want to add yours to the list!)</p>
+<div id="packages" class="section level3">
+<h3 class="hasAnchor">
+<a href="#packages" class="anchor"></a>Packages</h3>
+<ul>
+<li><a href="https://github.com/mlr-org/mlr">mlr</a></li>
+<li><a href="https://github.com/r-spatial/sf">sf</a></li>
+<li><a href="https://github.com/r-dbi/DBI">dbi</a></li>
+</ul>
+</div>
+<div id="bookdown" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bookdown" class="anchor"></a>Bookdown</h3>
+</div>
+<div id="blogdown" class="section level3">
+<h3 class="hasAnchor">
+<a href="#blogdown" class="anchor"></a>Blogdown</h3>
+</div>
+</div>
 </div>
 <div id="advanced" class="section level1">
 <h1 class="hasAnchor">
@@ -276,6 +315,7 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 </ul>
 <p>The build lifecycle when using <em>tic</em> is explained in the <a href="build-lifecycle.html">Build lifecycle</a> article.</p>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -286,7 +326,11 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#initialization">Initialization</a></li>
       <li><a href="#explanation-of-the-basic-template">Explanation of the basic template</a></li>
-      <li><a href="#examples-projects">Examples projects</a></li>
+      <li>
+<a href="#examples-projects">Examples projects</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#tic-based-r-projects-from-the-community"><em>tic</em> based R projects from the community</a></li>
+      </ul>
+</li>
       <li><a href="#advanced">Advanced</a></li>
       </ul>
 </div>
