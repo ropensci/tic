@@ -23,7 +23,7 @@ RCMDcheck <- R6Class(
 
   public = list(
     initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                          args = "--as-cran", build_args = "--force") {
+                          args = c("--no-manual", "--as-cran"), build_args = "--force") {
       private$warnings_are_errors <- warnings_are_errors
       private$notes_are_errors <- notes_are_errors
       private$args <- args

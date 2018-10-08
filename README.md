@@ -41,11 +41,11 @@ See the [Getting Started](https://ropenscilabs/tic/articles/tic.html) vignette f
 
 ## Vignettes
 
-- [Advanced usage](https://ropenscilabs/tic/articles/advanced.html)
-- [Build lifecycle](https://ropenscilabs/tic/articles/build-lifecycle.html)
-- [tic advantages](https://ropenscilabs/tic/articles/advantages.html)
-- [tic, travis and usethis](https://ropenscilabs/tic/articles/tic-usethis-travis.html)
-- [Developer information](https://ropenscilabs/tic/articles/custom-steps.html)
+- [Advanced usage](https://ropenscilabs.github.io/tic/articles/advanced.html)
+- [Build lifecycle](https://ropenscilabs.github.io/tic/articles/build-lifecycle.html)
+- [tic advantages](https://ropenscilabs.github.io/tic/articles/advantages.html)
+- [tic, travis and usethis](https://ropenscilabs.github.io/tic/articles/tic-usethis-travis.html)
+- [Developer information](https://ropenscilabs.github.io/tic/articles/custom-steps.html)
 
 ---
 
