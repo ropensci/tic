@@ -100,7 +100,7 @@ See [the vignette about deployment](deployment.html) for more information.
 Steps are the commands that are executed in each stage.
 *tic* uses the [pipe operator](https://magrittr.tidyverse.org/) to and the `add_step()` function to chain steps in `tic.R`, for example
 
-```r
+```{r eval = FALSE}
 get_stage("deploy") %>%
   add_step(step_build_pkgdown())
 ```

@@ -14,14 +14,6 @@ knitr::opts_chunk$set(
   comment = "#>",
   eval = FALSE
 )
-
-options(crayon.enabled = TRUE)
-
-library(tic)
-```
-
-```{r, comment="", results="asis", echo = FALSE}
-old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 ```
 
 # Running stages conditionally
@@ -39,7 +31,7 @@ It is sufficient to just run it on one R version, e.g. "release".
 When you use multiple R versions, Travis/Appveyor automatically set up a build matrix with each build having [set an environment variable for the R version](https://docs.travis-ci.com/user/languages/r/#Environment-Variables) used.
 So all you need to do is to condition the stage execution on this env variable:
 
-```r
+```{r eval = FALSE}
 if ((getRversion() == "release")) {
   get_stage("after_success") %>%
     add_step(covr::codecov())
@@ -50,7 +42,7 @@ A special use case here would be to evaluate the R version inside an argument of
 Here, we set `warnings_are_errors = TRUE` for `getRversion() >= "3.2")`.
 Of course this only has an effect if testing on `getRversion() >= "3.2")` is actually specified in `.travis.yml` (see [here](https://github.com/ropenscilabs/tic/blob/36a1b88797e8eb7218cfb767b65490452d47ad8e/.travis.yml#L39-L45) for an example).
 
-```{r}
+```{r eval = FALSE}
 add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
 ```
 
@@ -59,7 +51,7 @@ So steps are not overwritten but incrementally added, even if specified multiple
 
 Another condition that comes in handy is to run certain stages only on a specific CI service, e.g. Travis:
 
-```r
+```{r eval = FALSE}
 if (inherits(ci(), "TravisCI") {
   get_stage("after_success") %>%
     add_step(covr::codecov())
@@ -81,7 +73,7 @@ One could be the requirement of the _magick_ package for a successful favicon cr
 
 Github packages should be installed in the `install` stage:
 
-```r
+```{r eval = FALSE}
 get_stage("install") %>%
   add_step(step_install_github("r-lib/rcmdcheck"))
 ```
@@ -94,7 +86,7 @@ Sometimes you need to install CRAN packages that are not specified in the DESCRI
 For example, to create a favicon in `pkgdown`, the `magick` package is required.
 To install the package (only if it does not exist in the cache already), run the following:
 
-```r
+```{r eval = FALSE}
 get_stage("install") %>%
   add_step(step_install_cran("magick"))
 ```
@@ -106,7 +98,7 @@ It can be used to query information that can be again be utilized for conditioni
 
 For example, the user may wish to only deploy on Travis by using `inherits(ci(), "TravisCI")`:
 
-```r
+```{r eval = FALSE}
 if (inherits(ci(), "TravisCI")) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
@@ -133,7 +125,7 @@ Here is a preview of the first two stages:
 load_from_file()
 ```
 
-```r
+```{r eval=FALSE}
 $before_install
 <Stage>
   Public:
@@ -225,7 +217,7 @@ First, you need to query the overall "Build ID" of the run:
 travis::travis_get_builds()
 ```
 
-```
+```{sh eval = FALSE}
 A collection of 25 Travis CI builds:
 - id: 416858821, number: 342, state: errored, duration: 3820, event_type: push, ...
 - id: 416834229, number: 341, state: errored, duration: 3738, event_type: push, ...
@@ -242,7 +234,7 @@ build_id <- travis::travis_get_builds()[[1]]$id
 travis::travis_get_jobs(build_id)
 ```
 
-```
+```{sh eval = FALSE}
 A collection of 7 Travis CI jobs:
 - id: 416858822, allow_failure: FALSE, number: 342.1, state: passed, started_at: 2018-08-16T15:02:52Z, ...
 - id: 416858823, allow_failure: FALSE, number: 342.2, state: passed, started_at: 2018-08-16T15:02:18Z, ...
@@ -258,7 +250,7 @@ job_id <- travis::travis_get_jobs(build_id)[[1]]$id
 travis::travis_debug_job(job_id)
 ```
 
-```
+```{sh eval = FALSE}
 Finished restarting debug job 416983664 from Travis CI.
 ```
 
@@ -268,7 +260,7 @@ If you still do not want to use the browser manually, simple call `travis::brows
 
 Once you are in the build you can use `bash` functions defined by Travis to to execute specific stages:
 
-```sh
+```{sh eval = FALSE}
 travis_run_before_install
 travis_run_install
 travis_run_before_script

@@ -41,7 +41,7 @@ You should install all dependent packages here that the step requires, which the
 You also may include further preparation code here.
 For example `step_rcmdcheck` verifies that the R packages *rcmdcheck* and `remotes` are installed:
 
-```{r}
+```{r eval = FALSE}
 prepare = function() {
   verify_install(c("remotes", "rcmdcheck"))
   
@@ -62,7 +62,7 @@ This method holds the commands that execute the essential calls in the end.
 It is called when a new element of that step class is created, e.g. `RCMDcheck$new`.
 For example, the `run()` function of class `RCMDcheck` looks as follows:
 
-```{r}
+```{r eval = FALSE}
 run = function() {
 res <- rcmdcheck::rcmdcheck(args = private$args)
   print(res)
@@ -84,7 +84,7 @@ The most minimalist version is the "Hello World" [example step](https://github.c
 This new class only contains a `run()` function which does nothing more than printing "Hello World" to the console.
 It is initialized by calling `step_hello_world()` which creates a new instances of this class.
 
-```{r}
+```{r eval = FALSE}
 HelloWorld <- R6Class(
   "HelloWorld", inherit = TicStep,
 
@@ -114,7 +114,7 @@ step_hello_world <- function() {
 If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed onto each function:
 Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R)):
 
-```{r}
+```{r eval = FALSE}
 step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
                            args = c("--no-manual", "--as-cran"),
                            build_args = "--force") {

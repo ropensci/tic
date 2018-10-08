@@ -13,8 +13,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-old.hooks = fansi::set_knit_hooks(knitr::knit_hooks)
-options(crayon.enabled = TRUE)
 ```
 
 *tic* handles the deployment as follows:
@@ -43,7 +41,7 @@ To not waste time on updating the site manually, *tic* takes care of an automati
 As an example, we show you how *tic* deploys on Travis.
 In the `.travis.yml` file: 
 
-```yml
+```{yml eval = FALSE}
 before_deploy: R -q -e 'tic::before_deploy()'
 deploy:
   provider: script
@@ -58,7 +56,7 @@ Let's break down what happens here:
 
     By default this stage looks like
 
-    ```r
+    ```{r eval = FALSE}
     if (Sys.getenv("BUILD_PKGDOWN") != "") {
       get_stage("before_deploy") %>%
         add_step(step_setup_ssh())
@@ -79,7 +77,7 @@ Let's break down what happens here:
 
     With the default template of `tic.R`, the following will be executed:
 
-    ```r
+    ```{r eval = FALSE}
     get_stage("deploy") %>%
       add_step(step_build_pkgdown()) %>% 
       add_step(step_push_deploy())
@@ -133,7 +131,7 @@ In the following we show an example for each the *tic* way as this is the sugges
 
 Set the env variable `BUILD_PKGDOWN` in `.travis.yml` and add the condition in `tic.R` to only run the deploy stage when this env variable evaluates to TRUE:
 
-```yml
+```{yml eval = FALSE}
 jobs:
   include:
     - stage: stage1
@@ -157,7 +155,7 @@ jobs:
 
 `tic.R`:
 
-```r
+```{r eval = FALSE}
 if (Sys.getenv("id_rsa") != "") {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
@@ -177,7 +175,7 @@ This can be very useful for conditionally pushing documentation files like `NEWS
 First, you need to make sure these files are created correctly by calling `devtools::document()`.
 Then, simply add the desired paths to argument `commit_paths` in `step_push_deploy()` and push to your desired branch (here `master`):
 
-```r
+```{r eval = FALSE}
 get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 

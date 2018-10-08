@@ -156,7 +156,7 @@ If you want more information about the whole build lifecycle, check the [Build l
 
 The basic `tic.R` template looks as follows:
 
-```r
+```{r eval = FALSE}
 add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
 
 if (Sys.getenv("BUILD_PKGDOWN") != "") {
@@ -171,7 +171,7 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") {
 
 Let's break done what happens here:
 
-```r
+```{r eval = FALSE}
 add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
 ```
 
@@ -179,14 +179,14 @@ Is a macro which adds essential steps to various stages of a CI run.
 For example, it adds `step_rcmdcheck()` to the "script" stage. 
 Check `?add_package_checks()` to see a list of all added steps by this convenience function.
 
-```r
+```{r eval = FALSE}
 if (Sys.getenv("BUILD_PKGDOWN") != "") { }
 ```
 
 This line conditions the contents of the block inside the braces `{ }` on the existence of the environment variable `"BUILD_PKGDOWN"`.
 The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, conditioned on the job that runs on the current R-release version:
 
-```yml
+```{yml eval = FALSE}
 - r: 3.3
 - r: 3.4
 - r: release
@@ -197,14 +197,14 @@ The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/t
 When the `if`-condition evaluates to `TRUE`, the following gets executed:  
 First, `step_setup_ssh()` sets up the SSH connection needed for deployment.
 
-```r
+```{r eval = FALSE}
 get_stage("before_deploy") %>%
   add_step(step_setup_ssh())
 ```
 
 Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [`pkgdown`](http://pkgdown.r-lib.org/) site if the project is an R package, and the `step_push_deploy()` step will push the updated files (if any) to Git.
 
-```r
+```{r eval = FALSE}
 get_stage("deploy") %>%
   add_step(step_build_pkgdown()) %>% 
   add_step(step_push_deploy())
@@ -225,7 +225,7 @@ As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
 Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
 
-```r
+```{r eval = FALSE}
 get_stage("install") %>%
   add_code_step(blogdown::install_hugo(), 
                 prepare_call = remotes::install_github("rstudio/blogdown"))
@@ -234,7 +234,7 @@ get_stage("install") %>%
 Then the website is built and deployed.
 The `blogdown::build_site()` function for websites is the equivalent to `pkgdown::build_site()` for R packages.
 
-```r
+```{r eval = FALSE}
 get_stage("deploy") %>%
     add_code_step(blogdown::build_site()) %>%
     add_step(step_push_deploy())
