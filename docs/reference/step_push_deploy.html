@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,6 +30,8 @@
 
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 <meta property="og:title" content="Step: Setup and perform push deploy — step_push_deploy" />
 
 <meta property="og:description" content="Clones a repo, inits author information, sets up remotes,
@@ -73,7 +75,7 @@ and step_do_push_deploy()." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -91,22 +93,22 @@ and step_do_push_deploy()." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/advantages.html">Why you should use tic</a>
-    </li>
-    <li>
-      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
-    </li>
-    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/deployment.html">Deployment</a>
+      <a href="../articles/advantages.html">The advantages of tic</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
+    </li>
+    <li>
+      <a href="../articles/deployment.html">How deployment works</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis - an overview</a>
     </li>
   </ul>
 </li>
@@ -232,7 +234,7 @@ and create the files to be deployed inbetween these steps.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://krlmlr.info'>Kirill Müller</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
