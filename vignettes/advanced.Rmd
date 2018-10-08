@@ -174,6 +174,36 @@ Note that doing this will of course use your local system libraries and not the 
 
 Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `add_package_checks()`.
 
+```{r, eval = FALSE}
+tic::tic()
+Running script: step_rcmdcheck(warnings_are_errors = warnings_are_errors, notes_are_errors = notes_are_errors, args = args, build_args = build_args)
+── R CMD build ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+✔  checking for file ‘.../DESCRIPTION’ ...
+─  preparing ‘tic’:
+✔  checking DESCRIPTION meta-information ...
+─  installing the package to build vignettes
+✔  creating vignettes (6.6s)
+   Warning: ‘inst/doc’ file
+       ‘tic-usethis-travis.R’
+     ignored as vignettes have been rebuilt.
+     Run R CMD build with --no-build-vignettes to prevent rebuilding.
+─  checking for LF line-endings in source and make files and shell scripts
+─  checking for empty or unneeded directories
+─  building ‘tic_0.2.13.9010.tar.gz’
+   
+── R CMD check ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─  using log directory ‘/tmp/RtmpM4zdgT/file12d42bb00e56/tic.Rcheck’ (1.2s)
+─  using R version 3.5.1 (2018-07-02)
+─  using platform: x86_64-pc-linux-gnu (64-bit)
+─  using session charset: UTF-8
+─  using options ‘--no-manual --as-cran’
+✔  checking for file ‘tic/DESCRIPTION’
+─  checking extension type ... Package
+─  this is package ‘tic’ version ‘0.2.13.9010’
+─  package encoding: UTF-8
+[...]
+```
+
 # Troubleshooting: Entering the CI build
 
 If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via SSH.
