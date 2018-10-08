@@ -1,6 +1,7 @@
 template:
   params:
     bootswatch: cosmo # https://gallery.shinyapps.io/117-shinythemes/
+  path: pkgdown/templates
 
 reference:
 - title: DSL
