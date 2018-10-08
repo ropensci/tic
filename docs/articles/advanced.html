@@ -6,10 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced usage • tic</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Advanced usage">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Advanced usage">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -37,7 +38,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -55,22 +56,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/advantages.html">Why you should use tic</a>
-    </li>
-    <li>
-      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
-    </li>
-    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/deployment.html">Deployment</a>
+      <a href="../articles/advantages.html">The advantages of tic</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
+    </li>
+    <li>
+      <a href="../articles/deployment.html">How deployment works</a>
+    </li>
+    <li>
+      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis - an overview</a>
     </li>
   </ul>
 </li>
@@ -209,6 +210,33 @@
 <a href="#emulate-a-ci-run-locally" class="anchor"></a>Emulate a CI run locally</h2>
 <p>To emulate a real CI run locally, you can call <code><a href="../reference/tic.html">tic()</a></code> and the stages and steps will be executed in your local R console. Note that doing this will of course use your local system libraries and not the CI environment.</p>
 <p>Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/DSL.html">add_step(covr::codcov())</a></code> added by <code><a href="../reference/DSL.html">add_package_checks()</a></code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tic/topics/tic">tic</a></span>()</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">Running script<span class="op">:</span><span class="st"> </span><span class="kw"><a href="../reference/step_rcmdcheck.html">step_rcmdcheck</a></span>(<span class="dt">warnings_are_errors =</span> warnings_are_errors, <span class="dt">notes_are_errors =</span> notes_are_errors, <span class="dt">args =</span> args, <span class="dt">build_args =</span> build_args)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">── R CMD build ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">✔  checking <span class="cf">for</span> file ‘...<span class="op">/</span>DESCRIPTION’ ...</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">─  preparing ‘tic’<span class="op">:</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">✔  checking DESCRIPTION meta<span class="op">-</span>information ...</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">─  installing the package to build vignettes</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">✔  creating <span class="kw">vignettes</span> (<span class="fl">6.6</span>s)</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">   Warning<span class="op">:</span><span class="st"> </span>‘inst<span class="op">/</span>doc’ file</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">       ‘tic<span class="op">-</span>usethis<span class="op">-</span>travis.R’</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">     ignored as vignettes have been rebuilt.</a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">     Run R CMD build with <span class="op">--</span>no<span class="op">-</span>build<span class="op">-</span>vignettes to prevent rebuilding.</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">─  checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files and shell scripts</a>
+<a class="sourceLine" id="cb9-14" data-line-number="14">─  checking <span class="cf">for</span> empty or unneeded directories</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15">─  building ‘tic_<span class="dv">0</span>.<span class="dv">2</span>.<span class="dv">13</span>.<span class="fl">9010.</span>tar.gz’</a>
+<a class="sourceLine" id="cb9-16" data-line-number="16">   </a>
+<a class="sourceLine" id="cb9-17" data-line-number="17">── R CMD check ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</a>
+<a class="sourceLine" id="cb9-18" data-line-number="18">─  using log directory ‘<span class="op">/</span>tmp<span class="op">/</span>RtmpM4zdgT<span class="op">/</span>file12d42bb00e56<span class="op">/</span>tic.Rcheck’ (<span class="fl">1.2</span>s)</a>
+<a class="sourceLine" id="cb9-19" data-line-number="19">─  using R version <span class="dv">3</span>.<span class="fl">5.1</span> (<span class="dv">2018-07-02</span>)</a>
+<a class="sourceLine" id="cb9-20" data-line-number="20">─  using platform<span class="op">:</span><span class="st"> </span>x86_<span class="dv">64</span><span class="op">-</span>pc<span class="op">-</span>linux<span class="op">-</span><span class="kw">gnu</span> (<span class="dv">64</span><span class="op">-</span>bit)</a>
+<a class="sourceLine" id="cb9-21" data-line-number="21">─  using session charset<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb9-22" data-line-number="22">─  using options ‘<span class="op">--</span>no<span class="op">-</span>manual <span class="op">--</span>as<span class="op">-</span>cran’</a>
+<a class="sourceLine" id="cb9-23" data-line-number="23">✔  checking <span class="cf">for</span> file ‘tic<span class="op">/</span>DESCRIPTION’</a>
+<a class="sourceLine" id="cb9-24" data-line-number="24">─  checking extension type ... Package</a>
+<a class="sourceLine" id="cb9-25" data-line-number="25">─  this is package ‘tic’ version ‘<span class="dv">0</span>.<span class="dv">2</span>.<span class="fl">13.9010</span>’</a>
+<a class="sourceLine" id="cb9-26" data-line-number="26">─  package encoding<span class="op">:</span><span class="st"> </span>UTF<span class="dv">-8</span></a>
+<a class="sourceLine" id="cb9-27" data-line-number="27">[...]</a></code></pre></div>
 </div>
 </div>
 <div id="troubleshooting-entering-the-ci-build" class="section level1">
@@ -218,7 +246,7 @@
 <p>All it needs is the “Job ID” of the respective build you want to enter.</p>
 <p><img src="img/travis-job-id.png" style="display: block; margin: auto;"></p>
 <p>Rather than going to the web interface and getting the “Job ID” there, you can also do it from the command line. First, you need to query the overall “Build ID” of the run:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_builds</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_builds</a></span>()</a></code></pre></div>
 <pre><code>A collection of 25 Travis CI builds:
 - id: 416858821, number: 342, state: errored, duration: 3820, event_type: push, ...
 - id: 416834229, number: 341, state: errored, duration: 3738, event_type: push, ...
@@ -226,8 +254,8 @@
 - id: 416107143, number: 339, state: errored, duration: 3670, event_type: push, ...
 - id: 416095854, number: 338, state: passed, duration: 3135, event_type: push, ...</code></pre>
 <p>Because every “build” has multiple “Jobs”, you can now query the “Job ID”. For example, when you know that you want to enter the latest build, you can combine both commands:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">build_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_builds</a></span>()[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_jobs</a></span>(build_id)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">build_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_builds</a></span>()[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_jobs</a></span>(build_id)</a></code></pre></div>
 <pre><code>A collection of 7 Travis CI jobs:
 - id: 416858822, allow_failure: FALSE, number: 342.1, state: passed, started_at: 2018-08-16T15:02:52Z, ...
 - id: 416858823, allow_failure: FALSE, number: 342.2, state: passed, started_at: 2018-08-16T15:02:18Z, ...
@@ -235,18 +263,18 @@
 - id: 416858825, allow_failure: FALSE, number: 342.4, state: passed, started_at: 2018-08-16T15:02:23Z, ...
 - id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...</code></pre>
 <p>Finally, the build can be entered by calling <code><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis::travis_debug_job()</a></code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">job_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_jobs</a></span>(build_id)[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_debug_job</a></span>(job_id)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">job_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_jobs</a></span>(build_id)[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_debug_job</a></span>(job_id)</a></code></pre></div>
 <pre><code>Finished restarting debug job 416983664 from Travis CI.</code></pre>
 <p>Wait a few minutes until the build arrives at the point when it tells you the SSH command you can use to enter the build. It should look similar to <code>ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io</code>. If you still do not want to use the browser manually, simple call <code>travis::browse()</code> to open your project on Travis.</p>
 <p>Once you are in the build you can use <code>bash</code> functions defined by Travis to to execute specific stages:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="ex">travis_run_before_install</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="ex">travis_run_install</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="ex">travis_run_before_script</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="ex">travis_run_script</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="ex">travis_run_after_success</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="ex">travis_run_after_failure</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="ex">travis_run_after_script</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="ex">travis_run_before_install</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">travis_run_install</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="ex">travis_run_before_script</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="ex">travis_run_script</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="ex">travis_run_after_success</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="ex">travis_run_after_failure</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="ex">travis_run_after_script</span></a></code></pre></div>
 <p>The debug session is a VM running a <a href="https://tmate.io/"><code>tmate</code></a> session. You can use some shortcuts to act in the VM:</p>
 <ul>
 <li>Create multiple windows with <code>crtl-b c</code>.<br>
@@ -297,7 +325,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://krlmlr.info">Kirill Müller</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
