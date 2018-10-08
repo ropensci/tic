@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: flatly # https://bootswatch.com/flatly/
+    bootswatch: cosmo # https://gallery.shinyapps.io/117-shinythemes/
 
 reference:
 - title: DSL
