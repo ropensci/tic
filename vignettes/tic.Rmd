@@ -143,9 +143,9 @@ Detected PAT, clearing clipboard.
 Finished adding private environment variable GITHUB_PAT to pat-s/tic.package on Travis CI.
 ```
 
-All this functionality is integrated in the [`usethis`](http://usethis.r-lib.org/) package because it contains various other useful `use_*` functions that simplify R (package) development.
-However, the heavy lifting in the background is actually done by the R packages `travis` and *tic* . 
-See [here](tic-usethis-travis.html) for more detailed information on how *tic* , `travis` and `usethis` work together.
+All this functionality is integrated in the [*usethis*](http://usethis.r-lib.org/) package because it contains various other useful `use_*` functions that simplify R (package) development.
+However, the heavy lifting in the background is actually done by the R packages *travis* and *tic* . 
+See [here](tic-usethis-travis.html) for more detailed information on how *tic* , *travis* and *usethis* work together.
 
 # Explanation of the basic template
 

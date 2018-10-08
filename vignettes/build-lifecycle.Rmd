@@ -131,7 +131,7 @@ Please see the respective help pages of the functions for more detailed document
     
 ##### Deployment
 
-- `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by [`usethis`](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
+- `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by [*usethis*](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
 - `step_test_ssh()`: test the SSH connection to GitHub, helps troubleshooting deploy problems
 - `step_setup_ssh()`: Adds to known hosts, installs private key, and tests the connection
 - `step_setup_push_deploy()`: Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`
