@@ -13,9 +13,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-old.hooks = fansi::set_knit_hooks(knitr::knit_hooks)
-options(crayon.enabled = TRUE)
 ```
 
 So, what's the advantage of using *tic* over the standard CI process?
@@ -96,8 +93,57 @@ Especially the extended log printing of errors on the CI service is a huge advan
 
 Here is an short excerpt of the improved log output by *rcmdcheck* including an error message:
 
-```r
+```{r eval = FALSE}
+R CMD check ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─  using log directory ‘/tmp/RtmpM4zdgT/file12d469173dd1/tic.Rcheck’ (581ms)
+─  using R version 3.5.1 (2018-07-02)
+─  using platform: x86_64-pc-linux-gnu (64-bit)
+─  using session charset: UTF-8
+─  using options ‘--no-manual --as-cran’
+✔  checking for file ‘tic/DESCRIPTION’
+─  checking extension type ... Package
+─  this is package ‘tic’ version ‘0.2.13.9010’
+─  package encoding: UTF-8
+N  checking CRAN incoming feasibility (59.7s)
+   Maintainer: ‘Kirill Müller <krlmlr+r@mailbox.org>’
+   
+   New submission
+   
+   Version contains large components (0.2.13.9010)
+   
+   Unknown, possibly mis-spelled, fields in DESCRIPTION:
+     ‘Remotes’
+   
+   Suggests or Enhances not in mainstream repositories:
+     travis
+   
+✔  checking package namespace information
+E  checking package dependencies (806ms)
+   Package suggested but not available: ‘drat’
+   
+   
+   See
+     ‘/tmp/RtmpM4zdgT/file12d469173dd1/tic.Rcheck/00check.log’
+   for details.
+   
+   The suggested packages are required for a complete check.
+   Checking can be attempted without them by setting the environment
+   variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+   
+   See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+   manual.
+── R CMD check results ───────────────────────────────────────────────────────────────────────────────────────────────────────────── tic 0.2.13.9010 ────
+Duration: 1m 1.3s
 
+❯ checking package dependencies ... ERROR
+  Package suggested but not available: ‘drat’
+  
+  The suggested packages are required for a complete check.
+  Checking can be attempted without them by setting the environment
+  variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+  
+  See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+  manual.
 ```
 
 ## Caching of packages
@@ -119,7 +165,7 @@ To make sure that you have no syntax errors in your `tic.R` file, all you need t
 In case you have errors, you will see them directly.
 For example, removing a closing bracket on purpose in `tic.R` would return the following when calling `load_from_file()`:
 
-```r
+```{r eval = FALSE}
 load_from_file()
 Error in source(path, local = dsl) : tic.R:16:1: unexpected '}'
 15:     add_step(step_push_deploy())
