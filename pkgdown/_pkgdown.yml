@@ -1,0 +1,51 @@
+template:
+  params:
+    bootswatch: flatly # https://bootswatch.com/flatly/
+
+reference:
+- title: DSL
+  contents:
+  - tic-package
+  - DSL
+- title: Steps
+  contents:
+  - TicStep
+  - starts_with("step_")
+  - ci
+- title: Running
+  contents:
+  - tic
+  - stages
+  - load_from_file
+  - prepare_all_stages
+  - run_stage
+- title: Serialization
+  contents:
+  - starts_with("base64")
+
+navbar:
+  title:
+  type: default
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Get started
+    href: articles/tic.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Why you should use tic
+      href: articles/advantages.html
+    - text: The CI build lifecycle
+      href: articles/build-lifecycle.html
+    - text: tic, travis and usethis
+      href: articles/tic-usethis-travis.html
+    - text: Advanced usage
+      href: articles/advanced.html
+    - text: Deployment
+      href: articles/deployment.html
+    - text: Custom steps
+      href: articles/custom-steps.html
+  - text: Changelog
+    href: news/index.html
