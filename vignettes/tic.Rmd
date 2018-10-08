@@ -246,6 +246,23 @@ Steps and stages differ between projects (e.g. between a "blogdown" website and 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
 Also, publishing to https://zenodo.org/ is work in progress.
 
+## *tic* based R projects from the community
+
+The templates we provide with *tic* are minimal working examples.
+In the following we list various R projects with non-standard/tailored *tic*-based workflows.
+You may find inspiration for your own project there.
+(Please contact us if you want to add yours to the list!)
+
+### Packages
+
+- [mlr](https://github.com/mlr-org/mlr)
+- [sf](https://github.com/r-spatial/sf)
+- [dbi](https://github.com/r-dbi/DBI)
+
+### Bookdown
+
+### Blogdown
+
 # Advanced
 
 The advanced usage of *tic* is described in more detail in the [Advanced Usage](advanced.html) article:
