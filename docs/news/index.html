@@ -133,6 +133,7 @@
 <a href="#tic-0-2-13-9010" class="anchor"></a>tic 0.2.13.9010</h1>
 <ul>
 <li>No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (<a href='https://github.com/ropenscilabs/tic/issues/86'>#86</a>, <a href='https://github.com/ropenscilabs/tic/issues/88'>#88</a>).</li>
+<li>R-base packages (MASS, lattice, foreign, mgcv, survival) are not updated when preparing <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9009" class="section level1">
