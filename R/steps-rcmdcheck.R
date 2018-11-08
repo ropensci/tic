@@ -13,7 +13,10 @@ TicStepWithPackageDeps <- R6Class(
       # (which might well be ahead of CRAN)
       # works very poorly with custom steps that are not aware
       # of this shadow library.
-      utils::update.packages(ask = FALSE)
+      installed_packages <- installed.packages()[, "Package"]
+      remotes::update_packages(setdiff(installed_packages,
+                                       c("MASS", "Matrix", "survival", "mgcv",
+                                         "lattice", "foreign")))
     }
   ),
 )
