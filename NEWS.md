@@ -1,7 +1,7 @@
 # tic 0.2.13.9010
 
 - No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (#86, #88).
-
+- R-base packages (MASS, lattice, foreign, mgcv, survival) are not updated when preparing `step_rcmdcheck()`.
 
 # tic 0.2.13.9009
 
