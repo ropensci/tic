@@ -15,8 +15,8 @@ TicStepWithPackageDeps <- R6Class(
       # of this shadow library.
       installed_packages <- installed.packages()[, "Package"]
       remotes::update_packages(setdiff(installed_packages,
-                                       c("MASS", "Matrix", "survival", "mgcv",
-                                         "lattice", "foreign")))
+                                       rownames(installed.packages()[installed.packages()[, "Priority"] %in%
+                                                                       c("base", "recommended"), ])))
     }
   ),
 )
