@@ -80,6 +80,13 @@ RCMDcheck <- R6Class(
 #' This is done to minimize conflicts between dependent packages
 #' and packages that are required for running the various steps.
 #'
+#' @section Updating of (dependency) packages:
+#' Packages shipped with the R-installation
+#' (`rownames(installed.packages()[installed.packages()[, "Priority"] %in% c("base", "recommended"), ])`)
+#' will not be updated as they will be overwritten by the Travis R-installer in
+#' each build. If you want these package to be updated, please add the following
+#' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
+#'
 #' @param warnings_are_errors `[flag]`\cr
 #'   Should warnings be treated as errors? Default: `TRUE`.
 #' @param notes_are_errors `[flag]`\cr
