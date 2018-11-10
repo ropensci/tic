@@ -14,9 +14,11 @@ TicStepWithPackageDeps <- R6Class(
       # works very poorly with custom steps that are not aware
       # of this shadow library.
       installed_packages <- installed.packages()[, "Package"]
-      remotes::update_packages(setdiff(installed_packages,
-                                       rownames(installed.packages()[installed.packages()[, "Priority"] %in%
-                                                                       c("base", "recommended"), ])))
+      pkg_names <- as.character(installed_packages)
+      priority <- rownames(installed.packages()[installed.packages()[, "Priority"] %in%
+                                                  c("base", "recommended"), ])
+      pkg_to_update <-setdiff(installed_packages, priority)
+      remotes::update_packages(pkg_to_update)
     }
   ),
 )
