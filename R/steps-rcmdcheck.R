@@ -13,11 +13,11 @@ TicStepWithPackageDeps <- R6Class(
       # (which might well be ahead of CRAN)
       # works very poorly with custom steps that are not aware
       # of this shadow library.
-      installed_packages <- installed.packages()[, "Package"]
-      pkg_names <- as.character(installed_packages)
-      priority <- unique(rownames(installed.packages()[installed.packages()[, "Priority"] %in% c("base", "recommended"), ]))
+      inst <- installed.packages()
+      priority <- unique(rownames(inst[inst[, "Priority"] %in% c("base", "recommended"), ]))
       pkg_to_update <- setdiff(installed_packages, priority)
       remotes::update_packages(pkg_to_update)
+
     }
   ),
 )
