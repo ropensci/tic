@@ -38,10 +38,9 @@ and packages that are required for running the various steps.
 }
 \section{Updating of (dependency) packages}{
 
-Packages shipped with the R-installation
-(unique(rownames(installed.packages()[installed.packages()\link{, "Priority"} %in% c("base", "recommended"), ])))
-will not be updated as they will be overwritten by the Travis R-installer in
-each build. If you want these package to be updated, please add the following
+Packages shipped with the R-installation will not be updated as they will be
+overwritten by the Travis R-installer in each build.
+If you want these package to be updated, please add the following
 step to your workflow: \code{add_code_step(remotes::update_packages(<pkg>)}.
 }
 
