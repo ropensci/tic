@@ -202,6 +202,11 @@ DoPushDeploy <- R6Class(
       !ci()$is_tag()
     },
 
+    prepare = function() {
+      verify_install("git2r")
+      super$prepare()
+    },
+
     run = function() {
       private$git$init_repo()
       maybe_orphan <- is.null(git2r_head(private$git$get_repo()))
@@ -210,11 +215,6 @@ DoPushDeploy <- R6Class(
       }
     }
   ),
-
-  prepare = function() {
-    verify_install("git2r")
-    super$prepare()
-  },
 
   private = list(
     git = NULL,
