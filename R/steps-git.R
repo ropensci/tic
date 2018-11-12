@@ -341,6 +341,11 @@ PushDeploy <- R6Class(
       private$setup$check() && private$do$check()
     },
 
+    prepare = function() {
+      private$setup$prepare()
+      private$do$prepare()
+    },
+
     run = function() {
       private$setup$run()
       private$do$run()
