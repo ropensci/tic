@@ -186,10 +186,9 @@ and packages that are required for running the various steps.</p>
     <h2 class="hasAnchor" id="updating-of-dependency-packages"><a class="anchor" href="#updating-of-dependency-packages"></a>Updating of (dependency) packages</h2>
 
     
-    <p>Packages shipped with the R-installation
-(<code>rownames(installed.packages()[installed.packages()[, "Priority"] %in% c("base", "recommended"), ])</code>)
-will not be updated as they will be overwritten by the Travis R-installer in
-each build. If you want these package to be updated, please add the following
+    <p>Packages shipped with the R-installation will not be updated as they will be
+overwritten by the Travis R-installer in each build.
+If you want these package to be updated, please add the following
 step to your workflow: <code>add_code_step(remotes::update_packages(&lt;pkg&gt;)</code>.</p>
     
 
