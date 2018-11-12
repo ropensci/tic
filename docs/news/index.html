@@ -133,7 +133,7 @@
 <a href="#tic-0-2-13-9010" class="anchor"></a>tic 0.2.13.9010</h1>
 <ul>
 <li>No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (<a href='https://github.com/ropenscilabs/tic/issues/86'>#86</a>, <a href='https://github.com/ropenscilabs/tic/issues/88'>#88</a>).</li>
-<li>R-base packages are not updated when preparing <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
+<li>Packages coming with the R-installation are not updated anymore when preparing <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>. See <code>?step_rcmdcheck()</code> for detailed info. (<a href='https://github.com/ropenscilabs/tic/issues/103'>#103</a>)</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9009" class="section level1">
