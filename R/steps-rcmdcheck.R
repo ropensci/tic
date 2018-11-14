@@ -7,7 +7,9 @@ TicStepWithPackageDeps <- R6Class(
     prepare = function() {
       verify_install("remotes")
 
-      remotes::install_deps(dependencies = TRUE)
+      repos = c(getOption("repos"), remotes::bioc_install_repos()[1])
+
+      remotes::install_deps(dependencies = TRUE, repos = repos)
 
       # Using a separate library for "build dependencies"
       # (which might well be ahead of CRAN)
