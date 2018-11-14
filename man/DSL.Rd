@@ -14,9 +14,9 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-add_package_checks(warnings_are_errors = TRUE,
-  notes_are_errors = FALSE, args = c("--no-manual", "--as-cran"),
-  build_args = "--force")
+add_package_checks(args = c("--no-manual", "--as-cran"),
+  build_args = "--force", error_on = "warning",
+  repos = getOption("repos"), timeout = Inf)
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -36,19 +36,29 @@ The default is useful if you only pass \code{prepare_call}.}
 \item{prepare_call}{\code{[call]}\cr
 An optional arbitrary expression executed during preparation.}
 
-\item{warnings_are_errors}{\code{[flag]}\cr
-Should warnings be treated as errors? Default: \code{TRUE}.}
-
-\item{notes_are_errors}{\code{[flag]}\cr
-Should notes be treated as errors? Default: \code{FALSE}.}
-
 \item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
 Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
 \code{"--force"}.}
+
+\item{error_on}{\code{[character]}\cr
+Whether to throw an error on R CMD check failures. Note that the check is
+always completed (unless a timeout happens), and the error is only thrown
+after completion. If "never", then no errors are thrown. If "error", then
+only ERROR failures generate errors. If "warning", then WARNING failures
+generate errors as well. If "note", then any check failure generated an
+error.}
+
+\item{repos}{\code{[character]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{getOption("repos")}.}
+
+\item{timeout}{\code{[numeric]}\cr
+Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+\code{Inf}.}
 }
 \description{
 Functions to define stages and their constitutent

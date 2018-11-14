@@ -22,28 +22,35 @@ RCMDcheck <- R6Class(
   "RCMDcheck", inherit = TicStepWithPackageDeps,
 
   public = list(
-    initialize = function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                          args = c("--no-manual", "--as-cran"), build_args = "--force") {
-      private$warnings_are_errors <- warnings_are_errors
-      private$notes_are_errors <- notes_are_errors
+    initialize = function(args = c("--no-manual", "--as-cran"),
+                          build_args = "--force", error_on = "warning",
+                          repos = getOption("repos"), timeout = Inf) {
       private$args <- args
       private$build_args <- build_args
+      private$error_on <- error_on
+      private$repos <- repos
+      private$timeout <- timeout
 
       super$initialize()
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(args = private$args)
+      res <- rcmdcheck::rcmdcheck(args = private$args,
+                                  build_args = private$build_args,
+                                  error_on = "never",
+                                  repos = private$repos,
+                                  timeout = private$timeout
+                                  )
 
       print(res)
       if (length(res$errors) > 0) {
         stopc("Errors found.")
       }
-      if (private$warnings_are_errors && length(res$warnings) > 0) {
-        stopc("Warnings found, and `warnings_are_errors` is set.")
+      if (any(private$error_on == "warning") && length(res$warnings) > 0) {
+        stopc("Warnings found, and `errors_on = 'warning'` is set.")
       }
-      if (private$notes_are_errors && length(res$notes) > 0) {
-        stopc("Notes found, and `notes_are_errors` is set.")
+      if (any(private$error_on == "notes") && length(res$notes) > 0) {
+        stopc("Notes found, and `errors_on = 'note'` is set.")
       }
     },
 
@@ -54,10 +61,11 @@ RCMDcheck <- R6Class(
   ),
 
   private = list(
-    warnings_are_errors = NULL,
-    notes_are_errors = NULL,
     args = NULL,
-    build_args = NULL
+    build_args = NULL,
+    error_on = NULL,
+    repos = NULL,
+    timeout = NULL
   )
 )
 
@@ -75,24 +83,34 @@ RCMDcheck <- R6Class(
 #' This is done to minimize conflicts between dependent packages
 #' and packages that are required for running the various steps.
 #'
-#' @param warnings_are_errors `[flag]`\cr
-#'   Should warnings be treated as errors? Default: `TRUE`.
-#' @param notes_are_errors `[flag]`\cr
-#'   Should notes be treated as errors? Default: `FALSE`.
 #' @param args `[character]`\cr
 #'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
 #'   `c("--no-manual", "--as-cran")`.
 #' @param build_args `[character]`\cr
 #'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
 #'   `"--force"`.
+#' @param error_on `[character]`\cr
+#'   Whether to throw an error on R CMD check failures. Note that the check is
+#'   always completed (unless a timeout happens), and the error is only thrown
+#'   after completion. If "never", then no errors are thrown. If "error", then
+#'   only ERROR failures generate errors. If "warning", then WARNING failures
+#'   generate errors as well. If "note", then any check failure generated an
+#'   error.
+#' @param repos `[character]`\cr
+#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   `getOption("repos")`.
+#' @param timeout `[numeric]`\cr
+#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   `Inf`.
 #' @export
-step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-                           args = c("--no-manual", "--as-cran"),
-                           build_args = "--force") {
+step_rcmdcheck <- function(args = c("--no-manual", "--as-cran"),
+                           build_args = "--force", error_on = "warning",
+                           repos = getOption("repos"), timeout = Inf) {
   RCMDcheck$new(
-    warnings_are_errors = warnings_are_errors,
-    notes_are_errors = notes_are_errors,
     args = args,
-    build_args = build_args
+    build_args = build_args,
+    error_on = error_on,
+    repos = repos,
+    timeout = timeout
   )
 }
