@@ -1,3 +1,12 @@
+# tic 0.2.13.9011
+
+## step_rcmdcheck()
+
+- replace `warnings_are_errors` and `notes_are_errors` with `error_on`
+- add args `timeout` and `repos`
+- call `rcmdcheck()` internally with `error_on = "never"` so that we can trigger the message on found warnings and notes
+- remote outdated doc about `step_rcmdcheck()` using a dedicated lib for the check
+
 # tic 0.2.13.9010
 
 - No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (#86, #88).
