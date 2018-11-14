@@ -76,18 +76,11 @@ RCMDcheck <- R6Class(
 #' via [remotes::install_deps()] with `dependencies = TRUE`,
 #' and updating all packages.
 #'
-#' This step uses a dedicated library,
-#' a subdirectory `tic-pkg` of the current user library
-#' (the first element of [.libPaths()]),
-#' for the checks.
-#' This is done to minimize conflicts between dependent packages
-#' and packages that are required for running the various steps.
-#'
 #' @param args `[character]`\cr
-#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `c("--no-manual", "--as-cran")`.
 #' @param build_args `[character]`\cr
-#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `"--force"`.
 #' @param error_on `[character]`\cr
 #'   Whether to throw an error on R CMD check failures. Note that the check is
@@ -97,10 +90,10 @@ RCMDcheck <- R6Class(
 #'   generate errors as well. If "note", then any check failure generated an
 #'   error.
 #' @param repos `[character]`\cr
-#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `getOption("repos")`.
 #' @param timeout `[numeric]`\cr
-#'   Passed to `[rcmdcheck::rcmdcheck()]`, default:
+#'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `Inf`.
 #' @export
 step_rcmdcheck <- function(args = c("--no-manual", "--as-cran"),

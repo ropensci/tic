@@ -41,7 +41,7 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{"--force"}.}
 
 \item{error_on}{\code{[character]}\cr
@@ -53,11 +53,11 @@ generate errors as well. If "note", then any check failure generated an
 error.}
 
 \item{repos}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{getOption("repos")}.}
 
 \item{timeout}{\code{[numeric]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 }
 \description{
