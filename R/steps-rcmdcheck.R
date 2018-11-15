@@ -128,7 +128,8 @@ RCMDcheck <- R6Class(
 step_rcmdcheck <- function(...,
                            warnings_are_errors = NULL, notes_are_errors = NULL,
                            args = c("--no-manual", "--as-cran"),
-                           build_args = "--force") {
+                           build_args = "--force", error_on = "warning",
+                           repos = getOption("repos"), timeout = Inf) {
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
