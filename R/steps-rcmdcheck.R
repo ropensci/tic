@@ -7,7 +7,7 @@ TicStepWithPackageDeps <- R6Class(
     prepare = function() {
       verify_install("remotes")
 
-      repos = c(getOption("repos"), remotes::bioc_install_repos()[1])
+      repos <- c(getOption("repos"), remotes::bioc_install_repos()[1])
 
       remotes::install_deps(dependencies = TRUE, repos = repos)
 
