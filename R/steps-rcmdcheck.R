@@ -13,7 +13,11 @@ TicStepWithPackageDeps <- R6Class(
       # (which might well be ahead of CRAN)
       # works very poorly with custom steps that are not aware
       # of this shadow library.
-      utils::update.packages(ask = FALSE)
+      inst <- installed.packages()
+      priority <- unique(rownames(inst[inst[, "Priority"] %in% c("base", "recommended"), ]))
+      pkg_to_update <- setdiff(installed_packages, priority)
+      remotes::update_packages(pkg_to_update)
+
     }
   ),
 )
@@ -74,6 +78,12 @@ RCMDcheck <- R6Class(
 #' for the checks.
 #' This is done to minimize conflicts between dependent packages
 #' and packages that are required for running the various steps.
+#'
+#' @section Updating of (dependency) packages:
+#' Packages shipped with the R-installation will not be updated as they will be
+#' overwritten by the Travis R-installer in each build.
+#' If you want these package to be updated, please add the following
+#' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
 #'
 #' @param warnings_are_errors `[flag]`\cr
 #'   Should warnings be treated as errors? Default: `TRUE`.
