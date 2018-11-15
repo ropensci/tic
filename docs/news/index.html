@@ -135,8 +135,7 @@
 <h2 class="hasAnchor">
 <a href="#step_rcmdcheck" class="anchor"></a>step_rcmdcheck()</h2>
 <ul>
-<li>replace <code>warnings_are_errors</code> and <code>notes_are_errors</code> with <code>error_on</code>
-</li>
+<li>deprecate <code>warnings_are_errors</code> and <code>notes_are_errors</code> in favor of the new <code>error_on</code> argument</li>
 <li>add args <code>timeout</code> and <code>repos</code>
 </li>
 <li>call <code>rcmdcheck()</code> internally with <code>error_on = "never"</code> so that we can trigger the message on found warnings and notes</li>

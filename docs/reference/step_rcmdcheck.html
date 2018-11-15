@@ -32,7 +32,8 @@
 
 <meta property="og:title" content="Step: Check a package — step_rcmdcheck" />
 
-<meta property="og:description" content="Check a package using rcmdcheck, which ultimately calls R CMD check.
+<meta property="og:description" content="Check a package using rcmdcheck::rcmdcheck(),
+which ultimately calls R CMD check.
 The preparation consists of installing package dependencies
 via remotes::install_deps() with dependencies = TRUE,
 and updating all packages." />
@@ -137,20 +138,31 @@ and updating all packages." />
 
     <div class="ref-description">
     
-    <p>Check a package using <span class="pkg">rcmdcheck</span>, which ultimately calls <code>R CMD check</code>.
+    <p>Check a package using <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>,
+which ultimately calls <code>R CMD check</code>.
 The preparation consists of installing package dependencies
 via <code><a href='http://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>,
 and updating all packages.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_rcmdcheck</span>(<span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
+    <pre class="usage"><span class='fu'>step_rcmdcheck</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Ignored, used to enforce naming of arguments.</p></td>
+    </tr>
+    <tr>
+      <th>warnings_are_errors, notes_are_errors</th>
+      <td><p><code>[flag]</code><br />
+Deprecated, use <code>error_on</code>.</p></td>
+    </tr>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
@@ -187,15 +199,6 @@ Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This step uses a dedicated library,
-a subdirectory <code>tic-pkg</code> of the current user library
-(the first element of <code>.libPaths()</code>),
-for the checks.
-This is done to minimize conflicts between dependent packages
-and packages that are required for running the various steps.</p>
-    
     <h2 class="hasAnchor" id="updating-of-dependency-packages"><a class="anchor" href="#updating-of-dependency-packages"></a>Updating of (dependency) packages</h2>
 
     
@@ -211,8 +214,6 @@ step to your workflow: <code>add_code_step(remotes::update_packages(&lt;pkg&gt;)
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-
       <li><a href="#updating-of-dependency-packages">Updating of (dependency) packages</a></li>
           </ul>
 
