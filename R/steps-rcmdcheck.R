@@ -125,7 +125,7 @@ step_rcmdcheck <- function(args = c("--no-manual", "--as-cran"),
                            build_args = "--force", error_on = "warning",
                            repos = getOption("repos"), timeout = Inf,
                            ...) {
-  if (...length() >= 1L) {
+  if (length(list(...)) >= 1L) {
     dot_args <- list(...)
     warning_notes <- map_lgl(c("warnings", "errors"), ~
                                glue("{.x}_are_errors") %in% names(dot_args))
