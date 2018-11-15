@@ -128,6 +128,22 @@
       <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0-2-13-9011" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9011" class="anchor"></a>tic 0.2.13.9011</h1>
+<div id="step_rcmdcheck" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step_rcmdcheck" class="anchor"></a>step_rcmdcheck()</h2>
+<ul>
+<li>replace <code>warnings_are_errors</code> and <code>notes_are_errors</code> with <code>error_on</code>
+</li>
+<li>add args <code>timeout</code> and <code>repos</code>
+</li>
+<li>call <code>rcmdcheck()</code> internally with <code>error_on = "never"</code> so that we can trigger the message on found warnings and notes</li>
+<li>remote outdated doc about <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> using a dedicated lib for the check</li>
+</ul>
+</div>
+</div>
     <div id="tic-0-2-13-9010" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9010" class="anchor"></a>tic 0.2.13.9010</h1>
@@ -378,6 +394,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tic-0-2-13-9011">0.2.13.9011</a></li>
         <li><a href="#tic-0-2-13-9010">0.2.13.9010</a></li>
         <li><a href="#tic-0-2-13-9009">0.2.13.9009</a></li>
         <li><a href="#tic-0-2-13-9008">0.2.13.9008</a></li>
