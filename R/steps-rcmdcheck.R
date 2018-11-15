@@ -33,7 +33,7 @@ RCMDcheck <- R6Class(
                           repos = getOption("repos"), timeout = Inf) {
 
       if (!is.null(notes_are_errors)) {
-        note_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
+        warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
         if (notes_are_errors) {
           error_on <- "note"
         }
