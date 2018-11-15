@@ -65,6 +65,11 @@ SetupPushDeploy <- R6Class(
       private$checkout <- checkout
     },
 
+    prepare = function() {
+      verify_install("git2r")
+      super$prepare()
+    },
+
     run = function() {
       private$git$init_repo()
       private$init_author()
@@ -195,6 +200,11 @@ DoPushDeploy <- R6Class(
 
     check = function() {
       !ci()$is_tag()
+    },
+
+    prepare = function() {
+      verify_install("git2r")
+      super$prepare()
     },
 
     run = function() {
@@ -329,6 +339,11 @@ PushDeploy <- R6Class(
 
     check = function() {
       private$setup$check() && private$do$check()
+    },
+
+    prepare = function() {
+      private$setup$prepare()
+      private$do$prepare()
     },
 
     run = function() {

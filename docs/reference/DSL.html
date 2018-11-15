@@ -179,9 +179,10 @@ stages:</p>
 
 <span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>add_package_checks</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>)</pre>
+<span class='fu'>add_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
+  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,26 +215,52 @@ The default is useful if you only pass <code>prepare_call</code>.</p></td>
 An optional arbitrary expression executed during preparation.</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Ignored, used to enforce naming of arguments.</p></td>
+    </tr>
+    <tr>
       <th>warnings_are_errors</th>
       <td><p><code>[flag]</code><br />
-Should warnings be treated as errors? Default: <code>TRUE</code>.</p></td>
+Deprecated, use <code>error_on</code>.</p></td>
     </tr>
     <tr>
       <th>notes_are_errors</th>
       <td><p><code>[flag]</code><br />
-Should notes be treated as errors? Default: <code>FALSE</code>.</p></td>
+Deprecated, use <code>error_on</code>.</p></td>
     </tr>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
-Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>c("--no-manual", "--as-cran")</code>.</p></td>
     </tr>
     <tr>
       <th>build_args</th>
       <td><p><code>[character]</code><br />
-Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>"--force"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>error_on</th>
+      <td><p><code>[character]</code><br />
+Whether to throw an error on R CMD check failures. Note that the check is
+always completed (unless a timeout happens), and the error is only thrown
+after completion. If "never", then no errors are thrown. If "error", then
+only ERROR failures generate errors. If "warning", then WARNING failures
+generate errors as well. If "note", then any check failure generated an
+error.</p></td>
+    </tr>
+    <tr>
+      <th>repos</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>getOption("repos")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>timeout</th>
+      <td><p><code>[numeric]</code><br />
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>Inf</code>.</p></td>
     </tr>
     </table>
     
