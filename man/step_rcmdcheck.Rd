@@ -32,6 +32,12 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
+
+\item{warnings_are_errors}{\code{[flag]}\cr
+Should warnings be treated as errors? Default: \code{TRUE}.}
+
+\item{notes_are_errors}{\code{[flag]}\cr
+Should notes be treated as errors? Default: \code{FALSE}.}
 }
 \description{
 Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
@@ -39,3 +45,19 @@ The preparation consists of installing package dependencies
 via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
 and updating all packages.
 }
+\details{
+This step uses a dedicated library,
+a subdirectory \code{tic-pkg} of the current user library
+(the first element of \code{\link[=.libPaths]{.libPaths()}}),
+for the checks.
+This is done to minimize conflicts between dependent packages
+and packages that are required for running the various steps.
+}
+\section{Updating of (dependency) packages}{
+
+Packages shipped with the R-installation will not be updated as they will be
+overwritten by the Travis R-installer in each build.
+If you want these package to be updated, please add the following
+step to your workflow: \code{add_code_step(remotes::update_packages(<pkg>)}.
+}
+

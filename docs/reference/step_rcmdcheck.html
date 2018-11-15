@@ -196,6 +196,14 @@ for the checks.
 This is done to minimize conflicts between dependent packages
 and packages that are required for running the various steps.</p>
     
+    <h2 class="hasAnchor" id="updating-of-dependency-packages"><a class="anchor" href="#updating-of-dependency-packages"></a>Updating of (dependency) packages</h2>
+
+    
+    <p>Packages shipped with the R-installation will not be updated as they will be
+overwritten by the Travis R-installer in each build.
+If you want these package to be updated, please add the following
+step to your workflow: <code>add_code_step(remotes::update_packages(&lt;pkg&gt;)</code>.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -204,6 +212,8 @@ and packages that are required for running the various steps.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#updating-of-dependency-packages">Updating of (dependency) packages</a></li>
           </ul>
 
   </div>

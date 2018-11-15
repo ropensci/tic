@@ -10,7 +10,8 @@
 # tic 0.2.13.9010
 
 - No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (#86, #88).
-
+- Packages coming with the R-installation are not updated anymore when preparing `step_rcmdcheck()`. 
+  See `?step_rcmdcheck()` for detailed info. (#103)
 
 # tic 0.2.13.9009
 

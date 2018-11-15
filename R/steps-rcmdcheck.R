@@ -13,7 +13,12 @@ TicStepWithPackageDeps <- R6Class(
       # (which might well be ahead of CRAN)
       # works very poorly with custom steps that are not aware
       # of this shadow library.
-      utils::update.packages(ask = FALSE)
+      inst <- installed.packages()
+      installed_pkg <- rownames(inst)
+      is_priority <- inst[, "Priority"] %in% c("base", "recommended")
+      priority_pkg <- installed_pkg[is_priority]
+      pkg_to_update <- setdiff(installed_pkg, priority_pkg)
+      remotes::update_packages(pkg_to_update)
     }
   ),
 )
@@ -76,6 +81,23 @@ RCMDcheck <- R6Class(
 #' via [remotes::install_deps()] with `dependencies = TRUE`,
 #' and updating all packages.
 #'
+#' This step uses a dedicated library,
+#' a subdirectory `tic-pkg` of the current user library
+#' (the first element of [.libPaths()]),
+#' for the checks.
+#' This is done to minimize conflicts between dependent packages
+#' and packages that are required for running the various steps.
+#'
+#' @section Updating of (dependency) packages:
+#' Packages shipped with the R-installation will not be updated as they will be
+#' overwritten by the Travis R-installer in each build.
+#' If you want these package to be updated, please add the following
+#' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
+#'
+#' @param warnings_are_errors `[flag]`\cr
+#'   Should warnings be treated as errors? Default: `TRUE`.
+#' @param notes_are_errors `[flag]`\cr
+#'   Should notes be treated as errors? Default: `FALSE`.
 #' @param args `[character]`\cr
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `c("--no-manual", "--as-cran")`.
