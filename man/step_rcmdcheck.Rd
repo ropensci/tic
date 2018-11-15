@@ -4,11 +4,16 @@
 \alias{step_rcmdcheck}
 \title{Step: Check a package}
 \usage{
-step_rcmdcheck(args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+step_rcmdcheck(..., warnings_are_errors = NULL,
+  notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
+  build_args = "--force")
 }
 \arguments{
+\item{...}{Ignored, used to enforce naming of arguments.}
+
+\item{warnings_are_errors, notes_are_errors}{\code{[flag]}\cr
+Deprecated, use \code{error_on}.}
+
 \item{args}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{c("--no-manual", "--as-cran")}.}
@@ -32,26 +37,13 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
-
-\item{warnings_are_errors}{\code{[flag]}\cr
-Should warnings be treated as errors? Default: \code{TRUE}.}
-
-\item{notes_are_errors}{\code{[flag]}\cr
-Should notes be treated as errors? Default: \code{FALSE}.}
 }
 \description{
-Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
+Check a package using \code{\link[rcmdcheck:rcmdcheck]{rcmdcheck::rcmdcheck()}},
+which ultimately calls \code{R CMD check}.
 The preparation consists of installing package dependencies
 via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
 and updating all packages.
-}
-\details{
-This step uses a dedicated library,
-a subdirectory \code{tic-pkg} of the current user library
-(the first element of \code{\link[=.libPaths]{.libPaths()}}),
-for the checks.
-This is done to minimize conflicts between dependent packages
-and packages that are required for running the various steps.
 }
 \section{Updating of (dependency) packages}{
 

@@ -2,7 +2,7 @@
 
 ## step_rcmdcheck()
 
-- replace `warnings_are_errors` and `notes_are_errors` with `error_on`
+- deprecate `warnings_are_errors` and `notes_are_errors` in favor of the new `error_on` argument
 - add args `timeout` and `repos`
 - call `rcmdcheck()` internally with `error_on = "never"` so that we can trigger the message on found warnings and notes
 - remote outdated doc about `step_rcmdcheck()` using a dedicated lib for the check

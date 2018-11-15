@@ -14,7 +14,8 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-add_package_checks(args = c("--no-manual", "--as-cran"),
+add_package_checks(..., warnings_are_errors = NULL,
+  notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
 }
@@ -35,6 +36,14 @@ The default is useful if you only pass \code{prepare_call}.}
 
 \item{prepare_call}{\code{[call]}\cr
 An optional arbitrary expression executed during preparation.}
+
+\item{...}{Ignored, used to enforce naming of arguments.}
+
+\item{warnings_are_errors}{\code{[flag]}\cr
+Deprecated, use \code{error_on}.}
+
+\item{notes_are_errors}{\code{[flag]}\cr
+Deprecated, use \code{error_on}.}
 
 \item{args}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:

@@ -27,9 +27,23 @@ RCMDcheck <- R6Class(
   "RCMDcheck", inherit = TicStepWithPackageDeps,
 
   public = list(
-    initialize = function(args = c("--no-manual", "--as-cran"),
+    initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
+                          args = c("--no-manual", "--as-cran"),
                           build_args = "--force", error_on = "warning",
                           repos = getOption("repos"), timeout = Inf) {
+
+      if (!is.null(notes_are_errors)) {
+        note_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
+        if (notes_are_errors) {
+          error_on <- "note"
+        }
+      }
+      else if (!is.null(warnings_are_errors)) {
+        warning_once('`warnings_are_errors` is deprecated, please use `error_on = "warning"`')
+        if (warnings_are_errors) {
+          error_on <- "warning"
+        }
+      }
       private$args <- args
       private$build_args <- build_args
       private$error_on <- error_on
@@ -51,11 +65,11 @@ RCMDcheck <- R6Class(
       if (length(res$errors) > 0) {
         stopc("Errors found.")
       }
-      if (any(private$error_on == "warning") && length(res$warnings) > 0) {
-        stopc("Warnings found, and `errors_on = 'warning'` is set.")
+      if (private$error_on == "warning" && length(res$warnings) > 0) {
+        stopc('Warnings found, and `errors_on = "warning"` is set.')
       }
-      if (any(private$error_on == "notes") && length(res$notes) > 0) {
-        stopc("Notes found, and `errors_on = 'note'` is set.")
+      if (private$error_on == "notes" && length(res$notes) > 0) {
+        stopc('Notes found, and `errors_on = "note"` is set.')
       }
     },
 
@@ -76,17 +90,11 @@ RCMDcheck <- R6Class(
 
 #' Step: Check a package
 #'
-#' Check a package using \pkg{rcmdcheck}, which ultimately calls `R CMD check`.
+#' Check a package using [rcmdcheck::rcmdcheck()],
+#' which ultimately calls `R CMD check`.
 #' The preparation consists of installing package dependencies
 #' via [remotes::install_deps()] with `dependencies = TRUE`,
 #' and updating all packages.
-#'
-#' This step uses a dedicated library,
-#' a subdirectory `tic-pkg` of the current user library
-#' (the first element of [.libPaths()]),
-#' for the checks.
-#' This is done to minimize conflicts between dependent packages
-#' and packages that are required for running the various steps.
 #'
 #' @section Updating of (dependency) packages:
 #' Packages shipped with the R-installation will not be updated as they will be
@@ -94,10 +102,9 @@ RCMDcheck <- R6Class(
 #' If you want these package to be updated, please add the following
 #' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
 #'
-#' @param warnings_are_errors `[flag]`\cr
-#'   Should warnings be treated as errors? Default: `TRUE`.
-#' @param notes_are_errors `[flag]`\cr
-#'   Should notes be treated as errors? Default: `FALSE`.
+#' @param ... Ignored, used to enforce naming of arguments.
+#' @param warnings_are_errors,notes_are_errors `[flag]`\cr
+#'   Deprecated, use `error_on`.
 #' @param args `[character]`\cr
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `c("--no-manual", "--as-cran")`.
@@ -118,10 +125,13 @@ RCMDcheck <- R6Class(
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `Inf`.
 #' @export
-step_rcmdcheck <- function(args = c("--no-manual", "--as-cran"),
-                           build_args = "--force", error_on = "warning",
-                           repos = getOption("repos"), timeout = Inf) {
+step_rcmdcheck <- function(...,
+                           warnings_are_errors = NULL, notes_are_errors = NULL,
+                           args = c("--no-manual", "--as-cran"),
+                           build_args = "--force") {
   RCMDcheck$new(
+    warnings_are_errors = warnings_are_errors,
+    notes_are_errors = notes_are_errors,
     args = args,
     build_args = build_args,
     error_on = error_on,

@@ -96,7 +96,10 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-add_package_checks <- function(args = c("--no-manual", "--as-cran"),
+add_package_checks <- function(...,
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
                                build_args = "--force", error_on = "warning",
                                repos = getOption("repos"), timeout = Inf) {
   #' @description
@@ -106,6 +109,8 @@ add_package_checks <- function(args = c("--no-manual", "--as-cran"),
   get_stage("script") %>%
     add_step(
       step_rcmdcheck(
+        warnings_are_errors = warnings_are_errors,
+        notes_are_errors = notes_are_errors,
         args = args,
         build_args = build_args,
         error_on = error_on,
