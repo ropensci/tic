@@ -24,9 +24,11 @@ Depends:
 Imports: 
     backports,
     crayon,
+    glue,
     magrittr,
     memoise,
     methods,
+    purrr,
     R6,
     withr
 Suggests: 
