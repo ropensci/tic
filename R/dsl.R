@@ -91,14 +91,30 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' `add_package_checks()` adds default steps related to package checks
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
-#'
+#' @importFrom glue glue
+#' @importFrom purrr map_lgl
 #' @inheritParams step_rcmdcheck
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
 add_package_checks <- function(args = c("--no-manual", "--as-cran"),
                                build_args = "--force", error_on = "warning",
-                               repos = getOption("repos"), timeout = Inf) {
+                               repos = getOption("repos"), timeout = Inf, ...) {
+
+  if (...length() >= 1L) {
+    dot_args <- list(...)
+    warning_notes <- map_lgl(c("warnings", "errors"), ~
+                               glue("{.x}_are_errors") %in% names(dot_args))
+
+    error_on <- c("warning", "note")[warning_notes]
+
+    warning_once(glue("Arguments 'warnings_are_errors' and",
+                      "'notes_are_errors' are deprecated and will be",
+                      " removed in the future. ",
+                      "Please use 'error_on' instead.")
+    )
+  }
+
   #' @description
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and

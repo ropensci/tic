@@ -6,7 +6,7 @@
 \usage{
 step_rcmdcheck(args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+  repos = getOption("repos"), timeout = Inf, ...)
 }
 \arguments{
 \item{args}{\code{[character]}\cr

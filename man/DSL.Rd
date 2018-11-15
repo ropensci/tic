@@ -16,7 +16,7 @@ add_code_step(stage, call = NULL, prepare_call = NULL)
 
 add_package_checks(args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+  repos = getOption("repos"), timeout = Inf, ...)
 }
 \arguments{
 \item{name}{\code{[string]}\cr

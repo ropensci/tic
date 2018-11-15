@@ -94,6 +94,9 @@ RCMDcheck <- R6Class(
 #' If you want these package to be updated, please add the following
 #' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
 #'
+#' @importFrom glue glue
+#' @importFrom purrr map_lgl
+#'
 #' @param warnings_are_errors `[flag]`\cr
 #'   Should warnings be treated as errors? Default: `TRUE`.
 #' @param notes_are_errors `[flag]`\cr
@@ -120,7 +123,22 @@ RCMDcheck <- R6Class(
 #' @export
 step_rcmdcheck <- function(args = c("--no-manual", "--as-cran"),
                            build_args = "--force", error_on = "warning",
-                           repos = getOption("repos"), timeout = Inf) {
+                           repos = getOption("repos"), timeout = Inf,
+                           ...) {
+  if (...length() >= 1L) {
+    dot_args <- list(...)
+    warning_notes <- map_lgl(c("warnings", "errors"), ~
+                               glue("{.x}_are_errors") %in% names(dot_args))
+
+    error_on <- c("warning", "note")[warning_notes]
+
+    warning_once(glue("Arguments 'warnings_are_errors' and",
+                      "'notes_are_errors' are deprecated and will be",
+                      " removed in the future. ",
+                      "Please use 'error_on' instead.")
+    )
+  }
+
   RCMDcheck$new(
     args = args,
     build_args = build_args,
