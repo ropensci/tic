@@ -25,7 +25,7 @@ Possible conditionals are
 - R Version of the current build (`getRversion()`)
 - other features of the build (e.g. branch name, `ci()$get_branch()`)
 
-The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a `pkgdown` site](deployment.html#pkgdown-deployment)).
+The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a _pkgdown_ site](deployment.html#pkgdown-deployment)).
 If you test on multiple CI services you may also want to run certain tasks on only one of them.
 
 ## Use cases
@@ -64,7 +64,7 @@ This can be checked with the condition `ci()$is_interactive()`.
 
 Usually required packages should be installed based on the DESCRIPTION file of a package.
 You should only use the following steps in extraordinary circumstances.
-One could be the requirement of the _magick_ package for a successful favicon creation for a `pkgdown` website.
+One could be the requirement of the _magick_ package for a successful favicon creation for a _pkgdown_ website.
 
 ## Github packages
 
@@ -80,7 +80,7 @@ Note that the underlying `remotes::install_github()` is vectorized for the `repo
 ## CRAN packages
 
 Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package.
-For example, to create a favicon in `pkgdown`, the `magick` package is required.
+For example, to create a favicon in _pkgdown_, the `magick` package is required.
 To install the package (only if it does not exist in the cache already), run the following:
 
 ```{r eval = FALSE}

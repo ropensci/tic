@@ -32,8 +32,8 @@ Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package c
 
 You may know that CI services can be used to automatically deploy files. 
 This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
-A common use case is to build your `pkgdown` site and conditionally push changes to your repo.
-This practice saves you from building the whole `pkgdown` site locally and then committing manually all the changed files - either Travis or Appveyor will do it for you! 
+A common use case is to build your _pkgdown_ site and conditionally push changes to your repo.
+This practice saves you from building the whole _pkgdown_ site locally and then committing manually all the changed files - either Travis or Appveyor will do it for you! 
 *tic* takes care of all the setup work (setting up SSH keys, permission granting for the repo on Github and the CI services).
 In combination with `usethis::use_ci()` this whole preparation process is streamlined and needs only be called once for every repo by the user.
 

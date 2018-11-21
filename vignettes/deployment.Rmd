@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 
 ## pkgdown deployment
 
-Today, it becomes more and more standard to have a `pkgdown` site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version.
+Today, it becomes more and more standard to have a _pkgdown_ site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version.
 But this is only valuable if the information also reflects the most recent state of the repo.
 To not waste time on updating the site manually, *tic* takes care of an automatic deployment if contents have changed.
 
@@ -83,7 +83,7 @@ Let's break down what happens here:
       add_step(step_push_deploy())
     ```
 
-    First, `step_build_pkgdown()` will build your `pkgdown` site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
+    First, `step_build_pkgdown()` will build your _pkgdown_ site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
     By default this will be the `docs/` directory of the `master` branch.
     
 ### Deploying to docs/ (master) or gh-pages branch
@@ -93,27 +93,27 @@ Let's break down what happens here:
 By default the deployment is done to the `docs/` directory of the `master` branch.
 This option has the following advantages:
 
-- You can have per-branch versions of your `pkgdown` site
+- You can have per-branch versions of your _pkgdown_ site
 - Per-branch versions enable the possibility to have preview for pull requests via https://www.netlify.com/
 
-A disadvantage is that the `master` branch will be cluttered by automatic commits triggered by Travis that push the changes of the `pkgdown` site to the `master` branch.
+A disadvantage is that the `master` branch will be cluttered by automatic commits triggered by Travis that push the changes of the _pkgdown_ site to the `master` branch.
 
 #### gh-pages branch
 
 You can optionally set the deployment branch to `gh-pages` and then change the branch serving your site in the Github repo settings (change it to `gh-pages`).
 This option has the advantage 
 
-- to not have all the automatic commits from Travis in the `master` branch -> the `pkgdown` site will be "silently" updated in the background in the `gh-pages` branch.
+- to not have all the automatic commits from Travis in the `master` branch -> the _pkgdown_ site will be "silently" updated in the background in the `gh-pages` branch.
 
 A disadvantage is that you cannot have per-branch versions of your site and hence no pull request previews of the site.
 
 To use this option with *tic*, specify `branch = "gh-pages", path = "docs"` in `step_push_deploy()`.
-As the site serving in this setting will use the root of the branch, the `gh-pages` branch will only consist of the public `pkgdown` files used to serve the site. 
+As the site serving in this setting will use the root of the branch, the `gh-pages` branch will only consist of the public _pkgdown_ files used to serve the site. 
 
 ### Conditional deployment
 
 If you are running a build matrix or build stages on Travis, you want to run certain tasks only once during a build. 
-The creation of a `pkgdown` site is a common task which applies to this.
+The creation of a _pkgdown_ site is a common task which applies to this.
 
 Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
 You can restrict on which stage/job a task is executed with the help of environment variables.

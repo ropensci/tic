@@ -202,7 +202,7 @@ get_stage("before_deploy") %>%
   add_step(step_setup_ssh())
 ```
 
-Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [`pkgdown`](http://pkgdown.r-lib.org/) site if the project is an R package, and the `step_push_deploy()` step will push the updated files (if any) to Git.
+Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [_pkgdown_](http://pkgdown.r-lib.org/) site if the project is an R package, and the `step_push_deploy()` step will push the updated files (if any) to Git.
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
@@ -267,7 +267,7 @@ You may find inspiration for your own project there.
 
 The advanced usage of *tic* is described in more detail in the [Advanced Usage](advanced.html) article:
 
-- [Options for `pkgdown` deployment](advanced.html#pkgdown-deployment) 
+- [Options for _pkgdown_ deployment](advanced.html#pkgdown-deployment) 
 - [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
 - [Troubleshooting: Running *tic* locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)

@@ -92,7 +92,7 @@ In this stage all dependencies for a successful run already are installed.
 #### deploy
 
 This stage initiates the deployment (setting up SSH keys) and executes it.
-If you want to automatically build a `pkgdown` site, you can do it here.
+If you want to automatically build a _pkgdown_ site, you can do it here.
 See [the vignette about deployment](deployment.html) for more information.
 
 ## Steps
