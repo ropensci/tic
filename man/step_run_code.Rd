@@ -2,18 +2,18 @@
 % Please edit documentation in R/steps-code.R
 \name{step_run_code}
 \alias{step_run_code}
-\title{Step: Run arbitrary code}
+\title{Step: Run arbitrary R code}
 \usage{
 step_run_code(call = NULL, prepare_call = NULL)
 }
 \arguments{
 \item{call}{\code{[call]}\cr
-An arbitrary expression executed during the stage to which this step is
+An arbitrary R expression executed during the stage to which this step is
 added.
 The default is useful if you only pass \code{prepare_call}.}
 
 \item{prepare_call}{\code{[call]}\cr
-An optional arbitrary expression executed during preparation.}
+An optional arbitrary R expression executed during preparation.}
 }
 \description{
 Captures the expression and executes it when running the step.

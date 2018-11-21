@@ -30,12 +30,12 @@ A Stage object as returned by \code{get_stage()}.}
 A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
 
 \item{call}{\code{[call]}\cr
-An arbitrary expression executed during the stage to which this step is
+An arbitrary R expression executed during the stage to which this step is
 added.
 The default is useful if you only pass \code{prepare_call}.}
 
 \item{prepare_call}{\code{[call]}\cr
-An optional arbitrary expression executed during preparation.}
+An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Ignored, used to enforce naming of arguments.}
 
