@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Running stages conditionally
+# Running steps conditionally
 
 The conditioned execution of commands is based on environment variables.
 The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a `pkgdown` site](deployment.html#pkgdown-deployment)).
