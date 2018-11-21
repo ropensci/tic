@@ -182,7 +182,7 @@
 <p>Github packages should be installed in the <code>install</code> stage:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_github</a></span>(<span class="st">"r-lib/rcmdcheck"</span>))</a></code></pre></div>
-<p>Note that the underlying <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call: <code>add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis"))</code>.</p>
+<p>Note that the underlying <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call: <code><a href="../reference/DSL.html">add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))</a></code>.</p>
 </div>
 <div id="cran-packages" class="section level2">
 <h2 class="hasAnchor">
@@ -214,7 +214,7 @@
 <h2 class="hasAnchor">
 <a href="#check-for-syntax-errors" class="anchor"></a>Check for syntax errors</h2>
 <p>You can run check on possible syntax errors in <code>tic.R</code> using <code><a href="../reference/load_from_file.html">load_from_file()</a></code>. This function will just source <code>tic.R</code> to check for possible misspecification errors. If everything is ok, it will return a list with all stages that are run in the CI build, formatted in the <code>R6</code> class style. Here is a preview of the first two stages:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/load_from_file.html">load_from_file</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/load_from_file.html">load_from_file</a></span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="op">$</span>before_install</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="op">&lt;</span>Stage<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span>Public<span class="op">:</span></a>
@@ -284,7 +284,7 @@
 <div id="troubleshooting-entering-the-ci-build" class="section level1">
 <h1 class="hasAnchor">
 <a href="#troubleshooting-entering-the-ci-build" class="anchor"></a>Troubleshooting: Entering the CI build</h1>
-<p>If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via SSH. To do so, your repository must be enabled for “ssh debugging”. This means you need to write the Travis CI team an e-mail, asking whether your repo can be <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode">activated for debugging</a>. Usually you get a reply within one day with some additional information on how to enter the build. However, rather than going the manual way, just take the easy route by calling <code><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis::travis_debug_job()</a></code>.</p>
+<p>If your Travis build fails and you don’t understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can ssh into the Travis build via SSH. To do so, your repository must be enabled for “ssh debugging”. This means you need to write the Travis CI team an e-mail, asking whether your repo can be <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode">activated for debugging</a>. Usually you get a reply within one day including additional information. However, rather than going the manual way, just take the easy route by calling <code><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis::travis_debug_job()</a></code>.</p>
 <p>All it needs is the “Job ID” of the respective build you want to enter.</p>
 <p><img src="img/travis-job-id.png" style="display: block; margin: auto;"></p>
 <p>Rather than going to the web interface and getting the “Job ID” there, you can also do it from the command line. First, you need to query the overall “Build ID” of the run:</p>
@@ -295,7 +295,7 @@
 <a class="sourceLine" id="cb11-4" data-line-number="4"><span class="ex">-</span> id: 416135954, number: 340, state: errored, duration: 3338, event_type: push, ...</a>
 <a class="sourceLine" id="cb11-5" data-line-number="5"><span class="ex">-</span> id: 416107143, number: 339, state: errored, duration: 3670, event_type: push, ...</a>
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="ex">-</span> id: 416095854, number: 338, state: passed, duration: 3135, event_type: push, ...</a></code></pre></div>
-<p>Because every “build” has multiple “Jobs”, you can now query the “Job ID”. For example, when you know that you want to enter the latest build, you can combine both commands:</p>
+<p>Because every “build” has multiple “Jobs”, you can now query the “Job ID”. For example, when you know that you want to debug the latest build, you can combine both commands:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">build_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_builds</a></span>()[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_jobs</a></span>(build_id)</a></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="ex">A</span> collection of 7 Travis CI jobs:</a>
@@ -304,11 +304,11 @@
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="ex">-</span> id: 416858824, allow_failure: FALSE, number: 342.3, state: passed, started_at: 2018-08-16T15:02:43Z, ...</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"><span class="ex">-</span> id: 416858825, allow_failure: FALSE, number: 342.4, state: passed, started_at: 2018-08-16T15:02:23Z, ...</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="ex">-</span> id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...</a></code></pre></div>
-<p>Finally, the build can be entered by calling <code><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis::travis_debug_job()</a></code>:</p>
+<p>Finally, the build can be restarted by calling <code><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis::travis_debug_job()</a></code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">job_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_get_jobs</a></span>(build_id)[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/travis/topics/travis_get_builds">travis_debug_job</a></span>(job_id)</a></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="ex">Finished</span> restarting debug job 416983664 from Travis CI.</a></code></pre></div>
-<p>Wait a few minutes until the build arrives at the point when it tells you the SSH command you can use to enter the build. It should look similar to <code>ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io</code>. If you still do not want to use the browser manually, simple call <code>travis::browse()</code> to open your project on Travis.</p>
+<p>Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to ssh into the build. It should look similar to <code>ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io</code>. If you still do not want to use the browser manually, simple call <code>travis::browse()</code> to open your project on Travis.</p>
 <p>Once you are in the build you can use <code>bash</code> functions defined by Travis to to execute specific stages:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="ex">travis_run_before_install</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">travis_run_install</span></a>
@@ -317,23 +317,15 @@
 <a class="sourceLine" id="cb16-5" data-line-number="5"><span class="ex">travis_run_after_success</span></a>
 <a class="sourceLine" id="cb16-6" data-line-number="6"><span class="ex">travis_run_after_failure</span></a>
 <a class="sourceLine" id="cb16-7" data-line-number="7"><span class="ex">travis_run_after_script</span></a></code></pre></div>
-<p>The debug session is a VM running a <a href="https://tmate.io/"><code>tmate</code></a> session. You can use some shortcuts to act in the VM:</p>
-<ul>
-<li>Create multiple windows with <code>crtl-b c</code>.<br>
-</li>
-<li>Switch to a different window: <code>crtl-b &lt;window index&gt;</code> where the indices start with 0, 1, 2 and so on.<br>
-</li>
-<li>Scrolling up and down the history: <code>crtl-b [</code>. Press <code>q</code> to exit the scroll mode.</li>
-</ul>
-<p>Keep in mind that you only have 30 minutes before the VM will be terminated automatically!</p>
+<p>The debug session is a VM running a <a href="https://tmate.io/"><code>tmate</code></a> session. This makes it possible to use <code>tmux</code> commands. See this <a href="https://tmuxcheatsheet.com/">cheatsheet</a> for an overview of existing shortcuts.</p>
+<p>Keep in mind that you only have 30 minutes before the VM will be terminated automatically.</p>
 </div>
 <div id="whats-not-covered-yet" class="section level1">
 <h1 class="hasAnchor">
 <a href="#whats-not-covered-yet" class="anchor"></a>What’s not covered yet?</h1>
 <ul>
 <li>
-<code>SystemRequirements</code>: <em>tic</em> is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically provide suggestions like “Please add addons: apt: <library> to <code>.travis.yml</code>”.</library>
-</li>
+<code>SystemRequirements</code>: <em>tic</em> is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically provide suggestions like “Please add <code>addons: apt: &lt;library&gt;</code> to <code>.travis.yml</code>”.</li>
 </ul>
 </div>
 </div>

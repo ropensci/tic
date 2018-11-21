@@ -154,7 +154,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <p>We could list way more differences - but that’s exactly the point when <em>tic</em> comes in!</p>
 <ul>
 <li>Rather than dealing with all the CI differences, <em>tic</em> enables the specification of the complete workflow in an external R script file <code>tic.R</code>.</li>
-<li>The commands specified in there will be understood on every CI service that is supported by <em>tic</em>.</li>
+<li>The commands specified in there will work the same way on every CI service that is supported by <em>tic</em>.</li>
 <li>Furthermore, you can <a href="advantages.html#less-dependency-on-external-ci-control-commands">emulate all the stages and steps locally</a> by calling <code><a href="../reference/tic.html">tic()</a></code>.</li>
 <li>You are independent from all the changes that are being made on the R setup for Travis or Appveyor (<a href="(advantages.html#less-dependency-on-external-ci-control-commands)">more info</a>.</li>
 <li>A <code>tic.R</code> workflow is usually shorter and easier to parse than a <code>.travis.yml</code> or <code>appveyor.yml</code> file.</li>
