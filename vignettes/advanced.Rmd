@@ -59,16 +59,16 @@ if (ci()$get_branch == "master") {
 
 # Installing packages
 
-Note that manual installation of Github or CRAN packages should only be used in non-interactive CI runs. 
+Note that manual installation of GitHub or CRAN packages should only be used in non-interactive CI runs. 
 This can be checked with the condition `ci()$is_interactive()`.
 
 Usually required packages should be installed based on the DESCRIPTION file of a package.
 You should only use the following steps in extraordinary circumstances.
 One could be the requirement of the _magick_ package for a successful favicon creation for a _pkgdown_ website.
 
-## Github packages
+## GitHub packages
 
-Github packages should be installed in the `install` stage:
+GitHub packages should be installed in the `install` stage:
 
 ```{r eval = FALSE}
 get_stage("install") %>%

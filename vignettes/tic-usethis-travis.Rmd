@@ -22,7 +22,7 @@ knitr::include_graphics("img/tic-travis-usethis.png")
 ```
 
 The *usethis* package holds all the utility wrapper functions to simplify R package development.
-From cloning a Github repo (`create_from_github()`) over using `roxygen2` for documentation purposes (`use_roxygen()`) to setting up CI for your package (`use_ci()`).
+From cloning a GitHub repo (`create_from_github()`) over using `roxygen2` for documentation purposes (`use_roxygen()`) to setting up CI for your package (`use_ci()`).
 The latter effectively calls a mixture of *travis* and *tic* functions that do the work in the background. 
 
 Most of the work that needs to be done for Travis is handled by the *travis* package. 

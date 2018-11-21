@@ -43,11 +43,11 @@ A more comprehensive summary of all advantages can be found in the [advantages](
 The easiest way to use *tic* for CI services is to call `usethis::use_ci()`.
 This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
 During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized.
-Also a Personal Access Token (PAT) will be created for Travis, using a private Github PAT variable.
+Also a Personal Access Token (PAT) will be created for Travis, using a private GitHub PAT variable.
 Read [here](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) why this is important.
-The PAT creation cannot be fully automated as some input from the user on Github is required when creating the PAT.
+The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.
 
-First, authentication with Travis (a browser window opens) and Github is initiated (another browser window opens).
+First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
 Also, the repo is actived on Travis.
 
 ```{r, eval = FALSE}
@@ -104,8 +104,8 @@ Added tic.R from template.
 ✔ Adding '^tic\\.R$' to '.Rbuildignore'
 ```
 
-Next, the private deploy key for Travis is added to the Github repo.
-This is needed to give Travis permissions to deploy into the Github repo.
+Next, the private deploy key for Travis is added to the GitHub repo.
+This is needed to give Travis permissions to deploy into the GitHub repo.
 
 ```{r, eval = FALSE}
 Authenticating with GitHub
@@ -127,7 +127,7 @@ Successfully added private deploy key to pat-s/tic.package as secure environment
 id_rsa to Travis CI.
 ```
 
-Last, a PAT is created to avoid the download limit of Github packages on Travis.
+Last, a PAT is created to avoid the download limit of GitHub packages on Travis.
 You now see two environment variables in your setting on Travis CI: `GITHUB_PAT` and `id_rsa`.
 
 ```{r, eval = FALSE}

@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
     ```
     
     Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
-    Additionally,when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by Githubs download rate limitations. 
+    Additionally,when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by GitHubs download rate limitations. 
 
 ## pkgdown deployment
 
@@ -100,7 +100,7 @@ A disadvantage is that the `master` branch will be cluttered by automatic commit
 
 #### gh-pages branch
 
-You can optionally set the deployment branch to `gh-pages` and then change the branch serving your site in the Github repo settings (change it to `gh-pages`).
+You can optionally set the deployment branch to `gh-pages` and then change the branch serving your site in the GitHub repo settings (change it to `gh-pages`).
 This option has the advantage 
 
 - to not have all the automatic commits from Travis in the `master` branch -> the _pkgdown_ site will be "silently" updated in the background in the `gh-pages` branch.

@@ -31,7 +31,7 @@ Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package c
 ## Easier deployment
 
 CI services can be used to automatically build and deploy files.
-This means that these services can push certain files created during the build to repositories (Github, Gitlab, etc.).
+This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.).
 Use cases can be
 
 - changed site contents of _pkgdown_ site
@@ -39,7 +39,7 @@ Use cases can be
 - an automatic generated [test summary page](https://github.com/yonicd/covrpage) of a package 
 
 When the goal is to use CI services for deployment, some preparatory work needs to be done.
-*tic* takes care of all of this (setting up SSH keys, granting permission for the repo on Github and the CI services, creation of a personal Personal Access Token (PAT)).
+*tic* takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)).
 When using `travis::use_ci()` the whole preparation process is streamlined and only needs to be called once for every repo.
 
 For more information on automatic deployment in *tic*, take a look [here](deployment.html).
