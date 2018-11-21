@@ -160,22 +160,4 @@ More information about the whole CI workflow can be found in the [Build lifecyle
 
 ## Easier troubleshooting
 
-*tic* comes with the ability to emulate the CI run locally and debug potential problems. 
-This is possible because `tic.R` is a plain R file that will be sourced when calling `tic()`.
-It will run all the stages and steps in the same order as it would happen on the CI service.
-
-Sometimes CI builds error (even multiple times) and you don't know whether the error is caused by the CI service or by a wrong workflow specification on your side.
-
-To make sure that you have no syntax errors in your `tic.R` file, all you need to do is to call `load_from_file()`.
-In case you have errors, you will see them directly.
-For example, removing a closing bracket on purpose in `tic.R` would return the following when calling `load_from_file()`:
-
-```{r eval = FALSE}
-load_from_file()
-Error in source(path, local = dsl) : tic.R:16:1: unexpected '}'
-15:     add_step(step_push_deploy())
-16: }
-    ^
-```
-
-See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) and [Troubleshooting: Entering the CI build](advanced#troubleshooting-entering-the-cI-build) for instructions on how to debug your CI build in more detail.
+*tic* comes with the ability to [emulate a CI run locally](advanced.html#emulate-a-ci-run-locally) and [debug problems in the config file](advanced#troubleshooting-running-tic-locally) `tic.R` by calling `load_from_file()` locally.
