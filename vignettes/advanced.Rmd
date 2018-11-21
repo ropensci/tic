@@ -75,7 +75,7 @@ get_stage("install") %>%
   add_step(step_install_github("r-lib/rcmdcheck"))
 ```
 
-Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis"))`.
+Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))`.
 
 ## CRAN packages
 
