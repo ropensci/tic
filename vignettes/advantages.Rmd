@@ -57,7 +57,7 @@ See [here](tic.html#example-projects) for a list of supported project types incl
 What does "CI-Agnostic" mean and why do we need it?
 
 You may have heard that multiple CI services exist in the wild.
-Some only support specific operating systems or certain languages and for some you need to pay a monthly rate to use them.
+Some only support specific operating systems or certain languages and for some you need to pay a monthly fee to use them.
 What all have in common: They have their own way to specify their setup file, which is most often written in YAML and stored at the top-level directory of your repo.
 This setup file controls what will be done in each run.
 
