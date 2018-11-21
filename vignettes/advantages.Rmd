@@ -87,7 +87,7 @@ So you are no longer dependent on the syntax and restrictions coming from [r.rb]
 
 As a R package developer you are most likely used to call `devtools::check()` or directly `R CMD check` on your built package.
 Usually also Travis will run `R CMD check` to check the R package.
-*tic* instead uses  [*rcmdcheck*](https://github.com/r-lib/rcmdcheck), which can be seen as a wrapper around `R CMD build` and `R CMD check`.
+*tic* instead uses  [*rcmdcheck*](https://github.com/r-lib/rcmdcheck), a wrapper around `R CMD build` and `R CMD check`.
 It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 *rcmdcheck* comes with several enhancements:
 
