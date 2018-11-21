@@ -195,10 +195,10 @@ Running script: step_rcmdcheck(warnings_are_errors = warnings_are_errors, notes_
 
 # Troubleshooting: Entering the CI build
 
-If your Travis build fails and you don't understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via SSH.
+If your Travis build fails and you don't understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can ssh into the Travis build via SSH.
 To do so, your repository must be enabled for "ssh debugging".
 This means you need to write the Travis CI team an e-mail, asking whether your repo can be [activated for debugging](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode).
-Usually you get a reply within one day with some additional information on how to enter the build.
+Usually you get a reply within one day including additional information.
 However, rather than going the manual way, just take the easy route by calling `travis::travis_debug_job()`.
 
 All it needs is the "Job ID" of the respective build you want to enter.
@@ -224,7 +224,7 @@ A collection of 25 Travis CI builds:
 ```
 
 Because every "build" has multiple "Jobs", you can now query the "Job ID".
-For example, when you know that you want to enter the latest build, you can combine both commands:
+For example, when you know that you want to debug the latest build, you can combine both commands:
 
 ```{r eval = FALSE}
 build_id <- travis::travis_get_builds()[[1]]$id
@@ -240,7 +240,7 @@ A collection of 7 Travis CI jobs:
 - id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...
 ```
 
-Finally, the build can be entered by calling `travis::travis_debug_job()`:
+Finally, the build can be restarted by calling `travis::travis_debug_job()`:
 
 ```{r eval = FALSE}
 job_id <- travis::travis_get_jobs(build_id)[[1]]$id
@@ -251,7 +251,7 @@ travis::travis_debug_job(job_id)
 Finished restarting debug job 416983664 from Travis CI.
 ```
 
-Wait a few minutes until the build arrives at the point when it tells you the SSH command you can use to enter the build.
+Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to ssh into the build.
 It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
 If you still do not want to use the browser manually, simple call `travis::browse()` to open your project on Travis.
 
@@ -274,7 +274,7 @@ You can use some shortcuts to act in the VM:
 - Switch to a different window: `crtl-b <window index>` where the indices start with 0, 1, 2 and so on.  
 - Scrolling up and down the history: `crtl-b [`. Press `q` to exit the scroll mode.  
 
-Keep in mind that you only have 30 minutes before the VM will be terminated automatically!
+Keep in mind that you only have 30 minutes before the VM will be terminated automatically.
 
 # What's not covered yet?
 
