@@ -129,13 +129,13 @@
 <li>
 <p>A private key is encoded in base64 and stored in an environment variable on Travis, and installed in the ~/.ssh directory during the CI run</p>
 <p><img src="img/private-key-travis.png" style="display: block; margin: auto;"></p>
-<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated. Additionally,when calling <code>use_ci()</code> a Personal Access token (PAT) is created (by <code>travis::create_github_pat()</code>) to avoid the errors caused by Githubs download rate limitations.</p>
+<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated. Additionally,when calling <code>use_ci()</code> a Personal Access token (PAT) is created (by <code>travis::create_github_pat()</code>) to avoid the errors caused by GitHubs download rate limitations.</p>
 </li>
 </ol>
 <div id="pkgdown-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pkgdown-deployment" class="anchor"></a>pkgdown deployment</h2>
-<p>Today, it becomes more and more standard to have a <code>pkgdown</code> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. To not waste time on updating the site manually, <em>tic</em> takes care of an automatic deployment if contents have changed.</p>
+<p>Today, it becomes more and more standard to have a <em>pkgdown</em> site for a R package which presents all the well-written vignettes and function documentations in a nicely styled web version. But this is only valuable if the information also reflects the most recent state of the repo. To not waste time on updating the site manually, <em>tic</em> takes care of an automatic deployment if contents have changed.</p>
 <p>As an example, we show you how <em>tic</em> deploys on Travis. In the <code>.travis.yml</code> file:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">deploy:</span></a>
@@ -163,7 +163,7 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <code>pkgdown</code> site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
+<p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <em>pkgdown</em> site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
 </li>
 </ol>
 <div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
@@ -174,27 +174,27 @@
 <a href="#master-branch" class="anchor"></a>master branch</h4>
 <p>By default the deployment is done to the <code>docs/</code> directory of the <code>master</code> branch. This option has the following advantages:</p>
 <ul>
-<li>You can have per-branch versions of your <code>pkgdown</code> site</li>
+<li>You can have per-branch versions of your <em>pkgdown</em> site</li>
 <li>Per-branch versions enable the possibility to have preview for pull requests via <a href="https://www.netlify.com/" class="uri">https://www.netlify.com/</a>
 </li>
 </ul>
-<p>A disadvantage is that the <code>master</code> branch will be cluttered by automatic commits triggered by Travis that push the changes of the <code>pkgdown</code> site to the <code>master</code> branch.</p>
+<p>A disadvantage is that the <code>master</code> branch will be cluttered by automatic commits triggered by Travis that push the changes of the <em>pkgdown</em> site to the <code>master</code> branch.</p>
 </div>
 <div id="gh-pages-branch" class="section level4">
 <h4 class="hasAnchor">
 <a href="#gh-pages-branch" class="anchor"></a>gh-pages branch</h4>
-<p>You can optionally set the deployment branch to <code>gh-pages</code> and then change the branch serving your site in the Github repo settings (change it to <code>gh-pages</code>). This option has the advantage</p>
+<p>You can optionally set the deployment branch to <code>gh-pages</code> and then change the branch serving your site in the GitHub repo settings (change it to <code>gh-pages</code>). This option has the advantage</p>
 <ul>
-<li>to not have all the automatic commits from Travis in the <code>master</code> branch -&gt; the <code>pkgdown</code> site will be “silently” updated in the background in the <code>gh-pages</code> branch.</li>
+<li>to not have all the automatic commits from Travis in the <code>master</code> branch -&gt; the <em>pkgdown</em> site will be “silently” updated in the background in the <code>gh-pages</code> branch.</li>
 </ul>
 <p>A disadvantage is that you cannot have per-branch versions of your site and hence no pull request previews of the site.</p>
-<p>To use this option with <em>tic</em>, specify <code>branch = "gh-pages", path = "docs"</code> in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>. As the site serving in this setting will use the root of the branch, the <code>gh-pages</code> branch will only consist of the public <code>pkgdown</code> files used to serve the site.</p>
+<p>To use this option with <em>tic</em>, specify <code>branch = "gh-pages", path = "docs"</code> in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>. As the site serving in this setting will use the root of the branch, the <code>gh-pages</code> branch will only consist of the public <em>pkgdown</em> files used to serve the site.</p>
 </div>
 </div>
 <div id="conditional-deployment" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conditional-deployment" class="anchor"></a>Conditional deployment</h3>
-<p>If you are running a build matrix or build stages on Travis, you want to run certain tasks only once during a build. The creation of a <code>pkgdown</code> site is a common task which applies to this.</p>
+<p>If you are running a build matrix or build stages on Travis, you want to run certain tasks only once during a build. The creation of a <em>pkgdown</em> site is a common task which applies to this.</p>
 <p>Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages. You can restrict on which stage/job a task is executed with the help of environment variables. There are two ways to restrict the deployment with <em>tic</em> and environment variables:</p>
 <ol style="list-style-type: decimal">
 <li>Setting the condition in <code>tic.R</code>

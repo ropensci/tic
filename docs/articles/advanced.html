@@ -115,7 +115,7 @@
 </li>
       <li>
 <a href="#installing-packages">Installing packages</a><ul>
-<li><a href="#github-packages">Github packages</a></li>
+<li><a href="#github-packages">GitHub packages</a></li>
       <li><a href="#cran-packages">CRAN packages</a></li>
       </ul>
 </li>
@@ -147,7 +147,7 @@
 <li>R Version of the current build (<code><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion()</a></code>)</li>
 <li>other features of the build (e.g. branch name, <code>ci()$get_branch()</code>)</li>
 </ul>
-<p>The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a <code>pkgdown</code> site</a>). If you test on multiple CI services you may also want to run certain tasks on only one of them.</p>
+<p>The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a <em>pkgdown</em> site</a>). If you test on multiple CI services you may also want to run certain tasks on only one of them.</p>
 <div id="use-cases" class="section level2">
 <h2 class="hasAnchor">
 <a href="#use-cases" class="anchor"></a>Use cases</h2>
@@ -174,12 +174,12 @@
 <div id="installing-packages" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installing-packages" class="anchor"></a>Installing packages</h1>
-<p>Note that manual installation of Github or CRAN packages should only be used in non-interactive CI runs. This can be checked with the condition <code>ci()$is_interactive()</code>.</p>
-<p>Usually required packages should be installed based on the DESCRIPTION file of a package. You should only use the following steps in extraordinary circumstances. One could be the requirement of the <em>magick</em> package for a successful favicon creation for a <code>pkgdown</code> website.</p>
+<p>Note that manual installation of GitHub or CRAN packages should only be used in non-interactive CI runs. This can be checked with the condition <code>ci()$is_interactive()</code>.</p>
+<p>Usually required packages should be installed based on the DESCRIPTION file of a package. You should only use the following steps in extraordinary circumstances. One could be the requirement of the <em>magick</em> package for a successful favicon creation for a <em>pkgdown</em> website.</p>
 <div id="github-packages" class="section level2">
 <h2 class="hasAnchor">
-<a href="#github-packages" class="anchor"></a>Github packages</h2>
-<p>Github packages should be installed in the <code>install</code> stage:</p>
+<a href="#github-packages" class="anchor"></a>GitHub packages</h2>
+<p>GitHub packages should be installed in the <code>install</code> stage:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_github</a></span>(<span class="st">"r-lib/rcmdcheck"</span>))</a></code></pre></div>
 <p>Note that the underlying <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call: <code><a href="../reference/DSL.html">add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))</a></code>.</p>
@@ -187,7 +187,7 @@
 <div id="cran-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cran-packages" class="anchor"></a>CRAN packages</h2>
-<p>Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package. For example, to create a favicon in <code>pkgdown</code>, the <code>magick</code> package is required. To install the package (only if it does not exist in the cache already), run the following:</p>
+<p>Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package. For example, to create a favicon in <em>pkgdown</em>, the <code>magick</code> package is required. To install the package (only if it does not exist in the cache already), run the following:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_cran</a></span>(<span class="st">"magick"</span>))</a></code></pre></div>
 </div>
@@ -343,7 +343,7 @@
 </li>
       <li>
 <a href="#installing-packages">Installing packages</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#github-packages">Github packages</a></li>
+<li><a href="#github-packages">GitHub packages</a></li>
       <li><a href="#cran-packages">CRAN packages</a></li>
       </ul>
 </li>

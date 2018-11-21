@@ -149,8 +149,8 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="initialization" class="section level1">
 <h1 class="hasAnchor">
 <a href="#initialization" class="anchor"></a>Initialization</h1>
-<p>The easiest way to use <em>tic</em> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created for Travis, using a private Github PAT variable. Read <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">here</a> why this is important. The PAT creation cannot be fully automated as some input from the user on Github is required when creating the PAT.</p>
-<p>First, authentication with Travis (a browser window opens) and Github is initiated (another browser window opens). Also, the repo is actived on Travis.</p>
+<p>The easiest way to use <em>tic</em> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created for Travis, using a private GitHub PAT variable. Read <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">here</a> why this is important. The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.</p>
+<p>First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens). Also, the repo is actived on Travis.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_ci</span>()</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">✔ Setting active project to <span class="st">'/home/pjs/git/tic.package'</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">✔ GitHub is already initialized</a>
@@ -188,7 +188,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb4-6" data-line-number="6">Selection<span class="op">:</span><span class="st"> </span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">Added tic.R from template.</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8">✔ Adding <span class="st">'^tic</span><span class="ch">\\</span><span class="st">.R$'</span> to <span class="st">'.Rbuildignore'</span></a></code></pre></div>
-<p>Next, the private deploy key for Travis is added to the Github repo. This is needed to give Travis permissions to deploy into the Github repo.</p>
+<p>Next, the private deploy key for Travis is added to the GitHub repo. This is needed to give Travis permissions to deploy into the GitHub repo.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Authenticating with GitHub</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
@@ -201,7 +201,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Finished adding private environment variable id_rsa to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">Successfully added private deploy key to pat<span class="op">-</span>s<span class="op">/</span>tic.package as secure environment variable</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">id_rsa to Travis CI.</a></code></pre></div>
-<p>Last, a PAT is created to avoid the download limit of Github packages on Travis. You now see two environment variables in your setting on Travis CI: <code>GITHUB_PAT</code> and <code>id_rsa</code>.</p>
+<p>Last, a PAT is created to avoid the download limit of GitHub packages on Travis. You now see two environment variables in your setting on Travis CI: <code>GITHUB_PAT</code> and <code>id_rsa</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">Create a personal access token, make sure that you are signed <span class="cf">in</span> as the correct user. </a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">The suggested description <span class="st">'travis+tic for pat-s/tic.package'</span> has been copied to the </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">clipboard. If you use this token only to avoid GitHubs rate limit, you can leave </a>
@@ -243,7 +243,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> sets up the SSH connection needed for deployment.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a></code></pre></div>
-<p>Then, in the “deploy” stage of the CI run, function <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build a <a href="http://pkgdown.r-lib.org/"><code>pkgdown</code></a> site if the project is an R package, and the <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step will push the updated files (if any) to Git.</p>
+<p>Then, in the “deploy” stage of the CI run, function <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build a <a href="http://pkgdown.r-lib.org/"><em>pkgdown</em></a> site if the project is an R package, and the <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step will push the updated files (if any) to Git.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
@@ -308,7 +308,7 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <a href="#advanced" class="anchor"></a>Advanced</h1>
 <p>The advanced usage of <em>tic</em> is described in more detail in the <a href="advanced.html">Advanced Usage</a> article:</p>
 <ul>
-<li><a href="advanced.html#pkgdown-deployment">Options for <code>pkgdown</code> deployment</a></li>
+<li><a href="advanced.html#pkgdown-deployment">Options for <em>pkgdown</em> deployment</a></li>
 <li><a href="advanced.html#using-travis-ci-meta-information">Using Travis CI Meta-information</a></li>
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Running <em>tic</em> locally</a></li>
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Enter into the Travis build</a></li>
