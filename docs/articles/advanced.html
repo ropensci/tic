@@ -108,7 +108,11 @@
       <h3 class="hasAnchor">
 <a href="#toc" class="anchor"></a>Table of Contents</h3>
       <ul>
-<li><a href="#running-steps-conditionally">Running steps conditionally</a></li>
+<li>
+<a href="#running-steps-conditionally">Running steps conditionally</a><ul>
+<li><a href="#use-cases">Use cases</a></li>
+      </ul>
+</li>
       <li>
 <a href="#installing-packages">Installing packages</a><ul>
 <li><a href="#github-packages">Github packages</a></li>
@@ -137,22 +141,35 @@
 <div id="running-steps-conditionally" class="section level1">
 <h1 class="hasAnchor">
 <a href="#running-steps-conditionally" class="anchor"></a>Running steps conditionally</h1>
-<p>The conditioned execution of commands is based on environment variables. The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a <code>pkgdown</code> site</a>). If you test on multiple CI services you may also want to run certain tasks on only one of them.</p>
-<p>Take the execution of <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> as an example. This call generates a coverage report of how much lines of a R package are covered by unit tests. It has little benefit to run this on different R versions as the outcome will usually be the same. Also it increases the build time on every build without adding value. It is sufficient to just run it on one R version, e.g. “release”.</p>
-<p>When you use multiple R versions, Travis/Appveyor automatically set up a build matrix with each build having <a href="https://docs.travis-ci.com/user/languages/r/#Environment-Variables">set an environment variable for the R version</a> used. So all you need to do is to condition the stage execution on this env variable:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> ((<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion</a></span>() <span class="op">==</span><span class="st"> "release"</span>)) {</a>
+<p>Steps and stages can be run conditionally using the control workflow of <em>tic</em>. Possible conditionals are</p>
+<ul>
+<li>Environment variables of the build (queried by <code><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv()</a></code>)</li>
+<li>R Version of the current build (<code><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion()</a></code>)</li>
+<li>other features of the build (e.g. branch name, <code>ci()$get_branch()</code>)</li>
+</ul>
+<p>The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a <code>pkgdown</code> site</a>). If you test on multiple CI services you may also want to run certain tasks on only one of them.</p>
+<div id="use-cases" class="section level2">
+<h2 class="hasAnchor">
+<a href="#use-cases" class="anchor"></a>Use cases</h2>
+<p>The following shows you some example code blocks to condition certain stages and their respective steps on</p>
+<ul>
+<li>the R Version</li>
+<li>the CI service</li>
+<li>a specific branch</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion</a></span>() <span class="op">==</span><span class="st"> "release"</span>) {</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(covr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">codecov</a></span>())</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">}</a></code></pre></div>
-<p>A special use case here would be to evaluate the R version inside an argument of <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>. Here, we set <code>warnings_are_errors = TRUE</code> for <code>getRversion() &gt;= "3.2")</code>. Of course this only has an effect if testing on <code>getRversion() &gt;= "3.2")</code> is actually specified in <code>.travis.yml</code> (see <a href="https://github.com/ropenscilabs/tic/blob/36a1b88797e8eb7218cfb767b65490452d47ad8e/.travis.yml#L39-L45">here</a> for an example).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">add_package_checks</a></span>(<span class="dt">warnings_are_errors =</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion</a></span>() <span class="op">&gt;=</span><span class="st"> "3.2"</span>))</a></code></pre></div>
-<p>Note that setting the <code>after_success</code> stage explicitly will simply append the commands to what <code><a href="../reference/DSL.html">add_package_checks()</a></code> would do in the background for this particular stage. So steps are not overwritten but incrementally added, even if specified multiple times.</p>
-<p>Another condition that comes in handy is to run certain stages only on a specific CI service, e.g. Travis:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits</a></span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>) {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(covr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">codecov</a></span>())</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits</a></span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci</a></span>()<span class="op">$</span>get_branch <span class="op">==</span><span class="st"> "master"</span>) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">}</a></code></pre></div>
-<p>All this conditioning is specified in <code>tic.R</code>, which is a plain R file that is processed internally with <code><a href="https://www.rdocumentation.org/packages/base/topics/source">source()</a></code>.</p>
+</div>
 </div>
 <div id="installing-packages" class="section level1">
 <h1 class="hasAnchor">
@@ -327,7 +344,11 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#running-steps-conditionally">Running steps conditionally</a></li>
+<li>
+<a href="#running-steps-conditionally">Running steps conditionally</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#use-cases">Use cases</a></li>
+      </ul>
+</li>
       <li>
 <a href="#installing-packages">Installing packages</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#github-packages">Github packages</a></li>
