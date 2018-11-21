@@ -195,7 +195,7 @@ Running script: step_rcmdcheck(warnings_are_errors = warnings_are_errors, notes_
 
 # Troubleshooting: Entering the CI build
 
-If your Travis build fails and you have no clue why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via SSH.
+If your Travis build fails and you don't understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can enter into the Travis build via SSH.
 To do so, your repository must be enabled for "ssh debugging".
 This means you need to write the Travis CI team an e-mail, asking whether your repo can be [activated for debugging](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode).
 Usually you get a reply within one day with some additional information on how to enter the build.
