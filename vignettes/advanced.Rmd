@@ -32,12 +32,12 @@ If you test on multiple CI services you may also want to run certain tasks on on
 
 The following shows you some example code blocks to condition certain stages and their respective steps on 
 
-- the R Version
+- the R Version (using an env variable)
 - the CI service
 - a specific branch
 
 ```{r eval = FALSE}
-if (getRversion() == "release") {
+if (Sys.getenv("TRAVIS_R_VERSION_STRING") == "release") {
   get_stage("after_success") %>%
     add_step(<do something>)
 }
