@@ -19,13 +19,14 @@ knitr::opts_chunk$set(
 Many important steps running on CI systems are [already implemented](tic.html#steps) into *tic*.
 The following vignette shows how new steps can be created and how *tic* defines them.
 Internally, all steps are defined as [R6](https://github.com/wch/R6) classes.
-A step is an environment-like (or list-like) object with named members `check`, `prepare`, and `run`.
+A step is an environment-like (or list-like) object with named elements `check`, `prepare`, and `run`.
 These members should be functions that are callable without arguments.
 
 The base class of a step that is `TicStep`.
 All steps defined by tic, including the example `HelloWorld` step, use `TicStep` as the base class.
 See [`steps-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R) for the implementation.
-The `step_...` functions in tic are simply the `new()` methods of the corresponding R6 class objects.
+This means that you only need to override the methods you need; if you don't need a `check()` or `prepare()` method you can leave it out.
+The `step_...` functions in tic are simply forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
 We recommend following the same pattern for your custom steps.
 
 There should be no need to write steps on your own. 
@@ -37,52 +38,29 @@ In the following, we describe the three methods which the new step class must ov
 
 This method will be called by `prepare_all_stages()`.
 It is intended to run in the `before_script` phase of the CI run.
-You should install all dependent packages here that the step requires, which then can be cached by the CI system.
+This method should install all dependent packages that the step requires, which then can be cached by the CI system.
 You also may include further preparation code here.
-For example `step_rcmdcheck` verifies that the R packages *rcmdcheck* and `remotes` are installed:
+For example `step_rcmdcheck` verifies that the R packages *rcmdcheck* and *remotes* are installed:
 
-```{r eval = FALSE}
-prepare = function() {
-  verify_install(c("remotes", "rcmdcheck"))
-  
-  f_install_deps <- remotes::install_deps
-  withr::with_libpaths(
-    private$lib, action = "replace",
-    {
-      f_install_deps(dependencies = TRUE)
-      utils::update.packages(ask = FALSE)
-    }
-  )
-}
+```{r}
+RCMDcheck$public_methods$prepare
 ```
 
 ### `run()`
 
-This method holds the commands that execute the essential calls in the end.
-It is called when a new element of that step class is created, e.g. `RCMDcheck$new`.
+This method executes the step.
+When a step is added to a stage, `run()` will be called when the stage is executed.
 For example, the `run()` function of class `RCMDcheck` looks as follows:
 
-```{r eval = FALSE}
-run = function() {
-res <- rcmdcheck::rcmdcheck(args = private$args)
-  print(res)
-  if (length(res$errors) > 0) {
-    stopc("Errors found.")
-  }
-  if (private$warnings_are_errors && length(res$warnings) > 0) {
-    stopc("Warnings found, and warnings_are_errors is set.")
-  }
-  if (private$notes_are_errors && length(res$notes) > 0) {
-    stopc("Notes found, and notes_are_errors is set.")
- }
-}
+```{r}
+RCMDcheck$public_methods$run
 ```
 
 You can take a look at [this PR](https://github.com/ropenscilabs/tic/pull/75/files) to see how a new step implementation can look like.
 
 The most minimalist version is the "Hello World" [example step](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R).
-This new class only contains a `run()` function which does nothing more than printing "Hello World" to the console.
-It is initialized by calling `step_hello_world()` which creates a new instances of this class.
+This new class only contains a `run()` method which does nothing more than printing "Hello World" to the console.
+It is initialized by calling `step_hello_world()` which creates a new instance of this class.
 
 ```{r eval = FALSE}
 HelloWorld <- R6Class(
@@ -129,6 +107,6 @@ step_rcmdcheck <- function(warnings_are_errors = TRUE, notes_are_errors = FALSE,
 
 Here, a new instance of the defined `R6` class `RCMDcheck` is initiated with `RCMDcheck$new()`.
 The arguments to `step_rcmdcheck()` are passed on to the `initialize()` function of the `R6` class.
-Here, the arguments are assigned to the "private" objects (e.g. `private$args`).
-Next, the private objects are used in the `run()` function which does the actual work in the end.
+Here, the arguments are assigned to the "private" members (e.g. `private$args`).
+Next, these private members are used in the `run()` function which carries out the actual work.
 You can read more about `R6` in Hadley's [book](https://adv-r.hadley.nz/r6.html).

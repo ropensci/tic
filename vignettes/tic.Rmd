@@ -42,15 +42,15 @@ A more comprehensive summary of all advantages can be found in the [advantages](
 
 The easiest way to use *tic* for CI services is to call `usethis::use_ci()`.
 This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
-During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized.
-Also a Personal Access Token (PAT) will be created for Travis, using a private GitHub PAT variable.
-Read [here](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) why this is important.
+During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized.
+Also a Personal Access Token (PAT) will be created on GitHub and stored  as an encrypted variable on Travis.
+This avoids hitting rate limitations when accessing the GitHub API, see [this blog post](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) for more details.
 The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.
 
 First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
 Also, the repo is actived on Travis.
 
-```{r, eval = FALSE}
+```
 usethis::use_ci()
 ✔ Setting active project to '/home/pjs/git/tic.package'
 ✔ GitHub is already initialized
@@ -69,7 +69,7 @@ Finished activating repo pat-s/tic.package on Travis CI.
 Next, you will be asked if the current `.travis.yml` should be replaced with the template from *tic* (if one exists).
 Otherwise, the template is added without asking.
 
-```{r, eval = FALSE}
+```
 Overwrite pre-existing file '.travis.yml'?
 1: Absolutely not
 2: Nope
@@ -78,7 +78,7 @@ Overwrite pre-existing file '.travis.yml'?
 
 The same is done for Appveyor.
 
-```{r, eval = FALSE}
+```
 Selection: 3
 ✔ Writing '.travis.yml'
 Overwrite pre-existing file 'appveyor.yml'?
@@ -93,7 +93,7 @@ Selection: 1
 And also for the `tic.R` file.
 Additionally, it is added to `.Rbuildignore` to not interfer with the package building.
 
-```{r, eval = FALSE}
+```
 Overwrite tic.R? 
 
 1: Yes
@@ -107,7 +107,7 @@ Added tic.R from template.
 Next, the private deploy key for Travis is added to the GitHub repo.
 This is needed to give Travis permissions to deploy into the GitHub repo.
 
-```{r, eval = FALSE}
+```
 Authenticating with GitHub
 Waiting for authentication in browser...
 Press Esc/Ctrl + C to abort
@@ -115,13 +115,14 @@ Authentication complete.
 Finished adding deploy keys on GitHub for repo pat-s/tic.package.
 Successfully added public deploy key 'travis+tic for pat-s/tic.package' to GitHub for 
 pat-s/tic.package. You should receive a confirmation e-mail from GitHub. Delete the 
-key in the repository's settings when you no longer need it.
+key in the repository's settings to revoke access for that key or
+when you no longer need it.
 ```
 
 Besides the private deploy key, also the public deploy key needs to be added as an environment variable to Travis.
 As it is a SSH key, its named `id_rsa` by default.
 
-```{r, eval = FALSE}
+```
 Finished adding private environment variable id_rsa to pat-s/tic.package on Travis CI.
 Successfully added private deploy key to pat-s/tic.package as secure environment variable
 id_rsa to Travis CI.
@@ -130,10 +131,10 @@ id_rsa to Travis CI.
 Last, a PAT is created to avoid the download limit of GitHub packages on Travis.
 You now see two environment variables in your setting on Travis CI: `GITHUB_PAT` and `id_rsa`.
 
-```{r, eval = FALSE}
+```
 Create a personal access token, make sure that you are signed in as the correct user. 
 The suggested description 'travis+tic for pat-s/tic.package' has been copied to the 
-clipboard. If you use this token only to avoid GitHubs rate limit, you can leave 
+clipboard. If you use this token only to avoid GitHub's rate limit, you can leave 
 all scopes unchecked. Then, copy the new token to the clipboard, it will be 
 detected and applied automatically. Please visit
   https://github.com/settings/tokens/new
@@ -169,7 +170,7 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") {
 }
 ```
 
-Let's break done what happens here:
+Let's break down what happens here:
 
 ```{r eval = FALSE}
 add_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
@@ -184,7 +185,7 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") { }
 ```
 
 This line conditions the contents of the block inside the braces `{ }` on the existence of the environment variable `"BUILD_PKGDOWN"`.
-The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, conditioned on the job that runs on the current R-release version:
+The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, but only for the job that runs on the current R-release version:
 
 ```{yml eval = FALSE}
 - r: 3.3

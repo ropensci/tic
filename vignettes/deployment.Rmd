@@ -17,20 +17,20 @@ knitr::opts_chunk$set(
 
 *tic* handles the deployment as follows:
 
-1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `usethis::use_ci()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail
+1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `usethis::use_ci()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
 
     ```{r, echo = FALSE, fig.align='center', dpi = 10}
     knitr::include_graphics("img/ssh-deploy-key.png")
     ```
     
-2. A private key is encoded in base64 and stored in an environment variable on Travis, and installed in the ~/.ssh directory during the CI run
+2. A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, _tic_ installs it in the `~/.ssh` directory so that it can be used for authentication:
 
     ```{r, echo = FALSE, fig.align='center', dpi = 10}
     knitr::include_graphics("img/private-key-travis.png")
     ```
     
     Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
-    Additionally,when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by GitHubs download rate limitations. 
+    Additionally, when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by GitHubs download rate limitations. 
 
 ## pkgdown deployment
 
@@ -170,10 +170,11 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") {
 
 ## Committing single files
 
-Function `step_push_deploy()` has the ability to only commit and push single files if they have changed during a CI build.
+The `step_push_deploy()` function has the ability to restrict the files that are commited and pushed.
 This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if these are automatically created via Travis.
-First, you need to make sure these files are created correctly by calling `devtools::document()`.
-Then, simply add the desired paths to argument `commit_paths` in `step_push_deploy()` and push to your desired branch (here `master`):
+
+In the following example, these files are created/updated by calling `devtools::document()`.
+The `commit_paths` argument in `step_push_deploy()` decides which files are committed and pushed:
 
 ```{r eval = FALSE}
 get_stage("before_deploy") %>%
@@ -181,7 +182,7 @@ get_stage("before_deploy") %>%
 
 get_stage("deploy") %>%
   add_code_step(devtools::document(roclets = c("rd", "collate", "namespace"))) %>%
-  add_step(step_push_deploy(branch = "master", commit_paths = c("NAMESPACE", "man/*")))
+  add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man/*")))
 ```
 
 Applying this idea of course depends on your overall R package development strategy: Commit files like `/man/` and `NS` directly or let them be created by Travis?
