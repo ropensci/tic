@@ -317,7 +317,15 @@
 <a class="sourceLine" id="cb16-5" data-line-number="5"><span class="ex">travis_run_after_success</span></a>
 <a class="sourceLine" id="cb16-6" data-line-number="6"><span class="ex">travis_run_after_failure</span></a>
 <a class="sourceLine" id="cb16-7" data-line-number="7"><span class="ex">travis_run_after_script</span></a></code></pre></div>
-<p>The debug session is a VM running a <a href="https://tmate.io/"><code>tmate</code></a> session. This makes it possible to use <code>tmux</code> commands. See this <a href="https://tmuxcheatsheet.com/">cheatsheet</a> for an overview of existing shortcuts.</p>
+<p>The debug session is a VM running a <a href="https://tmate.io/"><code>tmate</code></a> session. This makes it possible to use <code>tmux</code> commands, such as:</p>
+<ul>
+<li>Create multiple windows with <code>crtl-b c</code>.<br>
+</li>
+<li>Switch to a different window: <code>crtl-b &lt;window index&gt;</code> where the indices start with 0, 1, 2 and so on.<br>
+</li>
+<li>Scrolling up and down the history: <code>crtl-b [</code>. Press <code>q</code> to exit the scroll mode.</li>
+</ul>
+<p>See this <a href="https://tmuxcheatsheet.com/">cheatsheet</a> for more shortcuts.</p>
 <p>Keep in mind that you only have 30 minutes before the VM will be terminated automatically.</p>
 </div>
 <div id="whats-not-covered-yet" class="section level1">
