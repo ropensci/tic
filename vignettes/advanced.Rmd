@@ -268,8 +268,13 @@ travis_run_after_script
 ```
 
 The debug session is a VM running a [`tmate`](https://tmate.io/) session.
-This makes it possible to use `tmux` commands. 
-See this [cheatsheet](https://tmuxcheatsheet.com/) for an overview of existing shortcuts.
+This makes it possible to use `tmux` commands, such as:
+
+- Create multiple windows with `crtl-b c`.  
+- Switch to a different window: `crtl-b <window index>` where the indices start with 0, 1, 2 and so on.  
+- Scrolling up and down the history: `crtl-b [`. Press `q` to exit the scroll mode.  
+
+See this [cheatsheet](https://tmuxcheatsheet.com/) for more shortcuts.
 
 Keep in mind that you only have 30 minutes before the VM will be terminated automatically.
 
