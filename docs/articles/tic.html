@@ -149,69 +149,70 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="initialization" class="section level1">
 <h1 class="hasAnchor">
 <a href="#initialization" class="anchor"></a>Initialization</h1>
-<p>The easiest way to use <em>tic</em> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open app ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created for Travis, using a private GitHub PAT variable. Read <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">here</a> why this is important. The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.</p>
+<p>The easiest way to use <em>tic</em> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created on GitHub and stored as an encrypted variable on Travis. This avoids hitting rate limitations when accessing the GitHub API, see <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">this blog post</a> for more details. The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.</p>
 <p>First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens). Also, the repo is actived on Travis.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_ci</span>()</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">✔ Setting active project to <span class="st">'/home/pjs/git/tic.package'</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">✔ GitHub is already initialized</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">Authenticating with GitHub</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">Authentication complete.</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">Authenticating with Travis</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">Authenticating with GitHub</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">Authentication complete.</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">Finished activating repo pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a></code></pre></div>
+<pre><code>usethis::use_ci()
+✔ Setting active project to '/home/pjs/git/tic.package'
+✔ GitHub is already initialized
+Authenticating with GitHub
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+Authenticating with Travis
+Authenticating with GitHub
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+Finished activating repo pat-s/tic.package on Travis CI.</code></pre>
 <p>Next, you will be asked if the current <code>.travis.yml</code> should be replaced with the template from <em>tic</em> (if one exists). Otherwise, the template is added without asking.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">Overwrite pre<span class="op">-</span>existing file <span class="st">'.travis.yml'</span>?</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Absolutely not</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="dv">2</span><span class="op">:</span><span class="st"> </span>Nope</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="dv">3</span><span class="op">:</span><span class="st"> </span>Yeah</a></code></pre></div>
+<pre><code>Overwrite pre-existing file '.travis.yml'?
+1: Absolutely not
+2: Nope
+3: Yeah</code></pre>
 <p>The same is done for Appveyor.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">Selection<span class="op">:</span><span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">✔ Writing <span class="st">'.travis.yml'</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">Overwrite pre<span class="op">-</span>existing file <span class="st">'appveyor.yml'</span>?</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Yeah</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="dv">2</span><span class="op">:</span><span class="st"> </span>Nope</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="dv">3</span><span class="op">:</span><span class="st"> </span>No way</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">Selection<span class="op">:</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">✔ Writing <span class="st">'appveyor.yml'</span></a></code></pre></div>
+<pre><code>Selection: 3
+✔ Writing '.travis.yml'
+Overwrite pre-existing file 'appveyor.yml'?
+1: Yeah
+2: Nope
+3: No way
+
+Selection: 1
+✔ Writing 'appveyor.yml'</code></pre>
 <p>And also for the <code>tic.R</code> file. Additionally, it is added to <code>.Rbuildignore</code> to not interfer with the package building.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">Overwrite tic.R? </a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Yes</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="dv">2</span><span class="op">:</span><span class="st"> </span>No</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">Selection<span class="op">:</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">Added tic.R from template.</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">✔ Adding <span class="st">'^tic</span><span class="ch">\\</span><span class="st">.R$'</span> to <span class="st">'.Rbuildignore'</span></a></code></pre></div>
+<pre><code>Overwrite tic.R? 
+
+1: Yes
+2: No
+
+Selection: 1
+Added tic.R from template.
+✔ Adding '^tic\\.R$' to '.Rbuildignore'</code></pre>
 <p>Next, the private deploy key for Travis is added to the GitHub repo. This is needed to give Travis permissions to deploy into the GitHub repo.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Authenticating with GitHub</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">Authentication complete.</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">Finished adding deploy keys on GitHub <span class="cf">for</span> repo pat<span class="op">-</span>s<span class="op">/</span>tic.package.</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">Successfully added public deploy key <span class="st">'travis+tic for pat-s/tic.package'</span> to GitHub <span class="cf">for</span> </a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">pat<span class="op">-</span>s<span class="op">/</span>tic.package. You should receive a confirmation e<span class="op">-</span>mail from GitHub. Delete the </a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">key <span class="cf">in</span> the repository<span class="st">'s settings when you no longer need it.</span></a></code></pre></div>
+<pre><code>Authenticating with GitHub
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+Finished adding deploy keys on GitHub for repo pat-s/tic.package.
+Successfully added public deploy key 'travis+tic for pat-s/tic.package' to GitHub for 
+pat-s/tic.package. You should receive a confirmation e-mail from GitHub. Delete the 
+key in the repository's settings to revoke access for that key or
+when you no longer need it.</code></pre>
 <p>Besides the private deploy key, also the public deploy key needs to be added as an environment variable to Travis. As it is a SSH key, its named <code>id_rsa</code> by default.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Finished adding private environment variable id_rsa to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">Successfully added private deploy key to pat<span class="op">-</span>s<span class="op">/</span>tic.package as secure environment variable</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">id_rsa to Travis CI.</a></code></pre></div>
+<pre><code>Finished adding private environment variable id_rsa to pat-s/tic.package on Travis CI.
+Successfully added private deploy key to pat-s/tic.package as secure environment variable
+id_rsa to Travis CI.</code></pre>
 <p>Last, a PAT is created to avoid the download limit of GitHub packages on Travis. You now see two environment variables in your setting on Travis CI: <code>GITHUB_PAT</code> and <code>id_rsa</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">Create a personal access token, make sure that you are signed <span class="cf">in</span> as the correct user. </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">The suggested description <span class="st">'travis+tic for pat-s/tic.package'</span> has been copied to the </a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">clipboard. If you use this token only to avoid GitHubs rate limit, you can leave </a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">all scopes unchecked. Then, copy the new token to the clipboard, it will be </a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">detected and applied automatically. Please visit</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">  https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>settings<span class="op">/</span>tokens<span class="op">/</span>new</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">A browser window will be opened.</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">Waiting <span class="cf">for</span> PAT to appear on the clipboard.</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">Detected PAT, clearing clipboard.</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">Finished adding private environment variable GITHUB_PAT to pat<span class="op">-</span>s<span class="op">/</span>tic.package on Travis CI.</a></code></pre></div>
+<pre><code>Create a personal access token, make sure that you are signed in as the correct user. 
+The suggested description 'travis+tic for pat-s/tic.package' has been copied to the 
+clipboard. If you use this token only to avoid GitHub's rate limit, you can leave 
+all scopes unchecked. Then, copy the new token to the clipboard, it will be 
+detected and applied automatically. Please visit
+  https://github.com/settings/tokens/new
+A browser window will be opened.
+Waiting for PAT to appear on the clipboard.
+Detected PAT, clearing clipboard.
+Finished adding private environment variable GITHUB_PAT to pat-s/tic.package on Travis CI.</code></pre>
 <p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><em>usethis</em></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <em>travis</em> and <em>tic</em> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <em>tic</em> , <em>travis</em> and <em>usethis</em> work together.</p>
 </div>
 <div id="explanation-of-the-basic-template" class="section level1">
@@ -229,11 +230,11 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
 <a class="sourceLine" id="cb8-10" data-line-number="10">}</a></code></pre></div>
-<p>Let’s break done what happens here:</p>
+<p>Let’s break down what happens here:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">add_package_checks</a></span>(<span class="dt">warnings_are_errors =</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion</a></span>() <span class="op">&gt;=</span><span class="st"> "3.2"</span>))</a></code></pre></div>
 <p>Is a macro which adds essential steps to various stages of a CI run. For example, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. Check <code>?add_package_checks()</code> to see a list of all added steps by this convenience function.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) { }</a></code></pre></div>
-<p>This line conditions the contents of the block inside the braces <code>{ }</code> on the existence of the environment variable <code>"BUILD_PKGDOWN"</code>. The env variable is set in the <a href="https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47"><code>.travis.yml</code></a> template, conditioned on the job that runs on the current R-release version:</p>
+<p>This line conditions the contents of the block inside the braces <code>{ }</code> on the existence of the environment variable <code>"BUILD_PKGDOWN"</code>. The env variable is set in the <a href="https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47"><code>.travis.yml</code></a> template, but only for the job that runs on the current R-release version:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">r:</span><span class="at"> 3.3</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">r:</span><span class="at"> 3.4</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">r:</span><span class="at"> release</span></a>

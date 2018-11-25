@@ -119,48 +119,25 @@
     
     
 <div class="contents">
-<p>Many important steps running on CI systems are <a href="tic.html#steps">already implemented</a> into <em>tic</em>. The following vignette shows how new steps can be created and how <em>tic</em> defines them. Internally, all steps are defined as <a href="https://github.com/wch/R6">R6</a> classes. A step is an environment-like (or list-like) object with named members <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments.</p>
-<p>The base class of a step that is <code>TicStep</code>. All steps defined by tic, including the example <code>HelloWorld</code> step, use <code>TicStep</code> as the base class. See <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R"><code>steps-base.R</code></a> for the implementation. The <code>step_...</code> functions in tic are simply the <code>new()</code> methods of the corresponding R6 class objects. We recommend following the same pattern for your custom steps.</p>
+<p>Many important steps running on CI systems are <a href="tic.html#steps">already implemented</a> into <em>tic</em>. The following vignette shows how new steps can be created and how <em>tic</em> defines them. Internally, all steps are defined as <a href="https://github.com/wch/R6">R6</a> classes. A step is an environment-like (or list-like) object with named elements <code>check</code>, <code>prepare</code>, and <code>run</code>. These members should be functions that are callable without arguments.</p>
+<p>The base class of a step that is <code>TicStep</code>. All steps defined by tic, including the example <code>HelloWorld</code> step, use <code>TicStep</code> as the base class. See <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R"><code>steps-base.R</code></a> for the implementation. This means that you only need to override the methods you need; if you don’t need a <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code> or <code>prepare()</code> method you can leave it out. The <code>step_...</code> functions in tic are simply forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
 <p>There should be no need to write steps on your own. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/DSL.html">add_code_step()</a></code>, please let us know so in the repo by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a> so that we can discuss whether it makes sense to implement it as a custom step.</p>
 <p>In the following, we describe the three methods which the new step class must override:</p>
 <div id="prepare" class="section level3">
 <h3 class="hasAnchor">
 <a href="#prepare" class="anchor"></a><code>prepare()</code>
 </h3>
-<p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. You should install all dependent packages here that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <em>rcmdcheck</em> and <code>remotes</code> are installed:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">prepare =<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">verify_install</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"remotes"</span>, <span class="st">"rcmdcheck"</span>))</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  </a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  f_install_deps &lt;-<span class="st"> </span>remotes<span class="op">::</span>install_deps</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  withr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/withr/topics/with_libpaths">with_libpaths</a></span>(</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    private<span class="op">$</span>lib, <span class="dt">action =</span> <span class="st">"replace"</span>,</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    {</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">      <span class="kw">f_install_deps</span>(<span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">      utils<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/update.packages">update.packages</a></span>(<span class="dt">ask =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">    }</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  )</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">}</a></code></pre></div>
+<p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. This method should install all dependent packages that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <em>rcmdcheck</em> and <em>remotes</em> are installed:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">RCMDcheck<span class="op">$</span>public_methods<span class="op">$</span>prepare</a></code></pre></div>
 </div>
 <div id="run" class="section level3">
 <h3 class="hasAnchor">
 <a href="#run" class="anchor"></a><code>run()</code>
 </h3>
-<p>This method holds the commands that execute the essential calls in the end. It is called when a new element of that step class is created, e.g. <code>RCMDcheck$new</code>. For example, the <code>run()</code> function of class <code>RCMDcheck</code> looks as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">run =<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">res &lt;-<span class="st"> </span>rcmdcheck<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck</a></span>(<span class="dt">args =</span> private<span class="op">$</span>args)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(res)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(res<span class="op">$</span>errors) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">stopc</span>(<span class="st">"Errors found."</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  }</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="cf">if</span> (private<span class="op">$</span>warnings_are_errors <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(res<span class="op">$</span>warnings) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="kw">stopc</span>(<span class="st">"Warnings found, and warnings_are_errors is set."</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">  <span class="cf">if</span> (private<span class="op">$</span>notes_are_errors <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(res<span class="op">$</span>notes) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="kw">stopc</span>(<span class="st">"Notes found, and notes_are_errors is set."</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"> }</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">}</a></code></pre></div>
+<p>This method executes the step. When a step is added to a stage, <code>run()</code> will be called when the stage is executed. For example, the <code>run()</code> function of class <code>RCMDcheck</code> looks as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">RCMDcheck<span class="op">$</span>public_methods<span class="op">$</span>run</a></code></pre></div>
 <p>You can take a look at <a href="https://github.com/ropenscilabs/tic/pull/75/files">this PR</a> to see how a new step implementation can look like.</p>
-<p>The most minimalist version is the “Hello World” <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R">example step</a>. This new class only contains a <code>run()</code> function which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instances of this class.</p>
+<p>The most minimalist version is the “Hello World” <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R">example step</a>. This new class only contains a <code>run()</code> method which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instance of this class.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">HelloWorld &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="st">"HelloWorld"</span>, <span class="dt">inherit =</span> TicStep,</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
@@ -198,7 +175,7 @@
 <a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="dt">build_args =</span> build_args</a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">  )</a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">}</a></code></pre></div>
-<p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” objects (e.g. <code>private$args</code>). Next, the private objects are used in the <code>run()</code> function which does the actual work in the end. You can read more about <code>R6</code> in Hadley’s <a href="https://adv-r.hadley.nz/r6.html">book</a>.</p>
+<p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” members (e.g. <code>private$args</code>). Next, these private members are used in the <code>run()</code> function which carries out the actual work. You can read more about <code>R6</code> in Hadley’s <a href="https://adv-r.hadley.nz/r6.html">book</a>.</p>
 </div>
 </div>
   </div>

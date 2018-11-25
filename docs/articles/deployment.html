@@ -123,13 +123,13 @@
 <p><em>tic</em> handles the deployment as follows:</p>
 <ol style="list-style-type: decimal">
 <li>
-<p>When calling <code><a href="https://www.rdocumentation.org/packages/travis/topics/use_travis_deploy">travis::use_travis_deploy()</a></code> (either directly or indirectly by using <code>usethis::use_ci()</code>), a public key is added to GitHub repository under the “Deploy keys” section and the user receives an e-mail</p>
+<p>When calling <code><a href="https://www.rdocumentation.org/packages/travis/topics/use_travis_deploy">travis::use_travis_deploy()</a></code> (either directly or indirectly by using <code>usethis::use_ci()</code>), a public key is added to GitHub repository under the “Deploy keys” section and the user receives an e-mail:</p>
 <p><img src="img/ssh-deploy-key.png" style="display: block; margin: auto;"></p>
 </li>
 <li>
-<p>A private key is encoded in base64 and stored in an environment variable on Travis, and installed in the ~/.ssh directory during the CI run</p>
+<p>A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, <em>tic</em> installs it in the <code>~/.ssh</code> directory so that it can be used for authentication:</p>
 <p><img src="img/private-key-travis.png" style="display: block; margin: auto;"></p>
-<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated. Additionally,when calling <code>use_ci()</code> a Personal Access token (PAT) is created (by <code>travis::create_github_pat()</code>) to avoid the errors caused by GitHubs download rate limitations.</p>
+<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated. Additionally, when calling <code>use_ci()</code> a Personal Access token (PAT) is created (by <code>travis::create_github_pat()</code>) to avoid the errors caused by GitHubs download rate limitations.</p>
 </li>
 </ol>
 <div id="pkgdown-deployment" class="section level2">
@@ -239,13 +239,14 @@
 <div id="committing-single-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
-<p>Function <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> has the ability to only commit and push single files if they have changed during a CI build. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created via Travis. First, you need to make sure these files are created correctly by calling <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code>. Then, simply add the desired paths to argument <code>commit_paths</code> in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and push to your desired branch (here <code>master</code>):</p>
+<p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> function has the ability to restrict the files that are commited and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created via Travis.</p>
+<p>In the following example, these files are created/updated by calling <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>(<span class="dt">roclets =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">branch =</span> <span class="st">"master"</span>, <span class="dt">commit_paths =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">commit_paths =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
 <p>Applying this idea of course depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NS</code> directly or let them be created by Travis? An example project that uses the latter strategy is <a href="https://github.com/mlr-org/mlrng/blob/master/tic.R">mlr</a>.</p>
 </div>
 </div>
