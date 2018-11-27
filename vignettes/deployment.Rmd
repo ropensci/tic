@@ -114,7 +114,7 @@ A disadvantage is that you cannot have per-branch versions of your site and henc
 To use this option with *tic*, specify `branch = "gh-pages", path = "docs"` in `step_push_deploy()`.
 As the site serving in this setting will use the root of the branch, the `gh-pages` branch will only consist of the public _pkgdown_ files used to serve the site. 
 
-### Conditional deployment
+## Conditional deployment
 
 If you are running a [build matrix](https://docs.travis-ci.com/user/build-matrix/) or [build stages](https://docs.travis-ci.com/user/build-stages/) on Travis, you want to run certain tasks only once during a build. 
 The creation of a _pkgdown_ site is a common task which applies to this.
