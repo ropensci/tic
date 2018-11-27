@@ -38,7 +38,8 @@ knitr::opts_chunk$set(
 It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing web version.
 Without a `pkgdown` site, these package resources need either be collected from various places (Github repository, CRAN function reference) or do even require a local installation of the package if vignettes are placed in custom locations. 
 Therefore, it has become a quasi-standard to have a _pkgdown_ site for a R package.
-However, this effort is only really valuable if the information also reflects the most recent state of the repo.
+However, it is tedious to update the site on every commit and check whether something has changed.
+On the other hand, the presence of a `pkgdown` site is only really valuable to the user if the content reflects the most recent state of the package.
 _tic_ has the ability to automate the update tasks and having the site reflecting the latest state of the package.
 
 The following example shows how _tic_ deploys a `pkgdown` site on Travis.
