@@ -21,22 +21,19 @@ The following vignette shows how new steps can be created and how *tic* defines 
 Internally, all steps are defined using the [R6](https://github.com/wch/R6) class system.
 If you are not familiar with object-oriented programming using R6, the [R6 chapter](https://adv-r.hadley.nz/r6.html) in [Advanced R](https://adv-r.hadley.nz/) is a good place to start.
 
-A step is a subclass of the `TicStep` class, which implements the public methods `check()`, `prepare()`, and `run()`.
-These methods must be callable without arguments.
-See [`steps-base.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R) for the implementation.
-This means that you only need to override the methods you need; if you don't need a `check()` or `prepare()` method you can leave it out.
-The `step_...` functions in tic are simply forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
-We recommend following the same pattern for your custom steps.
-
 In most cases there should be no need to write steps on your own, because the `step_run_code()` can be used to run arbitrary code when preparing and running the step, and custom conditions in `tic.R` can be used to trigger the step.
 However, if you have the need for a repeated use of specific combinations of `add_code_step()`, please let us know so in the repo by opening an [issue](https://github.com/ropenscilabs/tic/issues) so that we can discuss whether it makes sense to implement it as a custom step.
 
-## Public methods of the `TicStep` class
+## The `TicStep` class
 
-The [`TicStep`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38) class is the main class that is inherited by all `step_xxx` functions.
-It has three public methods.
-Two of them (`prepare()` and `run()`) must be overriden by the new step class.
-The third one (`check()`) is optional.
+A step is a subclass of the [`TicStep` class](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
+The `step_...` functions in _tic_ are simply forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
+We recommend following the same pattern for your custom steps.
+
+The `TicStep` class implements the public methods `check()`, `prepare()`, and `run()`.
+These methods must be callable without arguments.
+This means that you only need to override the methods you need; if you don't need a `check()` or `prepare()` method you can leave it out.
+The following sections describe these methods and show examples.
 
 ### `prepare()`
 
@@ -69,6 +66,8 @@ It returns a logical scalar.
 ```{r}
 WriteTextFile$public_methods$check
 ```
+
+## Minimal example
 
 You can take a look at [this PR](https://github.com/ropenscilabs/tic/pull/75/files) to see how a new step implementation can look like.
 
