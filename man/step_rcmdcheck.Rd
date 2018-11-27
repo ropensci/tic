@@ -26,7 +26,8 @@ Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
 Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
 The preparation consists of installing package dependencies
 via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
-and updating all packages.
+and updating all packages. Both CRAN and Bioconductor repos are supported
+(see \code{\link[remotes:bioc_install_repos]{remotes::bioc_install_repos()}}).
 }
 \details{
 This step uses a dedicated library,

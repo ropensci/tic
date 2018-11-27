@@ -7,7 +7,7 @@ TicStepWithPackageDeps <- R6Class(
     prepare = function() {
       verify_install("remotes")
 
-      repos <- c(getOption("repos"), remotes::bioc_install_repos()[1])
+      repos <- c(getOption("repos"), remotes::bioc_install_repos())
 
       remotes::install_deps(dependencies = TRUE, repos = repos)
 
@@ -68,7 +68,8 @@ RCMDcheck <- R6Class(
 #' Check a package using \pkg{rcmdcheck}, which ultimately calls `R CMD check`.
 #' The preparation consists of installing package dependencies
 #' via [remotes::install_deps()] with `dependencies = TRUE`,
-#' and updating all packages.
+#' and updating all packages. Both CRAN and Bioconductor repos are supported
+#' (see [remotes::bioc_install_repos()]).
 #'
 #' This step uses a dedicated library,
 #' a subdirectory `tic-pkg` of the current user library
