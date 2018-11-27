@@ -116,39 +116,30 @@ As the site serving in this setting will use the root of the branch, the `gh-pag
 
 ### Conditional deployment
 
-If you are running a build matrix or build stages on Travis, you want to run certain tasks only once during a build. 
+If you are running a [build matrix](https://docs.travis-ci.com/user/build-matrix/) or [build stages](https://docs.travis-ci.com/user/build-stages/) on Travis, you want to run certain tasks only once during a build. 
 The creation of a _pkgdown_ site is a common task which applies to this.
 
 Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
 You can restrict on which stage/job a task is executed with the help of environment variables.
 There are two ways to restrict the deployment with *tic* and environment variables: 
 
-1. Setting the condition in `tic.R`
-2. Setting the condition directly in `.travis.yml` in the "deploy" section
+1. Setting the condition in `tic.R` (recommended)
+2. Setting the condition in the "deploy" section in `.travis.yml` (see [1](https://docs.travis-ci.com/user/conditional-builds-stages-jobs/), [2](https://docs.travis-ci.com/user/deployment/#conditional-releases-with-on))
 
-Sometimes, env variables are implicitly set, e.g. when testing on multiple R versions (see example 2) (or by Travis itself, see [Travis CI Meta-Information](advanced.html#travis-ci-meta-information)).
-There is no practical difference between both approaches.
-However, conditioning like shown here does only work for the "deploy" stage in `.travis.yml`.
-For [conditioning other stages](advanced.html#running-stages-conditionally), you need to use the *tic* approach.
+_tic_ can make use of implicit set environment variables of the build and additional ones added by the user.
+In the following we show a "build stage" example on Travis using the custom env variable `"BUILD_PKGDOWN"`:
 
-In the following we show an example for each the *tic* way as this is the suggested method to use for all conditioning:
-
-Set the env variable `BUILD_PKGDOWN` in `.travis.yml` and add the condition in `tic.R` to only run the deploy stage when this env variable evaluates to TRUE:
+`.travis.yml`:
 
 ```{yml eval = FALSE}
 jobs:
   include:
     - stage: stage1
       env: BUILD_PKGDOWN=TRUE
-      before_install: R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'
-      [...]
-      deploy:
-        provider: script
-        script: R -q -e 'tic::deploy()'
-        on:
-          all_branches: true
-    - stage: stage2
-      before_install: R -q -e 'install.packages("remotes"); remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages(); tic::before_install()'
+      before_install: 
+        - R -q -e 'install.packages("remotes")'
+        - R -q -e 'remotes::install_github("ropenscilabs/tic")'
+        - R -q -e 'tic::prepare_all_stages(); tic::before_install()'
       [...]
       deploy:
         provider: script
@@ -165,7 +156,7 @@ if (Sys.getenv("id_rsa") != "") {
     add_step(step_setup_ssh())
 }
 
-if (Sys.getenv("BUILD_PKGDOWN") != "") {
+if (isTRUE("BUILD_PKGDOWN")) {
   get_stage("deploy") %>%
     add_step(step_build_pkgdown()) %>%
     add_step(step_push_deploy())
