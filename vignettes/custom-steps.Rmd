@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 
 Many important steps running on CI systems are [already implemented](tic.html#steps) into *tic*.
 The following vignette shows how new steps can be created and how *tic* defines them.
-Internally, all steps are defined as [R6](https://github.com/wch/R6) classes.
+Internally, all steps are defined using the [R6](https://github.com/wch/R6) class system.
+For more information see on object-oriented programming using R6 see [this chapter](https://adv-r.hadley.nz/r6.html) in [Advanced R](https://adv-r.hadley.nz/).
 A step is an environment-like (or list-like) object with named elements `check`, `prepare`, and `run`.
 These members should be functions that are callable without arguments.
 
