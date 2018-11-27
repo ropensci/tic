@@ -33,7 +33,12 @@ We recommend following the same pattern for your custom steps.
 There should be no need to write steps on your own. 
 However, if you have the need for a repeated use of specific combinations of `add_code_step()`, please let us know so in the repo by opening an [issue](https://github.com/ropenscilabs/tic/issues) so that we can discuss whether it makes sense to implement it as a custom step.
 
-In the following, we describe the three methods which the new step class must override:
+## Public methods of the `TicStep` class
+
+The `TicStep` class is the main class that is inherited by all `step_xxx` functions.
+It has three public methods.
+Two of them (`prepare()` and `run()`) must be overriden by the new step class.
+The third one (`check()`) is optional.
 
 ### `prepare()`
 
@@ -55,6 +60,22 @@ For example, the `run()` function of class `RCMDcheck` looks as follows:
 
 ```{r}
 RCMDcheck$public_methods$run
+```
+
+### `check()`
+
+This method checks whether the step is actually run.
+It returns a logical scalar.
+Note that not all steps need to have a `check()` method. 
+Steps that do have a `check()` method are:
+
+- All ssh steps defined in [`step-ssh.R`](https://github.com/ropenscilabs/tic/blob/master/R/steps-ssh.R)
+- [`step_do_push_deploy()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-git.R#L187-L217)
+- [`step_push_deploy()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-git.R#L319-L359)
+- [`step_write_text_file()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24)
+
+```{r}
+WriteTextFile$public_methods$check
 ```
 
 You can take a look at [this PR](https://github.com/ropenscilabs/tic/pull/75/files) to see how a new step implementation can look like.
