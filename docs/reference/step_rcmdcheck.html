@@ -141,7 +141,7 @@ and updating all packages. Both CRAN and Bioconductor repos are supported
 
     <div class="ref-description">
     
-    <p>Check a package using <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>,
+    <p>Check a package using <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>,
 which ultimately calls <code>R CMD check</code>.
 The preparation consists of installing package dependencies
 via <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>,
@@ -150,8 +150,10 @@ and updating all packages. Both CRAN and Bioconductor repos are supported
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_rcmdcheck</span>(<span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>), <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_rcmdcheck</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
+  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,13 +170,13 @@ Deprecated, use <code>error_on</code>.</p></td>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
-Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.</p></td>
     </tr>
     <tr>
       <th>build_args</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>"--force"</code>.</p></td>
     </tr>
     <tr>
@@ -190,24 +192,24 @@ error.</p></td>
     <tr>
       <th>repos</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>getOption("repos")</code>.</p></td>
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("repos")</a></code>.</p></td>
     </tr>
     <tr>
       <th>timeout</th>
       <td><p><code>[numeric]</code><br />
-Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></td>
     </tr>
     </table>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    
+    <h2 class="hasAnchor" id="updating-of-dependency-packages"><a class="anchor" href="#updating-of-dependency-packages"></a>Updating of (dependency) packages</h2>
 
-    <p>This step uses a dedicated library,
-a subdirectory <code>tic-pkg</code> of the current user library
-(the first element of <code><a href='https://www.rdocumentation.org/packages/base/topics/libPaths'>.libPaths()</a></code>),
-for the checks.
-This is done to minimize conflicts between dependent packages
-and packages that are required for running the various steps.</p>
+    
+    <p>Packages shipped with the R-installation will not be updated as they will be
+overwritten by the Travis R-installer in each build.
+If you want these package to be updated, please add the following
+step to your workflow: <code>add_code_step(remotes::update_packages(&lt;pkg&gt;)</code>.</p>
     
 
   </div>
