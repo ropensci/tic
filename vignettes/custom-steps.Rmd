@@ -115,4 +115,3 @@ Here, a new instance of the defined `R6` class `RCMDcheck` is initiated with `RC
 The arguments to `step_rcmdcheck()` are passed on to the `initialize()` function of the `R6` class.
 Here, the arguments are assigned to the "private" members (e.g. `private$args`).
 Next, these private members are used in the `run()` function which carries out the actual work.
-You can read more about `R6` in Hadley's [book](https://adv-r.hadley.nz/r6.html).
