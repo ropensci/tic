@@ -24,7 +24,7 @@ Stages are ordered as follows:
 knitr::include_graphics("img/build-lifecycle.png")
 ```
 
-The `after_xxx` stages are run unconditionally, dependent on their super-class name.
+The `after_xxx` stages are run unconditionally, after their corresponding `xxx` stage.
 For example, the `after_deploy` stage will only be run if there the `deploy` stage was run before.
 The `after_success` stage will only be run if the `script` stage executed successfully, i.e. without error; otherwise `after_failure` will be run instead.
 
