@@ -4,36 +4,54 @@
 \alias{step_rcmdcheck}
 \title{Step: Check a package}
 \usage{
-step_rcmdcheck(warnings_are_errors = TRUE, notes_are_errors = FALSE,
-  args = c("--no-manual", "--as-cran"), build_args = "--force")
+step_rcmdcheck(..., warnings_are_errors = NULL,
+  notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
+  build_args = "--force", error_on = "warning",
+  repos = getOption("repos"), timeout = Inf)
 }
 \arguments{
-\item{warnings_are_errors}{\code{[flag]}\cr
-Should warnings be treated as errors? Default: \code{TRUE}.}
+\item{...}{Ignored, used to enforce naming of arguments.}
 
-\item{notes_are_errors}{\code{[flag]}\cr
-Should notes be treated as errors? Default: \code{FALSE}.}
+\item{warnings_are_errors, notes_are_errors}{\code{[flag]}\cr
+Deprecated, use \code{error_on}.}
 
 \item{args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
-Passed to \code{[rcmdcheck::rcmdcheck()]}, default:
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{"--force"}.}
+
+\item{error_on}{\code{[character]}\cr
+Whether to throw an error on R CMD check failures. Note that the check is
+always completed (unless a timeout happens), and the error is only thrown
+after completion. If "never", then no errors are thrown. If "error", then
+only ERROR failures generate errors. If "warning", then WARNING failures
+generate errors as well. If "note", then any check failure generated an
+error.}
+
+\item{repos}{\code{[character]}\cr
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
+\code{getOption("repos")}.}
+
+\item{timeout}{\code{[numeric]}\cr
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
+\code{Inf}.}
 }
 \description{
-Check a package using \pkg{rcmdcheck}, which ultimately calls \code{R CMD check}.
+Check a package using \code{\link[rcmdcheck:rcmdcheck]{rcmdcheck::rcmdcheck()}},
+which ultimately calls \code{R CMD check}.
 The preparation consists of installing package dependencies
 via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
 and updating all packages. Both CRAN and Bioconductor repos are supported
 (see \code{\link[remotes:bioc_install_repos]{remotes::bioc_install_repos()}}).
 }
-\details{
-This step uses a dedicated library,
-a subdirectory \code{tic-pkg} of the current user library
-(the first element of \code{\link[=.libPaths]{.libPaths()}}),
-for the checks.
-This is done to minimize conflicts between dependent packages
-and packages that are required for running the various steps.
+\section{Updating of (dependency) packages}{
+
+Packages shipped with the R-installation will not be updated as they will be
+overwritten by the Travis R-installer in each build.
+If you want these package to be updated, please add the following
+step to your workflow: \code{add_code_step(remotes::update_packages(<pkg>)}.
 }
+

@@ -32,7 +32,8 @@
 
 <meta property="og:title" content="Step: Check a package — step_rcmdcheck" />
 
-<meta property="og:description" content="Check a package using rcmdcheck, which ultimately calls R CMD check.
+<meta property="og:description" content="Check a package using rcmdcheck::rcmdcheck(),
+which ultimately calls R CMD check.
 The preparation consists of installing package dependencies
 via remotes::install_deps() with dependencies = TRUE,
 and updating all packages. Both CRAN and Bioconductor repos are supported
@@ -140,7 +141,8 @@ and updating all packages. Both CRAN and Bioconductor repos are supported
 
     <div class="ref-description">
     
-    <p>Check a package using <span class="pkg">rcmdcheck</span>, which ultimately calls <code>R CMD check</code>.
+    <p>Check a package using <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>,
+which ultimately calls <code>R CMD check</code>.
 The preparation consists of installing package dependencies
 via <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code> with <code>dependencies = TRUE</code>,
 and updating all packages. Both CRAN and Bioconductor repos are supported
@@ -155,14 +157,13 @@ and updating all packages. Both CRAN and Bioconductor repos are supported
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>warnings_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Should warnings be treated as errors? Default: <code>TRUE</code>.</p></td>
+      <th>...</th>
+      <td><p>Ignored, used to enforce naming of arguments.</p></td>
     </tr>
     <tr>
-      <th>notes_are_errors</th>
+      <th>warnings_are_errors, notes_are_errors</th>
       <td><p><code>[flag]</code><br />
-Should notes be treated as errors? Default: <code>FALSE</code>.</p></td>
+Deprecated, use <code>error_on</code>.</p></td>
     </tr>
     <tr>
       <th>args</th>
@@ -173,11 +174,32 @@ Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
     <tr>
       <th>build_args</th>
       <td><p><code>[character]</code><br />
-Passed to <code>[rcmdcheck::rcmdcheck()]</code>, default:
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>"--force"</code>.</p></td>
     </tr>
+    <tr>
+      <th>error_on</th>
+      <td><p><code>[character]</code><br />
+Whether to throw an error on R CMD check failures. Note that the check is
+always completed (unless a timeout happens), and the error is only thrown
+after completion. If "never", then no errors are thrown. If "error", then
+only ERROR failures generate errors. If "warning", then WARNING failures
+generate errors as well. If "note", then any check failure generated an
+error.</p></td>
+    </tr>
+    <tr>
+      <th>repos</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>getOption("repos")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>timeout</th>
+      <td><p><code>[numeric]</code><br />
+Passed to <code><a href='http://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>Inf</code>.</p></td>
+    </tr>
     </table>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This step uses a dedicated library,
@@ -194,7 +216,7 @@ and packages that are required for running the various steps.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#updating-of-dependency-packages">Updating of (dependency) packages</a></li>
           </ul>
 
   </div>
