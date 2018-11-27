@@ -35,7 +35,7 @@ However, if you have the need for a repeated use of specific combinations of `ad
 
 ## Public methods of the `TicStep` class
 
-The `TicStep` class is the main class that is inherited by all `step_xxx` functions.
+The [`TicStep`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38) class is the main class that is inherited by all `step_xxx` functions.
 It has three public methods.
 Two of them (`prepare()` and `run()`) must be overriden by the new step class.
 The third one (`check()`) is optional.
