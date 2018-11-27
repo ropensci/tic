@@ -105,22 +105,8 @@ step_hello_world <- function() {
 If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed onto each function:
 Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R)):
 
-```{r eval = FALSE}
-step_rcmdcheck <- function(...,
-                           warnings_are_errors = NULL, notes_are_errors = NULL,
-                           args = c("--no-manual", "--as-cran"),
-                           build_args = "--force", error_on = "warning",
-                           repos = getOption("repos"), timeout = Inf) {
-  RCMDcheck$new(
-    warnings_are_errors = warnings_are_errors,
-    notes_are_errors = notes_are_errors,
-    args = args,
-    build_args = build_args,
-    error_on = error_on,
-    repos = repos,
-    timeout = timeout
-  )
-}
+```{r}
+step_rcmdcheck
 ```
 
 Here, a new instance of the defined `R6` class `RCMDcheck` is initiated with `RCMDcheck$new()`.
