@@ -42,20 +42,27 @@ SetupPushDeploy <- R6Class(
   "SetupPushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-                          remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                          checkout = TRUE) {
+    initialize = function(path = ".", branch = NULL, orphan = FALSE,
+                          remote_url = NULL, checkout = TRUE) {
 
-      if (branch == ci()$get_branch() && orphan) {
+      if (is.null(branch) && orphan) {
         stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
       }
 
-      if (branch == ci()$get_branch() && path != ".") {
+      if (is.null(branch) && path != ".") {
         stop("Must specify branch name if `path` is given.", call. = FALSE)
       }
 
       if (path != "." && !checkout && !orphan) {
         stop("If `checkout` is FALSE and `path` is set, `orphan` must be TRUE.")
+      }
+
+      if (is.null(branch)) {
+        branch <- ci()$get_branch()
+      }
+
+      if (is.null(remote_url)) {
+        remote_url <- paste0("git@github.com:", ci()$get_slug(), ".git")
       }
 
       private$git <- Git$new(path)
@@ -175,9 +182,8 @@ SetupPushDeploy <- R6Class(
 #' @family deploy steps
 #' @family steps
 #' @export
-step_setup_push_deploy <- function(path = ".", branch = ci()$get_branch(), orphan = FALSE,
-                                   remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
-                                   checkout = TRUE) {
+step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
+                                   remote_url = NULL, checkout = TRUE) {
   SetupPushDeploy$new(
     path = path, branch = branch, orphan = orphan,
     remote_url = remote_url, checkout = checkout
@@ -382,8 +388,8 @@ PushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
-step_push_deploy <- function(path = ".", branch = ci()$get_branch(),
-                             remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+step_push_deploy <- function(path = ".", branch = NULL,
+                             remote_url = NULL,
                              commit_message = NULL, commit_paths = ".") {
   PushDeploy$new(
     path = path, branch = branch,

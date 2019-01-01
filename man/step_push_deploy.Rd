@@ -4,8 +4,7 @@
 \alias{step_push_deploy}
 \title{Step: Setup and perform push deploy}
 \usage{
-step_push_deploy(path = ".", branch = ci()$get_branch(),
-  remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+step_push_deploy(path = ".", branch = NULL, remote_url = NULL,
   commit_message = NULL, commit_paths = ".")
 }
 \arguments{
