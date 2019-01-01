@@ -255,21 +255,23 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <p><em>tic</em> can be used for various R projects:</p>
 <ul>
 <li>
-<a href="https://github.com/krlmlr/tic.package">tic.package</a>: R packages</li>
+<a href="https://github.com/ropenscilabs/tic.package">tic.package</a>: R packages with <a href="https://pkgdown.r-lib.org/"><em>pkgdown</em></a> documentation</li>
 <li>
-<a href="https://github.com/krlmlr/tic.blogdown">tic.blogdown</a>: Blogs with <a href="https://bookdown.org/yihui/blogdown/"><em>blogdown</em></a>
+<a href="https://github.com/ropenscilabs/tic.packagedocs">tic.packagedocs</a>: R packages with <a href="http://hafen.github.io/packagedocs/"><em>packagedocs</em></a> documentation</li>
+<li>
+<a href="https://github.com/ropenscilabs/tic.drat">tic.drat</a>: CRAN-like package repositories with <a href="http://dirk.eddelbuettel.com/code/drat.html"><em>drat</em></a>
 </li>
 <li>
-<a href="https://github.com/krlmlr/tic.bookdown">ŧic.bookdown</a>: Books with <a href="https://bookdown.org/"><em>bookdown</em></a>
+<a href="https://github.com/ropenscilabs/tic.blogdown">tic.blogdown</a>: Blogs with <a href="https://bookdown.org/yihui/blogdown/"><em>blogdown</em></a>
 </li>
 <li>
-<a href="https://github.com/krlmlr/tic.drat">tic.drat</a>: CRAN-like package repositories with <a href="http://dirk.eddelbuettel.com/code/drat.html"><em>drat</em></a>
+<a href="https://github.com/ropenscilabs/tic.bookdown">tic.bookdown</a>: Books with <a href="https://bookdown.org/"><em>bookdown</em></a>
 </li>
 <li>
-<a href="https://github.com/krlmlr/tic.website">tic.website</a>: Websites with <a href="https://rmarkdown.rstudio.com/"><em>rmarkdown</em></a>
+<a href="https://github.com/ropenscilabs/tic.website">tic.website</a>: Websites with <a href="https://rmarkdown.rstudio.com/"><em>rmarkdown</em></a>
 </li>
 <li>
-<a href="https://github.com/krlmlr/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</li>
+<a href="https://github.com/ropenscilabs/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</li>
 </ul>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
