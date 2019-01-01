@@ -6,10 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tic, travis and usethis - an overview • tic</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="tic, travis and usethis - an overview">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="tic, travis and usethis - an overview">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -56,19 +57,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/tic-advantages.html">tic advantages</a>
+      <a href="../articles/advantages.html">Why you should use tic</a>
+    </li>
+    <li>
+      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
     </li>
     <li>
       <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
     </li>
     <li>
-      <a href="../articles/build-lifecycle.html">Build lifecycle</a>
-    </li>
-    <li>
       <a href="../articles/advanced.html">Advanced usage</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Dev - custom steps</a>
+      <a href="../articles/deployment.html">Deployment</a>
+    </li>
+    <li>
+      <a href="../articles/custom-steps.html">Custom steps</a>
     </li>
   </ul>
 </li>
@@ -93,25 +97,33 @@
 
       
       </header><div class="row">
-  <div class="col-md-9 contents">
+  <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>tic, travis and usethis - an overview</h1>
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic-usethis-travis.Rmd"><code>vignettes/tic-usethis-travis.Rmd</code></a></small>
-      <div class="hidden name"><code>tic-usethis-travis.Rmd</code></div>
+      <!--The 'toc' block was inserted manually by @pat-s. It triggeres the inline ToC in the vignettes.-->
+      
+      <small>Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic-usethis-travis.Rmd"><code>vignettes/tic-usethis-travis.Rmd</code></a></small>
 
     </div>
 
     
     
-<p>You may be a bit confused about all the different packages and their specific scopes in the world of R package development. The three packages can be arranged in the following structure, from the outer to the inner level:</p>
-<p>usethis -&gt; tic -&gt; travis</p>
-<p>The <code>usethis</code> package holds all the utility wrapper functions to simplify R package development. From cloning a Github repo <code>create_from_github()</code> over using <code>roxygen2</code> for documentation (<code>use_roxygen()</code>) to setting up CI for your package (<code>use_ci()</code>). The latter function effectively calls a mixture of <code>travis</code> and <code>tic</code> functions that do the work in the background. Most of the stuff that needs to be done for Travis is handled by the <code>travis</code> package. These are tasks like enabling the repo in travis-ci.org, setting up ssh deployment keys for your repo on Travis and others.</p>
-<p>After everything is ready, <code>usethis</code> and <code>travis</code> have done their jobs and the rest of the work goes to <code>tic</code>. By this we mean the handling of the actual CI workflow: What commands are going to be executed at all, which stage runs a specific command, how is the deployment handled.</p>
-<p>So in summary, the three packages can be described like this:</p>
-<p><code>usethis</code>: Package holding utility wrapper functions to simplify R package development <code>travis</code>: Responsible for setting up all CI related stuff and taking care of permissions <code>tic</code>: Package to specify the CI workflow (which stages are run, which commands are used)</p>
+<div class="contents">
+<p>The following diagram shows how the packages <em>tic</em>, <em>travis</em> and <em>usethis</em> are connected:</p>
+<p><img src="img/tic-travis-usethis.png" style="display: block; margin: auto;"></p>
+<p>The <em>usethis</em> package holds all the utility wrapper functions to simplify R package development. From cloning a GitHub repo (<code>create_from_github()</code>) over using <code>roxygen2</code> for documentation purposes (<code>use_roxygen()</code>) to setting up CI for your package (<code>use_ci()</code>). The latter effectively calls a mixture of <em>travis</em> and <em>tic</em> functions that do the work in the background.</p>
+<p>Most of the work that needs to be done for Travis is handled by the <em>travis</em> package. These are tasks like enabling the repo in <a href="travis-ci.org" class="uri">travis-ci.org</a>, setting up SSH deployment keys for your repo on Travis and others.</p>
+<p>After everything is set up, <em>usethis</em> and <em>travis</em> have done their jobs and the rest of the work goes to <em>tic</em>. By this we mean the handling of the actual CI workflow: Which steps are going to be run, how the deployment is handled and so on.</p>
+<p>In summary, the interaction is as follows:</p>
+<ul>
+<li><p><em>usethis</em>: Package containing utility wrapper functions to simplify R package development, including <code>use_ci()</code>.</p></li>
+<li><p><em>travis</em>: Responsible for setting up all CI related tasks and taking care of permissions.</p></li>
+<li><p><em>tic</em>: Package to specify the CI workflow (which stages are run, which commands are used).</p></li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -121,11 +133,11 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://krlmlr.info">Kirill Müller</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
+  <p>Developed by Kirill Müller, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>

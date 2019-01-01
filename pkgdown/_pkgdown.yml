@@ -1,6 +1,7 @@
 template:
   params:
-    bootswatch: flatly # https://bootswatch.com/flatly/
+    bootswatch: cosmo # https://gallery.shinyapps.io/117-shinythemes/
+  path: pkgdown/templates
 
 reference:
 - title: DSL
@@ -35,19 +36,17 @@ navbar:
     href: reference/index.html
   - text: Articles
     menu:
-    - text: tic advantages
-      href: articles/tic-advantages.html
+    - text: Why you should use tic
+      href: articles/advantages.html
+    - text: The CI build lifecycle
+      href: articles/build-lifecycle.html
     - text: tic, travis and usethis
       href: articles/tic-usethis-travis.html
-    - text: Build lifecycle
-      href: articles/build-lifecycle.html
     - text: Advanced usage
       href: articles/advanced.html
-    - text: Dev - custom steps
+    - text: Deployment
+      href: articles/deployment.html
+    - text: Custom steps
       href: articles/custom-steps.html
   - text: Changelog
     href: news/index.html
-
-authors:
-  Kirill Müller:
-    href: http://krlmlr.info
