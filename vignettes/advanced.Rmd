@@ -64,7 +64,6 @@ This can be checked with the condition `ci()$is_interactive()`.
 
 Usually required packages should be installed based on the DESCRIPTION file of a package.
 You should only use the following steps in extraordinary circumstances.
-One could be the requirement of the _magick_ package for a successful favicon creation for a _pkgdown_ website.
 
 ## GitHub packages
 

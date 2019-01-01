@@ -14,7 +14,8 @@ BuildPkgdown <- R6Class(
     },
 
     prepare = function() {
-      verify_install(c("pkgdown", "remotes"))
+      # magick is needed for favicon
+      verify_install(c("pkgdown", "remotes", "magick"))
       super$prepare()
     }
   ),
