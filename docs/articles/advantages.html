@@ -139,7 +139,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <p>CI services can be used to automatically build and deploy files. This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.). Use cases can be</p>
 <ul>
 <li>changed site contents of <em>pkgdown</em> site</li>
-<li>updated .Rd files of a package (by calling <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> before)</li>
+<li>updated .Rd files of a package (by calling <code>devtools::document()</code> before)</li>
 <li>an automatic generated <a href="https://github.com/yonicd/covrpage">test summary page</a> of a package</li>
 </ul>
 <p>When the goal is to use CI services for deployment, some preparatory work needs to be done. <em>tic</em> takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)). When using <code>travis::use_ci()</code> the whole preparation process is streamlined and only needs to be called once for every repo.</p>
@@ -175,7 +175,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="enhanced-r-package-checking-rcmdcheck-r-cmd-check" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhanced-r-package-checking-rcmdcheck-r-cmd-check" class="anchor"></a>Enhanced R package checking: <code>rcmdcheck()</code> &gt; R CMD check</h2>
-<p>As a R package developer you are most likely used to call <code><a href="https://www.rdocumentation.org/packages/devtools/topics/check">devtools::check()</a></code> or directly <code>R CMD check</code> on your built package. Usually also Travis will run <code>R CMD check</code> to check the R package. <em>tic</em> instead uses <a href="https://github.com/r-lib/rcmdcheck"><em>rcmdcheck</em></a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code>. It was developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. <em>rcmdcheck</em> comes with several enhancements:</p>
+<p>As a R package developer you are most likely used to call <code>devtools::check()</code> or directly <code>R CMD check</code> on your built package. Usually also Travis will run <code>R CMD check</code> to check the R package. <em>tic</em> instead uses <a href="https://github.com/r-lib/rcmdcheck"><em>rcmdcheck</em></a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code>. It was developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. <em>rcmdcheck</em> comes with several enhancements:</p>
 <ul>
 <li>Coloring of important steps, simplifying the readability of the log</li>
 <li>Enhanced and extended tracebacks of errors, especially errors in tests</li>
@@ -272,7 +272,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>
