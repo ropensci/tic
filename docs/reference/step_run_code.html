@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Run arbitrary code — step_run_code • tic</title>
+<title>Step: Run arbitrary R code — step_run_code • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Step: Run arbitrary code — step_run_code" />
+<meta property="og:title" content="Step: Run arbitrary R code — step_run_code" />
 
 <meta property="og:description" content="Captures the expression and executes it when running the step.
 An optional preparatory expression can be provided that is executed
@@ -138,7 +138,7 @@ package::fun()), the package is installed during preparation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Run arbitrary code</h1>
+    <h1>Step: Run arbitrary R code</h1>
     <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-code.R'><code>R/steps-code.R</code></a></small>
     <div class="hidden name"><code>step_run_code.Rd</code></div>
     </div>
@@ -161,14 +161,14 @@ If the top-level expression is a qualified function call (of the format
     <tr>
       <th>call</th>
       <td><p><code>[call]</code><br />
-An arbitrary expression executed during the stage to which this step is
+An arbitrary R expression executed during the stage to which this step is
 added.
 The default is useful if you only pass <code>prepare_call</code>.</p></td>
     </tr>
     <tr>
       <th>prepare_call</th>
       <td><p><code>[call]</code><br />
-An optional arbitrary expression executed during preparation.</p></td>
+An optional arbitrary R expression executed during preparation.</p></td>
     </tr>
     </table>
     
