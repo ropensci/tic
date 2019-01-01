@@ -153,8 +153,7 @@ and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_branch</span>(),
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"git@github.com:"</span>, <span class='fu'><a href='ci.html'>ci</a></span>()$<span class='fu'>get_slug</span>(), <span class='st'>".git"</span>),
+    <pre class="usage"><span class='fu'>step_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
