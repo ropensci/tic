@@ -3,7 +3,7 @@ title: "How deployment works"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteIndexEntry{How deployment works}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

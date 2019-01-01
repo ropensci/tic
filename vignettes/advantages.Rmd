@@ -3,7 +3,7 @@ title: "The advantages of tic"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteIndexEntry{The advantages of tic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

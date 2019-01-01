@@ -3,7 +3,7 @@ title: "Advanced usage"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Kirill Müller}
+  %\VignetteIndexEntry{Advanced usage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
