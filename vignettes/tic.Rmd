@@ -215,12 +215,13 @@ get_stage("deploy") %>%
 
 *tic* can be used for various R projects:
 
-- [tic.package](https://github.com/krlmlr/tic.package): R packages
-- [tic.blogdown](https://github.com/krlmlr/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
-- [ŧic.bookdown](https://github.com/krlmlr/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
-- [tic.drat](https://github.com/krlmlr/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
-- [tic.website](https://github.com/krlmlr/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
-- [tic.figshare](https://github.com/krlmlr/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
+- [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
+- [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
+- [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
+- [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
+- [tic.bookdown](https://github.com/ropenscilabs/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
+- [tic.website](https://github.com/ropenscilabs/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
+- [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
