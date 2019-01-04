@@ -39,7 +39,7 @@ env:
 stages:
 - name: test
 - name: full
-  #if: branch = master
+  if: branch = master
 
 #jobs: 5x Linux (1x with deployment), 1x OS X
 jobs:
