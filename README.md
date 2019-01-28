@@ -4,7 +4,7 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
-The goal of tic is to enhance and simplify working with continuous integration (CI) systems like [Travis CI](https://travis-ci.org) or [AppVeyor](https://www.appveyor.com/) for R projects.  To learn more about CI, read [this blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://ropenscilabs/tic/articles/tic.html#prerequisites) vignette.
+The goal of tic is to enhance and simplify working with continuous integration (CI) systems like [Travis CI](https://travis-ci.org) or [AppVeyor](https://www.appveyor.com/) for R projects.  To learn more about CI, read [this blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html#prerequisites) vignette.
 
 The most important improvements over existing solutions are:
 
@@ -37,7 +37,7 @@ For an R package, the following steps will be set up for the CI workflow:
 - Building of a `pkgdown` site, with deployment to the `docs/` directory of the `master` branch
 - Running a code coverage and uploading it to [codecov.io](https://codecov.io/)
 
-See the [Getting Started](https://ropenscilabs/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://ropenscilabs/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
+See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://ropenscilabs.github.io/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
 
 ## Examples
 
