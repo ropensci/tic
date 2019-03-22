@@ -4,7 +4,10 @@
 \alias{step_bookdown}
 \title{Step: Build a bookdown book}
 \usage{
-step_bookdown()
+step_bookdown(...)
+}
+\arguments{
+\item{...}{Passed on to \code{pkgdown::build_site()}}
 }
 \description{
 Check a package using \code{\link[bookdown:render_book]{bookdown::render_book()}},
