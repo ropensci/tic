@@ -14,19 +14,7 @@ BuildBookdown <- R6Class(
 
     prepare = function() {
       verify_install(c("bookdown", "remotes"))
-
-      remotes::install_deps(dependencies = TRUE)
-
-      # Using a separate library for "build dependencies"
-      # (which might well be ahead of CRAN)
-      # works very poorly with custom steps that are not aware
-      # of this shadow library.
-      inst <- installed.packages()
-      installed_pkg <- rownames(inst)
-      is_priority <- inst[, "Priority"] %in% c("base", "recommended")
-      priority_pkg <- installed_pkg[is_priority]
-      pkg_to_update <- setdiff(installed_pkg, priority_pkg)
-      remotes::update_packages(pkg_to_update)
+      super$prepare()
     }
   ),
 
