@@ -7,7 +7,7 @@
 step_build_bookdown(...)
 }
 \arguments{
-\item{...}{Passed on to \code{pkgdown::build_site()}}
+\item{...}{Passed on to \code{bookdown::render_book()}}
 }
 \description{
 Check a package using \code{\link[bookdown:render_book]{bookdown::render_book()}},

@@ -3,10 +3,12 @@ BuildBookdown <- R6Class(
 
   public = list(
     initialize = function() {
+      private$bookdown_args <- list(...)
+      super$initialize()
     },
 
     run = function() {
-      do.call(bookdown::render_book, private$pkgdown_args)
+      do.call(bookdown::render_book, private$bookdown_args)
     },
 
     prepare = function() {
@@ -28,7 +30,7 @@ BuildBookdown <- R6Class(
   ),
 
   private = list(
-    pkgdown_args = NULL
+    bookdown_args = NULL
   )
 
 )
@@ -47,7 +49,7 @@ BuildBookdown <- R6Class(
 #' If you want these package to be updated, please add the following
 #' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
 #'
-#' @param ... Passed on to `pkgdown::build_site()`
+#' @param ... Passed on to `bookdown::render_book()`
 #'
 #' @export
 step_build_bookdown <- function(...) {
