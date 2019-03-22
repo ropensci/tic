@@ -13,7 +13,7 @@ BuildBookdown <- R6Class(
     },
 
     prepare = function() {
-      verify_install(c("pkgdown", "remotes"))
+      verify_install(c("bookdown", "remotes"))
 
       remotes::install_deps(dependencies = TRUE)
 
