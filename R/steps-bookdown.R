@@ -2,17 +2,18 @@ BuildBookdown <- R6Class(
   "BuildBookdown", inherit = TicStepWithPackageDeps,
 
   public = list(
-    initialize = function() {
+    initialize = function(...) {
       private$bookdown_args <- list(...)
       super$initialize()
     },
 
     run = function() {
+      remotes::install_local(".")
       do.call(bookdown::render_book, private$bookdown_args)
     },
 
     prepare = function() {
-      verify_install("bookdown")
+      verify_install(c("pkgdown", "remotes"))
 
       remotes::install_deps(dependencies = TRUE)
 
