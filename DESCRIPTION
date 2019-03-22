@@ -65,6 +65,7 @@ Collate:
     'run.R'
     'stage.R'
     'steps-base.R'
+    'steps-bookdown.R'
     'steps-code.R'
     'steps-drat.R'
     'steps-git.R'

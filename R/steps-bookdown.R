@@ -6,7 +6,7 @@ BuildBookdown <- R6Class(
     },
 
     run = function() {
-      res <- bookdown::render()
+      res <- bookdown::render("")
     },
 
     prepare = function() {
