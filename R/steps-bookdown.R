@@ -50,6 +50,6 @@ BuildBookdown <- R6Class(
 #' @param ... Passed on to `pkgdown::build_site()`
 #'
 #' @export
-step_bookdown <- function(...) {
+step_build_bookdown <- function(...) {
   BuildBookdown$new(...)
 }
