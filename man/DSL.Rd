@@ -86,6 +86,8 @@ to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"aft
 stages:
 
 \enumerate{
+\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\code{repos} argument.
 \item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.

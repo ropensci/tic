@@ -103,6 +103,13 @@ add_package_checks <- function(...,
                                build_args = "--force", error_on = "warning",
                                repos = getOption("repos"), timeout = Inf) {
   #' @description
+  #' 1. A [step_install_deps()] in the `"install"` stage, using the
+  #'    `repos` argument.
+  get_stage("script") %>%
+    add_step(
+      step_install_deps(repos = repos)
+    )
+
   #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
   #'    `build_args` arguments.
