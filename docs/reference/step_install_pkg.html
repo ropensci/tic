@@ -34,9 +34,12 @@
   
 <meta property="og:title" content="Step: Install packages — step_install_pkg" />
 
-<meta property="og:description" content="These steps are useful if your CI run needs packages which are not declared
-as dependencies in your DESCRIPTION.
-Usually you should declare these dependencies, but this may not always be desired.
+<meta property="og:description" content="These steps are useful if your CI run needs additional packages.
+Usually they are declared as dependencies in your DESCRIPTION,
+but it is also possible to install dependencies manually.
+A step_install_deps() step installs all package dependencies declared in
+DESCRIPTION, using remotes::install_deps().
+This includes upgrading outdated packages.
 A step_install_cran() step installs one package from CRAN via install.packages(),
 but only if it's not already installed.
 A step_install_github() step installs one or more packages from GitHub
@@ -72,7 +75,7 @@ GitHub version is different from the locally installed version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9011</span>
       </span>
     </div>
 
@@ -148,9 +151,12 @@ GitHub version is different from the locally installed version." />
 
     <div class="ref-description">
     
-    <p>These steps are useful if your CI run needs packages which are not declared
-as dependencies in your <code>DESCRIPTION</code>.
-Usually you should declare these dependencies, but this may not always be desired.</p>
+    <p>These steps are useful if your CI run needs additional packages.
+Usually they are declared as dependencies in your <code>DESCRIPTION</code>,
+but it is also possible to install dependencies manually.</p>
+<p>A <code>step_install_deps()</code> step installs all package dependencies declared in
+<code>DESCRIPTION</code>, using <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code>.
+This includes upgrading outdated packages.</p>
 <p>A <code>step_install_cran()</code> step installs one package from CRAN via <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>,
 but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
@@ -159,13 +165,19 @@ GitHub version is different from the locally installed version.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>))
+
+<span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>))
 
 <span class='fu'>step_install_github</span>(<span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>repos</th>
+      <td><p>CRAN-like repositories to install from</p></td>
+    </tr>
     <tr>
       <th>package</th>
       <td><p>Package(s) to install</p></td>
@@ -183,18 +195,6 @@ GitHub version is different from the locally installed version.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
-  <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
-  <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
-  <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
-  <code><a href='step_hello_world.html'>step_hello_world</a></code>,
-  <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
-  <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
-  <code><a href='step_run_code.html'>step_run_code</a></code>,
-  <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
-  <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
-  <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
-  <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p>
-<p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
   <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
   <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
