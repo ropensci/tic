@@ -46,7 +46,7 @@ jobs:
   include:
   - stage: test
     r: devel
-  - r: 3.1
+  - r: 3.2
   - stage: full
     r: release
     env:
@@ -55,7 +55,9 @@ jobs:
     r: release
   - r: 3.4
   - r: 3.3
-  - r: 3.2
+  - r: 3.1
+  allow_failures:
+  - r: 3.1
 
 #matrix: Early abortion of failed builds
 matrix:
