@@ -1,5 +1,14 @@
 # tic 0.2.13.9011
 
+- New `step_install_deps()`, reorganizing help pages so that installer steps are on the same page.
+- `step_rcmdcheck()` no longer installs dependencies. Instead, `add_package_checks()` includes `step_install_deps()` (#74).
+- Fix two links in README (#115, @Rekyt).
+- Vignette update (#80, @pat-s).
+- Support `build_args` argument in `step_rcmdcheck()` (#64, @pat-s).
+
+
+# tic 0.2.13.9011
+
 ## step_rcmdcheck()
 
 - deprecate `warnings_are_errors` and `notes_are_errors` in favor of the new `error_on` argument
