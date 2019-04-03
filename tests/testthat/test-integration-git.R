@@ -9,7 +9,10 @@ test_that("integration test: git", {
   git2r::clone(bare_repo_path, package_path)
 
   cat("\n")
-  expect_true(usethis::create_package(package_path, fields = list(), rstudio = FALSE, open = FALSE))
+  expect_equal(
+    usethis::create_package(package_path, fields = list(), rstudio = FALSE, open = FALSE),
+    package_path
+  )
   withr::with_dir(
     package_path,
     {
