@@ -4,10 +4,7 @@ test_that("integration test: package", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
 
   cat("\n")
-  expect_equal(
-    usethis::create_package(package_path, fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE),
-    package_path
-  )
+  usethis::create_package(package_path, fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE)
   withr::with_dir(
     package_path,
     {
