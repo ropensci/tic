@@ -105,7 +105,7 @@ add_package_checks <- function(...,
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
-  get_stage("script") %>%
+  get_stage("install") %>%
     add_step(
       step_install_deps(repos = repos)
     )
