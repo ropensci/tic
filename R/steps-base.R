@@ -11,6 +11,9 @@ TicStep <- R6Class(
   cloneable = FALSE,
 
   public = list(
+    initialize = function() {
+    },
+
     run = function() {
       #' \item{`run`}{
       #'   This method must be overridden, it is called when running the stage
@@ -18,6 +21,7 @@ TicStep <- R6Class(
       #' }
       stopc("Please override the run() method to do something useful.")
     },
+
     prepare = function() {
       #' \item{`prepare`}{
       #'   This method is called when preparing the stage
@@ -26,6 +30,7 @@ TicStep <- R6Class(
       #'   because this allows them to be cached for subsequential runs.
       #' }
     },
+
     check = function() {
       #' \item{`check`}{
       #'   This method determines if a step is prepared and run.
