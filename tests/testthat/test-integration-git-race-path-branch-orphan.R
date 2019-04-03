@@ -14,7 +14,7 @@ test_that("integration test: git race condition with path and branch arguments s
   # and writing the results to `deploy/dir.txt` .
   # Deployment always updates the tip of the repo.
 
-  base_path <- tempfile("git-race-")
+  base_path <- tempfile("git-race-path-branch-orphan-")
   dir.create(base_path)
   tmp <- function(x) file.path(base_path, x)
 

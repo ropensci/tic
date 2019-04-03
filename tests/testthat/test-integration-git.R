@@ -1,11 +1,16 @@
 context("test-integration-git.R")
 
 test_that("integration test: git", {
-  bare_repo_path <- tempfile("ticrepo")
+  base_path <- tempfile("git-")
+  dir.create(base_path)
+  tmp <- function(x) file.path(base_path, x)
+
+
+  bare_repo_path <- tmp("bare_repo")
   dir.create(bare_repo_path)
   git2r::init(bare_repo_path, bare = TRUE)
 
-  package_path <- tempfile("ticpkg", fileext = "pkg")
+  package_path <- tmp("package")
   git2r::clone(bare_repo_path, package_path)
 
   cat("\n")
