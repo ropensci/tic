@@ -12,18 +12,8 @@ ci_ <- function() {
   }
 }
 
-#' The current CI environment
-#'
-#' Returns an instance of the CI class that describes the CI environment.
-#' The value is retrieved only once and then cached.
-#'
-#' @export
-ci <- memoise::memoise(ci_)
-
-#' @rdname ci
 CI <- R6Class(
   "CI",
-
   public = list(
     #' @section Methods:
     #' \describe{
@@ -75,3 +65,89 @@ CI <- R6Class(
     #' }
   )
 )
+
+#' The current CI environment
+#'
+#' @description Functions that return environment settings that describe the CI environment.
+#' The value is retrieved only once and then cached.
+#'
+#' `ci_get_branch()`: Returns the current branch. Returns nothing if operating on a tag.
+#' @name ci
+#' @export
+ci_get_branch <- function() {
+  ci()$get_branch()
+}
+
+#' CI tag
+#'
+#' `ci_is_tag()`: Returns the current tag name. Returns nothing if a branch is selected.
+#' @rdname ci
+#' @export
+ci_is_tag <- function() {
+  ci()$is_tag()
+}
+
+#' CI slug
+#'
+#' `ci_get_slug()`: Returns the repo slug in the format `user/repo` or `org/repo`
+#' @rdname ci
+#' @export
+ci_get_slug <- function() {
+  ci()$get_slug()
+}
+
+#' CI build number
+#'
+#' `ci_get_build_number()`: Returns the CI build number.
+#' @rdname ci
+#' @export
+ci_get_build_number <- function() {
+  ci()$get_build_number()
+}
+
+#' CI build URL
+#'
+#' `ci_get_build_url()`: Returns the URL of the current build.
+#' @rdname ci
+#' @export
+ci_get_build_url <- function() {
+  ci()$get_build_url()
+}
+
+#' CI commit
+#'
+#' `ci_get_commit()`: Returns the SHA1 of the current commit.
+#' @rdname ci
+#' @export
+ci_get_commit <- function() {
+  ci()$get_commit()
+}
+
+#' CI is_interactive
+#'
+#' `ci_is_interactive()`: Returns whether the current build is run interactively or not.
+#' Global setup operations shouldn't be run on interactive CIs.
+#' @rdname ci
+#' @export
+ci_is_interactive <- function() {
+  ci()$is_interactive()
+}
+
+#' CI cat with color
+#' @description `ci_cat_with_color()`: Colored output targeted to the CI log. The code argument can be an
+#' unevaluated call to a crayon function, the style will be applied even if it
+#' normally wouldn't be.
+#' @param code Code that should be colored.
+#' @rdname ci
+#' @export
+ci_cat_with_color <- function(code) {
+  ci()$cat_with_color(code)
+}
+
+#' The current CI environment
+#'
+#' `ci()`: Return the current CI environment
+#'
+#' @rdname ci
+#' @export
+ci <- memoise::memoise(ci_)

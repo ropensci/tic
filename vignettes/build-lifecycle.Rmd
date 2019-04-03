@@ -138,7 +138,7 @@ Please see the respective help pages of the functions for more detailed document
 - `step_setup_push_deploy()`: Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`
 - `step_push_deploy()`: deploy to GitHub, with arguments:
     - `path`: which path to deploy, default: `"."`
-    - `branch`: which branch to deploy to, default: `ci()$get_branch()`
+    - `branch`: which branch to deploy to, default: `ci_get_branch()`
     - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
         - You must specify a `branch` if you set `orphan = TRUE`
     - `remote_url`: the remote URL to push to, default: the URL related to the Travis run

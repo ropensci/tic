@@ -51,14 +51,14 @@ Stage <- R6Class(
         return()
 
       if (!isTRUE(step$check())) {
-        ci()$cat_with_color(
+        ci_cat_with_color()(
           crayon::magenta(paste0("Skipping prepare: ", step$name))
         )
         print(step$check)
         return()
       }
 
-      ci()$cat_with_color(
+      ci_cat_with_color()(
         crayon::magenta(paste0("Preparing: ", step$name))
       )
       step$prepare()
@@ -68,14 +68,14 @@ Stage <- R6Class(
 
     run_one = function(step) {
       if (!isTRUE(step$check())) {
-        ci()$cat_with_color(
+        ci_cat_with_color()(
           crayon::magenta(paste0("Skipping ", private$name, ": ", step$name))
         )
         print(step$check)
         return(TRUE)
       }
 
-      ci()$cat_with_color(
+      ci_cat_with_color()(
         crayon::magenta(paste0("Running ", private$name, ": ", step$name))
       )
 
@@ -87,9 +87,9 @@ Stage <- R6Class(
               TRUE
             },
             error = function(e) {
-              ci()$cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
+              ci_cat_with_color()(crayon::red(paste0("Error: ", conditionMessage(e))))
               tb <- format_traceback()
-              ci()$cat_with_color(crayon::yellow(tb))
+              ci_cat_with_color()(crayon::yellow(tb))
             }
           )
         },

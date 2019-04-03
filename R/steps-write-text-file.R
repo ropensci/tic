@@ -13,7 +13,7 @@ WriteTextFile <- R6Class(
     },
 
     check = function() {
-      !ci()$is_interactive
+      !ci_is_interactive()
     }
   ),
 
