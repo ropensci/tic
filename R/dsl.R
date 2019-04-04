@@ -63,26 +63,6 @@ add_step <- function(stage, step) {
 }
 
 #' @description
-#' `add_step_if()` adds a step to a stage if the given condition is met.
-#'
-#' @param env_var Environment variable to be checked, queried from `Sys.getenv()`.
-#' @param value Value that should be evaluated in a logical manner.
-#' @param stage `[Stage]`\cr
-#'   A Stage object as returned by `get_stage()`.
-#' @param step `[function]`\cr
-#'   A function that constructs a Step object, such as [step_hello_world()].
-#' @rdname DSL
-#' @export
-add_step_if <- function(env_var, value, stage, step) {
-
-  if (Sys.getenv(env_var) == value) {
-    stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
-  } else {
-    cat_with_color(paste0("Condition not met, skipping", quote(step)))
-  }
-}
-
-#' @description
 #' `add_code_step()` is a shortcut for `add_step(step_run_code(...))`.
 #'
 #' @export
