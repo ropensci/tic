@@ -1,30 +1,5 @@
-TicStepWithPackageDeps <- R6Class(
-  "TicStepWithPackageDeps", inherit = TicStep,
-
-  public = list(
-    initialize = function() {},
-
-    prepare = function() {
-      verify_install("remotes")
-
-      remotes::install_deps(dependencies = TRUE)
-
-      # Using a separate library for "build dependencies"
-      # (which might well be ahead of CRAN)
-      # works very poorly with custom steps that are not aware
-      # of this shadow library.
-      inst <- installed.packages()
-      installed_pkg <- rownames(inst)
-      is_priority <- inst[, "Priority"] %in% c("base", "recommended")
-      priority_pkg <- installed_pkg[is_priority]
-      pkg_to_update <- setdiff(installed_pkg, priority_pkg)
-      remotes::update_packages(pkg_to_update)
-    }
-  ),
-)
-
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStepWithPackageDeps,
+  "RCMDcheck", inherit = TicStep,
 
   public = list(
     initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
@@ -54,12 +29,12 @@ RCMDcheck <- R6Class(
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(args = private$args,
-                                  build_args = private$build_args,
-                                  error_on = "never",
-                                  repos = private$repos,
-                                  timeout = private$timeout
-                                  )
+      res <- rcmdcheck::rcmdcheck(
+        args = private$args, build_args = private$build_args,
+        error_on = "never",
+        repos = private$repos,
+        timeout = private$timeout
+      )
 
       print(res)
       if (length(res$errors) > 0) {
