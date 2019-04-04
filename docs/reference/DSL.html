@@ -45,6 +45,8 @@ add_package_checks() adds default steps related to package checks
 to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
 
+A step_install_deps() in the &quot;install&quot; stage, using the
+repos argument.
 A step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
@@ -80,7 +82,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-i
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9011</span>
       </span>
     </div>
 
@@ -167,6 +169,8 @@ and the links therein for available steps.</p>
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
 stages:</p>
 <ol>
+<li><p>A <code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
+<code>repos</code> argument.</p></li>
 <li><p>A <code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>

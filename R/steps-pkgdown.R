@@ -1,6 +1,6 @@
 #' @include steps-rcmdcheck.R
 BuildPkgdown <- R6Class(
-  "BuildPkgdown", inherit = TicStepWithPackageDeps,
+  "BuildPkgdown", inherit = TicStep,
 
   public = list(
     initialize = function(...) {
