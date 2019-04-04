@@ -24,6 +24,9 @@ LocalCI <- R6Class(
     get_commit = function() {
       git2r::revparse_single(revision = "HEAD")$sha
     },
+    is_env = function(env, value) {
+      Sys.getenv(env) == value
+    },
     has_env = function(env) {
       Sys.getenv(env) != ""
     },

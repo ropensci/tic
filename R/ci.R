@@ -39,6 +39,11 @@ CI <- R6Class(
     is_tag = function() {
       stop("NYI")
     },
+    #'  \item{`is_env()`}{Is the given env variable set to the given value?}
+
+    is_env = function(env, value) {
+      Sys.getenv(env) == value
+    },
     #'   \item{`has_env()`}{Does the given env variable exist?}
     has_env = function(env) {
       stop("NYI")
