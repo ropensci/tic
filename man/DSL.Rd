@@ -6,6 +6,7 @@
 \alias{add_step}
 \alias{add_code_step}
 \alias{add_package_checks}
+\alias{do_pkgdown_site}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -18,6 +19,10 @@ add_package_checks(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
+
+do_pkgdown_site(..., build_only = FALSE, repos = getOption("repos"),
+  path = ".", branch = NULL, remote_url = NULL,
+  commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -28,14 +33,6 @@ A Stage object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
 A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
-
-\item{call}{\code{[call]}\cr
-An arbitrary R expression executed during the stage to which this step is
-added.
-The default is useful if you only pass \code{prepare_call}.}
-
-\item{prepare_call}{\code{[call]}\cr
-An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Ignored, used to enforce naming of arguments.}
 
@@ -68,6 +65,18 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
+
+\item{path}{\code{[string]}\cr
+Path to the repository, default \code{"."} which means setting up the current
+repository.}
+
+\item{commit_message}{\code{[string]}\cr
+Commit message to use, defaults to a useful message linking to the CI build
+and avoiding recursive CI runs.}
+
+\item{commit_paths}{\code{[character]}\cr
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.}
 }
 \description{
 Functions to define stages and their constitutent
@@ -92,5 +101,19 @@ stages:
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
+}
+
+\code{do_pkgdown_site()} checks if a \code{id_rsa} env variable is set and builds a pkgdown site.
+A deployment can be avoided by setting \code{build_only = TRUE}.
+
+\enumerate{
+\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\code{repos} argument.
+}
+
+\enumerate{
+\item A \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
+\item A \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
+\item A \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 }

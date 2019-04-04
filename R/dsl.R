@@ -66,7 +66,7 @@ add_step <- function(stage, step) {
 #' `add_code_step()` is a shortcut for `add_step(step_run_code(...))`.
 #'
 #' @export
-#' @inheritParams step_run_code
+#' @inheritParams step_rcmdcheck
 #' @rdname DSL
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call <- substitute(call)
@@ -80,7 +80,8 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
       if (!is.null(prepare_call)) {
         paste0(
           ", prepare_call = ",
-          deparse(prepare_call, width.cutoff = 500, nlines = 1))
+          deparse(prepare_call, width.cutoff = 500, nlines = 1)
+        )
       },
       ")"
     )
@@ -92,16 +93,17 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
-#' @inheritParams step_rcmdcheck
+#' @inheritParams step_build_pkgdown
+#' @inheritParams step_do_push_deploy
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
 add_package_checks <- function(...,
-                               warnings_are_errors = NULL,
-                               notes_are_errors = NULL,
-                               args = c("--no-manual", "--as-cran"),
-                               build_args = "--force", error_on = "warning",
-                               repos = getOption("repos"), timeout = Inf) {
+  warnings_are_errors = NULL,
+  notes_are_errors = NULL,
+  args = c("--no-manual", "--as-cran"),
+  build_args = "--force", error_on = "warning",
+  repos = getOption("repos"), timeout = Inf) {
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -127,16 +129,60 @@ add_package_checks <- function(...,
     )
 
   #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
-  if (!ci()$is_interactive()) {
+  if (!ci_is_interactive()) {
     get_stage("after_success") %>%
       add_code_step(covr::codecov(quiet = FALSE))
   }
+}
+#' @description
+#' `do_pkgdown_site()` checks if a `id_rsa` env variable is set and builds a pkgdown site.
+#'   A deployment can be avoided by setting `build_only = TRUE`.
+#'
+#' @inheritParams step_build_pkgdown
+#' @inheritParams step_do_push_deploy
+#' @rdname DSL
+#' @export
+#' @importFrom magrittr %>%
+do_pkgdown_site <- function(...,
+  build_only = FALSE,
+  repos = getOption("repos"),
+  path = ".", branch = NULL,
+  remote_url = NULL,
+  commit_message = NULL, commit_paths = ".") {
+
+  #' @description
+  #' 1. A [step_install_deps()] in the `"install"` stage, using the
+  #'    `repos` argument.
+  get_stage("install") %>%
+    add_step(
+      step_install_deps(repos = repos)
+    )
+
+  #' @description
+  #' 1. A [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
+  get_stage("before_deploy") %>%
+    add_step(
+      step_setup_ssh()
+    )
+
+  #' 1. A [step_build_pkgdown()] in the `"deploy"` stage
+  get_stage("deploy") %>%
+    add_step(
+      step_build_pkgdown(...)
+    )
+
+  #' 1. A [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+  #'
+  get_stage("deploy") %>%
+    add_step(step_do_push_deploy(
+      path = path, branch = branch, remote_url = remote_url,
+      commit_message = commit_message, commit_paths = commit_paths
+    ))
 }
 
 #' @importFrom magrittr %>%
 DSL <- R6Class(
   "DSL",
-
   public = list(
     initialize = function() {
       stage_names <- c(
