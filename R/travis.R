@@ -25,6 +25,9 @@ TravisCI <- R6Class(
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
     },
+    has_env = function(env) {
+      Sys.getenv(env) != ""
+    },
     cat_with_color = function(code) {
       withr::with_options(
         list(crayon.enabled = TRUE),

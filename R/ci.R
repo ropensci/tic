@@ -39,6 +39,10 @@ CI <- R6Class(
     is_tag = function() {
       stop("NYI")
     },
+    #'   \item{`has_env()`}{Does the given env variable exist?}
+    has_env = function(env) {
+      stop("NYI")
+    },
     #'   \item{`get_slug()`}{The repo slug in the format `user/repo` or `org/repo`.}
     get_slug = function() {
       stop("NYI")

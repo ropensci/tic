@@ -24,6 +24,9 @@ MockCI <- R6Class(
     get_commit = function() {
       "00000000000000000000000000000000"
     },
+    has_env = function(env) {
+      Sys.getenv(env) != ""
+    },
     is_interactive = function() {
       TRUE
     }

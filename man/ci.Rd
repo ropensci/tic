@@ -21,6 +21,7 @@ The value is retrieved only once and then cached.
 \item{\code{get_branch()}}{The current branch name, empty if tag.}
 \item{\code{get_tag()}}{The current tag name, empty if branch.}
 \item{\code{is_tag()}}{Branch or tag?}
+\item{\code{has_env()}}{Does the given env variable exist?}
 \item{\code{get_slug()}}{The repo slug in the format \code{user/repo} or \code{org/repo}.}
 \item{\code{get_build_number()}}{The build number.}
 \item{\code{get_build_url()}}{The URL of the build.}
