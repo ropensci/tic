@@ -140,7 +140,7 @@ ci_is_interactive <- function() {
 #' @param code Code that should be colored.
 #' @rdname ci
 #' @export
-ci_cat_with_color <- function(code) {
+ci_cat_with_color <- function(code = NULL) {
   ci()$cat_with_color(code)
 }
 
