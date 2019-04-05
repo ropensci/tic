@@ -66,6 +66,8 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
+\item{build_only}{Build the pkgdown site but do not deploy it.}
+
 \item{path}{\code{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
 repository.}

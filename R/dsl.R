@@ -140,6 +140,7 @@ add_package_checks <- function(...,
 #'
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_push_deploy
+#' @param build_only Build the pkgdown site but do not deploy it.
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
