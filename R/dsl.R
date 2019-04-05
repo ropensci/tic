@@ -176,12 +176,13 @@ do_pkgdown_site <- function(...,
   } else {
     #' 1. A [step_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
     #'
-    get_stage("deploy") %>%
-      add_code_step(ci()$can_push()) %>%
-      add_step(step_push_deploy(
-        path = path, branch = branch, remote_url = remote_url,
-        commit_message = commit_message, commit_paths = commit_paths
-      ))
+    if (ci()$can_push()) {
+      get_stage("deploy") %>%
+        add_step(step_push_deploy(
+          path = path, branch = branch, remote_url = remote_url,
+          commit_message = commit_message, commit_paths = commit_paths
+        ))
+    }
   }
 }
 
