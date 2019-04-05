@@ -66,7 +66,7 @@ add_step <- function(stage, step) {
 #' `add_code_step()` is a shortcut for `add_step(step_run_code(...))`.
 #'
 #' @export
-#' @inheritParams step_rcmdcheck
+#' @inheritParams step_run_code
 #' @rdname DSL
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call <- substitute(call)
@@ -93,8 +93,7 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
-#' @inheritParams step_build_pkgdown
-#' @inheritParams step_do_push_deploy
+#' @inheritParams step_rcmdcheck
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
