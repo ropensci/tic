@@ -70,6 +70,13 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Path to the repository, default \code{"."} which means setting up the current
 repository.}
 
+\item{branch}{\code{[string]}\cr
+Target branch, default: current branch.}
+
+\item{remote_url}{\code{[string]}\cr
+The URL of the remote Git repository to push to, defaults to the
+current GitHub repository.}
+
 \item{commit_message}{\code{[string]}\cr
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
@@ -114,6 +121,6 @@ A deployment can be avoided by setting \code{build_only = TRUE}.
 \enumerate{
 \item A \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
 \item A \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
-\item A \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
+\item A \code{\link[=step_push_deploy]{step_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 }

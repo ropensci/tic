@@ -139,7 +139,7 @@ add_package_checks <- function(...,
 #'   A deployment can be avoided by setting `build_only = TRUE`.
 #'
 #' @inheritParams step_build_pkgdown
-#' @inheritParams step_do_push_deploy
+#' @inheritParams step_push_deploy
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
@@ -174,7 +174,7 @@ do_pkgdown_site <- function(...,
   if (isTRUE(build_only)) {
     ci()$cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
-    #' 1. A [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+    #' 1. A [step_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
     #'
     get_stage("deploy") %>%
       add_code_step(ci()$can_push()) %>%
