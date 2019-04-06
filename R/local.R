@@ -27,6 +27,12 @@ LocalCI <- R6Class(
     can_push = function() {
       Sys.getenv("id_rsa") != ""
     },
+    is_env = function(env, value) {
+      Sys.getenv(env) == value
+    },
+    has_env = function(env) {
+      Sys.getenv(env) != ""
+    },
     is_interactive = function() {
       TRUE
     }

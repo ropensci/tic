@@ -28,6 +28,12 @@ TravisCI <- R6Class(
     can_push = function() {
       Sys.getenv("id_rsa") != ""
     },
+    is_env = function(env, value) {
+      Sys.getenv(env) == value
+    },
+    has_env = function(env) {
+      Sys.getenv(env) != ""
+    },
     cat_with_color = function(code) {
       withr::with_options(
         list(crayon.enabled = TRUE),

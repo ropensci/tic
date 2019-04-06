@@ -23,7 +23,7 @@ Possible conditionals are
 
 - Environment variables of the build (queried by `Sys.getenv()`)
 - R Version of the current build (`getRversion()`)
-- other features of the build (e.g. branch name, `ci()$get_branch()`)
+- other features of the build (e.g. branch name, `ci_get_branch()`)
 
 The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a _pkgdown_ site](deployment.html#pkgdown-deployment)).
 If you test on multiple CI services you may also want to run certain tasks on only one of them.
@@ -51,7 +51,7 @@ if (inherits(ci(), "TravisCI") {
 ```
 
 ```{r eval = FALSE}
-if (ci()$get_branch == "master") {
+if (ci_get_branch() == "master") {
   get_stage(<a stage>) %>%
     add_step(<do something>)
 }
@@ -60,7 +60,7 @@ if (ci()$get_branch == "master") {
 # Installing packages
 
 Note that manual installation of GitHub or CRAN packages should only be used in non-interactive CI runs. 
-This can be checked with the condition `ci()$is_interactive()`.
+This can be checked with the condition `ci_is_interactive()`.
 
 Usually required packages should be installed based on the DESCRIPTION file of a package.
 You should only use the following steps in extraordinary circumstances.
