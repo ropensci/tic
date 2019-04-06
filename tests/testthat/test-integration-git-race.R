@@ -14,11 +14,16 @@ test_that("integration test: git race condition", {
   # to `dir.txt` .
   # Deployment always updates the tip of the repo.
 
-  bare_repo_path <- tempfile("ticrepo")
+  base_path <- tempfile("git-race-")
+  dir.create(base_path)
+  tmp <- function(x) file.path(base_path, x)
+
+
+  bare_repo_path <- tmp("bare_repo")
   dir.create(bare_repo_path)
   git2r::init(bare_repo_path, bare = TRUE)
 
-  package_path <- tempfile("ticpkg", fileext = "pkg")
+  package_path <- tmp("package")
   git2r::clone(bare_repo_path, package_path)
 
   cat("\n")
@@ -28,7 +33,7 @@ test_that("integration test: git race condition", {
       writeLines(
         c(
           'get_stage("deploy") %>%',
-          '  add_code_step(writeLines(sort(dir(pattern = "[.]txt$")), "dir.txt")) %>%',
+          '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$")), "dir.txt")) %>%',
           paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '"))')
         ),
         "tic.R"
@@ -40,7 +45,7 @@ test_that("integration test: git race condition", {
     }
   )
 
-  package_path_2 <- tempfile("ticpkg", fileext = "pkg")
+  package_path_2 <- tmp("package_2")
   git2r::clone(bare_repo_path, package_path_2)
 
   withr::with_dir(
@@ -54,7 +59,7 @@ test_that("integration test: git race condition", {
     }
   )
 
-  package_path_3 <- tempfile("ticpkg", fileext = "pkg")
+  package_path_3 <- tmp("package_3")
   git2r::clone(bare_repo_path, package_path_3)
 
   withr::with_dir(
@@ -100,9 +105,9 @@ test_that("integration test: git race condition", {
   withr::with_dir(
     package_path,
     {
-      git2r::pull()
+      system("git pull")
       expect_true(file.exists("clone.txt"))
-      expect_equal(readLines("dir.txt"), sort(dir(pattern = "[.]txt$")))
+      expect_equal(readLines("dir.txt"), sort(dir(pattern = "^clone[.]txt$")))
     }
   )
 
@@ -122,10 +127,10 @@ test_that("integration test: git race condition", {
   withr::with_dir(
     package_path,
     {
-      git2r::pull()
+      system("git pull")
       expect_true(file.exists("clone.txt"))
       expect_identical(readLines("clone.txt"), "clone-contents")
-      expect_equal(readLines("dir.txt"), sort(dir(pattern = "[.]txt$")))
+      expect_equal(readLines("dir.txt"), sort(dir(pattern = "^clone[.]txt$")))
     }
   )
 })

@@ -34,8 +34,22 @@
   
 <meta property="og:title" content="The current CI environment — ci" />
 
-<meta property="og:description" content="Returns an instance of the CI class that describes the CI environment.
-The value is retrieved only once and then cached." />
+<meta property="og:description" content="Functions that return environment settings that describe the CI environment.
+The value is retrieved only once and then cached.
+ci_get_branch(): Returns the current branch. Returns nothing if operating on a tag.
+ci_is_tag(): Returns the current tag name. Returns nothing if a branch is selected.
+ci_get_slug(): Returns the repo slug in the format user/repo or org/repo
+ci_get_build_number(): Returns the CI build number.
+ci_get_build_url(): Returns the URL of the current build.
+ci_get_commit(): Returns the SHA1 of the current commit.
+ci_is_env(): Checks if an environment or configuration variable is set to a particular value.
+ci_has_env(): Checks if an environment or configuration variable is set to any value.
+ci_is_interactive(): Returns whether the current build is run interactively or not.
+Global setup operations shouldn't be run on interactive CIs.
+ci_cat_with_color(): Colored output targeted to the CI log. The code argument can be an
+unevaluated call to a crayon function, the style will be applied even if it
+normally wouldn't be.
+ci(): Return the current CI environment" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +80,7 @@ The value is retrieved only once and then cached." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9011</span>
       </span>
     </div>
 
@@ -142,48 +156,71 @@ The value is retrieved only once and then cached." />
 
     <div class="ref-description">
     
-    <p>Returns an instance of the CI class that describes the CI environment.
+    <p>Functions that return environment settings that describe the CI environment.
 The value is retrieved only once and then cached.</p>
+<p><code>ci_get_branch()</code>: Returns the current branch. Returns nothing if operating on a tag.</p>
+<p><code>ci_is_tag()</code>: Returns the current tag name. Returns nothing if a branch is selected.</p>
+<p><code>ci_get_slug()</code>: Returns the repo slug in the format <code>user/repo</code> or <code>org/repo</code></p>
+<p><code>ci_get_build_number()</code>: Returns the CI build number.</p>
+<p><code>ci_get_build_url()</code>: Returns the URL of the current build.</p>
+<p><code>ci_get_commit()</code>: Returns the SHA1 of the current commit.</p>
+<p><code>ci_is_env()</code>: Checks if an environment or configuration variable is set to a particular value.</p>
+<p><code>ci_has_env()</code>: Checks if an environment or configuration variable is set to any value.</p>
+<p><code>ci_is_interactive()</code>: Returns whether the current build is run interactively or not.
+Global setup operations shouldn't be run on interactive CIs.</p>
+<p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log. The code argument can be an
+unevaluated call to a crayon function, the style will be applied even if it
+normally wouldn't be.</p>
+<p><code>ci()</code>: Return the current CI environment</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ci</span>()
+    <pre class="usage"><span class='fu'>ci_get_branch</span>()
 
-<span class='no'>CI</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+<span class='fu'>ci_is_tag</span>()
 
-    <p>An object of class <code>R6ClassGenerator</code> of length 24.</p>
+<span class='fu'>ci_get_slug</span>()
+
+<span class='fu'>ci_get_build_number</span>()
+
+<span class='fu'>ci_get_build_url</span>()
+
+<span class='fu'>ci_get_commit</span>()
+
+<span class='fu'>ci_is_env</span>(<span class='no'>env</span>, <span class='no'>value</span>)
+
+<span class='fu'>ci_has_env</span>(<span class='no'>env</span>)
+
+<span class='fu'>ci_is_interactive</span>()
+
+<span class='fu'>ci_cat_with_color</span>(<span class='no'>code</span>)
+
+<span class='fu'>ci</span>()</pre>
     
-    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
-
-    
-    <dl class='dl-horizontal'>
-<dt><code>get_branch()</code></dt><dd><p>The current branch name, empty if tag.</p></dd>
-<dt><code>get_tag()</code></dt><dd><p>The current tag name, empty if branch.</p></dd>
-<dt><code>is_tag()</code></dt><dd><p>Branch or tag?</p></dd>
-<dt><code>get_slug()</code></dt><dd><p>The repo slug in the format <code>user/repo</code> or <code>org/repo</code>.</p></dd>
-<dt><code>get_build_number()</code></dt><dd><p>The build number.</p></dd>
-<dt><code>get_build_url()</code></dt><dd><p>The URL of the build.</p></dd>
-<dt><code>get_commit()</code></dt><dd><p>The SHA1 of the current commit.</p></dd>
-<dt><code>is_interactive()</code></dt><dd><p>Global setup operations shouldn't be run on an interactive CI,
-only on unattended CIs where this method returns <code>FALSE</code>.</p></dd>
-<dt><code>cat_with_color(code)</code></dt><dd><p>Colored output targeted to the CI log.
-The <code>code</code> argument can be an unevaluated call to a
-<span class="pkg">crayon</span> function,
-the style will be applied even if it normally wouldn't be.</p></dd>
-</dl>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>env</th>
+      <td><p>Name of the environment variable to check.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>Value for the environment variable to compare against.</p></td>
+    </tr>
+    <tr>
+      <th>code</th>
+      <td><p>Code that should be colored.</p></td>
+    </tr>
+    </table>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#methods">Methods</a></li>
-          </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
   </div>
 </div>

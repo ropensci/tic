@@ -2,15 +2,20 @@
 % Please edit documentation in R/steps-install.R
 \name{step_install_pkg}
 \alias{step_install_pkg}
+\alias{step_install_deps}
 \alias{step_install_cran}
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_cran(package = NULL, ...)
+step_install_deps(repos = getOption("repos"))
+
+step_install_cran(package = NULL, ..., repos = getOption("repos"))
 
 step_install_github(repo = NULL, ...)
 }
 \arguments{
+\item{repos}{CRAN-like repositories to install from}
+
 \item{package}{Package(s) to install}
 
 \item{...}{Passed on to \code{install.packages()} or \code{remotes::install_github()}.}
@@ -18,9 +23,13 @@ step_install_github(repo = NULL, ...)
 \item{repo}{Package to install in the "user/repo" format.}
 }
 \description{
-These steps are useful if your CI run needs packages which are not declared
-as dependencies in your \code{DESCRIPTION}.
-Usually you should declare these dependencies, but this may not always be desired.
+These steps are useful if your CI run needs additional packages.
+Usually they are declared as dependencies in your \code{DESCRIPTION},
+but it is also possible to install dependencies manually.
+
+A \code{step_install_deps()} step installs all package dependencies declared in
+\code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
+This includes upgrading outdated packages.
 
 A \code{step_install_cran()} step installs one package from CRAN via \code{\link[=install.packages]{install.packages()}},
 but only if it's not already installed.
@@ -30,19 +39,6 @@ via \code{\link[remotes:install_github]{remotes::install_github()}}, the package
 GitHub version is different from the locally installed version.
 }
 \seealso{
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
-
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},
   \code{\link{step_build_pkgdown}},

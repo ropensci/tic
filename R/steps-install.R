@@ -1,3 +1,50 @@
+InstallDeps <- R6Class(
+  "InstallDeps", inherit = TicStep,
+
+  public = list(
+    initialize = function(repos = getOption("repos")) {
+      private$repos <- repos
+    },
+
+    prepare = function() {
+      verify_install("remotes")
+    },
+
+    run = function() {
+      remotes::install_deps(dependencies = TRUE)
+    }
+  ),
+
+  private = list(
+    repos = NULL
+  )
+)
+
+#' Step: Install packages
+#'
+#' @description
+#' These steps are useful if your CI run needs additional packages.
+#' Usually they are declared as dependencies in your `DESCRIPTION`,
+#' but it is also possible to install dependencies manually.
+#'
+#' A `step_install_deps()` step installs all package dependencies declared in
+#' `DESCRIPTION`, using [remotes::install_deps()].
+#' This includes upgrading outdated packages.
+#'
+#' @param repos CRAN-like repositories to install from
+#' @family steps
+#' @export
+#' @name step_install_pkg
+step_install_deps <- function(repos = getOption("repos")) {
+  InstallDeps$new(repos = repos)
+}
+
+
+
+
+
+
+
 InstallCRAN <- R6Class(
   "InstallCRAN", inherit = TicStep,
 
@@ -21,23 +68,16 @@ InstallCRAN <- R6Class(
   )
 )
 
-#' Step: Install packages
-#'
 #' @description
-#' These steps are useful if your CI run needs packages which are not declared
-#' as dependencies in your `DESCRIPTION`.
-#' Usually you should declare these dependencies, but this may not always be desired.
-#'
 #' A `step_install_cran()` step installs one package from CRAN via [install.packages()],
 #' but only if it's not already installed.
 #'
 #' @param package Package(s) to install
 #' @param ... Passed on to `install.packages()` or `remotes::install_github()`.
-#' @family steps
 #' @export
-#' @name step_install_pkg
-step_install_cran <- function(package = NULL, ...) {
-  InstallCRAN$new(package = package, ...)
+#' @rdname step_install_pkg
+step_install_cran <- function(package = NULL, ..., repos = getOption("repos")) {
+  InstallCRAN$new(package = package, repos = repos, ...)
 }
 
 
@@ -73,7 +113,6 @@ InstallGithub <- R6Class(
 #' GitHub version is different from the locally installed version.
 #'
 #' @param repo Package to install in the "user/repo" format.
-#' @family steps
 #' @export
 #' @rdname step_install_pkg
 step_install_github <- function(repo = NULL, ...) {
