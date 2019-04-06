@@ -20,9 +20,9 @@ add_package_checks(..., warnings_are_errors = NULL,
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
 
-do_pkgdown_site(..., build_only = FALSE, repos = getOption("repos"),
-  path = ".", branch = NULL, remote_url = NULL,
-  commit_message = NULL, commit_paths = ".")
+do_pkgdown_site(..., build_only = FALSE, deploy = ci_can_push(),
+  repos = getOption("repos"), path = ".", branch = NULL,
+  remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -75,6 +75,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
 \item{build_only}{Build the pkgdown site but do not deploy it.}
+
+\item{deploy}{Checks if env variable id_rsa is set in Travis. If missing,
+deployment is not possible.}
 
 \item{path}{\code{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
