@@ -21,8 +21,9 @@ add_package_checks(..., warnings_are_errors = NULL,
   repos = getOption("repos"), timeout = Inf)
 
 do_pkgdown_site(..., build_only = FALSE, deploy = ci()$can_push(),
-  repos = getOption("repos"), path = ".", branch = NULL,
-  remote_url = NULL, commit_message = NULL, commit_paths = ".")
+  orphan = FALSE, repos = getOption("repos"), path = ".",
+  branch = NULL, remote_url = NULL, commit_message = NULL,
+  commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -78,6 +79,11 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 
 \item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci()$can_push]{ci()$can_push()}}. If missing,
 deployment is not possible.}
+
+\item{orphan}{\code{[flag]}\cr
+Create and force-push an orphan branch consisting of only one commit?
+This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
+but cannot be applied for pushing to the current branch.}
 
 \item{path}{\code{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
