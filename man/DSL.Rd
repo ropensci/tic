@@ -20,10 +20,10 @@ add_package_checks(..., warnings_are_errors = NULL,
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
 
-do_pkgdown_site(..., build_only = FALSE, deploy = ci()$can_push(),
-  orphan = FALSE, repos = getOption("repos"), path = ".",
-  branch = NULL, remote_url = NULL, commit_message = NULL,
-  commit_paths = ".")
+do_pkgdown_site(..., build_only = FALSE, deploy = ci_can_push(),
+  orphan = FALSE, checkout = TRUE, repos = getOption("repos"),
+  path = ".", branch = NULL, remote_url = NULL,
+  commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -84,6 +84,11 @@ deployment is not possible.}
 Create and force-push an orphan branch consisting of only one commit?
 This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
 but cannot be applied for pushing to the current branch.}
+
+\item{checkout}{\code{[flag]}\cr
+Check out the current contents of the repository? Defaults to \code{TRUE},
+set to \code{FALSE} if the build process relies on existing contents or
+if you deploy to a different branch.}
 
 \item{path}{\code{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current

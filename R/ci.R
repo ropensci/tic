@@ -155,6 +155,16 @@ ci_has_env <- function(env) {
   ci()$has_env(env)
 }
 
+#' CI can push
+#'
+#' `ci_can_push()`: Checks if env variable `id_rsa` is set in Travis. If missing,
+#'   deployment is not possible.
+#' @rdname ci
+#' @export
+ci_can_push <- function() {
+  Sys.getenv("id_rsa") != ""
+}
+
 #' CI is_interactive
 #'
 #' `ci_is_interactive()`: Returns whether the current build is run interactively or not.
