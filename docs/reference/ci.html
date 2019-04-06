@@ -42,6 +42,8 @@ ci_get_slug(): Returns the repo slug in the format user/repo or org/repo
 ci_get_build_number(): Returns the CI build number.
 ci_get_build_url(): Returns the URL of the current build.
 ci_get_commit(): Returns the SHA1 of the current commit.
+ci_is_env(): Checks if an environment or configuration variable is set to a particular value.
+ci_has_env(): Checks if an environment or configuration variable is set to any value.
 ci_is_interactive(): Returns whether the current build is run interactively or not.
 Global setup operations shouldn't be run on interactive CIs.
 ci_cat_with_color(): Colored output targeted to the CI log. The code argument can be an
@@ -162,6 +164,8 @@ The value is retrieved only once and then cached.</p>
 <p><code>ci_get_build_number()</code>: Returns the CI build number.</p>
 <p><code>ci_get_build_url()</code>: Returns the URL of the current build.</p>
 <p><code>ci_get_commit()</code>: Returns the SHA1 of the current commit.</p>
+<p><code>ci_is_env()</code>: Checks if an environment or configuration variable is set to a particular value.</p>
+<p><code>ci_has_env()</code>: Checks if an environment or configuration variable is set to any value.</p>
 <p><code>ci_is_interactive()</code>: Returns whether the current build is run interactively or not.
 Global setup operations shouldn't be run on interactive CIs.</p>
 <p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log. The code argument can be an
@@ -183,6 +187,10 @@ normally wouldn't be.</p>
 
 <span class='fu'>ci_get_commit</span>()
 
+<span class='fu'>ci_is_env</span>(<span class='no'>env</span>, <span class='no'>value</span>)
+
+<span class='fu'>ci_has_env</span>(<span class='no'>env</span>)
+
 <span class='fu'>ci_is_interactive</span>()
 
 <span class='fu'>ci_cat_with_color</span>(<span class='no'>code</span>)
@@ -192,6 +200,14 @@ normally wouldn't be.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>env</th>
+      <td><p>Name of the environment variable to check.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>Value for the environment variable to compare against.</p></td>
+    </tr>
     <tr>
       <th>code</th>
       <td><p>Code that should be colored.</p></td>
