@@ -76,7 +76,7 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 
 \item{build_only}{Build the pkgdown site but do not deploy it.}
 
-\item{deploy}{Checks if env variable `id_rsa`` is set in Travis. If missing,
+\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci()$can_push]{ci()$can_push()}}. If missing,
 deployment is not possible.}
 
 \item{path}{\code{[string]}\cr

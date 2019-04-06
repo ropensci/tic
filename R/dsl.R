@@ -141,7 +141,7 @@ add_package_checks <- function(...,
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #' @param build_only Build the pkgdown site but do not deploy it.
-#' @param deploy Checks if env variable `id_rsa`` is set in Travis. If missing,
+#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci()$can_push()]. If missing,
 #'   deployment is not possible.
 #' @rdname DSL
 #' @export
