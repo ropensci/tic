@@ -32,7 +32,7 @@ CI <- R6Class(
     #'  \item{`is_env()`}{Is the given env variable set to the given value?}
 
     is_env = function(env, value) {
-      Sys.getenv(env) == value
+      stop("NYI")
     },
     #'   \item{`has_env()`}{Does the given env variable exist?}
     has_env = function(env) {
