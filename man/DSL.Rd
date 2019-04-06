@@ -112,9 +112,9 @@ to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"aft
 stages:
 
 \enumerate{
-\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
-\item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
+\item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
@@ -124,13 +124,11 @@ stages:
 A deployment can be avoided by setting \code{build_only = TRUE}.
 
 \enumerate{
-\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
-}
-
-\enumerate{
-\item A \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
-\item A \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
-\item A \code{\link[=step_push_deploy]{step_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
+\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
+\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"deploy"} stage.
+\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 }

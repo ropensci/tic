@@ -104,14 +104,14 @@ add_package_checks <- function(...,
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf) {
   #' @description
-  #' 1. A [step_install_deps()] in the `"install"` stage, using the
+  #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
       step_install_deps(repos = repos)
     )
 
-  #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
+  #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
   #'    `build_args` arguments.
   get_stage("script") %>%
@@ -138,7 +138,8 @@ add_package_checks <- function(...,
 #'   A deployment can be avoided by setting `build_only = TRUE`.
 #'
 #' @inheritParams step_build_pkgdown
-#' @inheritParams step_push_deploy
+#' @inheritParams step_setup_push_deploy
+#' @inheritParams step_do_push_deploy
 #' @param build_only Build the pkgdown site but do not deploy it.
 #' @rdname DSL
 #' @export
@@ -151,21 +152,20 @@ do_pkgdown_site <- function(...,
   commit_message = NULL, commit_paths = ".") {
 
   #' @description
-  #' 1. A [step_install_deps()] in the `"install"` stage, using the
+  #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
       step_install_deps(repos = repos)
     )
 
-  #' @description
-  #' 1. A [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
+  #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
   get_stage("before_deploy") %>%
     add_step(
       step_setup_ssh()
     )
 
-  #' 1. A [step_build_pkgdown()] in the `"deploy"` stage
+  #' 1. [step_build_pkgdown()] in the `"deploy"` stage
   get_stage("deploy") %>%
     add_step(
       step_build_pkgdown(...)
@@ -174,13 +174,15 @@ do_pkgdown_site <- function(...,
   if (isTRUE(build_only)) {
     ci()$cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
-    #' 1. A [step_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+    #' 1. [step_setup_push_deploy()] in the `"deploy"` stage.
+    #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
     #'
     if (ci()$can_push()) {
       get_stage("deploy") %>%
-        add_step(step_push_deploy(
-          path = path, branch = branch, remote_url = remote_url,
-          commit_message = commit_message, commit_paths = commit_paths
+        add_step(step_setup_push_deploy(path = path, branch = branch,
+          remote_url = remote_url, orphan = orphan, checkout = checkout)) %>%
+        add_step(step_do_push_deploy(
+          path = path, commit_message = commit_message, commit_paths = commit_paths
         ))
     }
   }
