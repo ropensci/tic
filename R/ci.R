@@ -132,6 +132,26 @@ ci_get_commit <- function() {
   ci()$get_commit()
 }
 
+#' CI is env
+#'
+#' `ci_is_env()`: Checks if an environment or configuration variable is set to a particular value.
+#' @rdname ci
+#' @param env Name of the environment variable to check.
+#' @param value Value for the environment variable to compare against.
+#' @export
+ci_is_env <- function(env, value) {
+  ci()$is_env(env, value)
+}
+
+#' CI has env
+#'
+#' `ci_has_env()`: Checks if an environment or configuration variable is set to any value.
+#' @rdname ci
+#' @export
+ci_has_env <- function(env) {
+  ci()$has_env(env)
+}
+
 #' CI is_interactive
 #'
 #' `ci_is_interactive()`: Returns whether the current build is run interactively or not.
