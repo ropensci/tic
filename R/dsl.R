@@ -141,7 +141,7 @@ add_package_checks <- function(...,
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #' @param build_only Build the pkgdown site but do not deploy it.
-#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci()$can_push()]. If missing,
+#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_can_push()]. If missing,
 #'   deployment is not possible.
 #' @rdname DSL
 #' @export
@@ -177,12 +177,12 @@ do_pkgdown_site <- function(...,
     )
 
   if (isTRUE(build_only) | !deploy) {
-    ci()$cat_with_color("`build_only = TRUE` was set, skipping deployment")
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
     #' 1. [step_setup_push_deploy()] in the `"deploy"` stage.
     #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
     #'
-    if (ci()$can_push()) {
+    if (ci_can_push()) {
       get_stage("deploy") %>%
         add_step(step_setup_push_deploy(path = path, branch = branch,
           remote_url = remote_url, orphan = orphan, checkout = checkout)) %>%
