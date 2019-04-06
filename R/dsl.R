@@ -148,7 +148,7 @@ add_package_checks <- function(...,
 #' @importFrom magrittr %>%
 do_pkgdown_site <- function(...,
   build_only = FALSE,
-  deploy = ci_can_push(),
+  deploy = ci()$can_push(),
   repos = getOption("repos"),
   path = ".", branch = NULL,
   remote_url = NULL,

@@ -20,7 +20,7 @@ add_package_checks(..., warnings_are_errors = NULL,
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
 
-do_pkgdown_site(..., build_only = FALSE, deploy = ci_can_push(),
+do_pkgdown_site(..., build_only = FALSE, deploy = ci()$can_push(),
   repos = getOption("repos"), path = ".", branch = NULL,
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
@@ -76,7 +76,7 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 
 \item{build_only}{Build the pkgdown site but do not deploy it.}
 
-\item{deploy}{Checks if env variable id_rsa is set in Travis. If missing,
+\item{deploy}{Checks if env variable `id_rsa`` is set in Travis. If missing,
 deployment is not possible.}
 
 \item{path}{\code{[string]}\cr
@@ -123,8 +123,7 @@ stages:
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
 }
 
-\code{do_pkgdown_site()} checks if a \code{id_rsa} env variable is set and builds a pkgdown site.
-A deployment can be avoided by setting \code{build_only = TRUE}.
+\code{do_pkgdown_site()} builds and optionally deploys a pkgdown site.
 
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
