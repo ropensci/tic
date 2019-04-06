@@ -134,7 +134,7 @@ add_package_checks <- function(...,
   }
 }
 #' @description
-#' `do_pkgdown_site()` checks if a `id_rsa` env variable is set and builds a pkgdown site.
+#' `do_pkgdown_site()` builds and optionally deploys a pkgdown site.
 #'   A deployment can be avoided by setting `build_only = TRUE`.
 #'
 #' @inheritParams step_build_pkgdown
