@@ -1,5 +1,5 @@
 BuildBookdown <- R6Class(
-  "BuildBookdown", inherit = TicStepWithPackageDeps,
+  "BuildBookdown", inherit = TicStep,
 
   public = list(
     initialize = function(...) {
