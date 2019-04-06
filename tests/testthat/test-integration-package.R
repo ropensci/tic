@@ -8,7 +8,7 @@ test_that("integration test: package", {
   withr::with_dir(
     package_path,
     {
-      writeLines("add_package_checks()", "tic.R")
+      writeLines("do_package_checks()", "tic.R")
       callr::r(
         function() {
           tic::tic()
