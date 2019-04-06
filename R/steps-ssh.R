@@ -23,7 +23,7 @@ AddToKnownHosts <- R6Class(
 
     check = function() {
       # only if non-interactive and ssh-keyscan is available
-      (!ci()$is_interactive()) && (Sys.which("ssh-keyscan") != "")
+      (!ci_is_interactive()) && (Sys.which("ssh-keyscan") != "")
     }
   ),
 
@@ -75,7 +75,7 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
       # only if non-interactive and id_rsa env var is available
-      (!ci()$is_interactive()) && (Sys.getenv(private$name) != "")
+      (!ci_is_interactive()) && (Sys.getenv(private$name) != "")
     }
   ),
 

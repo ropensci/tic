@@ -58,11 +58,11 @@ SetupPushDeploy <- R6Class(
       }
 
       if (is.null(branch)) {
-        branch <- ci()$get_branch()
+        branch <- ci_get_branch()
       }
 
       if (is.null(remote_url)) {
-        remote_url <- paste0("git@github.com:", ci()$get_slug(), ".git")
+        remote_url <- paste0("git@github.com:", ci_get_slug(), ".git")
       }
 
       private$git <- Git$new(path)
@@ -205,7 +205,7 @@ DoPushDeploy <- R6Class(
     },
 
     check = function() {
-      !ci()$is_tag()
+      !ci_is_tag()
     },
 
     prepare = function() {
@@ -279,9 +279,9 @@ DoPushDeploy <- R6Class(
 
     format_commit_message = function() {
       paste0(
-        "Deploy from ", ci()$get_build_number(), " [ci skip]\n\n",
-        if (!is.null(ci()$get_build_url())) paste0("Build URL: ", ci()$get_build_url(), "\n"),
-        "Commit: ", ci()$get_commit()
+        "Deploy from ", ci_get_build_number(), " [ci skip]\n\n",
+        if (!is.null(ci_get_build_url())) paste0("Build URL: ", ci_get_build_url(), "\n"),
+        "Commit: ", ci_get_commit()
       )
     }
   )
@@ -326,8 +326,8 @@ PushDeploy <- R6Class(
   "PushDeploy", inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", branch = ci()$get_branch(),
-                          remote_url = paste0("git@github.com:", ci()$get_slug(), ".git"),
+    initialize = function(path = ".", branch = ci_get_branch(),
+                          remote_url = paste0("git@github.com:", ci_get_slug(), ".git"),
                           commit_message = NULL, commit_paths = ".") {
 
       orphan <- (path != ".")
