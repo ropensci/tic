@@ -24,6 +24,9 @@ MockCI <- R6Class(
     get_commit = function() {
       "00000000000000000000000000000000"
     },
+    can_push = function() {
+      Sys.getenv("id_rsa") != ""
+    },
     is_interactive = function() {
       TRUE
     }

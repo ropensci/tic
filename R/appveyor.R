@@ -24,6 +24,9 @@ AppVeyorCI <- R6Class(
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
+    },
+    can_push = function() {
+      Sys.getenv("id_rsa") != ""
     }
   )
 )

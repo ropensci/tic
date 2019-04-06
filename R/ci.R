@@ -55,6 +55,9 @@ CI <- R6Class(
     get_commit = function() {
       stop("NYI")
     },
+    can_push = function() {
+      Sys.getenv("id_rsa") != ""
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
