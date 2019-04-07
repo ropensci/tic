@@ -81,7 +81,7 @@ test_that("integration test: git race condition with path and branch arguments s
     {
       callr::r(
         function() {
-          tic::tic()
+          tic::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -115,7 +115,7 @@ test_that("integration test: git race condition with path and branch arguments s
     {
       callr::r(
         function() {
-          tic::tic()
+          tic::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -139,7 +139,7 @@ test_that("integration test: git race condition with path and branch arguments s
     {
       callr::r(
         function() {
-          tic::tic()
+          tic::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")

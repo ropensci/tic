@@ -11,7 +11,7 @@ test_that("integration test: package", {
       writeLines("add_package_checks()", "tic.R")
       callr::r(
         function() {
-          tic::tic()
+          tic::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")

@@ -62,7 +62,7 @@ An important point to note: The R code declared in `tic.R` is not meant to be ru
 It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
 The workflow can be loaded using `load_from_file()`, this will not run any of the commands defined there.
-For testing purposes, all stages and steps defined in `tic.R` can be  executed by calling `tic()`.
+For testing purposes, all stages and steps defined in `tic.R` can be  executed by calling `run_all_stages()`.
 This latter emulates a CI build on your local system.
 See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) for more information.
 

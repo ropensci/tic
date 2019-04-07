@@ -46,7 +46,7 @@ run_stage <- function(name, stages = load_from_file()) {
 #'
 #' @inheritParams run_stage
 #' @export
-tic <- function(stages = load_from_file()) {
+run_all_stages <- function(stages = load_from_file()) {
   #' @details
   #' The stages are run in the following order:
   #'
