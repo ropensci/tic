@@ -147,8 +147,8 @@ add_package_checks <- function(...,
 }
 
 #' @importFrom magrittr %>%
-DSL <- R6Class(
-  "DSL",
+TicDSL <- R6Class(
+  "TicDSL",
 
   public = list(
     initialize = function() {
@@ -188,7 +188,7 @@ DSL <- R6Class(
 )
 
 create_dsl <- function(envir = parent.frame()) {
-  dsl <- DSL$new()
+  dsl <- TicDSL$new()
   parent.env(dsl) <- envir
   dsl
 }
