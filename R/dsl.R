@@ -93,7 +93,8 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
       if (!is.null(prepare_call)) {
         paste0(
           ", prepare_call = ",
-          deparse(prepare_call, width.cutoff = 500, nlines = 1))
+          deparse(prepare_call, width.cutoff = 500, nlines = 1)
+        )
       },
       ")"
     )
@@ -101,7 +102,7 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 }
 
 #' @description
-#' `add_package_checks()` adds default steps related to package checks
+#' `do_package_checks()` adds default steps related to package checks
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
@@ -109,12 +110,12 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-add_package_checks <- function(...,
-                               warnings_are_errors = NULL,
-                               notes_are_errors = NULL,
-                               args = c("--no-manual", "--as-cran"),
-                               build_args = "--force", error_on = "warning",
-                               repos = getOption("repos"), timeout = Inf) {
+do_package_checks <- function(...,
+                              warnings_are_errors = NULL,
+                              notes_are_errors = NULL,
+                              args = c("--no-manual", "--as-cran"),
+                              build_args = "--force", error_on = "warning",
+                              repos = getOption("repos"), timeout = Inf) {
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -146,10 +147,24 @@ add_package_checks <- function(...,
   }
 }
 
+add_package_checks <- function(...,
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force", error_on = "warning",
+                               repos = getOption("repos"), timeout = Inf) {
+  .Deprecated("do_package_checks")
+  do_package_checks(... = ...,
+    warnings_are_errors = warnings_are_errors,
+    notes_are_errors = notes_are_errors,
+    args = args,
+    build_args = build_args, error_on = error_on,
+    repos = repos, timeout = timeout)
+}
+
 #' @importFrom magrittr %>%
 DSL <- R6Class(
   "DSL",
-
   public = list(
     initialize = function() {
       stage_names <- c(

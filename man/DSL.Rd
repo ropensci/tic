@@ -5,7 +5,7 @@
 \alias{get_stage}
 \alias{add_step}
 \alias{add_code_step}
-\alias{add_package_checks}
+\alias{do_package_checks}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -14,7 +14,7 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-add_package_checks(..., warnings_are_errors = NULL,
+do_package_checks(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
@@ -81,7 +81,7 @@ and the links therein for available steps.
 
 \code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
 
-\code{add_package_checks()} adds default steps related to package checks
+\code{do_package_checks()} adds default steps related to package checks
 to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
 stages:
 

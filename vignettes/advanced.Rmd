@@ -160,7 +160,7 @@ $install
 To emulate a real CI run locally, you can call `run_all_stages()` and the stages and steps will be executed in your local R console.
 Note that doing this will of course use your local system libraries and not the CI environment.
 
-Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `add_package_checks()`.
+Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `do_package_checks()`.
 
 ```{r, eval = FALSE}
 tic::run_all_stages()
