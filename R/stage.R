@@ -39,6 +39,13 @@ TicStage <- R6Class(
           stopc('A step failed in stage "', private$name, '": ', private$name, '.')
         }
       }
+    },
+
+    print = function(..., omit_if_empty = FALSE) {
+      if (omit_if_empty && length(private$steps) == 0) return()
+
+      cat_rule(private$name, right = "Stage", col = "green")
+      lapply(private$steps, function(x) cat_bullet(x$name))
     }
   ),
 
@@ -100,3 +107,7 @@ TicStage <- R6Class(
     }
   )
 )
+
+new_stages <- function(x) {
+  structure(x, class = "TicStages")
+}

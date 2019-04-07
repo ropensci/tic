@@ -23,6 +23,7 @@ Depends:
     R (>= 3.0.0)
 Imports: 
     backports,
+    cli,
     crayon,
     magrittr,
     memoise,
@@ -62,6 +63,7 @@ Collate:
     'keys.R'
     'local.R'
     'mock.R'
+    'print.R'
     'run.R'
     'stage.R'
     'steps-base.R'

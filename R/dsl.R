@@ -178,7 +178,7 @@ TicDSL <- R6Class(
     },
 
     get_stages = function() {
-      private$stages
+      new_stages(private$stages)
     }
   ),
 
