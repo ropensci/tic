@@ -147,6 +147,13 @@ do_package_checks <- function(...,
   }
 }
 
+#' Deprecated functions
+#'
+#' `add_package_checks()` has been replaced by [do_package_checks()].
+#'
+#' @inheritParams do_package_checks
+#' @name Deprecated
+#' @export
 add_package_checks <- function(...,
                                warnings_are_errors = NULL,
                                notes_are_errors = NULL,

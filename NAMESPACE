@@ -2,6 +2,7 @@
 
 export(TicStep)
 export(add_code_step)
+export(add_package_checks)
 export(add_step)
 export(after_deploy)
 export(after_failure)
