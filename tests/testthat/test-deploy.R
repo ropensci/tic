@@ -25,7 +25,7 @@ Running <- R6Class(
 test_that("prepare tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
-  stage <- local(Stage$new("test") %>% add_step(running) %>% add_step(not_running), create_dsl())
+  stage <- local(TicStage$new("test") %>% add_step(running) %>% add_step(not_running), create_dsl())
 
   expect_output(stage$prepare_all(), "Skipping", fixed = TRUE)
   expect_equal(running$get_prepare_calls(), 1L)
@@ -41,7 +41,7 @@ test_that("prepare tasks", {
 test_that("run tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
-  stage <- local(Stage$new("asdfgh") %>% add_step(running) %>% add_step(not_running), create_dsl())
+  stage <- local(TicStage$new("asdfgh") %>% add_step(running) %>% add_step(not_running), create_dsl())
 
   expect_output(stage$run_all(), "Skipping asdfgh", fixed = TRUE)
 

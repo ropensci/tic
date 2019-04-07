@@ -37,7 +37,7 @@ load_from_file <- memoise::memoise(load_from_file_)
 NULL
 
 #' @description
-#' `get_stage()` returns a Stage object for a stage given by name.
+#' `get_stage()` returns a `TicStage` object for a stage given by name.
 #' This function only works when called by [load_from_file()].
 #'
 #' @param name `[string]`\cr
@@ -52,8 +52,8 @@ get_stage <- function(name) {
 #' `add_step()` adds a step to a stage, see [step_hello_world()]
 #' and the links therein for available steps.
 #'
-#' @param stage `[Stage]`\cr
-#'   A Stage object as returned by `get_stage()`.
+#' @param stage `[TicStage]`\cr
+#'   A `TicStage` object as returned by `get_stage()`.
 #' @param step `[function]`\cr
 #'   An object of class [TicStep], usually created by functions
 #'   with the `step_` prefix like [step_hello_world()].
@@ -166,7 +166,7 @@ DSL <- R6Class(
         "after_script"
       )
 
-      private$stages <- lapply(stats::setNames(nm = stage_names), Stage$new)
+      private$stages <- lapply(stats::setNames(nm = stage_names), TicStage$new)
     },
 
     get_stage = function(name) {

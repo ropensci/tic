@@ -1,5 +1,5 @@
-Stage <- R6Class(
-  "Stage",
+TicStage <- R6Class(
+  "TicStage",
 
   public = list(
     initialize = function(name) {

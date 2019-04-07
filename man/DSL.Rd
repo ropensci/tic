@@ -23,11 +23,12 @@ add_package_checks(..., warnings_are_errors = NULL,
 \item{name}{\code{[string]}\cr
 The name for the stage.}
 
-\item{stage}{\code{[Stage]}\cr
-A Stage object as returned by \code{get_stage()}.}
+\item{stage}{\code{[TicStage]}\cr
+A \code{TicStage} object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
-A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
+An object of class \link{TicStep}, usually created by functions
+with the \code{step_} prefix like \code{\link[=step_hello_world]{step_hello_world()}}.}
 
 \item{call}{\code{[call]}\cr
 An arbitrary R expression executed during the stage to which this step is
@@ -73,7 +74,7 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Functions to define stages and their constitutent
 steps.
 
-\code{get_stage()} returns a Stage object for a stage given by name.
+\code{get_stage()} returns a \code{TicStage} object for a stage given by name.
 This function only works when called by \code{\link[=load_from_file]{load_from_file()}}.
 
 \code{add_step()} adds a step to a stage, see \code{\link[=step_hello_world]{step_hello_world()}}
