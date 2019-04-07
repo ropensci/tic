@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tic's domain-specific language — DSL • tic</title>
+<title>Deprecated functions — Deprecated • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,26 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="tic's domain-specific language — DSL" />
+<meta property="og:title" content="Deprecated functions — Deprecated" />
 
-<meta property="og:description" content="Functions to define stages and their constitutent
-steps.
-get_stage() returns a Stage object for a stage given by name.
-This function only works when called by load_from_file().
-add_step() adds a step to a stage, see step_hello_world()
-and the links therein for available steps.
-add_code_step() is a shortcut for add_step(step_run_code(...)).
-do_package_checks() adds default steps related to package checks
-to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
-stages:
-
-A step_install_deps() in the &quot;install&quot; stage, using the
-repos argument.
-A step_rcmdcheck() in the &quot;script&quot; stage, using the
-warnings_are_errors, notes_are_errors, args, and
-build_args arguments.
-A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
-" />
+<meta property="og:description" content="add_package_checks() has been replaced by do_package_checks()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -151,41 +134,18 @@ A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-i
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tic's domain-specific language</h1>
+    <h1>Deprecated functions</h1>
     <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/dsl.R'><code>R/dsl.R</code></a></small>
-    <div class="hidden name"><code>DSL.Rd</code></div>
+    <div class="hidden name"><code>Deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Functions to define stages and their constitutent
-steps.</p>
-<p><code>get_stage()</code> returns a Stage object for a stage given by name.
-This function only works when called by <code><a href='load_from_file.html'>load_from_file()</a></code>.</p>
-<p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
-and the links therein for available steps.</p>
-<p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
-<p><code>do_package_checks()</code> adds default steps related to package checks
-to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
-stages:</p>
-<ol>
-<li><p>A <code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
-<code>repos</code> argument.</p></li>
-<li><p>A <code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
-<code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
-<code>build_args</code> arguments.</p></li>
-<li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
-</ol>
+    <p><code>add_package_checks()</code> has been replaced by <code><a href='DSL.html'>do_package_checks()</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>)
-
-<span class='fu'>add_step</span>(<span class='no'>stage</span>, <span class='no'>step</span>)
-
-<span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>add_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
@@ -193,34 +153,6 @@ stages:</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>name</th>
-      <td><p><code>[string]</code><br />
-The name for the stage.</p></td>
-    </tr>
-    <tr>
-      <th>stage</th>
-      <td><p><code>[Stage]</code><br />
-A Stage object as returned by <code>get_stage()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>step</th>
-      <td><p><code>[function]</code><br />
-An object of class <a href='TicStep.html'>TicStep</a>, usually created by functions
-with the <code>step_</code> prefix like <code><a href='step_hello_world.html'>step_hello_world()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>call</th>
-      <td><p><code>[call]</code><br />
-An arbitrary R expression executed during the stage to which this step is
-added.
-The default is useful if you only pass <code>prepare_call</code>.</p></td>
-    </tr>
-    <tr>
-      <th>prepare_call</th>
-      <td><p><code>[call]</code><br />
-An optional arbitrary R expression executed during preparation.</p></td>
-    </tr>
     <tr>
       <th>...</th>
       <td><p>Ignored, used to enforce naming of arguments.</p></td>
