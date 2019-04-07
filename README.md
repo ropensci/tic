@@ -68,6 +68,11 @@ See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) 
 - [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 
     [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.figshare.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.figshare)
+    
+- [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
+
+    [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.covrpage.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.covrpage)
+    
 
 ## Vignettes
 
