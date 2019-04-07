@@ -32,7 +32,7 @@ TravisCI <- R6Class(
       Sys.getenv(env, value)
     },
     has_env = function(env) {
-      Sys.getenv(env)
+      Sys.getenv(env) != ""
     },
     cat_with_color = function(code) {
       withr::with_options(

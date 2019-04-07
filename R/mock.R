@@ -31,7 +31,7 @@ MockCI <- R6Class(
       Sys.getenv(env, value)
     },
     has_env = function(env) {
-      Sys.getenv(env)
+      Sys.getenv(env) != ""
     },
     is_interactive = function() {
       TRUE

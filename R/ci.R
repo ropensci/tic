@@ -54,8 +54,9 @@ CI <- R6Class(
     get_commit = function() {
       stop("NYI")
     },
+    #'  \item{`get_commit()`}{Does an env variable named `id_rsa` exist?}
     can_push = function() {
-      TRUE
+      stop("NYI")
     },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
