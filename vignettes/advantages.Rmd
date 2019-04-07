@@ -69,7 +69,7 @@ We could list way more differences - but that's exactly the point when *tic* com
 
 - Rather than dealing with all the CI differences, *tic* enables the specification of the complete workflow in an external R script file `tic.R`.
 - The commands specified in there will work the same way on every CI service that is supported by *tic*.
-- Furthermore, you can [emulate all the stages and steps locally](advantages.html#less-dependency-on-external-ci-control-commands) by calling `tic()`.
+- Furthermore, you can [emulate all the stages and steps locally](advantages.html#less-dependency-on-external-ci-control-commands) by calling `run_all_stages()`.
 - You are independent from all the changes that are being made to the R setup for Travis or Appveyor ([more info](advantages.html#less-dependency-on-external-ci-control-commands)).
 - A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file.
 

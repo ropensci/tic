@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The current CI environment — ci • tic</title>
+<title>Emulate a CI run locally — run_all_stages • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,24 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="The current CI environment — ci" />
+<meta property="og:title" content="Emulate a CI run locally — run_all_stages" />
 
-<meta property="og:description" content="Functions that return environment settings that describe the CI environment.
-The value is retrieved only once and then cached.
-ci_get_branch(): Returns the current branch. Returns nothing if operating on a tag.
-ci_is_tag(): Returns the current tag name. Returns nothing if a branch is selected.
-ci_get_slug(): Returns the repo slug in the format user/repo or org/repo
-ci_get_build_number(): Returns the CI build number.
-ci_get_build_url(): Returns the URL of the current build.
-ci_get_commit(): Returns the SHA1 of the current commit.
-ci_is_env(): Checks if an environment or configuration variable is set to a particular value.
-ci_has_env(): Checks if an environment or configuration variable is set to any value.
-ci_is_interactive(): Returns whether the current build is run interactively or not.
-Global setup operations shouldn't be run on interactive CIs.
-ci_cat_with_color(): Colored output targeted to the CI log. The code argument can be an
-unevaluated call to a crayon function, the style will be applied even if it
-normally wouldn't be.
-ci(): Return the current CI environment" />
+<meta property="og:description" content="Runs predefined stages similarly to Travis CI and AppVeyor.
+The run aborts on error, the after_failure stage is never run." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -149,70 +135,45 @@ ci(): Return the current CI environment" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The current CI environment</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/ci.R'><code>R/ci.R</code></a></small>
-    <div class="hidden name"><code>ci.Rd</code></div>
+    <h1>Emulate a CI run locally</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/run.R'><code>R/run.R</code></a></small>
+    <div class="hidden name"><code>run_all_stages.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Functions that return environment settings that describe the CI environment.
-The value is retrieved only once and then cached.</p>
-<p><code>ci_get_branch()</code>: Returns the current branch. Returns nothing if operating on a tag.</p>
-<p><code>ci_is_tag()</code>: Returns the current tag name. Returns nothing if a branch is selected.</p>
-<p><code>ci_get_slug()</code>: Returns the repo slug in the format <code>user/repo</code> or <code>org/repo</code></p>
-<p><code>ci_get_build_number()</code>: Returns the CI build number.</p>
-<p><code>ci_get_build_url()</code>: Returns the URL of the current build.</p>
-<p><code>ci_get_commit()</code>: Returns the SHA1 of the current commit.</p>
-<p><code>ci_is_env()</code>: Checks if an environment or configuration variable is set to a particular value.</p>
-<p><code>ci_has_env()</code>: Checks if an environment or configuration variable is set to any value.</p>
-<p><code>ci_is_interactive()</code>: Returns whether the current build is run interactively or not.
-Global setup operations shouldn't be run on interactive CIs.</p>
-<p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log. The code argument can be an
-unevaluated call to a crayon function, the style will be applied even if it
-normally wouldn't be.</p>
-<p><code>ci()</code>: Return the current CI environment</p>
+    <p>Runs predefined <a href='stages.html'>stages</a> similarly to Travis CI and AppVeyor.
+The run aborts on error, the <code>after_failure</code> stage is never run.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ci_get_branch</span>()
-
-<span class='fu'>ci_is_tag</span>()
-
-<span class='fu'>ci_get_slug</span>()
-
-<span class='fu'>ci_get_build_number</span>()
-
-<span class='fu'>ci_get_build_url</span>()
-
-<span class='fu'>ci_get_commit</span>()
-
-<span class='fu'>ci_is_env</span>(<span class='no'>env</span>, <span class='no'>value</span>)
-
-<span class='fu'>ci_has_env</span>(<span class='no'>env</span>)
-
-<span class='fu'>ci_is_interactive</span>()
-
-<span class='fu'>ci_cat_with_color</span>(<span class='no'>code</span>)
-
-<span class='fu'>ci</span>()</pre>
+    <pre class="usage"><span class='fu'>run_all_stages</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>env</th>
-      <td><p>Name of the environment variable to check.</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>Value for the environment variable to compare against.</p></td>
-    </tr>
-    <tr>
-      <th>code</th>
-      <td><p>Code that should be colored.</p></td>
+      <th>stages</th>
+      <td><p><code>[named list]</code>
+A named list of <code>Stage</code> objects as returned by <code><a href='load_from_file.html'>load_from_file()</a></code>,
+by default loaded from <code>tic.R</code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The stages are run in the following order:</p><ol>
+<li><p><code><a href='stages.html'>before_install()</a></code></p></li>
+<li><p><code><a href='stages.html'>install()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_install()</a></code></p></li>
+<li><p><code><a href='stages.html'>before_script()</a></code></p></li>
+<li><p><code><a href='stages.html'>script()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_success()</a></code></p></li>
+<li><p><code><a href='stages.html'>before_deploy()</a></code></p></li>
+<li><p><code><a href='stages.html'>deploy()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_deploy()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_script()</a></code></p></li>
+</ol>
     
 
   </div>
@@ -220,7 +181,9 @@ normally wouldn't be.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

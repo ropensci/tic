@@ -262,7 +262,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="ci.html">ci_get_branch()</a></code> <code><a href="ci.html">ci_is_tag()</a></code> <code><a href="ci.html">ci_get_slug()</a></code> <code><a href="ci.html">ci_get_build_number()</a></code> <code><a href="ci.html">ci_get_build_url()</a></code> <code><a href="ci.html">ci_get_commit()</a></code> <code><a href="ci.html">ci_is_interactive()</a></code> <code><a href="ci.html">ci_cat_with_color()</a></code> <code><a href="ci.html">ci()</a></code> </p>
+          <p><code><a href="ci.html">ci_get_branch()</a></code> <code><a href="ci.html">ci_is_tag()</a></code> <code><a href="ci.html">ci_get_slug()</a></code> <code><a href="ci.html">ci_get_build_number()</a></code> <code><a href="ci.html">ci_get_build_url()</a></code> <code><a href="ci.html">ci_get_commit()</a></code> <code><a href="ci.html">ci_is_env()</a></code> <code><a href="ci.html">ci_has_env()</a></code> <code><a href="ci.html">ci_is_interactive()</a></code> <code><a href="ci.html">ci_cat_with_color()</a></code> <code><a href="ci.html">ci()</a></code> </p>
         </td>
         <td><p>The current CI environment</p></td>
       </tr>
@@ -276,15 +276,27 @@
       <tr>
         
         <td>
-          <p><code><a href="tic.html">tic()</a></code> </p>
+          <p><code><a href="DSL.html">get_stage()</a></code> <code><a href="DSL.html">add_step()</a></code> <code><a href="DSL.html">add_code_step()</a></code> <code><a href="DSL.html">add_package_checks()</a></code> </p>
         </td>
-        <td><p>Emulate a CI run locally</p></td>
+        <td><p>tic's domain-specific language</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="stages.html">before_install()</a></code> <code><a href="stages.html">install()</a></code> <code><a href="stages.html">after_install()</a></code> <code><a href="stages.html">before_script()</a></code> <code><a href="stages.html">script()</a></code> <code><a href="stages.html">after_success()</a></code> <code><a href="stages.html">after_failure()</a></code> <code><a href="stages.html">before_deploy()</a></code> <code><a href="stages.html">deploy()</a></code> <code><a href="stages.html">after_deploy()</a></code> <code><a href="stages.html">after_script()</a></code> </p>
+          <p><code><a href="TicStep.html">TicStep</a></code> </p>
         </td>
-        <td><p>Predefined stages</p></td>
+        <td><p>The base class for all steps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="base64serialize.html">base64serialize()</a></code> <code><a href="base64serialize.html">base64unserialize()</a></code> </p>
+        </td>
+        <td><p>Helpers for converting R objects to strings and back</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ci.html">ci_get_branch()</a></code> <code><a href="ci.html">ci_is_tag()</a></code> <code><a href="ci.html">ci_get_slug()</a></code> <code><a href="ci.html">ci_get_build_number()</a></code> <code><a href="ci.html">ci_get_build_url()</a></code> <code><a href="ci.html">ci_get_commit()</a></code> <code><a href="ci.html">ci_is_env()</a></code> <code><a href="ci.html">ci_has_env()</a></code> <code><a href="ci.html">ci_is_interactive()</a></code> <code><a href="ci.html">ci_cat_with_color()</a></code> <code><a href="ci.html">ci()</a></code> </p>
+        </td>
+        <td><p>The current CI environment</p></td>
       </tr><tr>
         
         <td>
@@ -300,9 +312,111 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="run_all_stages.html">run_all_stages()</a></code> </p>
+        </td>
+        <td><p>Emulate a CI run locally</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="run_stage.html">run_stage()</a></code> </p>
         </td>
         <td><p>Run a stage</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stages.html">before_install()</a></code> <code><a href="stages.html">install()</a></code> <code><a href="stages.html">after_install()</a></code> <code><a href="stages.html">before_script()</a></code> <code><a href="stages.html">script()</a></code> <code><a href="stages.html">after_success()</a></code> <code><a href="stages.html">after_failure()</a></code> <code><a href="stages.html">before_deploy()</a></code> <code><a href="stages.html">deploy()</a></code> <code><a href="stages.html">after_deploy()</a></code> <code><a href="stages.html">after_script()</a></code> </p>
+        </td>
+        <td><p>Predefined stages</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_add_to_drat.html">step_add_to_drat()</a></code> </p>
+        </td>
+        <td><p>Step: Add built package to a drat</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_add_to_known_hosts.html">step_add_to_known_hosts()</a></code> </p>
+        </td>
+        <td><p>Step: Add to known hosts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_build_pkgdown.html">step_build_pkgdown()</a></code> </p>
+        </td>
+        <td><p>Step: Build pkgdown documentation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_do_push_deploy.html">step_do_push_deploy()</a></code> </p>
+        </td>
+        <td><p>Step: Perform push deploy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_hello_world.html">step_hello_world()</a></code> </p>
+        </td>
+        <td><p>Step: Hello, world!</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_install_pkg.html">step_install_deps()</a></code> <code><a href="step_install_pkg.html">step_install_cran()</a></code> <code><a href="step_install_pkg.html">step_install_github()</a></code> </p>
+        </td>
+        <td><p>Step: Install packages</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_install_ssh_keys.html">step_install_ssh_keys()</a></code> </p>
+        </td>
+        <td><p>Step: Install an SSH key</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_push_deploy.html">step_push_deploy()</a></code> </p>
+        </td>
+        <td><p>Step: Setup and perform push deploy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_rcmdcheck.html">step_rcmdcheck()</a></code> </p>
+        </td>
+        <td><p>Step: Check a package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_run_code.html">step_run_code()</a></code> </p>
+        </td>
+        <td><p>Step: Run arbitrary R code</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_setup_push_deploy.html">step_setup_push_deploy()</a></code> </p>
+        </td>
+        <td><p>Step: Setup push deploy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_setup_ssh.html">step_setup_ssh()</a></code> </p>
+        </td>
+        <td><p>Step: Setup SSH</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_test_ssh.html">step_test_ssh()</a></code> </p>
+        </td>
+        <td><p>Step: Test SSH connection</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_write_text_file.html">step_write_text_file()</a></code> </p>
+        </td>
+        <td><p>Step: Write a text file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tic-package.html">tic-package</a></code> </p>
+        </td>
+        <td><p>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions</p></td>
       </tr>
     </tbody><tbody>
       <tr>

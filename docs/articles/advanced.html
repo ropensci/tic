@@ -250,9 +250,9 @@
 <div id="emulate-a-ci-run-locally" class="section level2">
 <h2 class="hasAnchor">
 <a href="#emulate-a-ci-run-locally" class="anchor"></a>Emulate a CI run locally</h2>
-<p>To emulate a real CI run locally, you can call <code><a href="../reference/tic.html">tic()</a></code> and the stages and steps will be executed in your local R console. Note that doing this will of course use your local system libraries and not the CI environment.</p>
+<p>To emulate a real CI run locally, you can call <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code> and the stages and steps will be executed in your local R console. Note that doing this will of course use your local system libraries and not the CI environment.</p>
 <p>Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/DSL.html">add_step(covr::codcov())</a></code> added by <code><a href="../reference/DSL.html">add_package_checks()</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tic/topics/tic">tic</a></span>()</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tic/topics/run_all_stages">run_all_stages</a></span>()</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">Running script<span class="op">:</span><span class="st"> </span><span class="kw"><a href="../reference/step_rcmdcheck.html">step_rcmdcheck</a></span>(<span class="dt">warnings_are_errors =</span> warnings_are_errors, <span class="dt">notes_are_errors =</span> notes_are_errors, <span class="dt">args =</span> args, <span class="dt">build_args =</span> build_args)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">── R CMD build ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">✔  checking <span class="cf">for</span> file ‘...<span class="op">/</span>DESCRIPTION’ ...</a>
