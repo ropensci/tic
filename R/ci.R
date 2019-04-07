@@ -55,7 +55,7 @@ CI <- R6Class(
       stop("NYI")
     },
     can_push = function() {
-      Sys.getenv("id_rsa") != ""
+      TRUE
     },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
