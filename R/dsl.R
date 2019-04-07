@@ -134,46 +134,6 @@ do_package_checks <- function(...,
   }
 }
 
-#' @importFrom magrittr %>%
-DSL <- R6Class(
-  "DSL",
-  public = list(
-    initialize = function() {
-      stage_names <- c(
-        "before_install",
-        "install",
-        "after_install",
-        "before_script",
-        "script",
-        "after_success",
-        "after_failure",
-        "before_deploy",
-        "deploy",
-        "after_deploy",
-        "after_script"
-      )
-
-      private$stages <- lapply(stats::setNames(nm = stage_names), Stage$new)
-    },
-
-    get_stage = function(name) {
-      stage <- self$get_stages()[[name]]
-      if (is.null(stage)) {
-        stop("Unknown stage ", name, ".", call. = FALSE)
-      }
-      stage
-    },
-
-    get_stages = function() {
-      private$stages
-    }
-  ),
-
-  private = list(
-    stages = NULL
-  )
-)
-
 add_package_checks <- function(...,
                                warnings_are_errors = NULL,
                                notes_are_errors = NULL,
@@ -181,6 +141,12 @@ add_package_checks <- function(...,
                                build_args = "--force", error_on = "warning",
                                repos = getOption("repos"), timeout = Inf) {
   .Deprecated("do_package_checks")
+  do_package_checks(... = ...,
+    warnings_are_errors = warnings_are_errors,
+    notes_are_errors = notes_are_errors,
+    args = args,
+    build_args = build_args, error_on = error_on,
+    repos = repos, timeout = timeout)
 }
 
 #' @importFrom magrittr %>%
