@@ -162,7 +162,7 @@ ci_has_env <- function(env) {
 #' @rdname ci
 #' @export
 ci_can_push <- function() {
-  self$has_env("id_rsa")
+  ci()$can_push()
 }
 
 #' CI is_interactive

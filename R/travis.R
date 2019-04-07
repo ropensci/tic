@@ -29,10 +29,10 @@ TravisCI <- R6Class(
       self$has_env("id_rsa")
     },
     is_env = function(env, value) {
-      self$is_env(env, value)
+      Sys.getenv(env, value)
     },
     has_env = function(env) {
-      self$has_env(env)
+      Sys.getenv(env)
     },
     cat_with_color = function(code) {
       withr::with_options(
