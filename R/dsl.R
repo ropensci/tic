@@ -166,6 +166,7 @@ do_pkgdown_site <- function(...,
 
   if (isTRUE(build_only) || !deploy) {
     ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
+  } else {
 
 
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
