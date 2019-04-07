@@ -5,28 +5,28 @@ AppVeyorCI <- R6Class(
 
   public = list(
     get_branch = function() {
-      Sys.getenv("APPVEYOR_REPO_BRANCH")
+      self$has_env("APPVEYOR_REPO_BRANCH")
     },
     get_tag = function() {
-      Sys.getenv("APPVEYOR_REPO_TAG")
+      self$has_env("APPVEYOR_REPO_TAG")
     },
     is_tag = function() {
       self$get_tag() != ""
     },
     get_slug = function() {
-      Sys.getenv("APPVEYOR_REPO_NAME")
+      self$has_env("APPVEYOR_REPO_NAME")
     },
     get_build_number = function() {
-      paste0("AppVeyor build ", Sys.getenv("APPVEYOR_BUILD_NUMBER"))
+      paste0("AppVeyor build ", self$has_env("APPVEYOR_BUILD_NUMBER"))
     },
     get_build_url = function() {
-      paste0("https://ci.appveyor.com/project/", self$get_slug(), "/build/", Sys.getenv("APPVEYOR_BUILD_VERSION"))
+      paste0("https://ci.appveyor.com/project/", self$get_slug(), "/build/", self$has_env("APPVEYOR_BUILD_VERSION"))
     },
     get_commit = function() {
-      Sys.getenv("TRAVIS_COMMIT")
+      self$has_env("TRAVIS_COMMIT")
     },
     can_push = function() {
-      Sys.getenv("id_rsa") != ""
+      self$has_env("id_rsa")
     }
   )
 )

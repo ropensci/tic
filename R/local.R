@@ -25,13 +25,13 @@ LocalCI <- R6Class(
       git2r::revparse_single(revision = "HEAD")$sha
     },
     can_push = function() {
-      Sys.getenv("id_rsa") != ""
+      self$has_env("id_rsa")
     },
     is_env = function(env, value) {
-      Sys.getenv(env) == value
+      self$is_env(env, value)
     },
     has_env = function(env) {
-      Sys.getenv(env) != ""
+      self$has_env(env)
     },
     is_interactive = function() {
       TRUE
