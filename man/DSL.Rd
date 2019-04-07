@@ -27,7 +27,8 @@ The name for the stage.}
 A Stage object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
-A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
+An object of class \link{TicStep}, usually created by functions
+with the \code{step_} prefix like \code{\link[=step_hello_world]{step_hello_world()}}.}
 
 \item{call}{\code{[call]}\cr
 An arbitrary R expression executed during the stage to which this step is
