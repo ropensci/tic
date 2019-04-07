@@ -41,7 +41,7 @@ This function only works when called by load_from_file().
 add_step() adds a step to a stage, see step_hello_world()
 and the links therein for available steps.
 add_code_step() is a shortcut for add_step(step_run_code(...)).
-add_package_checks() adds default steps related to package checks
+do_package_checks() adds default steps related to package checks
 to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
 
@@ -165,7 +165,7 @@ This function only works when called by <code><a href='load_from_file.html'>load
 <p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
 and the links therein for available steps.</p>
 <p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
-<p><code>add_package_checks()</code> adds default steps related to package checks
+<p><code>do_package_checks()</code> adds default steps related to package checks
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
 stages:</p>
 <ol>
@@ -185,7 +185,7 @@ stages:</p>
 
 <span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>add_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>

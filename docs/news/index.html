@@ -141,7 +141,7 @@
 <ul>
 <li>New <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code>, reorganizing help pages so that installer steps are on the same page.</li>
 <li>
-<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> no longer installs dependencies. Instead, <code><a href="../reference/DSL.html">add_package_checks()</a></code> includes <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/74'>#74</a>).</li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> no longer installs dependencies. Instead, <code>add_package_checks()</code> includes <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/74'>#74</a>).</li>
 <li>Fix two links in README (<a href='https://github.com/ropenscilabs/tic/issues/115'>#115</a>, <a href='https://github.com/Rekyt'>@Rekyt</a>).</li>
 <li>Vignette update (<a href='https://github.com/ropenscilabs/tic/issues/80'>#80</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 <li>Support <code>build_args</code> argument in <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/64'>#64</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
@@ -183,8 +183,8 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9008" class="anchor"></a>tic 0.2.13.9008</h1>
 <ul>
-<li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The <code><a href="../reference/DSL.html">add_package_checks()</a></code> macro no longer includes an <code><a href="https://www.rdocumentation.org/packages/utils/topics/update.packages">update.packages()</a></code> call (<a href='https://github.com/ropenscilabs/tic/issues/35'>#35</a>).</li>
-<li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now installs all dependencies during preparation. The <code><a href="../reference/DSL.html">add_package_checks()</a></code> macro no longer adds the code step that installs dependencies.</li>
+<li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The <code>add_package_checks()</code> macro no longer includes an <code><a href="https://www.rdocumentation.org/packages/utils/topics/update.packages">update.packages()</a></code> call (<a href='https://github.com/ropenscilabs/tic/issues/35'>#35</a>).</li>
+<li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now installs all dependencies during preparation. The <code>add_package_checks()</code> macro no longer adds the code step that installs dependencies.</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9007" class="section level1">
@@ -199,7 +199,7 @@
 <a href="#tic-0-2-13-9006" class="anchor"></a>tic 0.2.13.9006</h1>
 <ul>
 <li>Support creating variables in <code>tic.R</code> by sourcing <code>tic.R</code> in a modifiable environment (<a href='https://github.com/ropenscilabs/tic/issues/33'>#33</a>).</li>
-<li>Replaced <code>private</code> arguments with an environment that keeps track of internal state, now the code from <code><a href="../reference/DSL.html">add_package_checks()</a></code> can be copied to a <code>tic.R</code> file (<a href='https://github.com/ropenscilabs/tic/issues/74'>#74</a>).</li>
+<li>Replaced <code>private</code> arguments with an environment that keeps track of internal state, now the code from <code>add_package_checks()</code> can be copied to a <code>tic.R</code> file (<a href='https://github.com/ropenscilabs/tic/issues/74'>#74</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9005" class="section level1">
@@ -234,7 +234,7 @@
 <li>Add integration test for package checks and race conditions (<a href='https://github.com/ropenscilabs/tic/issues/62'>#62</a>).</li>
 <li>Clarify error message upon step failure.</li>
 <li>
-<code><a href="../reference/DSL.html">add_package_checks()</a></code> adds coverage checks only for non-interactive CIs.</li>
+<code>add_package_checks()</code> adds coverage checks only for non-interactive CIs.</li>
 <li>Add reference to <code>use_tic()</code> (<a href='https://github.com/ropenscilabs/tic/issues/55'>#55</a>).</li>
 <li>Document purpose of testing steps (<a href='https://github.com/ropenscilabs/tic/issues/49'>#49</a>).</li>
 <li>Allow only predefined stage names (<a href='https://github.com/ropenscilabs/tic/issues/48'>#48</a>).</li>
@@ -270,7 +270,7 @@
 <h1 class="page-header">
 <a href="#tic-0-2-12-2017-06-29" class="anchor"></a>tic 0.2-12 (2017-06-29)</h1>
 <ul>
-<li>Fix <code><a href="../reference/DSL.html">add_package_checks()</a></code>.</li>
+<li>Fix <code>add_package_checks()</code>.</li>
 </ul>
 </div>
     <div id="tic-0-2-11-2017-06-29" class="section level1">
@@ -278,11 +278,11 @@
 <a href="#tic-0-2-11-2017-06-29" class="anchor"></a>tic 0.2-11 (2017-06-29)</h1>
 <ul>
 <li>
-<code><a href="../reference/DSL.html">add_package_checks()</a></code> gains arguments that are passed to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
+<code>add_package_checks()</code> gains arguments that are passed to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
 <li>New <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/24'>#24</a>).</li>
 <li>New <code><a href="../reference/DSL.html">add_code_step()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/21'>#21</a>).</li>
 <li>New <code>tic()</code> to run all steps locally (<a href='https://github.com/ropenscilabs/tic/issues/23'>#23</a>).</li>
-<li>New <code><a href="../reference/DSL.html">add_package_checks()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/25'>#25</a>).</li>
+<li>New <code>add_package_checks()</code> (<a href='https://github.com/ropenscilabs/tic/issues/25'>#25</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-10-2017-06-29" class="section level1">
