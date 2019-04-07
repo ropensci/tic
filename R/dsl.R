@@ -174,53 +174,13 @@ DSL <- R6Class(
   )
 )
 
-#' Deprecated functions
-#'
-#' @description
-#' Deprecated functions of package `tic`.
-#'
-#' @export
-#' @keywords internal
-#' @name deprecated
-#' @export
 add_package_checks <- function(...,
-  warnings_are_errors = NULL,
-  notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf) {
-
-  rlang:::signal_soft_deprecated("`add_package_checks()` is deprecated, use `do_package_checks()` instead.")
-
-  #' @description
-  #' 1. A [step_install_deps()] in the `"install"` stage, using the
-  #'    `repos` argument.
-  get_stage("install") %>%
-    add_step(
-      step_install_deps(repos = repos)
-    )
-
-  #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
-  #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
-  #'    `build_args` arguments.
-  get_stage("script") %>%
-    add_step(
-      step_rcmdcheck(
-        warnings_are_errors = warnings_are_errors,
-        notes_are_errors = notes_are_errors,
-        args = args,
-        build_args = build_args,
-        error_on = error_on,
-        repos = repos,
-        timeout = timeout
-      )
-    )
-
-  #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
-  if (!ci_is_interactive()) {
-    get_stage("after_success") %>%
-      add_code_step(covr::codecov(quiet = FALSE))
-  }
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force", error_on = "warning",
+                               repos = getOption("repos"), timeout = Inf) {
+  .Deprecated("do_package_checks")
 }
 
 #' @importFrom magrittr %>%
