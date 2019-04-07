@@ -98,11 +98,11 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' @export
 #' @importFrom magrittr %>%
 add_package_checks <- function(...,
-  warnings_are_errors = NULL,
-  notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf) {
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force", error_on = "warning",
+                               repos = getOption("repos"), timeout = Inf) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -147,14 +147,14 @@ add_package_checks <- function(...,
 #' @export
 #' @importFrom magrittr %>%
 do_pkgdown_site <- function(...,
-  build_only = FALSE,
-  deploy = ci_can_push(),
-  orphan = FALSE,
-  checkout = TRUE,
-  repos = getOption("repos"),
-  path = ".", branch = NULL,
-  remote_url = NULL,
-  commit_message = NULL, commit_paths = ".") {
+                            build_only = FALSE,
+                            deploy = ci_can_push(),
+                            orphan = FALSE,
+                            checkout = TRUE,
+                            repos = getOption("repos"),
+                            path = ".", branch = NULL,
+                            remote_url = NULL,
+                            commit_message = NULL, commit_paths = ".") {
 
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
@@ -164,27 +164,32 @@ do_pkgdown_site <- function(...,
       step_install_deps(repos = repos)
     )
 
-  #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
-  get_stage("before_deploy") %>%
-    add_step(
-      step_setup_ssh()
-    )
+  if (isTRUE(build_only) || !deploy) {
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
 
-  #' 1. [step_build_pkgdown()] in the `"deploy"` stage
+
+    #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
+    #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
+    #' 1. [step_build_pkgdown()] in the `"deploy"` stage
+    #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+    get_stage("before_deploy") %>%
+      add_step(
+        step_setup_ssh()
+      ) %>%
+      add_step(step_setup_push_deploy(
+        path = path, branch = branch,
+        remote_url = remote_url, orphan = orphan, checkout = checkout
+      ))
+  }
+
   get_stage("deploy") %>%
     add_step(
       step_build_pkgdown(...)
     )
 
-  if (isTRUE(build_only) | !deploy) {
-    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
+  if (isTRUE(build_only) || !deploy) {
   } else {
-    #' 1. [step_setup_push_deploy()] in the `"deploy"` stage.
-    #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
-    #'
     get_stage("deploy") %>%
-      add_step(step_setup_push_deploy(path = path, branch = branch,
-        remote_url = remote_url, orphan = orphan, checkout = checkout)) %>%
       add_step(step_do_push_deploy(
         path = path, commit_message = commit_message, commit_paths = commit_paths
       ))

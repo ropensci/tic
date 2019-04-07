@@ -140,8 +140,8 @@ stages:
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
 \item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
 \item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"deploy"} stage.
 \item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 }
