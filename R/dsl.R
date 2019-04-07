@@ -55,11 +55,24 @@ get_stage <- function(name) {
 #' @param stage `[Stage]`\cr
 #'   A Stage object as returned by `get_stage()`.
 #' @param step `[function]`\cr
-#'   A function that constructs a Step object, such as [step_hello_world()].
+#'   An object of class [TicStep], usually created by functions
+#'   with the `step_` prefix like [step_hello_world()].
 #' @rdname DSL
 #' @export
 add_step <- function(stage, step) {
-  stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
+  step_desc <- deparse(substitute(step), width.cutoff = 500, nlines = 1)
+
+  tryCatch(
+    step <- force(step),
+    error = function(e) {
+      stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
+           "Original error: ", conditionMessage(e), call. = FALSE)
+    }
+  )
+
+  stopifnot(inherits(step, "TicStep"))
+
+  stage$add_step(step, step_desc)
 }
 
 #' @description
