@@ -14,7 +14,7 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-do_package_checks(..., warnings_are_errors = NULL,
+do_package_checks(..., document = FALSE, warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
@@ -39,6 +39,10 @@ The default is useful if you only pass \code{prepare_call}.}
 An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Ignored, used to enforce naming of arguments.}
+
+\item{document}{\code{[logical]}\cr
+If TRUE, run \code{devtools::document()} before the check. Required for packages
+containing compiled code.}
 
 \item{warnings_are_errors}{\code{[flag]}\cr
 Deprecated, use \code{error_on}.}

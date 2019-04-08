@@ -107,10 +107,13 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
+#' @param document `[logical]`\cr
+#'   If TRUE, run `devtools::document()` before the check. Required for packages
+#'   containing compiled code.
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-do_package_checks <- function(...,
+do_package_checks <- function(..., document = FALSE,
                               warnings_are_errors = NULL,
                               notes_are_errors = NULL,
                               args = c("--no-manual", "--as-cran"),
@@ -128,6 +131,7 @@ do_package_checks <- function(...,
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
   #'    `build_args` arguments.
   get_stage("script") %>%
+    { ifelse(document, add_code_step(devtools::document()), .) } %>%
     add_step(
       step_rcmdcheck(
         warnings_are_errors = warnings_are_errors,
