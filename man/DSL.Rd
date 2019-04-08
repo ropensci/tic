@@ -5,9 +5,8 @@
 \alias{get_stage}
 \alias{add_step}
 \alias{add_code_step}
-\alias{add_package_checks}
-\alias{do_pkgdown_site}
 \alias{do_package_checks}
+\alias{do_pkgdown_site}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
