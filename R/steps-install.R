@@ -11,7 +11,7 @@ InstallDeps <- R6Class(
     },
 
     run = function() {
-      remotes::install_deps(dependencies = TRUE, private$repos)
+      remotes::install_deps(dependencies = TRUE, repos = private$repos)
     }
   ),
 
