@@ -7,6 +7,7 @@
 \alias{add_code_step}
 \alias{add_package_checks}
 \alias{do_pkgdown_site}
+\alias{do_package_checks}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -15,7 +16,7 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-add_package_checks(..., warnings_are_errors = NULL,
+do_package_checks(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
@@ -33,7 +34,8 @@ The name for the stage.}
 A Stage object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
-A function that constructs a Step object, such as \code{\link[=step_hello_world]{step_hello_world()}}.}
+An object of class \link{TicStep}, usually created by functions
+with the \code{step_} prefix like \code{\link[=step_hello_world]{step_hello_world()}}.}
 
 \item{call}{\code{[call]}\cr
 An arbitrary R expression executed during the stage to which this step is
@@ -121,7 +123,7 @@ and the links therein for available steps.
 
 \code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
 
-\code{add_package_checks()} adds default steps related to package checks
+\code{do_package_checks()} adds default steps related to package checks
 to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
 stages:
 
