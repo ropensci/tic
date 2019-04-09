@@ -152,9 +152,11 @@ do_package_checks <- function(...,
 #' @description
 #' `do_build_bookdown()` adds default steps related to package checks
 #' to the `"install"`, `"before_deploy"`, `"script"` and `"deploy"` stages.
-#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_can_push()]. If missing,
+#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_has_env("id_rsa")]. If missing,
 #'   deployment is not possible.
 #' @inheritParams step_build_pkgdown
+#' @inheritParams step_setup_push_deploy
+#' @inheritParams step_do_push_deploy
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%

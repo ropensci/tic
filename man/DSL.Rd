@@ -76,8 +76,37 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_can_push]{ci_can_push()}}. If missing,
+\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \link{ci_has_env("id_rsa")}. If missing,
 deployment is not possible.}
+
+\item{orphan}{\code{[flag]}\cr
+Create and force-push an orphan branch consisting of only one commit?
+This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
+but cannot be applied for pushing to the current branch.}
+
+\item{checkout}{\code{[flag]}\cr
+Check out the current contents of the repository? Defaults to \code{TRUE},
+set to \code{FALSE} if the build process relies on existing contents or
+if you deploy to a different branch.}
+
+\item{path}{\code{[string]}\cr
+Path to the repository, default \code{"."} which means setting up the current
+repository.}
+
+\item{branch}{\code{[string]}\cr
+Target branch, default: current branch.}
+
+\item{remote_url}{\code{[string]}\cr
+The URL of the remote Git repository to push to, defaults to the
+current GitHub repository.}
+
+\item{commit_message}{\code{[string]}\cr
+Commit message to use, defaults to a useful message linking to the CI build
+and avoiding recursive CI runs.}
+
+\item{commit_paths}{\code{[character]}\cr
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.}
 }
 \description{
 Functions to define stages and their constitutent
