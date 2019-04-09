@@ -6,6 +6,7 @@
 \alias{add_step}
 \alias{add_code_step}
 \alias{do_package_checks}
+\alias{do_build_bookdown}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -18,6 +19,11 @@ do_package_checks(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
+
+do_build_bookdown(..., deploy = ci_has_env("id_rsa"), orphan = FALSE,
+  checkout = TRUE, repos = getOption("repos"), path = ".",
+  branch = NULL, remote_url = NULL, commit_message = NULL,
+  commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -93,5 +99,18 @@ stages:
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
+}
+
+\code{do_build_bookdown()} adds default steps related to package checks
+to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"}
+stages:
+
+\enumerate{
+\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\code{repos} argument.
+\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
+\item \code{\link[=step_build_bookdown]{step_build_bookdown()}} in the \code{"deploy"} stage
+\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 }

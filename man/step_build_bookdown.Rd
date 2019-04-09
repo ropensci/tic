@@ -10,17 +10,5 @@ step_build_bookdown(...)
 \item{...}{Passed on to \code{bookdown::render_book()}}
 }
 \description{
-Check a package using \code{\link[bookdown:render_book]{bookdown::render_book()}},
-which ultimately calls \code{R CMD check}.
-The preparation consists of installing package dependencies
-via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
-and updating all packages.
+Build a bookdown book using \code{\link[bookdown:render_book]{bookdown::render_book()}}.
 }
-\section{Updating of (dependency) packages}{
-
-Packages shipped with the R-installation will not be updated as they will be
-overwritten by the Travis R-installer in each build.
-If you want these package to be updated, please add the following
-step to your workflow: \code{add_code_step(remotes::update_packages(<pkg>)}.
-}
-
