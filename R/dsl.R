@@ -183,7 +183,7 @@ do_build_bookdown <- function(...,
     ))
 
 get_stage("script") %>%
-  add_step(step_build_bookdown(...))
+  add_step(step_build_bookdown(... = ...))
 
 get_stage("deploy") %>%
   add_step(step_do_push_deploy(

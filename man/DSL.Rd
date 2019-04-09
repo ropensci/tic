@@ -21,8 +21,8 @@ do_package_checks(..., warnings_are_errors = NULL,
   repos = getOption("repos"), timeout = Inf)
 
 do_build_bookdown(..., deploy = ci_has_env("id_rsa"), orphan = FALSE,
-  checkout = TRUE, repos = getOption("repos"), path = ".",
-  branch = NULL, remote_url = NULL, commit_message = NULL,
+  checkout = TRUE, repos = getOption("repos"), path = "_book",
+  branch = "gh-pages", remote_url = NULL, commit_message = NULL,
   commit_paths = ".")
 }
 \arguments{
