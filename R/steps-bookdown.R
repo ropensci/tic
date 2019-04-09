@@ -32,5 +32,11 @@ BuildBookdown <- R6Class(
 #'
 #' @export
 step_build_bookdown <- function(...) {
+
+  if (missing(...)) {
+    # So that we are able to build books which are in the root directory
+    ... <- ""
+  }
+
   BuildBookdown$new(...)
 }

@@ -169,9 +169,7 @@ do_build_bookdown <- function(...,
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
-    add_step(
-      step_install_deps(repos = repos)
-    )
+    add_step(step_install_deps(repos = repos))
 
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
   #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
@@ -184,15 +182,8 @@ do_build_bookdown <- function(...,
       remote_url = remote_url, orphan = orphan, checkout = checkout
     ))
 
-  if (missing(...)) {
-    # So that we are able to build books which are in the root directory
-    ... = ""
-  }
-
 get_stage("script") %>%
-  add_step(
-    step_build_bookdown(...)
-  )
+  add_step(step_build_bookdown(...))
 
 get_stage("deploy") %>%
   add_step(step_do_push_deploy(
