@@ -146,7 +146,7 @@
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
 <p>In a nutshell, the workflow is as follows:</p>
 <p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands/step to execute</p>
-<p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. The workflow can be loaded using <code><a href="../reference/load_from_file.html">load_from_file()</a></code>, this will not run any of the commands defined there. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by calling <code><a href="../reference/tic.html">tic()</a></code>. This latter emulates a CI build on your local system. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more information.</p>
+<p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. The workflow can be loaded using <code><a href="../reference/load_from_file.html">load_from_file()</a></code>, this will not run any of the commands defined there. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>. This latter emulates a CI build on your local system. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more information.</p>
 <div id="accessing-a-single-stage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#accessing-a-single-stage" class="anchor"></a>Accessing a single stage</h3>
@@ -263,14 +263,14 @@
 <div id="macros" class="section level3">
 <h3 class="hasAnchor">
 <a href="#macros" class="anchor"></a>Macros</h3>
-<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/DSL.html">add_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
+<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/DSL.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
 <ol style="list-style-type: decimal">
 <li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>script</code> stage, using the <code>error_on</code>, <code>args</code>, <code>build_args</code>, <code>repos</code> and <code>timeout</code> arguments.</p></li>
 <li><p>A call to <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the “after_success” stage.</p></li>
 </ol>
-<p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/DSL.html">add_package_checks()</a></code> is still present, the steps will be executed twice.</p>
+<p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/DSL.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
 <p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
-<p>Currently, <code><a href="../reference/DSL.html">add_package_checks()</a></code> is the only macro implemented. We will add more macros in the future. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
+<p>Currently, <code><a href="../reference/DSL.html">do_package_checks()</a></code> is the only macro implemented. We will add more macros in the future. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
 </div>
 </div>
 </div>

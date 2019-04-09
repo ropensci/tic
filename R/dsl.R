@@ -55,11 +55,24 @@ get_stage <- function(name) {
 #' @param stage `[Stage]`\cr
 #'   A Stage object as returned by `get_stage()`.
 #' @param step `[function]`\cr
-#'   A function that constructs a Step object, such as [step_hello_world()].
+#'   An object of class [TicStep], usually created by functions
+#'   with the `step_` prefix like [step_hello_world()].
 #' @rdname DSL
 #' @export
 add_step <- function(stage, step) {
-  stage$add_step(step, deparse(substitute(step), width.cutoff = 500, nlines = 1))
+  step_desc <- deparse(substitute(step), width.cutoff = 500, nlines = 1)
+
+  tryCatch(
+    step <- force(step),
+    error = function(e) {
+      stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
+           "Original error: ", conditionMessage(e), call. = FALSE)
+    }
+  )
+
+  stopifnot(inherits(step, "TicStep"))
+
+  stage$add_step(step, step_desc)
 }
 
 #' @description
@@ -80,7 +93,8 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
       if (!is.null(prepare_call)) {
         paste0(
           ", prepare_call = ",
-          deparse(prepare_call, width.cutoff = 500, nlines = 1))
+          deparse(prepare_call, width.cutoff = 500, nlines = 1)
+        )
       },
       ")"
     )
@@ -88,7 +102,7 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 }
 
 #' @description
-#' `add_package_checks()` adds default steps related to package checks
+#' `do_package_checks()` adds default steps related to package checks
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
@@ -96,12 +110,12 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-add_package_checks <- function(...,
-                               warnings_are_errors = NULL,
-                               notes_are_errors = NULL,
-                               args = c("--no-manual", "--as-cran"),
-                               build_args = "--force", error_on = "warning",
-                               repos = getOption("repos"), timeout = Inf) {
+do_package_checks <- function(...,
+                              warnings_are_errors = NULL,
+                              notes_are_errors = NULL,
+                              args = c("--no-manual", "--as-cran"),
+                              build_args = "--force", error_on = "warning",
+                              repos = getOption("repos"), timeout = Inf) {
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -133,10 +147,31 @@ add_package_checks <- function(...,
   }
 }
 
+#' Deprecated functions
+#'
+#' `add_package_checks()` has been replaced by [do_package_checks()].
+#'
+#' @inheritParams do_package_checks
+#' @name Deprecated
+#' @export
+add_package_checks <- function(...,
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force", error_on = "warning",
+                               repos = getOption("repos"), timeout = Inf) {
+  .Deprecated("do_package_checks")
+  do_package_checks(... = ...,
+    warnings_are_errors = warnings_are_errors,
+    notes_are_errors = notes_are_errors,
+    args = args,
+    build_args = build_args, error_on = error_on,
+    repos = repos, timeout = timeout)
+}
+
 #' @importFrom magrittr %>%
 DSL <- R6Class(
   "DSL",
-
   public = list(
     initialize = function() {
       stage_names <- c(

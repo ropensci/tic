@@ -15,7 +15,7 @@ test_that("integration test: assign (#33)", {
       expect_error(
         callr::r(
           function() {
-            tic::tic()
+            tic::run_all_stages()
           },
           show = TRUE,
           env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
