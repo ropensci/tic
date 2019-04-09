@@ -66,7 +66,9 @@ add_step <- function(stage, step) {
     step <- force(step),
     error = function(e) {
       stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
-           "Original error: ", conditionMessage(e), call. = FALSE)
+        "Original error: ", conditionMessage(e),
+        call. = FALSE
+      )
     }
   )
 
@@ -147,8 +149,8 @@ do_package_checks <- function(...,
   }
 }
 #' @description
-#' `do_pkgdown_site()` builds and optionally deploys a pkgdown site.
-#'
+#' `do_pkgdown_site()` builds and optionally deploys a pkgdown site and adds default steps
+#'   to the `"install"`, `"before_deploy"` and `"deploy"` stages:
 #'
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_setup_push_deploy
@@ -156,6 +158,7 @@ do_package_checks <- function(...,
 #' @param build_only Build the pkgdown site but do not deploy it.
 #' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_can_push()]. If missing,
 #'   deployment is not possible.
+#'
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
@@ -173,23 +176,18 @@ do_pkgdown_site <- function(...,
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
-    add_step(
-      step_install_deps(repos = repos)
-    )
+    add_step(step_install_deps(repos = repos))
 
   if (isTRUE(build_only) || !deploy) {
     ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
-
 
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
     #' 1. [step_build_pkgdown()] in the `"deploy"` stage
     #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
     get_stage("before_deploy") %>%
-      add_step(
-        step_setup_ssh()
-      ) %>%
+      add_step(step_setup_ssh()) %>%
       add_step(step_setup_push_deploy(
         path = path, branch = branch,
         remote_url = remote_url, orphan = orphan, checkout = checkout
@@ -197,9 +195,7 @@ do_pkgdown_site <- function(...,
   }
 
   get_stage("deploy") %>%
-    add_step(
-      step_build_pkgdown(...)
-    )
+    add_step(step_build_pkgdown(...))
 
   if (isTRUE(build_only) || !deploy) {
   } else {
@@ -224,12 +220,14 @@ add_package_checks <- function(...,
                                build_args = "--force", error_on = "warning",
                                repos = getOption("repos"), timeout = Inf) {
   .Deprecated("do_package_checks")
-  do_package_checks(... = ...,
+  do_package_checks(
+    ... = ...,
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
     args = args,
     build_args = build_args, error_on = error_on,
-    repos = repos, timeout = timeout)
+    repos = repos, timeout = timeout
+  )
 }
 
 #' @importFrom magrittr %>%
