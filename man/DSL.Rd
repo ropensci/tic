@@ -76,7 +76,7 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \link{ci_has_env("id_rsa")}. If missing,
+\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_has_env]{ci_has_env()}}. If missing,
 deployment is not possible.}
 
 \item{orphan}{\code{[flag]}\cr
