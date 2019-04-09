@@ -66,7 +66,9 @@ add_step <- function(stage, step) {
     step <- force(step),
     error = function(e) {
       stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
-        "Original error: ", conditionMessage(e), call. = FALSE)
+        "Original error: ", conditionMessage(e),
+        call. = FALSE
+      )
     }
   )
 
@@ -111,11 +113,11 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' @export
 #' @importFrom magrittr %>%
 do_package_checks <- function(...,
-  warnings_are_errors = NULL,
-  notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf) {
+                              warnings_are_errors = NULL,
+                              notes_are_errors = NULL,
+                              args = c("--no-manual", "--as-cran"),
+                              build_args = "--force", error_on = "warning",
+                              repos = getOption("repos"), timeout = Inf) {
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -149,21 +151,21 @@ do_package_checks <- function(...,
 
 #' @description
 #' `do_build_bookdown()` adds default steps related to package checks
-#' to the `"install"`, `"before_deploy"`, `"script"` and `"deploy"`
-#' stages:
-#'
+#' to the `"install"`, `"before_deploy"`, `"script"` and `"deploy"` stages.
+#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_can_push()]. If missing,
+#'   deployment is not possible.
 #' @inheritParams step_build_pkgdown
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
 do_build_bookdown <- function(...,
-  deploy = ci_has_env("id_rsa"),
-  orphan = FALSE,
-  checkout = TRUE,
-  repos = getOption("repos"),
-  path = "_book", branch = "gh-pages",
-  remote_url = NULL,
-  commit_message = NULL, commit_paths = ".") {
+                              deploy = ci_has_env("id_rsa"),
+                              orphan = FALSE,
+                              checkout = TRUE,
+                              repos = getOption("repos"),
+                              path = "_book", branch = "gh-pages",
+                              remote_url = NULL,
+                              commit_message = NULL, commit_paths = ".") {
 
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the
@@ -171,24 +173,35 @@ do_build_bookdown <- function(...,
   get_stage("install") %>%
     add_step(step_install_deps(repos = repos))
 
-  #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
-  #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
-  #' 1. [step_build_bookdown()] in the `"deploy"` stage
-  #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
-  get_stage("before_deploy") %>%
-    add_step(step_setup_ssh()) %>%
-    add_step(step_setup_push_deploy(
-      path = path, branch = branch,
-      remote_url = remote_url, orphan = orphan, checkout = checkout
-    ))
 
-get_stage("script") %>%
-  add_step(step_build_bookdown(... = ...))
+  if (!deploy) {
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
+  } else {
 
-get_stage("deploy") %>%
-  add_step(step_do_push_deploy(
-    path = path, commit_message = commit_message, commit_paths = commit_paths
-  ))
+    #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
+    #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
+    #' 1. [step_build_bookdown()] in the `"deploy"` stage
+    #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+    get_stage("before_deploy") %>%
+      add_step(step_setup_ssh()) %>%
+      add_step(step_setup_push_deploy(
+        path = path, branch = branch,
+        remote_url = remote_url, orphan = orphan, checkout = checkout
+      ))
+  }
+
+  get_stage("script") %>%
+    add_step(step_build_bookdown(... = ...))
+
+
+  if (!deploy) {
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
+  } else {
+    get_stage("deploy") %>%
+      add_step(step_do_push_deploy(
+        path = path, commit_message = commit_message, commit_paths = commit_paths
+      ))
+  }
 }
 
 #' Deprecated functions
@@ -199,18 +212,20 @@ get_stage("deploy") %>%
 #' @name Deprecated
 #' @export
 add_package_checks <- function(...,
-  warnings_are_errors = NULL,
-  notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf) {
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force", error_on = "warning",
+                               repos = getOption("repos"), timeout = Inf) {
   .Deprecated("do_package_checks")
-  do_package_checks(... = ...,
+  do_package_checks(
+    ... = ...,
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
     args = args,
     build_args = build_args, error_on = error_on,
-    repos = repos, timeout = timeout)
+    repos = repos, timeout = timeout
+  )
 }
 
 #' @importFrom magrittr %>%

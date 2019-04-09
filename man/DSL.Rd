@@ -75,6 +75,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
+
+\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_can_push]{ci_can_push()}}. If missing,
+deployment is not possible.}
 }
 \description{
 Functions to define stages and their constitutent
@@ -102,8 +105,7 @@ stages:
 }
 
 \code{do_build_bookdown()} adds default steps related to package checks
-to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"}
-stages:
+to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"} stages.
 
 \enumerate{
 \item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
