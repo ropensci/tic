@@ -8,13 +8,7 @@ BuildBookdown <- R6Class(
     },
 
     run = function() {
-      root = rprojroot::find_package_root_file()
-      source_dir = file.path(root, "bookdown")
-
-      withr::with_dir(source_dir,
-        #do.call(bookdown::render_book, private$bookdown_args)
-        bookdown::render_book("index.Rmd")
-      )
+        do.call(bookdown::render_book, private$bookdown_args)
     },
 
     prepare = function() {
