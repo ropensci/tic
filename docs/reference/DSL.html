@@ -52,19 +52,6 @@ warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
 A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
 " />
-
-<meta property="og:description" content="do_pkgdown_site() checks if a id_rsa env variable is set and builds a pkgdown site.
-A deployment can be avoided by setting build_only = TRUE.
-
-A step_install_deps() in the &quot;install&quot; stage, using the
-repos argument.
-" />
-
-<meta property="og:description" content="
-A step_setup_ssh() in the &quot;before_deploy&quot; to setup the upcoming deployment.
-A step_build_pkgdown() in the &quot;deploy&quot; stage
-A step_push_deploy() in the &quot;deploy&quot; stage. By default, the deploy is done to the gh-pages branch.
-" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -189,19 +176,6 @@ stages:</p>
 <code>build_args</code> arguments.</p></li>
 <li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
 </ol>
-
-    <p><code>do_pkgdown_site()</code> checks if a <code>id_rsa</code> env variable is set and builds a pkgdown site.
-A deployment can be avoided by setting <code>build_only = TRUE</code>.</p>
-<ol>
-<li><p>A <code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
-<code>repos</code> argument.</p></li>
-</ol>
-
-    <ol>
-<li><p>A <code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup the upcoming deployment.</p></li>
-<li><p>A <code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage</p></li>
-<li><p>A <code><a href='step_push_deploy.html'>step_push_deploy()</a></code> in the <code>"deploy"</code> stage. By default, the deploy is done to the gh-pages branch.</p></li>
-</ol>
     
     </div>
 
@@ -214,11 +188,7 @@ A deployment can be avoided by setting <code>build_only = TRUE</code>.</p>
 <span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
-
-<span class='fu'>do_pkgdown_site</span>(<span class='no'>...</span>, <span class='kw'>build_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -298,39 +268,6 @@ Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topic
       <td><p><code>[numeric]</code><br />
 Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></td>
-    </tr>
-    <tr>
-      <th>build_only</th>
-      <td><p>Build the pkgdown site but do not deploy it.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p><code>[string]</code><br />
-Path to the repository, default <code>"."</code> which means setting up the current
-repository.</p></td>
-    </tr>
-    <tr>
-      <th>branch</th>
-      <td><p><code>[string]</code><br />
-Target branch, default: current branch.</p></td>
-    </tr>
-    <tr>
-      <th>remote_url</th>
-      <td><p><code>[string]</code><br />
-The URL of the remote Git repository to push to, defaults to the
-current GitHub repository.</p></td>
-    </tr>
-    <tr>
-      <th>commit_message</th>
-      <td><p><code>[string]</code><br />
-Commit message to use, defaults to a useful message linking to the CI build
-and avoiding recursive CI runs.</p></td>
-    </tr>
-    <tr>
-      <th>commit_paths</th>
-      <td><p><code>[character]</code><br />
-Restrict the set of directories and/or files added to Git before deploying.
-Default: deploy all files.</p></td>
     </tr>
     </table>
     
