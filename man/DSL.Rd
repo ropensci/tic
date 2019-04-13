@@ -135,7 +135,7 @@ stages:
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
 }
 
-\code{do_pkgdown_site()} builds and optionally deploys a pkgdown site and adds default steps
+\code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default steps
 to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 
 \enumerate{
