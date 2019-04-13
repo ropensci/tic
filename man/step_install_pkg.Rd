@@ -7,14 +7,15 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(repos = getOption("repos"))
+step_install_deps(repos = c(getOption("repos"),
+  remotes::bioc_install_repos()))
 
 step_install_cran(package = NULL, ..., repos = getOption("repos"))
 
 step_install_github(repo = NULL, ...)
 }
 \arguments{
-\item{repos}{CRAN-like repositories to install from}
+\item{repos}{\code{[string]}\cr CRAN-like repositories to install from.}
 
 \item{package}{Package(s) to install}
 
@@ -37,6 +38,11 @@ but only if it's not already installed.
 A \code{step_install_github()} step installs one or more packages from GitHub
 via \code{\link[remotes:install_github]{remotes::install_github()}}, the packages are only installed if their
 GitHub version is different from the locally installed version.
+}
+\details{
+The default for the \code{repos} argument in \code{step_install_deps} is set to
+\code{c(getOption("repos"), remotes::bioc_install_repos())} which means that
+Bioconductor packages are supported.
 }
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},

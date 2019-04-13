@@ -1,8 +1,9 @@
 InstallDeps <- R6Class(
-  "InstallDeps", inherit = TicStep,
+  "InstallDeps",
+  inherit = TicStep,
 
   public = list(
-    initialize = function(repos = getOption("repos")) {
+    initialize = function(repos = c(getOption("repos"), remotes::bioc_install_repos())) {
       private$repos <- repos
     },
 
@@ -31,11 +32,15 @@ InstallDeps <- R6Class(
 #' `DESCRIPTION`, using [remotes::install_deps()].
 #' This includes upgrading outdated packages.
 #'
-#' @param repos CRAN-like repositories to install from
+#' @param repos `[string]`\cr CRAN-like repositories to install from.
+#' @details
+#'   The default for the `repos` argument in `step_install_deps` is set to
+#'   `c(getOption("repos"), remotes::bioc_install_repos())` which means that
+#'   Bioconductor packages are supported.
 #' @family steps
 #' @export
 #' @name step_install_pkg
-step_install_deps <- function(repos = getOption("repos")) {
+step_install_deps <- function(repos = c(getOption("repos"), remotes::bioc_install_repos())) {
   InstallDeps$new(repos = repos)
 }
 
@@ -46,7 +51,8 @@ step_install_deps <- function(repos = getOption("repos")) {
 
 
 InstallCRAN <- R6Class(
-  "InstallCRAN", inherit = TicStep,
+  "InstallCRAN",
+  inherit = TicStep,
 
   public = list(
     initialize = function(package, ...) {
@@ -87,7 +93,8 @@ step_install_cran <- function(package = NULL, ..., repos = getOption("repos")) {
 
 
 InstallGithub <- R6Class(
-  "InstallGithub", inherit = TicStep,
+  "InstallGithub",
+  inherit = TicStep,
 
   public = list(
     initialize = function(repo, ...) {
