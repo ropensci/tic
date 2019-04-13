@@ -162,7 +162,7 @@ do_package_checks <- function(...,
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-do_pkgdown_site <- function(...,
+do_pkgdown <- function(...,
                             build_only = FALSE,
                             deploy = ci_can_push(),
                             orphan = FALSE,
