@@ -149,7 +149,7 @@ do_package_checks <- function(...,
   }
 }
 #' @description
-#' `do_pkgdown_site()` builds and optionally deploys a pkgdown site and adds default steps
+#' `do_pkgdown()` builds and optionally deploys a pkgdown site and adds default steps
 #'   to the `"install"`, `"before_deploy"` and `"deploy"` stages:
 #'
 #' @inheritParams step_build_pkgdown
