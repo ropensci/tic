@@ -6,7 +6,7 @@
 \alias{add_step}
 \alias{add_code_step}
 \alias{do_package_checks}
-\alias{do_pkgdown_site}
+\alias{do_pkgdown}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -20,7 +20,7 @@ do_package_checks(..., warnings_are_errors = NULL,
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
 
-do_pkgdown_site(..., build_only = FALSE, deploy = ci_can_push(),
+do_pkgdown(..., build_only = FALSE, deploy = ci_can_push(),
   orphan = FALSE, checkout = TRUE, repos = getOption("repos"),
   path = ".", branch = NULL, remote_url = NULL,
   commit_message = NULL, commit_paths = ".")

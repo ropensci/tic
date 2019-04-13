@@ -163,14 +163,14 @@ do_package_checks <- function(...,
 #' @export
 #' @importFrom magrittr %>%
 do_pkgdown <- function(...,
-                            build_only = FALSE,
-                            deploy = ci_can_push(),
-                            orphan = FALSE,
-                            checkout = TRUE,
-                            repos = getOption("repos"),
-                            path = ".", branch = NULL,
-                            remote_url = NULL,
-                            commit_message = NULL, commit_paths = ".") {
+                       build_only = FALSE,
+                       deploy = ci_can_push(),
+                       orphan = FALSE,
+                       checkout = TRUE,
+                       repos = getOption("repos"),
+                       path = ".", branch = NULL,
+                       remote_url = NULL,
+                       commit_message = NULL, commit_paths = ".") {
 
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
