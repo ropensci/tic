@@ -175,10 +175,9 @@ do_pkgdown <- function(...,
   get_stage("install") %>%
     add_step(step_install_deps(repos = repos))
 
-  needs_deploy <- !isTRUE(build_only) && ci_can_push()
-
-  if (isTRUE(needs_deploy)) {
-    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
+  if (isTRUE(build_only)) {
+  } else if (!ci_can_push()) {
+    stop("Deployment is not possible because keys are not set. Try setting `id_rsa` using `travis::use_travis_deploy()`.")
   } else {
 
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
@@ -196,7 +195,8 @@ do_pkgdown <- function(...,
   get_stage("deploy") %>%
     add_step(step_build_pkgdown(...))
 
-  if (isTRUE(needs_deploy)) {
+  if (isTRUE(build_only)) {
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment.")
   } else {
     get_stage("deploy") %>%
       add_step(step_do_push_deploy(
