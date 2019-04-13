@@ -54,6 +54,10 @@ CI <- R6Class(
     get_commit = function() {
       stop("NYI")
     },
+    #'  \item{`get_commit()`}{Does an env variable named `id_rsa` exist?}
+    can_push = function() {
+      stop("NYI")
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
@@ -150,6 +154,16 @@ ci_is_env <- function(env, value) {
 #' @export
 ci_has_env <- function(env) {
   ci()$has_env(env)
+}
+
+#' CI can push
+#'
+#' `ci_can_push()`: Checks if env variable `id_rsa` is set in Travis. If missing,
+#'   deployment is not possible.
+#' @rdname ci
+#' @export
+ci_can_push <- function() {
+  ci()$can_push()
 }
 
 #' CI is_interactive

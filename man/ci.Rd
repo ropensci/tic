@@ -10,6 +10,7 @@
 \alias{ci_get_commit}
 \alias{ci_is_env}
 \alias{ci_has_env}
+\alias{ci_can_push}
 \alias{ci_is_interactive}
 \alias{ci_cat_with_color}
 \title{The current CI environment}
@@ -29,6 +30,8 @@ ci_get_commit()
 ci_is_env(env, value)
 
 ci_has_env(env)
+
+ci_can_push()
 
 ci_is_interactive()
 
@@ -62,6 +65,9 @@ The value is retrieved only once and then cached.
 \code{ci_is_env()}: Checks if an environment or configuration variable is set to a particular value.
 
 \code{ci_has_env()}: Checks if an environment or configuration variable is set to any value.
+
+\code{ci_can_push()}: Checks if env variable \code{id_rsa} is set in Travis. If missing,
+deployment is not possible.
 
 \code{ci_is_interactive()}: Returns whether the current build is run interactively or not.
 Global setup operations shouldn't be run on interactive CIs.

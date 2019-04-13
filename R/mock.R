@@ -24,8 +24,11 @@ MockCI <- R6Class(
     get_commit = function() {
       "00000000000000000000000000000000"
     },
+    can_push = function() {
+      self$has_env("id_rsa")
+    },
     is_env = function(env, value) {
-      Sys.getenv(env) == value
+      Sys.getenv(env, value)
     },
     has_env = function(env) {
       Sys.getenv(env) != ""
