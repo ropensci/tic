@@ -21,7 +21,7 @@ in an environment variable. Use this function for encoding entire R objects
 (such as OAuth tokens) so that they can be used in Travis builds.
 
 \code{base64unserialize()} is the inverse operation to \code{base64serialize()}.
-Use this function in your \code{tic.R} to access the R object previously encoded
+Use this function in your \code{rci.R} to access the R object previously encoded
 by \code{base64serialize()}.
 }
 \examples{

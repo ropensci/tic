@@ -40,7 +40,7 @@ after_script(stages = load_from_file())
 \arguments{
 \item{stages}{\code{[named list]}
 A named list of \code{Stage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
-by default loaded from \code{tic.R}.}
+by default loaded from \code{rci.R}.}
 }
 \description{
 Stages available in both Travis CI and AppVeyor, for which shortcuts

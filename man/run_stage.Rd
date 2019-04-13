@@ -12,14 +12,14 @@ The name of the stage to run.}
 
 \item{stages}{\code{[named list]}
 A named list of \code{Stage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
-by default loaded from \code{tic.R}.}
+by default loaded from \code{rci.R}.}
 }
 \description{
 Run the \code{run_all()} method for all defined steps of a stage for which the
 \code{check()} method returns \code{TRUE}.
 }
 \seealso{
-\link{TicStep}
+\link{RciStep}
 
 Other runners: \code{\link{prepare_all_stages}}
 }

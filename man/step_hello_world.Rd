@@ -9,7 +9,7 @@ step_hello_world()
 \description{
 The simplest step possible: prints "Hello, world!" to the console when run, does not require
 any preparation.
-This step may be useful to test a \pkg{tic} setup or as a starting point when implementing a
+This step may be useful to test a \pkg{rci} setup or as a starting point when implementing a
 custom step.
 }
 \seealso{

@@ -73,6 +73,6 @@ Collate:
     'steps-pkgdown.R'
     'steps-ssh.R'
     'steps-write-text-file.R'
-    'rci-package.R'
+    'tic-package.R'
     'travis.R'
     'utils.R'

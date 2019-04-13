@@ -9,14 +9,14 @@ prepare_all_stages(stages = load_from_file())
 \arguments{
 \item{stages}{\code{[named list]}
 A named list of \code{Stage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
-by default loaded from \code{tic.R}.}
+by default loaded from \code{rci.R}.}
 }
 \description{
 Run the \code{prepare()} method for all defined steps for which the
 \code{check()} method returns \code{TRUE}.
 }
 \seealso{
-\link{TicStep}
+\link{RciStep}
 
 Other runners: \code{\link{run_stage}}
 }

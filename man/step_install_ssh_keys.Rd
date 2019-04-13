@@ -17,7 +17,7 @@ Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
 }
 \seealso{
-\code{travis::use_travis_deploy()}, \code{\link[travis:use_tic]{travis::use_tic()}}
+\code{travis::use_travis_deploy()}, \code{\link[travis:use_rci]{travis::use_rci()}}
 
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},
