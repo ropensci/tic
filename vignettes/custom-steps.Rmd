@@ -16,18 +16,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-Many important steps running on CI systems are [already implemented](tic.html#steps) into *tic*.
-The following vignette shows how new steps can be created and how *tic* defines them.
+Many important steps running on CI systems are [already implemented](rci.html#steps) into *rci*.
+The following vignette shows how new steps can be created and how *rci* defines them.
 Internally, all steps are defined using the [R6](https://github.com/wch/R6) class system.
 If you are not familiar with object-oriented programming using R6, the [R6 chapter](https://adv-r.hadley.nz/r6.html) in [Advanced R](https://adv-r.hadley.nz/) is a good place to start.
 
-In most cases there should be no need to write steps on your own, because the `step_run_code()` can be used to run arbitrary code when preparing and running the step, and custom conditions in `tic.R` can be used to trigger the step.
-However, if you have the need for a repeated use of specific combinations of `add_code_step()`, please let us know so in the repo by opening an [issue](https://github.com/ropenscilabs/tic/issues) so that we can discuss whether it makes sense to implement it as a custom step.
+In most cases there should be no need to write steps on your own, because the `step_run_code()` can be used to run arbitrary code when preparing and running the step, and custom conditions in `rci.R` can be used to trigger the step.
+However, if you have the need for a repeated use of specific combinations of `add_code_step()`, please let us know so in the repo by opening an [issue](https://github.com/ropenscilabs/rci/issues) so that we can discuss whether it makes sense to implement it as a custom step.
 
 ## The `TicStep` class
 
-A step is a subclass of the [`TicStep` class](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
-The `step_...` functions in _tic_ are simply forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
+A step is a subclass of the [`TicStep` class](https://github.com/ropenscilabs/rci/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
+The `step_...` functions in _rci_ are simply forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
 We recommend following the same pattern for your custom steps.
 
 The `TicStep` class implements the public methods `check()`, `prepare()`, and `run()`.
@@ -61,7 +61,7 @@ RCMDcheck$public_methods$run
 
 This method checks whether the step is actually run.
 It returns a logical scalar.
-[`step_write_text_file()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24) is an example step with the following implementation of the `check()` method:
+[`step_write_text_file()`](https://github.com/ropenscilabs/rci/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24) is an example step with the following implementation of the `check()` method:
 
 ```{r}
 WriteTextFile$public_methods$check
@@ -69,9 +69,9 @@ WriteTextFile$public_methods$check
 
 ## Minimal example
 
-You can take a look at [this PR](https://github.com/ropenscilabs/tic/pull/75/files) to see how a new step implementation can look like.
+You can take a look at [this PR](https://github.com/ropenscilabs/rci/pull/75/files) to see how a new step implementation can look like.
 
-The most minimalist version is the "Hello World" [example step](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R).
+The most minimalist version is the "Hello World" [example step](https://github.com/ropenscilabs/rci/blob/master/R/steps-base.R).
 This new class only contains a `run()` method which does nothing more than printing "Hello World" to the console.
 It is initialized by calling `step_hello_world()` which creates a new instance of this class.
 
@@ -90,7 +90,7 @@ HelloWorld <- R6Class(
 #'
 #' The simplest step possible: prints "Hello, world!" to the console when run, does not require
 #' any preparation.
-#' This step may be useful to test a \pkg{tic} setup or as a starting point when implementing a
+#' This step may be useful to test a \pkg{rci} setup or as a starting point when implementing a
 #' custom step.
 #'
 #' @family steps
@@ -103,7 +103,7 @@ step_hello_world <- function() {
 # Further information on the R6 class system
 
 If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed onto each function:
-Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R)):
+Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropenscilabs/rci/blob/master/R/steps-rcmdcheck.R)):
 
 ```{r}
 step_rcmdcheck

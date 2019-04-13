@@ -1,5 +1,5 @@
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStep,
+  "RCMDcheck", inherit = RciStep,
 
   public = list(
     initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,

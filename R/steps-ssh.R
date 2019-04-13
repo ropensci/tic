@@ -1,5 +1,5 @@
 AddToKnownHosts <- R6Class(
-  "AddToKnownHosts", inherit = TicStep,
+  "AddToKnownHosts", inherit = RciStep,
 
   public = list(
     initialize = function(host = "github.com") {
@@ -48,7 +48,7 @@ step_add_to_known_hosts <- function(host = "github.com") {
 }
 
 InstallSSHKeys <- R6Class(
-  "InstallSSHKeys", inherit = TicStep,
+  "InstallSSHKeys", inherit = RciStep,
 
   public = list(
     initialize = function(name = "id_rsa") {
@@ -95,14 +95,14 @@ InstallSSHKeys <- R6Class(
 #'   Name of the environment variable and the target file, default: `"id_rsa"`.
 #'
 #' @family steps
-#' @seealso `travis::use_travis_deploy()`, [travis::use_tic()]
+#' @seealso `travis::use_travis_deploy()`, [travis::use_rci()]
 #' @export
 step_install_ssh_keys <- function(name = "id_rsa") {
   InstallSSHKeys$new(name = name)
 }
 
 TestSSH <- R6Class(
-  "TestSSH", inherit = TicStep,
+  "TestSSH", inherit = RciStep,
 
   public = list(
     initialize = function(url = "git@github.com", verbose = "-v") {
@@ -141,7 +141,7 @@ step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
 }
 
 SetupSSH <- R6Class(
-  "SetupSSH", inherit = TicStep,
+  "SetupSSH", inherit = RciStep,
 
   public = list(
     initialize = function(name = "id_rsa", host = "github.com",

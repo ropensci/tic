@@ -5,9 +5,9 @@
 #'
 #' @param stages `[named list]`
 #'   A named list of `Stage` objects as returned by [load_from_file()],
-#'   by default loaded from `tic.R`.
+#'   by default loaded from `rci.R`.
 #'
-#' @seealso [TicStep]
+#' @seealso [RciStep]
 #' @family runners
 #'
 #' @export
@@ -23,7 +23,7 @@ prepare_all_stages <- function(stages = load_from_file()) {
 #' Run the `run_all()` method for all defined steps of a stage for which the
 #' `check()` method returns `TRUE`.
 #'
-#' @seealso [TicStep]
+#' @seealso [RciStep]
 #' @family runners
 #'
 #' @param name `[string]`\cr

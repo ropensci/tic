@@ -39,7 +39,7 @@ Git <- R6Class(
 )
 
 SetupPushDeploy <- R6Class(
-  "SetupPushDeploy", inherit = TicStep,
+  "SetupPushDeploy", inherit = RciStep,
 
   public = list(
     initialize = function(path = ".", branch = NULL, orphan = FALSE,
@@ -93,7 +93,7 @@ SetupPushDeploy <- R6Class(
     checkout = FALSE,
 
     repo = NULL,
-    remote_name = "tic-remote", # HACK
+    remote_name = "rci-remote", # HACK
 
     init_author = function() {
       latest_commit <- get_head_commit(git2r_head(git2r::repository(".")))
@@ -191,7 +191,7 @@ step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
 }
 
 DoPushDeploy <- R6Class(
-  "DoPushDeploy", inherit = TicStep,
+  "DoPushDeploy", inherit = RciStep,
 
   public = list(
     initialize = function(path = ".", commit_message = NULL, commit_paths = ".") {
@@ -229,7 +229,7 @@ DoPushDeploy <- R6Class(
     commit_paths = NULL,
 
     repo = NULL,
-    remote_name = "tic-remote", # HACK
+    remote_name = "rci-remote", # HACK
 
     commit = function() {
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
@@ -323,7 +323,7 @@ step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths 
 }
 
 PushDeploy <- R6Class(
-  "PushDeploy", inherit = TicStep,
+  "PushDeploy", inherit = RciStep,
 
   public = list(
     initialize = function(path = ".", branch = ci_get_branch(),

@@ -28,59 +28,59 @@ The `after_xxx` stages are run unconditionally, after their corresponding `xxx` 
 For example, the `after_deploy` stage will only be run if there the `deploy` stage was run before.
 The `after_success` stage will only be run if the `script` stage executed successfully, i.e. without error; otherwise `after_failure` will be run instead.
 
-*tic* also employs an approach based on stages.
-All action specifications that should be run in each stage are defined in the `tic.R` file.
-The steps are specified in an CI-agnostic way using R syntax.
+*rci* also employs an approach based on stages.
+All action specifications that should be run in each stage are defined in the `rci.R` file.
+The steps are specified in an CI-agnosrci way using R syntax.
 A large part of the `.travis.yml` file consists of glue code and is not meant to be edited anymore.
 
 
 ```yml
 # DO NOT CHANGE THE CODE BELOW
-before_install: R -q -e 'install.packages(c("remotes", "curl", "tic")); tic::prepare_all_stages(); tic::before_install()'
-install: R -q -e 'tic::install()'
-after_install: R -q -e 'tic::after_install()'
-before_script: R -q -e 'tic::before_script()'
-script: R -q -e 'tic::script()'
-after_success: R -q -e 'tic::after_success()'
-after_failure: R -q -e 'tic::after_failure()'
-before_deploy: R -q -e 'tic::before_deploy()'
+before_install: R -q -e 'install.packages(c("remotes", "curl", "rci")); rci::prepare_all_stages(); rci::before_install()'
+install: R -q -e 'rci::install()'
+after_install: R -q -e 'rci::after_install()'
+before_script: R -q -e 'rci::before_script()'
+script: R -q -e 'rci::script()'
+after_success: R -q -e 'rci::after_success()'
+after_failure: R -q -e 'rci::after_failure()'
+before_deploy: R -q -e 'rci::before_deploy()'
 deploy:
   provider: script
-  script: R -q -e 'tic::deploy()'
+  script: R -q -e 'rci::deploy()'
   on:
     all_branches: true
-after_deploy: R -q -e 'tic::after_deploy()'
-after_script: R -q -e 'tic::after_script()'
+after_deploy: R -q -e 'rci::after_deploy()'
+after_script: R -q -e 'rci::after_script()'
 # DO NOT CHANGE THE CODE ABOVE
 ```
 
 In a nutshell, the workflow is as follows:
 
-`.travis.yml`/`appveyor.yml` -> `tic.R` -> commands/step to execute
+`.travis.yml`/`appveyor.yml` -> `rci.R` -> commands/step to execute
 
-An important point to note: The R code declared in `tic.R` is not meant to be run manually.
+An important point to note: The R code declared in `rci.R` is not meant to be run manually.
 It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
 The workflow can be loaded using `load_from_file()`, this will not run any of the commands defined there.
-For testing purposes, all stages and steps defined in `tic.R` can be  executed by calling `run_all_stages()`.
+For testing purposes, all stages and steps defined in `rci.R` can be  executed by calling `run_all_stages()`.
 This latter emulates a CI build on your local system.
-See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) for more information.
+See [Troubleshooting: Running rci locally](advanced#troubleshooting-running-rci-locally) for more information.
 
 ### Accessing a single stage
 
-The steps which are executed in each stage are specified in `tic.R`.
-A stage is executed by calling the respective *tic* function; for example for stage "deploy" `tic::deploy()`.
-This function then sources `tic.R` and collects all steps added to `get_stage(<stage name>)`, e.g. `get_stage("deploy")` for the "deploy" stage".
-Again, remember that the order of the stages is fixed (see [here](#stages)), it does not matter in which order you declare the stages in `tic.R`.
+The steps which are executed in each stage are specified in `rci.R`.
+A stage is executed by calling the respective *rci* function; for example for stage "deploy" `rci::deploy()`.
+This function then sources `rci.R` and collects all steps added to `get_stage(<stage name>)`, e.g. `get_stage("deploy")` for the "deploy" stage".
+Again, remember that the order of the stages is fixed (see [here](#stages)), it does not matter in which order you declare the stages in `rci.R`.
 
 ### Details of stages
 
 #### before_install & install
 
-An important stage for *tic* is the `before_install` stage.
-Here, *tic* itself gets installed and runs `prepare_all_stages()`.
+An important stage for *rci* is the `before_install` stage.
+Here, *rci* itself gets installed and runs `prepare_all_stages()`.
 This function ensures that all subsequent steps can be executed.
-Essentially it calls the `prepare()` function of all steps that were declared in `tic.R`.
+Essentially it calls the `prepare()` function of all steps that were declared in `rci.R`.
 For example, the `prepare()` function of the `step_rcmdcheck()` step makes sure that all dependencies of an R package get installed by calling `remotes::install_deps()`.
 
 All packages that should be stored in the "cache" of the CI service (so that they do not need to be installed again on every CI build) should be installed during preparation.
@@ -99,7 +99,7 @@ See [the vignette about deployment](deployment.html) for more information.
 ## Steps
 
 Steps are the commands that are executed in each stage.
-*tic* uses the [pipe operator](https://magrittr.tidyverse.org/) and the `add_step()` function to chain steps in `tic.R`, for example
+*rci* uses the [pipe operator](https://magrittr.tidyverse.org/) and the `add_step()` function to chain steps in `rci.R`, for example
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
@@ -110,12 +110,12 @@ get_stage("deploy") %>%
 More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
 Steps are usually defined using two nested commands: `add_step()` and the corresponding step, here `step_build_pkgdown()`.
 
-We grouped the steps defined by the *tic* package in the following.
+We grouped the steps defined by the *rci* package in the following.
 Please see the respective help pages of the functions for more detailed documentation.
 
 #### Basic
 
-- `step_hello_world()`: print "Hello, World!" to the console, helps testing a tic setup
+- `step_hello_world()`: print "Hello, World!" to the console, helps testing a rci setup
 - `step_run_code()`: run arbitrary code, optionally run preparatory code and install dependent packages
     - `add_step(step_run_code())` can be abbreviated with `add_code_step()`
 - `step_write_text_file()`: Creates a text file with arbitrary contents
@@ -147,7 +147,7 @@ Please see the respective help pages of the functions for more detailed document
     
 ### Macros
 
-Macros in *tic* are combinations of steps for reoccurring workflows to keep `tic.R` tidy.
+Macros in *rci* are combinations of steps for reoccurring workflows to keep `rci.R` tidy.
 The macro function `do_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 
@@ -155,10 +155,10 @@ It adds the following steps:
 
 2. A call to `covr::codecov()` in the "after_success" stage.
 
-If you manually add these steps to stages in `tic.R` while `do_package_checks()` is still present, the steps will be executed twice. 
+If you manually add these steps to stages in `rci.R` while `do_package_checks()` is still present, the steps will be executed twice. 
 
 Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.
 
 Currently, `do_package_checks()` is the only macro implemented. 
 We will add more macros in the future.
-If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
+If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/rci/issues).

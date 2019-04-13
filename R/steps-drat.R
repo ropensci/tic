@@ -1,5 +1,5 @@
 AddToDrat <- R6Class(
-  "AddToDrat", inherit = TicStep,
+  "AddToDrat", inherit = RciStep,
 
   public = list(
     prepare = function() {

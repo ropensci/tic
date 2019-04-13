@@ -47,7 +47,7 @@ Stage <- R6Class(
     steps = NULL,
 
     prepare_one = function(step) {
-      if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
+      if (identical(body(step$prepare), body(RciStep$public_methods$prepare)))
         return()
 
       if (!isTRUE(step$check())) {

@@ -22,7 +22,7 @@ base64serialize <- function(x, compression = "gzip") {
 #' @rdname base64serialize
 #' @description
 #' `base64unserialize()` is the inverse operation to `base64serialize()`.
-#' Use this function in your `tic.R` to access the R object previously encoded
+#' Use this function in your `rci.R` to access the R object previously encoded
 #' by `base64serialize()`.
 #'
 #' @export

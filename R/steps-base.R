@@ -4,10 +4,10 @@
 #'
 #' @importFrom R6 R6Class
 #' @export
-TicStep <- R6Class(
+RciStep <- R6Class(
   #' @section Methods:
   #' \describe{
-  "TicStep",
+  "RciStep",
   cloneable = FALSE,
 
   public = list(
@@ -43,7 +43,7 @@ TicStep <- R6Class(
 )
 
 HelloWorld <- R6Class(
-  "HelloWorld", inherit = TicStep,
+  "HelloWorld", inherit = RciStep,
 
   public = list(
     run = function() {
@@ -56,7 +56,7 @@ HelloWorld <- R6Class(
 #'
 #' The simplest step possible: prints "Hello, world!" to the console when run, does not require
 #' any preparation.
-#' This step may be useful to test a \pkg{tic} setup or as a starting point when implementing a
+#' This step may be useful to test a \pkg{rci} setup or as a starting point when implementing a
 #' custom step.
 #'
 #' @family steps

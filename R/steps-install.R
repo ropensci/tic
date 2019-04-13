@@ -1,5 +1,5 @@
 InstallDeps <- R6Class(
-  "InstallDeps", inherit = TicStep,
+  "InstallDeps", inherit = RciStep,
 
   public = list(
     initialize = function(repos = getOption("repos")) {
@@ -46,7 +46,7 @@ step_install_deps <- function(repos = getOption("repos")) {
 
 
 InstallCRAN <- R6Class(
-  "InstallCRAN", inherit = TicStep,
+  "InstallCRAN", inherit = RciStep,
 
   public = list(
     initialize = function(package, ...) {
@@ -87,7 +87,7 @@ step_install_cran <- function(package = NULL, ..., repos = getOption("repos")) {
 
 
 InstallGithub <- R6Class(
-  "InstallGithub", inherit = TicStep,
+  "InstallGithub", inherit = RciStep,
 
   public = list(
     initialize = function(repo, ...) {

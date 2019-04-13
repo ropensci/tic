@@ -1,5 +1,5 @@
 WriteTextFile <- R6Class(
-  "WriteTextFile", inherit = TicStep,
+  "WriteTextFile", inherit = RciStep,
 
   public = list(
     initialize = function(..., path) {

@@ -1,5 +1,5 @@
 RunCode <- R6Class(
-  "RunCode", inherit = TicStep,
+  "RunCode", inherit = RciStep,
 
   public = list(
     initialize = function(call, prepare_call = NULL,

@@ -1,13 +1,13 @@
 Type: Package
-Package: tic
-Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
+Package: rci
+Title: CI-Agnosrci Workflow Definitions in R
 Version: 0.2.13.9011
 Authors@R: c(
     person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
+    person("Patrick", "Schratz", email = "patrick.schratz@gmail.com", role = "aut", comment = c(ORCID = '0000-0003-0748-6624')),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
     person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut")),
-    person("Patrick", "Schratz", email = "patrick.schratz@gmail.com", role = "aut", comment = c(ORCID = '0000-0003-0748-6624')),
     person("rOpenSci", role = c("fnd"))
   )
 Description: 
@@ -17,8 +17,8 @@ Description:
     continuous integration tool used for processing the workflow (e.g.
     'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
-URL: https://github.com/ropenscilabs/tic
-BugReports: https://github.com/ropenscilabs/tic/issues
+URL: https://github.com/ropenscilabs/rci
+BugReports: https://github.com/ropenscilabs/rci/issues
 Depends: 
     R (>= 3.0.0)
 Imports: 
@@ -73,6 +73,6 @@ Collate:
     'steps-pkgdown.R'
     'steps-ssh.R'
     'steps-write-text-file.R'
-    'tic-package.R'
+    'rci-package.R'
     'travis.R'
     'utils.R'

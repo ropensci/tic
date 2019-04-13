@@ -40,33 +40,33 @@ A more comprehensive summary of all advantages can be found in the [advantages](
 
 # Initialization
 
-The easiest way to use *tic* for CI services is to call `usethis::use_ci()`.
-This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
+The easiest way to use *rci* for CI services is to call `usethis::use_ci()`.
+This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authenrciation steps for deployment.
 During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized.
 Also a Personal Access Token (PAT) will be created on GitHub and stored  as an encrypted variable on Travis.
 This avoids hitting rate limitations when accessing the GitHub API, see [this blog post](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) for more details.
 The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.
 
-First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
+First, authenrciation with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
 Also, the repo is actived on Travis.
 
 ```
 usethis::use_ci()
-✔ Setting active project to '/home/pjs/git/tic.package'
+✔ Setting active project to '/home/pjs/git/rci.package'
 ✔ GitHub is already initialized
-Authenticating with GitHub
-Waiting for authentication in browser...
+Authenrciating with GitHub
+Waiting for authenrciation in browser...
 Press Esc/Ctrl + C to abort
-Authentication complete.
-Authenticating with Travis
-Authenticating with GitHub
-Waiting for authentication in browser...
+Authenrciation complete.
+Authenrciating with Travis
+Authenrciating with GitHub
+Waiting for authenrciation in browser...
 Press Esc/Ctrl + C to abort
-Authentication complete.
-Finished activating repo pat-s/tic.package on Travis CI.
+Authenrciation complete.
+Finished activating repo pat-s/rci.package on Travis CI.
 ```
 
-Next, you will be asked if the current `.travis.yml` should be replaced with the template from *tic* (if one exists).
+Next, you will be asked if the current `.travis.yml` should be replaced with the template from *rci* (if one exists).
 Otherwise, the template is added without asking.
 
 ```
@@ -90,31 +90,31 @@ Selection: 1
 ✔ Writing 'appveyor.yml'
 ```
 
-And also for the `tic.R` file.
+And also for the `rci.R` file.
 Additionally, it is added to `.Rbuildignore` to not interfer with the package building.
 
 ```
-Overwrite tic.R? 
+Overwrite rci.R? 
 
 1: Yes
 2: No
 
 Selection: 1
-Added tic.R from template.
-✔ Adding '^tic\\.R$' to '.Rbuildignore'
+Added rci.R from template.
+✔ Adding '^rci\\.R$' to '.Rbuildignore'
 ```
 
 Next, the private deploy key for Travis is added to the GitHub repo.
 This is needed to give Travis permissions to deploy into the GitHub repo.
 
 ```
-Authenticating with GitHub
-Waiting for authentication in browser...
+Authenrciating with GitHub
+Waiting for authenrciation in browser...
 Press Esc/Ctrl + C to abort
-Authentication complete.
-Finished adding deploy keys on GitHub for repo pat-s/tic.package.
-Successfully added public deploy key 'travis+tic for pat-s/tic.package' to GitHub for 
-pat-s/tic.package. You should receive a confirmation e-mail from GitHub. Delete the 
+Authenrciation complete.
+Finished adding deploy keys on GitHub for repo pat-s/rci.package.
+Successfully added public deploy key 'travis+rci for pat-s/rci.package' to GitHub for 
+pat-s/rci.package. You should receive a confirmation e-mail from GitHub. Delete the 
 key in the repository's settings to revoke access for that key or
 when you no longer need it.
 ```
@@ -123,8 +123,8 @@ Besides the private deploy key, also the public deploy key needs to be added as 
 As it is a SSH key, its named `id_rsa` by default.
 
 ```
-Finished adding private environment variable id_rsa to pat-s/tic.package on Travis CI.
-Successfully added private deploy key to pat-s/tic.package as secure environment variable
+Finished adding private environment variable id_rsa to pat-s/rci.package on Travis CI.
+Successfully added private deploy key to pat-s/rci.package as secure environment variable
 id_rsa to Travis CI.
 ```
 
@@ -133,7 +133,7 @@ You now see two environment variables in your setting on Travis CI: `GITHUB_PAT`
 
 ```
 Create a personal access token, make sure that you are signed in as the correct user. 
-The suggested description 'travis+tic for pat-s/tic.package' has been copied to the 
+The suggested description 'travis+rci for pat-s/rci.package' has been copied to the 
 clipboard. If you use this token only to avoid GitHub's rate limit, you can leave 
 all scopes unchecked. Then, copy the new token to the clipboard, it will be 
 detected and applied automatically. Please visit
@@ -141,21 +141,21 @@ detected and applied automatically. Please visit
 A browser window will be opened.
 Waiting for PAT to appear on the clipboard.
 Detected PAT, clearing clipboard.
-Finished adding private environment variable GITHUB_PAT to pat-s/tic.package on Travis CI.
+Finished adding private environment variable GITHUB_PAT to pat-s/rci.package on Travis CI.
 ```
 
 All this functionality is integrated in the [*usethis*](http://usethis.r-lib.org/) package because it contains various other useful `use_*` functions that simplify R (package) development.
-However, the heavy lifting in the background is actually done by the R packages *travis* and *tic* . 
-See [here](tic-usethis-travis.html) for more detailed information on how *tic* , *travis* and *usethis* work together.
+However, the heavy lifting in the background is actually done by the R packages *travis* and *rci* . 
+See [here](rci-usethis-travis.html) for more detailed information on how *rci* , *travis* and *usethis* work together.
 
 # Explanation of the basic template
 
-After having called `usethis::use_ci()` you will find a `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
+After having called `usethis::use_ci()` you will find a `.travis.yml`, `appveyor.yml` and a `rci.R` file in your repo.
 Usually you do not need to touch `appveyor.yml` and `.travis.yml` anymore.
-All build customizations are done in `tic.R` and apply to both services.
+All build customizations are done in `rci.R` and apply to both services.
 If you want more information about the whole build lifecycle, check the [Build lifecycle](build-lifecycle.html) vignette.
 
-The basic `tic.R` template looks as follows:
+The basic `rci.R` template looks as follows:
 
 ```{r eval = FALSE}
 do_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
@@ -185,7 +185,7 @@ if (Sys.getenv("BUILD_PKGDOWN") != "") { }
 ```
 
 This line conditions the contents of the block inside the braces `{ }` on the existence of the environment variable `"BUILD_PKGDOWN"`.
-The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, but only for the job that runs on the current R-release version:
+The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/rci/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, but only for the job that runs on the current R-release version:
 
 ```{yml eval = FALSE}
 - r: 3.3
@@ -213,20 +213,20 @@ get_stage("deploy") %>%
 
 # Examples projects
 
-*tic* can be used for various R projects:
+*rci* can be used for various R projects:
 
-- [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
-- [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
-- [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
-- [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
-- [tic.bookdown](https://github.com/ropenscilabs/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
-- [tic.website](https://github.com/ropenscilabs/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
-- [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
-- [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
+- [rci.package](https://github.com/ropenscilabs/rci.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
+- [rci.packagedocs](https://github.com/ropenscilabs/rci.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
+- [rci.drat](https://github.com/ropenscilabs/rci.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
+- [rci.blogdown](https://github.com/ropenscilabs/rci.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
+- [rci.bookdown](https://github.com/ropenscilabs/rci.bookdown): Books with [_bookdown_](https://bookdown.org/)
+- [rci.website](https://github.com/ropenscilabs/rci.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
+- [rci.figshare](https://github.com/ropenscilabs/rci.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
+- [rci.covrpage](https://github.com/ropenscilabs/rci.covrpage): Unit test summary report.
 
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
-Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
+Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `rci.R` [template](https://github.com/krlmlr/rci.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/rci.R#L5) in the "install" section:
 
 ```{r eval = FALSE}
 get_stage("install") %>%
@@ -244,15 +244,15 @@ get_stage("deploy") %>%
 ```
 
 Steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
-*tic* is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
+*rci* is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
 Also, publishing to https://zenodo.org/ is work in progress.
 
-## *tic* based R projects from the community
+## *rci* based R projects from the community
 
-The templates we provide with *tic* are minimal working examples.
-In the following we list various R projects with non-standard/tailored *tic*-based workflows.
+The templates we provide with *rci* are minimal working examples.
+In the following we list various R projects with non-standard/tailored *rci*-based workflows.
 You may find inspiration for your own project there.
 (Please contact us if you want to add yours to the list!)
 
@@ -268,12 +268,12 @@ You may find inspiration for your own project there.
 
 # Advanced
 
-The advanced usage of *tic* is described in more detail in the [Advanced Usage](advanced.html) article:
+The advanced usage of *rci* is described in more detail in the [Advanced Usage](advanced.html) arrcile:
 
 - [Options for _pkgdown_ deployment](advanced.html#pkgdown-deployment) 
 - [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
-- [Troubleshooting: Running *tic* locally](advanced.html#troubleshooting-running-tic-locally)
-- [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
+- [Troubleshooting: Running *rci* locally](advanced.html#troubleshooting-running-rci-locally)
+- [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-rci-locally)
 - [Writing custom steps](custom-steps.html)
 
-The build lifecycle when using *tic* is explained in the [Build lifecycle](build-lifecycle.html) article.
+The build lifecycle when using *rci* is explained in the [Build lifecycle](build-lifecycle.html) arrcile.
