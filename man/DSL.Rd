@@ -7,7 +7,7 @@
 \alias{add_code_step}
 \alias{do_package_checks}
 \alias{do_pkgdown}
-\alias{do_build_bookdown}
+\alias{do_bookdown}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -26,10 +26,9 @@ do_pkgdown(..., build_only = FALSE, deploy = ci_can_push(),
   path = ".", branch = NULL, remote_url = NULL,
   commit_message = NULL, commit_paths = ".")
 
-do_build_bookdown(..., deploy = ci_has_env("id_rsa"), orphan = FALSE,
-  checkout = TRUE, repos = getOption("repos"), path = "_book",
-  branch = "gh-pages", remote_url = NULL, commit_message = NULL,
-  commit_paths = ".")
+do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
+  repos = getOption("repos"), path = "_book", branch = "gh-pages",
+  remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -156,7 +155,7 @@ to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 \item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 
-\code{do_build_bookdown()} adds default steps related to package checks
+\code{do_bookdown()} adds default steps related to package checks
 to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"} stages.
 
 \enumerate{

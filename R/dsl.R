@@ -218,7 +218,7 @@ do_pkgdown <- function(...,
 #' @export
 #' @importFrom magrittr %>%
 do_bookdown <- function(...,
-                        deploy = ci_has_env("id_rsa"),
+                        build_only = FALSE,
                         orphan = FALSE,
                         checkout = TRUE,
                         repos = getOption("repos"),
@@ -232,8 +232,9 @@ do_bookdown <- function(...,
   get_stage("install") %>%
     add_step(step_install_deps(repos = repos))
 
+  needs_deploy <- !isTRUE(build_only) && ci_can_push()
 
-  if (!deploy) {
+  if (isTRUE(needs_deploy)) {
     ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
 
@@ -253,7 +254,7 @@ do_bookdown <- function(...,
     add_step(step_build_bookdown(...))
 
 
-  if (!deploy) {
+  if (isTRUE(needs_deploy)) {
     ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
     get_stage("deploy") %>%
