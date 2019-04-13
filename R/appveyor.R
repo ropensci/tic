@@ -26,7 +26,7 @@ AppVeyorCI <- R6Class(
       self$has_env("TRAVIS_COMMIT")
     },
     is_env = function(env, value) {
-      Sys.getenv(env, value)
+      Sys.getenv(env) == value
     },
     has_env = function(env) {
       Sys.getenv(env) != ""

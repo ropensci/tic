@@ -28,7 +28,7 @@ MockCI <- R6Class(
       self$has_env("id_rsa")
     },
     is_env = function(env, value) {
-      Sys.getenv(env, value)
+      Sys.getenv(env) == value
     },
     has_env = function(env) {
       Sys.getenv(env) != ""
