@@ -5,16 +5,16 @@ TravisCI <- R6Class(
 
   public = list(
     get_branch = function() {
-      self$has_env("TRAVIS_BRANCH")
+      Sys.getenv("TRAVIS_BRANCH")
     },
     get_tag = function() {
-      self$has_env("TRAVIS_TAG")
+      Sys.getenv("TRAVIS_TAG")
     },
     is_tag = function() {
       self$get_tag() != ""
     },
     get_slug = function() {
-      self$has_env("TRAVIS_REPO_SLUG")
+      Sys.getenv("TRAVIS_REPO_SLUG")
     },
     get_build_number = function() {
       paste0("Travis build ", self$has_env("TRAVIS_BUILD_NUMBER"))
@@ -23,7 +23,7 @@ TravisCI <- R6Class(
       paste0("https://travis-ci.org/", self$get_slug(), "/builds/", self$has_env("TRAVIS_BUILD_ID"))
     },
     get_commit = function() {
-      self$has_env("TRAVIS_COMMIT")
+      Sys.getenv("TRAVIS_COMMIT")
     },
     can_push = function() {
       self$has_env("id_rsa")
