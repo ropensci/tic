@@ -20,10 +20,9 @@ do_package_checks(..., warnings_are_errors = NULL,
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
 
-do_pkgdown(..., build_only = FALSE, deploy = ci_can_push(),
-  orphan = FALSE, checkout = TRUE, repos = getOption("repos"),
-  path = ".", branch = NULL, remote_url = NULL,
-  commit_message = NULL, commit_paths = ".")
+do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
+  repos = getOption("repos"), path = ".", branch = NULL,
+  remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -77,9 +76,6 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
 \item{build_only}{Build the pkgdown site but do not deploy it.}
-
-\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_can_push]{ci_can_push()}}. If missing,
-deployment is not possible.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?

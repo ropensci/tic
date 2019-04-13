@@ -156,15 +156,12 @@ do_package_checks <- function(...,
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #' @param build_only Build the pkgdown site but do not deploy it.
-#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_can_push()]. If missing,
-#'   deployment is not possible.
 #'
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
 do_pkgdown <- function(...,
                        build_only = FALSE,
-                       deploy = ci_can_push(),
                        orphan = FALSE,
                        checkout = TRUE,
                        repos = getOption("repos"),
@@ -178,7 +175,9 @@ do_pkgdown <- function(...,
   get_stage("install") %>%
     add_step(step_install_deps(repos = repos))
 
-  if (isTRUE(build_only) || !deploy) {
+  needs_deploy <- !isTRUE(build_only) && ci_can_push()
+
+  if (isTRUE(needs_deploy)) {
     ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
   } else {
 
@@ -197,7 +196,7 @@ do_pkgdown <- function(...,
   get_stage("deploy") %>%
     add_step(step_build_pkgdown(...))
 
-  if (isTRUE(build_only) || !deploy) {
+  if (isTRUE(needs_deploy)) {
   } else {
     get_stage("deploy") %>%
       add_step(step_do_push_deploy(
