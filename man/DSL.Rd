@@ -6,6 +6,7 @@
 \alias{add_step}
 \alias{add_code_step}
 \alias{do_package_checks}
+\alias{do_pkgdown}
 \alias{do_build_bookdown}
 \title{tic's domain-specific language}
 \usage{
@@ -19,6 +20,11 @@ do_package_checks(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
+
+do_pkgdown(..., build_only = FALSE, deploy = ci_can_push(),
+  orphan = FALSE, checkout = TRUE, repos = getOption("repos"),
+  path = ".", branch = NULL, remote_url = NULL,
+  commit_message = NULL, commit_paths = ".")
 
 do_build_bookdown(..., deploy = ci_has_env("id_rsa"), orphan = FALSE,
   checkout = TRUE, repos = getOption("repos"), path = "_book",
@@ -76,7 +82,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_has_env]{ci_has_env()}}. If missing,
+\item{build_only}{Build the pkgdown site but do not deploy it.}
+
+\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_can_push]{ci_can_push()}}. If missing,
 deployment is not possible.}
 
 \item{orphan}{\code{[flag]}\cr
@@ -107,6 +115,9 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\code{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_has_env]{ci_has_env()}}. If missing,
+deployment is not possible.}
 }
 \description{
 Functions to define stages and their constitutent
@@ -125,12 +136,24 @@ to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"aft
 stages:
 
 \enumerate{
-\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
-\item A \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
+\item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
+}
+
+\code{do_pkgdown_site()} builds and optionally deploys a pkgdown site and adds default steps
+to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
+
+\enumerate{
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\code{repos} argument.
+\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
+\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
+\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
 }
 
 \code{do_build_bookdown()} adds default steps related to package checks

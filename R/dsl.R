@@ -119,14 +119,14 @@ do_package_checks <- function(...,
                               build_args = "--force", error_on = "warning",
                               repos = getOption("repos"), timeout = Inf) {
   #' @description
-  #' 1. A [step_install_deps()] in the `"install"` stage, using the
+  #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
       step_install_deps(repos = repos)
     )
 
-  #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
+  #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
   #'    `build_args` arguments.
   get_stage("script") %>%
@@ -148,9 +148,66 @@ do_package_checks <- function(...,
       add_code_step(covr::codecov(quiet = FALSE))
   }
 }
+#' @description
+#' `do_pkgdown_site()` builds and optionally deploys a pkgdown site and adds default steps
+#'   to the `"install"`, `"before_deploy"` and `"deploy"` stages:
+#'
+#' @inheritParams step_build_pkgdown
+#' @inheritParams step_setup_push_deploy
+#' @inheritParams step_do_push_deploy
+#' @param build_only Build the pkgdown site but do not deploy it.
+#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_can_push()]. If missing,
+#'   deployment is not possible.
+#'
+#' @rdname DSL
+#' @export
+#' @importFrom magrittr %>%
+do_pkgdown <- function(...,
+                       build_only = FALSE,
+                       deploy = ci_can_push(),
+                       orphan = FALSE,
+                       checkout = TRUE,
+                       repos = getOption("repos"),
+                       path = ".", branch = NULL,
+                       remote_url = NULL,
+                       commit_message = NULL, commit_paths = ".") {
+
+  #' @description
+  #' 1. [step_install_deps()] in the `"install"` stage, using the
+  #'    `repos` argument.
+  get_stage("install") %>%
+    add_step(step_install_deps(repos = repos))
+
+  if (isTRUE(build_only) || !deploy) {
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment")
+  } else {
+
+    #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
+    #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
+    #' 1. [step_build_pkgdown()] in the `"deploy"` stage
+    #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+    get_stage("before_deploy") %>%
+      add_step(step_setup_ssh()) %>%
+      add_step(step_setup_push_deploy(
+        path = path, branch = branch,
+        remote_url = remote_url, orphan = orphan, checkout = checkout
+      ))
+  }
+
+  get_stage("deploy") %>%
+    add_step(step_build_pkgdown(...))
+
+  if (isTRUE(build_only) || !deploy) {
+  } else {
+    get_stage("deploy") %>%
+      add_step(step_do_push_deploy(
+        path = path, commit_message = commit_message, commit_paths = commit_paths
+      ))
+  }
+}
 
 #' @description
-#' `do_build_bookdown()` adds default steps related to package checks
+#' `do_bookdown()` adds default steps related to package checks
 #' to the `"install"`, `"before_deploy"`, `"script"` and `"deploy"` stages.
 #' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_has_env()]. If missing,
 #'   deployment is not possible.
@@ -160,14 +217,14 @@ do_package_checks <- function(...,
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-do_build_bookdown <- function(...,
-                              deploy = ci_has_env("id_rsa"),
-                              orphan = FALSE,
-                              checkout = TRUE,
-                              repos = getOption("repos"),
-                              path = "_book", branch = "gh-pages",
-                              remote_url = NULL,
-                              commit_message = NULL, commit_paths = ".") {
+do_bookdown <- function(...,
+                        deploy = ci_has_env("id_rsa"),
+                        orphan = FALSE,
+                        checkout = TRUE,
+                        repos = getOption("repos"),
+                        path = "_book", branch = "gh-pages",
+                        remote_url = NULL,
+                        commit_message = NULL, commit_paths = ".") {
 
   #' @description
   #' 1. A [step_install_deps()] in the `"install"` stage, using the

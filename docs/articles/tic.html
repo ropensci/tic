@@ -272,6 +272,8 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 </li>
 <li>
 <a href="https://github.com/ropenscilabs/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</li>
+<li>
+<a href="https://github.com/ropenscilabs/tic.covrpage">tic.covrpage</a>: Unit test summary report.</li>
 </ul>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
