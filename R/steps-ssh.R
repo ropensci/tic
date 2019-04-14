@@ -22,6 +22,10 @@ AddToKnownHosts <- R6Class(
     },
 
     check = function() {
+
+      # check if we have a SSH key to deploy with
+      ci_can_push()
+
       # only if non-interactive and ssh-keyscan is available
       (!ci_is_interactive()) && (Sys.which("ssh-keyscan") != "")
     }

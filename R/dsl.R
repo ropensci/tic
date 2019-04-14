@@ -176,8 +176,6 @@ do_pkgdown <- function(...,
     add_step(step_install_deps(repos = repos))
 
   if (isTRUE(build_only)) {
-  } else if (!ci_can_push()) {
-    stop("Deployment is not possible because keys are not set. Try setting `id_rsa` using `travis::use_travis_deploy()`.")
   } else {
 
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
