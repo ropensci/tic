@@ -75,7 +75,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{build_only}{Build the pkgdown site but do not deploy it.}
+\item{build_only}{Build the pkgdown site but do not deploy it. Removes step
+\code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}
+from macro \code{do_pkgdown}.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?

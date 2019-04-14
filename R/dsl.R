@@ -155,7 +155,9 @@ do_package_checks <- function(...,
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param build_only Build the pkgdown site but do not deploy it.
+#' @param build_only Build the pkgdown site but do not deploy it. Removes step
+#'   [step_setup_ssh()], [step_setup_push_deploy()] and [step_do_push_deploy()]
+#'   from macro `do_pkgdown`.
 #'
 #' @rdname DSL
 #' @export
