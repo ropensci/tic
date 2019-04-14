@@ -109,10 +109,12 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
+#' @param codecov `[flag]`\cr Whether to add a step running `covr::codecov(quiet = FALSE)` to macro `do_package_checks()`.`
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
 do_package_checks <- function(...,
+                              codecov = TRUE,
                               warnings_are_errors = NULL,
                               notes_are_errors = NULL,
                               args = c("--no-manual", "--as-cran"),
@@ -142,10 +144,12 @@ do_package_checks <- function(...,
       )
     )
 
-  #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
-  if (!ci_is_interactive()) {
-    get_stage("after_success") %>%
-      add_code_step(covr::codecov(quiet = FALSE))
+  if (isTRUE(codecov)) {
+    #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
+    if (!ci_is_interactive()) {
+      get_stage("after_success") %>%
+        add_code_step(covr::codecov(quiet = FALSE))
+    }
   }
 }
 #' @description
@@ -155,7 +159,7 @@ do_package_checks <- function(...,
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param build_only Build the pkgdown site but do not deploy it. Removes step
+#' @param build_only `[flag]`\cr Build the pkgdown site but do not deploy it. Removes step
 #'   [step_setup_ssh()], [step_setup_push_deploy()] and [step_do_push_deploy()]
 #'   from macro `do_pkgdown`.
 #'
