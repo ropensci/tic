@@ -1,7 +1,7 @@
 context("test-integration-early-failure.R")
 
 test_that("integration test: early failure", {
-  package_path <- tempfile("ticpkg", fileext = "pkg")
+  package_path <- tempfile("rcipkg", fileext = "pkg")
 
   cat("\n")
   dir.create(package_path)
@@ -15,7 +15,7 @@ test_that("integration test: early failure", {
       expect_error(
         callr::r(
           function() {
-            tic::run_all_stages()
+            rci::run_all_stages()
           },
           show = TRUE,
           env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")

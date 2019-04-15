@@ -1,7 +1,7 @@
 context("test-integration-package.R")
 
 test_that("integration test: package", {
-  package_path <- tempfile("ticpkg", fileext = "pkg")
+  package_path <- tempfile("rcipkg", fileext = "pkg")
 
   cat("\n")
   usethis::create_package(package_path, fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE)
@@ -14,7 +14,7 @@ test_that("integration test: package", {
       expect_error(
         callr::r(
           function() {
-            tic::run_all_stages()
+            rci::run_all_stages()
           },
           show = TRUE,
           env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")

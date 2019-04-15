@@ -38,7 +38,7 @@ test_that("integration test: git race condition", {
         ),
         "rci.R"
       )
-      git2r::config(user.name = "tic", user.email = "tic@pkg.test")
+      git2r::config(user.name = "rci", user.email = "rci@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
       git2r::push(refspec = "refs/heads/master")
@@ -52,7 +52,7 @@ test_that("integration test: git race condition", {
     package_path_2,
     {
       writeLines(character(), "clone.txt")
-      git2r::config(user.name = "tic-clone", user.email = "tic-clone@pkg.test")
+      git2r::config(user.name = "rci-clone", user.email = "rci-clone@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Add clone.txt")
       git2r::push()
@@ -66,7 +66,7 @@ test_that("integration test: git race condition", {
     package_path_3,
     {
       writeLines("clone-contents", "clone.txt")
-      git2r::config(user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test")
+      git2r::config(user.name = "rci-clone-2", user.email = "rci-clone-2@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Edit clone.txt")
       git2r::push()
@@ -78,7 +78,7 @@ test_that("integration test: git race condition", {
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -94,7 +94,7 @@ test_that("integration test: git race condition", {
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -116,7 +116,7 @@ test_that("integration test: git race condition", {
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -129,7 +129,7 @@ test_that("integration test: git race condition", {
     {
       system("git pull")
       expect_true(file.exists("clone.txt"))
-      expect_identical(readLines("clone.txt"), "clone-contents")
+      expect_idenrcial(readLines("clone.txt"), "clone-contents")
       expect_equal(readLines("dir.txt"), sort(dir(pattern = "^clone[.]txt$")))
     }
   )

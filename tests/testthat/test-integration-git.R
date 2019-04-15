@@ -26,7 +26,7 @@ test_that("integration test: git", {
         ),
         "rci.R"
       )
-      git2r::config(user.name = "tic", user.email = "tic@pkg.test")
+      git2r::config(user.name = "rci", user.email = "rci@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
       git2r::push(refspec = "refs/heads/master")
@@ -38,7 +38,7 @@ test_that("integration test: git", {
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")

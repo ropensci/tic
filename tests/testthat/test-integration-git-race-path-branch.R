@@ -39,7 +39,7 @@ test_that("integration test: git race condition with path and branch arguments s
         ),
         "rci.R"
       )
-      git2r::config(user.name = "tic", user.email = "tic@pkg.test")
+      git2r::config(user.name = "rci", user.email = "rci@pkg.test")
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")
       git2r::add(path = ".")
@@ -55,7 +55,7 @@ test_that("integration test: git race condition with path and branch arguments s
     package_path_2,
     {
       writeLines(character(), "clone.txt")
-      git2r::config(user.name = "tic-clone", user.email = "tic-clone@pkg.test")
+      git2r::config(user.name = "rci-clone", user.email = "rci-clone@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Add clone.txt")
       git2r::push()
@@ -69,7 +69,7 @@ test_that("integration test: git race condition with path and branch arguments s
     package_path_3,
     {
       writeLines("clone-contents", "clone.txt")
-      git2r::config(user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test")
+      git2r::config(user.name = "rci-clone-2", user.email = "rci-clone-2@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Edit clone.txt")
       git2r::push()
@@ -81,7 +81,7 @@ test_that("integration test: git race condition with path and branch arguments s
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -92,11 +92,11 @@ test_that("integration test: git race condition with path and branch arguments s
   last_bare_commit <- git2r::last_commit(bare_repo_path)
   expect_match(last_bare_commit$message, "Edit clone[.]txt")
 
-  deploy_path <- tempfile("ticdeploy", fileext = "pkg")
+  deploy_path <- tempfile("rcideploy", fileext = "pkg")
   git2r::clone(bare_repo_path, deploy_path, branch = "deploy-branch")
   withr::with_dir(
     deploy_path,
-    git2r::config(user.name = "tic-deploy", user.email = "tic-deploy@pkg.test")
+    git2r::config(user.name = "rci-deploy", user.email = "rci-deploy@pkg.test")
   )
 
   withr::with_dir(
@@ -115,7 +115,7 @@ test_that("integration test: git race condition with path and branch arguments s
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -139,7 +139,7 @@ test_that("integration test: git race condition with path and branch arguments s
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")

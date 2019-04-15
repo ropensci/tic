@@ -5,11 +5,11 @@ test_that("integration test: git", {
   # - Commit only a subset of changes that occur during deployment
   # - Check that only these changes are really committed
 
-  bare_repo_path <- tempfile("ticrepo")
+  bare_repo_path <- tempfile("rcirepo")
   dir.create(bare_repo_path)
   git2r::init(bare_repo_path, bare = TRUE)
 
-  package_path <- tempfile("ticpkg", fileext = "pkg")
+  package_path <- tempfile("rcipkg", fileext = "pkg")
   git2r::clone(bare_repo_path, package_path)
 
   cat("\n")
@@ -27,7 +27,7 @@ test_that("integration test: git", {
       )
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")
-      git2r::config(user.name = "tic", user.email = "tic@pkg.test")
+      git2r::config(user.name = "rci", user.email = "rci@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
       git2r::push(refspec = "refs/heads/master")
@@ -39,7 +39,7 @@ test_that("integration test: git", {
     {
       callr::r(
         function() {
-          tic::run_all_stages()
+          rci::run_all_stages()
         },
         show = TRUE,
         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
@@ -50,7 +50,7 @@ test_that("integration test: git", {
   last_bare_commit <- git2r::last_commit(bare_repo_path)
   expect_match(last_bare_commit$message, "Deploy from local build")
 
-  package_path_2 <- tempfile("ticpkg", fileext = "pkg")
+  package_path_2 <- tempfile("rcipkg", fileext = "pkg")
   git2r::clone(bare_repo_path, package_path_2)
 
   withr::with_dir(
