@@ -23,7 +23,7 @@ test_that("integration test: git", {
           '  add_code_step(writeLines(as.character(Sys.time()), "deploy/time.txt")) %>%',
           paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '", commit_paths = "deploy"))')
         ),
-        "tic.R"
+        "rci.R"
       )
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")

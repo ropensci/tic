@@ -10,7 +10,7 @@ test_that("integration test: early failure", {
     {
       writeLines(
         'get_stage("script") %>% add_code_step(stop("oops")) %>% add_code_step(writeLines(character(), "out.txt"))',
-        "tic.R"
+        "rci.R"
       )
       expect_error(
         callr::r(

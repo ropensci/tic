@@ -36,7 +36,7 @@ test_that("integration test: git race condition", {
           '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$")), "dir.txt")) %>%',
           paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '"))')
         ),
-        "tic.R"
+        "rci.R"
       )
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       git2r::add(path = ".")

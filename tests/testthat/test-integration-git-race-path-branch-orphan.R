@@ -36,7 +36,7 @@ test_that("integration test: git race condition with path and branch arguments s
           '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)), "deploy/dir.txt")) %>%',
           paste0('  add_step(step_push_deploy(path = "deploy", branch = "deploy-branch", remote_url = "', bare_repo_path, '"))')
         ),
-        "tic.R"
+        "rci.R"
       )
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       dir.create("deploy")
