@@ -45,7 +45,7 @@ _rci_ has the ability to automate the update tasks and having the site reflectin
 The following example shows how _rci_ deploys a `pkgdown` site on Travis.
 In the `.travis.yml` file: 
 
-```{yml eval = FALSE}
+```yml
 before_deploy: R -q -e 'rci::before_deploy()'
 deploy:
   provider: script
@@ -131,7 +131,7 @@ In the following we show a "build stage" example on Travis using the custom env 
 
 `.travis.yml`:
 
-```{yml eval = FALSE}
+```yml
 jobs:
   include:
     - stage: stage1
