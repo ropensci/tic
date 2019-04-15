@@ -84,7 +84,7 @@ test_that("integration test: git race condition with path and branch arguments s
           rci::run_all_stages()
         },
         show = TRUE,
-        env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
+        env = c(callr::rcmd_safe_env(), RCI_LOCAL = "true")
       )
     }
   )
@@ -118,7 +118,7 @@ test_that("integration test: git race condition with path and branch arguments s
           rci::run_all_stages()
         },
         show = TRUE,
-        env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
+        env = c(callr::rcmd_safe_env(), RCI_LOCAL = "true")
       )
     }
   )
@@ -142,7 +142,7 @@ test_that("integration test: git race condition with path and branch arguments s
           rci::run_all_stages()
         },
         show = TRUE,
-        env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
+        env = c(callr::rcmd_safe_env(), RCI_LOCAL = "true")
       )
     }
   )

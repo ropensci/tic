@@ -18,7 +18,7 @@ test_that("integration test: early failure", {
             rci::run_all_stages()
           },
           show = TRUE,
-          env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
+          env = c(callr::rcmd_safe_env(), RCI_LOCAL = "true")
         ),
         "A step failed in stage"
       )
