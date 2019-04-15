@@ -2,7 +2,7 @@
 ^\.Rproj\.user$
 ^\.httr-oauth$
 ^\.travis\.yml$
-^tic\.R$
+^rci\.R$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown/
