@@ -1,7 +1,7 @@
 library(testthat)
-library(tic)
+library(rci)
 
 withr::with_envvar(
-  list("TIC_MOCK" = "true"),
-  test_check("tic")
+  list("RCI_MOCK" = "true"),
+  test_check("rci")
 )
