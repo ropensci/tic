@@ -111,8 +111,9 @@ and avoiding recursive CI runs.}
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 
-\item{deploy}{Checks if env variable \code{id_rsa} is set in Travis using \code{\link[=ci_has_env]{ci_has_env()}}. If missing,
-deployment is not possible.}
+\item{build_only}{\code{[flag]}\cr Build the bookdown book but do not deploy it.
+Removes step \code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and
+\code{\link[=step_do_push_deploy]{step_do_push_deploy()}} from macro \code{do_bookdown}.}
 }
 \description{
 Functions to define stages and their constitutent

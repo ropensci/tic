@@ -208,8 +208,9 @@ do_pkgdown <- function(...,
 #' @description
 #' `do_bookdown()` adds default steps related to package checks
 #' to the `"install"`, `"before_deploy"`, `"script"` and `"deploy"` stages.
-#' @param deploy Checks if env variable `id_rsa` is set in Travis using [ci_has_env()]. If missing,
-#'   deployment is not possible.
+#' @param build_only `[flag]`\cr Build the bookdown book but do not deploy it.
+#'   Removes step [step_setup_ssh()], [step_setup_push_deploy()] and
+#'   [step_do_push_deploy()] from macro `do_bookdown`.
 #' @inheritParams step_build_bookdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
