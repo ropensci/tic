@@ -1,23 +1,23 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-# Default configuration for use with tic package
+# Default configuration for use with rci package
 # Usually you shouldn't need to change the first part of the file
 
 # DO NOT CHANGE THE CODE BELOW
-before_install: R -q -e 'install.packages(c("remotes", "curl")); remotes::install_local(getwd(), force = TRUE); tic::prepare_all_stages(); tic::before_install()'
-install: R -q -e 'tic::install()'
-after_install: R -q -e 'tic::after_install()'
-before_script: R -q -e 'tic::before_script()'
-script: R -q -e 'tic::script()'
-after_success: R -q -e 'tic::after_success()'
-after_failure: R -q -e 'tic::after_failure()'
-before_deploy: R -q -e 'tic::before_deploy()'
+before_install: R -q -e 'install.packages(c("remotes", "curl")); remotes::install_local(getwd(), force = TRUE); rci::prepare_all_stages(); rci::before_install()'
+install: R -q -e 'rci::install()'
+after_install: R -q -e 'rci::after_install()'
+before_script: R -q -e 'rci::before_script()'
+script: R -q -e 'rci::script()'
+after_success: R -q -e 'rci::after_success()'
+after_failure: R -q -e 'rci::after_failure()'
+before_deploy: R -q -e 'rci::before_deploy()'
 deploy:
   provider: script
-  script: R -q -e 'tic::deploy()'
+  script: R -q -e 'rci::deploy()'
   on:
     all_branches: true
-after_deploy: R -q -e 'tic::after_deploy()'
-after_script: R -q -e 'tic::after_script()'
+after_deploy: R -q -e 'rci::after_deploy()'
+after_script: R -q -e 'rci::after_script()'
 # DO NOT CHANGE THE CODE ABOVE
 
 # Custom parts:
