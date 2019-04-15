@@ -1,7 +1,7 @@
 context("tasks-base")
 
 test_that("can't run base task", {
-  task <- TicStep$new()
+  task <- RciStep$new()
   expect_null(task$prepare())
   expect_true(task$check())
   expect_error(task$run(), "override")
