@@ -129,7 +129,7 @@ test_that("integration test: git race condition", {
     {
       system("git pull")
       expect_true(file.exists("clone.txt"))
-      expect_idenrcial(readLines("clone.txt"), "clone-contents")
+      expect_identical(readLines("clone.txt"), "clone-contents")
       expect_equal(readLines("dir.txt"), sort(dir(pattern = "^clone[.]txt$")))
     }
   )
