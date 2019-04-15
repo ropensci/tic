@@ -1,5 +1,5 @@
 #' @details
-#' The `travis::use_rci()` function prepares a code repository for use with
+#' The `travis::use_tic()` function prepares a code repository for use with
 #' this package. See [DSL] for an overview of \pkg{rci}'s domain-specific
 #' language for defining stages and steps, and [step_hello_world()] and the
 #' links therein for available steps.

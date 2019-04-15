@@ -95,7 +95,7 @@ InstallSSHKeys <- R6Class(
 #'   Name of the environment variable and the target file, default: `"id_rsa"`.
 #'
 #' @family steps
-#' @seealso `travis::use_travis_deploy()`, [travis::use_rci()]
+#' @seealso `travis::use_travis_deploy()`, [travis::use_tic()]
 #' @export
 step_install_ssh_keys <- function(name = "id_rsa") {
   InstallSSHKeys$new(name = name)

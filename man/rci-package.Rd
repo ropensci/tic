@@ -12,7 +12,7 @@ Provides a way to describe common build and deployment workflows for R-based
     'Travis CI' or 'AppVeyor').
 }
 \details{
-The \code{travis::use_rci()} function prepares a code repository for use with
+The \code{travis::use_tic()} function prepares a code repository for use with
 this package. See \link{DSL} for an overview of \pkg{rci}'s domain-specific
 language for defining stages and steps, and \code{\link[=step_hello_world]{step_hello_world()}} and the
 links therein for available steps.
