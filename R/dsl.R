@@ -155,7 +155,9 @@ do_package_checks <- function(...,
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param build_only Build the pkgdown site but do not deploy it.
+#' @param build_only `[flag]`\cr Only build but do not deploy.
+#'   Removes step [step_setup_ssh()], [step_setup_push_deploy()] and
+#'   [step_do_push_deploy()] from macros `do_bookdown` or `do_pkgdown`.
 #'
 #' @rdname DSL
 #' @export
@@ -208,9 +210,6 @@ do_pkgdown <- function(...,
 #' @description
 #' `do_bookdown()` adds default steps related to package checks
 #' to the `"install"`, `"before_deploy"`, `"script"` and `"deploy"` stages.
-#' @param build_only `[flag]`\cr Build the bookdown book but do not deploy it.
-#'   Removes step [step_setup_ssh()], [step_setup_push_deploy()] and
-#'   [step_do_push_deploy()] from macro `do_bookdown`.
 #' @inheritParams step_build_bookdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy

@@ -80,7 +80,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{build_only}{Build the pkgdown site but do not deploy it.}
+\item{build_only}{\code{[flag]}\cr Only build but do not deploy.
+Removes step \code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and
+\code{\link[=step_do_push_deploy]{step_do_push_deploy()}} from macros \code{do_bookdown} or \code{do_pkgdown}.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
@@ -110,10 +112,6 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\code{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
-
-\item{build_only}{\code{[flag]}\cr Build the bookdown book but do not deploy it.
-Removes step \code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and
-\code{\link[=step_do_push_deploy]{step_do_push_deploy()}} from macro \code{do_bookdown}.}
 }
 \description{
 Functions to define stages and their constitutent
