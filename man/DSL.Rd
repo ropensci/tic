@@ -18,7 +18,7 @@ add_code_step(stage, call = NULL, prepare_call = NULL)
 do_package_checks(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+  repos = getOption("repos"), timeout = Inf, codecov = TRUE)
 
 do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
   repos = getOption("repos"), path = ".", branch = NULL,
@@ -74,6 +74,10 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
+
+\item{codecov}{\code{[logical]}\cr
+Option to run \code{covr::codecov(quiet = TRUE)}. Defaults to \code{TRUE}, but
+can be controlled by an environment variable if using matrix in travis.}
 
 \item{build_only}{Build the pkgdown site but do not deploy it.}
 

@@ -109,6 +109,9 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
+#' @param codecov `[logical]`\cr
+#'   Option to run `covr::codecov(quiet = TRUE)`. Defaults to `TRUE`, but
+#'   can be controlled by an environment variable if using matrix in travis.
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
@@ -117,7 +120,8 @@ do_package_checks <- function(...,
                               notes_are_errors = NULL,
                               args = c("--no-manual", "--as-cran"),
                               build_args = "--force", error_on = "warning",
-                              repos = getOption("repos"), timeout = Inf) {
+                              repos = getOption("repos"), timeout = Inf,
+                              codecov = TRUE) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -143,7 +147,7 @@ do_package_checks <- function(...,
     )
 
   #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
-  if (!ci_is_interactive()) {
+  if (codecov && !ci_is_interactive()) {
     get_stage("after_success") %>%
       add_code_step(covr::codecov(quiet = FALSE))
   }
