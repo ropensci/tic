@@ -109,7 +109,7 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
-#' @param codecov `[flag]`\cr Whether to add a step running `covr::codecov(quiet = FALSE)` to macro `do_package_checks()`.`
+#' @param codecov `[flag]`\cr Whether to include a step running `covr::codecov(quiet = FALSE)` (default: yes).
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
