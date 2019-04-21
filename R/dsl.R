@@ -145,7 +145,7 @@ do_package_checks <- function(...,
     )
 
   if (isTRUE(codecov)) {
-    #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
+    #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs and only if the `codecov` flag is set)
     if (!ci_is_interactive()) {
       get_stage("after_success") %>%
         add_code_step(covr::codecov(quiet = FALSE))
