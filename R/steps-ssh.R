@@ -22,13 +22,6 @@ AddToKnownHosts <- R6Class(
     },
 
     check = function() {
-
-      # check if we have a SSH key to deploy with
-      # only deploy on Travis for now
-      if (inherits(ci(), "TravisCI")) {
-        ci_can_push()
-      }
-
       # only if non-interactive and ssh-keyscan is available
       (!ci_is_interactive()) && (Sys.which("ssh-keyscan") != "")
     }
@@ -82,7 +75,7 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
       # only if non-interactive and id_rsa env var is available
-      (!ci_is_interactive()) && (Sys.getenv(private$name) != "")
+      (!ci_is_interactive()) && (ci_can_push(private$name))
     }
   ),
 

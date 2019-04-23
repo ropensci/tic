@@ -15,10 +15,10 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-do_package_checks(..., codecov = TRUE, warnings_are_errors = NULL,
-  notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+do_package_checks(..., codecov = !ci_is_interactive(),
+  warnings_are_errors = NULL, notes_are_errors = NULL,
+  args = c("--no-manual", "--as-cran"), build_args = "--force",
+  error_on = "warning", repos = getOption("repos"), timeout = Inf)
 
 do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
   repos = getOption("repos"), path = ".", branch = NULL,
@@ -45,7 +45,9 @@ An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Ignored, used to enforce naming of arguments.}
 
-\item{codecov}{\code{[flag]}\cr Whether to add a step running \code{covr::codecov(quiet = FALSE)} to macro \code{do_package_checks()}.`}
+\item{codecov}{\code{[flag]}\cr Whether to include a step running
+\code{covr::codecov(quiet = FALSE)} (default: only for non-interactive CI,
+see \code{\link[=ci_is_interactive]{ci_is_interactive()}}).}
 
 \item{warnings_are_errors}{\code{[flag]}\cr
 Deprecated, use \code{error_on}.}

@@ -109,12 +109,14 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
-#' @param codecov `[flag]`\cr Whether to include a step running `covr::codecov(quiet = FALSE)` (default: yes).
+#' @param codecov `[flag]`\cr Whether to include a step running
+#'   `covr::codecov(quiet = FALSE)` (default: only for non-interactive CI,
+#'   see [ci_is_interactive()]).
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
 do_package_checks <- function(...,
-                              codecov = TRUE,
+                              codecov = !ci_is_interactive(),
                               warnings_are_errors = NULL,
                               notes_are_errors = NULL,
                               args = c("--no-manual", "--as-cran"),
@@ -145,11 +147,9 @@ do_package_checks <- function(...,
     )
 
   if (isTRUE(codecov)) {
-    #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs and only if the `codecov` flag is set)
-    if (!ci_is_interactive()) {
-      get_stage("after_success") %>%
-        add_code_step(covr::codecov(quiet = FALSE))
-    }
+    #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only if the `codecov` flag is set)
+    get_stage("after_success") %>%
+      add_code_step(covr::codecov(quiet = FALSE))
   }
 }
 #' @description
