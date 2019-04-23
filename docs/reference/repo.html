@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions — Deprecated • tic</title>
+<title>Shortcuts for accessing CRAN-like repositories — repo • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,17 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Deprecated functions — Deprecated" />
+<meta property="og:title" content="Shortcuts for accessing CRAN-like repositories — repo" />
 
-<meta property="og:description" content="add_package_checks() has been replaced by do_package_checks()." />
+<meta property="og:description" content="These functions can be used as convenient shortcuts
+for the repos argument to e.g. do_package_checks() and
+step_install_deps().
+repo_default() returns the value of the &quot;repos&quot; option,
+or repo_cloud() if the option is not set.
+repo_cloud() returns RStudio's CRAN mirror.
+repo_cran() returns the master CRAN repo.
+repo_bioc() returns Bioconductor repos from
+remotes::bioc_install_repos(), in addition to the default repo." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -134,72 +142,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/dsl.R'><code>R/dsl.R</code></a></small>
-    <div class="hidden name"><code>Deprecated.Rd</code></div>
+    <h1>Shortcuts for accessing CRAN-like repositories</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/repo.R'><code>R/repo.R</code></a></small>
+    <div class="hidden name"><code>repo.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>add_package_checks()</code> has been replaced by <code><a href='DSL.html'>do_package_checks()</a></code>.</p>
+    <p>These functions can be used as convenient shortcuts
+for the <code>repos</code> argument to e.g. <code><a href='DSL.html'>do_package_checks()</a></code> and
+<code><a href='step_install_pkg.html'>step_install_deps()</a></code>.</p>
+<p><code>repo_default()</code> returns the value of the <code>"repos"</code> option,
+or <code>repo_cloud()</code> if the option is not set.</p>
+<p><code>repo_cloud()</code> returns RStudio's CRAN mirror.</p>
+<p><code>repo_cran()</code> returns the master CRAN repo.</p>
+<p><code>repo_bioc()</code> returns Bioconductor repos from
+<code><a href='https://www.rdocumentation.org/packages/remotes/topics/bioc_install_repos'>remotes::bioc_install_repos()</a></code>, in addition to the default repo.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>add_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+    <pre class="usage"><span class='fu'>repo_default</span>()
+
+<span class='fu'>repo_cloud</span>()
+
+<span class='fu'>repo_cran</span>()
+
+<span class='fu'>repo_bioc</span>(<span class='kw'>base</span> <span class='kw'>=</span> <span class='fu'>repo_default</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Ignored, used to enforce naming of arguments.</p></td>
-    </tr>
-    <tr>
-      <th>warnings_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>notes_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>build_args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>"--force"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>error_on</th>
-      <td><p><code>[character]</code><br />
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
+      <th>base</th>
+      <td><p>The base repo to use, defaults to <code>repo_default()</code>.
+Pass <code>NULL</code> to install only from Bioconductor repos.</p></td>
     </tr>
     </table>
     
