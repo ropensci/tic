@@ -8,6 +8,7 @@
 \alias{ci_get_build_number}
 \alias{ci_get_build_url}
 \alias{ci_get_commit}
+\alias{ci_get_env}
 \alias{ci_is_env}
 \alias{ci_has_env}
 \alias{ci_can_push}
@@ -26,6 +27,8 @@ ci_get_build_number()
 ci_get_build_url()
 
 ci_get_commit()
+
+ci_get_env(env)
 
 ci_is_env(env, value)
 
@@ -63,6 +66,8 @@ The value is retrieved only once and then cached.
 \code{ci_get_build_url()}: Returns the URL of the current build.
 
 \code{ci_get_commit()}: Returns the SHA1 of the current commit.
+
+\code{ci_get_env()}: Return an environment or configuration variable.
 
 \code{ci_is_env()}: Checks if an environment or configuration variable is set to a particular value.
 
