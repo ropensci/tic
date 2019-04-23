@@ -11,7 +11,7 @@ InstallDeps <- R6Class(
     },
 
     run = function() {
-      remotes::install_deps(dependencies = TRUE)
+      remotes::install_deps(dependencies = TRUE, repos = private$repos)
     }
   ),
 
@@ -58,7 +58,7 @@ InstallCRAN <- R6Class(
       if (length(find.package(private$package, quiet = TRUE)) == 0) {
         do.call(install.packages, c(list(pkg = private$package), private$install_args))
       } else {
-        message(glue::glue("Package '{private$package}' already installed."))
+        message(paste0("Package ", private$package, " already installed."))
       }
     }
   ),

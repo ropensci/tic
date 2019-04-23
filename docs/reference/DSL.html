@@ -41,16 +41,27 @@ This function only works when called by load_from_file().
 add_step() adds a step to a stage, see step_hello_world()
 and the links therein for available steps.
 add_code_step() is a shortcut for add_step(step_run_code(...)).
-add_package_checks() adds default steps related to package checks
+do_package_checks() adds default steps related to package checks
 to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
 
-A step_install_deps() in the &quot;install&quot; stage, using the
+step_install_deps() in the &quot;install&quot; stage, using the
 repos argument.
-A step_rcmdcheck() in the &quot;script&quot; stage, using the
+step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
 A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
+" />
+
+<meta property="og:description" content="do_pkgdown() builds and optionally deploys a pkgdown site and adds default steps
+to the &quot;install&quot;, &quot;before_deploy&quot; and &quot;deploy&quot; stages:
+
+step_install_deps() in the &quot;install&quot; stage, using the
+repos argument.
+step_setup_ssh() in the &quot;before_deploy&quot; to setup the upcoming deployment.
+step_setup_push_deploy() in the &quot;before_deploy&quot; stage.
+step_build_pkgdown() in the &quot;deploy&quot; stage
+step_do_push_deploy() in the &quot;deploy&quot; stage. By default, the deploy is done to the gh-pages branch.
 " />
 <meta name="twitter:card" content="summary" />
 
@@ -165,16 +176,27 @@ This function only works when called by <code><a href='load_from_file.html'>load
 <p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
 and the links therein for available steps.</p>
 <p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
-<p><code>add_package_checks()</code> adds default steps related to package checks
+<p><code>do_package_checks()</code> adds default steps related to package checks
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
 stages:</p>
 <ol>
-<li><p>A <code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
+<li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
 <code>repos</code> argument.</p></li>
-<li><p>A <code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
+<li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>
 <li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
+</ol>
+
+    <p><code>do_pkgdown()</code> builds and optionally deploys a pkgdown site and adds default steps
+to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</code> stages:</p>
+<ol>
+<li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
+<code>repos</code> argument.</p></li>
+<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup the upcoming deployment.</p></li>
+<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage.</p></li>
+<li><p><code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage</p></li>
+<li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage. By default, the deploy is done to the gh-pages branch.</p></li>
 </ol>
     
     </div>
@@ -185,10 +207,14 @@ stages:</p>
 
 <span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>add_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+<span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
+  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>), <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>,
+  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+
+<span class='fu'>do_pkgdown</span>(<span class='no'>...</span>, <span class='kw'>build_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,7 +232,8 @@ A Stage object as returned by <code>get_stage()</code>.</p></td>
     <tr>
       <th>step</th>
       <td><p><code>[function]</code><br />
-A function that constructs a Step object, such as <code><a href='step_hello_world.html'>step_hello_world()</a></code>.</p></td>
+An object of class <a href='TicStep.html'>TicStep</a>, usually created by functions
+with the <code>step_</code> prefix like <code><a href='step_hello_world.html'>step_hello_world()</a></code>.</p></td>
     </tr>
     <tr>
       <th>call</th>
@@ -223,6 +250,12 @@ An optional arbitrary R expression executed during preparation.</p></td>
     <tr>
       <th>...</th>
       <td><p>Ignored, used to enforce naming of arguments.</p></td>
+    </tr>
+    <tr>
+      <th>codecov</th>
+      <td><p><code>[flag]</code><br /> Whether to include a step running
+<code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov(quiet = FALSE)</a></code> (default: only for non-interactive CI,
+see <code><a href='ci.html'>ci_is_interactive()</a></code>).</p></td>
     </tr>
     <tr>
       <th>warnings_are_errors</th>
@@ -267,6 +300,55 @@ Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topic
       <td><p><code>[numeric]</code><br />
 Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></td>
+    </tr>
+    <tr>
+      <th>build_only</th>
+      <td><p><code>[flag]</code><br /> Build the pkgdown site but do not deploy it. Removes step
+<code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code>, <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>
+from macro <code>do_pkgdown</code>.</p></td>
+    </tr>
+    <tr>
+      <th>orphan</th>
+      <td><p><code>[flag]</code><br />
+Create and force-push an orphan branch consisting of only one commit?
+This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
+but cannot be applied for pushing to the current branch.</p></td>
+    </tr>
+    <tr>
+      <th>checkout</th>
+      <td><p><code>[flag]</code><br />
+Check out the current contents of the repository? Defaults to <code>TRUE</code>,
+set to <code>FALSE</code> if the build process relies on existing contents or
+if you deploy to a different branch.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p><code>[string]</code><br />
+Path to the repository, default <code>"."</code> which means setting up the current
+repository.</p></td>
+    </tr>
+    <tr>
+      <th>branch</th>
+      <td><p><code>[string]</code><br />
+Target branch, default: current branch.</p></td>
+    </tr>
+    <tr>
+      <th>remote_url</th>
+      <td><p><code>[string]</code><br />
+The URL of the remote Git repository to push to, defaults to the
+current GitHub repository.</p></td>
+    </tr>
+    <tr>
+      <th>commit_message</th>
+      <td><p><code>[string]</code><br />
+Commit message to use, defaults to a useful message linking to the CI build
+and avoiding recursive CI runs.</p></td>
+    </tr>
+    <tr>
+      <th>commit_paths</th>
+      <td><p><code>[character]</code><br />
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.</p></td>
     </tr>
     </table>
     

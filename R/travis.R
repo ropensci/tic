@@ -17,13 +17,16 @@ TravisCI <- R6Class(
       Sys.getenv("TRAVIS_REPO_SLUG")
     },
     get_build_number = function() {
-      paste0("Travis build ", Sys.getenv("TRAVIS_BUILD_NUMBER"))
+      paste0("Travis build ", self$has_env("TRAVIS_BUILD_NUMBER"))
     },
     get_build_url = function() {
-      paste0("https://travis-ci.org/", self$get_slug(), "/builds/", Sys.getenv("TRAVIS_BUILD_ID"))
+      paste0("https://travis-ci.org/", self$get_slug(), "/builds/", self$has_env("TRAVIS_BUILD_ID"))
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
+    },
+    can_push = function(name = "id_rsa") {
+      self$has_env(name)
     },
     is_env = function(env, value) {
       Sys.getenv(env) == value

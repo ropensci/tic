@@ -66,7 +66,9 @@ add_step <- function(stage, step) {
     step <- force(step),
     error = function(e) {
       stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
-           "Original error: ", conditionMessage(e), call. = FALSE)
+        "Original error: ", conditionMessage(e),
+        call. = FALSE
+      )
     }
   )
 
@@ -93,7 +95,8 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
       if (!is.null(prepare_call)) {
         paste0(
           ", prepare_call = ",
-          deparse(prepare_call, width.cutoff = 500, nlines = 1))
+          deparse(prepare_call, width.cutoff = 500, nlines = 1)
+        )
       },
       ")"
     )
@@ -101,29 +104,33 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 }
 
 #' @description
-#' `add_package_checks()` adds default steps related to package checks
+#' `do_package_checks()` adds default steps related to package checks
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
+#' @param codecov `[flag]`\cr Whether to include a step running
+#'   `covr::codecov(quiet = FALSE)` (default: only for non-interactive CI,
+#'   see [ci_is_interactive()]).
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
-add_package_checks <- function(...,
-                               warnings_are_errors = NULL,
-                               notes_are_errors = NULL,
-                               args = c("--no-manual", "--as-cran"),
-                               build_args = "--force", error_on = "warning",
-                               repos = getOption("repos"), timeout = Inf) {
+do_package_checks <- function(...,
+                              codecov = !ci_is_interactive(),
+                              warnings_are_errors = NULL,
+                              notes_are_errors = NULL,
+                              args = c("--no-manual", "--as-cran"),
+                              build_args = "--force", error_on = "warning",
+                              repos = getOption("repos"), timeout = Inf) {
   #' @description
-  #' 1. A [step_install_deps()] in the `"install"` stage, using the
+  #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
       step_install_deps(repos = repos)
     )
 
-  #' 1. A [step_rcmdcheck()] in the `"script"` stage, using the
+  #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
   #'    `build_args` arguments.
   get_stage("script") %>%
@@ -139,17 +146,96 @@ add_package_checks <- function(...,
       )
     )
 
-  #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only for non-interactive CIs)
-  if (!ci_is_interactive()) {
+  if (isTRUE(codecov)) {
+    #' 1. A call to [covr::codecov()] in the `"after_success"` stage (only if the `codecov` flag is set)
     get_stage("after_success") %>%
       add_code_step(covr::codecov(quiet = FALSE))
   }
+}
+#' @description
+#' `do_pkgdown()` builds and optionally deploys a pkgdown site and adds default steps
+#'   to the `"install"`, `"before_deploy"` and `"deploy"` stages:
+#'
+#' @inheritParams step_build_pkgdown
+#' @inheritParams step_setup_push_deploy
+#' @inheritParams step_do_push_deploy
+#' @param build_only `[flag]`\cr Build the pkgdown site but do not deploy it. Removes step
+#'   [step_setup_ssh()], [step_setup_push_deploy()] and [step_do_push_deploy()]
+#'   from macro `do_pkgdown`.
+#'
+#' @rdname DSL
+#' @export
+#' @importFrom magrittr %>%
+do_pkgdown <- function(...,
+                       build_only = FALSE,
+                       orphan = FALSE,
+                       checkout = TRUE,
+                       repos = getOption("repos"),
+                       path = ".", branch = NULL,
+                       remote_url = NULL,
+                       commit_message = NULL, commit_paths = ".") {
+
+  #' @description
+  #' 1. [step_install_deps()] in the `"install"` stage, using the
+  #'    `repos` argument.
+  get_stage("install") %>%
+    add_step(step_install_deps(repos = repos))
+
+  if (isTRUE(build_only)) {
+  } else {
+
+    #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment.
+    #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage.
+    #' 1. [step_build_pkgdown()] in the `"deploy"` stage
+    #' 1. [step_do_push_deploy()] in the `"deploy"` stage. By default, the deploy is done to the gh-pages branch.
+    get_stage("before_deploy") %>%
+      add_step(step_setup_ssh()) %>%
+      add_step(step_setup_push_deploy(
+        path = path, branch = branch,
+        remote_url = remote_url, orphan = orphan, checkout = checkout
+      ))
+  }
+
+  get_stage("deploy") %>%
+    add_step(step_build_pkgdown(...))
+
+  if (isTRUE(build_only)) {
+    ci_cat_with_color("`build_only = TRUE` was set, skipping deployment.")
+  } else {
+    get_stage("deploy") %>%
+      add_step(step_do_push_deploy(
+        path = path, commit_message = commit_message, commit_paths = commit_paths
+      ))
+  }
+}
+
+#' Deprecated functions
+#'
+#' `add_package_checks()` has been replaced by [do_package_checks()].
+#'
+#' @inheritParams do_package_checks
+#' @name Deprecated
+#' @export
+add_package_checks <- function(...,
+                               warnings_are_errors = NULL,
+                               notes_are_errors = NULL,
+                               args = c("--no-manual", "--as-cran"),
+                               build_args = "--force", error_on = "warning",
+                               repos = getOption("repos"), timeout = Inf) {
+  .Deprecated("do_package_checks")
+  do_package_checks(
+    ... = ...,
+    warnings_are_errors = warnings_are_errors,
+    notes_are_errors = notes_are_errors,
+    args = args,
+    build_args = build_args, error_on = error_on,
+    repos = repos, timeout = timeout
+  )
 }
 
 #' @importFrom magrittr %>%
 TicDSL <- R6Class(
   "TicDSL",
-
   public = list(
     initialize = function() {
       stage_names <- c(

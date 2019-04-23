@@ -54,6 +54,10 @@ CI <- R6Class(
     get_commit = function() {
       stop("NYI")
     },
+    #'  \item{`get_commit()`}{Does an env variable named `id_rsa` exist?}
+    can_push = function() {
+      stop("NYI")
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
@@ -150,6 +154,18 @@ ci_is_env <- function(env, value) {
 #' @export
 ci_has_env <- function(env) {
   ci()$has_env(env)
+}
+
+#' CI can push
+#'
+#' `ci_can_push()`: Checks if push deployment is possible. Always true
+#'   for local environments, CI environments require an environment
+#'   variable (by default `id_rsa`).
+#' @rdname ci
+#' @param name Name of the environment variable to check, defaults to `"id_rsa"`.
+#' @export
+ci_can_push <- function(name = "id_rsa") {
+  ci()$can_push(name)
 }
 
 #' CI is_interactive
