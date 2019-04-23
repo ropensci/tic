@@ -36,7 +36,7 @@
 
 <meta property="og:description" content="Functions to define stages and their constitutent
 steps.
-get_stage() returns a Stage object for a stage given by name.
+get_stage() returns a TicStage object for a stage given by name.
 This function only works when called by load_from_file().
 add_step() adds a step to a stage, see step_hello_world()
 and the links therein for available steps.
@@ -50,7 +50,7 @@ repos argument.
 step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
-A call to covr::codecov() in the &quot;after_success&quot; stage (only for non-interactive CIs)
+A call to covr::codecov() in the &quot;after_success&quot; stage (only if the codecov flag is set)
 " />
 
 <meta property="og:description" content="do_pkgdown() builds and optionally deploys a pkgdown site and adds default steps
@@ -171,7 +171,7 @@ step_do_push_deploy() in the &quot;deploy&quot; stage. By default, the deploy is
     
     <p>Functions to define stages and their constitutent
 steps.</p>
-<p><code>get_stage()</code> returns a Stage object for a stage given by name.
+<p><code>get_stage()</code> returns a <code>TicStage</code> object for a stage given by name.
 This function only works when called by <code><a href='load_from_file.html'>load_from_file()</a></code>.</p>
 <p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
 and the links therein for available steps.</p>
@@ -185,7 +185,7 @@ stages:</p>
 <li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>
-<li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only for non-interactive CIs)</p></li>
+<li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only if the <code>codecov</code> flag is set)</p></li>
 </ol>
 
     <p><code>do_pkgdown()</code> builds and optionally deploys a pkgdown site and adds default steps
@@ -226,8 +226,8 @@ The name for the stage.</p></td>
     </tr>
     <tr>
       <th>stage</th>
-      <td><p><code>[Stage]</code><br />
-A Stage object as returned by <code>get_stage()</code>.</p></td>
+      <td><p><code>[TicStage]</code><br />
+A <code>TicStage</code> object as returned by <code>get_stage()</code>.</p></td>
     </tr>
     <tr>
       <th>step</th>
