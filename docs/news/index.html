@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9012</span>
       </span>
     </div>
 
@@ -135,6 +135,24 @@
       <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0-2-13-9012" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9012" class="anchor"></a>tic 0.2.13.9012</h1>
+<ul>
+<li>New <code>repo_*()</code> functions to simplify specification of the <code>repos</code> argument to installer functions (<a href='https://github.com/ropenscilabs/tic/issues/101'>#101</a>).</li>
+<li>Add Appveyor checks (<a href='https://github.com/ropenscilabs/tic/issues/147'>#147</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>New pkgdown macro via <code><a href="../reference/DSL.html">do_pkgdown()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/126'>#126</a>, <a href='https://github.com/pat-s'>@pat-s</a>)</li>
+<li>New example: covrpage, cc <a href='https://github.com/yonicd'>@yonicd</a></li>
+<li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck(error_on = "note")</a></code> works again (<a href='https://github.com/ropenscilabs/tic/issues/119'>#119</a>).</li>
+<li>New <code><a href="../reference/DSL.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href='https://github.com/ropenscilabs/tic/issues/146'>#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href='https://github.com/ropenscilabs/tic/issues/128'>#128</a>).</li>
+<li>
+<code><a href="../reference/DSL.html">add_step()</a></code> now evaluates the <code>step</code> argument in a <code><a href="https://www.rdocumentation.org/packages/base/topics/conditions">tryCatch()</a></code> block and gives a bit of context if this fails (<a href='https://github.com/ropenscilabs/tic/issues/73'>#73</a>).</li>
+<li>New <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>, previously <code>tic()</code> (<a href='https://github.com/ropenscilabs/tic/issues/66'>#66</a>).</li>
+<li>New <code><a href="../reference/ci.html">ci_get_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> and <code><a href="../reference/ci.html">ci_is_env()</a></code> functions to avoid verbose <code><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv()</a></code> calls in <code>tic.R</code> (<a href='https://github.com/ropenscilabs/tic/issues/124'>#124</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>New <code>ci_*()</code> functions to avoid R6 notation in <code>tic.R</code> (<a href='https://github.com/ropenscilabs/tic/issues/125'>#125</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+</ul>
+</div>
     <div id="tic-0-2-13-9011" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9011" class="anchor"></a>tic 0.2.13.9011</h1>
@@ -412,6 +430,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tic-0-2-13-9012">0.2.13.9012</a></li>
         <li><a href="#tic-0-2-13-9011">0.2.13.9011</a></li>
         <li><a href="#tic-0-2-13-9011-1">0.2.13.9011</a></li>
         <li><a href="#tic-0-2-13-9010">0.2.13.9010</a></li>
