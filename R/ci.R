@@ -158,12 +158,14 @@ ci_has_env <- function(env) {
 
 #' CI can push
 #'
-#' `ci_can_push()`: Checks if env variable `id_rsa` is set in Travis. If missing,
-#'   deployment is not possible.
+#' `ci_can_push()`: Checks if push deployment is possible. Always true
+#'   for local environments, CI environments require an environment
+#'   variable (by default `id_rsa`).
 #' @rdname ci
+#' @param name Name of the environment variable to check, defaults to `"id_rsa"`.
 #' @export
-ci_can_push <- function() {
-  ci()$can_push()
+ci_can_push <- function(name = "id_rsa") {
+  ci()$can_push(name)
 }
 
 #' CI is_interactive
