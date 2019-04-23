@@ -5,7 +5,7 @@ RCMDcheck <- R6Class(
     initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
                           args = c("--no-manual", "--as-cran"),
                           build_args = "--force", error_on = "warning",
-                          repos = getOption("repos"), timeout = Inf) {
+                          repos = repo_default(), timeout = Inf) {
 
       if (!is.null(notes_are_errors)) {
         warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
@@ -95,7 +95,7 @@ RCMDcheck <- R6Class(
 #'   error.
 #' @param repos `[character]`\cr
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
-#'   `getOption("repos")`.
+#'   [repo_default()].
 #' @param timeout `[numeric]`\cr
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `Inf`.
@@ -104,7 +104,7 @@ step_rcmdcheck <- function(...,
                            warnings_are_errors = NULL, notes_are_errors = NULL,
                            args = c("--no-manual", "--as-cran"),
                            build_args = "--force", error_on = "warning",
-                           repos = getOption("repos"), timeout = Inf) {
+                           repos = repo_default(), timeout = Inf) {
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
