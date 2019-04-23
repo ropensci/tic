@@ -27,6 +27,7 @@ Imports:
     magrittr,
     memoise,
     methods,
+    remotes,
     R6,
     withr
 Suggests: 
@@ -39,7 +40,6 @@ Suggests:
     knitr,
     openssl,
     rcmdcheck,
-    remotes,
     rmarkdown,
     testthat,
     travis,
@@ -62,6 +62,7 @@ Collate:
     'keys.R'
     'local.R'
     'mock.R'
+    'repo.R'
     'run.R'
     'stage.R'
     'steps-base.R'
