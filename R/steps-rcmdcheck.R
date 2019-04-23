@@ -43,7 +43,7 @@ RCMDcheck <- R6Class(
       if (private$error_on == "warning" && length(res$warnings) > 0) {
         stopc('Warnings found, and `errors_on = "warning"` is set.')
       }
-      if (private$error_on == "notes" && length(res$notes) > 0) {
+      if (private$error_on == "note" && length(res$notes) > 0) {
         stopc('Notes found, and `errors_on = "note"` is set.')
       }
     },

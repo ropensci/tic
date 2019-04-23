@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helpers for converting R objects to strings and back — base64serialize • tic</title>
+<title>Emulate a CI run locally — run_all_stages • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,14 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Helpers for converting R objects to strings and back — base64serialize" />
+<meta property="og:title" content="Emulate a CI run locally — run_all_stages" />
 
-<meta property="og:description" content="base64serialize() converts an R object into a string suitable for storing
-in an environment variable. Use this function for encoding entire R objects
-(such as OAuth tokens) so that they can be used in Travis builds.
-base64unserialize() is the inverse operation to base64serialize().
-Use this function in your tic.R to access the R object previously encoded
-by base64serialize()." />
+<meta property="og:description" content="Runs predefined stages similarly to Travis CI and AppVeyor.
+The run aborts on error, the after_failure stage is never run." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -139,52 +135,55 @@ by base64serialize()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helpers for converting R objects to strings and back</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/base64.R'><code>R/base64.R</code></a></small>
-    <div class="hidden name"><code>base64serialize.Rd</code></div>
+    <h1>Emulate a CI run locally</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/run.R'><code>R/run.R</code></a></small>
+    <div class="hidden name"><code>run_all_stages.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>base64serialize()</code> converts an R object into a string suitable for storing
-in an environment variable. Use this function for encoding entire R objects
-(such as OAuth tokens) so that they can be used in Travis builds.</p>
-<p><code>base64unserialize()</code> is the inverse operation to <code>base64serialize()</code>.
-Use this function in your <code>tic.R</code> to access the R object previously encoded
-by <code>base64serialize()</code>.</p>
+    <p>Runs predefined <a href='stages.html'>stages</a> similarly to Travis CI and AppVeyor.
+The run aborts on error, the <code>after_failure</code> stage is never run.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>base64serialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)
-
-<span class='fu'>base64unserialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)</pre>
+    <pre class="usage"><span class='fu'>run_all_stages</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>Object to serialize or deserialize</p></td>
-    </tr>
-    <tr>
-      <th>compression</th>
-      <td><p>Passed on as <code>type</code> argument to <code><a href='https://www.rdocumentation.org/packages/base/topics/memCompress'>memCompress()</a></code> or
-<code><a href='https://www.rdocumentation.org/packages/base/topics/memCompress'>memDecompress()</a></code>.</p></td>
+      <th>stages</th>
+      <td><p><code>[named list]</code>
+A named list of <code>Stage</code> objects as returned by <code><a href='load_from_file.html'>load_from_file()</a></code>,
+by default loaded from <code>tic.R</code>.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>serial</span> <span class='kw'>&lt;-</span> <span class='fu'>base64serialize</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>base64unserialize</span>(<span class='no'>serial</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
+    <p>The stages are run in the following order:</p><ol>
+<li><p><code><a href='stages.html'>before_install()</a></code></p></li>
+<li><p><code><a href='stages.html'>install()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_install()</a></code></p></li>
+<li><p><code><a href='stages.html'>before_script()</a></code></p></li>
+<li><p><code><a href='stages.html'>script()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_success()</a></code></p></li>
+<li><p><code><a href='stages.html'>before_deploy()</a></code></p></li>
+<li><p><code><a href='stages.html'>deploy()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_deploy()</a></code></p></li>
+<li><p><code><a href='stages.html'>after_script()</a></code></p></li>
+</ol>
+    
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

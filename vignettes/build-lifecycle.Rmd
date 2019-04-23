@@ -62,7 +62,7 @@ An important point to note: The R code declared in `tic.R` is not meant to be ru
 It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
 The workflow can be loaded using `load_from_file()`, this will not run any of the commands defined there.
-For testing purposes, all stages and steps defined in `tic.R` can be  executed by calling `tic()`.
+For testing purposes, all stages and steps defined in `tic.R` can be  executed by calling `run_all_stages()`.
 This latter emulates a CI build on your local system.
 See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) for more information.
 
@@ -148,17 +148,17 @@ Please see the respective help pages of the functions for more detailed document
 ### Macros
 
 Macros in *tic* are combinations of steps for reoccurring workflows to keep `tic.R` tidy.
-The macro function `add_package_checks()` comes with the most important steps that are needed for R package checking. 
+The macro function `do_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 
 1. `step_rcmdcheck()` in the `script` stage, using the `error_on`, `args`, `build_args`, `repos` and `timeout` arguments.
 
 2. A call to `covr::codecov()` in the "after_success" stage.
 
-If you manually add these steps to stages in `tic.R` while `add_package_checks()` is still present, the steps will be executed twice. 
+If you manually add these steps to stages in `tic.R` while `do_package_checks()` is still present, the steps will be executed twice. 
 
 Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.
 
-Currently, `add_package_checks()` is the only macro implemented. 
+Currently, `do_package_checks()` is the only macro implemented. 
 We will add more macros in the future.
 If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).

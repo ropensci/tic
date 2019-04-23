@@ -26,6 +26,5 @@ by \code{base64serialize()}.
 }
 \examples{
 serial <- base64serialize(1:10)
-serial
 base64unserialize(serial)
 }

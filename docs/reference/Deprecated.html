@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helpers for converting R objects to strings and back — base64serialize • tic</title>
+<title>Deprecated functions — Deprecated • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,14 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Helpers for converting R objects to strings and back — base64serialize" />
+<meta property="og:title" content="Deprecated functions — Deprecated" />
 
-<meta property="og:description" content="base64serialize() converts an R object into a string suitable for storing
-in an environment variable. Use this function for encoding entire R objects
-(such as OAuth tokens) so that they can be used in Travis builds.
-base64unserialize() is the inverse operation to base64serialize().
-Use this function in your tic.R to access the R object previously encoded
-by base64serialize()." />
+<meta property="og:description" content="add_package_checks() has been replaced by do_package_checks()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -139,52 +134,82 @@ by base64serialize()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helpers for converting R objects to strings and back</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/base64.R'><code>R/base64.R</code></a></small>
-    <div class="hidden name"><code>base64serialize.Rd</code></div>
+    <h1>Deprecated functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/dsl.R'><code>R/dsl.R</code></a></small>
+    <div class="hidden name"><code>Deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>base64serialize()</code> converts an R object into a string suitable for storing
-in an environment variable. Use this function for encoding entire R objects
-(such as OAuth tokens) so that they can be used in Travis builds.</p>
-<p><code>base64unserialize()</code> is the inverse operation to <code>base64serialize()</code>.
-Use this function in your <code>tic.R</code> to access the R object previously encoded
-by <code>base64serialize()</code>.</p>
+    <p><code>add_package_checks()</code> has been replaced by <code><a href='DSL.html'>do_package_checks()</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>base64serialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)
-
-<span class='fu'>base64unserialize</span>(<span class='no'>x</span>, <span class='kw'>compression</span> <span class='kw'>=</span> <span class='st'>"gzip"</span>)</pre>
+    <pre class="usage"><span class='fu'>add_package_checks</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
+  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>Object to serialize or deserialize</p></td>
+      <th>...</th>
+      <td><p>Ignored, used to enforce naming of arguments.</p></td>
     </tr>
     <tr>
-      <th>compression</th>
-      <td><p>Passed on as <code>type</code> argument to <code><a href='https://www.rdocumentation.org/packages/base/topics/memCompress'>memCompress()</a></code> or
-<code><a href='https://www.rdocumentation.org/packages/base/topics/memCompress'>memDecompress()</a></code>.</p></td>
+      <th>warnings_are_errors</th>
+      <td><p><code>[flag]</code><br />
+Deprecated, use <code>error_on</code>.</p></td>
+    </tr>
+    <tr>
+      <th>notes_are_errors</th>
+      <td><p><code>[flag]</code><br />
+Deprecated, use <code>error_on</code>.</p></td>
+    </tr>
+    <tr>
+      <th>args</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>build_args</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>"--force"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>error_on</th>
+      <td><p><code>[character]</code><br />
+Whether to throw an error on R CMD check failures. Note that the check is
+always completed (unless a timeout happens), and the error is only thrown
+after completion. If "never", then no errors are thrown. If "error", then
+only ERROR failures generate errors. If "warning", then WARNING failures
+generate errors as well. If "note", then any check failure generated an
+error.</p></td>
+    </tr>
+    <tr>
+      <th>repos</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("repos")</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>timeout</th>
+      <td><p><code>[numeric]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>Inf</code>.</p></td>
     </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>serial</span> <span class='kw'>&lt;-</span> <span class='fu'>base64serialize</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>base64unserialize</span>(<span class='no'>serial</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

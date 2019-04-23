@@ -11,7 +11,6 @@
 #' @export
 #' @examples
 #' serial <- base64serialize(1:10)
-#' serial
 base64serialize <- function(x, compression = "gzip") {
   raw <- serialize(x, connection = NULL)
   compressed <- memCompress(raw, type = compression)
