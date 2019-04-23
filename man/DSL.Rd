@@ -15,7 +15,7 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-do_package_checks(..., warnings_are_errors = NULL,
+do_package_checks(..., codecov = TRUE, warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
   repos = getOption("repos"), timeout = Inf)
@@ -44,6 +44,8 @@ The default is useful if you only pass \code{prepare_call}.}
 An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Ignored, used to enforce naming of arguments.}
+
+\item{codecov}{\code{[flag]}\cr Whether to add a step running \code{covr::codecov(quiet = FALSE)} to macro \code{do_package_checks()}.`}
 
 \item{warnings_are_errors}{\code{[flag]}\cr
 Deprecated, use \code{error_on}.}
@@ -75,7 +77,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{build_only}{Build the pkgdown site but do not deploy it.}
+\item{build_only}{\code{[flag]}\cr Build the pkgdown site but do not deploy it. Removes step
+\code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}
+from macro \code{do_pkgdown}.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
