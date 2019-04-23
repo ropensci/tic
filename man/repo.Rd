@@ -25,7 +25,8 @@ These functions can be used as convenient shortcuts
 for the \code{repos} argument to e.g. \code{\link[=do_package_checks]{do_package_checks()}} and
 \code{\link[=step_install_deps]{step_install_deps()}}.
 
-\code{repo_default()} returns \link{getOption("repos")}, defaulting to \code{repo_cloud()}.
+\code{repo_default()} returns the value of the \code{"repos"} option,
+or \code{repo_cloud()} if the option is not set.
 
 \code{repo_cloud()} returns RStudio's CRAN mirror.
 

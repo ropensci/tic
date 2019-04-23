@@ -10,7 +10,8 @@ NULL
 #' @export
 repo_default <- function() {
   #' @description
-  #' `repo_default()` returns [getOption("repos")], defaulting to `repo_cloud()`.
+  #' `repo_default()` returns the value of the `"repos"` option,
+  #'  or `repo_cloud()` if the option is not set.
   getOption("repos", default = repo_cloud())
 }
 
@@ -38,7 +39,7 @@ repo_bioc <- function(base = repo_default()) {
   #' @description
   #' `repo_bioc()` returns Bioconductor repos from
   #' [remotes::bioc_install_repos()], in addition to the default repo.
-  c(cran, remotes::bioc_install_repos())
+  c(base, remotes::bioc_install_repos())
 }
 
 https <- function(x) {
