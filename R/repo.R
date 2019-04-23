@@ -12,7 +12,12 @@ repo_default <- function() {
   #' @description
   #' `repo_default()` returns the value of the `"repos"` option,
   #'  or `repo_cloud()` if the option is not set.
-  getOption("repos", default = repo_cloud())
+  repos <- un_cran(getOption("repos"))
+  if (length(repos) == 0) {
+    c(CRAN = repo_cloud())
+  } else {
+    repos
+  }
 }
 
 #' @rdname repo
@@ -48,4 +53,8 @@ https <- function(x) {
   } else {
     paste0("http://", x)
   }
+}
+
+un_cran <- function(x) {
+  x[x != "@CRAN@"]
 }
