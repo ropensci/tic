@@ -44,8 +44,9 @@ ci_get_build_url(): Returns the URL of the current build.
 ci_get_commit(): Returns the SHA1 of the current commit.
 ci_is_env(): Checks if an environment or configuration variable is set to a particular value.
 ci_has_env(): Checks if an environment or configuration variable is set to any value.
-ci_can_push(): Checks if env variable id_rsa is set in Travis. If missing,
-deployment is not possible.
+ci_can_push(): Checks if push deployment is possible. Always true
+for local environments, CI environments require an environment
+variable (by default id_rsa).
 ci_is_interactive(): Returns whether the current build is run interactively or not.
 Global setup operations shouldn't be run on interactive CIs.
 ci_cat_with_color(): Colored output targeted to the CI log. The code argument can be an
@@ -168,8 +169,9 @@ The value is retrieved only once and then cached.</p>
 <p><code>ci_get_commit()</code>: Returns the SHA1 of the current commit.</p>
 <p><code>ci_is_env()</code>: Checks if an environment or configuration variable is set to a particular value.</p>
 <p><code>ci_has_env()</code>: Checks if an environment or configuration variable is set to any value.</p>
-<p><code>ci_can_push()</code>: Checks if env variable <code>id_rsa</code> is set in Travis. If missing,
-deployment is not possible.</p>
+<p><code>ci_can_push()</code>: Checks if push deployment is possible. Always true
+for local environments, CI environments require an environment
+variable (by default <code>id_rsa</code>).</p>
 <p><code>ci_is_interactive()</code>: Returns whether the current build is run interactively or not.
 Global setup operations shouldn't be run on interactive CIs.</p>
 <p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log. The code argument can be an
@@ -195,7 +197,7 @@ normally wouldn't be.</p>
 
 <span class='fu'>ci_has_env</span>(<span class='no'>env</span>)
 
-<span class='fu'>ci_can_push</span>()
+<span class='fu'>ci_can_push</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>)
 
 <span class='fu'>ci_is_interactive</span>()
 
@@ -213,6 +215,10 @@ normally wouldn't be.</p>
     <tr>
       <th>value</th>
       <td><p>Value for the environment variable to compare against.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>Name of the environment variable to check, defaults to <code>"id_rsa"</code>.</p></td>
     </tr>
     <tr>
       <th>code</th>
