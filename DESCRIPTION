@@ -36,6 +36,7 @@ Suggests:
     bookdown,
     callr,
     covr,
+    devtools,
     drat,
     fansi,
     git2r,
