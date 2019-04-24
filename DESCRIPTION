@@ -32,6 +32,7 @@ Imports:
     withr
 Suggests: 
     base64enc,
+    bookdown,
     callr,
     covr,
     drat,
@@ -66,6 +67,7 @@ Collate:
     'run.R'
     'stage.R'
     'steps-base.R'
+    'steps-bookdown.R'
     'steps-code.R'
     'steps-drat.R'
     'steps-git.R'
