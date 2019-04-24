@@ -5,7 +5,6 @@
 \alias{get_stage}
 \alias{add_step}
 \alias{add_code_step}
-\alias{do_pkgdown}
 \alias{do_bookdown}
 \title{tic's domain-specific language}
 \usage{
@@ -14,10 +13,6 @@ get_stage(name)
 add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
-
-do_pkgdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
-  repos = repo_default(), path = "docs", branch = "gh-pages",
-  remote_url = NULL, commit_message = NULL, commit_paths = ".")
 
 do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
   repos = repo_default(), path = "_book", branch = "gh-pages",
@@ -44,18 +39,7 @@ An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Passed on to \code{bookdown::render_book()}}
 
-\item{deploy}{\code{[flag]}\cr
-If \code{TRUE}, deployment setup is performed before building the pkgdown site,
-and the site is deployed after building it.
-Set to \code{FALSE} to skip deployment.
-By default (if \code{deploy} is \code{NULL}), deployment happens
-if the following conditions are met:
-\enumerate{
-\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).
-\item The \code{branch} argument is \code{NULL}
-(i.e., if the deployment happens to the active branch),
-or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
-}}
+\item{build_only}{To be removed}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
@@ -85,8 +69,6 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\code{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
-
-\item{build_only}{To be removed}
 }
 \description{
 Functions to define stages and their constitutent
@@ -99,20 +81,6 @@ This function only works when called by \code{\link[=load_from_file]{load_from_f
 and the links therein for available steps.
 
 \code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
-
-\code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default steps
-to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
-
-\enumerate{
-\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
-\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment (if \code{deploy} is set),
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage (if \code{deploy} is set),
-\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage, forwarding all \code{...} arguments.
-\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage.
-}
-
-By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch, keeping the history.
 
 \code{do_bookdown()} adds default steps related to package checks
 to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"} stages.

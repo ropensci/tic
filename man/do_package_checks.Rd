@@ -60,4 +60,7 @@ stages:
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only if the \code{codecov} flag is set)
 }
 }
+\seealso{
+Other macros: \code{\link{do_pkgdown}}
+}
 \concept{macros}

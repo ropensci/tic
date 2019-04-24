@@ -64,6 +64,7 @@ Collate:
     'local.R'
     'macro.R'
     'macro-package-checks.R'
+    'macro-pkgdown.R'
     'mock.R'
     'repo.R'
     'run.R'
