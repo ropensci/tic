@@ -58,17 +58,6 @@ package_installed <- function(pkg_name) {
   file.exists(path)
 }
 
-with_traceback <- function(...) {
-  withr::with_options(
-    list(
-      error = expression({traceback(1); if (!interactive()) q(status = 1)}),
-      deparse.max.lines = 2
-    ),
-    ...
-  )
-}
-
-format_traceback <- function() {
-  x <- .traceback(rev(sys.calls()))
-  paste0(format(seq_along(x)), ". ", x, collapse = "\n")
+format_traceback <- function(top = NULL, bottom = parent.frame()) {
+  paste(format(rlang::trace_back(top, bottom)), collapse = "\n")
 }
