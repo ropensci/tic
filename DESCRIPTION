@@ -63,6 +63,7 @@ Collate:
     'keys.R'
     'local.R'
     'macro.R'
+    'macro-package-checks.R'
     'mock.R'
     'repo.R'
     'run.R'

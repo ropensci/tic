@@ -5,7 +5,6 @@
 \alias{get_stage}
 \alias{add_step}
 \alias{add_code_step}
-\alias{do_package_checks}
 \alias{do_pkgdown}
 \alias{do_bookdown}
 \title{tic's domain-specific language}
@@ -15,11 +14,6 @@ get_stage(name)
 add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
-
-do_package_checks(..., codecov = !ci_is_interactive(),
-  warnings_are_errors = NULL, notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"), build_args = "--force",
-  error_on = "warning", repos = repo_default(), timeout = Inf)
 
 do_pkgdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
   repos = repo_default(), path = "docs", branch = "gh-pages",
@@ -48,41 +42,7 @@ The default is useful if you only pass \code{prepare_call}.}
 \item{prepare_call}{\code{[call]}\cr
 An optional arbitrary R expression executed during preparation.}
 
-\item{...}{Ignored, used to enforce naming of arguments.}
-
-\item{codecov}{\code{[flag]}\cr Whether to include a step running
-\code{covr::codecov(quiet = FALSE)} (default: only for non-interactive CI,
-see \code{\link[=ci_is_interactive]{ci_is_interactive()}}).}
-
-\item{warnings_are_errors}{\code{[flag]}\cr
-Deprecated, use \code{error_on}.}
-
-\item{notes_are_errors}{\code{[flag]}\cr
-Deprecated, use \code{error_on}.}
-
-\item{args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{c("--no-manual", "--as-cran")}.}
-
-\item{build_args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{"--force"}.}
-
-\item{error_on}{\code{[character]}\cr
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.}
-
-\item{repos}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{\link[=repo_default]{repo_default()}}.}
-
-\item{timeout}{\code{[numeric]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{Inf}.}
+\item{...}{Passed on to \code{bookdown::render_book()}}
 
 \item{deploy}{\code{[flag]}\cr
 If \code{TRUE}, deployment setup is performed before building the pkgdown site,
@@ -139,19 +99,6 @@ This function only works when called by \code{\link[=load_from_file]{load_from_f
 and the links therein for available steps.
 
 \code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
-
-\code{do_package_checks()} adds default steps related to package checks
-to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
-stages:
-
-\enumerate{
-\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
-\item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
-\code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
-\code{build_args} arguments.
-\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only if the \code{codecov} flag is set)
-}
 
 \code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default steps
 to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
