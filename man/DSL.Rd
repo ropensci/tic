@@ -20,7 +20,7 @@ do_package_checks(..., codecov = !ci_is_interactive(),
   args = c("--no-manual", "--as-cran"), build_args = "--force",
   error_on = "warning", repos = repo_default(), timeout = Inf)
 
-do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
+do_pkgdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
   repos = repo_default(), path = "docs", branch = "gh-pages",
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
@@ -79,9 +79,12 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{build_only}{\code{[flag]}\cr Build the pkgdown site but do not deploy it. Removes step
-\code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}
-from macro \code{do_pkgdown}.}
+\item{deploy}{\code{[flag]}\cr
+If \code{TRUE}, deployment setup is performed before building the pkgdown site,
+and the site is deployed after building it.
+Set to \code{FALSE} to skip deployment.
+By default, deployment happens if the repo can be pushed to
+(see \code{\link[=ci_can_push]{ci_can_push()}}).}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
@@ -143,10 +146,11 @@ to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
-\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
-\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
-\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
-By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch, keeping the history.
+\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment (if \code{deploy} is set),
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage (if \code{deploy} is set),
+\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage, forwarding all \code{...} arguments.
+\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage.
 }
+
+By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch, keeping the history.
 }
