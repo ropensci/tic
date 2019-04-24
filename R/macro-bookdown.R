@@ -18,6 +18,7 @@ NULL
 #' @inheritParams step_build_bookdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
+#' @inheritParams step_install_pkg
 #' @param ... Passed on to [step_build_bookdown()]
 #' @family macros
 #' @export

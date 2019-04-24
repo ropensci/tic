@@ -9,6 +9,8 @@ do_pkgdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
+\item{...}{Passed on to \code{\link[=step_build_pkgdown]{step_build_pkgdown()}}}
+
 \item{deploy}{\code{[flag]}\cr
 If \code{TRUE}, deployment setup is performed before building the pkgdown site,
 and the site is deployed after building it.
@@ -31,6 +33,9 @@ but cannot be applied for pushing to the current branch.}
 Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
+
+\item{repos}{CRAN-like repositories to install from, defaults to
+\code{\link[=repo_default]{repo_default()}}.}
 
 \item{path}{\code{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current

@@ -34,6 +34,9 @@ Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
 
+\item{repos}{CRAN-like repositories to install from, defaults to
+\code{\link[=repo_default]{repo_default()}}.}
+
 \item{path}{\code{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
 repository.}
