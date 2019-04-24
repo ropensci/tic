@@ -125,6 +125,8 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\code{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{build_only}{To be removed}
 }
 \description{
 Functions to define stages and their constitutent

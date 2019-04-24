@@ -229,6 +229,7 @@ do_pkgdown <- function(...,
 #' @inheritParams step_build_bookdown
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
+#' @param build_only To be removed
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%
