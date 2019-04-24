@@ -61,6 +61,7 @@ stages:
 }
 }
 \seealso{
-Other macros: \code{\link{do_pkgdown}}
+Other macros: \code{\link{do_bookdown}},
+  \code{\link{do_pkgdown}}
 }
 \concept{macros}

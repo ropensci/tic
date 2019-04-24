@@ -67,6 +67,7 @@ to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch, keeping the history.
 }
 \seealso{
-Other macros: \code{\link{do_package_checks}}
+Other macros: \code{\link{do_bookdown}},
+  \code{\link{do_package_checks}}
 }
 \concept{macros}
