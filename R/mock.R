@@ -27,11 +27,14 @@ MockCI <- R6Class(
     can_push = function(name = "id_rsa") {
       self$has_env(name)
     },
+    get_env = function(env) {
+      Sys.getenv(env)
+    },
     is_env = function(env, value) {
-      Sys.getenv(env) == value
+      self$get_env(env) == value
     },
     has_env = function(env) {
-      Sys.getenv(env) != ""
+      self$get_env(env) != ""
     },
     is_interactive = function() {
       TRUE

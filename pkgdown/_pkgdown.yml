@@ -8,6 +8,8 @@ reference:
   contents:
   - tic-package
   - DSL
+  - macro
+  - starts_with("do_")
 - title: Steps
   contents:
   - TicStep
@@ -15,7 +17,7 @@ reference:
   - ci
 - title: Running
   contents:
-  - tic
+  - run_all_stages
   - stages
   - load_from_file
   - prepare_all_stages
@@ -50,3 +52,7 @@ navbar:
       href: articles/custom-steps.html
   - text: Changelog
     href: news/index.html
+
+authors:
+  Kirill Müller:
+    href: http://krlmlr.info

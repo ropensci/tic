@@ -7,7 +7,7 @@
 step_rcmdcheck(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
   build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+  repos = repo_default(), timeout = Inf)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
@@ -33,7 +33,7 @@ error.}
 
 \item{repos}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{getOption("repos")}.}
+\code{\link[=repo_default]{repo_default()}}.}
 
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:

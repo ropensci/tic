@@ -8,7 +8,7 @@ prepare_all_stages(stages = load_from_file())
 }
 \arguments{
 \item{stages}{\code{[named list]}
-A named list of \code{Stage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
+A named list of \code{TicStage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
 by default loaded from \code{tic.R}.}
 }
 \description{
