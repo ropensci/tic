@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predefined stages — stages • tic</title>
+<title>Macros — macro • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,11 +32,20 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Predefined stages — stages" />
+<meta property="og:title" content="Macros — macro" />
 
-<meta property="og:description" content="Stages available in both Travis CI and AppVeyor, for which shortcuts
-have been defined. All these functions call run_stage() with the
-corresponding stage name." />
+<meta property="og:description" content="The DSL offers a fine-grained interface to the individual stages
+of a CI run.
+Macros are tic's way of adding several related steps to the relevant
+stages.
+All macros use the do_ prefix.
+The do_package_checks() macro adds default checks for R packages,
+including installation of dependencies and running a test coverage
+analysis.
+The do_pkgdown() macro adds the necessary steps for building
+and deploying pkgdown documentation for a package.
+The do_bookdown() macro adds the necessary steps for building
+and deploying a bookdown book." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -136,58 +145,34 @@ corresponding stage name." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predefined stages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/run.R'><code>R/run.R</code></a></small>
-    <div class="hidden name"><code>stages.Rd</code></div>
+    <h1>Macros</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/macro.R'><code>R/macro.R</code></a>, <a href='https://github.com/ropenscilabs/tic/blob/master/R/macro-package-checks.R'><code>R/macro-package-checks.R</code></a>, <a href='https://github.com/ropenscilabs/tic/blob/master/R/macro-pkgdown.R'><code>R/macro-pkgdown.R</code></a>, and 2 more</small>
+    <div class="hidden name"><code>macro.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Stages available in both Travis CI and AppVeyor, for which shortcuts
-have been defined. All these functions call <code><a href='run_stage.html'>run_stage()</a></code> with the
-corresponding stage name.</p>
+    <p>The <a href='DSL.html'>DSL</a> offers a fine-grained interface to the individual stages
+of a CI run.
+Macros are tic's way of adding several related steps to the relevant
+stages.
+All macros use the <code>do_</code> prefix.</p>
+<p>The <code><a href='do_package_checks.html'>do_package_checks()</a></code> macro adds default checks for R packages,
+including installation of dependencies and running a test coverage
+analysis.</p>
+<p>The <code><a href='do_pkgdown.html'>do_pkgdown()</a></code> macro adds the necessary steps for building
+and deploying <span class="pkg">pkgdown</span> documentation for a package.</p>
+<p>The <code><a href='do_bookdown.html'>do_bookdown()</a></code> macro adds the necessary steps for building
+and deploying a <span class="pkg">bookdown</span> book.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>before_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>after_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>before_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>after_success</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>after_failure</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>before_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>after_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
-
-<span class='fu'>after_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>stages</th>
-      <td><p><code>[named list]</code>
-A named list of <code>TicStage</code> objects as returned by <code><a href='load_from_file.html'>load_from_file()</a></code>,
-by default loaded from <code>tic.R</code>.</p></td>
-    </tr>
-    </table>
-    
+        
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run a stage — run_stage • tic</title>
+<title>Add default checks for packages — do_package_checks • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,10 +32,19 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Run a stage — run_stage" />
+<meta property="og:title" content="Add default checks for packages — do_package_checks" />
 
-<meta property="og:description" content="Run the run_all() method for all defined steps of a stage for which the
-check() method returns TRUE." />
+<meta property="og:description" content="do_package_checks() adds default steps related to package checks
+to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
+stages:
+
+step_install_deps() in the &quot;install&quot; stage, using the
+repos argument.
+step_rcmdcheck() in the &quot;script&quot; stage, using the
+warnings_are_errors, notes_are_errors, args, and
+build_args arguments.
+A call to covr::codecov() in the &quot;after_success&quot; stage (only if the codecov flag is set)
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,40 +144,95 @@ check() method returns TRUE." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run a stage</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/run.R'><code>R/run.R</code></a></small>
-    <div class="hidden name"><code>run_stage.Rd</code></div>
+    <h1>Add default checks for packages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/macro-package-checks.R'><code>R/macro-package-checks.R</code></a></small>
+    <div class="hidden name"><code>do_package_checks.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Run the <code>run_all()</code> method for all defined steps of a stage for which the
-<code><a href='https://www.rdocumentation.org/packages/utils/topics/PkgUtils'>check()</a></code> method returns <code>TRUE</code>.</p>
+    <p><code>do_package_checks()</code> adds default steps related to package checks
+to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
+stages:</p>
+<ol>
+<li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
+<code>repos</code> argument.</p></li>
+<li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
+<code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
+<code>build_args</code> arguments.</p></li>
+<li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only if the <code>codecov</code> flag is set)</p></li>
+</ol>
     
     </div>
 
-    <pre class="usage"><span class='fu'>run_stage</span>(<span class='no'>name</span>, <span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())</pre>
+    <pre class="usage"><span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
+  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>), <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>,
+  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p><code>[string]</code><br />
-The name of the stage to run.</p></td>
+      <th>...</th>
+      <td><p>Ignored, used to enforce naming of arguments.</p></td>
     </tr>
     <tr>
-      <th>stages</th>
-      <td><p><code>[named list]</code>
-A named list of <code>TicStage</code> objects as returned by <code><a href='load_from_file.html'>load_from_file()</a></code>,
-by default loaded from <code>tic.R</code>.</p></td>
+      <th>codecov</th>
+      <td><p><code>[flag]</code><br /> Whether to include a step running
+<code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov(quiet = FALSE)</a></code> (default: only for non-interactive CI,
+see <code><a href='ci.html'>ci_is_interactive()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>warnings_are_errors</th>
+      <td><p><code>[flag]</code><br />
+Deprecated, use <code>error_on</code>.</p></td>
+    </tr>
+    <tr>
+      <th>notes_are_errors</th>
+      <td><p><code>[flag]</code><br />
+Deprecated, use <code>error_on</code>.</p></td>
+    </tr>
+    <tr>
+      <th>args</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>build_args</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>"--force"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>error_on</th>
+      <td><p><code>[character]</code><br />
+Whether to throw an error on R CMD check failures. Note that the check is
+always completed (unless a timeout happens), and the error is only thrown
+after completion. If "never", then no errors are thrown. If "error", then
+only ERROR failures generate errors. If "warning", then WARNING failures
+generate errors as well. If "note", then any check failure generated an
+error.</p></td>
+    </tr>
+    <tr>
+      <th>repos</th>
+      <td><p><code>[character]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code><a href='repo.html'>repo_default()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>timeout</th>
+      <td><p><code>[numeric]</code><br />
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>Inf</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='TicStep.html'>TicStep</a></p>
-<p>Other runners: <code><a href='prepare_all_stages.html'>prepare_all_stages</a></code></p></div>
+    <div class='dont-index'><p>Other macros: <code><a href='do_bookdown.html'>do_bookdown</a></code>,
+  <code><a href='do_pkgdown.html'>do_pkgdown</a></code></p></div>
     
 
   </div>

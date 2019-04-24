@@ -263,14 +263,14 @@
 <div id="macros" class="section level3">
 <h3 class="hasAnchor">
 <a href="#macros" class="anchor"></a>Macros</h3>
-<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/DSL.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
+<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
 <ol style="list-style-type: decimal">
 <li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>script</code> stage, using the <code>error_on</code>, <code>args</code>, <code>build_args</code>, <code>repos</code> and <code>timeout</code> arguments.</p></li>
 <li><p>A call to <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the “after_success” stage.</p></li>
 </ol>
-<p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/DSL.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
+<p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
 <p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
-<p>Currently, <code><a href="../reference/DSL.html">do_package_checks()</a></code> is the only macro implemented. We will add more macros in the future. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
+<p>Currently, <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is the only macro implemented. We will add more macros in the future. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
 </div>
 </div>
 </div>

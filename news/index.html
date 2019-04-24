@@ -141,11 +141,11 @@
 <ul>
 <li>New <code>repo_*()</code> functions to simplify specification of the <code>repos</code> argument to installer functions (<a href='https://github.com/ropenscilabs/tic/issues/101'>#101</a>).</li>
 <li>Add Appveyor checks (<a href='https://github.com/ropenscilabs/tic/issues/147'>#147</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
-<li>New pkgdown macro via <code><a href="../reference/DSL.html">do_pkgdown()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/126'>#126</a>, <a href='https://github.com/pat-s'>@pat-s</a>)</li>
+<li>New pkgdown macro via <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/126'>#126</a>, <a href='https://github.com/pat-s'>@pat-s</a>)</li>
 <li>New example: covrpage, cc <a href='https://github.com/yonicd'>@yonicd</a></li>
 <li>
 <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck(error_on = "note")</a></code> works again (<a href='https://github.com/ropenscilabs/tic/issues/119'>#119</a>).</li>
-<li>New <code><a href="../reference/DSL.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href='https://github.com/ropenscilabs/tic/issues/146'>#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href='https://github.com/ropenscilabs/tic/issues/128'>#128</a>).</li>
+<li>New <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href='https://github.com/ropenscilabs/tic/issues/146'>#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href='https://github.com/ropenscilabs/tic/issues/128'>#128</a>).</li>
 <li>
 <code><a href="../reference/DSL.html">add_step()</a></code> now evaluates the <code>step</code> argument in a <code><a href="https://www.rdocumentation.org/packages/base/topics/conditions">tryCatch()</a></code> block and gives a bit of context if this fails (<a href='https://github.com/ropenscilabs/tic/issues/73'>#73</a>).</li>
 <li>New <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>, previously <code>tic()</code> (<a href='https://github.com/ropenscilabs/tic/issues/66'>#66</a>).</li>
