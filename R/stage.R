@@ -86,6 +86,8 @@ TicStage <- R6Class(
         crayon::magenta(paste0("Running ", private$name, ": ", step$name))
       )
 
+      top <- environment()
+
       tryCatch(
         {
           withCallingHandlers(
@@ -95,7 +97,7 @@ TicStage <- R6Class(
             },
             error = function(e) {
               ci_cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
-              tb <- format_traceback()
+              tb <- format_traceback(top)
               ci_cat_with_color(crayon::yellow(tb))
             }
           )
