@@ -27,7 +27,7 @@ BuildBookdown <- R6Class(
 #'
 #' Build a bookdown book using [bookdown::render_book()].
 #'
-#' @param ... Passed on to `bookdown::render_book()`
+#' @inheritDotParams bookdown::render_book
 #'
 #' @export
 step_build_bookdown <- function(...) {

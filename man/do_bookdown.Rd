@@ -9,7 +9,7 @@ do_bookdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
-\item{...}{Passed on to \code{bookdown::render_book()}}
+\item{...}{Passed on to \code{\link[=step_build_bookdown]{step_build_bookdown()}}}
 
 \item{deploy}{\code{[flag]}\cr
 If \code{TRUE}, deployment setup is performed before building the bookdown site,
