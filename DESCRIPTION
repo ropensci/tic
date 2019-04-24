@@ -30,6 +30,7 @@ Imports:
     methods,
     remotes,
     R6,
+    rlang,
     withr
 Suggests: 
     base64enc,
