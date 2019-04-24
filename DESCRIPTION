@@ -61,6 +61,7 @@ Collate:
     'git2r.R'
     'keys.R'
     'local.R'
+    'macro.R'
     'mock.R'
     'repo.R'
     'run.R'
