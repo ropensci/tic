@@ -88,8 +88,14 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 If \code{TRUE}, deployment setup is performed before building the pkgdown site,
 and the site is deployed after building it.
 Set to \code{FALSE} to skip deployment.
-By default, deployment happens if the repo can be pushed to
-(see \code{\link[=ci_can_push]{ci_can_push()}}).}
+By default (if \code{deploy} is \code{NULL}), deployment happens
+if the following conditions are met:
+\enumerate{
+\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).
+\item The \code{branch} argument is \code{NULL}
+(i.e., if the deployment happens to the active branch),
+or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
+}}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?

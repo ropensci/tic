@@ -176,9 +176,18 @@ do_pkgdown <- function(...,
   #'   and the site is deployed after building it.
   #'   Set to `FALSE` to skip deployment.
   if (is.null(deploy)) {
-    #'   By default, deployment happens if the repo can be pushed to
-    #'   (see [ci_can_push()]).
+    #'   By default (if `deploy` is `NULL`), deployment happens
+    #'   if the following conditions are met:
+    #'
+    #'   1. The repo can be pushed to (see [ci_can_push()]).
     deploy <- ci_can_push()
+
+    #'   2. The `branch` argument is `NULL`
+    #'   (i.e., if the deployment happens to the active branch),
+    #'   or the current branch is `master` (see [ci_get_branch()]).
+    if (deploy && !is.null(branch)) {
+      deploy <- (ci_get_branch() == "master")
+    }
   }
 
   #' @description
