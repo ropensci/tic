@@ -2,8 +2,6 @@
 #'
 #' Prepares a repo for building and deploying supported by \pkg{tic}.
 #'
-#' @importFrom travis travis_enable use_travis_deploy travis_set_pat uses_github
-#'
 #' @param path `[string]`\cr
 #'   The path to the repo to prepare.
 #' @param quiet `[flag]`\cr
@@ -11,18 +9,22 @@
 #'
 #' @export
 use_tic <- function(path = ".", quiet = FALSE) {
+  if (!rlang::is_installed("travis")) {
+    stopc('`use_tic()` needs the travis package, please install using `remotes::install_github("ropenscilabs/travis")`.')
+  }
+
   #' @details
   #' The preparation consists of the following steps:
   withr::with_dir(path, {
     #' 1. If necessary, create a GitHub repository via [travis::uses_github()]
     use_github_interactive()
-    stopifnot(uses_github())
+    stopifnot(travis::uses_github())
 
     #' 1. Enable Travis via [travis::travis_enable()]
-    travis_enable()
+    travis::travis_enable()
     #' 1. Create a default `.travis.yml` file
     #'    (overwrite after confirmation in interactive mode only)
-    use_travis_yml()
+    travis::use_travis_yml()
     #' 1. Create a default `appveyor.yml` file
     #'    (depending on repo type, overwrite after confirmation
     #'    in interactive mode only)
@@ -35,10 +37,10 @@ use_tic <- function(path = ".", quiet = FALSE) {
 
     #' 1. Enable deployment (if necessary, depending on repo type)
     #'    via [travis::use_travis_deploy()]
-    if (needs_deploy(repo_type)) use_travis_deploy()
+    if (needs_deploy(repo_type)) travis::use_travis_deploy()
 
     #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
-    travis_set_pat()
+    travis::travis_set_pat()
   })
 
   #'
@@ -69,7 +71,7 @@ needs_deploy <- function(repo_type) {
 
 use_github_interactive <- function() {
   if (!interactive()) return()
-  if (uses_github()) return()
+  if (travis::uses_github()) return()
 
   if (!yesno("Create GitHub repo and push code?")) return()
 
