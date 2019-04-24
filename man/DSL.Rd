@@ -5,9 +5,6 @@
 \alias{get_stage}
 \alias{add_step}
 \alias{add_code_step}
-\alias{do_package_checks}
-\alias{do_pkgdown}
-\alias{do_bookdown}
 \title{tic's domain-specific language}
 \usage{
 get_stage(name)
@@ -15,19 +12,6 @@ get_stage(name)
 add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
-
-do_package_checks(..., codecov = !ci_is_interactive(),
-  warnings_are_errors = NULL, notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"), build_args = "--force",
-  error_on = "warning", repos = repo_default(), timeout = Inf)
-
-do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
-  repos = repo_default(), path = ".", branch = NULL,
-  remote_url = NULL, commit_message = NULL, commit_paths = ".")
-
-do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
-  repos = repo_default(), path = "_book", branch = "gh-pages",
-  remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{name}{\code{[string]}\cr
@@ -47,75 +31,6 @@ The default is useful if you only pass \code{prepare_call}.}
 
 \item{prepare_call}{\code{[call]}\cr
 An optional arbitrary R expression executed during preparation.}
-
-\item{...}{Ignored, used to enforce naming of arguments.}
-
-\item{codecov}{\code{[flag]}\cr Whether to include a step running
-\code{covr::codecov(quiet = FALSE)} (default: only for non-interactive CI,
-see \code{\link[=ci_is_interactive]{ci_is_interactive()}}).}
-
-\item{warnings_are_errors}{\code{[flag]}\cr
-Deprecated, use \code{error_on}.}
-
-\item{notes_are_errors}{\code{[flag]}\cr
-Deprecated, use \code{error_on}.}
-
-\item{args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{c("--no-manual", "--as-cran")}.}
-
-\item{build_args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{"--force"}.}
-
-\item{error_on}{\code{[character]}\cr
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.}
-
-\item{repos}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{\link[=repo_default]{repo_default()}}.}
-
-\item{timeout}{\code{[numeric]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{Inf}.}
-
-\item{build_only}{\code{[flag]}\cr Build the pkgdown site but do not deploy it. Removes step
-\code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}
-from macro \code{do_pkgdown}.}
-
-\item{orphan}{\code{[flag]}\cr
-Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
-but cannot be applied for pushing to the current branch.}
-
-\item{checkout}{\code{[flag]}\cr
-Check out the current contents of the repository? Defaults to \code{TRUE},
-set to \code{FALSE} if the build process relies on existing contents or
-if you deploy to a different branch.}
-
-\item{path}{\code{[string]}\cr
-Path to the repository, default \code{"."} which means setting up the current
-repository.}
-
-\item{branch}{\code{[string]}\cr
-Target branch, default: current branch.}
-
-\item{remote_url}{\code{[string]}\cr
-The URL of the remote Git repository to push to, defaults to the
-current GitHub repository.}
-
-\item{commit_message}{\code{[string]}\cr
-Commit message to use, defaults to a useful message linking to the CI build
-and avoiding recursive CI runs.}
-
-\item{commit_paths}{\code{[character]}\cr
-Restrict the set of directories and/or files added to Git before deploying.
-Default: deploy all files.}
 }
 \description{
 Functions to define stages and their constitutent
@@ -128,41 +43,4 @@ This function only works when called by \code{\link[=load_from_file]{load_from_f
 and the links therein for available steps.
 
 \code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
-
-\code{do_package_checks()} adds default steps related to package checks
-to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
-stages:
-
-\enumerate{
-\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
-\item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
-\code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
-\code{build_args} arguments.
-\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only if the \code{codecov} flag is set)
-}
-
-\code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default steps
-to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
-
-\enumerate{
-\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
-\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
-\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
-\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
-}
-
-\code{do_bookdown()} adds default steps related to package checks
-to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"} stages.
-
-\enumerate{
-\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
-\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
-\item \code{\link[=step_build_bookdown]{step_build_bookdown()}} in the \code{"deploy"} stage
-\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
-}
 }
