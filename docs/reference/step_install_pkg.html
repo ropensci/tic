@@ -75,7 +75,7 @@ GitHub version is different from the locally installed version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9012</span>
       </span>
     </div>
 
@@ -165,9 +165,9 @@ GitHub version is different from the locally installed version.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>))
+    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>())
 
-<span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"repos"</span>))
+<span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>())
 
 <span class='fu'>step_install_github</span>(<span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
@@ -176,7 +176,8 @@ GitHub version is different from the locally installed version.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>repos</th>
-      <td><p>CRAN-like repositories to install from</p></td>
+      <td><p>CRAN-like repositories to install from, defaults to
+<code><a href='repo.html'>repo_default()</a></code>.</p></td>
     </tr>
     <tr>
       <th>package</th>

@@ -121,7 +121,7 @@ do_package_checks <- function(...,
                               notes_are_errors = NULL,
                               args = c("--no-manual", "--as-cran"),
                               build_args = "--force", error_on = "warning",
-                              repos = getOption("repos"), timeout = Inf) {
+                              repos = repo_default(), timeout = Inf) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -170,7 +170,7 @@ do_pkgdown <- function(...,
                        build_only = FALSE,
                        orphan = FALSE,
                        checkout = TRUE,
-                       repos = getOption("repos"),
+                       repos = repo_default(),
                        path = ".", branch = NULL,
                        remote_url = NULL,
                        commit_message = NULL, commit_paths = ".") {
@@ -221,7 +221,7 @@ add_package_checks <- function(...,
                                notes_are_errors = NULL,
                                args = c("--no-manual", "--as-cran"),
                                build_args = "--force", error_on = "warning",
-                               repos = getOption("repos"), timeout = Inf) {
+                               repos = repo_default(), timeout = Inf) {
   .Deprecated("do_package_checks")
   do_package_checks(
     ... = ...,

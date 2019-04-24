@@ -29,6 +29,10 @@ CI <- R6Class(
     is_tag = function() {
       stop("NYI")
     },
+    #'   \item{`get_env()`}{The value of the env variable}
+    get_env = function(env) {
+      stop("NYI")
+    },
     #'  \item{`is_env()`}{Is the given env variable set to the given value?}
 
     is_env = function(env, value) {
@@ -134,6 +138,15 @@ ci_get_build_url <- function() {
 #' @export
 ci_get_commit <- function() {
   ci()$get_commit()
+}
+
+#' CI get env
+#'
+#' `ci_get_env()`: Return an environment or configuration variable.
+#' @rdname ci
+#' @export
+ci_get_env <- function(env) {
+  ci()$get_env(env)
 }
 
 #' CI is env

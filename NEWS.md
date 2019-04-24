@@ -1,3 +1,17 @@
+# tic 0.2.13.9012
+
+- New `repo_*()` functions to simplify specification of the `repos` argument to installer functions (#101).
+- Add Appveyor checks (#147, @pat-s).
+- New pkgdown macro via `do_pkgdown()` (#126, @pat-s)
+- New example: covrpage, cc @yonicd 
+- `step_rcmdcheck(error_on = "note")` works again (#119).
+- New `do_package_checks()` with `codecov = TRUE` argument (#146), replaces `add_package_checks()` which stays around for compatibility (#128).
+- `add_step()` now evaluates the `step` argument in a `tryCatch()` block and gives a bit of context if this fails (#73).
+- New `run_all_stages()`, previously `tic()` (#66).
+- New `ci_get_env()`, `ci_has_env()` and `ci_is_env()` functions to avoid verbose `Sys.getenv()` calls in `tic.R` (#124, @pat-s).
+- New `ci_*()` functions to avoid R6 notation in `tic.R` (#125, @pat-s).
+
+
 # tic 0.2.13.9011
 
 - New `step_install_deps()`, reorganizing help pages so that installer steps are on the same page.

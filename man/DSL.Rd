@@ -18,10 +18,10 @@ add_code_step(stage, call = NULL, prepare_call = NULL)
 do_package_checks(..., codecov = !ci_is_interactive(),
   warnings_are_errors = NULL, notes_are_errors = NULL,
   args = c("--no-manual", "--as-cran"), build_args = "--force",
-  error_on = "warning", repos = getOption("repos"), timeout = Inf)
+  error_on = "warning", repos = repo_default(), timeout = Inf)
 
 do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
-  repos = getOption("repos"), path = ".", branch = NULL,
+  repos = repo_default(), path = ".", branch = NULL,
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
@@ -73,7 +73,7 @@ error.}
 
 \item{repos}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{getOption("repos")}.}
+\code{\link[=repo_default]{repo_default()}}.}
 
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
