@@ -33,8 +33,8 @@ do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
 \item{name}{\code{[string]}\cr
 The name for the stage.}
 
-\item{stage}{\code{[Stage]}\cr
-A Stage object as returned by \code{get_stage()}.}
+\item{stage}{\code{[TicStage]}\cr
+A \code{TicStage} object as returned by \code{get_stage()}.}
 
 \item{step}{\code{[function]}\cr
 An object of class \link{TicStep}, usually created by functions
@@ -121,7 +121,7 @@ Default: deploy all files.}
 Functions to define stages and their constitutent
 steps.
 
-\code{get_stage()} returns a Stage object for a stage given by name.
+\code{get_stage()} returns a \code{TicStage} object for a stage given by name.
 This function only works when called by \code{\link[=load_from_file]{load_from_file()}}.
 
 \code{add_step()} adds a step to a stage, see \code{\link[=step_hello_world]{step_hello_world()}}

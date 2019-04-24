@@ -18,4 +18,6 @@ test_that("integration test: package", {
       )
     }
   )
+
+  expect_true(TRUE)
 })

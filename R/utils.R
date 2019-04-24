@@ -27,10 +27,6 @@ warning_once <- memoise::memoise(warningc)
   if (is.null(o1)) o2 else o1
 }
 
-cat_line <- function(...) {
-  cat(..., "\n", sep = "")
-}
-
 get_deps_from_code <- function(call) {
   if (!is.call(call)) return(character())
 

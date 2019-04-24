@@ -36,7 +36,7 @@
 
 <meta property="og:description" content="Functions to define stages and their constitutent
 steps.
-get_stage() returns a Stage object for a stage given by name.
+get_stage() returns a TicStage object for a stage given by name.
 This function only works when called by load_from_file().
 add_step() adds a step to a stage, see step_hello_world()
 and the links therein for available steps.
@@ -182,7 +182,7 @@ step_do_push_deploy() in the &quot;deploy&quot; stage. By default, the deploy is
     
     <p>Functions to define stages and their constitutent
 steps.</p>
-<p><code>get_stage()</code> returns a Stage object for a stage given by name.
+<p><code>get_stage()</code> returns a <code>TicStage</code> object for a stage given by name.
 This function only works when called by <code><a href='load_from_file.html'>load_from_file()</a></code>.</p>
 <p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
 and the links therein for available steps.</p>
@@ -252,8 +252,8 @@ The name for the stage.</p></td>
     </tr>
     <tr>
       <th>stage</th>
-      <td><p><code>[Stage]</code><br />
-A Stage object as returned by <code>get_stage()</code>.</p></td>
+      <td><p><code>[TicStage]</code><br />
+A <code>TicStage</code> object as returned by <code>get_stage()</code>.</p></td>
     </tr>
     <tr>
       <th>step</th>

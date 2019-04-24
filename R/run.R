@@ -4,7 +4,7 @@
 #' `check()` method returns `TRUE`.
 #'
 #' @param stages `[named list]`
-#'   A named list of `Stage` objects as returned by [load_from_file()],
+#'   A named list of `TicStage` objects as returned by [load_from_file()],
 #'   by default loaded from `tic.R`.
 #'
 #' @seealso [TicStep]
