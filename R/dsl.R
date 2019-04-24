@@ -163,7 +163,6 @@ do_package_checks <- function(...,
 #'   [step_setup_ssh()], [step_setup_push_deploy()] and [step_do_push_deploy()]
 #'   from macro `do_pkgdown`.
 #'
-#' @inheritDotParams step_build_pkgdown
 #' @rdname DSL
 #' @export
 #' @importFrom magrittr %>%

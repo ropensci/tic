@@ -7,7 +7,25 @@
 step_build_pkgdown(...)
 }
 \arguments{
-\item{...}{Passed on to \code{pkgdown::build_site()}}
+\item{...}{Arguments passed on to \code{pkgdown::build_site}
+\describe{
+  \item{pkg}{Path to package.}
+  \item{examples}{Run examples?}
+  \item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
+updating the site.}
+  \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
+  \item{seed}{Seed used to initialize so that random examples are
+reproducible.}
+  \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
+if the source is newer than the destination.}
+  \item{override}{An optional named list used to temporarily override
+values in \code{_pkgdown.yml}}
+  \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+freshly generated section in browser.}
+  \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
+This enhances reproducibility by ensuring nothing that you have loaded
+in the current process affects the build process.}
+}}
 }
 \description{
 Builds package documentation with the \pkg{pkgdown} package.
