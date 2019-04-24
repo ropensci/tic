@@ -1,7 +1,7 @@
 Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
-Version: 0.2.13.9011
+Version: 0.2.13.9012
 Authors@R: c(
     person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
@@ -27,6 +27,7 @@ Imports:
     magrittr,
     memoise,
     methods,
+    remotes,
     R6,
     withr
 Suggests: 
@@ -40,7 +41,6 @@ Suggests:
     knitr,
     openssl,
     rcmdcheck,
-    remotes,
     rmarkdown,
     testthat,
     travis,
@@ -63,6 +63,7 @@ Collate:
     'keys.R'
     'local.R'
     'mock.R'
+    'repo.R'
     'run.R'
     'stage.R'
     'steps-base.R'

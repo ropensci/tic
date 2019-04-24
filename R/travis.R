@@ -17,22 +17,25 @@ TravisCI <- R6Class(
       Sys.getenv("TRAVIS_REPO_SLUG")
     },
     get_build_number = function() {
-      paste0("Travis build ", self$has_env("TRAVIS_BUILD_NUMBER"))
+      paste0("Travis build ", self$get_env("TRAVIS_BUILD_NUMBER"))
     },
     get_build_url = function() {
-      paste0("https://travis-ci.org/", self$get_slug(), "/builds/", self$has_env("TRAVIS_BUILD_ID"))
+      paste0("https://travis-ci.org/", self$get_slug(), "/builds/", self$get_env("TRAVIS_BUILD_ID"))
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
     },
-    can_push = function() {
-      self$has_env("id_rsa")
+    can_push = function(name = "id_rsa") {
+      self$has_env(name)
+    },
+    get_env = function(env) {
+      Sys.getenv(env)
     },
     is_env = function(env, value) {
-      Sys.getenv(env) == value
+      self$get_env(env) == value
     },
     has_env = function(env) {
-      Sys.getenv(env) != ""
+      self$get_env(env) != ""
     },
     cat_with_color = function(code) {
       withr::with_options(

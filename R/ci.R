@@ -29,6 +29,10 @@ CI <- R6Class(
     is_tag = function() {
       stop("NYI")
     },
+    #'   \item{`get_env()`}{The value of the env variable}
+    get_env = function(env) {
+      stop("NYI")
+    },
     #'  \item{`is_env()`}{Is the given env variable set to the given value?}
 
     is_env = function(env, value) {
@@ -136,6 +140,15 @@ ci_get_commit <- function() {
   ci()$get_commit()
 }
 
+#' CI get env
+#'
+#' `ci_get_env()`: Return an environment or configuration variable.
+#' @rdname ci
+#' @export
+ci_get_env <- function(env) {
+  ci()$get_env(env)
+}
+
 #' CI is env
 #'
 #' `ci_is_env()`: Checks if an environment or configuration variable is set to a particular value.
@@ -158,12 +171,14 @@ ci_has_env <- function(env) {
 
 #' CI can push
 #'
-#' `ci_can_push()`: Checks if env variable `id_rsa` is set in Travis. If missing,
-#'   deployment is not possible.
+#' `ci_can_push()`: Checks if push deployment is possible. Always true
+#'   for local environments, CI environments require an environment
+#'   variable (by default `id_rsa`).
 #' @rdname ci
+#' @param name Name of the environment variable to check, defaults to `"id_rsa"`.
 #' @export
-ci_can_push <- function() {
-  ci()$can_push()
+ci_can_push <- function(name = "id_rsa") {
+  ci()$can_push(name)
 }
 
 #' CI is_interactive

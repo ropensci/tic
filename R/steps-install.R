@@ -2,7 +2,7 @@ InstallDeps <- R6Class(
   "InstallDeps", inherit = TicStep,
 
   public = list(
-    initialize = function(repos = getOption("repos")) {
+    initialize = function(repos = repo_default()) {
       private$repos <- repos
     },
 
@@ -31,11 +31,12 @@ InstallDeps <- R6Class(
 #' `DESCRIPTION`, using [remotes::install_deps()].
 #' This includes upgrading outdated packages.
 #'
-#' @param repos CRAN-like repositories to install from
+#' @param repos CRAN-like repositories to install from, defaults to
+#'   [repo_default()].
 #' @family steps
 #' @export
 #' @name step_install_pkg
-step_install_deps <- function(repos = getOption("repos")) {
+step_install_deps <- function(repos = repo_default()) {
   InstallDeps$new(repos = repos)
 }
 
@@ -76,7 +77,7 @@ InstallCRAN <- R6Class(
 #' @param ... Passed on to `install.packages()` or `remotes::install_github()`.
 #' @export
 #' @rdname step_install_pkg
-step_install_cran <- function(package = NULL, ..., repos = getOption("repos")) {
+step_install_cran <- function(package = NULL, ..., repos = repo_default()) {
   InstallCRAN$new(package = package, repos = repos, ...)
 }
 

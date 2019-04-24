@@ -16,13 +16,13 @@ add_step(stage, step)
 
 add_code_step(stage, call = NULL, prepare_call = NULL)
 
-do_package_checks(..., warnings_are_errors = NULL,
-  notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = getOption("repos"), timeout = Inf)
+do_package_checks(..., codecov = !ci_is_interactive(),
+  warnings_are_errors = NULL, notes_are_errors = NULL,
+  args = c("--no-manual", "--as-cran"), build_args = "--force",
+  error_on = "warning", repos = repo_default(), timeout = Inf)
 
 do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
-  repos = getOption("repos"), path = ".", branch = NULL,
+  repos = repo_default(), path = ".", branch = NULL,
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 
 do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
@@ -50,6 +50,10 @@ An optional arbitrary R expression executed during preparation.}
 
 \item{...}{Ignored, used to enforce naming of arguments.}
 
+\item{codecov}{\code{[flag]}\cr Whether to include a step running
+\code{covr::codecov(quiet = FALSE)} (default: only for non-interactive CI,
+see \code{\link[=ci_is_interactive]{ci_is_interactive()}}).}
+
 \item{warnings_are_errors}{\code{[flag]}\cr
 Deprecated, use \code{error_on}.}
 
@@ -74,15 +78,15 @@ error.}
 
 \item{repos}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{getOption("repos")}.}
+\code{\link[=repo_default]{repo_default()}}.}
 
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{build_only}{\code{[flag]}\cr Only build but do not deploy.
-Removes step \code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and
-\code{\link[=step_do_push_deploy]{step_do_push_deploy()}} from macros \code{do_bookdown} or \code{do_pkgdown}.}
+\item{build_only}{\code{[flag]}\cr Build the pkgdown site but do not deploy it. Removes step
+\code{\link[=step_setup_ssh]{step_setup_ssh()}}, \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}
+from macro \code{do_pkgdown}.}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
@@ -135,7 +139,7 @@ stages:
 \item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.
-\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only for non-interactive CIs)
+\item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only if the \code{codecov} flag is set)
 }
 
 \code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default steps

@@ -7,14 +7,15 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(repos = getOption("repos"))
+step_install_deps(repos = repo_default())
 
-step_install_cran(package = NULL, ..., repos = getOption("repos"))
+step_install_cran(package = NULL, ..., repos = repo_default())
 
 step_install_github(repo = NULL, ...)
 }
 \arguments{
-\item{repos}{CRAN-like repositories to install from}
+\item{repos}{CRAN-like repositories to install from, defaults to
+\code{\link[=repo_default]{repo_default()}}.}
 
 \item{package}{Package(s) to install}
 
