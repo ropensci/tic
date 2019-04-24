@@ -26,7 +26,7 @@ do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 
 do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
-  repos = getOption("repos"), path = "_book", branch = "gh-pages",
+  repos = repo_default(), path = "_book", branch = "gh-pages",
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
