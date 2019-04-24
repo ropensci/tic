@@ -63,6 +63,17 @@ step_setup_push_deploy() in the &quot;before_deploy&quot; stage.
 step_build_pkgdown() in the &quot;deploy&quot; stage
 step_do_push_deploy() in the &quot;deploy&quot; stage. By default, the deploy is done to the gh-pages branch.
 " />
+
+<meta property="og:description" content="do_bookdown() adds default steps related to package checks
+to the &quot;install&quot;, &quot;before_deploy&quot;, &quot;script&quot; and &quot;deploy&quot; stages.
+
+A step_install_deps() in the &quot;install&quot; stage, using the
+repos argument.
+step_setup_ssh() in the &quot;before_deploy&quot; to setup the upcoming deployment.
+step_setup_push_deploy() in the &quot;before_deploy&quot; stage.
+step_build_bookdown() in the &quot;deploy&quot; stage
+step_do_push_deploy() in the &quot;deploy&quot; stage. By default, the deploy is done to the gh-pages branch.
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -198,6 +209,17 @@ to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</
 <li><p><code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage</p></li>
 <li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage. By default, the deploy is done to the gh-pages branch.</p></li>
 </ol>
+
+    <p><code>do_bookdown()</code> adds default steps related to package checks
+to the <code>"install"</code>, <code>"before_deploy"</code>, <code>"script"</code> and <code>"deploy"</code> stages.</p>
+<ol>
+<li><p>A <code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
+<code>repos</code> argument.</p></li>
+<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup the upcoming deployment.</p></li>
+<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage.</p></li>
+<li><p><code><a href='step_build_bookdown.html'>step_build_bookdown()</a></code> in the <code>"deploy"</code> stage</p></li>
+<li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage. By default, the deploy is done to the gh-pages branch.</p></li>
+</ol>
     
     </div>
 
@@ -214,6 +236,10 @@ to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</
 
 <span class='fu'>do_pkgdown</span>(<span class='no'>...</span>, <span class='kw'>build_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+
+<span class='fu'>do_bookdown</span>(<span class='no'>...</span>, <span class='kw'>build_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"_book"</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
