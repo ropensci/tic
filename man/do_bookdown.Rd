@@ -4,14 +4,25 @@
 \alias{do_bookdown}
 \title{Build a bookdown book}
 \usage{
-do_bookdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
+do_bookdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
   repos = repo_default(), path = "_book", branch = "gh-pages",
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
 \item{...}{Passed on to \code{bookdown::render_book()}}
 
-\item{build_only}{To be removed}
+\item{deploy}{\code{[flag]}\cr
+If \code{TRUE}, deployment setup is performed before building the bookdown site,
+and the site is deployed after building it.
+Set to \code{FALSE} to skip deployment.
+By default (if \code{deploy} is \code{NULL}), deployment happens
+if the following conditions are met:
+\enumerate{
+\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).
+\item The \code{branch} argument is \code{NULL}
+(i.e., if the deployment happens to the active branch),
+or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
+}}
 
 \item{orphan}{\code{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
@@ -47,13 +58,15 @@ Default: deploy all files.}
 to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"} stages.
 
 \enumerate{
-\item A \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
-\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment.
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
-\item \code{\link[=step_build_bookdown]{step_build_bookdown()}} in the \code{"deploy"} stage
-\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
+\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment (if \code{deploy} is set),
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage (if \code{deploy} is set),
+\item \code{\link[=step_build_bookdown]{step_build_bookdown()}} in the \code{"deploy"} stage, forwarding all \code{...} arguments.
+\item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage.
 }
+
+By default, the \code{_book/} directory is deployed to the \code{gh-pages} branch, keeping the history.
 }
 \seealso{
 Other macros: \code{\link{do_package_checks}},
