@@ -32,6 +32,8 @@ load_from_file <- memoise::memoise(load_from_file_)
 #'
 #' Functions to define stages and their constitutent
 #' steps.
+#' The [macro]s combine several steps and assign them to relevant
+#' stages.
 #'
 #' @name DSL
 NULL

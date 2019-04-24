@@ -35,6 +35,8 @@ An optional arbitrary R expression executed during preparation.}
 \description{
 Functions to define stages and their constitutent
 steps.
+The \link{macro}s combine several steps and assign them to relevant
+stages.
 
 \code{get_stage()} returns a \code{TicStage} object for a stage given by name.
 This function only works when called by \code{\link[=load_from_file]{load_from_file()}}.
