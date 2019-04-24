@@ -21,7 +21,7 @@ do_package_checks(..., codecov = !ci_is_interactive(),
   error_on = "warning", repos = repo_default(), timeout = Inf)
 
 do_pkgdown(..., build_only = FALSE, orphan = FALSE, checkout = TRUE,
-  repos = repo_default(), path = ".", branch = NULL,
+  repos = repo_default(), path = "docs", branch = "gh-pages",
   remote_url = NULL, commit_message = NULL, commit_paths = ".")
 }
 \arguments{
@@ -147,5 +147,6 @@ to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 \item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage.
 \item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage
 \item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage. By default, the deploy is done to the gh-pages branch.
+By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch, keeping the history.
 }
 }

@@ -171,7 +171,7 @@ do_pkgdown <- function(...,
                        orphan = FALSE,
                        checkout = TRUE,
                        repos = repo_default(),
-                       path = ".", branch = NULL,
+                       path = "docs", branch = "gh-pages",
                        remote_url = NULL,
                        commit_message = NULL, commit_paths = ".") {
 
@@ -207,6 +207,8 @@ do_pkgdown <- function(...,
         path = path, commit_message = commit_message, commit_paths = commit_paths
       ))
   }
+
+  #' By default, the `docs/` directory is deployed to the `gh-pages` branch, keeping the history.
 }
 
 #' Deprecated functions
