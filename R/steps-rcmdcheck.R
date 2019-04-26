@@ -29,23 +29,12 @@ RCMDcheck <- R6Class(
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(
+      rcmdcheck::rcmdcheck(
         args = private$args, build_args = private$build_args,
-        error_on = "never",
+        error_on = private$error_on,
         repos = private$repos,
         timeout = private$timeout
       )
-
-      print(res)
-      if (length(res$errors) > 0) {
-        stopc("Errors found.")
-      }
-      if (private$error_on == "warning" && length(res$warnings) > 0) {
-        stopc('Warnings found, and `errors_on = "warning"` is set.')
-      }
-      if (private$error_on == "note" && length(res$notes) > 0) {
-        stopc('Notes found, and `errors_on = "note"` is set.')
-      }
     },
 
     prepare = function() {
