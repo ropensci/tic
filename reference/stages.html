@@ -144,27 +144,27 @@ corresponding stage name.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>before_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+    <pre class="usage"><span class='fu'>before_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>after_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>after_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>before_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>before_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>after_success</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>after_success</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>after_failure</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>after_failure</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>before_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>before_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>after_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())
+<span class='fu'>after_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
 
-<span class='fu'>after_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())</pre>
+<span class='fu'>after_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,7 +172,7 @@ corresponding stage name.</p>
     <tr>
       <th>stages</th>
       <td><p><code>[named list]</code>
-A named list of <code>TicStage</code> objects as returned by <code><a href='load_from_file.html'>load_from_file()</a></code>,
+A named list of <code>TicStage</code> objects as returned by <code><a href='dsl_get.html'>dsl_load()</a></code>,
 by default loaded from <code>tic.R</code>.</p></td>
     </tr>
     </table>

@@ -128,16 +128,16 @@
 <li>a specific branch</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"TRAVIS_R_VERSION_STRING"</span>) <span class="op">==</span><span class="st"> "release"</span>) {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">}</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits</a></span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_get_branch</a></span>() <span class="op">==</span><span class="st"> "master"</span>) {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">}</a></code></pre></div>
 </div>
 </div>
@@ -150,16 +150,16 @@
 <h2 class="hasAnchor">
 <a href="#github-packages" class="anchor"></a>GitHub packages</h2>
 <p>GitHub packages should be installed in the <code>install</code> stage:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_github</a></span>(<span class="st">"r-lib/rcmdcheck"</span>))</a></code></pre></div>
-<p>Note that the underlying <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call: <code><a href="../reference/DSL.html">add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))</a></code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_github</a></span>(<span class="st">"r-lib/rcmdcheck"</span>))</a></code></pre></div>
+<p>Note that the underlying <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call: <code><a href="../reference/dsl.html">add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))</a></code>.</p>
 </div>
 <div id="cran-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cran-packages" class="anchor"></a>CRAN packages</h2>
 <p>Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package. For example, to create a favicon in <em>pkgdown</em>, the <code>magick</code> package is required. To install the package (only if it does not exist in the cache already), run the following:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_cran</a></span>(<span class="st">"magick"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_install_pkg.html">step_install_cran</a></span>(<span class="st">"magick"</span>))</a></code></pre></div>
 </div>
 </div>
 <div id="ci-meta-information" class="section level1">
@@ -168,11 +168,11 @@
 <p>The <code><a href="../reference/ci.html">ci()</a></code> function holds valuable information about the CI system. It can be used to query information that can be again be utilized for conditioning stages or steps.</p>
 <p>For example, the user may wish to only deploy on Travis by using <code><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits(ci(), "TravisCI")</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits</a></span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>)) {</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="kw"><a href="../reference/DSL.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/DSL.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7">}</a></code></pre></div>
 <p>See <code><a href="../reference/ci.html">?ci</a></code> for more information on which information can be extracted from this function.</p>
 </div>
@@ -183,8 +183,8 @@
 <div id="check-for-syntax-errors" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-for-syntax-errors" class="anchor"></a>Check for syntax errors</h2>
-<p>You can run check on possible syntax errors in <code>tic.R</code> using <code><a href="../reference/load_from_file.html">load_from_file()</a></code>. This function will just source <code>tic.R</code> to check for possible misspecification errors. If everything is ok, it will return a list with all stages that are run in the CI build, formatted in the <code>R6</code> class style. Here is a preview of the first two stages:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/load_from_file.html">load_from_file</a></span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a></code></pre></div>
+<p>You can run check on possible syntax errors in <code>tic.R</code> using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>. This function will just source <code>tic.R</code> to check for possible misspecification errors. If everything is ok, it will return a list with all stages that are run in the CI build, formatted in the <code>R6</code> class style. Here is a preview of the first two stages:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/dsl_get.html">dsl_load</a></span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="op">$</span>before_install</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="op">&lt;</span>Stage<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span>Public<span class="op">:</span></a>
@@ -221,7 +221,7 @@
 <h2 class="hasAnchor">
 <a href="#emulate-a-ci-run-locally" class="anchor"></a>Emulate a CI run locally</h2>
 <p>To emulate a real CI run locally, you can call <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code> and the stages and steps will be executed in your local R console. Note that doing this will of course use your local system libraries and not the CI environment.</p>
-<p>Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/DSL.html">add_step(covr::codcov())</a></code> added by <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
+<p>Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/dsl.html">add_step(covr::codcov())</a></code> added by <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tic/topics/run_all_stages">run_all_stages</a></span>()</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">Running script<span class="op">:</span><span class="st"> </span><span class="kw"><a href="../reference/step_rcmdcheck.html">step_rcmdcheck</a></span>(<span class="dt">warnings_are_errors =</span> warnings_are_errors, <span class="dt">notes_are_errors =</span> notes_are_errors, <span class="dt">args =</span> args, <span class="dt">build_args =</span> build_args)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">── R CMD build ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</a>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add default checks for packages — do_package_checks • tic</title>
+<title>Storage for stages and steps — dsl_get • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -37,19 +37,18 @@
 
 
 
-<meta property="og:title" content="Add default checks for packages — do_package_checks" />
+<meta property="og:title" content="Storage for stages and steps — dsl_get" />
 
-<meta property="og:description" content="do_package_checks() adds default steps related to package checks
-to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
-stages:
-
-step_install_deps() in the &quot;install&quot; stage, using the
-repos argument.
-step_rcmdcheck() in the &quot;script&quot; stage, using the
-warnings_are_errors, notes_are_errors, args, and
-build_args arguments.
-A call to covr::codecov() in the &quot;after_success&quot; stage (only if the codecov flag is set)
-" />
+<meta property="og:description" content="Stages and steps defined using tic's DSL are stored in an
+internal object in the package.
+The stages are accessible through dsl_get().
+When running the stages, by default a configuration defined
+in the tic.R file is loaded with dsl_load().
+See use_tic() for setting up a tic.R file.
+For interactive tests, an empty storage can be initialized
+with dsl_init().
+This happens automatically the first time dsl_get() is called
+(directly or indirectly)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -139,103 +138,66 @@ A call to covr::codecov() in the &quot;after_success&quot; stage (only if the co
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add default checks for packages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/macro-package-checks.R'><code>R/macro-package-checks.R</code></a></small>
-    <div class="hidden name"><code>do_package_checks.Rd</code></div>
+    <h1>Storage for stages and steps</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/dsl-storage.R'><code>R/dsl-storage.R</code></a></small>
+    <div class="hidden name"><code>dsl_get.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>do_package_checks()</code> adds default steps related to package checks
-to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
-stages:</p>
-<ol>
-<li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
-<code>repos</code> argument.</p></li>
-<li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
-<code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
-<code>build_args</code> arguments.</p></li>
-<li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage (only if the <code>codecov</code> flag is set)</p></li>
-</ol>
+    <p>Stages and steps defined using tic's <a href='dsl.html'>DSL</a> are stored in an
+internal object in the package.
+The stages are accessible through <code>dsl_get()</code>.
+When running the <a href='stages.html'>stages</a>, by default a configuration defined
+in the <code>tic.R</code> file is loaded with <code>dsl_load()</code>.
+See <code><a href='use_tic.html'>use_tic()</a></code> for setting up a <code>tic.R</code> file.</p>
+<p>For interactive tests, an empty storage can be initialized
+with <code>dsl_init()</code>.
+This happens automatically the first time <code>dsl_get()</code> is called
+(directly or indirectly).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
-  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>), <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>,
-  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+    <pre class="usage"><span class='fu'>dsl_get</span>()
+
+<span class='fu'>dsl_load</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"tic.R"</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>dsl_init</span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Ignored, used to enforce naming of arguments.</p></td>
+      <th>path</th>
+      <td><p><code>[string]</code><br />
+Path to the stage definition file, default: <code>"tic.R"</code>.</p></td>
     </tr>
     <tr>
-      <th>codecov</th>
-      <td><p><code>[flag]</code><br /> Whether to include a step running
-<code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov(quiet = FALSE)</a></code> (default: only for non-interactive CI,
-see <code><a href='ci.html'>ci_is_interactive()</a></code>).</p></td>
-    </tr>
-    <tr>
-      <th>warnings_are_errors</th>
+      <th>force</th>
       <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
+Set to <code>TRUE</code> to force loading from file even if a configuration exists.
+By default an existing configuration is not overwritten by <code>dsl_load()</code>.</p></td>
     </tr>
     <tr>
-      <th>notes_are_errors</th>
+      <th>quiet</th>
       <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>build_args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>"--force"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>error_on</th>
-      <td><p><code>[character]</code><br />
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
+Set to <code>TRUE</code> to turn off verbose output.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Other macros: <code><a href='do_bookdown.html'>do_bookdown</a></code>,
-  <code><a href='do_pkgdown.html'>do_pkgdown</a></code></p></div>
+    <p>A named list of opaque stage objects with a <code>"class"</code> attribute
+and a corresponding <code><a href='https://www.rdocumentation.org/packages/base/topics/print'>print()</a></code> method for pretty output.
+Use the high-level <code><a href='dsl.html'>get_stage()</a></code> and <code><a href='dsl.html'>add_step()</a></code> functions to configure,
+and the <a href='stages.html'>stages</a> functions to run.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
-<span class='fu'>do_package_checks</span>()
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
+    <pre class="examples"><div class='input'><span class='fu'>dsl_init</span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'><span class='fu'>dsl_get</span>()</div><div class='output co'>#&gt; ℹ No steps defined in any stage</div><div class='input'>
+<span class='fu'>dsl_load</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"templates/package/tic.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tic"</span>))</div><div class='output co'>#&gt; ✔ Using existing tic stage configuration</div><div class='input'><span class='fu'>dsl_load</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"templates/package/tic.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tic"</span>), <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ✔ Loading tic stage configuration from /home/travis/build/ropenscilabs/tic/inst/templates/package/tic.R</div><div class='input'><span class='fu'>dsl_get</span>()</div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
 #&gt; ── install ──────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_install_deps(repos = repo_default())
 #&gt; ▶ step_install_deps(repos = repo_default())
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
@@ -244,14 +206,23 @@ Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topic
 #&gt;     error_on = "warning", repos = repo_default(), timeout = Inf)
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div></pre>
+#&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))
+#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh()
+#&gt; ▶ step_setup_push_deploy(path = "docs", branch = "gh-pages", remote_url = NULL, 
+#&gt;     orphan = FALSE, checkout = TRUE)
+#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
+#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_build_pkgdown()
+#&gt; ▶ step_do_push_deploy(path = "docs", commit_message = NULL, commit_paths = ".")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

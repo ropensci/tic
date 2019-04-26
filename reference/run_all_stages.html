@@ -142,7 +142,7 @@ The run aborts on error, the <code>after_failure</code> stage is never run.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>run_all_stages</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='load_from_file.html'>load_from_file</a></span>())</pre>
+    <pre class="usage"><span class='fu'>run_all_stages</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,7 +150,7 @@ The run aborts on error, the <code>after_failure</code> stage is never run.</p>
     <tr>
       <th>stages</th>
       <td><p><code>[named list]</code>
-A named list of <code>TicStage</code> objects as returned by <code><a href='load_from_file.html'>load_from_file()</a></code>,
+A named list of <code>TicStage</code> objects as returned by <code><a href='dsl_get.html'>dsl_load()</a></code>,
 by default loaded from <code>tic.R</code>.</p></td>
     </tr>
     </table>

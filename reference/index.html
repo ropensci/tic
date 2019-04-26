@@ -153,10 +153,24 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="DSL.html">get_stage()</a></code> <code><a href="DSL.html">add_step()</a></code> <code><a href="DSL.html">add_code_step()</a></code> </p>
+          <p><code><a href="dsl.html">get_stage()</a></code> <code><a href="dsl.html">add_step()</a></code> <code><a href="dsl.html">add_code_step()</a></code> </p>
         </td>
         <td><p>tic's domain-specific language</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="dsl_get.html">dsl_get()</a></code> <code><a href="dsl_get.html">dsl_load()</a></code> <code><a href="dsl_get.html">dsl_init()</a></code> </p>
+        </td>
+        <td><p>Storage for stages and steps</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-macros" class="hasAnchor"><a href="#section-macros" class="anchor"></a>Macros</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="macro.html">macro</a></code> </p>
@@ -189,12 +203,6 @@
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="TicStep.html">TicStep</a></code> </p>
-        </td>
-        <td><p>The base class for all steps</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="step_add_to_drat.html">step_add_to_drat()</a></code> </p>
@@ -290,6 +298,12 @@
           <p><code><a href="ci.html">ci_get_branch()</a></code> <code><a href="ci.html">ci_is_tag()</a></code> <code><a href="ci.html">ci_get_slug()</a></code> <code><a href="ci.html">ci_get_build_number()</a></code> <code><a href="ci.html">ci_get_build_url()</a></code> <code><a href="ci.html">ci_get_commit()</a></code> <code><a href="ci.html">ci_get_env()</a></code> <code><a href="ci.html">ci_is_env()</a></code> <code><a href="ci.html">ci_has_env()</a></code> <code><a href="ci.html">ci_can_push()</a></code> <code><a href="ci.html">ci_is_interactive()</a></code> <code><a href="ci.html">ci_cat_with_color()</a></code> <code><a href="ci.html">ci()</a></code> </p>
         </td>
         <td><p>The current CI environment</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="TicStep.html">TicStep</a></code> </p>
+        </td>
+        <td><p>The base class for all steps</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -310,12 +324,6 @@
           <p><code><a href="stages.html">before_install()</a></code> <code><a href="stages.html">install()</a></code> <code><a href="stages.html">after_install()</a></code> <code><a href="stages.html">before_script()</a></code> <code><a href="stages.html">script()</a></code> <code><a href="stages.html">after_success()</a></code> <code><a href="stages.html">after_failure()</a></code> <code><a href="stages.html">before_deploy()</a></code> <code><a href="stages.html">deploy()</a></code> <code><a href="stages.html">after_deploy()</a></code> <code><a href="stages.html">after_script()</a></code> </p>
         </td>
         <td><p>Predefined stages</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_from_file.html">load_from_file()</a></code> </p>
-        </td>
-        <td><p>Process a tic.R file</p></td>
       </tr><tr>
         
         <td>
@@ -351,6 +359,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-dsl">DSL</a></li>
+      <li><a href="#section-macros">Macros</a></li>
       <li><a href="#section-steps">Steps</a></li>
       <li><a href="#section-running">Running</a></li>
       <li><a href="#section-serialization">Serialization</a></li>
