@@ -2,6 +2,16 @@
 #' @import rlang
 NULL
 
+#' tic's domain-specific language
+#'
+#' Functions to define stages and their constitutent
+#' steps.
+#' The [macro]s combine several steps and assign them to relevant
+#' stages.
+#'
+#' @name DSL
+NULL
+
 #' @importFrom utils packageName
 load_from_file_ <- function(path = "tic.R", ..., mtime = file.mtime(path)) {
   env <- asNamespace(packageName())
@@ -28,16 +38,6 @@ load_from_file_ <- function(path = "tic.R", ..., mtime = file.mtime(path)) {
 #'
 #' @export
 load_from_file <- memoise::memoise(load_from_file_)
-
-#' tic's domain-specific language
-#'
-#' Functions to define stages and their constitutent
-#' steps.
-#' The [macro]s combine several steps and assign them to relevant
-#' stages.
-#'
-#' @name DSL
-NULL
 
 #' @description
 #' `get_stage()` returns a `TicStage` object for a stage given by name.
@@ -148,8 +148,6 @@ create_dsl <- function(envir = parent.frame()) {
 }
 
 .dsl_storage <- new.env(parent = emptyenv())
-
-# Initialized in .onLoad()
 
 get_current_dsl <- function() {
   dsl <- .dsl_storage$dsl
