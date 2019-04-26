@@ -41,7 +41,10 @@ NULL
 
 #' @description
 #' `get_stage()` returns a `TicStage` object for a stage given by name.
-#' This function only works when called by [load_from_file()].
+#' This function should be used in the `tic.R` configuration file,
+#' which is processed by [load_from_file()].
+#' When called directly, a temporary non-persistent storage is used;
+#' this is useful for visualizing the effects of code in `tic.R`.
 #'
 #' @param name `[string]`\cr
 #'   The name for the stage.
@@ -173,5 +176,9 @@ create_dsl <- function(envir = parent.frame()) {
 # Initialized in .onLoad()
 
 get_current_dsl <- function() {
-  .dsl_storage$dsl
+  dsl <- .dsl_storage$dsl
+  if (!is.null(dsl)) return(dsl)
+
+  cat_bullet("Creating temporary storage for stages", bullet = "warning", bullet_col = "red")
+  create_dsl()
 }

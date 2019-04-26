@@ -39,7 +39,10 @@ The \link{macro}s combine several steps and assign them to relevant
 stages.
 
 \code{get_stage()} returns a \code{TicStage} object for a stage given by name.
-This function only works when called by \code{\link[=load_from_file]{load_from_file()}}.
+This function should be used in the \code{tic.R} configuration file,
+which is processed by \code{\link[=load_from_file]{load_from_file()}}.
+When called directly, a temporary non-persistent storage is used;
+this is useful for visualizing the effects of code in \code{tic.R}.
 
 \code{add_step()} adds a step to a stage, see \code{\link[=step_hello_world]{step_hello_world()}}
 and the links therein for available steps.

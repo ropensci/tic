@@ -20,7 +20,7 @@ TicStage <- R6Class(
         name = name %||% "<unknown task>"
       )
       private$steps <- c(private$steps, list(step))
-      invisible(self)
+      self
     },
 
     reset = function() {
