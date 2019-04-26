@@ -34,7 +34,7 @@ do_package_checks <- function(...,
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
-      step_install_deps(repos = repos)
+      step_install_deps(repos = !! rlang::enquo(repos))
     )
 
   #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
@@ -43,13 +43,13 @@ do_package_checks <- function(...,
   get_stage("script") %>%
     add_step(
       step_rcmdcheck(
-        warnings_are_errors = warnings_are_errors,
-        notes_are_errors = notes_are_errors,
-        args = args,
-        build_args = build_args,
-        error_on = error_on,
-        repos = repos,
-        timeout = timeout
+        warnings_are_errors = !! rlang::enquo(warnings_are_errors),
+        notes_are_errors = !! rlang::enquo(notes_are_errors),
+        args = !! rlang::enquo(args),
+        build_args = !! rlang::enquo(build_args),
+        error_on = !! rlang::enquo(error_on),
+        repos = !! rlang::enquo(repos),
+        timeout = !! rlang::enquo(timeout)
       )
     )
 

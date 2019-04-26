@@ -2,10 +2,9 @@ RunCode <- R6Class(
   "RunCode", inherit = TicStep,
 
   public = list(
-    initialize = function(call, prepare_call = NULL,
-                          .call = substitute(call), .prepare_call = substitute(prepare_call)) {
-      private$call <- .call
-      private$prepare_call <- .prepare_call
+    initialize = function(call, prepare_call = NULL) {
+      private$call <- rlang::enexpr(call)
+      private$prepare_call <- rlang::enexpr(prepare_call)
       private$seed <- 123
     },
 
@@ -61,5 +60,5 @@ RunCode <- R6Class(
 #' step_run_code(covr::codecov())
 #' @export
 step_run_code <- function(call = NULL, prepare_call = NULL) {
-  RunCode$new(.call = substitute(call), .prepare_call = substitute(prepare_call))
+  RunCode$new(!! rlang::enexpr(call), !! rlang::enexpr(prepare_call))
 }
