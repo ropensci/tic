@@ -54,15 +54,19 @@ use_tic <- function(path = ".", quiet = FALSE) {
 }
 
 use_travis_yml <- function() {
-  usethis::use_template("dot-travis.yml", save_as = ".travis.yml")
+  use_tic_template("dot-travis.yml", save_as = ".travis.yml")
 }
 
 use_appveyor_yml <- function() {
-  usethis::use_template("appveyor.yml")
+  use_tic_template("appveyor.yml")
 }
 
 use_tic_r <- function(repo_type) {
-  usethis::use_template(repo_type, "tic.R")
+  use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
+}
+
+use_tic_template <- function(template, save_as = template) {
+  usethis::use_template(template, save_as, package = "tic")
 }
 
 needs_appveyor <- function(repo_type) {
