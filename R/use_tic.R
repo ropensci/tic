@@ -9,11 +9,11 @@
 #'
 #' @export
 use_tic <- function(path = ".", quiet = FALSE) {
-  if (!rlang::is_installed("travis")) {
+  if (!is_installed("travis")) {
     stopc('`use_tic()` needs the travis package, please install using `remotes::install_github("ropenscilabs/travis")`.')
   }
 
-  if (!rlang::is_installed("usethis")) {
+  if (!is_installed("usethis")) {
     stopc('`use_tic()` needs the usethis package, please install using `install.packages("usethis")`.')
   }
 
