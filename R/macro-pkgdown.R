@@ -22,6 +22,12 @@ NULL
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
+#' @examples
+#' init_dsl()
+#'
+#' do_pkgdown()
+#'
+#' get_dsl()
 do_pkgdown <- function(...,
                        deploy = NULL,
                        orphan = FALSE,

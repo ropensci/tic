@@ -21,6 +21,12 @@ NULL
 #'   see [ci_is_interactive()]).
 #' @family macros
 #' @export
+#' @examples
+#' init_dsl()
+#'
+#' do_package_checks()
+#'
+#' get_dsl()
 do_package_checks <- function(...,
                               codecov = !ci_is_interactive(),
                               warnings_are_errors = NULL,

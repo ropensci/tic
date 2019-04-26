@@ -22,6 +22,12 @@ NULL
 #' @param ... Passed on to [step_build_bookdown()]
 #' @family macros
 #' @export
+#' @examples
+#' init_dsl()
+#'
+#' do_bookdown()
+#'
+#' get_dsl()
 do_bookdown <- function(...,
                         deploy = NULL,
                         orphan = FALSE,

@@ -24,6 +24,10 @@ NULL
 #'   The name for the stage.
 #' @rdname dsl
 #' @export
+#' @examples
+#' init_dsl()
+#'
+#' get_stage("script")
 get_stage <- function(name) {
   # Initialize if necessary
   dsl_get()
@@ -42,6 +46,12 @@ get_stage <- function(name) {
 #'   with the `step_` prefix like [step_hello_world()].
 #' @rdname dsl
 #' @export
+#' @examples
+#'
+#' get_stage("script") %>%
+#'   add_step(step_hello_world())
+#'
+#' get_stage("script")
 add_step <- function(stage, step) {
   step_quo <- enquo(step)
 
@@ -66,6 +76,12 @@ add_step <- function(stage, step) {
 #' @export
 #' @inheritParams step_run_code
 #' @rdname dsl
+#' @examples
+#'
+#' get_stage("script") %>%
+#'   add_code_step(print("Hi!"))
+#'
+#' get_stage("script")
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call_expr <- enexpr(call)
   prepare_call_expr <- enexpr(prepare_call)

@@ -42,3 +42,11 @@ with \code{dsl_init()}.
 This happens automatically the first time \code{dsl_get()} is called
 (directly or indirectly).
 }
+\examples{
+dsl_init()
+dsl_get()
+
+dsl_load(system.file("templates/package/tic.R"))
+dsl_load(system.file("templates/package/tic.R"), force = TRUE)
+dsl_get()
+}
