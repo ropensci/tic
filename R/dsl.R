@@ -87,7 +87,15 @@ add_step <- function(stage, step) {
 #' @inheritParams step_run_code
 #' @rdname DSL
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
-  add_step(stage, step_run_code(!! enexpr(call), !! enexpr(prepare_call)))
+  call_expr <- enexpr(call)
+  prepare_call_expr <- enexpr(prepare_call)
+
+  if (is.null(prepare_call_expr)) {
+    step <- quo(step_run_code(!! call_expr))
+  } else {
+    step <- quo(step_run_code(!! call_expr, !! prepare_call_expr))
+  }
+  add_step(stage, !! step)
 }
 
 #' Deprecated functions
