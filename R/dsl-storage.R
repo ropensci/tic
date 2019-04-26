@@ -17,6 +17,7 @@ dslobj_set <- function(dsl) {
 dslobj_new <- function(envir = parent.frame()) {
   dsl <- TicDSL$new()
   parent.env(dsl) <- envir
+  dsl
 }
 
 dslobj_init <- function(envir = parent.frame()) {
