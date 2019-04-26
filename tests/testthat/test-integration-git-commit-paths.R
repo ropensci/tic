@@ -5,7 +5,7 @@ test_that("integration test: git", {
   # - Commit only a subset of changes that occur during deployment
   # - Check that only these changes are really committed
 
-  bare_repo_path <- tempfile("ticrepo")
+  bare_repo_path <- normalizePath(tempfile("ticrepo"), mustWork = FALSE)
   dir.create(bare_repo_path)
   git2r::init(bare_repo_path, bare = TRUE)
 
