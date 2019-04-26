@@ -9,7 +9,8 @@ NULL
 #' The [macro]s combine several steps and assign them to relevant
 #' stages.
 #'
-#' @name DSL
+#' @name dsl
+#' @aliases DSL
 NULL
 
 #' @importFrom utils packageName
@@ -48,7 +49,7 @@ load_from_file <- memoise::memoise(load_from_file_)
 #'
 #' @param name `[string]`\cr
 #'   The name for the stage.
-#' @rdname DSL
+#' @rdname dsl
 #' @export
 get_stage <- function(name) {
   get_current_dsl()$get_stage(name)
@@ -63,7 +64,7 @@ get_stage <- function(name) {
 #' @param step `[function]`\cr
 #'   An object of class [TicStep], usually created by functions
 #'   with the `step_` prefix like [step_hello_world()].
-#' @rdname DSL
+#' @rdname dsl
 #' @export
 add_step <- function(stage, step) {
   step_quo <- enquo(step)
@@ -88,7 +89,7 @@ add_step <- function(stage, step) {
 #'
 #' @export
 #' @inheritParams step_run_code
-#' @rdname DSL
+#' @rdname dsl
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call_expr <- enexpr(call)
   prepare_call_expr <- enexpr(prepare_call)
