@@ -101,30 +101,6 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   add_step(stage, !! step)
 }
 
-#' Deprecated functions
-#'
-#' `add_package_checks()` has been replaced by [do_package_checks()].
-#'
-#' @inheritParams do_package_checks
-#' @name Deprecated
-#' @export
-add_package_checks <- function(...,
-                               warnings_are_errors = NULL,
-                               notes_are_errors = NULL,
-                               args = c("--no-manual", "--as-cran"),
-                               build_args = "--force", error_on = "warning",
-                               repos = repo_default(), timeout = Inf) {
-  .Deprecated("do_package_checks")
-  do_package_checks(
-    ... = ...,
-    warnings_are_errors = warnings_are_errors,
-    notes_are_errors = notes_are_errors,
-    args = args,
-    build_args = build_args, error_on = error_on,
-    repos = repos, timeout = timeout
-  )
-}
-
 #' @importFrom magrittr %>%
 TicDSL <- R6Class(
   "TicDSL",
