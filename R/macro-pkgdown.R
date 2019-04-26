@@ -22,7 +22,6 @@ NULL
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
-#' @importFrom magrittr %>%
 do_pkgdown <- function(...,
                        deploy = NULL,
                        orphan = FALSE,

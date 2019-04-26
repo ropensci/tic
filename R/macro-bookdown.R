@@ -22,7 +22,6 @@ NULL
 #' @param ... Passed on to [step_build_bookdown()]
 #' @family macros
 #' @export
-#' @importFrom magrittr %>%
 do_bookdown <- function(...,
                         deploy = NULL,
                         orphan = FALSE,

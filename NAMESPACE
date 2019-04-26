@@ -2,6 +2,7 @@
 
 S3method(print,TicStage)
 S3method(print,TicStages)
+export("%>%")
 export(TicStep)
 export(add_code_step)
 export(add_package_checks)

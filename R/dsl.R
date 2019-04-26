@@ -79,6 +79,9 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 }
 
 #' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
 TicDSL <- R6Class(
   "TicDSL",
   public = list(
