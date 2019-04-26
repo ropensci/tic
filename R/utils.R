@@ -61,3 +61,8 @@ package_installed <- function(pkg_name) {
 format_traceback <- function(top = NULL, bottom = parent.frame()) {
   paste(format(rlang::trace_back(top, bottom)), collapse = "\n")
 }
+
+tempfile_slash <- function(pattern = "file", tmpdir = tempdir(), fileext = "") {
+  path <- tempfile(pattern, tmpdir, fileext)
+  normalizePath(path, winslash = "/", mustWork = FALSE)
+}
