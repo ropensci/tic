@@ -61,11 +61,11 @@ stages:
 }
 }
 \examples{
-init_dsl()
+dsl_init()
 
 do_package_checks()
 
-get_dsl()
+dsl_get()
 }
 \seealso{
 Other macros: \code{\link{do_bookdown}},

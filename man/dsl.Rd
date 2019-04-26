@@ -51,7 +51,7 @@ and the links therein for available steps.
 \code{add_code_step()} is a shortcut for \code{add_step(step_run_code(...))}.
 }
 \examples{
-init_dsl()
+dsl_init()
 
 get_stage("script")
 

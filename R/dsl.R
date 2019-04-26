@@ -25,7 +25,7 @@ NULL
 #' @rdname dsl
 #' @export
 #' @examples
-#' init_dsl()
+#' dsl_init()
 #'
 #' get_stage("script")
 get_stage <- function(name) {

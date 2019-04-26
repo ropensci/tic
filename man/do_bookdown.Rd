@@ -72,11 +72,11 @@ to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"depl
 By default, the \code{_book/} directory is deployed to the \code{gh-pages} branch, keeping the history.
 }
 \examples{
-init_dsl()
+dsl_init()
 
 do_bookdown()
 
-get_dsl()
+dsl_get()
 }
 \seealso{
 Other macros: \code{\link{do_package_checks}},

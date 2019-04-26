@@ -23,11 +23,11 @@ NULL
 #' @family macros
 #' @export
 #' @examples
-#' init_dsl()
+#' dsl_init()
 #'
 #' do_bookdown()
 #'
-#' get_dsl()
+#' dsl_get()
 do_bookdown <- function(...,
                         deploy = NULL,
                         orphan = FALSE,

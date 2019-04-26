@@ -23,11 +23,11 @@ NULL
 #' @family macros
 #' @export
 #' @examples
-#' init_dsl()
+#' dsl_init()
 #'
 #' do_pkgdown()
 #'
-#' get_dsl()
+#' dsl_get()
 do_pkgdown <- function(...,
                        deploy = NULL,
                        orphan = FALSE,
