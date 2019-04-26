@@ -13,7 +13,7 @@ install:
   - cmd: Rscript -e "getOption('repos')"
   # The following line is different from the template:
   # we need to install tic from our local source!
-  - cmd: Rscript -e "install.packages('remotes'); remotes::install_local(getwd(), force = TRUE); print(tic::load_from_file()); tic::prepare_all_stages()"
+  - cmd: Rscript -e "install.packages('remotes'); remotes::install_local(getwd(), force = TRUE); print(tic::dsl_load()); tic::prepare_all_stages()"
 
 cache:
 - C:\RLibrary
