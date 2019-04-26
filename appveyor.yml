@@ -35,6 +35,9 @@ on_finish: Rscript -e "tic::after_script()"
 #  - appveyor PushArtifact failure.zip
 
 environment:
+  # R_QPDF=true makes sure that R CMD check doesn't complain
+  # about a missing qpdf executable
+  R_QPDF: "true"
   GITHUB_PAT:
     secure: VXO22OHLkl4YhVIomSMwCZyOTx03Xf2WICaVng9xH7gISlAg8a+qrt1DtFtk8sK5
 
