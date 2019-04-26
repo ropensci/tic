@@ -3,8 +3,8 @@ RunCode <- R6Class(
 
   public = list(
     initialize = function(call, prepare_call = NULL) {
-      private$call <- rlang::enexpr(call)
-      private$prepare_call <- rlang::enexpr(prepare_call)
+      private$call <- enexpr(call)
+      private$prepare_call <- enexpr(prepare_call)
       private$seed <- 123
     },
 
@@ -60,5 +60,5 @@ RunCode <- R6Class(
 #' step_run_code(covr::codecov())
 #' @export
 step_run_code <- function(call = NULL, prepare_call = NULL) {
-  RunCode$new(!! rlang::enexpr(call), !! rlang::enexpr(prepare_call))
+  RunCode$new(!! enexpr(call), !! enexpr(prepare_call))
 }

@@ -1,4 +1,5 @@
 #' @import backports
+#' @import rlang
 NULL
 
 #' @importFrom utils packageName
@@ -62,10 +63,10 @@ get_stage <- function(name) {
 #' @rdname DSL
 #' @export
 add_step <- function(stage, step) {
-  step_quo <- rlang::enquo(step)
+  step_quo <- enquo(step)
 
   tryCatch(
-    step <- rlang::eval_tidy(step_quo),
+    step <- eval_tidy(step_quo),
     error = function(e) {
       stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
         "Original error: ", conditionMessage(e),
@@ -76,7 +77,7 @@ add_step <- function(stage, step) {
 
   stopifnot(inherits(step, "TicStep"))
 
-  stage$add_step(step, rlang::quo_text(step_quo))
+  stage$add_step(step, quo_text(step_quo))
 }
 
 #' @description
@@ -86,7 +87,7 @@ add_step <- function(stage, step) {
 #' @inheritParams step_run_code
 #' @rdname DSL
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
-  add_step(stage, step_run_code(!! rlang::enexpr(call), !! rlang::enexpr(prepare_call)))
+  add_step(stage, step_run_code(!! enexpr(call), !! enexpr(prepare_call)))
 }
 
 #' Deprecated functions
