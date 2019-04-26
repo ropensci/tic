@@ -19,7 +19,7 @@ Prepares a repo for building and deploying supported by \pkg{tic}.
 \details{
 The preparation consists of the following steps:
 \enumerate{
-\item If necessary, create a GitHub repository via \code{\link[travis:uses_github]{travis::uses_github()}}
+\item If necessary, create a GitHub repository via \code{\link[usethis:use_github]{usethis::use_github()}}
 \item Enable Travis via \code{\link[travis:travis_enable]{travis::travis_enable()}}
 \item Create a default \code{.travis.yml} file
 (overwrite after confirmation in interactive mode only)

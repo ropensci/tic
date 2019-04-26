@@ -16,7 +16,7 @@ use_tic <- function(path = ".", quiet = FALSE) {
   #' @details
   #' The preparation consists of the following steps:
   withr::with_dir(path, {
-    #' 1. If necessary, create a GitHub repository via [travis::uses_github()]
+    #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
     use_github_interactive()
     stopifnot(travis::uses_github())
 
@@ -24,7 +24,7 @@ use_tic <- function(path = ".", quiet = FALSE) {
     travis::travis_enable()
     #' 1. Create a default `.travis.yml` file
     #'    (overwrite after confirmation in interactive mode only)
-    travis::use_travis_yml()
+    use_travis_yml()
     #' 1. Create a default `appveyor.yml` file
     #'    (depending on repo type, overwrite after confirmation
     #'    in interactive mode only)
@@ -50,15 +50,15 @@ use_tic <- function(path = ".", quiet = FALSE) {
 }
 
 use_travis_yml <- function() {
-  use_template("dot-travis.yml", target = ".travis.yml")
+  usethis::use_template("dot-travis.yml", save_as = ".travis.yml")
 }
 
 use_appveyor_yml <- function() {
-  use_template("appveyor.yml")
+  usethis::use_template("appveyor.yml")
 }
 
 use_tic_r <- function(repo_type) {
-  use_template(repo_type, "tic.R")
+  usethis::use_template(repo_type, "tic.R")
 }
 
 needs_appveyor <- function(repo_type) {
@@ -76,7 +76,7 @@ use_github_interactive <- function() {
   if (!yesno("Create GitHub repo and push code?")) return()
 
   message("Creating GitHub repository")
-  use_github(push = TRUE)
+  usethis::use_github()
 }
 
 
@@ -86,4 +86,8 @@ detect_repo_type <- function() {
   if (file.exists("config.toml")) return("blogdown")
   if (file.exists("DESCRIPTION")) return("package")
   "unknown"
+}
+
+yesno <- function(...) {
+  utils::menu(c("Yes", "No"), title = paste0(...)) == 1
 }
