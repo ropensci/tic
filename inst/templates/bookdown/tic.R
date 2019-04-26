@@ -1,1 +1,1 @@
-do_build_bookdown(input = "")
+do_bookdown(input = "")
