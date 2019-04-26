@@ -17,6 +17,10 @@ dslobj_set <- function(dsl) {
 dslobj_new <- function(envir = parent.frame()) {
   dsl <- TicDSL$new()
   parent.env(dsl) <- envir
+}
+
+dslobj_init <- function(envir = parent.frame()) {
+  dsl <- dslobj_new(envir)
   dslobj_set(dsl)
 }
 
@@ -86,7 +90,7 @@ dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
 
     env <- asNamespace(packageName())
     source_env <- new.env(parent = env)
-    dsl <- dslobj_new(envir = env)
+    dsl <- dslobj_init(envir = env)
     source(path, local = source_env)
 
     # All good, don't need to restore anything
@@ -106,7 +110,7 @@ dsl_init <- function(quiet = FALSE) {
   }
 
   env <- asNamespace(packageName())
-  dsl <- dslobj_new(envir = env)
+  dsl <- dslobj_init(envir = env)
 
   invisible(dsl_get())
 }
