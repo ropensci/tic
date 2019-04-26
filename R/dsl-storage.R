@@ -51,8 +51,8 @@ dslobj_init <- function(envir = parent.frame()) {
 #' dsl_init()
 #' dsl_get()
 #'
-#' dsl_load(system.file("templates/package/tic.R"))
-#' dsl_load(system.file("templates/package/tic.R"), force = TRUE)
+#' dsl_load(system.file("templates/package/tic.R", package = "tic"))
+#' dsl_load(system.file("templates/package/tic.R", package = "tic"), force = TRUE)
 #' dsl_get()
 dsl_get <- function() {
   if (!dslobj_has()) {
