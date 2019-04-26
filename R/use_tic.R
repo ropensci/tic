@@ -13,6 +13,10 @@ use_tic <- function(path = ".", quiet = FALSE) {
     stopc('`use_tic()` needs the travis package, please install using `remotes::install_github("ropenscilabs/travis")`.')
   }
 
+  if (!rlang::is_installed("usethis")) {
+    stopc('`use_tic()` needs the usethis package, please install using `install.packages("usethis")`.')
+  }
+
   #' @details
   #' The preparation consists of the following steps:
   withr::with_dir(path, {
