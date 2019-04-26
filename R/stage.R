@@ -23,6 +23,10 @@ TicStage <- R6Class(
       self
     },
 
+    is_empty = function() {
+      is_empty(private$steps)
+    },
+
     reset = function() {
       private$steps <- list()
     },
@@ -112,4 +116,8 @@ TicStage <- R6Class(
 
 new_stages <- function(x) {
   structure(x, class = "TicStages")
+}
+
+stage_is_empty <- function(x) {
+  x$is_empty()
 }
