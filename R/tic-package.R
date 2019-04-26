@@ -1,8 +1,11 @@
 #' @details
-#' The `travis::use_tic()` function prepares a code repository for use with
-#' this package. See [DSL] for an overview of \pkg{tic}'s domain-specific
-#' language for defining stages and steps, and [step_hello_world()] and the
-#' links therein for available steps.
+#' The [use_tic()] function prepares a code repository for use with
+#' this package.
+#' See [DSL] for an overview of \pkg{tic}'s domain-specific
+#' language for defining stages and steps,
+#' [step_hello_world()] and the links therein for available steps,
+#' and [macro] for an overview over the available macros that bundle
+#' several steps.
 #' @importFrom crayon has_color
 #' @importFrom memoise memoise
 #' @aliases NULL tic-package
