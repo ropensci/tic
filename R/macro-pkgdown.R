@@ -22,7 +22,12 @@ NULL
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
-#' @importFrom magrittr %>%
+#' @examples
+#' dsl_init()
+#'
+#' do_pkgdown()
+#'
+#' dsl_get()
 do_pkgdown <- function(...,
                        deploy = NULL,
                        orphan = FALSE,

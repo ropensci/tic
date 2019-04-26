@@ -112,13 +112,13 @@ See `?ci` for more information on which information can be extracted from this f
 
 ## Check for syntax errors
 
-You can run check on possible syntax errors in `tic.R` using `load_from_file()`.
+You can run check on possible syntax errors in `tic.R` using `dsl_load()`.
 This function will just source `tic.R` to check for possible misspecification errors.
 If everything is ok, it will return a list with all stages that are run in the CI build, formatted in the `R6` class style.
 Here is a preview of the first two stages:
     
 ```{r eval = FALSE}
-load_from_file()[1:2]
+dsl_load()[1:2]
 ```
 
 ```{r eval=FALSE}

@@ -161,4 +161,4 @@ More information about the whole CI workflow can be found in the [Build lifecyle
 
 ## Easier troubleshooting
 
-*tic* comes with the ability to [emulate a CI run locally](advanced.html#emulate-a-ci-run-locally) and [debug problems in the config file](advanced#troubleshooting-running-tic-locally) `tic.R` by calling `load_from_file()` locally.
+*tic* comes with the ability to [emulate a CI run locally](advanced.html#emulate-a-ci-run-locally) and [debug problems in the config file](advanced#troubleshooting-running-tic-locally) `tic.R` by calling `dsl_load()` locally.

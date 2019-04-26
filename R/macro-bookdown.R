@@ -22,7 +22,12 @@ NULL
 #' @param ... Passed on to [step_build_bookdown()]
 #' @family macros
 #' @export
-#' @importFrom magrittr %>%
+#' @examples
+#' dsl_init()
+#'
+#' do_bookdown()
+#'
+#' dsl_get()
 do_bookdown <- function(...,
                         deploy = NULL,
                         orphan = FALSE,

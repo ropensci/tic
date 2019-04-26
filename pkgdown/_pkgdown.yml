@@ -6,18 +6,20 @@ reference:
   contents:
   - tic-package
   - DSL
+  - starts_with("dsl_")
+- title: Macros
+  contents:
   - macro
   - starts_with("do_")
 - title: Steps
   contents:
-  - TicStep
   - starts_with("step_")
   - ci
+  - TicStep
 - title: Running
   contents:
   - run_all_stages
   - stages
-  - load_from_file
   - prepare_all_stages
   - run_stage
 - title: Serialization

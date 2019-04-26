@@ -60,6 +60,13 @@ stages:
 \item A call to \code{\link[covr:codecov]{covr::codecov()}} in the \code{"after_success"} stage (only if the \code{codecov} flag is set)
 }
 }
+\examples{
+dsl_init()
+
+do_package_checks()
+
+dsl_get()
+}
 \seealso{
 Other macros: \code{\link{do_bookdown}},
   \code{\link{do_pkgdown}}

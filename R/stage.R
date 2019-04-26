@@ -23,6 +23,10 @@ TicStage <- R6Class(
       invisible(self)
     },
 
+    is_empty = function() {
+      is_empty(private$steps)
+    },
+
     reset = function() {
       private$steps <- list()
     },
@@ -43,9 +47,14 @@ TicStage <- R6Class(
 
     print = function(..., omit_if_empty = FALSE) {
       if (omit_if_empty && length(private$steps) == 0) return()
+      cat_rule(private$name, right = "stage", col = "green")
 
-      cat_rule(private$name, right = "Stage", col = "green")
-      lapply(private$steps, function(x) cat_bullet(x$name))
+      if (length(private$steps) == 0) {
+        cat_bullet("No steps defined", bullet = "info")
+      } else {
+        cat_rule(private$name, right = "stage", col = "green")
+        lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
+      }
     }
   ),
 
@@ -112,4 +121,8 @@ TicStage <- R6Class(
 
 new_stages <- function(x) {
   structure(x, class = "TicStages")
+}
+
+stage_is_empty <- function(x) {
+  x$is_empty()
 }
