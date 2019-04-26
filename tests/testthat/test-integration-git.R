@@ -1,7 +1,7 @@
 context("test-integration-git.R")
 
 test_that("integration test: git", {
-  base_path <- tempfile("git-")
+  base_path <- tempfile_slash("git-")
   dir.create(base_path)
   tmp <- function(x) file.path(base_path, x)
 

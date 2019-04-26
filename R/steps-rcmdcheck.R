@@ -38,13 +38,13 @@ RCMDcheck <- R6Class(
 
       print(res)
       if (length(res$errors) > 0) {
-        stopc("Errors found.")
+        stopc("Errors found in rcmdcheck::rcmdcheck().")
       }
       if (private$error_on == "warning" && length(res$warnings) > 0) {
-        stopc('Warnings found, and `errors_on = "warning"` is set.')
+        stopc('Warnings found in rcmdcheck::rcmdcheck(), and `errors_on = "warning"` is set.')
       }
       if (private$error_on == "note" && length(res$notes) > 0) {
-        stopc('Notes found, and `errors_on = "note"` is set.')
+        stopc('Notes found in rcmdcheck::rcmdcheck(), and `errors_on = "note"` is set.')
       }
     },
 
