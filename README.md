@@ -83,6 +83,10 @@ See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) 
 - [tic, travis and usethis](https://ropenscilabs.github.io/tic/articles/tic-usethis-travis.html)
 - [Developer information](https://ropenscilabs.github.io/tic/articles/custom-steps.html)
 
+## Limitations
+
+The setup functions in this package assume Git as version control system.  Automated setup works best if the project under test is located in the root of the Git repository.  Multi-project repositories (or other version control systems) are not supported, see [the comment by @jwijffels](https://github.com/ropenscilabs/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
+
 ---
 
 [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
