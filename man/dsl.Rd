@@ -38,12 +38,12 @@ Functions to define stages and their constitutent
 steps.
 The \link{macro}s combine several steps and assign them to relevant
 stages.
+See \code{\link[=dsl_get]{dsl_get()}} for functions to access the storage for the stages
+and their steps.
 
 \code{get_stage()} returns a \code{TicStage} object for a stage given by name.
-This function should be used in the \code{tic.R} configuration file,
-which is processed by \code{\link[=load_from_file]{load_from_file()}}.
-When called directly, a temporary non-persistent storage is used;
-this is useful for visualizing the effects of code in \code{tic.R}.
+This function can be called directly in the \code{tic.R} configuration file,
+which is processed by \code{\link[=dsl_load]{dsl_load()}}.
 
 \code{add_step()} adds a step to a stage, see \code{\link[=step_hello_world]{step_hello_world()}}
 and the links therein for available steps.

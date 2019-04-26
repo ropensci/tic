@@ -4,14 +4,14 @@
 #' `check()` method returns `TRUE`.
 #'
 #' @param stages `[named list]`
-#'   A named list of `TicStage` objects as returned by [load_from_file()],
+#'   A named list of `TicStage` objects as returned by [dsl_load()],
 #'   by default loaded from `tic.R`.
 #'
 #' @seealso [TicStep]
 #' @family runners
 #'
 #' @export
-prepare_all_stages <- function(stages = load_from_file()) {
+prepare_all_stages <- function(stages = dsl_load()) {
   lapply(stages, function(stage) stage$prepare_all())
   invisible()
 }
@@ -29,7 +29,7 @@ prepare_all_stages <- function(stages = load_from_file()) {
 #' @inheritParams prepare_all_stages
 #'
 #' @export
-run_stage <- function(name, stages = load_from_file()) {
+run_stage <- function(name, stages = dsl_load()) {
   stage <- stages[[name]]
   if (!is.null(stage)) {
     stage$run_all()
@@ -44,7 +44,7 @@ run_stage <- function(name, stages = load_from_file()) {
 #'
 #' @inheritParams run_stage
 #' @export
-run_all_stages <- function(stages = load_from_file()) {
+run_all_stages <- function(stages = dsl_load()) {
   #' @details
   #' The stages are run in the following order:
   #'
@@ -93,66 +93,66 @@ NULL
 
 #' @rdname stages
 #' @export
-before_install <- function(stages = load_from_file()) {
+before_install <- function(stages = dsl_load()) {
   run_stage("before_install", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-install <- function(stages = load_from_file()) {
+install <- function(stages = dsl_load()) {
   run_stage("install", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-after_install <- function(stages = load_from_file()) {
+after_install <- function(stages = dsl_load()) {
   run_stage("after_install", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-before_script <- function(stages = load_from_file()) {
+before_script <- function(stages = dsl_load()) {
   run_stage("before_script", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-script <- function(stages = load_from_file()) {
+script <- function(stages = dsl_load()) {
   run_stage("script", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-after_success <- function(stages = load_from_file()) {
+after_success <- function(stages = dsl_load()) {
   run_stage("after_success", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-after_failure <- function(stages = load_from_file()) {
+after_failure <- function(stages = dsl_load()) {
   run_stage("after_failure", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-before_deploy <- function(stages = load_from_file()) {
+before_deploy <- function(stages = dsl_load()) {
   run_stage("before_deploy", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-deploy <- function(stages = load_from_file()) {
+deploy <- function(stages = dsl_load()) {
   run_stage("deploy", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-after_deploy <- function(stages = load_from_file()) {
+after_deploy <- function(stages = dsl_load()) {
   run_stage("after_deploy", stages = stages)
 }
 
 #' @rdname stages
 #' @export
-after_script <- function(stages = load_from_file()) {
+after_script <- function(stages = dsl_load()) {
   run_stage("after_script", stages = stages)
 }

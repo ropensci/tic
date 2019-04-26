@@ -61,6 +61,7 @@ Collate:
     'ci.R'
     'appveyor.R'
     'base64.R'
+    'dsl-storage.R'
     'dsl.R'
     'git2r.R'
     'keys.R'

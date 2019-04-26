@@ -4,11 +4,11 @@
 \alias{prepare_all_stages}
 \title{Prepare all stages}
 \usage{
-prepare_all_stages(stages = load_from_file())
+prepare_all_stages(stages = dsl_load())
 }
 \arguments{
 \item{stages}{\code{[named list]}
-A named list of \code{TicStage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
+A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{dsl_load()}},
 by default loaded from \code{tic.R}.}
 }
 \description{

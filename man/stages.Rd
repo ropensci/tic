@@ -15,31 +15,31 @@
 \alias{after_script}
 \title{Predefined stages}
 \usage{
-before_install(stages = load_from_file())
+before_install(stages = dsl_load())
 
-install(stages = load_from_file())
+install(stages = dsl_load())
 
-after_install(stages = load_from_file())
+after_install(stages = dsl_load())
 
-before_script(stages = load_from_file())
+before_script(stages = dsl_load())
 
-script(stages = load_from_file())
+script(stages = dsl_load())
 
-after_success(stages = load_from_file())
+after_success(stages = dsl_load())
 
-after_failure(stages = load_from_file())
+after_failure(stages = dsl_load())
 
-before_deploy(stages = load_from_file())
+before_deploy(stages = dsl_load())
 
-deploy(stages = load_from_file())
+deploy(stages = dsl_load())
 
-after_deploy(stages = load_from_file())
+after_deploy(stages = dsl_load())
 
-after_script(stages = load_from_file())
+after_script(stages = dsl_load())
 }
 \arguments{
 \item{stages}{\code{[named list]}
-A named list of \code{TicStage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
+A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{dsl_load()}},
 by default loaded from \code{tic.R}.}
 }
 \description{

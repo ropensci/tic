@@ -4,14 +4,14 @@
 \alias{run_stage}
 \title{Run a stage}
 \usage{
-run_stage(name, stages = load_from_file())
+run_stage(name, stages = dsl_load())
 }
 \arguments{
 \item{name}{\code{[string]}\cr
 The name of the stage to run.}
 
 \item{stages}{\code{[named list]}
-A named list of \code{TicStage} objects as returned by \code{\link[=load_from_file]{load_from_file()}},
+A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{dsl_load()}},
 by default loaded from \code{tic.R}.}
 }
 \description{
