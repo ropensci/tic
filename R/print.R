@@ -1,7 +1,7 @@
 #' @import cli
 #' @export
 print.TicStages <- function(x, ...) {
-  if (all(map_lgl(x, stage_is_empty))) {
+  if (all(vlapply(x, stage_is_empty))) {
     cat_bullet("No steps defined in any stage", bullet = "info", bullet_col = "green")
   } else {
     lapply(x, print, omit_if_empty = TRUE)

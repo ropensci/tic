@@ -53,7 +53,7 @@ TicStage <- R6Class(
         cat_bullet("No steps defined", bullet = "info")
       } else {
         cat_rule(private$name, right = "stage", col = "green")
-        map(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
+        lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
     }
   ),
