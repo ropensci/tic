@@ -1,3 +1,11 @@
+# tic 0.2.13.9014
+
+- Configuration storage modeled after `usethis::proj_get()`.
+- New `dsl_load()`, renamed from `load_from_file()`.
+- New `dsl_get()` and `dsl_init()`.
+- Added examples to help for `get_stage()` and macros (#77).
+
+
 # tic 0.2.13.9013
 
 - Using tidy evaluation for simpler code, more control and better printing of steps (#77).
