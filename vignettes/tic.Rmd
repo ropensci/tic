@@ -15,33 +15,33 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Prerequisites
+## Prerequisites
 
-If you are unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:
+If you are unfamiliar with the term ""Continuous Integration" (CI), we highly recommend to read the following resources first:
 
 - https://ropensci.github.io/dev_guide/ci.html
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-The most important improvements over existing solutions are:
+The most important improvements over existing CI approaches for R are:
 
 1. Deployment to a Git repository is greatly simplified. 
    Update your repository with results from the CI build.
 
-1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
+1. Support for R packages and other kinds of projects (bookdown, blogdown, etc.), with pre-defined templates. 
    Set up your project to deploy rendered versions of your book or blog with a single push to Git.
 
 1. Workflow specification in a single `.R` file, regardless of CI system used.  
-   Forget about `.yml` files or web browser configurations.
+   Forget about YAML files or web browser configurations for different CI providers.
    
 Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking a and robust caching approach of dependencies.
 
 A more comprehensive summary of all advantages can be found in the [advantages](advantages.html) vignette.
 
-# Initialization
+## Initialization
 
-The easiest way to use *tic* for CI services is to call `usethis::use_ci()`.
-This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
+The easiest way to use *tic* for CI services is to call `use_tic()`.
+This will create templates for both **Travis CI** and **Appveyor** and initialize all the required authentication steps for deployment.
 During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized.
 Also a Personal Access Token (PAT) will be created on GitHub and stored  as an encrypted variable on Travis.
 This avoids hitting rate limitations when accessing the GitHub API, see [this blog post](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) for more details.
@@ -51,7 +51,7 @@ First, authentication with Travis (a browser window opens) and GitHub is initiat
 Also, the repo is actived on Travis.
 
 ```
-usethis::use_ci()
+use_tic()
 ✔ Setting active project to '/home/pjs/git/tic.package'
 ✔ GitHub is already initialized
 Authenticating with GitHub
@@ -148,70 +148,24 @@ All this functionality is integrated in the [*usethis*](http://usethis.r-lib.org
 However, the heavy lifting in the background is actually done by the R packages *travis* and *tic* . 
 See [here](tic-usethis-travis.html) for more detailed information on how *tic* , *travis* and *usethis* work together.
 
-# Explanation of the basic template
+## Explanation of the basic template
 
-After having called `usethis::use_ci()` you will find a `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
+After having called `use_tic()` you will find a `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
 Usually you do not need to touch `appveyor.yml` and `.travis.yml` anymore.
 All build customizations are done in `tic.R` and apply to both services.
 If you want more information about the whole build lifecycle, check the [Build lifecycle](build-lifecycle.html) vignette.
 
-The basic `tic.R` template looks as follows:
+The basic `tic.R` template looks as follows.
+It consists of two macros which are simple wrappers around dedicated stages/steps combinations.
 
 ```{r eval = FALSE}
-do_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
-
-if (Sys.getenv("BUILD_PKGDOWN") != "") {
-  get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
-
-  get_stage("deploy") %>%
-    add_step(step_build_pkgdown()) %>% 
-    add_step(step_push_deploy())
-}
+do_package_checks()
+do_pkgdown()
 ```
 
-Let's break down what happens here:
+Please see the corresponding help pages for a detailed listing of the respective stage/step combinations.
 
-```{r eval = FALSE}
-do_package_checks(warnings_are_errors = (getRversion() >= "3.2"))
-```
-
-Is a macro which adds essential steps to various stages of a CI run. 
-For example, it adds `step_rcmdcheck()` to the "script" stage. 
-Check `?do_package_checks()` to see a list of all added steps by this convenience function.
-
-```{r eval = FALSE}
-if (Sys.getenv("BUILD_PKGDOWN") != "") { }
-```
-
-This line conditions the contents of the block inside the braces `{ }` on the existence of the environment variable `"BUILD_PKGDOWN"`.
-The env variable is set in the [`.travis.yml`](https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47) template, but only for the job that runs on the current R-release version:
-
-```{yml eval = FALSE}
-- r: 3.3
-- r: 3.4
-- r: release
-  env:
-    - BUILD_PKGDOWN=true
-```
-
-When the `if`-condition evaluates to `TRUE`, the following gets executed:  
-First, `step_setup_ssh()` sets up the SSH connection needed for deployment.
-
-```{r eval = FALSE}
-get_stage("before_deploy") %>%
-  add_step(step_setup_ssh())
-```
-
-Then, in the "deploy" stage of the CI run, function `step_build_pkgdown()` will build a [_pkgdown_](http://pkgdown.r-lib.org/) site if the project is an R package, and the `step_push_deploy()` step will push the updated files (if any) to Git.
-
-```{r eval = FALSE}
-get_stage("deploy") %>%
-  add_step(step_build_pkgdown()) %>% 
-  add_step(step_push_deploy())
-```
-
-# Examples projects
+## Examples projects
 
 *tic* can be used for various R projects:
 
@@ -226,7 +180,7 @@ get_stage("deploy") %>%
 
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
-Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
+Under the hood, it uses [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
 
 ```{r eval = FALSE}
 get_stage("install") %>%
@@ -234,7 +188,7 @@ get_stage("install") %>%
                 prepare_call = remotes::install_github("rstudio/blogdown"))
 ```
 
-Then the website is built and deployed.
+Then the website is build and deployed.
 The `blogdown::build_site()` function for websites is the equivalent to `pkgdown::build_site()` for R packages.
 
 ```{r eval = FALSE}
@@ -244,7 +198,7 @@ get_stage("deploy") %>%
 ```
 
 Steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
-*tic* is smart enough to detect your project automatically when calling `usethis::use_ci()` and will add the correct template.
+*tic* is smart enough to detect your project automatically when calling `use_tic()` and will add the correct template.
 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
 Also, publishing to https://zenodo.org/ is work in progress.
@@ -276,4 +230,4 @@ The advanced usage of *tic* is described in more detail in the [Advanced Usage](
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 - [Writing custom steps](custom-steps.html)
 
-The build lifecycle when using *tic* is explained in the [Build lifecycle](build-lifecycle.html) article.
+For more information on the build lifecycle see [here](build-lifecycle.html).
