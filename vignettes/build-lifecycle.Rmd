@@ -9,6 +9,8 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -18,14 +20,14 @@ knitr::opts_chunk$set(
 ## Stages
 
 CI services run builds in stages.
-Stages are ordered as follows:
+Stages are ususally ordered as follows:
 
 ```{r, echo = FALSE, fig.align='center', dpi = 50}
 knitr::include_graphics("img/build-lifecycle.png")
 ```
 
-The `after_xxx` stages are run unconditionally, after their corresponding `xxx` stage.
-For example, the `after_deploy` stage will only be run if there the `deploy` stage was run before.
+The `after_xxx` stages are executed conditionally after their corresponding `xxx` stage.
+For example, the `after_deploy` stage will only be run if the `deploy` stage was run before.
 The `after_success` stage will only be run if the `script` stage executed successfully, i.e. without error; otherwise `after_failure` will be run instead.
 
 *tic* also employs an approach based on stages.
@@ -33,10 +35,12 @@ All action specifications that should be run in each stage are defined in the `t
 The steps are specified in an CI-agnostic way using R syntax.
 A large part of the `.travis.yml` file consists of glue code and is not meant to be edited anymore.
 
-
 ```yml
 # DO NOT CHANGE THE CODE BELOW
-before_install: R -q -e 'install.packages(c("remotes", "curl", "tic")); tic::prepare_all_stages(); tic::before_install()'
+before_install:
+  - R -q -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'
+  - R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'
+  - R -q -e 'remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages()'
 install: R -q -e 'tic::install()'
 after_install: R -q -e 'tic::after_install()'
 before_script: R -q -e 'tic::before_script()'
@@ -56,7 +60,7 @@ after_script: R -q -e 'tic::after_script()'
 
 In a nutshell, the workflow is as follows:
 
-`.travis.yml`/`appveyor.yml` -> `tic.R` -> commands/step to execute
+`.travis.yml`/`appveyor.yml` -> `tic.R` -> commands/steps to execute
 
 An important point to note: The R code declared in `tic.R` is not meant to be run manually.
 It also does not trigger a CI build.
@@ -75,22 +79,22 @@ Again, remember that the order of the stages is fixed (see [here](#stages)), it 
 
 ### Details of stages
 
-#### before_install & install
+#### The `before_install` & `install` stages
 
 An important stage for *tic* is the `before_install` stage.
 Here, *tic* itself gets installed and runs `prepare_all_stages()`.
 This function ensures that all subsequent steps can be executed.
-Essentially it calls the `prepare()` function of all steps that were declared in `tic.R`.
-For example, the `prepare()` function of the `step_rcmdcheck()` step makes sure that all dependencies of an R package get installed by calling `remotes::install_deps()`.
+Essentially it calls the `prepare()` method of all steps that were declared in `tic.R`.
+For example, the `prepare()` method of the `step_rcmdcheck()` step ensures that all dependencies of an R package get installed by calling `remotes::install_deps()`.
 
 All packages that should be stored in the "cache" of the CI service (so that they do not need to be installed again on every CI build) should be installed during preparation.
 
-#### script
+#### The `script` stage
 
-The `script` stage is responsible for executing the important tasks of the CI run: Typically, it runs `R CMD check` for a package, it builds the site for a blogdown site, etc..
-In this stage all dependencies for a successful run already are installed.
+The `script` stage is responsible for executing the important tasks of the CI run: Typically, it runs `R CMD check` for a package or builds the site for a blogdown site.
+In this stage all dependencies for a successful run are already installed.
 
-#### deploy
+#### The `deploy` stage
 
 This stage initiates the deployment (e.g., setting up SSH keys) and executes it.
 If you want to automatically build a _pkgdown_ site, you can do it here.
@@ -106,12 +110,11 @@ get_stage("deploy") %>%
   add_step(step_build_pkgdown())
 ```
 
-`step_build_pkgdown()` here is added to the `deploy` stage and subsequently only run in this stage.
-More steps that should be run in this stage could just by piped after the `add_step(step_build_pkgdown())` step.
-Steps are usually defined using two nested commands: `add_step()` and the corresponding step, here `step_build_pkgdown()`.
+In the code example above `step_build_pkgdown()` is added to the `"deploy"` stage and subsequently only run in this stage.
+More steps that should be run in this stage could just by piped after `add_step(step_build_pkgdown())`.
+So in summary, steps are usually defined using two nested commands: `add_step()` and the corresponding step, here `step_build_pkgdown()`.
 
-We grouped the steps defined by the *tic* package in the following.
-Please see the respective help pages of the functions for more detailed documentation.
+Here is a list that shows a rought grouping of the steps into their default stages:
 
 #### Basic
 
@@ -130,7 +133,7 @@ Please see the respective help pages of the functions for more detailed document
 - `step_build_pkgdown()`: building package documentation via [pkgdown](https://github.com/r-lib/pkgdown)
 - `step_rcmdcheck()`: run `R CMD check` via the _rcmdcheck_ package
     
-##### Deployment
+#### Deployment
 
 - `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by [*usethis*](https://github.com/r-lib/usethis)`::use_travis_deploy()`)
 - `step_test_ssh()`: test the SSH connection to GitHub, helps troubleshooting deploy problems
@@ -145,20 +148,20 @@ Please see the respective help pages of the functions for more detailed document
     - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
     - `commit_paths`: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.
     
-### Macros
+## Macros
 
 Macros in *tic* are combinations of steps for reoccurring workflows to keep `tic.R` tidy.
+In other words, a combination of stages and steps which are used very often to provide the user a shortcut.
 The macro function `do_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 
-1. `step_rcmdcheck()` in the `script` stage, using the `error_on`, `args`, `build_args`, `repos` and `timeout` arguments.
+1. `step_rcmdcheck()` in the `"script"` stage, using the `error_on`, `args`, `build_args`, `repos` and `timeout` arguments.
 
-2. A call to `covr::codecov()` in the "after_success" stage.
+2. A call to `covr::codecov()` in the `"after_success"` stage.
 
 If you manually add these steps to stages in `tic.R` while `do_package_checks()` is still present, the steps will be executed twice. 
 
 Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.
 
-Currently, `do_package_checks()` is the only macro implemented. 
-We will add more macros in the future.
+Macros can be distinguished from other functions by their `do_` prefix.
 If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
