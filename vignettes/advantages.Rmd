@@ -7,63 +7,70 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
+  
 ```{r setup, include = FALSE}
+options(crayon.enabled = TRUE)
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-So, what's the advantage of using *tic* over the standard CI process?
+What is the advantage of using *tic* compared to the default R setup?
 
-1. Deployment to a Git repository is greatly simplified. 
-   Update your repository with results from the CI build.
+1. Deployment to a Git repository is greatly simplified.
 
 1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
-   Set up your project to deploy rendered versions of your book or blog with a single push to Git.
+Set up your project to deploy rendered versions of your book or blog with a single push.
 
-1. Workflow specification in a single `.R` file, regardless of CI system used.  
-   Forget about `.yml` files or web browser configurations.
-   
-Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking a and robust caching approach of dependencies.
+1. Workflow specification are specified in a single R script, regardless of the CI system used.  
+No need anymore for YAML configuration files that differ across CI services.
+
+Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking (instead of "R CMD Check") a and robust caching approach of project dependencies.
 
 ## Easier deployment
 
 CI services can be used to automatically build and deploy files.
 This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.).
-Use cases can be
+Possible use cases are:
 
-- changed site contents of _pkgdown_ site
+- changed site contents of a _pkgdown_ site
 - updated .Rd files of a package (by calling `devtools::document()` before)
 - an automatic generated [test summary page](https://github.com/yonicd/covrpage) of a package 
 
-When the goal is to use CI services for deployment, some preparatory work needs to be done.
-*tic* takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)).
-When using `travis::use_ci()` the whole preparation process is streamlined and only needs to be called once for every repo.
+If _tic_ should be used for deployment, some preparatory work is required.
+Luckily, _tic_ takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)).
+When calling `use_ci()`, the streamlined preparation process is run.
+This is only needed once per repository.
 
-For more information on automatic deployment in *tic*, take a look [here](deployment.html).
+For more information on automatic deployment in _tic_, take a look [here](deployment.html).
 
 ## Support for various R projects
 
 *tic* was developed with the aim to not only simplify R package development using CI services but also to support other R project types (bookdown, blogdown, drat, website and figshare deployment). 
 
 Each of these projects has its own standardized structure. 
-*tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `usethis::use_ci()`.
+*tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `use_tic()`.
 See [here](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
 
 ## CI-Agnostic workflows
 
 What does "CI-Agnostic" mean and why do we need it?
 
-You may have heard that multiple CI services exist in the wild.
-Some only support specific operating systems or certain languages and for some you need to pay a monthly fee to use them.
-Each system has its own way to specify the setup. 
-Often it is a YAML file stored at the top-level directory of your repo.
+You may know that Travis CI is not the only company offering (free) CI solutions.
+Theoretically, R could be run on any CI system.
+Due to historic reasons, some folks from the R community started on Travis implementing an easy way for R package checking.
+The build script for R is still [community maintained](https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb) (and always was).
+
+Each CI provider has its own way to specify the setup. 
+Usually it is a YAML file stored at the top-level directory of the repository.
 This setup file controls what will be done in each run.
 
 To give you an example how different these control files can be, take a look at these two examples from [Travis](https://github.com/tidyverse/dplyr/blob/master/.travis.yml) and [Appveyor](https://github.com/tidyverse/dplyr/blob/master/appveyor.yml).
-While Travis is the only free CI service with an "official" support for R (maintained by the community, specifically by @jimhester), `Appveyor` currently requires quite some magic (e.g. `travis-tool.sh`) in the background to install a working R framework. 
+While **Travis** is currently the CI service with the most mature R implementation, people also like to test their code on **Appveyor** which provides support for Windows.
+Getting everything setup on **Appveyor** is a bit more complicated than on **Travis**.
+Also, **Appveyor** has its own YAML notation to specify certain actions.
 
 We could list way more differences - but that's exactly the point when *tic* comes in!
 
@@ -73,7 +80,7 @@ We could list way more differences - but that's exactly the point when *tic* com
 - You are independent from all the changes that are being made to the R setup for Travis or Appveyor ([more info](advantages.html#less-dependency-on-external-ci-control-commands)).
 - A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file.
 
-So instead of learning how to specify specific tasks on different CI platforms, you only need to learn how to do with R commands.
+So instead of learning how to specify specific tasks on different CI platforms, you only need to "learn" how to do with R commands.
 
 ## Less dependency on external CI control commands
 
@@ -97,67 +104,12 @@ It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 
 Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output of the console early, omitting important information about the error. 
 
-Here is an short excerpt of the improved log output by *rcmdcheck* including an error message:
-
-```{r eval = FALSE}
-R CMD check ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-─  using log directory ‘/tmp/RtmpM4zdgT/file12d469173dd1/tic.Rcheck’ (581ms)
-─  using R version 3.5.1 (2018-07-02)
-─  using platform: x86_64-pc-linux-gnu (64-bit)
-─  using session charset: UTF-8
-─  using options ‘--no-manual --as-cran’
-✔  checking for file ‘tic/DESCRIPTION’
-─  checking extension type ... Package
-─  this is package ‘tic’ version ‘0.2.13.9010’
-─  package encoding: UTF-8
-N  checking CRAN incoming feasibility (59.7s)
-   Maintainer: ‘Kirill Müller <krlmlr+r@mailbox.org>’
-   
-   New submission
-   
-   Version contains large components (0.2.13.9010)
-   
-   Unknown, possibly mis-spelled, fields in DESCRIPTION:
-     ‘Remotes’
-   
-   Suggests or Enhances not in mainstream repositories:
-     travis
-   
-✔  checking package namespace information
-E  checking package dependencies (806ms)
-   Package suggested but not available: ‘drat’
-   
-   
-   See
-     ‘/tmp/RtmpM4zdgT/file12d469173dd1/tic.Rcheck/00check.log’
-   for details.
-   
-   The suggested packages are required for a complete check.
-   Checking can be attempted without them by setting the environment
-   variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
-   
-   See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-   manual.
-── R CMD check results ───────────────────────────────────────────────────────────────────────────────────────────────────────────── tic 0.2.13.9010 ────
-Duration: 1m 1.3s
-
-❯ checking package dependencies ... ERROR
-  Package suggested but not available: ‘drat’
-  
-  The suggested packages are required for a complete check.
-  Checking can be attempted without them by setting the environment
-  variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
-  
-  See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-  manual.
-```
-
 ## Caching of packages
 
-When using *tic*, all dependencies (the ones of the package and also the ones of all stages of the CI build) are installed in the "before_install" stage. 
+When using *tic*, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the `"before_install"` stage. 
 This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
 
-More information about the whole CI workflow can be found in the [Build lifecyle](build-lifecycle.html) vignette.
+More information about the complete workflow can be found in the [Build lifecyle](build-lifecycle.html) vignette.
 
 ## Easier troubleshooting
 
