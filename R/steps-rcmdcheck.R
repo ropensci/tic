@@ -108,19 +108,28 @@ step_rcmdcheck <- function(...,
                            args = NULL, build_args = NULL, error_on = "warning",
                            repos = repo_default(), timeout = Inf) {
 
-if (is.null(build_args)) {
+if (quo_is_null(build_args)) {
   if (isTRUE(ci_is_travis())) {
 
     build_args = "--force"
-    args = c("--no-manual", "--as-cran")
   } else if (isTRUE(ci_is_appveyor())) {
 
     build_args = c("--no-vignettes", "--force")
+  } else {
+
+    build_args = c("--no-vignettes", "--force")
+  }
+}
+if (quo_is_null(args)) {
+  if (isTRUE(ci_is_travis())) {
+
+    args = c("--no-manual", "--as-cran")
+  } else if (isTRUE(ci_is_appveyor())) {
+
     args = c("--as-cran", "--no-manual", "--no-vignettes",
              "--no-build-vignettes", "--no-multiarch")
   } else {
 
-    build_args = c("--no-vignettes", "--force")
     args = c("--no-manual", "--as-cran")
   }
 }

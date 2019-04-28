@@ -50,8 +50,8 @@ do_package_checks <- function(...,
       step_rcmdcheck(
         warnings_are_errors = !! enquo(warnings_are_errors),
         notes_are_errors = !! enquo(notes_are_errors),
-        args = args,
-        build_args = build_args,
+        args = !! enquo(args),
+        build_args = !! enquo(build_args),
         error_on = !! enquo(error_on),
         repos = !! enquo(repos),
         timeout = !! enquo(timeout)
