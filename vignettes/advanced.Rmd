@@ -89,7 +89,7 @@ get_stage("install") %>%
 
 ## CI Meta-Information
 
-The `ci()` function and its friends (`ci_*) hold valuable information about the CI system. 
+The `ci()` function and its friends (`ci_*`) hold valuable information about the CI system. 
 It can be used to query information that can be again be utilized for conditioning stages or steps.
 
 For example, the user may wish to only deploy on Travis by using `inherits(ci(), "TravisCI")`:
