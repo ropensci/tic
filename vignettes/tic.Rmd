@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Prerequisites
 
-If you are unfamiliar with the term ""Continuous Integration" (CI), we highly recommend to read the following resources first:
+If you are unfamiliar with the "Continuous Integration" (CI), we highly recommend to read the following resources first:
 
 - https://ropensci.github.io/dev_guide/ci.html
 - https://juliasilge.com/blog/beginners-guide-to-travis/
