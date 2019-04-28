@@ -40,10 +40,10 @@ LocalCI <- R6Class(
       TRUE
     },
     is_travis = function() {
-     Sys.getenv("TRAVIS") == true
+      inherits(ci(), "TravisCI")
     },
     is_appveyor = function() {
-     Sys.getenv("APPVEYOR") == true
+      inherits(ci(), "AppveyorCI")
     }
   )
 )
