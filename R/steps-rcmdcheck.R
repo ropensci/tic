@@ -82,8 +82,9 @@ RCMDcheck <- R6Class(
 #'   Deprecated, use `error_on`.
 #' @param args `[character]`\cr
 #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
-#'   Default for Travis and local runs: `"--force"`.\cr
-#'   Default for Appveyor: `c("--no-vignettes", "--force")`.\cr
+#'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
+#'   Default for Appveyor: `c("--no-manual", "--as-cran", "--no-vignettes",
+#'   "--no-build-vignettes", "--no-multiarch")`.\cr
 #' @param build_args `[character]`\cr
 #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
 #'   Default for Travis and local runs: `"--force"`.\cr
@@ -120,7 +121,7 @@ step_rcmdcheck <- function(...,
       args <- c("--no-manual", "--as-cran")
     } else if (isTRUE(ci_is_appveyor())) {
       args <- c(
-        "--as-cran", "--no-manual", "--no-vignettes",
+        "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"
       )
     } else {

@@ -5,9 +5,9 @@
 \title{Add default checks for packages}
 \usage{
 do_package_checks(..., codecov = !ci_is_interactive(),
-  warnings_are_errors = NULL, notes_are_errors = NULL,
-  args = c("--no-manual", "--as-cran"), build_args = "--force",
-  error_on = "warning", repos = repo_default(), timeout = Inf)
+  warnings_are_errors = NULL, notes_are_errors = NULL, args = NULL,
+  build_args = NULL, error_on = "warning", repos = repo_default(),
+  timeout = Inf)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
@@ -23,12 +23,14 @@ Deprecated, use \code{error_on}.}
 Deprecated, use \code{error_on}.}
 
 \item{args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{c("--no-manual", "--as-cran")}.}
+Passed to \code{rcmdcheck::rcmdcheck()}.\cr
+Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.\cr
+Default for Appveyor: \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
 
 \item{build_args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}\cr
-Default for Travis: \code{"--force"}}
+Passed to \code{rcmdcheck::rcmdcheck()}.\cr
+Default for Travis and local runs: \code{"--force"}.\cr
+Default for Appveyor: \code{c("--no-vignettes", "--force")}.\cr}
 
 \item{error_on}{\code{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is
