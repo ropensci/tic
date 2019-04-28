@@ -165,7 +165,7 @@ do_pkgdown()
 
 Please see the corresponding help pages for a detailed listing of the respective stage/step combinations.
 
-## Examples projects
+## Example projects
 
 *tic* can be used for various R projects:
 
