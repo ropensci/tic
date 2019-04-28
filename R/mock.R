@@ -40,10 +40,10 @@ MockCI <- R6Class(
       TRUE
     },
     is_travis = function() {
-      self$has_env("TravisCI")
+      inherits(ci(), "TravisCI")
     },
     is_appveyor = function() {
-      self$has_env("AppVeyorCI")
+      inherits(ci(), "AppVeyorCI")
     }
   )
 )
