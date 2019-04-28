@@ -134,7 +134,7 @@ $install
 ### Emulating a CI run locally
 
 To emulate a real CI run locally, `run_all_stages()` should be used.
-It executed all defined stages and their corresponding steps.
+It executes all defined stages and their corresponding steps.
 Note that doing this will of course use your local system libraries and not the CI environment.
 
 Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `do_package_checks()`.
