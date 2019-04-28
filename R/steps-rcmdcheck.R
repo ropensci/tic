@@ -132,6 +132,6 @@ if (is.null(build_args)) {
     build_args = build_args,
     error_on = error_on,
     repos = repos,
-    timeout = timeout,
+    timeout = timeout
   )
 }
