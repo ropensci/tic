@@ -31,8 +31,8 @@ do_package_checks <- function(...,
                               codecov = !ci_is_interactive(),
                               warnings_are_errors = NULL,
                               notes_are_errors = NULL,
-                              args = c("--no-manual", "--as-cran"),
-                              build_args = "--force", error_on = "warning",
+                              args = NULL,
+                              build_args = NULL,
                               repos = repo_default(), timeout = Inf) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
@@ -50,8 +50,8 @@ do_package_checks <- function(...,
       step_rcmdcheck(
         warnings_are_errors = !! enquo(warnings_are_errors),
         notes_are_errors = !! enquo(notes_are_errors),
-        args = !! enquo(args),
-        build_args = !! enquo(build_args),
+        args = args,
+        build_args = build_args,
         error_on = !! enquo(error_on),
         repos = !! enquo(repos),
         timeout = !! enquo(timeout)
