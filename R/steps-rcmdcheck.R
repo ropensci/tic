@@ -1,5 +1,6 @@
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStep,
+  "RCMDcheck",
+  inherit = TicStep,
 
   public = list(
     initialize = function(...) {
@@ -8,29 +9,31 @@ RCMDcheck <- R6Class(
         # Travis
         Travis = {
           self$warnings_are_errors <- NULL
-         self$notes_are_errors <- NULL
-         self$args <- c("--no-manual", "--as-cran")
-         self$build_args <- "--force"
-         self$error_on <- "warning"
-         self$repos <- repo_default()
-         self$timeout <- Inf},
+          self$notes_are_errors <- NULL
+          self$args <- c("--no-manual", "--as-cran")
+          self$build_args <- "--force"
+          self$error_on <- "warning"
+          self$repos <- repo_default()
+          self$timeout <- Inf
+        },
         # Appveyor
         Appveyor = {
           self$warnings_are_errors <- NULL
-        self$notes_are_errors <- NULL
-        self$args <- c("--no-manual", "--as-cran", "--no-vignettes")
-        self$build_args <- c("--no-build-vignettes", "--force")
-        self$error_on <- "warning"
-        self$repos <- repo_default()
-        self$timeout <- Inf}
+          self$notes_are_errors <- NULL
+          self$args <- c("--no-manual", "--as-cran", "--no-vignettes")
+          self$build_args <- c("--no-build-vignettes", "--force")
+          self$error_on <- "warning"
+          self$repos <- repo_default()
+          self$timeout <- Inf
+        }
       )
-        private$args <- args
-        private$build_args <- build_args
-        private$error_on <- error_on
-        private$repos <- repos
-        private$timeout <- timeout
+      private$args <- args
+      private$build_args <- build_args
+      private$error_on <- error_on
+      private$repos <- repos
+      private$timeout <- timeout
 
-        super$initialize()
+      super$initialize()
     },
 
     # initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
@@ -137,13 +140,12 @@ step_rcmdcheck <- function(...,
                            args = c("--no-manual", "--as-cran"),
                            build_args = "--force", error_on = "warning",
                            repos = repo_default(), timeout = Inf) {
-
   if (isTRUE(ci_is_travis())) {
-    ci_type = "Travis"
+    ci_type <- "Travis"
   } else if (isTRUE(ci_is_appveyor())) {
-    ci_type = "Appveyor"
+    ci_type <- "Appveyor"
   } else {
-    ci_type = NULL
+    ci_type <- NULL
   }
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
