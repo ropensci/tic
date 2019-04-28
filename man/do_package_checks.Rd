@@ -27,8 +27,8 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{"--force"}.}
+Passed to \code{rcmdcheck::rcmdcheck()}\cr
+Default for Travis: \code{"--force"}}
 
 \item{error_on}{\code{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is

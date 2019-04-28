@@ -5,9 +5,8 @@
 \title{Step: Check a package}
 \usage{
 step_rcmdcheck(..., warnings_are_errors = NULL,
-  notes_are_errors = NULL, args = c("--no-manual", "--as-cran"),
-  build_args = "--force", error_on = "warning",
-  repos = repo_default(), timeout = Inf)
+  notes_are_errors = NULL, args = NULL, build_args = NULL,
+  error_on = "warning", repos = repo_default(), timeout = Inf)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
@@ -20,8 +19,8 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{c("--no-manual", "--as-cran")}.}
 
 \item{build_args}{\code{[character]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{"--force"}.}
+Passed to \code{rcmdcheck::rcmdcheck()}\cr
+Default for Travis: \code{"--force"}}
 
 \item{error_on}{\code{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is
