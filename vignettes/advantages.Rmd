@@ -80,7 +80,7 @@ We could list way more differences - but that's exactly the point when *tic* com
 - You are independent from all the changes that are being made to the R setup for Travis or Appveyor ([more info](advantages.html#less-dependency-on-external-ci-control-commands)).
 - A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file.
 
-So instead of learning how to specify specific tasks on different CI platforms, you only need to "learn" how to do with R commands.
+So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.
 
 ## Less dependency on external CI control commands
 
