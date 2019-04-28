@@ -82,11 +82,13 @@ RCMDcheck <- R6Class(
 #' @param warnings_are_errors,notes_are_errors `[flag]`\cr
 #'   Deprecated, use `error_on`.
 #' @param args `[character]`\cr
-#'   Passed to `rcmdcheck::rcmdcheck()`, default:
-#'   `c("--no-manual", "--as-cran")`.
+#'   Passed to `rcmdcheck::rcmdcheck()`.\cr
+#'   Default for Travis and local runs: `"--force"`.\cr
+#'   Default for Appveyor: `c("--no-vignettes", "--force")`.\cr
 #' @param build_args `[character]`\cr
-#'   Passed to `rcmdcheck::rcmdcheck()`\cr
-#'   Default for Travis: `"--force"`
+#'   Passed to `rcmdcheck::rcmdcheck()`.\cr
+#'   Default for Travis and local runs: `"--force"`.\cr
+#'   Default for Appveyor: `c("--no-vignettes", "--force")`.\cr
 #' @param error_on `[character]`\cr
 #'   Whether to throw an error on R CMD check failures. Note that the check is
 #'   always completed (unless a timeout happens), and the error is only thrown
@@ -131,6 +133,5 @@ if (is.null(build_args)) {
     error_on = error_on,
     repos = repos,
     timeout = timeout,
-    ci_type = ci_type
   )
 }
