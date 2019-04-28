@@ -38,6 +38,12 @@ MockCI <- R6Class(
     },
     is_interactive = function() {
       TRUE
+    },
+    is_travis = function() {
+      self$has_env("TravisCI")
+    },
+    is_appveyor = function() {
+      self$has_env("AppVeyorCI")
     }
   )
 )

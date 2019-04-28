@@ -36,6 +36,12 @@ AppVeyorCI <- R6Class(
     },
     has_env = function(env) {
       self$get_env(env) != ""
+    },
+    is_travis = function() {
+      self$has_env("TravisCI")
+    },
+    is_appveyor = function() {
+      self$has_env("AppVeyorCI")
     }
   )
 )

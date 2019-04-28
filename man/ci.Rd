@@ -14,6 +14,8 @@
 \alias{ci_can_push}
 \alias{ci_is_interactive}
 \alias{ci_cat_with_color}
+\alias{ci_is_travis}
+\alias{ci_is_appveyor}
 \title{The current CI environment}
 \usage{
 ci_get_branch()
@@ -39,6 +41,10 @@ ci_can_push(name = "id_rsa")
 ci_is_interactive()
 
 ci_cat_with_color(code)
+
+ci_is_travis()
+
+ci_is_appveyor()
 
 ci()
 }
@@ -83,6 +89,10 @@ Global setup operations shouldn't be run on interactive CIs.
 \code{ci_cat_with_color()}: Colored output targeted to the CI log. The code argument can be an
 unevaluated call to a crayon function, the style will be applied even if it
 normally wouldn't be.
+
+\code{ci_is_travis()}: Are we running on Travis CI?
+
+\code{ci_is_appveyor()}: Are we running on Appveyor CI?
 
 \code{ci()}: Return the current CI environment
 }

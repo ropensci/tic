@@ -202,6 +202,22 @@ ci_cat_with_color <- function(code) {
   ci()$cat_with_color(code)
 }
 
+#' CI is_travis
+#' @description `ci_is_travis()`: Are we running on Travis CI?
+#' @rdname ci
+#' @export
+ci_is_travis <- function() {
+  ci()$is_travis()
+}
+
+#' CI is_appveyor
+#' @description `ci_is_appveyor()`: Are we running on Appveyor CI?
+#' @rdname ci
+#' @export
+ci_is_appveyor <- function() {
+  ci()$is_appveyor()
+}
+
 #' The current CI environment
 #'
 #' `ci()`: Return the current CI environment

@@ -42,6 +42,12 @@ TravisCI <- R6Class(
         list(crayon.enabled = TRUE),
         cat_line(code)
       )
+    },
+    is_travis = function() {
+      self$has_env("TravisCI")
+    },
+    is_appveyor = function() {
+      self$has_env("AppVeyorCI")
     }
   )
 )
