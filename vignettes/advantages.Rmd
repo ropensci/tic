@@ -27,7 +27,7 @@ Set up your project to deploy rendered versions of your book or blog with a sing
 1. Workflow specification are specified in a single R script, regardless of the CI system used.  
 No need anymore for YAML configuration files that differ across CI services.
 
-Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking (instead of "R CMD Check") a and robust caching approach of project dependencies.
+Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking (instead of `R CMD check`) a and robust caching approach of project dependencies.
 
 ## Easier deployment
 
