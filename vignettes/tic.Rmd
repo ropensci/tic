@@ -230,4 +230,4 @@ The advanced usage of *tic* is described in more detail in the [Advanced Usage](
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 - [Writing custom steps](custom-steps.html)
 
-For more information on the build lifecycle see [here](build-lifecycle.html).
+For more information on the build lifecycle see the ["Build lifecycle" article](build-lifecycle.html).
