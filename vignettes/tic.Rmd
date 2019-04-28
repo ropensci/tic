@@ -188,7 +188,7 @@ get_stage("install") %>%
                 prepare_call = remotes::install_github("rstudio/blogdown"))
 ```
 
-Then the website is build and deployed.
+Then the website is built and deployed.
 The `blogdown::build_site()` function for websites is the equivalent to `pkgdown::build_site()` for R packages.
 
 ```{r eval = FALSE}
