@@ -2,31 +2,63 @@ RCMDcheck <- R6Class(
   "RCMDcheck", inherit = TicStep,
 
   public = list(
-    initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
-                          args = c("--no-manual", "--as-cran"),
-                          build_args = "--force", error_on = "warning",
-                          repos = repo_default(), timeout = Inf) {
+    initialize = function(...) {
+      arguments <- list(...)
+      switch(arguments[[ci_type]],
+        # Travis
+        Travis = {
+          self$warnings_are_errors <- NULL
+         self$notes_are_errors <- NULL
+         self$args <- c("--no-manual", "--as-cran")
+         self$build_args <- "--force"
+         self$error_on <- "warning"
+         self$repos <- repo_default()
+         self$timeout <- Inf},
+        # Appveyor
+        Appveyor = {
+          self$warnings_are_errors <- NULL
+        self$notes_are_errors <- NULL
+        self$args <- c("--no-manual", "--as-cran", "--no-vignettes")
+        self$build_args <- c("--no-build-vignettes", "--force")
+        self$error_on <- "warning"
+        self$repos <- repo_default()
+        self$timeout <- Inf}
+      )
+        private$args <- args
+        private$build_args <- build_args
+        private$error_on <- error_on
+        private$repos <- repos
+        private$timeout <- timeout
 
-      if (!is.null(notes_are_errors)) {
-        warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
-        if (notes_are_errors) {
-          error_on <- "note"
-        }
-      }
-      else if (!is.null(warnings_are_errors)) {
-        warning_once('`warnings_are_errors` is deprecated, please use `error_on = "warning"`')
-        if (warnings_are_errors) {
-          error_on <- "warning"
-        }
-      }
-      private$args <- args
-      private$build_args <- build_args
-      private$error_on <- error_on
-      private$repos <- repos
-      private$timeout <- timeout
-
-      super$initialize()
+        super$initialize()
     },
+
+    # initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
+    #                       args = c("--no-manual", "--as-cran"),
+    #                       build_args = "--force", error_on = "warning",
+    #                       repos = repo_default(), timeout = Inf) {
+    #
+    #   if (!is.null(notes_are_errors)) {
+    #     warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
+    #     if (notes_are_errors) {
+    #       error_on <- "note"
+    #     }
+    #   }
+    #   else if (!is.null(warnings_are_errors)) {
+    #     warning_once('`warnings_are_errors` is deprecated, please use `error_on = "warning"`')
+    #     if (warnings_are_errors) {
+    #       error_on <- "warning"
+    #     }
+    #   }
+    #   private$args <- args
+    #   private$build_args <- build_args
+    #   private$error_on <- error_on
+    #   private$repos <- repos
+    #   private$timeout <- timeout
+    #
+    #   super$initialize()
+    # },
+
 
     run = function() {
       res <- rcmdcheck::rcmdcheck(
@@ -105,6 +137,14 @@ step_rcmdcheck <- function(...,
                            args = c("--no-manual", "--as-cran"),
                            build_args = "--force", error_on = "warning",
                            repos = repo_default(), timeout = Inf) {
+
+  if (isTRUE(ci_is_travis())) {
+    ci_type = "Travis"
+  } else if (isTRUE(ci_is_appveyor())) {
+    ci_type = "Appveyor"
+  } else {
+    ci_type = NULL
+  }
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
@@ -112,6 +152,7 @@ step_rcmdcheck <- function(...,
     build_args = build_args,
     error_on = error_on,
     repos = repos,
-    timeout = timeout
+    timeout = timeout,
+    ci_type = ci_type
   )
 }
