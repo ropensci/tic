@@ -64,7 +64,7 @@ use_tic <- function(path = ".", quiet = FALSE) {
     cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to Github."), col = "green")
     if (needs_deploy(repo_type)) travis::use_travis_deploy()
 
-    cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI to avoid", "Github API rate limitations in the builds."), col = "green")
+    cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI", "to avoid Github API rate limitations in the builds."), col = "green")
     #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
     travis::travis_set_pat()
   })
