@@ -82,11 +82,11 @@ use_appveyor_yml <- function() {
 }
 
 use_tic_r <- function(repo_type) {
-  use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
+  use_tic_template(file.path(repo_type, "tic.R"), "tic.R", open = TRUE)
 }
 
-use_tic_template <- function(template, save_as = template) {
-  usethis::use_template(template, save_as, package = "tic")
+use_tic_template <- function(template, save_as = template, open = FALSE) {
+  usethis::use_template(template, save_as, package = "tic", open = open)
 }
 
 needs_appveyor <- function(repo_type) {
