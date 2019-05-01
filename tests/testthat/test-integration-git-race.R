@@ -28,8 +28,7 @@ test_that("integration test: git race condition", {
 
   cat("\n")
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       writeLines(
         c(
           'get_stage("deploy") %>%',
@@ -49,8 +48,7 @@ test_that("integration test: git race condition", {
   git2r::clone(bare_repo_path, package_path_2)
 
   withr::with_dir(
-    package_path_2,
-    {
+    package_path_2, {
       writeLines(character(), "clone.txt")
       git2r::config(user.name = "tic-clone", user.email = "tic-clone@pkg.test")
       git2r::add(path = ".")
@@ -63,8 +61,7 @@ test_that("integration test: git race condition", {
   git2r::clone(bare_repo_path, package_path_3)
 
   withr::with_dir(
-    package_path_3,
-    {
+    package_path_3, {
       writeLines("clone-contents", "clone.txt")
       git2r::config(user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test")
       git2r::add(path = ".")
@@ -74,8 +71,7 @@ test_that("integration test: git race condition", {
   )
 
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -90,8 +86,7 @@ test_that("integration test: git race condition", {
   expect_match(last_bare_commit$message, "Deploy from local build")
 
   withr::with_dir(
-    package_path_2,
-    {
+    package_path_2, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -103,8 +98,7 @@ test_that("integration test: git race condition", {
   )
 
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       system("git pull")
       expect_true(file.exists("clone.txt"))
       expect_equal(readLines("dir.txt"), sort(dir(pattern = "^clone[.]txt$")))
@@ -112,8 +106,7 @@ test_that("integration test: git race condition", {
   )
 
   withr::with_dir(
-    package_path_3,
-    {
+    package_path_3, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -125,8 +118,7 @@ test_that("integration test: git race condition", {
   )
 
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       system("git pull")
       expect_true(file.exists("clone.txt"))
       expect_identical(readLines("clone.txt"), "clone-contents")

@@ -1,6 +1,5 @@
 TicStage <- R6Class(
   "TicStage",
-
   public = list(
     initialize = function(name) {
       private$name <- name
@@ -8,8 +7,10 @@ TicStage <- R6Class(
     },
 
     add_step = function(step, code) {
-      self$add_task(run = step$run, check = step$check, prepare = step$prepare,
-                    name = code)
+      self$add_task(
+        run = step$run, check = step$check, prepare = step$prepare,
+        name = code
+      )
     },
 
     add_task = function(run, check = NULL, prepare = NULL, name = NULL) {

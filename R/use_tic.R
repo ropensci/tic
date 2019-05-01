@@ -7,7 +7,6 @@
 #'
 #' @export
 use_tic <- function(quiet = FALSE) {
-
   cli::cat_boxx("Welcome to `tic`!", col = "green")
   cli::cat_bullet(
     "This wizard will set all the required tokens and files\n  on Travis CI and Github. Let's get started!",
@@ -29,7 +28,8 @@ use_tic <- function(quiet = FALSE) {
   #' @details
   #' The project path is retrieved with [usethis::proj_get()].
   path <- usethis::proj_get()
-  cli::cat_bullet(bullet = "info",
+  cli::cat_bullet(
+    bullet = "info",
     paste0("Using active project ", usethis::ui_value(path))
   )
 
