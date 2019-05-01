@@ -42,6 +42,9 @@ TravisCI <- R6Class(
         list(crayon.enabled = TRUE),
         cat_line(code)
       )
+    },
+    on_travis = function() {
+      TRUE
     }
   )
 )

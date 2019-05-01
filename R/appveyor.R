@@ -36,6 +36,9 @@ AppVeyorCI <- R6Class(
     },
     has_env = function(env) {
       self$get_env(env) != ""
+    },
+    on_appveyor = function() {
+      TRUE
     }
   )
 )

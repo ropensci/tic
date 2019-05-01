@@ -31,8 +31,9 @@ do_package_checks <- function(...,
                               codecov = !ci_is_interactive(),
                               warnings_are_errors = NULL,
                               notes_are_errors = NULL,
-                              args = c("--no-manual", "--as-cran"),
-                              build_args = "--force", error_on = "warning",
+                              args = NULL,
+                              build_args = NULL,
+                              error_on = "warning",
                               repos = repo_default(), timeout = Inf) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the

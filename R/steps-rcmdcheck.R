@@ -1,12 +1,12 @@
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStep,
+  "RCMDcheck",
+  inherit = TicStep,
 
   public = list(
     initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
-                          args = c("--no-manual", "--as-cran"),
-                          build_args = "--force", error_on = "warning",
-                          repos = repo_default(), timeout = Inf) {
-
+                              args = c("--no-manual", "--as-cran"),
+                              build_args = "--force", error_on = "warning",
+                              repos = repo_default(), timeout = Inf) {
       if (!is.null(notes_are_errors)) {
         warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
         if (notes_are_errors) {
@@ -80,12 +80,6 @@ RCMDcheck <- R6Class(
 #' @param ... Ignored, used to enforce naming of arguments.
 #' @param warnings_are_errors,notes_are_errors `[flag]`\cr
 #'   Deprecated, use `error_on`.
-#' @param args `[character]`\cr
-#'   Passed to `rcmdcheck::rcmdcheck()`, default:
-#'   `c("--no-manual", "--as-cran")`.
-#' @param build_args `[character]`\cr
-#'   Passed to `rcmdcheck::rcmdcheck()`, default:
-#'   `"--force"`.
 #' @param error_on `[character]`\cr
 #'   Whether to throw an error on R CMD check failures. Note that the check is
 #'   always completed (unless a timeout happens), and the error is only thrown
@@ -102,9 +96,36 @@ RCMDcheck <- R6Class(
 #' @export
 step_rcmdcheck <- function(...,
                            warnings_are_errors = NULL, notes_are_errors = NULL,
-                           args = c("--no-manual", "--as-cran"),
-                           build_args = "--force", error_on = "warning",
+                           args = NULL, build_args = NULL, error_on = "warning",
                            repos = repo_default(), timeout = Inf) {
+
+  #' @param build_args `[character]`\cr
+  #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
+  #'   Default for Travis and local runs: `"--force"`.\cr
+  #'   Default for Appveyor: `c("--no--build-vignettes", "--force")`.\cr
+  if (is.null(build_args)) {
+    if (isTRUE(ci_on_appveyor())) {
+      build_args <- c("--no--build-vignettes", "--force")
+    } else {
+      build_args <- "--force"
+    }
+  }
+
+  #' @param args `[character]`\cr
+  #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
+  #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
+  #'   Default for Appveyor:
+  #'   `c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")`.\cr
+  if (is.null(args)) {
+    if (isTRUE(ci_on_appveyor())) {
+      args <- c(
+        "--no-manual", "--as-cran", "--no-build-vignettes", "--no-multiarch"
+      )
+    } else {
+      args <- c("--no-manual", "--as-cran")
+    }
+  }
+
   RCMDcheck$new(
     warnings_are_errors = warnings_are_errors,
     notes_are_errors = notes_are_errors,
