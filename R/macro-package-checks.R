@@ -23,9 +23,9 @@ NULL
 #' @export
 #' @examples
 #' dsl_init()
-#'
+#' 
 #' do_package_checks()
-#'
+#' 
 #' dsl_get()
 do_package_checks <- function(...,
                               codecov = !ci_is_interactive(),
@@ -39,7 +39,7 @@ do_package_checks <- function(...,
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
-      step_install_deps(repos = !! enquo(repos))
+      step_install_deps(repos = !!enquo(repos))
     )
 
   #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
@@ -48,13 +48,13 @@ do_package_checks <- function(...,
   get_stage("script") %>%
     add_step(
       step_rcmdcheck(
-        warnings_are_errors = !! enquo(warnings_are_errors),
-        notes_are_errors = !! enquo(notes_are_errors),
-        args = !! enquo(args),
-        build_args = !! enquo(build_args),
-        error_on = !! enquo(error_on),
-        repos = !! enquo(repos),
-        timeout = !! enquo(timeout)
+        warnings_are_errors = !!enquo(warnings_are_errors),
+        notes_are_errors = !!enquo(notes_are_errors),
+        args = !!enquo(args),
+        build_args = !!enquo(build_args),
+        error_on = !!enquo(error_on),
+        repos = !!enquo(repos),
+        timeout = !!enquo(timeout)
       )
     )
 

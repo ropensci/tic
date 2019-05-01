@@ -1,5 +1,6 @@
 BuildBookdown <- R6Class(
-  "BuildBookdown", inherit = TicStep,
+  "BuildBookdown",
+  inherit = TicStep,
 
   public = list(
     initialize = function(...) {
@@ -8,7 +9,7 @@ BuildBookdown <- R6Class(
     },
 
     run = function() {
-        do.call(bookdown::render_book, private$bookdown_args)
+      do.call(bookdown::render_book, private$bookdown_args)
     },
 
     prepare = function() {
@@ -20,7 +21,6 @@ BuildBookdown <- R6Class(
   private = list(
     bookdown_args = NULL
   )
-
 )
 
 #' Step: Build a bookdown book
@@ -31,6 +31,5 @@ BuildBookdown <- R6Class(
 #'
 #' @export
 step_build_bookdown <- function(...) {
-
   BuildBookdown$new(...)
 }

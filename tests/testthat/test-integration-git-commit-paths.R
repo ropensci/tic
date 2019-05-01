@@ -14,8 +14,7 @@ test_that("integration test: git", {
 
   cat("\n")
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       writeLines(
         c(
           'get_stage("deploy") %>%',
@@ -35,8 +34,7 @@ test_that("integration test: git", {
   )
 
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -54,8 +52,7 @@ test_that("integration test: git", {
   git2r::clone(bare_repo_path, package_path_2)
 
   withr::with_dir(
-    package_path_2,
-    {
+    package_path_2, {
       expect_false(file.exists("time.txt"))
       expect_true(file.exists("deploy/time.txt"))
     }

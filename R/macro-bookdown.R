@@ -24,9 +24,9 @@ NULL
 #' @export
 #' @examples
 #' dsl_init()
-#'
+#' 
 #' do_bookdown()
-#'
+#' 
 #' dsl_get()
 do_bookdown <- function(...,
                         deploy = NULL,
@@ -60,7 +60,7 @@ do_bookdown <- function(...,
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
-    add_step(step_install_deps(repos = !! enquo(repos)))
+    add_step(step_install_deps(repos = !!enquo(repos)))
 
   if (isTRUE(deploy)) {
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment (if `deploy` is set),
@@ -68,25 +68,25 @@ do_bookdown <- function(...,
     get_stage("before_deploy") %>%
       add_step(step_setup_ssh()) %>%
       add_step(step_setup_push_deploy(
-        path = !! enquo(path),
-        branch = !! enquo(branch),
-        remote_url = !! enquo(remote_url),
-        orphan = !! enquo(orphan),
-        checkout = !! enquo(checkout)
+        path = !!enquo(path),
+        branch = !!enquo(branch),
+        remote_url = !!enquo(remote_url),
+        orphan = !!enquo(orphan),
+        checkout = !!enquo(checkout)
       ))
   }
 
   #' 1. [step_build_bookdown()] in the `"deploy"` stage, forwarding all `...` arguments.
   get_stage("deploy") %>%
-    add_step(step_build_bookdown(!!! enquos(...)))
+    add_step(step_build_bookdown(!!!enquos(...)))
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
   if (isTRUE(deploy)) {
     get_stage("deploy") %>%
       add_step(step_do_push_deploy(
-        path = !! enquo(path),
-        commit_message = !! enquo(commit_message),
-        commit_paths = !! enquo(commit_paths)
+        path = !!enquo(path),
+        commit_message = !!enquo(commit_message),
+        commit_paths = !!enquo(commit_paths)
       ))
   }
 

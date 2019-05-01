@@ -6,8 +6,7 @@ test_that("integration test: early failure", {
   cat("\n")
   dir.create(package_path)
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       writeLines(
         'get_stage("script") %>% add_code_step(stop("oops")) %>% add_code_step(writeLines(character(), "out.txt"))',
         "tic.R"

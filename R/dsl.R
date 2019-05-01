@@ -26,7 +26,7 @@ NULL
 #' @export
 #' @examples
 #' dsl_init()
-#'
+#' 
 #' get_stage("script")
 get_stage <- function(name) {
   # Initialize if necessary
@@ -47,10 +47,10 @@ get_stage <- function(name) {
 #' @rdname dsl
 #' @export
 #' @examples
-#'
+#' 
 #' get_stage("script") %>%
 #'   add_step(step_hello_world())
-#'
+#' 
 #' get_stage("script")
 add_step <- function(stage, step) {
   step_quo <- enquo(step)
@@ -77,21 +77,21 @@ add_step <- function(stage, step) {
 #' @inheritParams step_run_code
 #' @rdname dsl
 #' @examples
-#'
+#' 
 #' get_stage("script") %>%
 #'   add_code_step(print("Hi!"))
-#'
+#' 
 #' get_stage("script")
 add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   call_expr <- enexpr(call)
   prepare_call_expr <- enexpr(prepare_call)
 
   if (is.null(prepare_call_expr)) {
-    step <- quo(step_run_code(!! call_expr))
+    step <- quo(step_run_code(!!call_expr))
   } else {
-    step <- quo(step_run_code(!! call_expr, !! prepare_call_expr))
+    step <- quo(step_run_code(!!call_expr, !!prepare_call_expr))
   }
-  add_step(stage, !! step)
+  add_step(stage, !!step)
 }
 
 #' @importFrom magrittr %>%

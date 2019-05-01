@@ -43,7 +43,8 @@ TicStep <- R6Class(
 )
 
 HelloWorld <- R6Class(
-  "HelloWorld", inherit = TicStep,
+  "HelloWorld",
+  inherit = TicStep,
 
   public = list(
     run = function() {

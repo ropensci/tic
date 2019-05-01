@@ -1,6 +1,5 @@
 TicStage <- R6Class(
   "TicStage",
-
   public = list(
     initialize = function(name) {
       private$name <- name
@@ -8,8 +7,10 @@ TicStage <- R6Class(
     },
 
     add_step = function(step, code) {
-      self$add_task(run = step$run, check = step$check, prepare = step$prepare,
-                    name = code)
+      self$add_task(
+        run = step$run, check = step$check, prepare = step$prepare,
+        name = code
+      )
     },
 
     add_task = function(run, check = NULL, prepare = NULL, name = NULL) {
@@ -40,7 +41,7 @@ TicStage <- R6Class(
       success <- TRUE
       for (step in private$steps) {
         if (!private$run_one(step)) {
-          stopc('A step failed in stage "', private$name, '": ', private$name, '.')
+          stopc('A step failed in stage "', private$name, '": ', private$name, ".")
         }
       }
     },
@@ -63,8 +64,9 @@ TicStage <- R6Class(
     steps = NULL,
 
     prepare_one = function(step) {
-      if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
+      if (identical(body(step$prepare), body(TicStep$public_methods$prepare))) {
         return()
+      }
 
       if (!isTRUE(step$check())) {
         ci_cat_with_color(
@@ -97,23 +99,21 @@ TicStage <- R6Class(
 
       top <- environment()
 
-      tryCatch(
-        {
-          withCallingHandlers(
-            {
-              step$run()
-              TRUE
-            },
-            error = function(e) {
-              ci_cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
-              tb <- format_traceback(top)
-              ci_cat_with_color(crayon::yellow(tb))
-            }
-          )
+      tryCatch({
+        withCallingHandlers({
+          step$run()
+          TRUE
         },
         error = function(e) {
-          FALSE
+          ci_cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
+          tb <- format_traceback(top)
+          ci_cat_with_color(crayon::yellow(tb))
         }
+        )
+      },
+      error = function(e) {
+        FALSE
+      }
       )
     }
   )

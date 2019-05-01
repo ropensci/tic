@@ -1,12 +1,12 @@
 RCMDcheck <- R6Class(
-  "RCMDcheck", inherit = TicStep,
+  "RCMDcheck",
+  inherit = TicStep,
 
   public = list(
     initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
-                          args = c("--no-manual", "--as-cran"),
-                          build_args = "--force", error_on = "warning",
-                          repos = repo_default(), timeout = Inf) {
-
+                              args = c("--no-manual", "--as-cran"),
+                              build_args = "--force", error_on = "warning",
+                              repos = repo_default(), timeout = Inf) {
       if (!is.null(notes_are_errors)) {
         warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
         if (notes_are_errors) {

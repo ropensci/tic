@@ -9,7 +9,6 @@
 #'
 #' @export
 use_tic <- function(path = ".", quiet = FALSE) {
-
   cli::cat_boxx("Welcome to `tic`!", col = "green")
   cli::cat_bullet(
     "This wizard will set all the required tokens and files\n  on Travis CI and Github. Let's get started!",

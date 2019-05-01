@@ -50,7 +50,7 @@ dslobj_init <- function(envir = parent.frame()) {
 #' @examples
 #' dsl_init()
 #' dsl_get()
-#'
+#' 
 #' dsl_load(system.file("templates/package/tic.R", package = "tic"))
 #' dsl_load(system.file("templates/package/tic.R", package = "tic"), force = TRUE)
 #' dsl_get()

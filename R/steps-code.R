@@ -1,5 +1,6 @@
 RunCode <- R6Class(
-  "RunCode", inherit = TicStep,
+  "RunCode",
+  inherit = TicStep,
 
   public = list(
     initialize = function(call, prepare_call = NULL) {
@@ -55,10 +56,10 @@ RunCode <- R6Class(
 #' @family steps
 #' @examples
 #' step_run_code(update.packages(ask = FALSE))
-#'
+#' 
 #' # Will install covr from CRAN during preparation:
 #' step_run_code(covr::codecov())
 #' @export
 step_run_code <- function(call = NULL, prepare_call = NULL) {
-  RunCode$new(!! enexpr(call), !! enexpr(prepare_call))
+  RunCode$new(!!enexpr(call), !!enexpr(prepare_call))
 }
