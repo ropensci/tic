@@ -12,7 +12,7 @@ use_tic <- function(path = ".", quiet = FALSE) {
 
   cli::cat_boxx(c("Welcome to `tic`!",
     "This wizard will set all the required tokens on Travis CI, Appveyor and Github.",
-    "Let's get started!"), col = "white")
+    "Let's get started!"), col = "green")
 
   if (!is_installed("travis")) {
     cli::cat_rule(col = "red")
