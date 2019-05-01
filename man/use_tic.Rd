@@ -4,12 +4,9 @@
 \alias{use_tic}
 \title{Initialize CI testing using tic}
 \usage{
-use_tic(path = ".", quiet = FALSE)
+use_tic(quiet = FALSE)
 }
 \arguments{
-\item{path}{\code{[string]}\cr
-The path to the repo to prepare.}
-
 \item{quiet}{\code{[flag]}\cr
 Less verbose output? Default: \code{FALSE}.}
 }
@@ -17,6 +14,10 @@ Less verbose output? Default: \code{FALSE}.}
 Prepares a repo for building and deploying supported by \pkg{tic}.
 }
 \details{
+This function requires the \pkg{travis} and \pkg{usethis} packages.
+
+The project path is retrieved with \code{\link[usethis:proj_get]{usethis::proj_get()}}.
+
 The preparation consists of the following steps:
 \enumerate{
 \item If necessary, create a GitHub repository via \code{\link[usethis:use_github]{usethis::use_github()}}

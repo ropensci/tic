@@ -2,13 +2,11 @@
 #'
 #' Prepares a repo for building and deploying supported by \pkg{tic}.
 #'
-#' @param path `[string]`\cr
-#'   The path to the repo to prepare.
 #' @param quiet `[flag]`\cr
 #'   Less verbose output? Default: `FALSE`.
 #'
 #' @export
-use_tic <- function(path = ".", quiet = FALSE) {
+use_tic <- function(quiet = FALSE) {
 
   cli::cat_boxx("Welcome to `tic`!", col = "green")
   cli::cat_bullet(
@@ -16,6 +14,8 @@ use_tic <- function(path = ".", quiet = FALSE) {
     bullet = "info"
   )
 
+  #' @details
+  #' This function requires the \pkg{travis} and \pkg{usethis} packages.
   if (!is_installed("travis")) {
     cli::cat_rule(col = "red")
     stopc('use_tic() needs the `travis` package. Please install it using remotes::install_github("ropenscilabs/travis").')
@@ -27,47 +27,52 @@ use_tic <- function(path = ".", quiet = FALSE) {
   }
 
   #' @details
+  #' The project path is retrieved with [usethis::proj_get()].
+  path <- usethis::proj_get()
+  cli::cat_bullet(bullet = "info",
+    paste0("Using active project ", usethis::ui_value(path))
+  )
+
+  #' @details
   #' The preparation consists of the following steps:
-  withr::with_dir(path, {
-    #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
-    #'
-    cli::cat_boxx("Step #1: We check if a Github repository exists.", col = "green")
+  #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
+  #'
+  cli::cat_boxx("Step #1: We check if a Github repository exists.", col = "green")
 
-    use_github_interactive()
-    if (!isTRUE(travis::uses_github())) {
-      stop("A Github repository is needed. Please create one manually or re-run the wizard to do it automatically.")
-    } else {
-      cli::cat_bullet("Github repo exists.", bullet = "tick", bullet_col = "green")
-    }
+  use_github_interactive()
+  if (!isTRUE(travis::uses_github())) {
+    stop("A Github repository is needed. Please create one manually or re-run the wizard to do it automatically.")
+  } else {
+    cli::cat_bullet("Github repo exists.", bullet = "tick", bullet_col = "green")
+  }
 
-    #' 1. Enable Travis via [travis::travis_enable()]
-    cli::cat_boxx("Step #2: We check if Travis is already enabled.", col = "green")
-    travis::travis_enable()
+  #' 1. Enable Travis via [travis::travis_enable()]
+  cli::cat_boxx("Step #2: We check if Travis is already enabled.", col = "green")
+  travis::travis_enable()
 
-    cli::cat_boxx(c("Step #3: We create new files", "`.travis.yml`, `appveyor.yml` and `tic.R`."), col = "green")
+  cli::cat_boxx(c("Step #3: We create new files", "`.travis.yml`, `appveyor.yml` and `tic.R`."), col = "green")
 
-    #' 1. Create a default `.travis.yml` file
-    #'    (overwrite after confirmation in interactive mode only)
-    use_travis_yml()
-    #' 1. Create a default `appveyor.yml` file
-    #'    (depending on repo type, overwrite after confirmation
-    #'    in interactive mode only)
-    repo_type <- detect_repo_type()
-    if (needs_appveyor(repo_type)) use_appveyor_yml()
+  #' 1. Create a default `.travis.yml` file
+  #'    (overwrite after confirmation in interactive mode only)
+  use_travis_yml()
+  #' 1. Create a default `appveyor.yml` file
+  #'    (depending on repo type, overwrite after confirmation
+  #'    in interactive mode only)
+  repo_type <- detect_repo_type()
+  if (needs_appveyor(repo_type)) use_appveyor_yml()
 
-    #' 1. Create a default `tic.R` file depending on the repo type
-    #'    (package, website, bookdown, ...)
-    use_tic_r(repo_type)
+  #' 1. Create a default `tic.R` file depending on the repo type
+  #'    (package, website, bookdown, ...)
+  use_tic_r(repo_type)
 
-    #' 1. Enable deployment (if necessary, depending on repo type)
-    #'    via [travis::use_travis_deploy()]
-    cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to Github."), col = "green")
-    if (needs_deploy(repo_type)) travis::use_travis_deploy()
+  #' 1. Enable deployment (if necessary, depending on repo type)
+  #'    via [travis::use_travis_deploy()]
+  cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to Github."), col = "green")
+  if (needs_deploy(repo_type)) travis::use_travis_deploy()
 
-    cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI", "to avoid Github API rate limitations in the builds."), col = "green")
-    #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
-    travis::travis_set_pat()
-  })
+  cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI", "to avoid Github API rate limitations in the builds."), col = "green")
+  #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
+  travis::travis_set_pat()
 
   #'
   #' This function is aimed at supporting the most common use cases.
