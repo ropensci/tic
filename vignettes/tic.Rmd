@@ -50,24 +50,52 @@ The PAT creation cannot be fully automated as some input from the user on GitHub
 First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
 Also, the repo is actived on Travis.
 
-```
-use_tic()
-✔ Setting active project to '/home/pjs/git/tic.package'
-✔ GitHub is already initialized
-Authenticating with GitHub
+```r
+tic::use_tic()
+┌───────────────────────┐
+│                       │
+│   Welcome to `tic`!   │
+│                       │
+└───────────────────────┘
+ℹ This wizard will set all the required tokens and files
+  on Travis CI and Github. Let's get started!
+┌──────────────────────────────────────────────────────┐
+│                                                      │
+│   Step #1: We check if a Github repository exists.   │
+│                                                      │
+└──────────────────────────────────────────────────────┘
+❯ Authenticating to GitHub.
 Waiting for authentication in browser...
 Press Esc/Ctrl + C to abort
 Authentication complete.
-Authenticating with Travis
-Authenticating with GitHub
+✔ Authentication successful.
+❯ Authenticating to GitHub.
 Waiting for authentication in browser...
 Press Esc/Ctrl + C to abort
 Authentication complete.
-Finished activating repo pat-s/tic.package on Travis CI.
+✔ Authentication successful.
+✔ Github repo exists.
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│   Step #2: We check if Travis is already enabled.   │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+❯ Authenticating to GitHub.
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+✔ Authentication successful.
+❯ Authenticating to GitHub.
+❯ Authenticating to GitHub.
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+✔ Authentication successful.
 ```
 
 Next, you will be asked if the current `.travis.yml` should be replaced with the template from *tic* (if one exists).
-Otherwise, the template is added without asking.
+If none exists, _tic_ will try to guess the repository type based on some file heuristics and add a dedicated template.
+If this is not possible, a menu will show up for manual selection of a template.
 
 ```
 Overwrite pre-existing file '.travis.yml'?
@@ -76,22 +104,8 @@ Overwrite pre-existing file '.travis.yml'?
 3: Yeah
 ```
 
-The same is done for Appveyor.
-
-```
-Selection: 3
-✔ Writing '.travis.yml'
-Overwrite pre-existing file 'appveyor.yml'?
-1: Yeah
-2: Nope
-3: No way
-
-Selection: 1
-✔ Writing 'appveyor.yml'
-```
-
-And also for the `tic.R` file.
-Additionally, it is added to `.Rbuildignore` to not interfer with the package building.
+The same is done for Appveyor and for the `tic.R` file.
+Additionally, `tic.R` is added to `.Rbuildignore` to not interfer with package building.
 
 ```
 Overwrite tic.R? 
