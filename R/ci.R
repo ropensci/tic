@@ -62,14 +62,14 @@ CI <- R6Class(
     can_push = function() {
       stop("NYI")
     },
-    #'   \item{`is_travis()`}{
+    #'   \item{`on_travis()`}{
     #'     Returns `TRUE` only on Travis CI, otherwise `FALSE`.}
-    is_travis = function() {
+    on_travis = function() {
       FALSE
     },
-    #'   \item{`is_travis()`}{
+    #'   \item{`on_appveyor()`}{
     #'     Returns `TRUE` only on Appveyor, otherwise `FALSE`.}
-    is_appveyor = function() {
+    on_appveyor = function() {
       FALSE
     },
     #'   \item{`is_interactive()`}{
@@ -212,20 +212,20 @@ ci_cat_with_color <- function(code) {
   ci()$cat_with_color(code)
 }
 
-#' CI is_travis
-#' @description `ci_is_travis()`: Are we running on Travis CI?
+#' CI on_travis
+#' @description `ci_on_travis()`: Are we running on Travis CI?
 #' @rdname ci
 #' @export
-ci_is_travis <- function() {
-  ci()$is_travis()
+ci_on_travis <- function() {
+  ci()$on_travis()
 }
 
-#' CI is_appveyor
-#' @description `ci_is_appveyor()`: Are we running on Appveyor CI?
+#' CI on_appveyor
+#' @description `ci_on_appveyor()`: Are we running on Appveyor CI?
 #' @rdname ci
 #' @export
-ci_is_appveyor <- function() {
-  ci()$is_appveyor()
+ci_on_appveyor <- function() {
+  ci()$on_appveyor()
 }
 
 #' The current CI environment

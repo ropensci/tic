@@ -43,7 +43,7 @@ TravisCI <- R6Class(
         cat_line(code)
       )
     },
-    is_travis = function() {
+    on_travis = function() {
       TRUE
     }
   )

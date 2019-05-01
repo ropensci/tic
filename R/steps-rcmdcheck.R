@@ -104,7 +104,7 @@ step_rcmdcheck <- function(...,
   #'   Default for Travis and local runs: `"--force"`.\cr
   #'   Default for Appveyor: `c("--no-vignettes", "--force")`.\cr
   if (is.null(build_args)) {
-    if (isTRUE(ci_is_appveyor())) {
+    if (isTRUE(ci_on_appveyor())) {
       build_args <- c("--no-vignettes", "--force")
     } else {
       build_args <- "--force"
@@ -117,7 +117,7 @@ step_rcmdcheck <- function(...,
   #'   Default for Appveyor:
   #'   `c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")`.\cr
   if (is.null(args)) {
-    if (isTRUE(ci_is_appveyor())) {
+    if (isTRUE(ci_on_appveyor())) {
       args <- c(
         "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"
