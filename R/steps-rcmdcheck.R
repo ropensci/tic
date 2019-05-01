@@ -80,15 +80,6 @@ RCMDcheck <- R6Class(
 #' @param ... Ignored, used to enforce naming of arguments.
 #' @param warnings_are_errors,notes_are_errors `[flag]`\cr
 #'   Deprecated, use `error_on`.
-#' @param args `[character]`\cr
-#'   Passed to `rcmdcheck::rcmdcheck()`.\cr
-#'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
-#'   Default for Appveyor: `c("--no-manual", "--as-cran", "--no-vignettes",
-#'   "--no-build-vignettes", "--no-multiarch")`.\cr
-#' @param build_args `[character]`\cr
-#'   Passed to `rcmdcheck::rcmdcheck()`.\cr
-#'   Default for Travis and local runs: `"--force"`.\cr
-#'   Default for Appveyor: `c("--no-vignettes", "--force")`.\cr
 #' @param error_on `[character]`\cr
 #'   Whether to throw an error on R CMD check failures. Note that the check is
 #'   always completed (unless a timeout happens), and the error is only thrown
@@ -107,19 +98,26 @@ step_rcmdcheck <- function(...,
                            warnings_are_errors = NULL, notes_are_errors = NULL,
                            args = NULL, build_args = NULL, error_on = "warning",
                            repos = repo_default(), timeout = Inf) {
-  if (quo_is_null(build_args)) {
-    if (isTRUE(ci_is_travis())) {
-      build_args <- "--force"
-    } else if (isTRUE(ci_is_appveyor())) {
+
+  #' @param build_args `[character]`\cr
+  #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
+  #'   Default for Travis and local runs: `"--force"`.\cr
+  #'   Default for Appveyor: `c("--no-vignettes", "--force")`.\cr
+  if (is.null(build_args)) {
+    if (isTRUE(ci_is_appveyor())) {
       build_args <- c("--no-vignettes", "--force")
     } else {
-      build_args <- c("--no-vignettes", "--force")
+      build_args <- "--force"
     }
   }
-  if (quo_is_null(args)) {
-    if (isTRUE(ci_is_travis())) {
-      args <- c("--no-manual", "--as-cran")
-    } else if (isTRUE(ci_is_appveyor())) {
+
+  #' @param args `[character]`\cr
+  #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
+  #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
+  #'   Default for Appveyor:
+  #'   `c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")`.\cr
+  if (is.null(args)) {
+    if (isTRUE(ci_is_appveyor())) {
       args <- c(
         "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"
