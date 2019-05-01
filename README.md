@@ -28,7 +28,7 @@ remotes::install_github("ropenscilabs/tic")
 
 ## Setup
 
-By calling `travis::use_ci()` a production ready CI setup is initialized, tailored to your specific R project.
+By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
 The created templates will use the providers https://travis-ci.org and https://appveyor.com.
 For an R package, the following steps will be set up for the CI workflow:
 
