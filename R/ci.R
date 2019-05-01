@@ -62,6 +62,16 @@ CI <- R6Class(
     can_push = function() {
       stop("NYI")
     },
+    #'   \item{`is_travis()`}{
+    #'     Returns `TRUE` only on Travis CI, otherwise `FALSE`.}
+    is_travis = function() {
+      FALSE
+    },
+    #'   \item{`is_travis()`}{
+    #'     Returns `TRUE` only on Appveyor, otherwise `FALSE`.}
+    is_appveyor = function() {
+      FALSE
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}

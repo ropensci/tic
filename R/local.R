@@ -38,12 +38,6 @@ LocalCI <- R6Class(
     },
     is_interactive = function() {
       TRUE
-    },
-    is_travis = function() {
-      inherits(ci(), "TravisCI")
-    },
-    is_appveyor = function() {
-      inherits(ci(), "AppveyorCI")
     }
   )
 )
