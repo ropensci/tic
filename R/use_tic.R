@@ -29,7 +29,7 @@ use_tic <- function(path = ".", quiet = FALSE) {
   withr::with_dir(path, {
     #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
     #'
-    cli::cat_boxx("Step #1: We check if a Github repository exists.", col = "white")
+    cli::cat_boxx("Step #1: We check if a Github repository exists.", col = "green")
 
     use_github_interactive()
     if (!isTRUE(travis::uses_github())) {
@@ -39,10 +39,10 @@ use_tic <- function(path = ".", quiet = FALSE) {
     }
 
     #' 1. Enable Travis via [travis::travis_enable()]
-    cli::cat_boxx("Step #2: We check if Travis is already enabled.", col = "white")
+    cli::cat_boxx("Step #2: We check if Travis is already enabled.", col = "green")
     travis::travis_enable()
 
-    cli::cat_boxx("Step #3: We create `.travis.yml`, `appveyor.yml` and `tic.R`.", col = "white")
+    cli::cat_boxx(c("Step #3: We create new files", "`.travis.yml`, `appveyor.yml` and `tic.R`."), col = "green")
 
     #' 1. Create a default `.travis.yml` file
     #'    (overwrite after confirmation in interactive mode only)
@@ -59,10 +59,10 @@ use_tic <- function(path = ".", quiet = FALSE) {
 
     #' 1. Enable deployment (if necessary, depending on repo type)
     #'    via [travis::use_travis_deploy()]
-    cli::cat_boxx("Step #4: We create a SSH key pair to allow Travis deployment to Github.", col = "white")
+    cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to Github."), col = "green")
     if (needs_deploy(repo_type)) travis::use_travis_deploy()
 
-    cli::cat_boxx("Step #5: We create a Github PAT key on Travis CI to avoid Github API rate limitations in the builds.", col = "white")
+    cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI to avoid", "Github API rate limitations in the builds."), col = "green")
     #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
     travis::travis_set_pat()
   })
