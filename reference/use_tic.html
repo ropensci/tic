@@ -140,16 +140,11 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>use_tic</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>use_tic</span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>path</th>
-      <td><p><code>[string]</code><br />
-The path to the repo to prepare.</p></td>
-    </tr>
     <tr>
       <th>quiet</th>
       <td><p><code>[flag]</code><br />
@@ -159,7 +154,9 @@ Less verbose output? Default: <code>FALSE</code>.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The preparation consists of the following steps:</p><ol>
+    <p>This function requires the <span class="pkg">travis</span> and <span class="pkg">usethis</span> packages.</p>
+<p>The project path is retrieved with <code><a href='https://usethis.r-lib.org/reference/proj_utils.html'>usethis::proj_get()</a></code>.</p>
+<p>The preparation consists of the following steps:</p><ol>
 <li><p>If necessary, create a GitHub repository via <code><a href='https://usethis.r-lib.org/reference/use_github.html'>usethis::use_github()</a></code></p></li>
 <li><p>Enable Travis via <code><a href='https://www.rdocumentation.org/packages/travis/topics/travis_enable'>travis::travis_enable()</a></code></p></li>
 <li><p>Create a default <code>.travis.yml</code> file
