@@ -16,8 +16,7 @@ test_that("integration test: git", {
   cat("\n")
   usethis::create_package(package_path, fields = list(), rstudio = FALSE, open = FALSE)
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       writeLines(
         c(
           'get_stage("deploy") %>%',
@@ -34,8 +33,7 @@ test_that("integration test: git", {
   )
 
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       callr::r(
         function() {
           tic::run_all_stages()

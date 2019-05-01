@@ -7,7 +7,6 @@
 #'
 #' @export
 use_tic <- function(quiet = FALSE) {
-
   cli::cat_boxx("Welcome to `tic`!", col = "green")
   cli::cat_bullet(
     "This wizard will set all the required tokens and files\n  on Travis CI and Github. Let's get started!",
@@ -29,7 +28,8 @@ use_tic <- function(quiet = FALSE) {
   #' @details
   #' The project path is retrieved with [usethis::proj_get()].
   path <- usethis::proj_get()
-  cli::cat_bullet(bullet = "info",
+  cli::cat_bullet(
+    bullet = "info",
     paste0("Using active project ", usethis::ui_value(path))
   )
 
@@ -105,20 +105,34 @@ needs_deploy <- function(repo_type) {
 }
 
 use_github_interactive <- function() {
-  if (!interactive()) return()
-  if (travis::uses_github()) return()
+  if (!interactive()) {
+    return()
+  }
+  if (travis::uses_github()) {
+    return()
+  }
 
-  if (!yesno("Create GitHub repo and push code?")) return()
+  if (!yesno("Create GitHub repo and push code?")) {
+    return()
+  }
 
   message("Creating GitHub repository")
   usethis::use_github()
 }
 
 detect_repo_type <- function() {
-  if (file.exists("_bookdown.yml")) return("bookdown")
-  if (file.exists("_site.yml")) return("site")
-  if (file.exists("config.toml")) return("blogdown")
-  if (file.exists("DESCRIPTION")) return("package")
+  if (file.exists("_bookdown.yml")) {
+    return("bookdown")
+  }
+  if (file.exists("_site.yml")) {
+    return("site")
+  }
+  if (file.exists("config.toml")) {
+    return("blogdown")
+  }
+  if (file.exists("DESCRIPTION")) {
+    return("package")
+  }
 
   if (!interactive()) return("unknown")
 

@@ -1,6 +1,5 @@
 Git <- R6Class(
   "Git",
-
   public = list(
     initialize = function(path) {
       private$path <- path
@@ -39,7 +38,8 @@ Git <- R6Class(
 )
 
 SetupPushDeploy <- R6Class(
-  "SetupPushDeploy", inherit = TicStep,
+  "SetupPushDeploy",
+  inherit = TicStep,
 
   public = list(
     initialize = function(path = ".", branch = NULL, orphan = FALSE,
@@ -140,8 +140,10 @@ SetupPushDeploy <- R6Class(
             }
           },
           error = function(e) {
-            message(conditionMessage(e),
-                    "\nCould not fetch branch, will attempt to create new")
+            message(
+              conditionMessage(e),
+              "\nCould not fetch branch, will attempt to create new"
+            )
           }
         )
       }
@@ -153,7 +155,6 @@ SetupPushDeploy <- R6Class(
       branches <- git2r::branches(private$git$get_repo(), "remote")
       branches[[paste0(remote_name, "/", private$branch)]]
     }
-
   )
 )
 
@@ -191,7 +192,8 @@ step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
 }
 
 DoPushDeploy <- R6Class(
-  "DoPushDeploy", inherit = TicStep,
+  "DoPushDeploy",
+  inherit = TicStep,
 
   public = list(
     initialize = function(path = ".", commit_message = NULL, commit_paths = ".") {
@@ -323,7 +325,8 @@ step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths 
 }
 
 PushDeploy <- R6Class(
-  "PushDeploy", inherit = TicStep,
+  "PushDeploy",
+  inherit = TicStep,
 
   public = list(
     initialize = function(path = ".", branch = ci_get_branch(),
@@ -340,7 +343,6 @@ PushDeploy <- R6Class(
       private$do <- step_do_push_deploy(
         path = path, commit_message = commit_message, commit_paths = commit_paths
       )
-
     },
 
     check = function() {

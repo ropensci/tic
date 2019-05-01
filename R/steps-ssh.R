@@ -1,5 +1,6 @@
 AddToKnownHosts <- R6Class(
-  "AddToKnownHosts", inherit = TicStep,
+  "AddToKnownHosts",
+  inherit = TicStep,
 
   public = list(
     initialize = function(host = "github.com") {
@@ -48,7 +49,8 @@ step_add_to_known_hosts <- function(host = "github.com") {
 }
 
 InstallSSHKeys <- R6Class(
-  "InstallSSHKeys", inherit = TicStep,
+  "InstallSSHKeys",
+  inherit = TicStep,
 
   public = list(
     initialize = function(name = "id_rsa") {
@@ -64,8 +66,10 @@ InstallSSHKeys <- R6Class(
       if (file.exists(deploy_key_path)) {
         stop("Not overwriting key", call. = FALSE)
       }
-      writeLines(rawToChar(openssl::base64_decode(Sys.getenv(name))),
-                 deploy_key_path)
+      writeLines(
+        rawToChar(openssl::base64_decode(Sys.getenv(name))),
+        deploy_key_path
+      )
       Sys.chmod(deploy_key_path, "600")
     },
 
@@ -102,7 +106,8 @@ step_install_ssh_keys <- function(name = "id_rsa") {
 }
 
 TestSSH <- R6Class(
-  "TestSSH", inherit = TicStep,
+  "TestSSH",
+  inherit = TicStep,
 
   public = list(
     initialize = function(url = "git@github.com", verbose = "-v") {
@@ -141,11 +146,13 @@ step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
 }
 
 SetupSSH <- R6Class(
-  "SetupSSH", inherit = TicStep,
+  "SetupSSH",
+  inherit = TicStep,
 
   public = list(
     initialize = function(name = "id_rsa", host = "github.com",
                           url = paste0("git@", host), verbose = "-v") {
+
       private$install_ssh_keys <- step_install_ssh_keys(name = name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
       private$test_ssh <- step_test_ssh(url = url, verbose = verbose)
@@ -164,9 +171,15 @@ SetupSSH <- R6Class(
     },
 
     check = function() {
-      if (!private$install_ssh_keys$check()) return(FALSE)
-      if (!private$add_to_known_hosts$check()) return(FALSE)
-      if (!private$test_ssh$check()) return(FALSE)
+      if (!private$install_ssh_keys$check()) {
+        return(FALSE)
+      }
+      if (!private$add_to_known_hosts$check()) {
+        return(FALSE)
+      }
+      if (!private$test_ssh$check()) {
+        return(FALSE)
+      }
       TRUE
     }
   ),
