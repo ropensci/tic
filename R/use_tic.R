@@ -10,9 +10,11 @@
 #' @export
 use_tic <- function(path = ".", quiet = FALSE) {
 
-  cli::cat_boxx(c("Welcome to `tic`!",
-    "This wizard will set all the required tokens on Travis CI, Appveyor and Github.",
-    "Let's get started!"), col = "green")
+  cli::cat_boxx("Welcome to `tic`!", col = "green")
+  cli::cat_bullet(
+    "This wizard will set all the required tokens and files\n  on Travis CI and Github. Let's get started!",
+    bullet = "info"
+  )
 
   if (!is_installed("travis")) {
     cli::cat_rule(col = "red")
