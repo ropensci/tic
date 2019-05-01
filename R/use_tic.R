@@ -9,23 +9,43 @@
 #'
 #' @export
 use_tic <- function(path = ".", quiet = FALSE) {
+
+  cli::cat_boxx("Welcome to `tic`!", col = "green")
+  cli::cat_bullet(
+    "This wizard will set all the required tokens and files\n  on Travis CI and Github. Let's get started!",
+    bullet = "info"
+  )
+
   if (!is_installed("travis")) {
-    stopc('`use_tic()` needs the travis package, please install using `remotes::install_github("ropenscilabs/travis")`.')
+    cli::cat_rule(col = "red")
+    stopc('use_tic() needs the `travis` package. Please install it using remotes::install_github("ropenscilabs/travis").')
   }
 
   if (!is_installed("usethis")) {
-    stopc('`use_tic()` needs the usethis package, please install using `install.packages("usethis")`.')
+    cli::cat_rule(col = "red")
+    stopc('use_tic() needs the `usethis` package, please install using install.packages("usethis").')
   }
 
   #' @details
   #' The preparation consists of the following steps:
   withr::with_dir(path, {
     #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
+    #'
+    cli::cat_boxx("Step #1: We check if a Github repository exists.", col = "green")
+
     use_github_interactive()
-    stopifnot(travis::uses_github())
+    if (!isTRUE(travis::uses_github())) {
+      stop("A Github repository is needed. Please create one manually or re-run the wizard to do it automatically.")
+    } else {
+      cli::cat_bullet("Github repo exists.", bullet = "tick", bullet_col = "green")
+    }
 
     #' 1. Enable Travis via [travis::travis_enable()]
+    cli::cat_boxx("Step #2: We check if Travis is already enabled.", col = "green")
     travis::travis_enable()
+
+    cli::cat_boxx(c("Step #3: We create new files", "`.travis.yml`, `appveyor.yml` and `tic.R`."), col = "green")
+
     #' 1. Create a default `.travis.yml` file
     #'    (overwrite after confirmation in interactive mode only)
     use_travis_yml()
@@ -41,8 +61,10 @@ use_tic <- function(path = ".", quiet = FALSE) {
 
     #' 1. Enable deployment (if necessary, depending on repo type)
     #'    via [travis::use_travis_deploy()]
+    cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to Github."), col = "green")
     if (needs_deploy(repo_type)) travis::use_travis_deploy()
 
+    cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI", "to avoid Github API rate limitations in the builds."), col = "green")
     #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
     travis::travis_set_pat()
   })
@@ -62,11 +84,11 @@ use_appveyor_yml <- function() {
 }
 
 use_tic_r <- function(repo_type) {
-  use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
+  use_tic_template(file.path(repo_type, "tic.R"), "tic.R", open = TRUE)
 }
 
-use_tic_template <- function(template, save_as = template) {
-  usethis::use_template(template, save_as, package = "tic")
+use_tic_template <- function(template, save_as = template, open = FALSE) {
+  usethis::use_template(template, save_as, package = "tic", open = open)
 }
 
 needs_appveyor <- function(repo_type) {
