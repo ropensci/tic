@@ -17,7 +17,8 @@ Deprecated, use \code{error_on}.}
 \item{args}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.\cr
-Default for Appveyor: \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
+Default for Appveyor:
+\code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
 
 \item{build_args}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
