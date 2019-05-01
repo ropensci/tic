@@ -115,13 +115,22 @@ detect_repo_type <- function() {
   if (file.exists("config.toml")) return("blogdown")
   if (file.exists("DESCRIPTION")) return("package")
 
+  if (!interactive()) return("unknown")
+
   cli::cat_bullet("Unable to guess the repo type. Please choose the desired one from the menu.",
     bullet = "warning")
 
-  switch(menu(c("Blogdown", "Bookdown", "Package", "Website", "Other")) + 1,
-    cat("Nothing done.\n"), return("blogdown"), return("bookdown"),
-    return("package"), return("site"), return("unknown"))
-
+  choices <- c(
+    blogdown = "Blogdown", bookdown = "Bookdown",
+    package = "Package", website = "Website",
+    unknown = "Other"
+  )
+  chosen <- menu(choices)
+  if (chosen == 0) {
+    stopc("Aborted.")
+  } else {
+    names(choices)[[chosen]]
+  }
 }
 
 yesno <- function(...) {
