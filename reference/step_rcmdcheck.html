@@ -149,9 +149,8 @@ and updating all packages.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_rcmdcheck</span>(<span class='no'>...</span>, <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,14 +167,17 @@ Deprecated, use <code>error_on</code>.</p></td>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.</p></td>
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>.<br />
+Default for Travis and local runs: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.<br />
+Default for Appveyor:
+<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.<br /></p></td>
     </tr>
     <tr>
       <th>build_args</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>"--force"</code>.</p></td>
+Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>.<br />
+Default for Travis and local runs: <code>"--force"</code>.<br />
+Default for Appveyor: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-vignettes", "--force")</a></code>.<br /></p></td>
     </tr>
     <tr>
       <th>error_on</th>

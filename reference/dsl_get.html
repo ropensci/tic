@@ -202,8 +202,8 @@ and the <a href='stages.html'>stages</a> functions to run.</p>
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
-#&gt;     args = c("--no-manual", "--as-cran"), build_args = "--force", 
-#&gt;     error_on = "warning", repos = repo_default(), timeout = Inf)
+#&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
+#&gt;     timeout = Inf)
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))

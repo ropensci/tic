@@ -58,6 +58,8 @@ Global setup operations shouldn't be run on interactive CIs.
 ci_cat_with_color(): Colored output targeted to the CI log. The code argument can be an
 unevaluated call to a crayon function, the style will be applied even if it
 normally wouldn't be.
+ci_on_travis(): Are we running on Travis CI?
+ci_on_appveyor(): Are we running on Appveyor CI?
 ci(): Return the current CI environment" />
 <meta name="twitter:card" content="summary" />
 
@@ -174,6 +176,8 @@ Global setup operations shouldn't be run on interactive CIs.</p>
 <p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log. The code argument can be an
 unevaluated call to a crayon function, the style will be applied even if it
 normally wouldn't be.</p>
+<p><code>ci_on_travis()</code>: Are we running on Travis CI?</p>
+<p><code>ci_on_appveyor()</code>: Are we running on Appveyor CI?</p>
 <p><code>ci()</code>: Return the current CI environment</p>
     
     </div>
@@ -201,6 +205,10 @@ normally wouldn't be.</p>
 <span class='fu'>ci_is_interactive</span>()
 
 <span class='fu'>ci_cat_with_color</span>(<span class='no'>code</span>)
+
+<span class='fu'>ci_on_travis</span>()
+
+<span class='fu'>ci_on_appveyor</span>()
 
 <span class='fu'>ci</span>()</pre>
     
