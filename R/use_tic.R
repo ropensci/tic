@@ -114,13 +114,28 @@ use_github_interactive <- function() {
   usethis::use_github()
 }
 
-
 detect_repo_type <- function() {
   if (file.exists("_bookdown.yml")) return("bookdown")
   if (file.exists("_site.yml")) return("site")
   if (file.exists("config.toml")) return("blogdown")
   if (file.exists("DESCRIPTION")) return("package")
-  "unknown"
+
+  if (!interactive()) return("unknown")
+
+  cli::cat_bullet("Unable to guess the repo type. Please choose the desired one from the menu.",
+    bullet = "warning")
+
+  choices <- c(
+    blogdown = "Blogdown", bookdown = "Bookdown",
+    package = "Package", website = "Website",
+    unknown = "Other"
+  )
+  chosen <- menu(choices)
+  if (chosen == 0) {
+    stopc("Aborted.")
+  } else {
+    names(choices)[[chosen]]
+  }
 }
 
 yesno <- function(...) {
