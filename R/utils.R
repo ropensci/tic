@@ -28,7 +28,9 @@ warning_once <- memoise::memoise(warningc)
 }
 
 get_deps_from_code <- function(call) {
-  if (!is.call(call)) return(character())
+  if (!is.call(call)) {
+    return(character())
+  }
 
   if (identical(call[[1]], quote(`::`))) {
     as.character(call[[2]])
