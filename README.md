@@ -66,9 +66,9 @@ See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) 
     
 - [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 
-    [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.fighare.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.fighare)
-    [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.fighare?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/tic.fighare)
-    [![Coverage Status](https://codecov.io/gh/ropenscilabs/tic.fighare/branch/master/graph/badge.svg)](https://codecov.io/github/ropenscilabs/tic.fighare?branch=master)
+    [![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.figshare.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.figshare)
+    [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.figshare?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/tic.figshare)
+    [![Coverage Status](https://codecov.io/gh/ropenscilabs/tic.figshare/branch/master/graph/badge.svg)](https://codecov.io/github/ropenscilabs/tic.figshare?branch=master)
 
 - [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
 
