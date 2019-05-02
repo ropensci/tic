@@ -60,7 +60,7 @@
         <a class="navbar-brand" href="../index.html">tic</a>
         <div class="info">
           <span class="partof">part of  <a href="https://ropensci.org"><img src='https://d33wubrfki0l68.cloudfront.net/88338b7637e084df5c43e7a9e6293719dbaf10e2/30903/img/icon_lettering_white.svg' height=24 alt = 'rOpenSci'/></a></span>
-          <span class="version label label-default version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9014</span>
+          <span class="version label label-default version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.13.9015</span>
         </div>
       </div>
     </div>
@@ -130,6 +130,20 @@
       <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0-2-13-9015" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9015" class="anchor"></a>tic 0.2.13.9015</h1>
+<ul>
+<li>
+<code>detect_repo_type()</code> now prompts the user for unknown repository types (<a href='https://github.com/ropenscilabs/tic/issues/161'>#161</a>).</li>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> loses <code>path</code> argument, now taken from <code><a href="https://usethis.r-lib.org/reference/proj_utils.html">usethis::proj_get()</a></code> .</li>
+<li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> and <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> now avoid building the vignette by default on AppVeyor (<a href='https://github.com/ropenscilabs/tic/issues/150'>#150</a>).</li>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> now uses boxes from {cli} for better structured output (<a href='https://github.com/ropenscilabs/tic/issues/153'>#153</a>).</li>
+</ul>
+</div>
     <div id="tic-0-2-13-9014" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9014" class="anchor"></a>tic 0.2.13.9014</h1>
@@ -453,6 +467,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tic-0-2-13-9015">0.2.13.9015</a></li>
         <li><a href="#tic-0-2-13-9014">0.2.13.9014</a></li>
         <li><a href="#tic-0-2-13-9013">0.2.13.9013</a></li>
         <li><a href="#tic-0-2-13-9012">0.2.13.9012</a></li>
