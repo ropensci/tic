@@ -1,5 +1,5 @@
 ---
-title: "The advantages of tic"
+title: "The features of tic"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
