@@ -9,8 +9,6 @@ vignette: >
 ---
   
 ```{r setup, include = FALSE}
-options(crayon.enabled = TRUE)
-old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
