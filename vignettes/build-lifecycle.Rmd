@@ -113,7 +113,7 @@ In the code example above `step_build_pkgdown()` is added to the `"deploy"` stag
 More steps that should be run in this stage could just by piped after `add_step(step_build_pkgdown())`.
 So in summary, steps are usually defined using two nested commands: `add_step()` and the corresponding step, here `step_build_pkgdown()`.
 
-Here is a list that shows a rought grouping of the steps into their default stages:
+Here is a list that shows a rough grouping of the steps into their default stages:
 
 #### Basic
 
