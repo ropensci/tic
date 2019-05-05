@@ -35,7 +35,7 @@ These methods must be callable without arguments.
 This means that you only need to override the methods you need; if you don't need a `check()` or `prepare()` method you can leave it out.
 The following sections describe these methods and show examples.
 
-### the `prepare()` method
+### The `prepare()` method
 
 This method will be called by `prepare_all_stages()`.
 It is intended to run in the `before_script` phase of the CI run.
@@ -61,7 +61,7 @@ RCMDcheck$public_methods$run
 
 This method checks whether the step is actually run.
 It returns a logical scalar.
-Function [`step_write_text_file()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24) is an example step with the following implementation of the `check()` method:
+The [`step_write_text_file()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24) function is an example step with the following implementation of the `check()` method:
 
 ```{r}
 WriteTextFile$public_methods$check

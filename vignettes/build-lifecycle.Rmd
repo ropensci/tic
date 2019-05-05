@@ -150,7 +150,9 @@ Here is a list that shows a rough grouping of the steps into their default stage
 ## Macros
 
 Macros in *tic* are combinations of steps for reoccurring workflows to keep `tic.R` tidy.
-In other words, a combination of stages and steps which are used very often to provide the user a shortcut.
+When a macro is invoked, it defines several steps, which are added to stages where they fit best.
+Macros can have parameters to control the behavior of their constituent steps.
+
 The macro function `do_package_checks()` comes with the most important steps that are needed for R package checking. 
 It adds the following steps:
 

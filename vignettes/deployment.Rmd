@@ -178,5 +178,5 @@ get_stage("deploy") %>%
   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man/*")))
 ```
 
-Applying this idea depends on your overall R package development strategy: Commit files like `/man/` and `NS` directly or let them be created by Travis?
+Applying this idea depends on your overall R package development strategy: Commit files like `/man/` and `NAMESPACE` directly or let them be created by Travis?
 An example project that uses the latter strategy is [mlr](https://github.com/mlr-org/mlrng/blob/master/tic.R).
