@@ -1,3 +1,11 @@
+# tic 0.2.13.9015
+
+- `detect_repo_type()` now prompts the user for unknown repository types (#161).
+- `use_tic()` loses `path` argument, now taken from `usethis::proj_get()` .
+- `step_rcmdcheck()` and `do_package_checks()` now avoid building the vignette by default on AppVeyor (#150).
+- `use_tic()` now uses boxes from {cli} for better structured output (#153).
+
+
 # tic 0.2.13.9014
 
 - Configuration storage modeled after `usethis::proj_get()`.

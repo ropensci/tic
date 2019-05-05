@@ -62,6 +62,16 @@ CI <- R6Class(
     can_push = function() {
       stop("NYI")
     },
+    #'   \item{`on_travis()`}{
+    #'     Returns `TRUE` only on Travis CI, otherwise `FALSE`.}
+    on_travis = function() {
+      FALSE
+    },
+    #'   \item{`on_appveyor()`}{
+    #'     Returns `TRUE` only on Appveyor, otherwise `FALSE`.}
+    on_appveyor = function() {
+      FALSE
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
@@ -200,6 +210,22 @@ ci_is_interactive <- function() {
 #' @export
 ci_cat_with_color <- function(code) {
   ci()$cat_with_color(code)
+}
+
+#' CI on_travis
+#' @description `ci_on_travis()`: Are we running on Travis CI?
+#' @rdname ci
+#' @export
+ci_on_travis <- function() {
+  ci()$on_travis()
+}
+
+#' CI on_appveyor
+#' @description `ci_on_appveyor()`: Are we running on Appveyor CI?
+#' @rdname ci
+#' @export
+ci_on_appveyor <- function() {
+  ci()$on_appveyor()
 }
 
 #' The current CI environment

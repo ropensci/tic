@@ -1,7 +1,8 @@
 # nocov start
 #' @include ci.R
 AppVeyorCI <- R6Class(
-  "AppVeyorCI", inherit = CI,
+  "AppVeyorCI",
+  inherit = CI,
 
   public = list(
     get_branch = function() {
@@ -36,6 +37,9 @@ AppVeyorCI <- R6Class(
     },
     has_env = function(env) {
       self$get_env(env) != ""
+    },
+    on_appveyor = function() {
+      TRUE
     }
   )
 )

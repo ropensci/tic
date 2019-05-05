@@ -1,6 +1,5 @@
 TicStage <- R6Class(
   "TicStage",
-
   public = list(
     initialize = function(name) {
       private$name <- name
@@ -8,8 +7,10 @@ TicStage <- R6Class(
     },
 
     add_step = function(step, code) {
-      self$add_task(run = step$run, check = step$check, prepare = step$prepare,
-                    name = code)
+      self$add_task(
+        run = step$run, check = step$check, prepare = step$prepare,
+        name = code
+      )
     },
 
     add_task = function(run, check = NULL, prepare = NULL, name = NULL) {
@@ -40,13 +41,15 @@ TicStage <- R6Class(
       success <- TRUE
       for (step in private$steps) {
         if (!private$run_one(step)) {
-          stopc('A step failed in stage "', private$name, '": ', private$name, '.')
+          stopc('A step failed in stage "', private$name, '": ', private$name, ".")
         }
       }
     },
 
     print = function(..., omit_if_empty = FALSE) {
-      if (omit_if_empty && length(private$steps) == 0) return()
+      if (omit_if_empty && length(private$steps) == 0) {
+        return()
+      }
       cat_rule(private$name, right = "stage", col = "green")
 
       if (length(private$steps) == 0) {
@@ -63,8 +66,9 @@ TicStage <- R6Class(
     steps = NULL,
 
     prepare_one = function(step) {
-      if (identical(body(step$prepare), body(TicStep$public_methods$prepare)))
+      if (identical(body(step$prepare), body(TicStep$public_methods$prepare))) {
         return()
+      }
 
       if (!isTRUE(step$check())) {
         ci_cat_with_color(

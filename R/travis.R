@@ -1,7 +1,8 @@
 # nocov start
 #' @include ci.R
 TravisCI <- R6Class(
-  "TravisCI", inherit = CI,
+  "TravisCI",
+  inherit = CI,
 
   public = list(
     get_branch = function() {
@@ -42,6 +43,9 @@ TravisCI <- R6Class(
         list(crayon.enabled = TRUE),
         cat_line(code)
       )
+    },
+    on_travis = function() {
+      TRUE
     }
   )
 )

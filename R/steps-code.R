@@ -1,5 +1,6 @@
 RunCode <- R6Class(
-  "RunCode", inherit = TicStep,
+  "RunCode",
+  inherit = TicStep,
 
   public = list(
     initialize = function(call, prepare_call = NULL) {
@@ -60,5 +61,5 @@ RunCode <- R6Class(
 #' step_run_code(covr::codecov())
 #' @export
 step_run_code <- function(call = NULL, prepare_call = NULL) {
-  RunCode$new(!! enexpr(call), !! enexpr(prepare_call))
+  RunCode$new(!!enexpr(call), !!enexpr(prepare_call))
 }

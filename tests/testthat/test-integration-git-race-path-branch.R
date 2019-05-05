@@ -28,8 +28,7 @@ test_that("integration test: git race condition with path and branch arguments s
 
   cat("\n")
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       writeLines(
         c(
           'get_stage("deploy") %>%',
@@ -52,8 +51,7 @@ test_that("integration test: git race condition with path and branch arguments s
   git2r::clone(bare_repo_path, package_path_2)
 
   withr::with_dir(
-    package_path_2,
-    {
+    package_path_2, {
       writeLines(character(), "clone.txt")
       git2r::config(user.name = "tic-clone", user.email = "tic-clone@pkg.test")
       git2r::add(path = ".")
@@ -66,8 +64,7 @@ test_that("integration test: git race condition with path and branch arguments s
   git2r::clone(bare_repo_path, package_path_3)
 
   withr::with_dir(
-    package_path_3,
-    {
+    package_path_3, {
       writeLines("clone-contents", "clone.txt")
       git2r::config(user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test")
       git2r::add(path = ".")
@@ -77,8 +74,7 @@ test_that("integration test: git race condition with path and branch arguments s
   )
 
   withr::with_dir(
-    package_path,
-    {
+    package_path, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -100,8 +96,7 @@ test_that("integration test: git race condition with path and branch arguments s
   )
 
   withr::with_dir(
-    deploy_path,
-    {
+    deploy_path, {
       git2r::fetch(name = "origin")
       system2("git", "reset origin/deploy-branch --hard")
       expect_equal(length(git2r::commits()), 1)
@@ -111,8 +106,7 @@ test_that("integration test: git race condition with path and branch arguments s
   )
 
   withr::with_dir(
-    package_path_2,
-    {
+    package_path_2, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -124,8 +118,7 @@ test_that("integration test: git race condition with path and branch arguments s
   )
 
   withr::with_dir(
-    deploy_path,
-    {
+    deploy_path, {
       git2r::fetch(name = "origin")
       system2("git", "reset origin/deploy-branch --hard")
       expect_equal(length(git2r::commits()), 2)
@@ -135,8 +128,7 @@ test_that("integration test: git race condition with path and branch arguments s
   )
 
   withr::with_dir(
-    package_path_3,
-    {
+    package_path_3, {
       callr::r(
         function() {
           tic::run_all_stages()
@@ -148,8 +140,7 @@ test_that("integration test: git race condition with path and branch arguments s
   )
 
   withr::with_dir(
-    deploy_path,
-    {
+    deploy_path, {
       git2r::fetch(name = "origin")
       system2("git", "reset origin/deploy-branch --hard")
       expect_equal(length(git2r::commits()), 2)

@@ -87,11 +87,11 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
   prepare_call_expr <- enexpr(prepare_call)
 
   if (is.null(prepare_call_expr)) {
-    step <- quo(step_run_code(!! call_expr))
+    step <- quo(step_run_code(!!call_expr))
   } else {
-    step <- quo(step_run_code(!! call_expr, !! prepare_call_expr))
+    step <- quo(step_run_code(!!call_expr, !!prepare_call_expr))
   }
-  add_step(stage, !! step)
+  add_step(stage, !!step)
 }
 
 #' @importFrom magrittr %>%
