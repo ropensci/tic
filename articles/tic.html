@@ -57,22 +57,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/advantages.html">Why you should use tic</a>
+      <a href="../articles/advantages.html">Feature Overview</a>
     </li>
     <li>
-      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
+      <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+      <a href="../articles/tic-travis.html">tic &amp; travis</a>
     </li>
     <li>
-      <a href="../articles/advanced.html">Advanced usage</a>
+      <a href="../articles/advanced.html">Advanced Usage</a>
     </li>
     <li>
       <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
   </ul>
 </li>
@@ -130,26 +130,62 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="initialization" class="section level1">
 <h1 class="hasAnchor">
 <a href="#initialization" class="anchor"></a>Initialization</h1>
-<p>The easiest way to use <em>tic</em> for CI services is to call <code>usethis::use_ci()</code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created on GitHub and stored as an encrypted variable on Travis. This avoids hitting rate limitations when accessing the GitHub API, see <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">this blog post</a> for more details. The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.</p>
-<p>First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens). Also, the repo is actived on Travis.</p>
-<pre><code>usethis::use_ci()
-✔ Setting active project to '/home/pjs/git/tic.package'
-✔ GitHub is already initialized
-Authenticating with GitHub
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-Authenticating with Travis
-Authenticating with GitHub
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-Finished activating repo pat-s/tic.package on Travis CI.</code></pre>
+<p>The easiest way to use <em>tic</em> for CI services is to call <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>. This will create templates for both “Travis CI” and “Appveyor” and initialize all the required authentication steps for deployment. During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized. Also a Personal Access Token (PAT) will be created on GitHub and stored as an encrypted variable on Travis. This avoids hitting rate limitations when accessing the GitHub API, see <a href="https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/">this blog post</a> for more details. The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.</p>
+<p>First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens). Also, the repo is activated on Travis.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tic/topics/use_tic">use_tic</a></span>()</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">┌───────────────────────┐</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">│                       │</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">│   Welcome to <span class="st">`</span><span class="dt">tic</span><span class="st">`</span><span class="op">!</span><span class="st">   </span>│</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">│                       │</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">└───────────────────────┘</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">ℹ This wizard will set all the required tokens and files</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  on Travis CI and Github. Lets get started<span class="op">!</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">✔ Setting active project to <span class="st">'/home/pjs/git/test2'</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">ℹ Using active project <span class="st">'/home/pjs/git/test2'</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">┌──────────────────────────────────────────────────────┐</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">│                                                      │</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">│   Step <span class="co">#1: We check if a Github repository exists.   │</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">│                                                      │</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">└──────────────────────────────────────────────────────┘</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">Authentication complete.</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">✔ Authentication successful.</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">Authentication complete.</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">✔ Authentication successful.</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">✔ Github repo exists.</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">┌─────────────────────────────────────────────────────┐</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28">│                                                     │</a>
+<a class="sourceLine" id="cb1-29" data-line-number="29">│   Step <span class="co">#2: We check if Travis is already enabled.   │</span></a>
+<a class="sourceLine" id="cb1-30" data-line-number="30">│                                                     │</a>
+<a class="sourceLine" id="cb1-31" data-line-number="31">└─────────────────────────────────────────────────────┘</a>
+<a class="sourceLine" id="cb1-32" data-line-number="32">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb1-33" data-line-number="33">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
+<a class="sourceLine" id="cb1-34" data-line-number="34">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
+<a class="sourceLine" id="cb1-35" data-line-number="35">Authentication complete.</a>
+<a class="sourceLine" id="cb1-36" data-line-number="36">✔ Authentication successful.</a>
+<a class="sourceLine" id="cb1-37" data-line-number="37">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb1-38" data-line-number="38">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb1-39" data-line-number="39">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
+<a class="sourceLine" id="cb1-40" data-line-number="40">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
+<a class="sourceLine" id="cb1-41" data-line-number="41">Authentication complete.</a>
+<a class="sourceLine" id="cb1-42" data-line-number="42">✔ Authentication successful.</a>
+<a class="sourceLine" id="cb1-43" data-line-number="43">Finished activating repo pat<span class="op">-</span>s<span class="op">/</span>test2 on Travis CI.</a></code></pre></div>
 <p>Next, you will be asked if the current <code>.travis.yml</code> should be replaced with the template from <em>tic</em> (if one exists). Otherwise, the template is added without asking.</p>
-<pre><code>Overwrite pre-existing file '.travis.yml'?
-1: Absolutely not
-2: Nope
-3: Yeah</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">┌────────────────────────────────────────────────┐</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">│                                                │</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">│   Step <span class="co">#3: We create new files                 │</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">│   <span class="st">`</span><span class="dt">.travis.yml</span><span class="st">`</span>, <span class="st">`</span><span class="dt">appveyor.yml</span><span class="st">`</span> and <span class="st">`</span><span class="dt">tic.R</span><span class="st">`</span>.   │</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">│                                                │</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">└────────────────────────────────────────────────┘</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">Overwrite pre<span class="op">-</span>existing file <span class="st">'.travis.yml'</span>?</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Absolutely not</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="dv">2</span><span class="op">:</span><span class="st"> </span>Nope</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="dv">3</span><span class="op">:</span><span class="st"> </span>Yeah</a></code></pre></div>
 <p>The same is done for Appveyor.</p>
 <pre><code>Selection: 3
 ✔ Writing '.travis.yml'
@@ -170,65 +206,75 @@ Selection: 1
 Added tic.R from template.
 ✔ Adding '^tic\\.R$' to '.Rbuildignore'</code></pre>
 <p>Next, the private deploy key for Travis is added to the GitHub repo. This is needed to give Travis permissions to deploy into the GitHub repo.</p>
-<pre><code>Authenticating with GitHub
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-Finished adding deploy keys on GitHub for repo pat-s/tic.package.
-Successfully added public deploy key 'travis+tic for pat-s/tic.package' to GitHub for 
-pat-s/tic.package. You should receive a confirmation e-mail from GitHub. Delete the 
-key in the repository's settings to revoke access for that key or
-when you no longer need it.</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">┌───────────────────────────────────────────┐</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">│                                           │</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">│   Step <span class="co">#4: We create a SSH key pair       │</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">│   to allow Travis deployment to Github.   │</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">│                                           │</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">└───────────────────────────────────────────┘</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">Finished adding deploy keys on GitHub <span class="cf">for</span> repo <span class="op">&lt;</span>username<span class="op">/</span>repo<span class="op">&gt;</span>.</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">✔ Successfully added public deploy key <span class="st">'travis+tic'</span> to GitHub <span class="cf">for</span> <span class="op">&lt;</span>username<span class="op">/</span>repo<span class="op">&gt;</span>. </a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">❯  You should receive a confirmation e<span class="op">-</span>mail from GitHub.</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">❯  Delete the key <span class="cf">in</span> the repositorys settings to revoke access <span class="cf">for</span> that key or when you no longer need it.</a></code></pre></div>
 <p>Besides the private deploy key, also the public deploy key needs to be added as an environment variable to Travis. As it is a SSH key, its named <code>id_rsa</code> by default.</p>
-<pre><code>Finished adding private environment variable id_rsa to pat-s/tic.package on Travis CI.
-Successfully added private deploy key to pat-s/tic.package as secure environment variable
-id_rsa to Travis CI.</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">Authentication complete.</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">✔ Authentication successful.</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">Finished updating private environment variable id_rsa <span class="cf">for</span> <span class="op">&lt;</span>username<span class="op">/</span>repo<span class="op">&gt;</span><span class="st"> </span>on Travis CI.</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">✔ Successfully added private deploy key to <span class="op">&lt;</span>username<span class="op">/</span>repo<span class="op">&gt;</span><span class="st"> </span>as secure environment variable id_rsa to Travis CI.</a></code></pre></div>
 <p>Last, a PAT is created to avoid the download limit of GitHub packages on Travis. You now see two environment variables in your setting on Travis CI: <code>GITHUB_PAT</code> and <code>id_rsa</code>.</p>
-<pre><code>Create a personal access token, make sure that you are signed in as the correct user. 
-The suggested description 'travis+tic for pat-s/tic.package' has been copied to the 
-clipboard. If you use this token only to avoid GitHub's rate limit, you can leave 
-all scopes unchecked. Then, copy the new token to the clipboard, it will be 
-detected and applied automatically. Please visit
-  https://github.com/settings/tokens/new
-A browser window will be opened.
-Waiting for PAT to appear on the clipboard.
-Detected PAT, clearing clipboard.
-Finished adding private environment variable GITHUB_PAT to pat-s/tic.package on Travis CI.</code></pre>
-<p>All this functionality is integrated in the <a href="http://usethis.r-lib.org/"><em>usethis</em></a> package because it contains various other useful <code>use_*</code> functions that simplify R (package) development. However, the heavy lifting in the background is actually done by the R packages <em>travis</em> and <em>tic</em> . See <a href="tic-usethis-travis.html">here</a> for more detailed information on how <em>tic</em> , <em>travis</em> and <em>usethis</em> work together.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">┌─────────────────────────────────────────────────────────┐</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">│                                                         │</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">│   Step <span class="co">#5: We create a Github PAT key on Travis CI      │</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">│   to avoid Github API rate limitations <span class="cf">in</span> the builds.   │</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">│                                                         │</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">└─────────────────────────────────────────────────────────┘</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">❯  Authenticating to GitHub.</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">Waiting <span class="cf">for</span> authentication <span class="cf">in</span> browser...</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">Authentication complete.</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">✔ Authentication successful.</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">❯  Creating a personal access <span class="kw">token</span> (PAT).</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">❯  The suggested description <span class="st">'travis+tic for pat-s/test2'</span> has been copied to the clipboard.travis<span class="op">+</span>tic <span class="cf">for</span> pat<span class="op">-</span>s<span class="op">/</span>test2</a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">ℹ  If you use this token only to avoid GitHubs rate limit, you can leave all scopes unchecked.</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">ℹ  Then, copy the new token to the clipboard, it will be detected and applied automatically.</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">ℹ Please visit</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">  https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>settings<span class="op">/</span>tokens<span class="op">/</span>new</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">  A browser window will be opened.</a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">ℹ  If you use this token only to avoid GitHubs rate limit, you can leave all scopes unchecked.</a></code></pre></div>
+<p>Most functionality of the wizard comes from the <em>travis</em> package. See <a href="tic-travis.html">here</a> for more detailed information on how <em>tic</em> and <em>travis</em> work together.</p>
 </div>
 <div id="explanation-of-the-basic-template" class="section level1">
 <h1 class="hasAnchor">
 <a href="#explanation-of-the-basic-template" class="anchor"></a>Explanation of the basic template</h1>
-<p>After having called <code>usethis::use_ci()</code> you will find a <code>.travis.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo. Usually you do not need to touch <code>appveyor.yml</code> and <code>.travis.yml</code> anymore. All build customizations are done in <code>tic.R</code> and apply to both services. If you want more information about the whole build lifecycle, check the <a href="build-lifecycle.html">Build lifecycle</a> vignette.</p>
+<p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find a <code>.travis.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo. Usually you do not need to touch <code>appveyor.yml</code> and <code>.travis.yml</code> anymore. All build customizations are done in <code>tic.R</code> and apply to both services. If you want more information about the whole build lifecycle, check the <a href="build-lifecycle.html">Build lifecycle</a> vignette.</p>
 <p>The basic <code>tic.R</code> template looks as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>(<span class="dt">warnings_are_errors =</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion</a></span>() <span class="op">&gt;=</span><span class="st"> "3.2"</span>))</a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">}</a></code></pre></div>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a></code></pre></div>
 <p>Let’s break down what happens here:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>(<span class="dt">warnings_are_errors =</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric_version">getRversion</a></span>() <span class="op">&gt;=</span><span class="st"> "3.2"</span>))</a></code></pre></div>
-<p>Is a macro which adds essential steps to various stages of a CI run. For example, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. Check <code>?do_package_checks()</code> to see a list of all added steps by this convenience function.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"BUILD_PKGDOWN"</span>) <span class="op">!=</span><span class="st"> ""</span>) { }</a></code></pre></div>
-<p>This line conditions the contents of the block inside the braces <code>{ }</code> on the existence of the environment variable <code>"BUILD_PKGDOWN"</code>. The env variable is set in the <a href="https://github.com/ropenscilabs/tic/blob/d3c9ffab7e42ef4bf0a3113337c42dbaf592146c/.travis.yml#L45-L47"><code>.travis.yml</code></a> template, but only for the job that runs on the current R-release version:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">r:</span><span class="at"> 3.3</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">r:</span><span class="at"> 3.4</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">r:</span><span class="at"> release</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">  <span class="fu">env:</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> BUILD_PKGDOWN=true</a></code></pre></div>
-<p>When the <code>if</code>-condition evaluates to <code>TRUE</code>, the following gets executed:<br>
-First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> sets up the SSH connection needed for deployment.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a></code></pre></div>
-<p>Then, in the “deploy” stage of the CI run, function <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build a <a href="http://pkgdown.r-lib.org/"><em>pkgdown</em></a> site if the project is an R package, and the <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step will push the updated files (if any) to Git.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
+<p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> Is a macro which adds essential steps to various stages of a CI run. Essentially, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of a R package. Afterwards, the code coverage is beim checked using <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
+<p>The other macro in the default template is <code>do_pkdown()</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a></code></pre></div>
+<p><code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> adds five steps to the build process:</p>
+<pre class="reval"><code># step_install_deps() in the "install" stage, using the repos argument.
+# 
+# step_setup_ssh() in the "before_deploy" to setup the upcoming deployment (if deploy is set),
+# 
+# step_setup_push_deploy() in the "before_deploy" stage (if deploy is set),
+# 
+# step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
+# 
+# step_do_push_deploy() in the "deploy" stage.</code></pre>
+<p>In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed.</p>
 </div>
 <div id="examples-projects" class="section level1">
 <h1 class="hasAnchor">
@@ -257,14 +303,14 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 <a href="https://github.com/ropenscilabs/tic.covrpage">tic.covrpage</a>: Unit test summary report.</li>
 </ul>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>(), </a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">                <span class="dt">prepare_call =</span> remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"rstudio/blogdown"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>(), </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">                <span class="dt">prepare_call =</span> remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"rstudio/blogdown"</span>))</a></code></pre></div>
 <p>Then the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <em>tic</em> is smart enough to detect your project automatically when calling <code>usethis::use_ci()</code> and will add the correct template.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
+<p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <em>tic</em> is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 <div id="tic-based-r-projects-from-the-community" class="section level2">
 <h2 class="hasAnchor">
@@ -331,7 +377,7 @@ First, <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></co
 
 <div class="author">
   <p>
-    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.
+    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, <a href="https://pjs-web.de">Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://ropensci.github.io/rotemplate/">rotemplate</a>.
   </p>
 </div>

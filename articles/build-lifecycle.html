@@ -57,22 +57,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/advantages.html">Why you should use tic</a>
+      <a href="../articles/advantages.html">Feature Overview</a>
     </li>
     <li>
-      <a href="../articles/build-lifecycle.html">The CI build lifecycle</a>
+      <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-usethis-travis.html">tic, travis and usethis</a>
+      <a href="../articles/tic-travis.html">tic &amp; travis</a>
     </li>
     <li>
-      <a href="../articles/advanced.html">Advanced usage</a>
+      <a href="../articles/advanced.html">Advanced Usage</a>
     </li>
     <li>
       <a href="../articles/deployment.html">Deployment</a>
     </li>
     <li>
-      <a href="../articles/custom-steps.html">Custom steps</a>
+      <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
   </ul>
 </li>
@@ -111,29 +111,33 @@
 <div id="stages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#stages" class="anchor"></a>Stages</h2>
-<p>CI services run builds in stages. Stages are ordered as follows:</p>
+<p>CI services run builds in stages. Stages are ususally ordered as follows:</p>
 <p><img src="img/build-lifecycle.png" style="display: block; margin: auto;"></p>
-<p>The <code>after_xxx</code> stages are run unconditionally, after their corresponding <code>xxx</code> stage. For example, the <code>after_deploy</code> stage will only be run if there the <code>deploy</code> stage was run before. The <code>after_success</code> stage will only be run if the <code>script</code> stage executed successfully, i.e. without error; otherwise <code>after_failure</code> will be run instead.</p>
+<p>The <code>after_xxx</code> stages are executed conditionally after their corresponding <code>xxx</code> stage. For example, the <code>after_deploy</code> stage will only be run if the <code>deploy</code> stage was run before. The <code>after_success</code> stage will only be run if the <code>script</code> stage executed successfully, i.e. without error; otherwise <code>after_failure</code> will be run instead.</p>
 <p><em>tic</em> also employs an approach based on stages. All action specifications that should be run in each stage are defined in the <code>tic.R</code> file. The steps are specified in an CI-agnostic way using R syntax. A large part of the <code>.travis.yml</code> file consists of glue code and is not meant to be edited anymore.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># DO NOT CHANGE THE CODE BELOW</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">before_install:</span><span class="at"> R -q -e 'install.packages(c("remotes", "curl", "tic")); tic::prepare_all_stages(); tic::before_install()'</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">before_install:</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> R -q -e <span class="st">'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> R -q -e <span class="st">'if (getRversion() &lt; "3.2" &amp;&amp; !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:before_install()'</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">  <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
 <p>In a nutshell, the workflow is as follows:</p>
-<p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands/step to execute</p>
+<p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands/steps to execute</p>
 <p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. The workflow can be loaded using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>, this will not run any of the commands defined there. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>. This latter emulates a CI build on your local system. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more information.</p>
 <div id="accessing-a-single-stage" class="section level3">
 <h3 class="hasAnchor">
@@ -143,20 +147,20 @@
 <div id="details-of-stages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#details-of-stages" class="anchor"></a>Details of stages</h3>
-<div id="before_install-install" class="section level4">
+<div id="the-before_install-install-stages" class="section level4">
 <h4 class="hasAnchor">
-<a href="#before_install-install" class="anchor"></a>before_install &amp; install</h4>
-<p>An important stage for <em>tic</em> is the <code>before_install</code> stage. Here, <em>tic</em> itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Essentially it calls the <code>prepare()</code> function of all steps that were declared in <code>tic.R</code>. For example, the <code>prepare()</code> function of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step makes sure that all dependencies of an R package get installed by calling <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_deps">remotes::install_deps()</a></code>.</p>
+<a href="#the-before_install-install-stages" class="anchor"></a>The <code>before_install</code> &amp; <code>install</code> stages</h4>
+<p>An important stage for <em>tic</em> is the <code>before_install</code> stage. Here, <em>tic</em> itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Essentially it calls the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code>. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_deps">remotes::install_deps()</a></code>.</p>
 <p>All packages that should be stored in the “cache” of the CI service (so that they do not need to be installed again on every CI build) should be installed during preparation.</p>
 </div>
-<div id="script" class="section level4">
+<div id="the-script-stage" class="section level4">
 <h4 class="hasAnchor">
-<a href="#script" class="anchor"></a>script</h4>
-<p>The <code>script</code> stage is responsible for executing the important tasks of the CI run: Typically, it runs <code>R CMD check</code> for a package, it builds the site for a blogdown site, etc.. In this stage all dependencies for a successful run already are installed.</p>
+<a href="#the-script-stage" class="anchor"></a>The <code>script</code> stage</h4>
+<p>The <code>script</code> stage is responsible for executing the important tasks of the CI run: Typically, it runs <code>R CMD check</code> for a package or builds the site for a blogdown site. In this stage all dependencies for a successful run are already installed.</p>
 </div>
-<div id="deploy" class="section level4">
+<div id="the-deploy-stage" class="section level4">
 <h4 class="hasAnchor">
-<a href="#deploy" class="anchor"></a>deploy</h4>
+<a href="#the-deploy-stage" class="anchor"></a>The <code>deploy</code> stage</h4>
 <p>This stage initiates the deployment (e.g., setting up SSH keys) and executes it. If you want to automatically build a <em>pkgdown</em> site, you can do it here. See <a href="deployment.html">the vignette about deployment</a> for more information.</p>
 </div>
 </div>
@@ -167,8 +171,8 @@
 <p>Steps are the commands that are executed in each stage. <em>tic</em> uses the <a href="https://magrittr.tidyverse.org/">pipe operator</a> and the <code><a href="../reference/dsl.html">add_step()</a></code> function to chain steps in <code>tic.R</code>, for example</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
-<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> here is added to the <code>deploy</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after the <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> step. Steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
-<p>We grouped the steps defined by the <em>tic</em> package in the following. Please see the respective help pages of the functions for more detailed documentation.</p>
+<p>In the code example above <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> is added to the <code>"deploy"</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code>. So in summary, steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
+<p>Here is a list that shows a rough grouping of the steps into their default stages:</p>
 <div id="basic" class="section level4">
 <h4 class="hasAnchor">
 <a href="#basic" class="anchor"></a>Basic</h4>
@@ -208,9 +212,10 @@
 <li>
 <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: run <code>R CMD check</code> via the <em>rcmdcheck</em> package</li>
 </ul>
-<div id="deployment" class="section level5">
-<h5 class="hasAnchor">
-<a href="#deployment" class="anchor"></a>Deployment</h5>
+</div>
+<div id="deployment" class="section level4">
+<h4 class="hasAnchor">
+<a href="#deployment" class="anchor"></a>Deployment</h4>
 <ul>
 <li>
 <code>step_install_ssh_key()</code>: make available a private SSH key (which has been added before to your project by <a href="https://github.com/r-lib/usethis"><em>usethis</em></a><code>::use_travis_deploy()</code>)</li>
@@ -248,18 +253,18 @@
 </ul>
 </div>
 </div>
-<div id="macros" class="section level3">
-<h3 class="hasAnchor">
-<a href="#macros" class="anchor"></a>Macros</h3>
-<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. The macro function <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
+<div id="macros" class="section level2">
+<h2 class="hasAnchor">
+<a href="#macros" class="anchor"></a>Macros</h2>
+<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. When a macro is invoked, it defines several steps, which are added to stages where they fit best. Macros can have parameters to control the behavior of their constituent steps.</p>
+<p>The macro function <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
 <ol style="list-style-type: decimal">
-<li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>script</code> stage, using the <code>error_on</code>, <code>args</code>, <code>build_args</code>, <code>repos</code> and <code>timeout</code> arguments.</p></li>
-<li><p>A call to <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the “after_success” stage.</p></li>
+<li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the <code>error_on</code>, <code>args</code>, <code>build_args</code>, <code>repos</code> and <code>timeout</code> arguments.</p></li>
+<li><p>A call to <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the <code>"after_success"</code> stage.</p></li>
 </ol>
 <p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
 <p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
-<p>Currently, <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is the only macro implemented. We will add more macros in the future. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
-</div>
+<p>Macros can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
 </div>
   </div>
 
@@ -270,6 +275,7 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#stages">Stages</a></li>
       <li><a href="#steps">Steps</a></li>
+      <li><a href="#macros">Macros</a></li>
       </ul>
 </div>
       </div>
@@ -283,7 +289,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, Patrick Schratz, rOpenSci.
+    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, <a href="https://pjs-web.de">Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://ropensci.github.io/rotemplate/">rotemplate</a>.
   </p>
 </div>
