@@ -4,10 +4,10 @@ Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.2.13.9015
 Authors@R: c(
     person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
+    person("Patrick", "Schratz", email = "patrick.schratz@gmail.com", role = "aut", comment = c(ORCID = '0000-0003-0748-6624')),
     person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
     person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
     person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut")),
-    person("Patrick", "Schratz", email = "patrick.schratz@gmail.com", role = "aut", comment = c(ORCID = '0000-0003-0748-6624')),
     person("rOpenSci", role = c("fnd"))
   )
 Description: 

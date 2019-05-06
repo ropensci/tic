@@ -94,7 +94,7 @@ See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) 
 
 - [Advanced usage](https://ropenscilabs.github.io/tic/articles/advanced.html)
 - [Build lifecycle](https://ropenscilabs.github.io/tic/articles/build-lifecycle.html)
-- [tic advantages](https://ropenscilabs.github.io/tic/articles/advantages.html)
+- [tic features](https://ropenscilabs.github.io/tic/articles/features.html)
 - [tic, travis and usethis](https://ropenscilabs.github.io/tic/articles/tic-usethis-travis.html)
 - [Developer information](https://ropenscilabs.github.io/tic/articles/custom-steps.html)
 

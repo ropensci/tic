@@ -1,5 +1,5 @@
 ---
-title: "How deployment works"
+title: "Deployment"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
@@ -15,9 +15,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-*tic* handles the deployment as follows:
+## Introduction
 
-1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `usethis::use_ci()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
+*tic* handles deployment as follows:
+
+1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `use_tic()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
 
     ```{r, echo = FALSE, fig.align='center', dpi = 10}
     knitr::include_graphics("img/ssh-deploy-key.png")
@@ -30,16 +32,16 @@ knitr::opts_chunk$set(
     ```
     
     Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
-    Additionally, when calling `use_ci()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by GitHubs download rate limitations. 
+    Additionally, when calling `use_tic()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by GitHubs download rate limitations. 
 
 ## pkgdown deployment
 
-[`pkgdown`](https://github.com/r-lib/pkgdown) is a R package that builds a documentation wrapper-site of a package.
+[`pkgdown`](https://github.com/r-lib/pkgdown) is a R package which builds a documentation wrapper-site of a R package.
 It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing web version.
 Without a `pkgdown` site, these package resources need either be collected from various places (Github repository, CRAN function reference) or do even require a local installation of the package if vignettes are placed in custom locations. 
-Therefore, it has become a quasi-standard to have a _pkgdown_ site for a R package.
+Therefore, it has become a quasi-standard to provide a _pkgdown_ site for a R package.
 However, it is tedious to update the site on every commit and check whether something has changed.
-On the other hand, the presence of a `pkgdown` site is only really valuable to the user if the content reflects the most recent state of the package.
+On the other hand, the presence of a _pkgdown_ site is only really valuable to the user if the content reflects the most recent state of the package.
 _tic_ has the ability to automate the update tasks and having the site reflecting the latest state of the package.
 
 The following example shows how _tic_ deploys a `pkgdown` site on Travis.
@@ -61,7 +63,7 @@ Let's break down what happens here:
     By default this stage looks like
 
     ```{r eval = FALSE}
-    if (Sys.getenv("BUILD_PKGDOWN") != "") {
+    if (ci_has_env("BUILD_PKGDOWN")) {
       get_stage("before_deploy") %>%
         add_step(step_setup_ssh())
     }
@@ -75,7 +77,7 @@ Let's break down what happens here:
 
 3. This "script" is calling `tic::deploy()`.
 
-4. All this is happening on every branch. If you want to restrict it to certain branches only, you need to set a condition in `tic.R`.
+4. All this is happening on any branch. (If you want to restrict it to certain branches, you need to set a condition in `tic.R`.)
 
     What happens now is that `tic::deploy()` again searches in `tic.R` for the "deploy" stage and then runs whatever is specified there.
 
@@ -92,17 +94,17 @@ Let's break down what happens here:
     
 ### Deploying to docs/ (master) or gh-pages branch
 
-#### master branch
+#### master branch deployment
 
 By default the deployment is done to the `docs/` directory of the `master` branch.
-This option has the following advantages:
+This has the following advantages:
 
 - You can have per-branch versions of your _pkgdown_ site
 - Per-branch versions enable the possibility to have preview for pull requests via https://www.netlify.com/
 
 A disadvantage is that the `master` branch will be cluttered by automatic commits triggered by Travis that push the changes of the _pkgdown_ site to the `master` branch.
 
-#### gh-pages branch
+#### gh-pages branch deployment
 
 You can optionally set the deployment branch to `gh-pages` and then change the branch serving your site in the GitHub repo settings (change it to `gh-pages`).
 This option has the advantage 
@@ -121,10 +123,6 @@ The creation of a _pkgdown_ site is a common task which applies to this.
 
 Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
 You can restrict on which stage/job a task is executed with the help of environment variables.
-There are two ways to restrict the deployment with *tic* and environment variables: 
-
-1. Setting the condition in `tic.R` (recommended)
-2. Setting the condition in the "deploy" section in `.travis.yml` (see [1](https://docs.travis-ci.com/user/conditional-builds-stages-jobs/), [2](https://docs.travis-ci.com/user/deployment/#conditional-releases-with-on))
 
 _tic_ can make use of implicit set environment variables of the build and additional ones added by the user.
 In the following we show a "build stage" example on Travis using the custom env variable `"BUILD_PKGDOWN"`:
@@ -180,5 +178,5 @@ get_stage("deploy") %>%
   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man/*")))
 ```
 
-Applying this idea of course depends on your overall R package development strategy: Commit files like `/man/` and `NS` directly or let them be created by Travis?
+Applying this idea depends on your overall R package development strategy: Commit files like `/man/` and `NAMESPACE` directly or let them be created by Travis?
 An example project that uses the latter strategy is [mlr](https://github.com/mlr-org/mlrng/blob/master/tic.R).

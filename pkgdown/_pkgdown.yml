@@ -38,17 +38,17 @@ navbar:
     href: reference/index.html
   - text: Articles
     menu:
-    - text: Why you should use tic
+    - text: Feature Overview
       href: articles/advantages.html
-    - text: The CI build lifecycle
+    - text: The CI Build Lifecycle
       href: articles/build-lifecycle.html
-    - text: tic, travis and usethis
-      href: articles/tic-usethis-travis.html
-    - text: Advanced usage
+    - text: tic & travis
+      href: articles/tic-travis.html
+    - text: Advanced Usage
       href: articles/advanced.html
     - text: Deployment
       href: articles/deployment.html
-    - text: Custom steps
+    - text: Custom Steps
       href: articles/custom-steps.html
   - text: Changelog
     href: news/index.html
@@ -56,3 +56,5 @@ navbar:
 authors:
   Kirill Müller:
     href: http://krlmlr.info
+  Patrick Schratz:
+    href: https://pjs-web.de

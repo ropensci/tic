@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Running steps conditionally
+## Running steps conditionally
 
 Steps and stages can be run conditionally using the control workflow of _tic_.
 Possible conditionals are
@@ -28,16 +28,16 @@ Possible conditionals are
 The most common use cases are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a _pkgdown_ site](deployment.html#pkgdown-deployment)).
 If you test on multiple CI services you may also want to run certain tasks on only one of them.
 
-## Use cases
+### Conditional execution: Use cases
 
 The following shows you some example code blocks to condition certain stages and their respective steps on 
 
-- the R Version (using an env variable)
+- the R Version (using an environment variable)
 - the CI service
 - a specific branch
 
 ```{r eval = FALSE}
-if (Sys.getenv("TRAVIS_R_VERSION_STRING") == "release") {
+if (ci_is_env("TRAVIS_R_VERSION_STRING", "release")) {
   get_stage("after_success") %>%
     add_step(<do something>)
 }
@@ -57,15 +57,15 @@ if (ci_get_branch() == "master") {
 }
 ```
 
-# Installing packages
+## Installation of packages
 
-Note that manual installation of GitHub or CRAN packages should only be used in non-interactive CI runs. 
-This can be checked with the condition `ci_is_interactive()`.
-
-Usually required packages should be installed based on the DESCRIPTION file of a package.
+Usually required packages are installed based on the DESCRIPTION file contents of a package.
 You should only use the following steps in extraordinary circumstances.
 
-## GitHub packages
+Also the manual installation of GitHub or CRAN packages should only be used in non-interactive CI runs. 
+This can be checked with the condition `ci_is_interactive()`.
+
+### GitHub packages
 
 GitHub packages should be installed in the `install` stage:
 
@@ -76,10 +76,9 @@ get_stage("install") %>%
 
 Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))`.
 
-## CRAN packages
+### CRAN packages
 
 Sometimes you need to install CRAN packages that are not specified in the DESCRIPTION file of your package.
-For example, to create a favicon in _pkgdown_, the `magick` package is required.
 To install the package (only if it does not exist in the cache already), run the following:
 
 ```{r eval = FALSE}
@@ -87,9 +86,9 @@ get_stage("install") %>%
   add_step(step_install_cran("magick"))
 ```
 
-# CI Meta-Information
+## CI Meta-Information
 
-The `ci()` function holds valuable information about the CI system. 
+The `ci()` function and its friends (`ci_*`) hold valuable information about the CI system. 
 It can be used to query information that can be again be utilized for conditioning stages or steps.
 
 For example, the user may wish to only deploy on Travis by using `inherits(ci(), "TravisCI")`:
@@ -104,101 +103,57 @@ if (inherits(ci(), "TravisCI")) {
 }
 ```
 
-See `?ci` for more information on which information can be extracted from this function.
+See `?ci` for more information on which CI build information can be extracted from this function.
 
-# Troubleshooting: Running tic locally
+## Troubleshooting: Running tic locally
 
-*tic* can be emulated locally in two ways:
+### Checking for syntax errors
 
-## Check for syntax errors
-
-You can run check on possible syntax errors in `tic.R` using `dsl_load()`.
-This function will just source `tic.R` to check for possible misspecification errors.
-If everything is ok, it will return a list with all stages that are run in the CI build, formatted in the `R6` class style.
+Before pushing to Github and triggering a CI build, `tic.R` can be validated using `dsl_load()`.
+This function will simply source `tic.R` to check for possible problems.
+If everything is ok, it will return (invisibly) a list with all stages that will be run in the CI build.
 Here is a preview of the first two stages:
     
 ```{r eval = FALSE}
-dsl_load()[1:2]
+dsl_get()[1:2]
 ```
 
 ```{r eval=FALSE}
 $before_install
-<Stage>
-  Public:
-    add_step: function (step, code) 
-    add_task: function (run, check = NULL, prepare = NULL, name = NULL) 
-    clone: function (deep = FALSE) 
-    initialize: function (name) 
-    prepare_all: function () 
-    reset: function () 
-    run_all: function () 
-  Private:
-    name: before_install
-    prepare_one: function (step) 
-    run_one: function (step) 
-    steps: list
+── before_install ──────────────────────────────────────── stage ──
+ℹ No steps defined
 
 $install
-<Stage>
-  Public:
-    add_step: function (step, code) 
-    add_task: function (run, check = NULL, prepare = NULL, name = NULL) 
-    clone: function (deep = FALSE) 
-    initialize: function (name) 
-    prepare_all: function () 
-    reset: function () 
-    run_all: function () 
-  Private:
-    name: install
-    prepare_one: function (step) 
-    run_one: function (step) 
-    steps: list
+── install ─────────────────────────────────────────────── stage ──
+── install ─────────────────────────────────────────────── stage ──
+▶ step_install_github("ropensci/rotemplate")
+▶ step_install_deps(repos = repo_default())
 ```
 
-## Emulate a CI run locally
+### Emulating a CI run locally
 
-To emulate a real CI run locally, you can call `run_all_stages()` and the stages and steps will be executed in your local R console.
+To emulate a real CI run locally, `run_all_stages()` should be used.
+It executes all defined stages and their corresponding steps.
 Note that doing this will of course use your local system libraries and not the CI environment.
 
 Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `do_package_checks()`.
 
 ```{r, eval = FALSE}
-tic::run_all_stages()
-Running script: step_rcmdcheck(warnings_are_errors = warnings_are_errors, notes_are_errors = notes_are_errors, args = args, build_args = build_args)
-── R CMD build ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-✔  checking for file ‘.../DESCRIPTION’ ...
-─  preparing ‘tic’:
-✔  checking DESCRIPTION meta-information ...
-─  installing the package to build vignettes
-✔  creating vignettes (6.6s)
-   Warning: ‘inst/doc’ file
-       ‘tic-usethis-travis.R’
-     ignored as vignettes have been rebuilt.
-     Run R CMD build with --no-build-vignettes to prevent rebuilding.
-─  checking for LF line-endings in source and make files and shell scripts
-─  checking for empty or unneeded directories
-─  building ‘tic_0.2.13.9010.tar.gz’
-   
-── R CMD check ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-─  using log directory ‘/tmp/RtmpM4zdgT/file12d42bb00e56/tic.Rcheck’ (1.2s)
-─  using R version 3.5.1 (2018-07-02)
-─  using platform: x86_64-pc-linux-gnu (64-bit)
-─  using session charset: UTF-8
-─  using options ‘--no-manual --as-cran’
-✔  checking for file ‘tic/DESCRIPTION’
-─  checking extension type ... Package
-─  this is package ‘tic’ version ‘0.2.13.9010’
-─  package encoding: UTF-8
-[...]
+run_all_stages()
+✔ Using existing tic stage configuration
+Running install: step_install_github("ropensci/rotemplate")
+Skipping install of 'rotemplate' from a github remote, the SHA1 (bec3e6eb) has not changed since last install.
+  Use `force = TRUE` to force installation
+Running install: step_install_deps(repos = repo_default())
 ```
 
-# Troubleshooting: Entering the CI build
+## Troubleshooting: Entering the CI build directly
 
-If your Travis build fails and you don't understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can ssh into the Travis build via SSH.
+If your Travis build fails and you don't understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can SSH into the build.
 To do so, your repository must be enabled for "ssh debugging".
 This means you need to write the Travis CI team an e-mail, asking whether your repo can be [activated for debugging](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode).
 Usually you get a reply within one day including additional information.
-However, rather than going the manual way, just take the easy route by calling `travis::travis_debug_job()`.
+After that, you either follow the manual instructions you get via mail or take the easy way: `travis::travis_debug_job()`.
 
 All it needs is the "Job ID" of the respective build you want to enter.
 
@@ -206,7 +161,7 @@ All it needs is the "Job ID" of the respective build you want to enter.
 knitr::include_graphics("img/travis-job-id.png")
 ```
 
-Rather than going to the web interface and getting the "Job ID" there, you can also do it from the command line.
+Rather than going to the web interface and getting the "Job ID" there, you can also do this from the command line.
 First, you need to query the overall "Build ID" of the run:
 
 ```{r eval = FALSE}
@@ -250,7 +205,7 @@ travis::travis_debug_job(job_id)
 Finished restarting debug job 416983664 from Travis CI.
 ```
 
-Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to ssh into the build.
+Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to enter the build.
 It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
 If you still do not want to use the browser manually, simple call `travis::browse()` to open your project on Travis.
 
@@ -280,4 +235,4 @@ Keep in mind that you only have 30 minutes before the VM will be terminated auto
 # What's not covered yet?
 
 - `SystemRequirements`: *tic* is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
-Our plan is to automatically provide suggestions like "Please add `addons: apt: <library>` to `.travis.yml`".
+Our plan is to automatically provide suggestions like "Please add `addons: apt: <library>` to `.travis.yml`" in case system requirements are missing.
