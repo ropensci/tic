@@ -19,6 +19,8 @@ NULL
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #' @inheritParams step_install_pkg
+#' @param path,branch By default, this macro deploys the `docs` directory
+#'   to the `gh-pages` branch. This is different from [step_push_deploy()].
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export

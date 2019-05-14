@@ -37,12 +37,8 @@ if you deploy to a different branch.}
 \item{repos}{CRAN-like repositories to install from, defaults to
 \code{\link[=repo_default]{repo_default()}}.}
 
-\item{path}{\code{[string]}\cr
-Path to the repository, default \code{"."} which means setting up the current
-repository.}
-
-\item{branch}{\code{[string]}\cr
-Target branch, default: current branch.}
+\item{path, branch}{By default, this macro deploys the \code{docs} directory
+to the \code{gh-pages} branch. This is different from \code{\link[=step_push_deploy]{step_push_deploy()}}.}
 
 \item{remote_url}{\code{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
