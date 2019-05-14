@@ -92,8 +92,8 @@ use_tic_r <- function(repo_type) {
   use_tic_template(file.path(repo_type, "tic.R"), "tic.R", open = TRUE)
 }
 
-use_tic_template <- function(template, save_as = template, open = FALSE) {
-  usethis::use_template(template, save_as, package = "tic", open = open)
+use_tic_template <- function(template, save_as = template, open = FALSE, ignore = TRUE) {
+  usethis::use_template(template, save_as, package = "tic", open = open, ignore = ignore)
 }
 
 needs_appveyor <- function(repo_type) {
