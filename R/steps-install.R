@@ -3,8 +3,9 @@ InstallDeps <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(repos = repo_default()) {
+    initialize = function(repos = repo_default(), type = type) {
       private$repos <- repos
+      private$type <- type
     },
 
     prepare = function() {
@@ -12,12 +13,13 @@ InstallDeps <- R6Class(
     },
 
     run = function() {
-      remotes::install_deps(dependencies = TRUE, repos = private$repos)
+      remotes::install_deps(dependencies = TRUE, repos = private$repos, type = private$type)
     }
   ),
 
   private = list(
-    repos = NULL
+    repos = NULL,
+    type = NULL
   )
 )
 
@@ -27,6 +29,8 @@ InstallDeps <- R6Class(
 #' These steps are useful if your CI run needs additional packages.
 #' Usually they are declared as dependencies in your `DESCRIPTION`,
 #' but it is also possible to install dependencies manually.
+#' By default, binary versions of packages are installed if possible,
+#' even if the CRAN version is ahead.
 #'
 #' A `step_install_deps()` step installs all package dependencies declared in
 #' `DESCRIPTION`, using [remotes::install_deps()].
@@ -34,11 +38,15 @@ InstallDeps <- R6Class(
 #'
 #' @param repos CRAN-like repositories to install from, defaults to
 #'   [repo_default()].
+#' @param type Passed on to [install.packages()]. The default avoids
+#'   installation from source on Windows and macOS by passing
+#'   \code{\link{.Platform}$pkgType}.
 #' @family steps
 #' @export
 #' @name step_install_pkg
-step_install_deps <- function(repos = repo_default()) {
-  InstallDeps$new(repos = repos)
+step_install_deps <- function(repos = repo_default(), type = NULL) {
+  type <- update_type(type)
+  InstallDeps$new(repos = repos, type = type)
 }
 
 
@@ -79,8 +87,9 @@ InstallCRAN <- R6Class(
 #' @param ... Passed on to `install.packages()` or `remotes::install_github()`.
 #' @export
 #' @rdname step_install_pkg
-step_install_cran <- function(package = NULL, ..., repos = repo_default()) {
-  InstallCRAN$new(package = package, repos = repos, ...)
+step_install_cran <- function(package = NULL, ..., repos = repo_default(), type = NULL) {
+  type <- update_type(type)
+  InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
 
 
@@ -119,6 +128,16 @@ InstallGithub <- R6Class(
 #' @param repo Package to install in the "user/repo" format.
 #' @export
 #' @rdname step_install_pkg
-step_install_github <- function(repo = NULL, ...) {
-  InstallGithub$new(repo = repo, ...)
+step_install_github <- function(repo = NULL, ..., type = NULL) {
+  type <- update_type(type)
+  InstallGithub$new(repo = repo, ..., type = type)
+}
+
+
+
+update_type <- function(type) {
+  if (is.null(type)) {
+    type <- .Platform$pkgType
+  }
+  type
 }
