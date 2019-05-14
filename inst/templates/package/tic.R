@@ -1,5 +1,5 @@
 do_package_checks()
 
-if (ci_is_travis()) {
+if (ci_on_travis()) {
   do_pkgdown()
 }
