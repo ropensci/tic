@@ -7,15 +7,20 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(repos = repo_default())
+step_install_deps(repos = repo_default(), type = NULL)
 
-step_install_cran(package = NULL, ..., repos = repo_default())
+step_install_cran(package = NULL, ..., repos = repo_default(),
+  type = NULL)
 
-step_install_github(repo = NULL, ...)
+step_install_github(repo = NULL, ..., type = NULL)
 }
 \arguments{
 \item{repos}{CRAN-like repositories to install from, defaults to
 \code{\link[=repo_default]{repo_default()}}.}
+
+\item{type}{Passed on to \code{\link[=install.packages]{install.packages()}}. The default avoids
+installation from source on Windows and macOS by passing
+\code{\link{.Platform}$pkgType}.}
 
 \item{package}{Package(s) to install}
 
@@ -27,6 +32,8 @@ step_install_github(repo = NULL, ...)
 These steps are useful if your CI run needs additional packages.
 Usually they are declared as dependencies in your \code{DESCRIPTION},
 but it is also possible to install dependencies manually.
+By default, binary versions of packages are installed if possible,
+even if the CRAN version is ahead.
 
 A \code{step_install_deps()} step installs all package dependencies declared in
 \code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
