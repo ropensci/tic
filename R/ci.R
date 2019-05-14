@@ -58,7 +58,7 @@ CI <- R6Class(
     get_commit = function() {
       stop("NYI")
     },
-    #'  \item{`get_commit()`}{Does an env variable named `id_rsa` exist?}
+    #'   \item{`get_commit()`}{Does an env variable named `id_rsa` exist?}
     can_push = function() {
       stop("NYI")
     },
