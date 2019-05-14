@@ -29,11 +29,19 @@ RCMDcheck <- R6Class(
     },
 
     run = function() {
-      res <- rcmdcheck::rcmdcheck(
-        args = private$args, build_args = private$build_args,
-        error_on = "never",
-        repos = private$repos,
-        timeout = private$timeout
+      withr::with_envvar(
+        c(
+          # Avoid large version components
+          "_R_CHECK_CRAN_INCOMING_" = "FALSE",
+          # Don't check system clocks (because the API used there is flaky)
+          "_R_CHECK_SYSTEM_CLOCK_" = "FALSE"
+        ),
+        res <- rcmdcheck::rcmdcheck(
+          args = private$args, build_args = private$build_args,
+          error_on = "never",
+          repos = private$repos,
+          timeout = private$timeout
+        )
       )
 
       print(res)
