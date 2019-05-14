@@ -35,6 +35,4 @@ latex: false
 
 env:
   global:
-  - _R_CHECK_FORCE_SUGGESTS_=false
-  - _R_CHECK_SYSTEM_CLOCK_=false
   - MAKEFLAGS="-j 2"

@@ -34,7 +34,9 @@ RCMDcheck <- R6Class(
           # Avoid large version components
           "_R_CHECK_CRAN_INCOMING_" = "FALSE",
           # Don't check system clocks (because the API used there is flaky)
-          "_R_CHECK_SYSTEM_CLOCK_" = "FALSE"
+          "_R_CHECK_SYSTEM_CLOCK_" = "FALSE",
+          # Don't force suggests
+          "_R_CHECK_FORCE_SUGGESTS_" = "FALSE"
         ),
         res <- rcmdcheck::rcmdcheck(
           args = private$args, build_args = private$build_args,
