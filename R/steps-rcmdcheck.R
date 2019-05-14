@@ -38,7 +38,7 @@ RCMDcheck <- R6Class(
           # Don't force suggests
           "_R_CHECK_FORCE_SUGGESTS_" = "FALSE",
           # Work around missing qpdf executable
-          if (Sys.which("qpdf") == "") "R_QPDF" = "true"
+          "R_QPDF" = if (Sys.which("qpdf") == "") "true"
         ),
         res <- rcmdcheck::rcmdcheck(
           args = private$args, build_args = private$build_args,
