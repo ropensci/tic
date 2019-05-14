@@ -3,7 +3,7 @@ title: "tic & travis - an overview"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tic, travis and usethis - an overview}
+  %\VignetteIndexEntry{tic and travis - an overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
