@@ -27,12 +27,17 @@ after_script: R -q -e 'tic::after_script()'
 
 # Custom parts:
 
+# Header
 language: r
 sudo: false
 dist: xenial
 cache: packages
 latex: false
 
+#env
 env:
   global:
   - MAKEFLAGS="-j 2"
+
+#services
+services:

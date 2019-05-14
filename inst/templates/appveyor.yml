@@ -13,7 +13,7 @@ install:
   - cmd: Rscript -e "getOption('repos')"
   - cmd: Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes')"
   - cmd: Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl')"
-  - cmd: Rscript -e "remotes::install_cran('tic', type = 'binary', upgrade = 'always'); print(tic::dsl_load()); tic::prepare_all_stages()"
+  - cmd: Rscript -e "remotes::install_cran('tic', upgrade = 'always'); print(tic::dsl_load()); tic::prepare_all_stages()"
 
 before_build: Rscript -e "tic::before_install()"
 build_script: Rscript -e "tic::install()"
