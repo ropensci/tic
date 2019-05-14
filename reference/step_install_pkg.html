@@ -40,6 +40,8 @@
 <meta property="og:description" content="These steps are useful if your CI run needs additional packages.
 Usually they are declared as dependencies in your DESCRIPTION,
 but it is also possible to install dependencies manually.
+By default, binary versions of packages are installed if possible,
+even if the CRAN version is ahead.
 A step_install_deps() step installs all package dependencies declared in
 DESCRIPTION, using remotes::install_deps().
 This includes upgrading outdated packages.
@@ -143,7 +145,9 @@ GitHub version is different from the locally installed version." />
     
     <p>These steps are useful if your CI run needs additional packages.
 Usually they are declared as dependencies in your <code>DESCRIPTION</code>,
-but it is also possible to install dependencies manually.</p>
+but it is also possible to install dependencies manually.
+By default, binary versions of packages are installed if possible,
+even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
 <code>DESCRIPTION</code>, using <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code>.
 This includes upgrading outdated packages.</p>
@@ -155,11 +159,12 @@ GitHub version is different from the locally installed version.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>())
+    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>())
+<span class='fu'>step_install_cran</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>step_install_github</span>(<span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>step_install_github</span>(<span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +173,12 @@ GitHub version is different from the locally installed version.</p>
       <th>repos</th>
       <td><p>CRAN-like repositories to install from, defaults to
 <code><a href='repo.html'>repo_default()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>Passed on to <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>. The default avoids
+installation from source on Windows and macOS by passing
+<code><a href='https://www.rdocumentation.org/packages/base/topics/Platform'>.Platform</a>$pkgType</code>.</p></td>
     </tr>
     <tr>
       <th>package</th>
