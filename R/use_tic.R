@@ -81,19 +81,32 @@ use_tic <- function(quiet = FALSE) {
 }
 
 use_travis_yml <- function() {
-  use_tic_template("dot-travis.yml", save_as = ".travis.yml")
+  use_tic_template("dot-travis.yml", save_as = ".travis.yml", data = list(install_tic = double_quotes(get_install_tic_code())))
 }
 
 use_appveyor_yml <- function() {
-  use_tic_template("appveyor.yml")
+  use_tic_template("appveyor.yml", data = list(install_tic = get_install_tic_code()))
+}
+
+get_install_tic_code <- function() {
+  if (getNamespaceVersion("tic") >= "1.0") {
+    # We are on CRAN!
+    "remotes::install_cran('tic', upgrade = 'always')"
+  } else {
+    "remotes::install_github('ropenscilabs/tic', upgrade = 'always')"
+  }
+}
+
+double_quotes <- function(x) {
+  gsub("'", '"', x, fixed = TRUE)
 }
 
 use_tic_r <- function(repo_type) {
   use_tic_template(file.path(repo_type, "tic.R"), "tic.R", open = TRUE)
 }
 
-use_tic_template <- function(template, save_as = template, open = FALSE, ignore = TRUE) {
-  usethis::use_template(template, save_as, package = "tic", open = open, ignore = ignore)
+use_tic_template <- function(template, save_as = template, open = FALSE, ignore = TRUE, data = NULL) {
+  usethis::use_template(template, save_as, package = "tic", open = open, ignore = ignore, data = data)
 }
 
 needs_appveyor <- function(repo_type) {
