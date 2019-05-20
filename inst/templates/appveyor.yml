@@ -11,9 +11,9 @@ install:
   - ps: Bootstrap
   - cmd: Rscript -e "writeLines('options(repos = \'https://cloud.r-project.org\')', '~/.Rprofile')"
   - cmd: Rscript -e "getOption('repos')"
-  - cmd: Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes')"
-  - cmd: Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl')"
-  - cmd: Rscript -e "{{{install_tic}}}; print(tic::dsl_load()); tic::prepare_all_stages()"
+  - cmd: Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'binary')"
+  - cmd: Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'binary')"
+  - cmd: Rscript -e "options(pkgType = 'binary'); {{{install_tic}}}; print(tic::dsl_load()); tic::prepare_all_stages()"
 
 before_build: Rscript -e "tic::before_install()"
 build_script: Rscript -e "tic::install()"
