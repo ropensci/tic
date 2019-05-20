@@ -25,9 +25,6 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
@@ -166,8 +163,8 @@ via <code><a href='https://www.rdocumentation.org/packages/travis/topics/use_tra
 <li><p>Create a GitHub PAT and install it on Travis CI via <code><a href='https://www.rdocumentation.org/packages/travis/topics/travis_set_pat'>travis::travis_set_pat()</a></code></p></li>
 </ol>
     <p>This function is aimed at supporting the most common use cases.
-Users who require more control are advised to manually call the individual
-functions.</p>
+Users who require more control are advised to review the source code of <code>use_tic()</code>
+and manually call the individual functions, some of which aren't exported.</p>
     
 
   </div>
