@@ -78,11 +78,11 @@ dsl_get <- function() {
 dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
   if (dslobj_has() && !force) {
     if (!quiet) {
-      cat_bullet("Using existing tic stage configuration", bullet = "tick", bullet_col = "green")
+      cat_bullet("Using existing tic stage configuration, use ", crayon::silver("`force = TRUE`"), " to reload", bullet = "info", bullet_col = "green")
     }
   } else {
     if (!quiet) {
-      cat_bullet("Loading tic stage configuration from ", path, bullet = "tick", bullet_col = "green")
+      cat_bullet("Loading tic stage configuration from ", crayon::blue(path), bullet = "tick", bullet_col = "green")
     }
 
     # Restore old DSL in case of failure
