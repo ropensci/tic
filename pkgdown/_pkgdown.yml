@@ -39,7 +39,7 @@ navbar:
   - text: Articles
     menu:
     - text: Feature Overview
-      href: articles/advantages.html
+      href: articles/features.html
     - text: The CI Build Lifecycle
       href: articles/build-lifecycle.html
     - text: tic & travis
