@@ -36,9 +36,9 @@ knitr::opts_chunk$set(
 
 ## pkgdown deployment
 
-[`pkgdown`](https://github.com/r-lib/pkgdown) is a R package which builds a documentation wrapper-site of a R package.
+[_pkgdown_](https://github.com/r-lib/pkgdown) is a R package which builds a documentation wrapper-site of a R package.
 It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing web version.
-Without a `pkgdown` site, these package resources need either be collected from various places (Github repository, CRAN function reference) or do even require a local installation of the package if vignettes are placed in custom locations. 
+Without a _pkgdown_ site, these package resources need either be collected from various places (Github repository, CRAN function reference) or do even require a local installation of the package if vignettes are placed in custom locations.
 Therefore, it has become a quasi-standard to provide a _pkgdown_ site for a R package.
 However, it is tedious to update the site on every commit and check whether something has changed.
 On the other hand, the presence of a _pkgdown_ site is only really valuable to the user if the content reflects the most recent state of the package.
@@ -69,8 +69,8 @@ Let's break down what happens here:
     }
     ```
 
-    This block calls the function `step_setup_ ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build.
-    That is just an example of an option that can be set to run certain commands (or stages) conditionally (see [here](advanced.html#running-stages-conditionally) for more examples).
+    This block calls the function `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build.
+    That is just an example of an option that can be set to run certain commands (or stages) conditionally (see [secion "Running stages conditionally" in the "Advanced" article](advanced.html#running-stages-conditionally) for more examples).
     After the prerequisite of setting up an ssh key for the upcoming deployment has been finished, 
 
 2. Travis is told to use a "script" (provider: script) for the deployment (which holds further instructions).

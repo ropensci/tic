@@ -26,3 +26,6 @@ In summary, the interaction is as follows:
 - *travis*: Responsible for setting up all CI related tasks and taking care of permissions.
 
 - *tic*: Responsible for the specification of the CI workflow (which stages are run, which commands are used).
+
+To simplify setup, everything is handled by `tic::use_tic()`.
+This function requires *travis* to be installed manually: otherwise, each CI run would have to install *travis* too which is not needed otherwise.

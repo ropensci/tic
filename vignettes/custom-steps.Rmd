@@ -27,7 +27,7 @@ However, if you have the need for a repeated use of specific combinations of `ad
 ## The `TicStep` class
 
 A step is a subclass of the [`TicStep` class](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
-The `step_...` functions in _tic_ are simply forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
+The `step_...` functions in _tic_ are forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
 We recommend following the same pattern for your custom steps.
 
 The `TicStep` class implements the public methods `check()`, `prepare()`, and `run()`.
@@ -69,7 +69,7 @@ WriteTextFile$public_methods$check
 
 ## A minimal example
 
-You can take a look at [this PR](https://github.com/ropenscilabs/tic/pull/75/files) to see how a new step implementation can look like.
+You can take a look at [a pull request that implements a new step](https://github.com/ropenscilabs/tic/pull/75/files).
 
 The most minimalist version is the "Hello World" [example step](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R).
 This class only contains a `run()` method which does nothing more than printing "Hello World" to the console.
