@@ -1,6 +1,8 @@
 context("test-integration-git-race-path-branch-orphan.R")
 
 test_that("integration test: git race condition with path and branch arguments set, deployment with orphaning", {
+  cli::cat_boxx("integration test: git race path branch orphan")
+
 
   # - Creates and initializes a bare repo
   # - Clones repo in second location
@@ -37,6 +39,7 @@ test_that("integration test: git race condition with path and branch arguments s
         ),
         "tic.R"
       )
+      writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")

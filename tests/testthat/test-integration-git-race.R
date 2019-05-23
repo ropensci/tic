@@ -1,6 +1,7 @@
 context("test-integration-git-race.R")
 
 test_that("integration test: git race condition", {
+  cli::cat_boxx("integration test: git race")
 
   # - Creates and initializes a bare repo
   # - Clones repo in second location
@@ -37,6 +38,7 @@ test_that("integration test: git race condition", {
         ),
         "tic.R"
       )
+      writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")

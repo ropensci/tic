@@ -1,6 +1,8 @@
 context("test-integration-git.R")
 
 test_that("integration test: git", {
+  cli::cat_boxx("integration test: git")
+
   base_path <- tempfile_slash("git-")
   dir.create(base_path)
   tmp <- function(x) file.path(base_path, x)
@@ -25,6 +27,7 @@ test_that("integration test: git", {
         ),
         "tic.R"
       )
+      writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")

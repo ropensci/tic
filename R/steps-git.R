@@ -259,7 +259,12 @@ DoPushDeploy <- R6Class(
       private$git$cmd("clean -fdx")
 
       message("Pulling new changes")
-      private$git$cmd("pull --rebase -X theirs")
+      private$git$cmd("fetch")
+
+      ## Needed to handle empty commits, pull, rebase or default cherry-pick have bad default behavior here (#160)
+      private$git$cmd("reset", "--hard", git2r::branch_target(upstream))
+      private$git$cmd("cherry-pick", "--no-commit", new_commit)
+      private$git$cmd("commit", "--no-edit", "--allow-empty")
 
       c_local <- git2r::lookup(private$git$get_repo(), git2r::branch_target(local))
       c_upstream <- git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
