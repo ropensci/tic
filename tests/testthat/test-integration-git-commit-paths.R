@@ -1,6 +1,7 @@
 context("test-integration-git-commit-paths.R")
 
-test_that("integration test: git", {
+test_that("integration test: git commit paths", {
+  cli::cat_boxx("integration test: git commit paths")
 
   # - Commit only a subset of changes that occur during deployment
   # - Check that only these changes are really committed
