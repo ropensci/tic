@@ -39,6 +39,7 @@ test_that("integration test: git race condition with path and branch arguments s
         ),
         "tic.R"
       )
+      writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")

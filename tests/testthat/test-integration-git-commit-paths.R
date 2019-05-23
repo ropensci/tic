@@ -25,6 +25,7 @@ test_that("integration test: git commit paths", {
         ),
         "tic.R"
       )
+      writeLines("^tic\\.R$", ".Rbuildignore")
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")

@@ -11,6 +11,7 @@ test_that("integration test: assign (#33)", {
         'script_stage <- get_stage("script")',
         "tic.R"
       )
+      writeLines("^tic\\.R$", ".Rbuildignore")
       expect_error(
         callr::r(
           function() {
