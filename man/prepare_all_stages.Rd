@@ -18,6 +18,7 @@ Run the \code{prepare()} method for all defined steps for which the
 \seealso{
 \link{TicStep}
 
-Other runners: \code{\link{run_stage}}
+Other runners: \code{\link{run_all_stages}},
+  \code{\link{run_stage}}
 }
 \concept{runners}

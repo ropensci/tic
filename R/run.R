@@ -42,6 +42,7 @@ run_stage <- function(name, stages = dsl_load()) {
 #' The run aborts on error, the `after_failure` stage is never run.
 #'
 #'
+#' @family runners
 #' @inheritParams run_stage
 #' @export
 run_all_stages <- function(stages = dsl_load()) {

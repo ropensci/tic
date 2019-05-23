@@ -30,3 +30,8 @@ The stages are run in the following order:
 \item \code{after_script()}
 }
 }
+\seealso{
+Other runners: \code{\link{prepare_all_stages}},
+  \code{\link{run_stage}}
+}
+\concept{runners}

@@ -21,6 +21,7 @@ Run the \code{run_all()} method for all defined steps of a stage for which the
 \seealso{
 \link{TicStep}
 
-Other runners: \code{\link{prepare_all_stages}}
+Other runners: \code{\link{prepare_all_stages}},
+  \code{\link{run_all_stages}}
 }
 \concept{runners}
