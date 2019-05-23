@@ -202,13 +202,11 @@ An optional arbitrary R expression executed during preparation.</p></td>
   <span class='fu'>add_step</span>(<span class='fu'><a href='step_hello_world.html'>step_hello_world</a></span>())
 
 <span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
-#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_hello_world()</div><div class='input'>
 <span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>add_code_step</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='st'>"Hi!"</span>))
 
 <span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
-#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_hello_world()
 #&gt; ▶ step_run_code(print("Hi!"))</div></pre>
   </div>

@@ -230,14 +230,11 @@ Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topic
 <span class='fu'>do_package_checks</span>()
 
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
-#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_install_deps(repos = repo_default())
-#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
 #&gt;     timeout = Inf)
-#&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div></pre>
   </div>
