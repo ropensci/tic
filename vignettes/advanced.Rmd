@@ -44,7 +44,7 @@ if (ci_is_env("TRAVIS_R_VERSION_STRING", "release")) {
 ```
 
 ```{r eval = FALSE}
-if (inherits(ci(), "TravisCI") {
+if (ci_on_travis()) {
   get_stage(<a stage>) %>%
     add_step(<do something>)
 }
@@ -133,14 +133,15 @@ $install
 ### Emulating a CI run locally
 
 To emulate a real CI run locally, `run_all_stages()` should be used.
-It executes all defined stages and their corresponding steps.
-Note that doing this will of course use your local system libraries and not the CI environment.
+It executes all stages and their corresponding steps as defined in `tic.R`.
 
-Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `do_package_checks()`.
+Note that doing this will of course use your local system libraries and not the CI environment.
+Only the steps that are shown with `print(dsl_load())` are executed.
+Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by `do_package_checks()`.
 
 ```{r, eval = FALSE}
 run_all_stages()
-✔ Using existing tic stage configuration
+ℹ Using existing tic stage configuration, use `force = TRUE` to reload
 Running install: step_install_github("ropensci/rotemplate")
 Skipping install of 'rotemplate' from a github remote, the SHA1 (bec3e6eb) has not changed since last install.
   Use `force = TRUE` to force installation
