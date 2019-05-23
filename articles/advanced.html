@@ -128,7 +128,7 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"after_success"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">}</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits</a></span>(<span class="kw"><a href="../reference/ci.html">ci</a></span>(), <span class="st">"TravisCI"</span>) {</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="op">&lt;</span>a stage<span class="op">&gt;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="op">&lt;</span>do something<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
@@ -194,10 +194,10 @@
 <div id="emulating-a-ci-run-locally" class="section level3">
 <h3 class="hasAnchor">
 <a href="#emulating-a-ci-run-locally" class="anchor"></a>Emulating a CI run locally</h3>
-<p>To emulate a real CI run locally, <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code> should be used. It executes all defined stages and their corresponding steps. Note that doing this will of course use your local system libraries and not the CI environment.</p>
-<p>Also some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/dsl.html">add_step(covr::codcov())</a></code> added by <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
+<p>To emulate a real CI run locally, <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code> should be used. It executes all stages and their corresponding steps as defined in <code>tic.R</code>.</p>
+<p>Note that doing this will of course use your local system libraries and not the CI environment. Only the steps that are shown with <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print(dsl_load())</a></code> are executed. Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/dsl.html">add_step(covr::codcov())</a></code> added by <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/run_all_stages.html">run_all_stages</a></span>()</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">✔ Using existing tic stage configuration</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">ℹ Using existing tic stage configuration, use <span class="st">`</span><span class="dt">force = TRUE</span><span class="st">`</span> to reload</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">Running install<span class="op">:</span><span class="st"> </span><span class="kw"><a href="../reference/step_install_pkg.html">step_install_github</a></span>(<span class="st">"ropensci/rotemplate"</span>)</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">Skipping install of <span class="st">'rotemplate'</span> from a github remote, the <span class="kw">SHA1</span> (bec3e6eb) has not changed since last install.</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5">  Use <span class="st">`</span><span class="dt">force = TRUE</span><span class="st">`</span> to force installation</a>

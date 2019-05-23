@@ -42,6 +42,19 @@ a:focus, a:hover {
   min-height: 40px;
 }
 
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    color: #1b6ada;
+    background-color: #fff;
+}
+
+.dropdown-menu > li > a:hover {
+    text-decoration: none;
+    color: #1b6ada;
+    background-color: #fff;
+}
+
+.co {color: #474747;} /* comment */
+
 .navbar a {
   font-size: 14px;
   padding-bottom: 10px !important;
