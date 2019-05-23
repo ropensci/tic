@@ -1,3 +1,17 @@
+# tic 0.2.13.9016
+
+- Fix compatibility with git 2.21 and above for race conditions (#160).
+- `step_build_pkgdown()` clean site before building.
+- AppVeyor template makes sure packages are always installed from binary during bootstrapping.
+- CI templates install from GitHub if the version number indicates that the package is not on CRAN yet.
+- AppVeyor doesn't cache R packages, because this leads to update problems. Binary installation is fast enough.
+- Don't perform CRAN incoming checks, in particular the checks for large version components (#168).
+- The `step_install_deps()`, `step_install_cran()` and `step_install_github()` steps install binary packages by default, even if the CRAN version is ahead.
+- All files created by `use_tic()` are added to `.Rbuildignore`.
+- Package template for `tic.R` runs pkgdown only on Travis (#167).
+- Update vignettes (#156).
+
+
 # tic 0.2.13.9015
 
 - `detect_repo_type()` now prompts the user for unknown repository types (#161).
