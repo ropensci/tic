@@ -180,6 +180,13 @@ Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbos
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_setup_ssh</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"gitlab.com"</span>))
+
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh(host = "gitlab.com")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -187,7 +194,9 @@ Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbos
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

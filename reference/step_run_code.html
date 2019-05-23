@@ -176,33 +176,18 @@ An optional arbitrary R expression executed during preparation.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>step_run_code</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/update.packages'>update.packages</a></span>(<span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; &lt;RunCode&gt;
-#&gt;   Inherits from: &lt;TicStep&gt;
-#&gt;   Public:
-#&gt;     check: function () 
-#&gt;     clone: function (deep = FALSE) 
-#&gt;     initialize: function (call, prepare_call = NULL) 
-#&gt;     prepare: function () 
-#&gt;     run: function () 
-#&gt;   Private:
-#&gt;     call: call
-#&gt;     install_call_dep: function (call) 
-#&gt;     prepare_call: NULL
-#&gt;     seed: 123</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"install"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_run_code</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/update.packages'>update.packages</a></span>(<span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)))
+
 <span class='co'># Will install covr from CRAN during preparation:</span>
-<span class='fu'>step_run_code</span>(<span class='kw pkg'>covr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>codecov</a></span>())</div><div class='output co'>#&gt; &lt;RunCode&gt;
-#&gt;   Inherits from: &lt;TicStep&gt;
-#&gt;   Public:
-#&gt;     check: function () 
-#&gt;     clone: function (deep = FALSE) 
-#&gt;     initialize: function (call, prepare_call = NULL) 
-#&gt;     prepare: function () 
-#&gt;     run: function () 
-#&gt;   Private:
-#&gt;     call: call
-#&gt;     install_call_dep: function (call) 
-#&gt;     prepare_call: NULL
-#&gt;     seed: 123</div></pre>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"after_success"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_code_step</a></span>(<span class='kw pkg'>covr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>codecov</a></span>())
+
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_run_code(update.packages(ask = FALSE))
+#&gt; ── after_success ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_run_code(covr::codecov())</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
