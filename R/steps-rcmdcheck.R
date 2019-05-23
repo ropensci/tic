@@ -87,7 +87,7 @@ RCMDcheck <- R6Class(
 #' Packages shipped with the R-installation will not be updated as they will be
 #' overwritten by the Travis R-installer in each build.
 #' If you want these package to be updated, please add the following
-#' step to your workflow: `add_code_step(remotes::update_packages(<pkg>)`.
+#' step to your workflow: `add_code_step(remotes::update_packages("<pkg>"))`.
 #'
 #' @param ... Ignored, used to enforce naming of arguments.
 #' @param warnings_are_errors,notes_are_errors `[flag]`\cr
