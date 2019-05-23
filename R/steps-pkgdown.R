@@ -29,6 +29,7 @@ BuildPkgdown <- R6Class(
 #' Step: Build pkgdown documentation
 #'
 #' Builds package documentation with the \pkg{pkgdown} package.
+#' Calls `pkgdown::clean_site()` and then `pkgdown::build_site(...)`.
 #'
 #' @inheritDotParams pkgdown::build_site
 #' @family steps

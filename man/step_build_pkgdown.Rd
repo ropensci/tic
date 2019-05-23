@@ -29,6 +29,7 @@ in the current process affects the build process.}
 }
 \description{
 Builds package documentation with the \pkg{pkgdown} package.
+Calls \code{pkgdown::clean_site()} and then \code{pkgdown::build_site(...)}.
 }
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
