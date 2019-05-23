@@ -36,7 +36,7 @@ the following strategy is used:
 }
 
 If no new commits were pushed after the CI run has started,
-this strategy is equivalent to simply committing and pushing.
+this strategy is equivalent to committing and pushing.
 In the opposite case, if the remote repo has new commits,
 the deployment is safely applied to the current tip.
 }
