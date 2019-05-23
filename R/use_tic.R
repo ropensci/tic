@@ -158,7 +158,7 @@ detect_repo_type <- function() {
     package = "Package", website = "Website",
     unknown = "Other"
   )
-  chosen <- menu(choices)
+  chosen <- utils::menu(choices)
   if (chosen == 0) {
     stopc("Aborted.")
   } else {
