@@ -155,3 +155,8 @@ step_rcmdcheck <- function(...,
     timeout = timeout
   )
 }
+
+# withr usage from R6 methods not recognized
+use_withr <- function() {
+  withr::with_environment(c(a = "b"), TRUE)
+}
