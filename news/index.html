@@ -53,7 +53,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9015</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9016</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -122,6 +122,23 @@
       <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0-2-13-9016" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-2-13-9016" class="anchor"></a>tic 0.2.13.9016</h1>
+<ul>
+<li>Fix compatibility with git 2.21 and above for race conditions (<a href='https://github.com/ropenscilabs/tic/issues/160'>#160</a>).</li>
+<li>
+<code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> clean site before building.</li>
+<li>AppVeyor template makes sure packages are always installed from binary during bootstrapping.</li>
+<li>CI templates install from GitHub if the version number indicates that the package is not on CRAN yet.</li>
+<li>AppVeyor doesn’t cache R packages, because this leads to update problems. Binary installation is fast enough.</li>
+<li>Don’t perform CRAN incoming checks, in particular the checks for large version components (<a href='https://github.com/ropenscilabs/tic/issues/168'>#168</a>).</li>
+<li>The <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code>, <code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code> and <code><a href="../reference/step_install_pkg.html">step_install_github()</a></code> steps install binary packages by default, even if the CRAN version is ahead.</li>
+<li>All files created by <code><a href="../reference/use_tic.html">use_tic()</a></code> are added to <code>.Rbuildignore</code>.</li>
+<li>Package template for <code>tic.R</code> runs pkgdown only on Travis (<a href='https://github.com/ropenscilabs/tic/issues/167'>#167</a>).</li>
+<li>Update vignettes (<a href='https://github.com/ropenscilabs/tic/issues/156'>#156</a>).</li>
+</ul>
+</div>
     <div id="tic-0-2-13-9015" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9015" class="anchor"></a>tic 0.2.13.9015</h1>
@@ -459,6 +476,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tic-0-2-13-9016">0.2.13.9016</a></li>
         <li><a href="#tic-0-2-13-9015">0.2.13.9015</a></li>
         <li><a href="#tic-0-2-13-9014">0.2.13.9014</a></li>
         <li><a href="#tic-0-2-13-9013">0.2.13.9013</a></li>
