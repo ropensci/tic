@@ -43,5 +43,5 @@ WriteTextFile <- R6Class(
 #'
 #' dsl_get()
 step_write_text_file <- function(..., path) {
-  WriteTextFile$new(..., path)
+  WriteTextFile$new(..., path = path)
 }
