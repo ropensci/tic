@@ -55,7 +55,6 @@ TicStage <- R6Class(
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
       } else {
-        cat_rule(private$name, right = "stage", col = "green")
         lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
     }
