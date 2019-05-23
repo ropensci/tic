@@ -46,6 +46,26 @@ A \code{step_install_github()} step installs one or more packages from GitHub
 via \code{\link[remotes:install_github]{remotes::install_github()}}, the packages are only installed if their
 GitHub version is different from the locally installed version.
 }
+\examples{
+dsl_init()
+
+get_stage("install") \%>\%
+  add_step(step_install_deps())
+
+dsl_get()
+dsl_init()
+
+get_stage("install") \%>\%
+  add_step(step_install_cran("magick"))
+
+dsl_get()
+dsl_init()
+
+get_stage("install") \%>\%
+  add_step(step_install_github("rstudio/gt"))
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},

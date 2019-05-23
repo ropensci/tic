@@ -106,6 +106,13 @@ RCMDcheck <- R6Class(
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `Inf`.
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_rcmdcheck(error_on = "note", repos = repo_bioc()))
+#'
+#' dsl_get()
 step_rcmdcheck <- function(...,
                            warnings_are_errors = NULL, notes_are_errors = NULL,
                            args = NULL, build_args = NULL, error_on = "warning",

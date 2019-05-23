@@ -35,6 +35,13 @@ WriteTextFile <- R6Class(
 #'
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_write_text_file("Hi!", path = "hello.txt"))
+#'
+#' dsl_get()
 step_write_text_file <- function(..., path) {
   WriteTextFile$new(..., path)
 }

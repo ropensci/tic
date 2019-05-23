@@ -28,6 +28,13 @@ AddToDrat <- R6Class(
 #'
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_add_to_drat())
+#'
+#' dsl_get()
 step_add_to_drat <- function() {
   AddToDrat$new()
 }

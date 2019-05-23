@@ -45,6 +45,14 @@ For more control, create two separate steps with
 \code{step_setup_push_deploy()} and \code{step_do_push_deploy()},
 and create the files to be deployed inbetween these steps.
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man")))
+
+dsl_get()
+}
 \seealso{
 Other deploy steps: \code{\link{step_do_push_deploy}},
   \code{\link{step_setup_push_deploy}}

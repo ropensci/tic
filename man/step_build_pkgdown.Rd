@@ -31,6 +31,14 @@ in the current process affects the build process.}
 Builds package documentation with the \pkg{pkgdown} package.
 Calls \code{pkgdown::clean_site()} and then \code{pkgdown::build_site(...)}.
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_build_pkgdown())
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},

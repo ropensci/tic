@@ -16,6 +16,14 @@ Path to the new text file.}
 \description{
 Creates a text file with arbitrary contents
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_write_text_file("Hi!", path = "hello.txt"))
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},

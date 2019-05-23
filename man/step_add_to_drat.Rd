@@ -11,6 +11,14 @@ Builds a package (binary on OS X or Windows) and inserts it into an existing
 \pkg{drat} repository via \code{\link[drat:insertPackage]{drat::insertPackage()}}.
 Also knits the \code{index.Rmd} file of the drat if it exists.
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_add_to_drat())
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_known_hosts}},
   \code{\link{step_build_pkgdown}},

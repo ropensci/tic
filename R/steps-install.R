@@ -48,6 +48,13 @@ InstallDeps <- R6Class(
 #' @family steps
 #' @export
 #' @name step_install_pkg
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("install") %>%
+#'   add_step(step_install_deps())
+#'
+#' dsl_get()
 step_install_deps <- function(repos = repo_default(), type = NULL) {
   type <- update_type(type)
   InstallDeps$new(repos = repos, type = type)
@@ -91,6 +98,13 @@ InstallCRAN <- R6Class(
 #' @param ... Passed on to `install.packages()` or `remotes::install_github()`.
 #' @export
 #' @rdname step_install_pkg
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("install") %>%
+#'   add_step(step_install_cran("magick"))
+#'
+#' dsl_get()
 step_install_cran <- function(package = NULL, ..., repos = repo_default(), type = NULL) {
   type <- update_type(type)
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
@@ -132,6 +146,13 @@ InstallGithub <- R6Class(
 #' @param repo Package to install in the "user/repo" format.
 #' @export
 #' @rdname step_install_pkg
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("install") %>%
+#'   add_step(step_install_github("rstudio/gt"))
+#'
+#' dsl_get()
 step_install_github <- function(repo = NULL, ..., type = NULL) {
   type <- update_type(type)
   InstallGithub$new(repo = repo, ..., type = type)

@@ -34,6 +34,13 @@ BuildPkgdown <- R6Class(
 #' @inheritDotParams pkgdown::build_site
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_build_pkgdown())
+#'
+#' dsl_get()
 step_build_pkgdown <- function(...) {
   BuildPkgdown$new(...)
 }

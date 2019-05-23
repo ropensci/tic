@@ -19,6 +19,14 @@ This step doesn't fail if the connection cannot be established,
 but prints verbose output by default.
 It is useful for troubleshooting deployment problems.
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_test_ssh(verbose = "-vvv"))
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},

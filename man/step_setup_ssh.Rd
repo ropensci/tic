@@ -25,6 +25,14 @@ Adds to known hosts, installs private key, and tests the connection.
 Chaining \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}}, \code{\link[=step_add_to_known_hosts]{step_add_to_known_hosts()}}
 and \code{\link[=step_test_ssh]{step_test_ssh()}}.
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_setup_ssh(host = "gitlab.com"))
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_add_to_known_hosts}},

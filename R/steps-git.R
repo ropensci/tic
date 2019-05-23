@@ -183,6 +183,13 @@ SetupPushDeploy <- R6Class(
 #' @family deploy steps
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("deploy") %>%
+#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages"))
+#'
+#' dsl_get()
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
                                    remote_url = NULL, checkout = TRUE) {
   SetupPushDeploy$new(
@@ -325,6 +332,13 @@ DoPushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("deploy") %>%
+#'   add_step(step_do_push_deploy(path = "docs"))
+#'
+#' dsl_get()
 step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths = ".") {
   DoPushDeploy$new(path = path, commit_message = commit_message, commit_paths = commit_paths)
 }
@@ -395,6 +409,13 @@ PushDeploy <- R6Class(
 #' @family steps
 #'
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man")))
+#'
+#' dsl_get()
 step_push_deploy <- function(path = ".", branch = NULL,
                              remote_url = NULL,
                              commit_message = NULL, commit_paths = ".") {

@@ -40,6 +40,14 @@ this strategy is equivalent to simply committing and pushing.
 In the opposite case, if the remote repo has new commits,
 the deployment is safely applied to the current tip.
 }
+\examples{
+dsl_init()
+
+get_stage("deploy") \%>\%
+  add_step(step_do_push_deploy(path = "docs"))
+
+dsl_get()
+}
 \seealso{
 Other deploy steps: \code{\link{step_push_deploy}},
   \code{\link{step_setup_push_deploy}}

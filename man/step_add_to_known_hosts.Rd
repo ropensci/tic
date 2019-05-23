@@ -15,6 +15,14 @@ Adds a host name to the \code{~/.ssh/known_hosts} file to allow subsequent
 SSH access.
 Requires \code{ssh-keyscan} on the system \code{PATH}.
 }
+\examples{
+dsl_init()
+
+get_stage("before_deploy") \%>\%
+  add_step(step_add_to_known_hosts("gitlab.com"))
+
+dsl_get()
+}
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
   \code{\link{step_build_pkgdown}},

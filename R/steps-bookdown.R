@@ -30,6 +30,13 @@ BuildBookdown <- R6Class(
 #' @inheritDotParams bookdown::render_book
 #'
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_build_bookdown("."))
+#'
+#' dsl_get()
 step_build_bookdown <- function(...) {
   BuildBookdown$new(...)
 }

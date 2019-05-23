@@ -56,3 +56,11 @@ If you want these package to be updated, please add the following
 step to your workflow: \code{add_code_step(remotes::update_packages("<pkg>"))}.
 }
 
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_rcmdcheck(error_on = "note", repos = repo_bioc()))
+
+dsl_get()
+}

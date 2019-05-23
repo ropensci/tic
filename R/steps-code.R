@@ -55,10 +55,16 @@ RunCode <- R6Class(
 #'   An optional arbitrary R expression executed during preparation.
 #' @family steps
 #' @examples
-#' step_run_code(update.packages(ask = FALSE))
+#' dsl_init()
+#'
+#' get_stage("install") %>%
+#'   add_step(step_run_code(update.packages(ask = FALSE)))
 #'
 #' # Will install covr from CRAN during preparation:
-#' step_run_code(covr::codecov())
+#' get_stage("after_success") %>%
+#'   add_code_step(covr::codecov())
+#'
+#' dsl_get()
 #' @export
 step_run_code <- function(call = NULL, prepare_call = NULL) {
   RunCode$new(!!enexpr(call), !!enexpr(prepare_call))

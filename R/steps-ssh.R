@@ -44,6 +44,13 @@ AddToKnownHosts <- R6Class(
 #'
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("before_deploy") %>%
+#'   add_step(step_add_to_known_hosts("gitlab.com"))
+#'
+#' dsl_get()
 step_add_to_known_hosts <- function(host = "github.com") {
   AddToKnownHosts$new(host = host)
 }
@@ -101,6 +108,13 @@ InstallSSHKeys <- R6Class(
 #' @family steps
 #' @seealso `travis::use_travis_deploy()`, [travis::use_tic()]
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("before_deploy") %>%
+#'   add_step(step_install_ssh_keys())
+#'
+#' dsl_get()
 step_install_ssh_keys <- function(name = "id_rsa") {
   InstallSSHKeys$new(name = name)
 }
@@ -141,6 +155,13 @@ TestSSH <- R6Class(
 #'
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_test_ssh(verbose = "-vvv"))
+#'
+#' dsl_get()
 step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
   TestSSH$new(url = url, verbose = verbose)
 }
@@ -204,6 +225,13 @@ SetupSSH <- R6Class(
 #' @family steps
 #'
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_setup_ssh(host = "gitlab.com"))
+#'
+#' dsl_get()
 step_setup_ssh <- function(name = "id_rsa", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)

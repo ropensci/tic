@@ -62,6 +62,13 @@ HelloWorld <- R6Class(
 #'
 #' @family steps
 #' @export
+#' @examples
+#' dsl_init()
+#'
+#' get_stage("script") %>%
+#'   add_step(step_hello_world())
+#'
+#' dsl_get()
 step_hello_world <- function() {
   HelloWorld$new()
 }

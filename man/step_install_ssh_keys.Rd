@@ -16,6 +16,14 @@ to a file in \code{~/.ssh}.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
 }
+\examples{
+dsl_init()
+
+get_stage("before_deploy") \%>\%
+  add_step(step_install_ssh_keys())
+
+dsl_get()
+}
 \seealso{
 \code{travis::use_travis_deploy()}, \code{\link[travis:use_tic]{travis::use_tic()}}
 

@@ -33,6 +33,14 @@ if you deploy to a different branch.}
 Clones a repo, inits author information, and sets up remotes
 for a subsequent \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
 }
+\examples{
+dsl_init()
+
+get_stage("deploy") \%>\%
+  add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages"))
+
+dsl_get()
+}
 \seealso{
 Other deploy steps: \code{\link{step_do_push_deploy}},
   \code{\link{step_push_deploy}}

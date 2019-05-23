@@ -44,3 +44,11 @@ supposed to be UTF-8.}
 \description{
 Build a bookdown book using \code{\link[bookdown:render_book]{bookdown::render_book()}}.
 }
+\examples{
+dsl_init()
+
+get_stage("script") \%>\%
+  add_step(step_build_bookdown("."))
+
+dsl_get()
+}

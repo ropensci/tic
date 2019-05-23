@@ -23,10 +23,16 @@ If the top-level expression is a qualified function call (of the format
 \code{package::fun()}), the package is installed during preparation.
 }
 \examples{
-step_run_code(update.packages(ask = FALSE))
+dsl_init()
+
+get_stage("install") \%>\%
+  add_step(step_run_code(update.packages(ask = FALSE)))
 
 # Will install covr from CRAN during preparation:
-step_run_code(covr::codecov())
+get_stage("after_success") \%>\%
+  add_code_step(covr::codecov())
+
+dsl_get()
 }
 \seealso{
 Other steps: \code{\link{step_add_to_drat}},
