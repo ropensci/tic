@@ -259,7 +259,7 @@ DoPushDeploy <- R6Class(
       private$git$cmd("clean -fdx")
 
       message("Pulling new changes")
-      private$git$cmd("pull --rebase -X theirs")
+      private$git$cmd("pull --rebase -X theirs --keep-empty")
 
       c_local <- git2r::lookup(private$git$get_repo(), git2r::branch_target(local))
       c_upstream <- git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
