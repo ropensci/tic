@@ -44,9 +44,6 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \description{
 Check a package using \code{\link[rcmdcheck:rcmdcheck]{rcmdcheck::rcmdcheck()}},
 which ultimately calls \code{R CMD check}.
-The preparation consists of installing package dependencies
-via \code{\link[remotes:install_deps]{remotes::install_deps()}} with \code{dependencies = TRUE},
-and updating all packages.
 }
 \section{Updating of (dependency) packages}{
 

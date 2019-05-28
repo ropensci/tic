@@ -79,9 +79,6 @@ RCMDcheck <- R6Class(
 #'
 #' Check a package using [rcmdcheck::rcmdcheck()],
 #' which ultimately calls `R CMD check`.
-#' The preparation consists of installing package dependencies
-#' via [remotes::install_deps()] with `dependencies = TRUE`,
-#' and updating all packages.
 #'
 #' @section Updating of (dependency) packages:
 #' Packages shipped with the R-installation will not be updated as they will be
