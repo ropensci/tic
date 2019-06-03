@@ -30,8 +30,17 @@ test_that("integration test: git race condition with path and branch", {
 
   tic_r <- c(
     'get_stage("deploy") %>%',
-    paste0('  add_step(step_setup_push_deploy(path = "deploy", branch = "deploy-branch", remote_url = "', bare_repo_path, '")) %>%'),
-    '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)), "deploy/dir.txt")) %>%',
+    '  add_step(step_setup_push_deploy(',
+    paste0(
+      '    path = "deploy", branch = "deploy-branch", remote_url = "',
+      bare_repo_path,
+      '")) %>%'
+    ),
+    # step_write_text_file() evaluates eagerly, won't work here
+    '  add_code_step(writeLines(',
+    '    sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)),',
+    '    "deploy/dir.txt"',
+    ')) %>%',
     '  add_step(step_do_push_deploy(path = "deploy"))'
   )
 

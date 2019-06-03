@@ -29,7 +29,10 @@ test_that("integration test: git race condition", {
 
   tic_r <- c(
     'get_stage("deploy") %>%',
-    '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$")), "dir.txt")) %>%',
+    # step_write_text_file() evaluates eagerly, won't work here
+    '  add_code_step(writeLines(',
+    '    sort(dir(pattern = "^clone[.]txt$")), "dir.txt"',
+    '  )) %>%',
     paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '"))')
   )
 

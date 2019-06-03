@@ -30,8 +30,17 @@ test_that("integration test: git race condition + path + branch + orphaning", {
 
   tic_r <- c(
     'get_stage("deploy") %>%',
-    '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)), "deploy/dir.txt")) %>%',
-    paste0('  add_step(step_push_deploy(path = "deploy", branch = "deploy-branch", remote_url = "', bare_repo_path, '"))')
+    # step_write_text_file() evaluates eagerly, won't work here
+    '  add_code_step(writeLines(',
+    '    sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)),',
+    '    "deploy/dir.txt"',
+    '  )) %>%',
+    paste0(
+      '  add_step(step_push_deploy(',
+      '    path = "deploy", branch = "deploy-branch",',
+      '    remote_url = "', bare_repo_path, '"',
+      '  ))'
+    )
   )
 
   cat("\n")

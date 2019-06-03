@@ -15,9 +15,18 @@ test_that("integration test: git commit paths", {
 
   tic_r <- c(
     'get_stage("deploy") %>%',
-    '  add_code_step(writeLines(as.character(Sys.time()), "time.txt")) %>%',
-    '  add_code_step(writeLines(as.character(Sys.time()), "deploy/time.txt")) %>%',
-    paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '", commit_paths = "deploy"))')
+    # step_write_text_file() evaluates eagerly, won't work here
+    '  add_code_step(writeLines(',
+    '    as.character(Sys.time()), "time.txt"',
+    '  )) %>%',
+    '  add_code_step(writeLines(',
+    '    as.character(Sys.time()), "deploy/time.txt"',
+    '  )) %>%',
+    paste0(
+      '  add_step(step_push_deploy(remote_url = "',
+      bare_repo_path,
+      '", commit_paths = "deploy"))'
+    )
   )
 
   cat("\n")
