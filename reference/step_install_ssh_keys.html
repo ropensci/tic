@@ -37,7 +37,9 @@
 <meta property="og:description" content="Writes a private SSH key encoded in an environment variable
 to a file in ~/.ssh.
 Only run in non-interactive settings and if the environment variable
-exists and is non-empty." />
+exists and is non-empty.
+The use_travis_deploy() and use_tic() functions encode a private key
+as an environment variable for use with this function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -68,7 +70,7 @@ exists and is non-empty." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9017</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9018</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -143,7 +145,9 @@ exists and is non-empty." />
     <p>Writes a private SSH key encoded in an environment variable
 to a file in <code>~/.ssh</code>.
 Only run in non-interactive settings and if the environment variable
-exists and is non-empty.</p>
+exists and is non-empty.
+The <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private key
+as an environment variable for use with this function.</p>
     
     </div>
 
@@ -161,7 +165,7 @@ Name of the environment variable and the target file, default: <code>"id_rsa"</c
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/travis/topics/use_travis_deploy'>travis::use_travis_deploy()</a></code>, <code><a href='https://www.rdocumentation.org/packages/travis/topics/use_tic'>travis::use_tic()</a></code></p>
+    <div class='dont-index'><p><code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code></p>
 <p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
   <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
   <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
