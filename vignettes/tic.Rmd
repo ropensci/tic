@@ -58,12 +58,12 @@ tic::use_tic()
 │                       │
 └───────────────────────┘
 ℹ This wizard will set all the required tokens and files
-  on Travis CI and Github. Lets get started!
+  on Travis CI and GitHub. Lets get started!
 ✔ Setting active project to '/home/pjs/git/test2'
 ℹ Using active project '/home/pjs/git/test2'
 ┌──────────────────────────────────────────────────────┐
 │                                                      │
-│   Step #1: We check if a Github repository exists.   │
+│   Step #1: We check if a GitHub repository exists.   │
 │                                                      │
 └──────────────────────────────────────────────────────┘
 ❯  Authenticating to GitHub.
@@ -76,7 +76,7 @@ Waiting for authentication in browser...
 Press Esc/Ctrl + C to abort
 Authentication complete.
 ✔ Authentication successful.
-✔ Github repo exists.
+✔ GitHub repo exists.
 ┌─────────────────────────────────────────────────────┐
 │                                                     │
 │   Step #2: We check if Travis is already enabled.   │
@@ -147,7 +147,7 @@ This is needed to give Travis permissions to deploy into the GitHub repo.
 ┌───────────────────────────────────────────┐
 │                                           │
 │   Step #4: We create a SSH key pair       │
-│   to allow Travis deployment to Github.   │
+│   to allow Travis deployment to GitHub.   │
 │                                           │
 └───────────────────────────────────────────┘
 Finished adding deploy keys on GitHub for repo <username/repo>.
@@ -175,8 +175,8 @@ You now see two environment variables in your setting on Travis CI: `GITHUB_PAT`
 ```r
 ┌─────────────────────────────────────────────────────────┐
 │                                                         │
-│   Step #5: We create a Github PAT key on Travis CI      │
-│   to avoid Github API rate limitations in the builds.   │
+│   Step #5: We create a GitHub PAT key on Travis CI      │
+│   to avoid GitHub API rate limitations in the builds.   │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ❯  Authenticating to GitHub.

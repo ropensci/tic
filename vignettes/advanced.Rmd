@@ -109,7 +109,7 @@ See `?ci` for more information on which CI build information can be extracted fr
 
 ### Checking for syntax errors
 
-Before pushing to Github and triggering a CI build, `tic.R` can be validated using `dsl_load()`.
+Before pushing to GitHub and triggering a CI build, `tic.R` can be validated using `dsl_load()`.
 This function will simply source `tic.R` to check for possible problems.
 If everything is ok, it will return (invisibly) a list with all stages that will be run in the CI build.
 Here is a preview of the first two stages:

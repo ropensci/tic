@@ -116,8 +116,8 @@ step_install_cran <- function(package = NULL, ..., repos = repo_default(), type 
 
 
 
-InstallGithub <- R6Class(
-  "InstallGithub",
+InstallGitHub <- R6Class(
+  "InstallGitHub",
   inherit = TicStep,
 
   public = list(
@@ -155,7 +155,7 @@ InstallGithub <- R6Class(
 #' dsl_get()
 step_install_github <- function(repo = NULL, ..., type = NULL) {
   type <- update_type(type)
-  InstallGithub$new(repo = repo, ..., type = type)
+  InstallGitHub$new(repo = repo, ..., type = type)
 }
 
 

@@ -9,7 +9,7 @@
 use_tic <- function(quiet = FALSE) {
   cli::cat_boxx("Welcome to `tic`!", col = "green")
   cli::cat_bullet(
-    "This wizard will set all the required tokens and files\n  on Travis CI and Github. Let's get started!",
+    "This wizard will set all the required tokens and files\n  on Travis CI and GitHub. Let's get started!",
     bullet = "info"
   )
 
@@ -37,13 +37,13 @@ use_tic <- function(quiet = FALSE) {
   #' The preparation consists of the following steps:
   #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
   #'
-  cli::cat_boxx("Step #1: We check if a Github repository exists.", col = "green")
+  cli::cat_boxx("Step #1: We check if a GitHub repository exists.", col = "green")
 
   use_github_interactive()
   if (!isTRUE(travis::uses_github())) {
-    stop("A Github repository is needed. Please create one manually or re-run the wizard to do it automatically.")
+    stop("A GitHub repository is needed. Please create one manually or re-run the wizard to do it automatically.")
   } else {
-    cli::cat_bullet("Github repo exists.", bullet = "tick", bullet_col = "green")
+    cli::cat_bullet("GitHub repo exists.", bullet = "tick", bullet_col = "green")
   }
 
   #' 1. Enable Travis via [travis::travis_enable()]
@@ -67,10 +67,10 @@ use_tic <- function(quiet = FALSE) {
 
   #' 1. Enable deployment (if necessary, depending on repo type)
   #'    via [travis::use_travis_deploy()]
-  cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to Github."), col = "green")
+  cli::cat_boxx(c("Step #4: We create a SSH key pair", "to allow Travis deployment to GitHub."), col = "green")
   if (needs_deploy(repo_type)) travis::use_travis_deploy()
 
-  cli::cat_boxx(c("Step #5: We create a Github PAT key on Travis CI", "to avoid Github API rate limitations in the builds."), col = "green")
+  cli::cat_boxx(c("Step #5: We create a GitHub PAT key on Travis CI", "to avoid GitHub API rate limitations in the builds."), col = "green")
   #' 1. Create a GitHub PAT and install it on Travis CI via [travis::travis_set_pat()]
   travis::travis_set_pat()
 

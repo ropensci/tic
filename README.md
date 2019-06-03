@@ -19,7 +19,7 @@ The most important improvements over existing solutions are:
 
 ## Installation
 
-It can be installed from Github with:
+It can be installed from GitHub with:
 
 ``` r
 # install.packages("remotes")
