@@ -71,7 +71,8 @@ use_tic <- function(quiet = FALSE) {
 
   cli::cat_boxx(
     c(
-      "Step #3: We create new files", "`.travis.yml`, `appveyor.yml` and `tic.R`."
+      "Step #3: We create new files",
+      "`.travis.yml`, `appveyor.yml` and `tic.R`."
     ),
     col = "green"
   )
@@ -93,7 +94,8 @@ use_tic <- function(quiet = FALSE) {
   #'    via [travis::use_travis_deploy()]
   cli::cat_boxx(
     c(
-      "Step #4: We create a SSH key pair", "to allow Travis deployment to GitHub."
+      "Step #4: We create a SSH key pair",
+      "to allow Travis deployment to GitHub."
     ),
     col = "green"
   )

@@ -106,7 +106,8 @@ test_that("integration test: git race condition with path and branch", {
       expect_equal(length(git2r::commits()), 1)
       expect_false(file.exists("clone.txt"))
       expect_equal(
-        readLines("dir.txt"), sort(dir(package_path, pattern = "^clone[.]txt$", recursive = TRUE))
+        readLines("dir.txt"),
+        sort(dir(package_path, pattern = "^clone[.]txt$", recursive = TRUE))
       )
     }
   )
@@ -130,7 +131,8 @@ test_that("integration test: git race condition with path and branch", {
       expect_equal(length(git2r::commits()), 2)
       expect_false(file.exists("clone.txt"))
       expect_equal(
-        readLines("dir.txt"), sort(dir(package_path_2, pattern = "^clone[.]txt$", recursive = TRUE))
+        readLines("dir.txt"),
+        sort(dir(package_path_2, pattern = "^clone[.]txt$", recursive = TRUE))
       )
     }
   )
@@ -155,7 +157,8 @@ test_that("integration test: git race condition with path and branch", {
       expect_false(file.exists("clone.txt"))
       print(readLines("dir.txt"))
       expect_equal(
-        readLines("dir.txt"), sort(dir(package_path_3, pattern = "^clone[.]txt$", recursive = TRUE))
+        readLines("dir.txt"),
+        sort(dir(package_path_3, pattern = "^clone[.]txt$", recursive = TRUE))
       )
     }
   )

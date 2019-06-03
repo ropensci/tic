@@ -31,7 +31,10 @@ test_that("prepare tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
   stage <- local(
-    TicStage$new("test") %>% add_step(running) %>% add_step(not_running), dslobj_new()
+    TicStage$new("test") %>%
+      add_step(running) %>%
+      add_step(not_running),
+    dslobj_new()
   )
 
   expect_output(stage$prepare_all(), "Skipping", fixed = TRUE)
@@ -47,7 +50,12 @@ test_that("prepare tasks", {
 test_that("run tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
-  stage <- local(TicStage$new("asdfgh") %>% add_step(running) %>% add_step(not_running), dslobj_new())
+  stage <- local(
+    TicStage$new("asdfgh") %>%
+      add_step(running) %>%
+      add_step(not_running),
+    dslobj_new()
+  )
 
   expect_output(stage$run_all(), "Skipping asdfgh", fixed = TRUE)
 

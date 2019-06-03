@@ -22,7 +22,8 @@ AppVeyorCI <- R6Class(
     },
     get_build_url = function() {
       paste0(
-        "https://ci.appveyor.com/project/", self$get_slug(), "/build/", self$get_env("APPVEYOR_BUILD_VERSION")
+        "https://ci.appveyor.com/project/", self$get_slug(), "/build/",
+        self$get_env("APPVEYOR_BUILD_VERSION")
       )
     },
     get_commit = function() {

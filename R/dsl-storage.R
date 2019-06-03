@@ -79,7 +79,8 @@ dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
   if (dslobj_has() && !force) {
     if (!quiet) {
       cat_bullet(
-        "Using existing tic stage configuration, use ", crayon::silver("`force = TRUE`"), " to reload",
+        "Using existing tic stage configuration, use ",
+        crayon::silver("`force = TRUE`"), " to reload",
         bullet = "info", bullet_col = "green"
       )
     }
