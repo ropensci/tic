@@ -37,7 +37,15 @@ for a subsequent \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
 dsl_init()
 
 get_stage("deploy") \%>\%
-  add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages"))
+  add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages")) \%>\%
+  add_step(step_build_pkgdown())
+
+# This example needs a Git repository
+if (rlang::is_installed("git2r") && git2r::in_repository()) {
+  # Deployment only works if a companion step_do_push_deploy() is added
+  get_stage("deploy") \%>\%
+    add_step(step_do_push_deploy(path = "docs"))
+}
 
 dsl_get()
 }

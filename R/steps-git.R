@@ -192,7 +192,15 @@ SetupPushDeploy <- R6Class(
 #' dsl_init()
 #'
 #' get_stage("deploy") %>%
-#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages"))
+#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages")) %>%
+#'   add_step(step_build_pkgdown())
+#'
+#' # This example needs a Git repository
+#' if (rlang::is_installed("git2r") && git2r::in_repository()) {
+#'   # Deployment only works if a companion step_do_push_deploy() is added
+#'   get_stage("deploy") %>%
+#'     add_step(step_do_push_deploy(path = "docs"))
+#' }
 #'
 #' dsl_get()
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
@@ -350,6 +358,11 @@ DoPushDeploy <- R6Class(
 #' @export
 #' @examples
 #' dsl_init()
+#'
+#' # Deployment only works if a companion step_setup_push_deploy() is added
+#' get_stage("deploy") %>%
+#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages")) %>%
+#'   add_step(step_build_pkgdown())
 #'
 #' if (rlang::is_installed("git2r") && git2r::in_repository()) {
 #'   get_stage("deploy") %>%

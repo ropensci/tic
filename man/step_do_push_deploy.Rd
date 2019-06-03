@@ -43,6 +43,11 @@ the deployment is safely applied to the current tip.
 \examples{
 dsl_init()
 
+# Deployment only works if a companion step_setup_push_deploy() is added
+get_stage("deploy") \%>\%
+  add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages")) \%>\%
+  add_step(step_build_pkgdown())
+
 if (rlang::is_installed("git2r") && git2r::in_repository()) {
   get_stage("deploy") \%>\%
     add_step(step_do_push_deploy(path = "docs"))
