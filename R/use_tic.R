@@ -22,16 +22,16 @@ use_tic <- function(quiet = FALSE) {
   if (!is_installed("travis")) {
     cli::cat_rule(col = "red")
     stopc(
-      "use_tic() needs the `travis` package. ",
-      'Please install it using remotes::install_github("ropenscilabs/travis").'
+      "`use_tic()` needs the `travis` package. Please ",
+      'install it using `remotes::install_github("ropenscilabs/travis")`.'
     )
   }
 
   if (!is_installed("usethis")) {
     cli::cat_rule(col = "red")
     stopc(
-      "use_tic() needs the `usethis` package, ",
-      'please install using install.packages("usethis").'
+      "`use_tic()` needs the `usethis` package, ",
+      'please install using `install.packages("usethis")`.'
     )
   }
 
