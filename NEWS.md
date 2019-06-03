@@ -192,7 +192,7 @@
 # tic 0.2-7 (2017-06-13)
 
 - New `step_write_text_file()` for creating arbitrary text files, including `~/.R/Makevars` (#14).
-- pkgdown documentation is now builded for tags by default (#13).
+- pkgdown documentation is now built for tags by default (#13).
 - The "openssl" package is now only suggested, not imported.
 - Removed `step_run_covr()` in favor of the new `step_run_code()` (#18).
 - `load_from_file()` reloads the file from disk if its mtime changes (#11).
@@ -224,7 +224,7 @@
     - `before_script()` is now `prepare_all_stages()`
     - `TravisTask` is now `TicStep`
     - `ci()` is now exported
-- If environment variable `CI` is undefinied, use `LocalCI` with sensible inference of repository and branch.
+- If environment variable `CI` is undefined, use `LocalCI` with sensible inference of repository and branch.
 - Stop if `git` exits with nonzero status.
 
 

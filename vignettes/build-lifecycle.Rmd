@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ## Stages
 
 CI services run builds in stages.
-Stages are ususally ordered as follows:
+Stages are usually ordered as follows:
 
 ```{r, echo = FALSE, fig.align='center', dpi = 50}
 knitr::include_graphics("img/build-lifecycle.png")

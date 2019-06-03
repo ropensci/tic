@@ -4,8 +4,7 @@ NULL
 
 #' tic's domain-specific language
 #'
-#' Functions to define stages and their constitutent
-#' steps.
+#' Functions to define stages and their constituent steps.
 #' The [macro]s combine several steps and assign them to relevant
 #' stages.
 #' See [dsl_get()] for functions to access the storage for the stages

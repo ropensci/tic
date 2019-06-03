@@ -163,7 +163,7 @@ if (isTRUE("BUILD_PKGDOWN")) {
 
 ## Committing single files
 
-The `step_push_deploy()` function has the ability to restrict the files that are commited and pushed.
+The `step_push_deploy()` function has the ability to restrict the files that are committed and pushed.
 This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if these are automatically created via Travis.
 
 In the following example, these files are created/updated by calling `devtools::document()`.

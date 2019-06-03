@@ -34,8 +34,7 @@ The default is useful if you only pass \code{prepare_call}.}
 An optional arbitrary R expression executed during preparation.}
 }
 \description{
-Functions to define stages and their constitutent
-steps.
+Functions to define stages and their constituent steps.
 The \link{macro}s combine several steps and assign them to relevant
 stages.
 See \code{\link[=dsl_get]{dsl_get()}} for functions to access the storage for the stages

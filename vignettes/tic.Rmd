@@ -127,7 +127,7 @@ Selection: 1
 ```
 
 And also for the `tic.R` file.
-Additionally, it is added to `.Rbuildignore` to not interfer with the package building.
+Additionally, it is added to `.Rbuildignore` to not interfere with the package building.
 
 ```
 Overwrite tic.R? 
@@ -221,7 +221,7 @@ do_package_checks()
 `do_package_checks()` Is a macro which adds essential steps to various stages of a CI run. 
 Essentially, it adds `step_rcmdcheck()` to the "script" stage. 
 This step performs the check of a R package.
-Afterwards, the code coverage is beim checked using `covr::codecov()`.
+Afterwards, the code coverage is being checked using `covr::codecov()`.
 
 ```{r}
 # step_install_deps() in the "install" stage, using the repos argument.
