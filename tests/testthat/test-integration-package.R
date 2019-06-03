@@ -24,5 +24,6 @@ test_that("integration test: package", {
     }
   )
 
+  # This is an integration test, we're good if we have reached this point.
   expect_true(TRUE)
 })
