@@ -1,3 +1,16 @@
+# tic 0.2.13.9017
+
+- Test utils and printing.
+- Exclude code that can only run interactively or in a CI from coverage.
+- Add comment regarding integration test.
+- Strip long source code lines.
+- Add review badge.
+- Add `tic.R` to `.Rbuildignore` for internal tests.
+- Update wordlist.
+- Fix typos.
+- Condition example on presence of Git repository.
+
+
 # tic 0.2.13.9016
 
 - Fix compatibility with git 2.21 and above for race conditions (#160).
