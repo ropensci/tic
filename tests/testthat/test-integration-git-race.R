@@ -27,17 +27,16 @@ test_that("integration test: git race condition", {
   package_path <- tmp("package")
   git2r::clone(bare_repo_path, package_path)
 
+  tic_r <- c(
+    'get_stage("deploy") %>%',
+    '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$")), "dir.txt")) %>%',
+    paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '"))')
+  )
+
   cat("\n")
   withr::with_dir(
     package_path, {
-      writeLines(
-        c(
-          'get_stage("deploy") %>%',
-          '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$")), "dir.txt")) %>%',
-          paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '"))')
-        ),
-        "tic.R"
-      )
+      writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       git2r::add(path = ".")
@@ -65,7 +64,9 @@ test_that("integration test: git race condition", {
   withr::with_dir(
     package_path_3, {
       writeLines("clone-contents", "clone.txt")
-      git2r::config(user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test")
+      git2r::config(
+        user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test"
+      )
       git2r::add(path = ".")
       git2r::commit(message = "Edit clone.txt")
       git2r::push()

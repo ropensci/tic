@@ -17,7 +17,10 @@ AddToKnownHosts <- R6Class(
       cat(keyscan_result, "\n", sep = "")
 
       known_hosts_path <- file.path("~", ".ssh", "known_hosts")
-      dir.create(dirname(known_hosts_path), showWarnings = FALSE, recursive = TRUE)
+      dir.create(
+        dirname(known_hosts_path),
+        showWarnings = FALSE, recursive = TRUE
+      )
       message("Adding to ", known_hosts_path)
       write(keyscan_result, known_hosts_path, append = TRUE)
     },
@@ -68,7 +71,10 @@ InstallSSHKeys <- R6Class(
       name <- private$name
 
       deploy_key_path <- file.path("~", ".ssh", name)
-      dir.create(dirname(deploy_key_path), recursive = TRUE, showWarnings = FALSE)
+      dir.create(
+        dirname(deploy_key_path),
+        recursive = TRUE, showWarnings = FALSE
+      )
       message("Writing deploy key to ", deploy_key_path)
       if (file.exists(deploy_key_path)) {
         stop("Not overwriting key", call. = FALSE)

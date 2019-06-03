@@ -12,7 +12,8 @@ do_pkgdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
 \item{...}{Passed on to \code{\link[=step_build_pkgdown]{step_build_pkgdown()}}}
 
 \item{deploy}{\code{[flag]}\cr
-If \code{TRUE}, deployment setup is performed before building the pkgdown site,
+If \code{TRUE}, deployment setup is performed
+before building the pkgdown site,
 and the site is deployed after building it.
 Set to \code{FALSE} to skip deployment.
 By default (if \code{deploy} is \code{NULL}), deployment happens
@@ -59,13 +60,17 @@ to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
-\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup the upcoming deployment (if \code{deploy} is set),
-\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage (if \code{deploy} is set),
-\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage, forwarding all \code{...} arguments.
+\item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup
+the upcoming deployment (if \code{deploy} is set),
+\item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage
+(if \code{deploy} is set),
+\item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage,
+forwarding all \code{...} arguments.
 \item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage.
 }
 
-By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch, keeping the history.
+By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch,
+keeping the history.
 }
 \examples{
 dsl_init()

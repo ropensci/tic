@@ -6,7 +6,10 @@ test_that("integration test: package", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
 
   cat("\n")
-  usethis::create_package(package_path, fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE)
+  usethis::create_package(
+    package_path,
+    fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE
+  )
   withr::with_dir(
     package_path, {
       writeLines("do_package_checks()", "tic.R")

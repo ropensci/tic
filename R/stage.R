@@ -41,7 +41,9 @@ TicStage <- R6Class(
       success <- TRUE
       for (step in private$steps) {
         if (!private$run_one(step)) {
-          stopc('A step failed in stage "', private$name, '": ', private$name, ".")
+          stopc(
+            'A step failed in stage "', private$name, '": ', private$name, "."
+          )
         }
       }
     },
@@ -108,7 +110,9 @@ TicStage <- R6Class(
               TRUE
             },
             error = function(e) {
-              ci_cat_with_color(crayon::red(paste0("Error: ", conditionMessage(e))))
+              ci_cat_with_color(
+                crayon::red(paste0("Error: ", conditionMessage(e)))
+              )
               tb <- format_traceback(top)
               ci_cat_with_color(crayon::yellow(tb))
             }

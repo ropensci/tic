@@ -21,7 +21,10 @@ TravisCI <- R6Class(
       paste0("Travis build ", self$get_env("TRAVIS_BUILD_NUMBER"))
     },
     get_build_url = function() {
-      paste0("https://travis-ci.org/", self$get_slug(), "/builds/", self$get_env("TRAVIS_BUILD_ID"))
+      paste0(
+        "https://travis-ci.org/", self$get_slug(), "/builds/",
+        self$get_env("TRAVIS_BUILD_ID")
+      )
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")

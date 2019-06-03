@@ -44,17 +44,18 @@ SetupPushDeploy <- R6Class(
   public = list(
     initialize = function(path = ".", branch = NULL, orphan = FALSE,
                           remote_url = NULL, checkout = TRUE) {
-
       if (is.null(branch) && orphan) {
-        stop("Cannot orphan the branch that has been used for the CI run.", call. = FALSE)
+        stopc("Cannot orphan the branch that has been used for the CI run.")
       }
 
       if (is.null(branch) && path != ".") {
-        stop("Must specify branch name if `path` is given.", call. = FALSE)
+        stopc("Must specify branch name if `path` is given.")
       }
 
       if (path != "." && !checkout && !orphan) {
-        stop("If `checkout` is FALSE and `path` is set, `orphan` must be TRUE.")
+        stopc(
+          "If `checkout` is FALSE and `path` is set, `orphan` must be TRUE."
+        )
       }
 
       if (is.null(branch)) {
@@ -116,7 +117,9 @@ SetupPushDeploy <- R6Class(
         message("Not overriding existing remote ", remote_name)
       } else {
         message("Adding remote ", remote_name, " with URL ", private$remote_url)
-        git2r::remote_add(private$git$get_repo(), remote_name, private$remote_url)
+        git2r::remote_add(
+          private$git$get_repo(), remote_name, private$remote_url
+        )
       }
 
       message("Setting branch name to ", private$branch)
@@ -151,7 +154,9 @@ SetupPushDeploy <- R6Class(
 
     try_fetch = function() {
       remote_name <- private$remote_name
-      private$git$cmd("fetch", remote_name, paste0("refs/heads/", private$branch))
+      private$git$cmd(
+        "fetch", remote_name, paste0("refs/heads/", private$branch)
+      )
       branches <- git2r::branches(private$git$get_repo(), "remote")
       branches[[paste0(remote_name, "/", private$branch)]]
     }
@@ -203,7 +208,8 @@ DoPushDeploy <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", commit_message = NULL, commit_paths = ".") {
+    initialize = function(path = ".", commit_message = NULL,
+                          commit_paths = ".") {
       private$git <- Git$new(path)
 
       if (is.null(commit_message)) {
@@ -245,14 +251,19 @@ DoPushDeploy <- R6Class(
       git2r::add(private$git$get_repo(), private$commit_paths)
 
       message("Checking changed files")
-      status <- git2r::status(private$git$get_repo(), staged = TRUE, unstaged = FALSE, untracked = FALSE, ignored = FALSE)
+      status <- git2r::status(
+        private$git$get_repo(),
+        staged = TRUE,
+        unstaged = FALSE, untracked = FALSE, ignored = FALSE
+      )
       if (length(status$staged) == 0) {
         message("Nothing to commit!")
         return(FALSE)
       }
 
       message("Committing to ", git2r_attrib(private$git$get_repo(), "path"))
-      new_commit <- git2r::commit(private$git$get_repo(), private$commit_message)$sha
+      new_commit <-
+        git2r::commit(private$git$get_repo(), private$commit_message)$sha
 
       local <- git2r_head(private$git$get_repo())
       upstream <- git2r::branch_get_upstream(local)
@@ -268,13 +279,16 @@ DoPushDeploy <- R6Class(
       message("Pulling new changes")
       private$git$cmd("fetch")
 
-      ## Needed to handle empty commits, pull, rebase or default cherry-pick have bad default behavior here (#160)
+      ## Needed to handle empty commits, pull, rebase or default cherry-pick
+      ## have bad default behavior here (#160)
       private$git$cmd("reset", "--hard", git2r::branch_target(upstream))
       private$git$cmd("cherry-pick", "--no-commit", new_commit)
       private$git$cmd("commit", "--no-edit", "--allow-empty")
 
-      c_local <- git2r::lookup(private$git$get_repo(), git2r::branch_target(local))
-      c_upstream <- git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
+      c_local <-
+        git2r::lookup(private$git$get_repo(), git2r::branch_target(local))
+      c_upstream <-
+        git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
 
       ab <- git2r::ahead_behind(c_local, c_upstream)
       message("Ahead: ", ab[[1]], ", behind: ", ab[[2]])
@@ -294,7 +308,9 @@ DoPushDeploy <- R6Class(
     format_commit_message = function() {
       paste0(
         "Deploy from ", ci_get_build_number(), " [ci skip]\n\n",
-        if (!is.null(ci_get_build_url())) paste0("Build URL: ", ci_get_build_url(), "\n"),
+        if (!is.null(ci_get_build_url())) {
+          paste0("Build URL: ", ci_get_build_url(), "\n")
+        },
         "Commit: ", ci_get_commit()
       )
     }
@@ -341,8 +357,11 @@ DoPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
-step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths = ".") {
-  DoPushDeploy$new(path = path, commit_message = commit_message, commit_paths = commit_paths)
+step_do_push_deploy <- function(path = ".", commit_message = NULL,
+                                commit_paths = ".") {
+  DoPushDeploy$new(
+    path = path, commit_message = commit_message, commit_paths = commit_paths
+  )
 }
 
 PushDeploy <- R6Class(
@@ -351,7 +370,8 @@ PushDeploy <- R6Class(
 
   public = list(
     initialize = function(path = ".", branch = ci_get_branch(),
-                          remote_url = paste0("git@github.com:", ci_get_slug(), ".git"),
+                          remote_url =
+                            paste0("git@github.com:", ci_get_slug(), ".git"),
                           commit_message = NULL, commit_paths = ".") {
 
       orphan <- (path != ".")
@@ -362,7 +382,8 @@ PushDeploy <- R6Class(
       )
 
       private$do <- step_do_push_deploy(
-        path = path, commit_message = commit_message, commit_paths = commit_paths
+        path = path,
+        commit_message = commit_message, commit_paths = commit_paths
       )
     },
 

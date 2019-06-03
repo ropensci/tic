@@ -31,10 +31,12 @@ in interactive mode only)
 (package, website, bookdown, ...)
 \item Enable deployment (if necessary, depending on repo type)
 via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}
-\item Create a GitHub PAT and install it on Travis CI via \code{\link[travis:travis_set_pat]{travis::travis_set_pat()}}
+\item Create a GitHub PAT and install it on Travis CI
+via \code{\link[travis:travis_set_pat]{travis::travis_set_pat()}}
 }
 
 This function is aimed at supporting the most common use cases.
-Users who require more control are advised to review the source code of \code{use_tic()}
+Users who require more control are advised to review
+the source code of \code{use_tic()}
 and manually call the individual functions, some of which aren't exported.
 }

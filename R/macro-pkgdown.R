@@ -40,7 +40,8 @@ do_pkgdown <- function(...,
                        commit_message = NULL, commit_paths = ".") {
 
   #' @param deploy `[flag]`\cr
-  #'   If `TRUE`, deployment setup is performed before building the pkgdown site,
+  #'   If `TRUE`, deployment setup is performed
+  #'   before building the pkgdown site,
   #'   and the site is deployed after building it.
   #'   Set to `FALSE` to skip deployment.
   if (is.null(deploy)) {
@@ -65,8 +66,10 @@ do_pkgdown <- function(...,
     add_step(step_install_deps(repos = !!enquo(repos)))
 
   if (isTRUE(deploy)) {
-    #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup the upcoming deployment (if `deploy` is set),
-    #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage (if `deploy` is set),
+    #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
+    #'    the upcoming deployment (if `deploy` is set),
+    #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
+    #'    (if `deploy` is set),
     get_stage("before_deploy") %>%
       add_step(step_setup_ssh()) %>%
       add_step(step_setup_push_deploy(
@@ -78,7 +81,8 @@ do_pkgdown <- function(...,
       ))
   }
 
-  #' 1. [step_build_pkgdown()] in the `"deploy"` stage, forwarding all `...` arguments.
+  #' 1. [step_build_pkgdown()] in the `"deploy"` stage,
+  #'    forwarding all `...` arguments.
   get_stage("deploy") %>%
     add_step(step_build_pkgdown(!!!enquos(...)))
 
@@ -93,5 +97,6 @@ do_pkgdown <- function(...,
   }
 
   #' @description
-  #' By default, the `docs/` directory is deployed to the `gh-pages` branch, keeping the history.
+  #' By default, the `docs/` directory is deployed to the `gh-pages` branch,
+  #' keeping the history.
 }

@@ -5,12 +5,16 @@ test_that("integration test: early failure", {
 
   cat("\n")
   dir.create(package_path)
+
+  tic_r <- paste0(
+    'get_stage("script") %>%\n',
+    '  add_code_step(stop("oops")) %>%\n',
+    '  add_code_step(writeLines(character(), "out.txt"))'
+  )
+
   withr::with_dir(
     package_path, {
-      writeLines(
-        'get_stage("script") %>% add_code_step(stop("oops")) %>% add_code_step(writeLines(character(), "out.txt"))',
-        "tic.R"
-      )
+      writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       expect_error(
         callr::r(

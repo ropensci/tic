@@ -78,7 +78,10 @@ InstallCRAN <- R6Class(
     },
     run = function() {
       if (length(find.package(private$package, quiet = TRUE)) == 0) {
-        do.call(install.packages, c(list(pkg = private$package), private$install_args))
+        do.call(
+          install.packages,
+          c(list(pkg = private$package), private$install_args)
+        )
       } else {
         message(paste0("Package ", private$package, " already installed."))
       }
@@ -105,7 +108,8 @@ InstallCRAN <- R6Class(
 #'   add_step(step_install_cran("magick"))
 #'
 #' dsl_get()
-step_install_cran <- function(package = NULL, ..., repos = repo_default(), type = NULL) {
+step_install_cran <- function(package = NULL, ..., repos = repo_default(),
+                              type = NULL) {
   type <- update_type(type)
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
@@ -126,7 +130,12 @@ InstallGitHub <- R6Class(
       private$install_args <- list(...)
     },
     run = function() {
-      do.call(remotes::install_github, c(list(repo = private$repo), private$install_args))
+      do.call(
+        remotes::install_github, c(
+          list(repo = private$repo),
+          private$install_args
+        )
+      )
     },
     prepare = function() {
       verify_install("remotes")

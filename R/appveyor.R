@@ -21,7 +21,9 @@ AppVeyorCI <- R6Class(
       paste0("AppVeyor build ", self$get_env("APPVEYOR_BUILD_NUMBER"))
     },
     get_build_url = function() {
-      paste0("https://ci.appveyor.com/project/", self$get_slug(), "/build/", self$get_env("APPVEYOR_BUILD_VERSION"))
+      paste0(
+        "https://ci.appveyor.com/project/", self$get_slug(), "/build/", self$get_env("APPVEYOR_BUILD_VERSION")
+      )
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")

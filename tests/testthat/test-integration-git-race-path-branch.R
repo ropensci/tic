@@ -1,6 +1,6 @@
 context("test-integration-git-race-path-branch.R")
 
-test_that("integration test: git race condition with path and branch arguments set", {
+test_that("integration test: git race condition with path and branch", {
   cli::cat_boxx("integration test: git race path branch")
 
 
@@ -28,18 +28,17 @@ test_that("integration test: git race condition with path and branch arguments s
   package_path <- tmp("package")
   git2r::clone(bare_repo_path, package_path)
 
+  tic_r <- c(
+    'get_stage("deploy") %>%',
+    paste0('  add_step(step_setup_push_deploy(path = "deploy", branch = "deploy-branch", remote_url = "', bare_repo_path, '")) %>%'),
+    '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)), "deploy/dir.txt")) %>%',
+    '  add_step(step_do_push_deploy(path = "deploy"))'
+  )
+
   cat("\n")
   withr::with_dir(
     package_path, {
-      writeLines(
-        c(
-          'get_stage("deploy") %>%',
-          paste0('  add_step(step_setup_push_deploy(path = "deploy", branch = "deploy-branch", remote_url = "', bare_repo_path, '")) %>%'),
-          '  add_code_step(writeLines(sort(dir(pattern = "^clone[.]txt$", recursive = TRUE)), "deploy/dir.txt")) %>%',
-          '  add_step(step_do_push_deploy(path = "deploy"))'
-        ),
-        "tic.R"
-      )
+      writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       dir.create("deploy")
@@ -69,7 +68,9 @@ test_that("integration test: git race condition with path and branch arguments s
   withr::with_dir(
     package_path_3, {
       writeLines("clone-contents", "clone.txt")
-      git2r::config(user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test")
+      git2r::config(
+        user.name = "tic-clone-2", user.email = "tic-clone-2@pkg.test"
+      )
       git2r::add(path = ".")
       git2r::commit(message = "Edit clone.txt")
       git2r::push()
@@ -104,7 +105,9 @@ test_that("integration test: git race condition with path and branch arguments s
       system2("git", "reset origin/deploy-branch --hard")
       expect_equal(length(git2r::commits()), 1)
       expect_false(file.exists("clone.txt"))
-      expect_equal(readLines("dir.txt"), sort(dir(package_path, pattern = "^clone[.]txt$", recursive = TRUE)))
+      expect_equal(
+        readLines("dir.txt"), sort(dir(package_path, pattern = "^clone[.]txt$", recursive = TRUE))
+      )
     }
   )
 
@@ -126,7 +129,9 @@ test_that("integration test: git race condition with path and branch arguments s
       system2("git", "reset origin/deploy-branch --hard")
       expect_equal(length(git2r::commits()), 2)
       expect_false(file.exists("clone.txt"))
-      expect_equal(readLines("dir.txt"), sort(dir(package_path_2, pattern = "^clone[.]txt$", recursive = TRUE)))
+      expect_equal(
+        readLines("dir.txt"), sort(dir(package_path_2, pattern = "^clone[.]txt$", recursive = TRUE))
+      )
     }
   )
 
@@ -149,7 +154,9 @@ test_that("integration test: git race condition with path and branch arguments s
       expect_equal(length(git2r::commits()), 2)
       expect_false(file.exists("clone.txt"))
       print(readLines("dir.txt"))
-      expect_equal(readLines("dir.txt"), sort(dir(package_path_3, pattern = "^clone[.]txt$", recursive = TRUE)))
+      expect_equal(
+        readLines("dir.txt"), sort(dir(package_path_3, pattern = "^clone[.]txt$", recursive = TRUE))
+      )
     }
   )
 })

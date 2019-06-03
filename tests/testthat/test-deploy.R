@@ -30,7 +30,9 @@ Running <- R6Class(
 test_that("prepare tasks", {
   running <- Running$new()
   not_running <- Running$new(FALSE)
-  stage <- local(TicStage$new("test") %>% add_step(running) %>% add_step(not_running), dslobj_new())
+  stage <- local(
+    TicStage$new("test") %>% add_step(running) %>% add_step(not_running), dslobj_new()
+  )
 
   expect_output(stage$prepare_all(), "Skipping", fixed = TRUE)
   expect_equal(running$get_prepare_calls(), 1L)

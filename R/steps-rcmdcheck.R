@@ -8,13 +8,18 @@ RCMDcheck <- R6Class(
                               build_args = "--force", error_on = "warning",
                               repos = repo_default(), timeout = Inf) {
       if (!is.null(notes_are_errors)) {
-        warning_once('`notes_are_errors` is deprecated, please use `error_on = "note"`')
+        warning_once(
+          '`notes_are_errors` is deprecated, please use `error_on = "note"`'
+        )
         if (notes_are_errors) {
           error_on <- "note"
         }
       }
       else if (!is.null(warnings_are_errors)) {
-        warning_once('`warnings_are_errors` is deprecated, please use `error_on = "warning"`')
+        warning_once(
+          "`warnings_are_errors` is deprecated, ",
+          'please use `error_on = "warning"`'
+        )
         if (warnings_are_errors) {
           error_on <- "warning"
         }
@@ -53,10 +58,16 @@ RCMDcheck <- R6Class(
         stopc("Errors found in rcmdcheck::rcmdcheck().")
       }
       if (private$error_on == "warning" && length(res$warnings) > 0) {
-        stopc('Warnings found in rcmdcheck::rcmdcheck(), and `errors_on = "warning"` is set.')
+        stopc(
+          "Warnings found in rcmdcheck::rcmdcheck(), ",
+          'and `errors_on = "warning"` is set.'
+        )
       }
       if (private$error_on == "note" && length(res$notes) > 0) {
-        stopc('Notes found in rcmdcheck::rcmdcheck(), and `errors_on = "note"` is set.')
+        stopc(
+          "Notes found in rcmdcheck::rcmdcheck(), ",
+          'and `errors_on = "note"` is set.'
+        )
       }
     },
 
@@ -131,7 +142,8 @@ step_rcmdcheck <- function(...,
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
   #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
   #'   Default for Appveyor:
-  #'   `c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")`.\cr
+  #'   `c("--no-manual", "--as-cran", "--no-vignettes",
+  #'   "--no-build-vignettes", "--no-multiarch")`.\cr
   if (is.null(args)) {
     if (isTRUE(ci_on_appveyor())) {
       args <- c(

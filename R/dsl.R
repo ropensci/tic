@@ -57,7 +57,9 @@ add_step <- function(stage, step) {
   tryCatch(
     step <- eval_tidy(step_quo),
     error = function(e) {
-      stop("Error evaluating the step argument of add_step(), expected an object of class TicStep.\n",
+      stop(
+        "Error evaluating the step argument of add_step(), ",
+        "expected an object of class TicStep.\n",
         "Original error: ", conditionMessage(e),
         call. = FALSE
       )

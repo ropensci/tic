@@ -42,7 +42,8 @@ CI <- R6Class(
     has_env = function(env) {
       stop("NYI")
     },
-    #'   \item{`get_slug()`}{The repo slug in the format `user/repo` or `org/repo`.}
+    #'   \item{`get_slug()`}{
+    #'     The repo slug in the format `user/repo` or `org/repo`.}
     get_slug = function() {
       stop("NYI")
     },

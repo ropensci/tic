@@ -9,10 +9,6 @@ vlapply <- function(X, FUN, ..., USE.NAMES = TRUE) {
   vapply(X = X, FUN = FUN, FUN.VALUE = logical(1L), ..., USE.NAMES = USE.NAMES)
 }
 
-vcapply <- function(X, FUN, ..., USE.NAMES = TRUE) {
-  vapply(X = X, FUN = FUN, FUN.VALUE = character(1L), ..., USE.NAMES = USE.NAMES)
-}
-
 stopc <- function(...) {
   stop(..., call. = FALSE, domain = NA)
 }
@@ -50,7 +46,9 @@ verify_install_one <- function(pkg_name) {
   if (!package_installed(pkg_name)) {
     utils::install.packages(pkg_name)
     if (!package_installed(pkg_name)) {
-      stopc("Error installing package ", pkg_name, " or one of its dependencies.")
+      stopc(
+        "Error installing package ", pkg_name, " or one of its dependencies."
+      )
     }
   }
 }

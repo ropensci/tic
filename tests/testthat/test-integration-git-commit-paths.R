@@ -13,18 +13,17 @@ test_that("integration test: git commit paths", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
   git2r::clone(bare_repo_path, package_path)
 
+  tic_r <- c(
+    'get_stage("deploy") %>%',
+    '  add_code_step(writeLines(as.character(Sys.time()), "time.txt")) %>%',
+    '  add_code_step(writeLines(as.character(Sys.time()), "deploy/time.txt")) %>%',
+    paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '", commit_paths = "deploy"))')
+  )
+
   cat("\n")
   withr::with_dir(
     package_path, {
-      writeLines(
-        c(
-          'get_stage("deploy") %>%',
-          '  add_code_step(writeLines(as.character(Sys.time()), "time.txt")) %>%',
-          '  add_code_step(writeLines(as.character(Sys.time()), "deploy/time.txt")) %>%',
-          paste0('  add_step(step_push_deploy(remote_url = "', bare_repo_path, '", commit_paths = "deploy"))')
-        ),
-        "tic.R"
-      )
+      writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       dir.create("deploy")
       writeLines(character(), "deploy/.gitignore")
