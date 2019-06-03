@@ -1,3 +1,6 @@
+# This code can only run as part of a CI run
+# nocov start
+
 AddToKnownHosts <- R6Class(
   "AddToKnownHosts",
   inherit = TicStep,
@@ -242,3 +245,6 @@ step_setup_ssh <- function(name = "id_rsa", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
 }
+
+# This code can only run as part of a CI run
+# nocov end

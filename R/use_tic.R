@@ -1,3 +1,6 @@
+# This code can only run interactively
+# nocov start
+
 #' Initialize CI testing using tic
 #'
 #' Prepares a repo for building and deploying supported by \pkg{tic}.
@@ -223,3 +226,6 @@ detect_repo_type <- function() {
 yesno <- function(...) {
   utils::menu(c("Yes", "No"), title = paste0(...)) == 1
 }
+
+# This code can only run interactively
+# nocov end
