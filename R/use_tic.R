@@ -22,16 +22,16 @@ use_tic <- function(quiet = FALSE) {
   if (!is_installed("travis")) {
     cli::cat_rule(col = "red")
     stopc(
-      "use_tic() needs the `travis` package. ",
-      'Please install it using remotes::install_github("ropenscilabs/travis").'
+      "`use_tic()` needs the `travis` package. Please ",
+      'install it using `remotes::install_github("ropenscilabs/travis")`.'
     )
   }
 
   if (!is_installed("usethis")) {
     cli::cat_rule(col = "red")
     stopc(
-      "use_tic() needs the `usethis` package, ",
-      'please install using install.packages("usethis").'
+      "`use_tic()` needs the `usethis` package, ",
+      'please install using `install.packages("usethis")`.'
     )
   }
 
@@ -42,6 +42,17 @@ use_tic <- function(quiet = FALSE) {
     bullet = "info",
     paste0("Using active project ", usethis::ui_value(path))
   )
+
+  repo_type <- detect_repo_type()
+
+  if (needs_deploy(repo_type) && !is_installed("openssl")) {
+    cli::cat_rule(col = "red")
+    stopc(
+      "`use_tic()` needs the `openssl` package to set up deployment, ",
+      'please install using install.packages("openssl").'
+    )
+  }
+
 
   #' @details
   #' The preparation consists of the following steps:
@@ -86,7 +97,6 @@ use_tic <- function(quiet = FALSE) {
   #' 1. Create a default `appveyor.yml` file
   #'    (depending on repo type, overwrite after confirmation
   #'    in interactive mode only)
-  repo_type <- detect_repo_type()
   if (needs_appveyor(repo_type)) use_appveyor_yml()
 
   #' 1. Create a default `tic.R` file depending on the repo type
@@ -94,7 +104,7 @@ use_tic <- function(quiet = FALSE) {
   use_tic_r(repo_type)
 
   #' 1. Enable deployment (if necessary, depending on repo type)
-  #'    via [travis::use_travis_deploy()]
+  #'    via [use_travis_deploy()]
   cli::cat_boxx(
     c(
       "Step #4: We create a SSH key pair",
@@ -102,7 +112,7 @@ use_tic <- function(quiet = FALSE) {
     ),
     col = "green"
   )
-  if (needs_deploy(repo_type)) travis::use_travis_deploy()
+  if (needs_deploy(repo_type)) use_travis_deploy()
 
   cli::cat_boxx(
     c(

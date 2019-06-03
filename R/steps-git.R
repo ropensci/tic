@@ -192,7 +192,15 @@ SetupPushDeploy <- R6Class(
 #' dsl_init()
 #'
 #' get_stage("deploy") %>%
-#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages"))
+#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages")) %>%
+#'   add_step(step_build_pkgdown())
+#'
+#' # This example needs a Git repository
+#' if (rlang::is_installed("git2r") && git2r::in_repository()) {
+#'   # Deployment only works if a companion step_do_push_deploy() is added
+#'   get_stage("deploy") %>%
+#'     add_step(step_do_push_deploy(path = "docs"))
+#' }
 #'
 #' dsl_get()
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
@@ -319,7 +327,14 @@ DoPushDeploy <- R6Class(
 
 #' Step: Perform push deploy
 #'
+#' @description
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
+#'
+#' Deployment usually requires setting up SSH keys with
+#' [use_tic()] or [use_travis_deploy()].
+#'
+#'
+#' @details
 #' It is highly recommended to restrict the set of files
 #' touched by the deployment with the `commit_paths` argument:
 #' this step assumes that it can freely overwrite all changes to all files
@@ -329,7 +344,8 @@ DoPushDeploy <- R6Class(
 #' the following strategy is used:
 #'
 #' - The changes are committed to the branch
-#' - Before pushing, new commits are fetched with `git pull --rebase -X theirs`
+#' - Before pushing, new commits are fetched, and the changes are cherry-picked
+#'   on top of the new commits
 #'
 #' If no new commits were pushed after the CI run has started,
 #' this strategy is equivalent to simply committing and pushing.
@@ -350,6 +366,11 @@ DoPushDeploy <- R6Class(
 #' @export
 #' @examples
 #' dsl_init()
+#'
+#' # Deployment only works if a companion step_setup_push_deploy() is added
+#' get_stage("deploy") %>%
+#'   add_step(step_setup_push_deploy(path = "docs", branch = "gh-pages")) %>%
+#'   add_step(step_build_pkgdown())
 #'
 #' if (rlang::is_installed("git2r") && git2r::in_repository()) {
 #'   get_stage("deploy") %>%
@@ -410,12 +431,17 @@ PushDeploy <- R6Class(
 
 #' Step: Setup and perform push deploy
 #'
+#' @description
 #' Clones a repo, inits author information, sets up remotes,
 #' commits, and pushes.
 #' Combines [step_setup_push_deploy()] with `checkout = FALSE` and
 #' a suitable `orphan` argument,
 #' and [step_do_push_deploy()].
 #'
+#' Deployment usually requires setting up SSH keys with
+#' [use_tic()] or [use_travis_deploy()].
+#'
+#' @details
 #' Setup and deployment are combined in one step,
 #' the files to be deployed must be prepared in a previous step.
 #' This poses some restrictions on how the repository can be initialized,
@@ -425,6 +451,7 @@ PushDeploy <- R6Class(
 #' For more control, create two separate steps with
 #' `step_setup_push_deploy()` and `step_do_push_deploy()`,
 #' and create the files to be deployed inbetween these steps.
+#'
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #'

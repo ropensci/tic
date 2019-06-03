@@ -110,12 +110,14 @@ InstallSSHKeys <- R6Class(
 #' to a file in `~/.ssh`.
 #' Only run in non-interactive settings and if the environment variable
 #' exists and is non-empty.
+#' The [use_travis_deploy()] and [use_tic()] functions encode a private key
+#' as an environment variable for use with this function.
 #'
 #' @param name `[string]`\cr
 #'   Name of the environment variable and the target file, default: `"id_rsa"`.
 #'
 #' @family steps
-#' @seealso `travis::use_travis_deploy()`, [travis::use_tic()]
+#' @seealso [use_travis_deploy()], [use_tic()]
 #' @export
 #' @examples
 #' dsl_init()
@@ -226,6 +228,8 @@ SetupSSH <- R6Class(
 #' Adds to known hosts, installs private key, and tests the connection.
 #' Chaining [step_install_ssh_keys()], [step_add_to_known_hosts()]
 #' and [step_test_ssh()].
+#' The [use_travis_deploy()] and [use_tic()] functions encode a private key
+#' as an environment variable for use with this function.
 #'
 #' @inheritParams step_install_ssh_keys
 #' @inheritParams step_add_to_known_hosts

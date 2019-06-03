@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 *tic* handles deployment as follows:
 
-1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `use_tic()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
+1. When calling `use_travis_deploy()` (either directly or indirectly by using `use_tic()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
 
     ```{r, echo = FALSE, fig.align='center', dpi = 10}
     knitr::include_graphics("img/ssh-deploy-key.png")
