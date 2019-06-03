@@ -4,7 +4,7 @@
 \alias{use_travis_deploy}
 \title{Set up deployment for Travis CI}
 \usage{
-use_travis_deploy(travis_repo = NULL, name = "id_rsa")
+use_travis_deploy(travis_repo = NULL, name = "id_rsa", quiet = FALSE)
 }
 \arguments{
 \item{travis_repo}{\code{[string]}\cr
@@ -15,6 +15,9 @@ the GitHub repo to which the public deploy key is added.}
 The private environment variable on Travis CI to write the private key to,
 default: \code{"id_rsa"}.  Use this value as \code{name} argument to
 \code{\link[=step_setup_ssh]{step_setup_ssh()}} or \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}}.}
+
+\item{quiet}{\code{[flag]}\cr
+Less verbose output? Default: \code{FALSE}.}
 }
 \description{
 Creates a public-private key pair,

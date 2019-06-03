@@ -17,13 +17,15 @@
 #'   The private environment variable on Travis CI to write the private key to,
 #'   default: `"id_rsa"`.  Use this value as `name` argument to
 #'   [step_setup_ssh()] or [step_install_ssh_keys()].
+#' @inheritParams use_tic
 #'
 #' @export
-use_travis_deploy <- function(travis_repo = NULL, name = "id_rsa") {
+use_travis_deploy <- function(travis_repo = NULL, name = "id_rsa",
+                              quiet = FALSE) {
 
   # authenticate on github and travis and set up keys/vars
   if (!is_installed("openssl")) {
-    stopc("Please install the openssl package.")
+    stopc("Please install the `openssl` package.")
   }
 
   # generate deploy key pair
@@ -43,17 +45,21 @@ use_travis_deploy <- function(travis_repo = NULL, name = "id_rsa") {
   title <- paste0(
     "travis+tic", if (repo == travis_repo) "" else (paste0(" for ", repo))
   )
-  travis::github_add_key(pub_key, title = title, info = info)
+  travis::github_add_key(pub_key, title = title, info = info, quiet = quiet)
 
-  travis::travis_set_var(name, private_key, public = FALSE, repo = travis_repo)
+  travis::travis_set_var(
+    name, private_key,
+    public = FALSE, repo = travis_repo, quiet = quiet)
 
-  cli::cat_bullet(
-    bullet = "tick", bullet_col = "green",
-    paste0(
-      "Successfully added private deploy key to ",
-      travis_repo, " as secure environment variable ", name, " to Travis CI."
+  if (!quiet) {
+    cli::cat_bullet(
+      bullet = "tick", bullet_col = "green",
+      paste0(
+        "Successfully added private deploy key to ",
+        travis_repo, " as secure environment variable ", name, " to Travis CI."
+      )
     )
-  )
+  }
 }
 
 #' Get public RSA key
