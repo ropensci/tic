@@ -10,6 +10,7 @@ test_that("integration test: package", {
   withr::with_dir(
     package_path, {
       writeLines("do_package_checks()", "tic.R")
+      writeLines("^tic\\.R$", ".Rbuildignore")
       callr::r(
         function() {
           tic::run_all_stages()

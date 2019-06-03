@@ -10,6 +10,7 @@ test_that("integration test: package failure", {
   withr::with_dir(
     package_path, {
       writeLines("do_package_checks()", "tic.R")
+      writeLines("^tic\\.R$", ".Rbuildignore")
       dir.create("tests")
       writeLines('stop("Check failure!")', "tests/test.R")
       expect_error(
