@@ -32,7 +32,8 @@ To mitigate conflicts race conditions to the greatest extent possible,
 the following strategy is used:
 \itemize{
 \item The changes are committed to the branch
-\item Before pushing, new commits are fetched with \code{git pull --rebase -X theirs}
+\item Before pushing, new commits are fetched, and the changes are cherry-picked
+on top of the new commits
 }
 
 If no new commits were pushed after the CI run has started,

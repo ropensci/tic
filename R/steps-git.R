@@ -337,7 +337,8 @@ DoPushDeploy <- R6Class(
 #' the following strategy is used:
 #'
 #' - The changes are committed to the branch
-#' - Before pushing, new commits are fetched with `git pull --rebase -X theirs`
+#' - Before pushing, new commits are fetched, and the changes are cherry-picked
+#'   on top of the new commits
 #'
 #' If no new commits were pushed after the CI run has started,
 #' this strategy is equivalent to simply committing and pushing.
@@ -438,6 +439,7 @@ PushDeploy <- R6Class(
 #' For more control, create two separate steps with
 #' `step_setup_push_deploy()` and `step_do_push_deploy()`,
 #' and create the files to be deployed inbetween these steps.
+#'
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
 #'
