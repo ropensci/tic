@@ -327,7 +327,14 @@ DoPushDeploy <- R6Class(
 
 #' Step: Perform push deploy
 #'
+#' @description
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
+#'
+#' Deployment usually requires setting up SSH keys with
+#' [use_tic()] or [use_travis_deploy()].
+#'
+#'
+#' @details
 #' It is highly recommended to restrict the set of files
 #' touched by the deployment with the `commit_paths` argument:
 #' this step assumes that it can freely overwrite all changes to all files
@@ -424,12 +431,17 @@ PushDeploy <- R6Class(
 
 #' Step: Setup and perform push deploy
 #'
+#' @description
 #' Clones a repo, inits author information, sets up remotes,
 #' commits, and pushes.
 #' Combines [step_setup_push_deploy()] with `checkout = FALSE` and
 #' a suitable `orphan` argument,
 #' and [step_do_push_deploy()].
 #'
+#' Deployment usually requires setting up SSH keys with
+#' [use_tic()] or [use_travis_deploy()].
+#'
+#' @details
 #' Setup and deployment are combined in one step,
 #' the files to be deployed must be prepared in a previous step.
 #' This poses some restrictions on how the repository can be initialized,

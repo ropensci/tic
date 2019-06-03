@@ -104,7 +104,7 @@ use_tic <- function(quiet = FALSE) {
   use_tic_r(repo_type)
 
   #' 1. Enable deployment (if necessary, depending on repo type)
-  #'    via [travis::use_travis_deploy()]
+  #'    via [use_travis_deploy()]
   cli::cat_boxx(
     c(
       "Step #4: We create a SSH key pair",

@@ -22,12 +22,16 @@ Default: deploy all files.}
 }
 \description{
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
+
+Deployment usually requires setting up SSH keys with
+\code{\link[=use_tic]{use_tic()}} or \code{\link[=use_travis_deploy]{use_travis_deploy()}}.
+}
+\details{
 It is highly recommended to restrict the set of files
 touched by the deployment with the \code{commit_paths} argument:
 this step assumes that it can freely overwrite all changes to all files
 below \code{commit_paths}, and will not warn in case of conflicts.
-}
-\details{
+
 To mitigate conflicts race conditions to the greatest extent possible,
 the following strategy is used:
 \itemize{

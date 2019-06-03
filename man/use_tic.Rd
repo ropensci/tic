@@ -30,7 +30,7 @@ in interactive mode only)
 \item Create a default \code{tic.R} file depending on the repo type
 (package, website, bookdown, ...)
 \item Enable deployment (if necessary, depending on repo type)
-via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}
+via \code{\link[=use_travis_deploy]{use_travis_deploy()}}
 \item Create a GitHub PAT and install it on Travis CI
 via \code{\link[travis:travis_set_pat]{travis::travis_set_pat()}}
 }
