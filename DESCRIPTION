@@ -45,7 +45,7 @@ Suggests:
     openssl,
     rcmdcheck,
     rmarkdown,
-    testthat,
+    testthat (>= 2.1.0),
     travis (>= 0.2.11.9001),
     usethis
 VignetteBuilder: knitr
@@ -64,6 +64,7 @@ Collate:
     'dsl-storage.R'
     'dsl.R'
     'git2r.R'
+    'install.R'
     'keys.R'
     'local.R'
     'macro.R'

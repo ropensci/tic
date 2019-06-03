@@ -17,3 +17,17 @@ test_that("deps", {
     paste0("pkg", 1:3)
   )
 })
+
+test_that("%||%", {
+  expect_identical(NULL %||% 1, 1)
+  expect_identical(2 %||% 1, 2)
+  expect_identical(2 %||% NULL, 2)
+})
+
+test_that("warningc()", {
+  expect_warning(warningc("test"), "test", fixed = TRUE)
+})
+
+test_that("vlapply()", {
+  expect_identical(vlapply(1:3, `==`, 2), c(FALSE, TRUE, FALSE))
+})
