@@ -143,12 +143,12 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb1-5" data-line-number="5">│                       │</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">└───────────────────────┘</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7">ℹ This wizard will set all the required tokens and files</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">  on Travis CI and Github. Lets get started<span class="op">!</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  on Travis CI and GitHub. Lets get started<span class="op">!</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">✔ Setting active project to <span class="st">'/home/pjs/git/test2'</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">ℹ Using active project <span class="st">'/home/pjs/git/test2'</span></a>
 <a class="sourceLine" id="cb1-11" data-line-number="11">┌──────────────────────────────────────────────────────┐</a>
 <a class="sourceLine" id="cb1-12" data-line-number="12">│                                                      │</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">│   Step <span class="co">#1: We check if a Github repository exists.   │</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">│   Step <span class="co">#1: We check if a GitHub repository exists.   │</span></a>
 <a class="sourceLine" id="cb1-14" data-line-number="14">│                                                      │</a>
 <a class="sourceLine" id="cb1-15" data-line-number="15">└──────────────────────────────────────────────────────┘</a>
 <a class="sourceLine" id="cb1-16" data-line-number="16">❯  Authenticating to GitHub.</a>
@@ -161,7 +161,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a class="sourceLine" id="cb1-23" data-line-number="23">Press Esc<span class="op">/</span>Ctrl <span class="op">+</span><span class="st"> </span>C to abort</a>
 <a class="sourceLine" id="cb1-24" data-line-number="24">Authentication complete.</a>
 <a class="sourceLine" id="cb1-25" data-line-number="25">✔ Authentication successful.</a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">✔ Github repo exists.</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">✔ GitHub repo exists.</a>
 <a class="sourceLine" id="cb1-27" data-line-number="27">┌─────────────────────────────────────────────────────┐</a>
 <a class="sourceLine" id="cb1-28" data-line-number="28">│                                                     │</a>
 <a class="sourceLine" id="cb1-29" data-line-number="29">│   Step <span class="co">#2: We check if Travis is already enabled.   │</span></a>
@@ -200,7 +200,7 @@ Overwrite pre-existing file 'appveyor.yml'?
 
 Selection: 1
 ✔ Writing 'appveyor.yml'</code></pre>
-<p>And also for the <code>tic.R</code> file. Additionally, it is added to <code>.Rbuildignore</code> to not interfer with the package building.</p>
+<p>And also for the <code>tic.R</code> file. Additionally, it is added to <code>.Rbuildignore</code> to not interfere with the package building.</p>
 <pre><code>Overwrite tic.R? 
 
 1: Yes
@@ -213,7 +213,7 @@ Added tic.R from template.
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">┌───────────────────────────────────────────┐</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">│                                           │</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">│   Step <span class="co">#4: We create a SSH key pair       │</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">│   to allow Travis deployment to Github.   │</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">│   to allow Travis deployment to GitHub.   │</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">│                                           │</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">└───────────────────────────────────────────┘</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">Finished adding deploy keys on GitHub <span class="cf">for</span> repo <span class="op">&lt;</span>username<span class="op">/</span>repo<span class="op">&gt;</span>.</a>
@@ -231,8 +231,8 @@ Added tic.R from template.
 <p>Last, a PAT is created to avoid the download limit of GitHub packages on Travis. You now see two environment variables in your setting on Travis CI: <code>GITHUB_PAT</code> and <code>id_rsa</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">┌─────────────────────────────────────────────────────────┐</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">│                                                         │</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">│   Step <span class="co">#5: We create a Github PAT key on Travis CI      │</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">│   to avoid Github API rate limitations <span class="cf">in</span> the builds.   │</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">│   Step <span class="co">#5: We create a GitHub PAT key on Travis CI      │</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">│   to avoid GitHub API rate limitations <span class="cf">in</span> the builds.   │</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">│                                                         │</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">└─────────────────────────────────────────────────────────┘</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">❯  Authenticating to GitHub.</a>
@@ -260,7 +260,7 @@ Added tic.R from template.
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a></code></pre></div>
 <p>Let’s break down what happens here:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
-<p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> Is a macro which adds essential steps to various stages of a CI run. Essentially, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of a R package. Afterwards, the code coverage is beim checked using <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code>.</p>
+<p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> Is a macro which adds essential steps to various stages of a CI run. Essentially, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of a R package. Afterwards, the code coverage is being checked using <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># </span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>

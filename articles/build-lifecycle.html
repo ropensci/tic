@@ -115,7 +115,7 @@
 <div id="stages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#stages" class="anchor"></a>Stages</h2>
-<p>CI services run builds in stages. Stages are ususally ordered as follows:</p>
+<p>CI services run builds in stages. Stages are usually ordered as follows:</p>
 <p><img src="img/build-lifecycle.png" style="display: block; margin: auto;"></p>
 <p>The <code>after_xxx</code> stages are executed conditionally after their corresponding <code>xxx</code> stage. For example, the <code>after_deploy</code> stage will only be run if the <code>deploy</code> stage was run before. The <code>after_success</code> stage will only be run if the <code>script</code> stage executed successfully, i.e. without error; otherwise <code>after_failure</code> will be run instead.</p>
 <p><em>tic</em> also employs an approach based on stages. All action specifications that should be run in each stage are defined in the <code>tic.R</code> file. The steps are specified in an CI-agnostic way using R syntax. A large part of the <code>.travis.yml</code> file consists of glue code and is not meant to be edited anymore.</p>

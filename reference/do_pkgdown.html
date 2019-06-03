@@ -39,13 +39,17 @@ to the &quot;install&quot;, &quot;before_deploy&quot; and &quot;deploy&quot; sta
 
 step_install_deps() in the &quot;install&quot; stage, using the
 repos argument.
-step_setup_ssh() in the &quot;before_deploy&quot; to setup the upcoming deployment (if deploy is set),
-step_setup_push_deploy() in the &quot;before_deploy&quot; stage (if deploy is set),
-step_build_pkgdown() in the &quot;deploy&quot; stage, forwarding all ... arguments.
+step_setup_ssh() in the &quot;before_deploy&quot; to setup
+the upcoming deployment (if deploy is set),
+step_setup_push_deploy() in the &quot;before_deploy&quot; stage
+(if deploy is set),
+step_build_pkgdown() in the &quot;deploy&quot; stage,
+forwarding all ... arguments.
 step_do_push_deploy() in the &quot;deploy&quot; stage.
 " />
 
-<meta property="og:description" content="By default, the docs/ directory is deployed to the gh-pages branch, keeping the history." />
+<meta property="og:description" content="By default, the docs/ directory is deployed to the gh-pages branch,
+keeping the history." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -153,13 +157,17 @@ to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</
 <ol>
 <li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
 <code>repos</code> argument.</p></li>
-<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup the upcoming deployment (if <code>deploy</code> is set),</p></li>
-<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage (if <code>deploy</code> is set),</p></li>
-<li><p><code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage, forwarding all <code>...</code> arguments.</p></li>
+<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
+the upcoming deployment (if <code>deploy</code> is set),</p></li>
+<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage
+(if <code>deploy</code> is set),</p></li>
+<li><p><code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage,
+forwarding all <code>...</code> arguments.</p></li>
 <li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage.</p></li>
 </ol>
 
-    <p>By default, the <code>docs/</code> directory is deployed to the <code>gh-pages</code> branch, keeping the history.</p>
+    <p>By default, the <code>docs/</code> directory is deployed to the <code>gh-pages</code> branch,
+keeping the history.</p>
     
     </div>
 
@@ -177,7 +185,8 @@ to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</
     <tr>
       <th>deploy</th>
       <td><p><code>[flag]</code><br />
-If <code>TRUE</code>, deployment setup is performed before building the pkgdown site,
+If <code>TRUE</code>, deployment setup is performed
+before building the pkgdown site,
 and the site is deployed after building it.
 Set to <code>FALSE</code> to skip deployment.
 By default (if <code>deploy</code> is <code>NULL</code>), deployment happens
