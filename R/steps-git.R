@@ -335,8 +335,10 @@ DoPushDeploy <- R6Class(
 #' @examples
 #' dsl_init()
 #'
-#' get_stage("deploy") %>%
-#'   add_step(step_do_push_deploy(path = "docs"))
+#' if (rlang::is_installed("git2r") && git2r::in_repository()) {
+#'   get_stage("deploy") %>%
+#'     add_step(step_do_push_deploy(path = "docs"))
+#' }
 #'
 #' dsl_get()
 step_do_push_deploy <- function(path = ".", commit_message = NULL, commit_paths = ".") {
