@@ -36,7 +36,7 @@ use_travis_deploy <- function(travis_repo = NULL, name = "id_rsa",
   private_key <- encode_private_key(key)
 
   info <- travis::github_info()
-  repo <- travis::github_repo(info)
+  repo <- travis::github_repo(info = info)
   if (is.null(travis_repo)) {
     travis_repo <- repo
   }
