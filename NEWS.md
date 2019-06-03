@@ -1,3 +1,9 @@
+# tic 0.2.13.9018
+
+- Move `use_travis_deploy()` from the travis package to here.
+- Unexport `get_public_key()` and `encode_private_key()`.
+
+
 # tic 0.2.13.9017
 
 - Test utils and printing.
