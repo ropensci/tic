@@ -22,6 +22,10 @@ reference:
   - stages
   - prepare_all_stages
   - run_stage
+- title: Setup
+  contents:
+  - use_tic
+  - use_travis_deploy
 - title: Serialization
   contents:
   - starts_with("base64")
