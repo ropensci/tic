@@ -1,3 +1,8 @@
+# tic 0.2.13.9019
+
+- Building pkgdown site succeeds if `docs/` directory is missing (#173, r-lib/pkgdown#1050).
+
+
 # tic 0.2.13.9018
 
 - Move `use_travis_deploy()` from the travis package to here.

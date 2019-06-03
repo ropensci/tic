@@ -1,7 +1,7 @@
 Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
-Version: 0.2.13.9018
+Version: 0.2.13.9019
 Authors@R: c(
     person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
     person("Patrick", "Schratz", email = "patrick.schratz@gmail.com", role = "aut", comment = c(ORCID = '0000-0003-0748-6624')),
