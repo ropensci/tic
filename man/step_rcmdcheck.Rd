@@ -23,7 +23,7 @@ Default for Appveyor:
 \item{build_args}{\code{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{"--force"}.\cr
-Default for Appveyor: \code{c("--no--build-vignettes", "--force")}.\cr}
+Default for Appveyor: \code{c("--no-build-vignettes", "--force")}.\cr}
 
 \item{error_on}{\code{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is
