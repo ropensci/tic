@@ -117,7 +117,7 @@
 <div id="the-ticstep-class" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-ticstep-class" class="anchor"></a>The <code>TicStep</code> class</h2>
-<p>A step is a subclass of the <a href="https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38"><code>TicStep</code> class</a>. The <code>step_...</code> functions in <em>tic</em> are simply forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
+<p>A step is a subclass of the <a href="https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38"><code>TicStep</code> class</a>. The <code>step_...</code> functions in <em>tic</em> are forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
 <p>The <code>TicStep</code> class implements the public methods <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code>, <code>prepare()</code>, and <code>run()</code>. These methods must be callable without arguments. This means that you only need to override the methods you need; if you don’t need a <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code> or <code>prepare()</code> method you can leave it out. The following sections describe these methods and show examples.</p>
 <div id="the-prepare-method" class="section level3">
 <h3 class="hasAnchor">
@@ -141,7 +141,7 @@
 <div id="a-minimal-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-minimal-example" class="anchor"></a>A minimal example</h2>
-<p>You can take a look at <a href="https://github.com/ropenscilabs/tic/pull/75/files">this PR</a> to see how a new step implementation can look like.</p>
+<p>You can take a look at <a href="https://github.com/ropenscilabs/tic/pull/75/files">a pull request that implements a new step</a>.</p>
 <p>The most minimalist version is the “Hello World” <a href="https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R">example step</a>. This class only contains a <code>run()</code> method which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instance of this class.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">HelloWorld &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="st">"HelloWorld"</span>, <span class="dt">inherit =</span> TicStep,</a>

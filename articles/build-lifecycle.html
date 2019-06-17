@@ -146,7 +146,7 @@
 <div id="accessing-a-single-stage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#accessing-a-single-stage" class="anchor"></a>Accessing a single stage</h3>
-<p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This function then sources <code>tic.R</code> and collects all steps added to <code>get_stage(&lt;stage name&gt;)</code>, e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage". Again, remember that the order of the stages is fixed (see <a href="#stages">here</a>), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
+<p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This function then sources <code>tic.R</code> and collects all steps added to <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code>, e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage". Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stagees” section</a>), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
 </div>
 <div id="details-of-stages" class="section level3">
 <h3 class="hasAnchor">
@@ -165,7 +165,7 @@
 <div id="the-deploy-stage" class="section level4">
 <h4 class="hasAnchor">
 <a href="#the-deploy-stage" class="anchor"></a>The <code>deploy</code> stage</h4>
-<p>This stage initiates the deployment (e.g., setting up SSH keys) and executes it. If you want to automatically build a <em>pkgdown</em> site, you can do it here. See <a href="deployment.html">the vignette about deployment</a> for more information.</p>
+<p>This stage initiates the deployment (e.g., setting up SSH keys) and executes it. If you want to automatically build a <em>pkgdown</em> site, you can do it here. See <a href="deployment.html">the article about deployment</a> for more information.</p>
 </div>
 </div>
 </div>
@@ -222,37 +222,18 @@
 <a href="#deployment" class="anchor"></a>Deployment</h4>
 <ul>
 <li>
-<code>step_install_ssh_key()</code>: make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://www.rdocumentation.org/packages/travis/topics/use_travis_deploy">travis::use_travis_deploy()</a></code>)</li>
+<code>step_install_ssh_key()</code>: Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://www.rdocumentation.org/packages/travis/topics/use_travis_deploy">travis::use_travis_deploy()</a></code>)</li>
 <li>
-<code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code>: test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
+<code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code>: Test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
 <li>
 <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code>: Adds to known hosts, installs private key, and tests the connection</li>
 <li>
 <code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code>: Clones a repo, initiates author information, and sets up remotes for a subsequent <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>
 </li>
 <li>
-<code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>: deploy to GitHub, with arguments:
-<ul>
+<code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>: Deploy to GitHub</li>
 <li>
-<code>path</code>: which path to deploy, default: <code>"."</code>
-</li>
-<li>
-<code>branch</code>: which branch to deploy to, default: <code><a href="../reference/ci.html">ci_get_branch()</a></code>
-</li>
-<li>
-<code>orphan</code>: should the branch consist of a single commit that contains all changes (<code>TRUE</code>), or should it be updated incrementally (<code>FALSE</code>, default)
-<ul>
-<li>You must specify a <code>branch</code> if you set <code>orphan = TRUE</code>
-</li>
-</ul>
-</li>
-<li>
-<code>remote_url</code>: the remote URL to push to, default: the URL related to the Travis run</li>
-<li>
-<code>commit_message</code>: the commit message, will by default contain <code>[ci skip]</code> to avoid a loop, and useful information related to the CI run</li>
-<li>
-<code>commit_paths</code>: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.</li>
-</ul>
+<code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>: Combines <code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>
 </li>
 </ul>
 </div>
@@ -268,7 +249,7 @@
 </ol>
 <p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
 <p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
-<p>Macros can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
+<p>Macros can be distinguished from other functions by their <code>do_</code> prefix. Other examples for macros include <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> and <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code>. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
 </div>
   </div>
 
