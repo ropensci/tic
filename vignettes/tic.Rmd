@@ -23,20 +23,8 @@ If you are unfamiliar with the term Continuous Integration (CI), we highly recom
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-The most important improvements over existing solutions are:
+See the ["Features" article](features.html) for a comparison with other solutions for Continuous Integration for R.
 
-1. Deployment to a Git repository is greatly simplified. 
-   Update your repository with results from the CI build.
-
-1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
-   Set up your project to deploy rendered versions of your book or blog with a single push to Git.
-
-1. Workflow specification in a single `.R` file, regardless of CI system used.  
-   Forget about `.yml` files or web browser configurations.
-   
-Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking a and robust caching approach of dependencies.
-
-A more comprehensive summary of all advantages can be found in the [advantages](advantages.html) vignette.
 
 # Initialization
 
@@ -44,7 +32,7 @@ The easiest way to use *tic* for CI services is to call `tic::use_tic()`.
 This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
 During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized.
 Also a Personal Access Token (PAT) will be created on GitHub and stored  as an encrypted variable on Travis.
-This avoids hitting rate limitations when accessing the GitHub API, see [this blog post](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) for more details.
+This avoids hitting rate limitations when accessing the GitHub API, see [Locke Data's blog post about GitHUB PATs](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) for more details.
 The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.
 
 First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
@@ -195,21 +183,23 @@ Authentication complete.
 ```
 
 Most functionality of the wizard comes from the _travis_ package.
-See [here](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
+See the ["tic & travis" article](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
 
 # Explanation of the basic template
 
 After having called `tic::use_tic()` you will find a `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
 Usually you do not need to touch `appveyor.yml` and `.travis.yml` anymore.
 All build customizations are done in `tic.R` and apply to both services.
-If you want more information about the whole build lifecycle, check the [Build lifecycle](build-lifecycle.html) vignette.
+For more information about the whole build lifecycle, check the ["Build lifecycle" article](build-lifecycle.html).
 
 The basic `tic.R` template looks as follows:
 
 ```{r eval = FALSE}
 do_package_checks()
 
-do_pkgdown()
+if (ci_on_travis()) {
+  do_pkgdown()
+}
 ```
 
 Let's break down what happens here:
@@ -234,7 +224,9 @@ Afterwards, the code coverage is being checked using `covr::codecov()`.
 The other macro in the default template is `do_pkdown()`.
 
 ```{r eval = FALSE}
-do_pkgdown()
+if (ci_on_travis()) {
+  do_pkgdown()
+}
 ```
 
 `do_pkgdown()` adds five steps to the build process:
@@ -252,6 +244,7 @@ do_pkgdown()
 ```
 
 In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed.
+This happens only on Travis CI, because `ci_on_travis()` evaluates to `TRUE` only on that platform.
 
 # Examples projects
 
@@ -272,8 +265,7 @@ Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets inst
 
 ```{r eval = FALSE}
 get_stage("install") %>%
-  add_code_step(blogdown::install_hugo(), 
-                prepare_call = remotes::install_github("rstudio/blogdown"))
+  add_code_step(blogdown::install_hugo())
 ```
 
 Then the website is built and deployed.
@@ -298,24 +290,19 @@ In the following we list various R projects with non-standard/tailored *tic*-bas
 You may find inspiration for your own project there.
 (Please contact us if you want to add yours to the list!)
 
-### Packages
-
 - [mlr](https://github.com/mlr-org/mlr)
 - [sf](https://github.com/r-spatial/sf)
 - [dbi](https://github.com/r-dbi/DBI)
 
-### Bookdown
-
-### Blogdown
 
 # Advanced
 
-The advanced usage of *tic* is described in more detail in the [Advanced Usage](advanced.html) article:
+The advanced usage of *tic* is described in more detail in the ["Advanced Usage" article](advanced.html):
 
 - [Options for _pkgdown_ deployment](advanced.html#pkgdown-deployment) 
 - [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
 - [Troubleshooting: Running *tic* locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
-- [Writing custom steps](custom-steps.html)
 
-The build lifecycle when using *tic* is explained in the [Build lifecycle](build-lifecycle.html) article.
+The build lifecycle when using *tic* is explained in the ["Build lifecycle" article](build-lifecycle.html)e.
+Implementation of custom steps is described in the ["Writing custom steps" article](custom-steps.html).

@@ -3,7 +3,7 @@ title: "The features of tic"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{The advantages of tic}
+  %\VignetteIndexEntry{The features of tic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,10 +19,10 @@ What is the advantage of using *tic* compared to the default R setup?
 
 1. Deployment to a Git repository is greatly simplified.
 
-1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
+1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates.
 Set up your project to deploy rendered versions of your book or blog with a single push.
 
-1. Workflow specification are specified in a single R script, regardless of the CI system used.  
+1. Workflow specification are specified in a single R script, regardless of the CI system used.
 No need anymore for YAML configuration files that differ across CI services.
 
 Other minor advantages include the use of `rcmdcheck::rcmdcheck()` for package checking (instead of `R CMD check`) a and robust caching approach of project dependencies.
@@ -39,10 +39,10 @@ Possible use cases are:
 
 If _tic_ should be used for deployment, some preparatory work is required.
 Luckily, _tic_ takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)).
-When calling `use_ci()`, the streamlined preparation process is run.
+When calling `use_tic()`, the streamlined preparation process is run.
 This is only needed once per repository.
 
-For more information on automatic deployment in _tic_, take a look [here](deployment.html).
+For more information on automatic deployment in _tic_, take a look [at the "Deployment" article](deployment.html).
 
 ## Support for various R projects
 
@@ -50,7 +50,7 @@ For more information on automatic deployment in _tic_, take a look [here](deploy
 
 Each of these projects has its own standardized structure. 
 *tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `use_tic()`.
-See [here](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
+See [the "Example projects" section in the "Get started" article](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
 
 ## CI-Agnostic workflows
 
@@ -74,8 +74,8 @@ We could list way more differences - but that's exactly the point when *tic* com
 
 - Rather than dealing with all the CI differences, *tic* enables the specification of the complete workflow in an external R script file `tic.R`.
 - The commands specified in there will work the same way on every CI service that is supported by *tic*.
-- Furthermore, you can [emulate all the stages and steps locally](advantages.html#less-dependency-on-external-ci-control-commands) by calling `run_all_stages()`.
-- You are independent from all the changes that are being made to the R setup for Travis or Appveyor ([more info](advantages.html#less-dependency-on-external-ci-control-commands)).
+- You can emulate all the stages and steps locally by calling `run_all_stages()`.
+- You are less dependent from all the changes that are being made to the R setup for Travis or Appveyor.
 - A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file.
 
 So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.
@@ -84,9 +84,9 @@ So instead of learning how to specify specific tasks on different CI platforms, 
 
 Most CI services come with no (native) support for the R programming language.
 For Travis and Appveyor, the support is provided by the R community.
-For example, [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
+For example, [`r.rb`](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
 All of the commands and arguments specified there can also be set in `tic.R` using R syntax.
-So you are no longer dependent on the syntax and restrictions coming from [r.rb](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.
+So you are no longer dependent on the syntax and restrictions coming from [`r.rb`](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.
 
 ## Enhanced R package checking: `rcmdcheck()` > R CMD check
 
@@ -107,7 +107,7 @@ Especially the extended log printing of errors on the CI service is a huge advan
 When using *tic*, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the `"before_install"` stage. 
 This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
 
-More information about the complete workflow can be found in the [Build lifecyle](build-lifecycle.html) vignette.
+More information about the complete workflow can be found in the ["Build lifecyle" article](build-lifecycle.html).
 
 ## Easier troubleshooting
 

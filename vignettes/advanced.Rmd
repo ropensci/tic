@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 Steps and stages can be run conditionally using the control workflow of _tic_.
 Possible conditionals are
 
-- Environment variables of the build (queried by `Sys.getenv()`)
+- Environment variables of the build (queried by `ci_is_env()`, `ci_has_env()` or `ci_get_env()`)
 - R Version of the current build (`getRversion()`)
 - other features of the build (e.g. branch name, `ci_get_branch()`)
 
@@ -39,21 +39,21 @@ The following shows you some example code blocks to condition certain stages and
 ```{r eval = FALSE}
 if (ci_is_env("TRAVIS_R_VERSION_STRING", "release")) {
   get_stage("after_success") %>%
-    add_step(<do something>)
+    add_step(step_...())
 }
 ```
 
 ```{r eval = FALSE}
 if (ci_on_travis()) {
-  get_stage(<a stage>) %>%
-    add_step(<do something>)
+  get_stage("<a stage>") %>%
+    add_step(step_...())
 }
 ```
 
 ```{r eval = FALSE}
 if (ci_get_branch() == "master") {
-  get_stage(<a stage>) %>%
-    add_step(<do something>)
+  get_stage("<a stage>") %>%
+    add_step(step_...())
 }
 ```
 
@@ -74,7 +74,12 @@ get_stage("install") %>%
   add_step(step_install_github("r-lib/rcmdcheck"))
 ```
 
-Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call: `add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))`.
+Note that the underlying `remotes::install_github()` is vectorized for the `repo` argument which means you can pass all packages you want to install in a single function call:
+
+```{r eval = FALSE}
+add_step(step_install_github(c("r-lib/rcmdcheck", "r-lib/usethis")))
+```
+
 
 ### CRAN packages
 
@@ -91,10 +96,10 @@ get_stage("install") %>%
 The `ci()` function and its friends (`ci_*`) hold valuable information about the CI system. 
 It can be used to query information that can be again be utilized for conditioning stages or steps.
 
-For example, the user may wish to only deploy on Travis by using `inherits(ci(), "TravisCI")`:
+For example, the user may wish to only deploy on Travis by using `ci_on_travis()`:
 
 ```{r eval = FALSE}
-if (inherits(ci(), "TravisCI")) {
+if (ci_on_travis()) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 
@@ -110,21 +115,28 @@ See `?ci` for more information on which CI build information can be extracted fr
 ### Checking for syntax errors
 
 Before pushing to GitHub and triggering a CI build, `tic.R` can be validated using `dsl_load()`.
-This function will simply source `tic.R` to check for possible problems.
+This function will source `tic.R` to check for possible problems.
 If everything is ok, it will return (invisibly) a list with all stages that will be run in the CI build.
 Here is a preview of the first two stages:
     
 ```{r eval = FALSE}
+dsl_load()
+```
+
+```
+✔ Loading tic stage configuration from tic.R
+```
+
+```{r eval = FALSE}
 dsl_get()[1:2]
 ```
 
-```{r eval=FALSE}
+```
 $before_install
 ── before_install ──────────────────────────────────────── stage ──
 ℹ No steps defined
 
 $install
-── install ─────────────────────────────────────────────── stage ──
 ── install ─────────────────────────────────────────────── stage ──
 ▶ step_install_github("ropensci/rotemplate")
 ▶ step_install_deps(repos = repo_default())

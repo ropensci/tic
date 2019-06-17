@@ -73,8 +73,8 @@ See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-
 
 The steps which are executed in each stage are specified in `tic.R`.
 A stage is executed by calling the respective *tic* function; for example for stage "deploy" `tic::deploy()`.
-This function then sources `tic.R` and collects all steps added to `get_stage(<stage name>)`, e.g. `get_stage("deploy")` for the "deploy" stage".
-Again, remember that the order of the stages is fixed (see [here](#stages)), it does not matter in which order you declare the stages in `tic.R`.
+This function then sources `tic.R` and collects all steps added to `get_stage("<stage name>")`, e.g. `get_stage("deploy")` for the "deploy" stage".
+Again, remember that the order of the stages is fixed (see the ["Stagees" section](#stages)), it does not matter in which order you declare the stages in `tic.R`.
 
 ### Details of stages
 
@@ -97,7 +97,7 @@ In this stage all dependencies for a successful run are already installed.
 
 This stage initiates the deployment (e.g., setting up SSH keys) and executes it.
 If you want to automatically build a _pkgdown_ site, you can do it here.
-See [the vignette about deployment](deployment.html) for more information.
+See [the article about deployment](deployment.html) for more information.
 
 ## Steps
 
@@ -134,18 +134,12 @@ Here is a list that shows a rough grouping of the steps into their default stage
     
 #### Deployment
 
-- `step_install_ssh_key()`: make available a private SSH key (which has been added before to your project by `use_tic()` or `travis::use_travis_deploy()`)
-- `step_test_ssh()`: test the SSH connection to GitHub, helps troubleshooting deploy problems
+- `step_install_ssh_key()`: Make available a private SSH key (which has been added before to your project by `use_tic()` or `travis::use_travis_deploy()`)
+- `step_test_ssh()`: Test the SSH connection to GitHub, helps troubleshooting deploy problems
 - `step_setup_ssh()`: Adds to known hosts, installs private key, and tests the connection
 - `step_setup_push_deploy()`: Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`
-- `step_push_deploy()`: deploy to GitHub, with arguments:
-    - `path`: which path to deploy, default: `"."`
-    - `branch`: which branch to deploy to, default: `ci_get_branch()`
-    - `orphan`: should the branch consist of a single commit that contains all changes (`TRUE`), or should it be updated incrementally (`FALSE`, default)
-        - You must specify a `branch` if you set `orphan = TRUE`
-    - `remote_url`: the remote URL to push to, default: the URL related to the Travis run
-    - `commit_message`: the commit message, will by default contain `[ci skip]` to avoid a loop, and useful information related to the CI run
-    - `commit_paths`: Which path(s) to commit. Useful to only commit single files that have changed during the CI run.
+- `step_do_push_deploy()`: Deploy to GitHub
+- `step_push_deploy()`: Combines `step_setup_push_deploy()` and `step_do_push_deploy()`
     
 ## Macros
 
@@ -165,4 +159,5 @@ If you manually add these steps to stages in `tic.R` while `do_package_checks()`
 Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.
 
 Macros can be distinguished from other functions by their `do_` prefix.
+Other examples for macros include `do_pkgdown()` and `do_bookdown()`.
 If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
