@@ -1,3 +1,10 @@
+# tic 0.2.13.9020
+
+- Avoid building packages when installing dependencies.
+- Remove vignettes from package if checking with `--no-build-vignettes` to avoid warning from `R CMD check`.
+- Fix `R CMD build` and `R CMD check` switches on AppVeyor.
+
+
 # tic 0.2.13.9019
 
 - Building pkgdown site succeeds if `docs/` directory is missing (#173, r-lib/pkgdown#1050).
