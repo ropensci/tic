@@ -146,7 +146,7 @@
 <div id="accessing-a-single-stage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#accessing-a-single-stage" class="anchor"></a>Accessing a single stage</h3>
-<p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This function then sources <code>tic.R</code> and collects all steps added to <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code>, e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage". Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stagees” section</a>), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
+<p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This function then sources <code>tic.R</code> and collects all steps added to <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code>, e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage". Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stages” section</a>), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
 </div>
 <div id="details-of-stages" class="section level3">
 <h3 class="hasAnchor">

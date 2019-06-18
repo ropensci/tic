@@ -274,7 +274,8 @@ Added tic.R from template.
 # step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
 # 
 # step_do_push_deploy() in the "deploy" stage.</code></pre>
-<p>In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed. This happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> evaluates to <code>TRUE</code> only on that platform.</p>
+<p>In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed.</p>
+<p>This happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> evaluates to <code>TRUE</code> only on that platform. This is also the default in the <a href="https://github.com/ropenscilabs/tic/blob/e7649fc32cd5071f62289974af7f38bd36f90cd3/inst/templates/package/tic.R">template</a> for packages. Building the pkgdown site on multiple CI services might cause problems and increases build time for no reason.</p>
 </div>
 <div id="examples-projects" class="section level1">
 <h1 class="hasAnchor">
