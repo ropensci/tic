@@ -74,7 +74,7 @@ See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-
 The steps which are executed in each stage are specified in `tic.R`.
 A stage is executed by calling the respective *tic* function; for example for stage "deploy" `tic::deploy()`.
 This function then sources `tic.R` and collects all steps added to `get_stage("<stage name>")`, e.g. `get_stage("deploy")` for the "deploy" stage".
-Again, remember that the order of the stages is fixed (see the ["Stagees" section](#stages)), it does not matter in which order you declare the stages in `tic.R`.
+Again, remember that the order of the stages is fixed (see the ["Stages" section](#stages)), it does not matter in which order you declare the stages in `tic.R`.
 
 ### Details of stages
 
