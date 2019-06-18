@@ -244,7 +244,10 @@ if (ci_on_travis()) {
 ```
 
 In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed.
+
 This happens only on Travis CI, because `ci_on_travis()` evaluates to `TRUE` only on that platform.
+This is also the default in the [template](https://github.com/ropenscilabs/tic/blob/e7649fc32cd5071f62289974af7f38bd36f90cd3/inst/templates/package/tic.R) for packages.
+Building the pkgdown site on multiple CI services might cause problems and increases build time for no reason.
 
 # Examples projects
 
