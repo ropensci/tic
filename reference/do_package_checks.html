@@ -166,7 +166,7 @@ stages:</p>
     <pre class="usage"><span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
   <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -228,6 +228,12 @@ Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topic
 Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></td>
     </tr>
+    <tr>
+      <th>type</th>
+      <td><p>Passed on to <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>. The default avoids
+installation from source on Windows and macOS by passing
+<code><a href='https://www.rdocumentation.org/packages/base/topics/Platform'>.Platform</a>$pkgType</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -241,7 +247,7 @@ Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topic
 <span class='fu'>do_package_checks</span>()
 
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_install_deps(repos = repo_default())
+#&gt; ▶ step_install_deps(repos = repo_default(), type = NULL)
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
