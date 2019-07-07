@@ -16,6 +16,7 @@ NULL
 #' stages:
 #'
 #' @inheritParams step_rcmdcheck
+#' @inheritParams step_install_pkg
 #' @param codecov `[flag]`\cr Whether to include a step running
 #'   `covr::codecov(quiet = FALSE)` (default: only for non-interactive CI,
 #'   see [ci_is_interactive()]).
@@ -34,13 +35,14 @@ do_package_checks <- function(...,
                               args = NULL,
                               build_args = NULL,
                               error_on = "warning",
-                              repos = repo_default(), timeout = Inf) {
+                              repos = repo_default(), timeout = Inf,
+                              type = NULL) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
-      step_install_deps(repos = !!enquo(repos))
+      step_install_deps(repos = !!enquo(repos), type = !!enquo(type))
     )
 
   #' 1. [step_rcmdcheck()] in the `"script"` stage, using the

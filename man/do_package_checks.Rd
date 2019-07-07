@@ -7,7 +7,7 @@
 do_package_checks(..., codecov = !ci_is_interactive(),
   warnings_are_errors = NULL, notes_are_errors = NULL, args = NULL,
   build_args = NULL, error_on = "warning", repos = repo_default(),
-  timeout = Inf)
+  timeout = Inf, type = NULL)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
@@ -48,6 +48,10 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
+
+\item{type}{Passed on to \code{\link[=install.packages]{install.packages()}}. The default avoids
+installation from source on Windows and macOS by passing
+\code{\link{.Platform}$pkgType}.}
 }
 \description{
 \code{do_package_checks()} adds default steps related to package checks
