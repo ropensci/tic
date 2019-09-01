@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Step: Install an SSH key — step_install_ssh_keys" />
-
 <meta property="og:description" content="Writes a private SSH key encoded in an environment variable
 to a file in ~/.ssh.
 Only run in non-interactive settings and if the environment variable
@@ -45,6 +44,7 @@ exists and is non-empty.
 The use_travis_deploy() and use_tic() functions encode a private key
 as an environment variable for use with this function." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -145,18 +145,16 @@ as an environment variable for use with this function." />
     </div>
 
     <div class="ref-description">
-    
     <p>Writes a private SSH key encoded in an environment variable
 to a file in <code>~/.ssh</code>.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
 The <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private key
 as an environment variable for use with this function.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -166,7 +164,7 @@ as an environment variable for use with this function.</p>
 Name of the environment variable and the target file, default: <code>"id_rsa"</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code></p>
@@ -182,7 +180,6 @@ Name of the environment variable and the target file, default: <code>"id_rsa"</c
   <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
   <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -196,9 +193,7 @@ Name of the environment variable and the target file, default: <code>"id_rsa"</c
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

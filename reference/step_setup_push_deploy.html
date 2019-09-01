@@ -37,10 +37,10 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Step: Setup push deploy — step_setup_push_deploy" />
-
 <meta property="og:description" content="Clones a repo, inits author information, and sets up remotes
 for a subsequent step_do_push_deploy()." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -141,15 +141,13 @@ for a subsequent step_do_push_deploy()." />
     </div>
 
     <div class="ref-description">
-    
     <p>Clones a repo, inits author information, and sets up remotes
 for a subsequent <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>step_setup_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -185,7 +183,7 @@ set to <code>FALSE</code> if the build process relies on existing contents or
 if you deploy to a different branch.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other deploy steps: <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
@@ -202,7 +200,6 @@ if you deploy to a different branch.</p></td>
   <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
   <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -226,9 +223,7 @@ if you deploy to a different branch.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

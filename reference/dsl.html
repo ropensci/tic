@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="tic's domain-specific language — dsl" />
-
 <meta property="og:description" content="Functions to define stages and their constituent steps.
 The macros combine several steps and assign them to relevant
 stages.
@@ -50,6 +49,7 @@ add_step() adds a step to a stage, see step_hello_world()
 and the links therein for available steps.
 add_code_step() is a shortcut for add_step(step_run_code(...))." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -150,7 +150,6 @@ add_code_step() is a shortcut for add_step(step_run_code(...))." />
     </div>
 
     <div class="ref-description">
-    
     <p>Functions to define stages and their constituent steps.
 The <a href='macro.html'>macro</a>s combine several steps and assign them to relevant
 stages.
@@ -162,7 +161,6 @@ which is processed by <code><a href='dsl_get.html'>dsl_load()</a></code>.</p>
 <p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
 and the links therein for available steps.</p>
 <p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>)
@@ -170,7 +168,7 @@ and the links therein for available steps.</p>
 <span class='fu'>add_step</span>(<span class='no'>stage</span>, <span class='no'>step</span>)
 
 <span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -203,7 +201,7 @@ The default is useful if you only pass <code>prepare_call</code>.</p></td>
 An optional arbitrary R expression executed during preparation.</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -225,7 +223,6 @@ An optional arbitrary R expression executed during preparation.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

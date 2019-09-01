@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Step: Install packages — step_install_pkg" />
-
 <meta property="og:description" content="These steps are useful if your CI run needs additional packages.
 Usually they are declared as dependencies in your DESCRIPTION,
 but it is also possible to install dependencies manually.
@@ -52,6 +51,7 @@ A step_install_github() step installs one or more packages from GitHub
 via remotes::install_github(), the packages are only installed if their
 GitHub version is different from the locally installed version." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -152,7 +152,6 @@ GitHub version is different from the locally installed version." />
     </div>
 
     <div class="ref-description">
-    
     <p>These steps are useful if your CI run needs additional packages.
 Usually they are declared as dependencies in your <code>DESCRIPTION</code>,
 but it is also possible to install dependencies manually.
@@ -166,7 +165,6 @@ but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
 via <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_github'>remotes::install_github()</a></code>, the packages are only installed if their
 GitHub version is different from the locally installed version.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -175,7 +173,7 @@ GitHub version is different from the locally installed version.</p>
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>step_install_github</span>(<span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -203,7 +201,7 @@ installation from source on Windows and macOS by passing
       <td><p>Package to install in the "user/repo" format.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
@@ -218,7 +216,6 @@ installation from source on Windows and macOS by passing
   <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
   <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -242,9 +239,7 @@ installation from source on Windows and macOS by passing
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

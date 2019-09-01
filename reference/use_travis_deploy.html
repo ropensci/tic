@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Set up deployment for Travis CI — use_travis_deploy" />
-
 <meta property="og:description" content="Creates a public-private key pair,
 adds the public key to the GitHub repository via travis::github_add_key(),
 and stores the private key as an encrypted environment variable in Travis CI
@@ -45,6 +44,7 @@ via travis::travis_set_var(), possibly in a different repository.
 See step_setup_ssh() or step_install_ssh_keys()
 for installing such a key during a Travis CI build." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -145,18 +145,16 @@ for installing such a key during a Travis CI build." />
     </div>
 
     <div class="ref-description">
-    
     <p>Creates a public-private key pair,
 adds the public key to the GitHub repository via <code><a href='https://www.rdocumentation.org/packages/travis/topics/github_add_key'>travis::github_add_key()</a></code>,
 and stores the private key as an encrypted environment variable in Travis CI
 via <code><a href='https://www.rdocumentation.org/packages/travis/topics/travis_get_vars'>travis::travis_set_var()</a></code>, possibly in a different repository.
 See <code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> or <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys()</a></code>
 for installing such a key during a Travis CI build.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>use_travis_deploy</span>(<span class='kw'>travis_repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -179,14 +177,14 @@ default: <code>"id_rsa"</code>.  Use this value as <code>name</code> argument to
 Less verbose output? Default: <code>FALSE</code>.</p></td>
     </tr>
     </table>
-    
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+    </ul>
 
   </div>
 </div>

@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Build a bookdown book — do_bookdown" />
-
 <meta property="og:description" content="do_bookdown() adds default steps related to package checks
 to the &quot;install&quot;, &quot;before_deploy&quot;, &quot;script&quot; and &quot;deploy&quot; stages.
 
@@ -51,10 +50,10 @@ step_build_bookdown() in the &quot;deploy&quot; stage,
 forwarding all ... arguments.
 step_do_push_deploy() in the &quot;deploy&quot; stage.
 " />
-
 <meta property="og:description" content="By default, the _book/ directory is deployed
 to the gh-pages branch, keeping the history." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -155,7 +154,6 @@ to the gh-pages branch, keeping the history." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>do_bookdown()</code> adds default steps related to package checks
 to the <code>"install"</code>, <code>"before_deploy"</code>, <code>"script"</code> and <code>"deploy"</code> stages.</p>
 <ol>
@@ -169,16 +167,14 @@ to setup the upcoming deployment (if <code>deploy</code> is set),</p></li>
 forwarding all <code>...</code> arguments.</p></li>
 <li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage.</p></li>
 </ol>
-
     <p>By default, the <code>_book/</code> directory is deployed
 to the <code>gh-pages</code> branch, keeping the history.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>do_bookdown</span>(<span class='no'>...</span>, <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"_book"</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -250,12 +246,11 @@ Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other macros: <code><a href='do_package_checks.html'>do_package_checks</a></code>,
   <code><a href='do_pkgdown.html'>do_pkgdown</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -275,9 +270,7 @@ Default: deploy all files.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

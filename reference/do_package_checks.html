@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Add default checks for packages — do_package_checks" />
-
 <meta property="og:description" content="do_package_checks() adds default steps related to package checks
 to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
@@ -51,6 +50,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
 (only if the codecov flag is set)
 " />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -151,7 +151,6 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
     </div>
 
     <div class="ref-description">
-    
     <p><code>do_package_checks()</code> adds default steps related to package checks
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
 stages:</p>
@@ -164,14 +163,13 @@ stages:</p>
 <li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage
 (only if the <code>codecov</code> flag is set)</p></li>
 </ol>
-    
     </div>
 
     <pre class="usage"><span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
   <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
   <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -239,12 +237,11 @@ installation from source on Windows and macOS by passing
 <code><a href='https://www.rdocumentation.org/packages/base/topics/Platform'>.Platform</a>$pkgType</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other macros: <code><a href='do_bookdown.html'>do_bookdown</a></code>,
   <code><a href='do_pkgdown.html'>do_pkgdown</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -263,9 +260,7 @@ installation from source on Windows and macOS by passing
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

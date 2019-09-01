@@ -103,10 +103,11 @@ a:focus, a:hover {
 
 /* sidebar ----------------------------------------------- */
 
-#sidebar h2{
+#sidebar {
   color: #5c677e;
 }
 
+/*
 #sidebar .links h2::before{
   content: "\01f517 ";
 }
@@ -131,6 +132,7 @@ a:focus, a:hover {
 #sidebar .citation h2::before{
   content: "\270d\fe0f ";
 }
+*/
 
 /* reference navbar ----------------------------------------------- */
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {

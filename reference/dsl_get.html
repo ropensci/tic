@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Storage for stages and steps — dsl_get" />
-
 <meta property="og:description" content="Stages and steps defined using tic's DSL are stored in an
 internal object in the package.
 The stages are accessible through dsl_get().
@@ -49,6 +48,7 @@ with dsl_init().
 This happens automatically the first time dsl_get() is called
 (directly or indirectly)." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -149,7 +149,6 @@ This happens automatically the first time dsl_get() is called
     </div>
 
     <div class="ref-description">
-    
     <p>Stages and steps defined using tic's <a href='dsl.html'>DSL</a> are stored in an
 internal object in the package.
 The stages are accessible through <code>dsl_get()</code>.
@@ -160,7 +159,6 @@ See <code><a href='use_tic.html'>use_tic()</a></code> for setting up a <code>tic
 with <code>dsl_init()</code>.
 This happens automatically the first time <code>dsl_get()</code> is called
 (directly or indirectly).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>dsl_get</span>()
@@ -168,7 +166,7 @@ This happens automatically the first time <code>dsl_get()</code> is called
 <span class='fu'>dsl_load</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"tic.R"</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>dsl_init</span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -189,14 +187,13 @@ By default an existing configuration is not overwritten by <code>dsl_load()</cod
 Set to <code>TRUE</code> to turn off verbose output.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A named list of opaque stage objects with a <code>"class"</code> attribute
 and a corresponding <code><a href='https://www.rdocumentation.org/packages/base/topics/print'>print()</a></code> method for pretty output.
 Use the high-level <code><a href='dsl.html'>get_stage()</a></code> and <code><a href='dsl.html'>add_step()</a></code> functions to configure,
 and the <a href='stages.html'>stages</a> functions to run.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>dsl_init</span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'><span class='fu'>dsl_get</span>()</div><div class='output co'>#&gt; ℹ No steps defined in any stage</div><div class='input'>
@@ -221,9 +218,7 @@ and the <a href='stages.html'>stages</a> functions to run.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

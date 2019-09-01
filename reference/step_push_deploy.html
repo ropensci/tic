@@ -37,7 +37,6 @@
 <link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Step: Setup and perform push deploy — step_push_deploy" />
-
 <meta property="og:description" content="Clones a repo, inits author information, sets up remotes,
 commits, and pushes.
 Combines step_setup_push_deploy() with checkout = FALSE and
@@ -46,6 +45,7 @@ and step_do_push_deploy().
 Deployment usually requires setting up SSH keys with
 use_tic() or use_travis_deploy()." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -146,7 +146,6 @@ use_tic() or use_travis_deploy()." />
     </div>
 
     <div class="ref-description">
-    
     <p>Clones a repo, inits author information, sets up remotes,
 commits, and pushes.
 Combines <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> with <code>checkout = FALSE</code> and
@@ -154,12 +153,11 @@ a suitable <code>orphan</code> argument,
 and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</p>
 <p>Deployment usually requires setting up SSH keys with
 <code><a href='use_tic.html'>use_tic()</a></code> or <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>step_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -193,7 +191,7 @@ Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Setup and deployment are combined in one step,
@@ -204,7 +202,6 @@ can be supported (and will be used).</p>
 <p>For more control, create two separate steps with
 <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>,
 and create the files to be deployed inbetween these steps.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other deploy steps: <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
@@ -221,7 +218,6 @@ and create the files to be deployed inbetween these steps.</p>
   <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
   <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
@@ -235,11 +231,8 @@ and create the files to be deployed inbetween these steps.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
