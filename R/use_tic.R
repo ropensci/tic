@@ -147,6 +147,14 @@ use_appveyor_yml <- function() {
   )
 }
 
+use_circle_yml <- function() {
+  use_tic_template(
+    "circle.yml",
+    save_as = ".circleci/config.yml",
+    data = list(install_tic = get_install_tic_code())
+  )
+}
+
 get_install_tic_code <- function() {
   if (getNamespaceVersion("tic") >= "1.0") {
     # We are on CRAN!

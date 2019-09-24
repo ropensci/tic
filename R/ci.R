@@ -7,6 +7,8 @@ ci_ <- function() {
     TravisCI$new()
   } else if (Sys.getenv("APPVEYOR") == "True") {
     AppVeyorCI$new()
+  } else if (Sys.getenv("CIRCLE") == "true") {
+    CircleCI$new()
   } else {
     LocalCI$new()
   }
@@ -227,6 +229,14 @@ ci_on_travis <- function() {
 #' @export
 ci_on_appveyor <- function() {
   ci()$on_appveyor()
+}
+
+#' CI on_circle
+#' @description `ci_on_circle()`: Are we running on Circle CI?
+#' @rdname ci
+#' @export
+ci_on_circle <- function() {
+  ci()$on_circleci()
 }
 
 #' The current CI environment
