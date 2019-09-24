@@ -89,7 +89,8 @@ RCMDcheck <- R6Class(
     build_args = NULL,
     error_on = NULL,
     repos = NULL,
-    timeout = NULL
+    timeout = NULL,
+    check_dir = NULL
   )
 )
 
