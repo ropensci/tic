@@ -108,6 +108,7 @@ SetupPushDeploy <- R6Class(
         user.name = git2r_attrib(latest_author, "name"),
         user.email = git2r_attrib(latest_author, "email")
       )
+      print(git2r::config())
     },
 
     fetch = function() {
