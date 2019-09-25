@@ -1,21 +1,39 @@
 Type: Package
 Package: tic
-Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
+Title: Tasks Integrating Continuously: CI-Agnostic Workflow
+    Definitions
 Version: 0.2.13.9020
-Authors@R: c(
-    person("Kirill", "M\u00fcller", email = "krlmlr+r@mailbox.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1416-3412")),
-    person("Patrick", "Schratz", email = "patrick.schratz@gmail.com", role = "aut", comment = c(ORCID = '0000-0003-0748-6624')),
-    person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut")),
-    person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut")),
-    person("Jeroen", "Ooms", email = "jeroen.ooms@stat.ucla.edu", role = c("aut")),
-    person("rOpenSci", role = c("fnd"))
-  )
-Description: 
-    Provides a way to describe common build and deployment workflows for R-based
-    projects: packages, websites (e.g. blogdown, pkgdown), or data processing
-    (e.g. research compendia).  The recipe is described independent of the
-    continuous integration tool used for processing the workflow (e.g.
-    'Travis CI' or 'AppVeyor').
+Authors@R: 
+    c(person(given = "Kirill",
+             family = "Müller",
+             role = c("aut", "cre"),
+             email = "krlmlr+r@mailbox.org",
+             comment = c(ORCID = "0000-0002-1416-3412")),
+      person(given = "Patrick",
+             family = "Schratz",
+             role = "aut",
+             email = "patrick.schratz@gmail.com",
+             comment = c(ORCID = "0000-0003-0748-6624")),
+      person(given = "Mika",
+             family = "Braginsky",
+             role = "aut",
+             email = "mika.br@gmail.com"),
+      person(given = "Karthik",
+             family = "Ram",
+             role = "aut",
+             email = "karthik.ram@gmail.com"),
+      person(given = "Jeroen",
+             family = "Ooms",
+             role = "aut",
+             email = "jeroen.ooms@stat.ucla.edu"),
+      person(given = "rOpenSci",
+             role = "fnd"))
+Description:  Provides a way to describe common build and
+    deployment workflows for R-based projects: packages, websites (e.g.
+    blogdown, pkgdown), or data processing (e.g. research compendia).  The
+    recipe is described independent of the continuous integration tool
+    used for processing the workflow (e.g.  'Travis CI' or
+    'AppVeyor').
 License: GPL (>= 2)
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
@@ -28,8 +46,8 @@ Imports:
     magrittr,
     memoise,
     methods,
-    remotes,
     R6,
+    remotes,
     rlang,
     withr
 Suggests: 
@@ -48,9 +66,7 @@ Suggests:
     testthat (>= 2.1.0),
     travis (>= 0.2.11.9001),
     usethis
-VignetteBuilder: knitr
 Remotes: 
-    r-lib/rcmdcheck,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
