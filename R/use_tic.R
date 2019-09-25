@@ -97,7 +97,10 @@ use_tic <- function(quiet = FALSE) {
   #' 1. Create a default `appveyor.yml` file
   #'    (depending on repo type, overwrite after confirmation
   #'    in interactive mode only)
-  if (needs_appveyor(repo_type)) use_appveyor_yml()
+  if (needs_appveyor(repo_type)) {
+    use_appveyor_yml()
+    use_circle_yml()
+  }
 
   #' 1. Create a default `tic.R` file depending on the repo type
   #'    (package, website, bookdown, ...)
@@ -181,6 +184,10 @@ use_tic_template <- function(template, save_as = template, open = FALSE,
 }
 
 needs_appveyor <- function(repo_type) {
+  repo_type == "package"
+}
+
+needs_circle <- function(repo_type) {
   repo_type == "package"
 }
 
