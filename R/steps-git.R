@@ -108,7 +108,6 @@ SetupPushDeploy <- R6Class(
         user.name = git2r_attrib(latest_author, "name"),
         user.email = git2r_attrib(latest_author, "email")
       )
-      print(git2r::config())
     },
 
     fetch = function() {
@@ -270,13 +269,9 @@ DoPushDeploy <- R6Class(
         return(FALSE)
       }
 
-      # FIXME
-      print(git2r::config())
-
       message("Committing to ", git2r_attrib(private$git$get_repo(), "path"))
       new_commit <-
         git2r::commit(private$git$get_repo(), private$commit_message)$sha
-
 
       local <- git2r_head(private$git$get_repo())
       upstream <- git2r::branch_get_upstream(local)
