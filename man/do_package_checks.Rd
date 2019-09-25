@@ -7,7 +7,7 @@
 do_package_checks(..., codecov = !ci_is_interactive(),
   warnings_are_errors = NULL, notes_are_errors = NULL, args = NULL,
   build_args = NULL, error_on = "warning", repos = repo_default(),
-  timeout = Inf, type = NULL, check_dir = ".")
+  timeout = Inf, type = NULL)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
