@@ -38,9 +38,6 @@ on_finish: Rscript -e "tic::after_script()"
 platform: x64
 
 environment:
-  R_TOOLS: yes
-  PKGTYPE: binary
-  R_ARCH: x64
   GITHUB_PAT:
     secure: VXO22OHLkl4YhVIomSMwCZyOTx03Xf2WICaVng9xH7gISlAg8a+qrt1DtFtk8sK5
 

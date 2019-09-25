@@ -18,8 +18,7 @@ InstallDeps <- R6Class(
         c(pkgType = private$type),
         remotes::install_deps(
           # https://github.com/r-lib/remotes/pull/386
-          dependencies = TRUE, repos = private$repos, build = FALSE,
-          INSTALL_opts = "--no-multiarch"
+          dependencies = TRUE, repos = private$repos, build = FALSE
         )
       )
     }
