@@ -6,7 +6,7 @@ verify_install <- function(pkg_names, pkgType = NULL) {
   if (is.null(pkgType)) {
     pkgType = update_type(pkgType)
   }
-  lapply(pkg_names, pkgType, verify_install_one)
+  do.call(verify_install, args = list( pkg_names, kgType))
 }
 
 verify_install_one <- function(pkg_name, pkgType) {
