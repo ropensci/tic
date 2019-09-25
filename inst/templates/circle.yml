@@ -47,6 +47,11 @@ jobs:
       - run: echo "$(date -d "$D" '+%d')" > /tmp/_tmp_file
       - restore_cache:
           key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+      # Add your own SSH key fingerprint here, see https://circleci.com/docs/2.0/gh-bb-integration/#creating-a-github-deploy-key
+      # and https://discuss.circleci.com/t/adding-ssh-keys-fails/7747/24 on how to create a valid key
+      #- add_ssh_keys:
+      #    fingerprints:
+      #      - "15:9c:45:50:dc:94:87:6f:a9:ca:e1:fc:6a:b9:7e:62"
       - run:
           name: Deploy Over SSH
           command: |
@@ -69,7 +74,7 @@ workflows:
             branches:
               only: circle-ci
 # CRON job daily at 3 am in the morning
-# - runs the "build" job on the master branch
+# - runs the "build" job on the master branch and builds package cache
   nightly:
     triggers:
       - schedule:
