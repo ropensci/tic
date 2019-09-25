@@ -1,15 +1,14 @@
 # This code can only run as part of a CI run
 # nocov start
 
-verify_install <- function(...) {
-  pkg_names <- c(...)
-  lapply(pkg_names, verify_install_one)
+verify_install <- function(pkg_names, pkgType = getOption("pkgType") {
+  lapply(pkg_names, pkgType, verify_install_one)
 }
 
-verify_install_one <- function(pkg_name) {
-  if (!package_installed(pkg_name)) {
+verify_install_one <- function(pkg_name, pkgType) {
+  if (!package_installed(pkg_name, pkgType)) {
     withr::with_options(
-      c(pkgType = private$type),
+      c(pkgType = pkgType),
     utils::install.packages(pkg_name, INSTALL_opts = "--no-multiarch")
     )
     if (!package_installed(pkg_name)) {
