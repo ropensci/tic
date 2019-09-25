@@ -33,7 +33,11 @@ on_finish: Rscript -e "tic::after_script()"
 #  - 7z a failure.zip *.Rcheck\*
 #  - appveyor PushArtifact failure.zip
 
-#environment:
+platform: x64
+
+environment:
+  PKGTYPE: binary
+  R_ARCH: x64
   # The example below will not work for your repository,
   # you need to encrypt your own token.
   # Please follow https://ci.appveyor.com/tools/encrypt .
