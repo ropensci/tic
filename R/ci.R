@@ -236,7 +236,7 @@ ci_on_appveyor <- function() {
 #' @rdname ci
 #' @export
 ci_on_circle <- function() {
-  ci()$on_circleci()
+  ci()$on_circle()
 }
 
 #' The current CI environment
