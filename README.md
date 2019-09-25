@@ -6,7 +6,14 @@
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
 
-The goal of tic is to enhance and simplify working with continuous integration (CI) systems like [Travis CI](https://travis-ci.org) or [AppVeyor](https://www.appveyor.com/) for R projects.
+The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
+
+The following ones are supported: 
+
+- [Travis CI](https://travis-ci.org) (Linux)
+- [AppVeyor](https://www.appveyor.com/) (Windows)
+- [Circle CI](https://circleci.com/) (Linux)
+
 To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html#prerequisites) vignette.
 
 The most important improvements over existing solutions are:
