@@ -36,6 +36,7 @@ on_finish: Rscript -e "tic::after_script()"
 #  - appveyor PushArtifact failure.zip
 
 environment:
+  R_TOOLS: yes
   PKGTYPE: binary
   R_ARCH: x64
   GITHUB_PAT:
