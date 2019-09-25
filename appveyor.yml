@@ -35,6 +35,8 @@ on_finish: Rscript -e "tic::after_script()"
 #  - 7z a failure.zip *.Rcheck\*
 #  - appveyor PushArtifact failure.zip
 
+platform: x64
+
 environment:
   R_TOOLS: yes
   PKGTYPE: binary
