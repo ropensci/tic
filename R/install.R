@@ -1,7 +1,11 @@
 # This code can only run as part of a CI run
 # nocov start
 
-verify_install <- function(pkg_names, pkgType = getOption("pkgType")) {
+verify_install <- function(pkg_names, pkgType = NULL) {
+  # set "type" to platform default
+  if (is.null(pkgType)) {
+    pkgType = update_type(pkgType)
+  }
   lapply(pkg_names, pkgType, verify_install_one)
 }
 
