@@ -11,8 +11,6 @@ step_build_pkgdown(...)
 \describe{
   \item{pkg}{Path to package.}
   \item{examples}{Run examples?}
-  \item{document}{If \code{TRUE}, will run \code{\link[devtools:document]{devtools::document()}} before
-updating the site.}
   \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
   \item{seed}{Seed used to initialize so that random examples are
 reproducible.}
@@ -22,9 +20,25 @@ if the source is newer than the destination.}
 values in \code{_pkgdown.yml}}
   \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
+  \item{devel}{Use development or deployment process?
+
+If \code{TRUE}, uses lighter-weight process suitable for rapid
+iteration; it will run examples and vignettes in the current process,
+and will load code with \code{pkgload::load_call()}.
+
+If \code{FALSE}, will first install the package to a temporary library,
+and will run all examples and vignettes in a new process.
+
+\code{build_site()} defaults to \code{devel = FALSE} so that you get high fidelity
+outputs when you building the complete site; \code{build_reference()},
+\code{build_home()} and friends default to \code{devel = TRUE} so that you can
+rapidly iterate during development.}
   \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
+  \item{install}{If \code{TRUE}, will install the package in a temporary library
+so it is available for vignettes.}
+  \item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }}
 }
 \description{
