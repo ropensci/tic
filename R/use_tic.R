@@ -64,7 +64,7 @@ use_tic <- function(quiet = FALSE) {
   )
 
   use_github_interactive()
-  if (!isTRUE(travis::uses_github())) {
+  if (!isTRUE(travis::uses_github()[1])) {
     stopc(
       "A GitHub repository is needed. ",
       "Please create one manually or re-run `use_tic()` to do it automatically."
