@@ -4,6 +4,7 @@
 verify_install <- function(...) {
   pkg_names <- c(...)
   lapply(pkg_names, verify_install_one)
+  lapply(pkg_names, verify_update_one)
 }
 
 verify_install_one <- function(pkg_name) {
@@ -15,6 +16,10 @@ verify_install_one <- function(pkg_name) {
       )
     }
   }
+}
+
+verify_update_one <- function(pkg_name) {
+  update.packages(pkg_name)
 }
 
 package_installed <- function(pkg_name) {
