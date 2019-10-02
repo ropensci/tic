@@ -21,30 +21,42 @@ The most important improvements over existing solutions are:
 
 ## Installation
 
-It can be installed from GitHub with:
+_tic_ can be installed from GitHub with:
 
 ``` r
-# install.packages("remotes")
 remotes::install_github("ropenscilabs/tic")
 ```
 
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.org and https://appveyor.com.
-For an R package, the following steps will be set up for the CI workflow:
+You will be asked which CI system you want to use and convenience functions will set up SSH deployment keys (currently only on Travis).
+For a R package, the following steps will be set up for the CI workflow:
 
 - Installation of required dependencies for the project
 - Satisfying build-time dependencies of steps to be run in all CI stages
-- Running `rcmdcheck::rcmdcheck()`
-- Building of a `pkgdown` site with deployment GitHub
-- Running a code coverage and uploading it to [codecov.io](https://codecov.io/)
+- Checking of package via `rcmdcheck::rcmdcheck()`
+- Creation of a `pkgdown` site including Github deployment
+- Running a code coverage and upload to [codecov.io](https://codecov.io/)
 
 See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://ropenscilabs.github.io/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
 
+## Good to know
+
+We would like to mention that _tic_ is a choice and sits on top of existing community efforts providing R support for various CI providers.
+While _tic_ will prevent you from dealing/learning every CIs YAML syntax, you will have to learn _tic_'s way of specifying your tasks on CI systems.
+
+Also, there is no way around familiarizing yourself with the basics of CI systems in general. 
+Without this knowledge, you will also have a hard way understanding _tic_. 
+
+There is not yet an automated way of updating the templates installed by _tic_, hence you need to manually check every once in a while if we made some changes to the templates.
+
+We also recommend to take a look at the projects providing the direct R support for each CI system (which _tic_ builds upon) to gain a deeper understanding of the whole concept.
+
 ## Examples
 
-All examples listed here work with Travis, some work with AppVeyor too. The badges link to the most recent build of the master branch.
+All examples listed here work with Travis, some work with AppVeyor too. 
+The badges link to the most recent build of the master branch.
 
 - [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
 
@@ -107,7 +119,9 @@ All examples listed here work with Travis, some work with AppVeyor too. The badg
 
 ## Limitations
 
-The setup functions in this package assume Git as version control system, and GitHub as platform.  Automated setup works best if the project under test is located in the root of the Git repository.  Multi-project repositories are not supported, see [the comment by @jwijffels](https://github.com/ropenscilabs/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
+The setup functions in this package assume Git as version control system, and GitHub as platform.
+Automated setup works best if the project under test is located in the root of the Git repository.
+Multi-project repositories are not supported, see [the comment by @jwijffels](https://github.com/ropenscilabs/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
 
 ---
 
