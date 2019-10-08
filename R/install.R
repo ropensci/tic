@@ -3,9 +3,7 @@
 
 verify_install <- function(pkg_names, pkgType = NULL) {
   # set "type" to platform default
-  if (is.null(pkgType)) {
-    pkgType = update_type(pkgType)
-  }
+  pkgType <- update_type(pkgType)
   lapply(pkg_names, function(x) verify_install_one(x, pkgType = pkgType))
 }
 
