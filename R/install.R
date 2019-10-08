@@ -8,16 +8,14 @@ verify_install <- function(pkg_names, pkgType = NULL) {
 }
 
 verify_install_one <- function(pkg_name, pkgType) {
+  withr::with_options(
+    c(pkgType = pkgType),
+    remotes::install_cran(pkg_name, upgrade = TRUE)
+  )
   if (!package_installed(pkg_name)) {
-    withr::with_options(
-      c(pkgType = pkgType),
-      utils::install.packages(pkg_name)
+    stopc(
+      "Error installing package ", pkg_name, " or one of its dependencies."
     )
-    if (!package_installed(pkg_name)) {
-      stopc(
-        "Error installing package ", pkg_name, " or one of its dependencies."
-      )
-    }
   }
 }
 
