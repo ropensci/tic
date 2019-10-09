@@ -43,10 +43,12 @@ This happens automatically the first time \code{dsl_get()} is called
 (directly or indirectly).
 }
 \examples{
+\dontrun{
 dsl_init()
 dsl_get()
 
 dsl_load(system.file("templates/package/tic.R", package = "tic"))
 dsl_load(system.file("templates/package/tic.R", package = "tic"), force = TRUE)
 dsl_get()
+}
 }

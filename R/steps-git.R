@@ -189,6 +189,7 @@ SetupPushDeploy <- R6Class(
 #' @family steps
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("deploy") %>%
@@ -203,6 +204,7 @@ SetupPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
+#' }
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
                                    remote_url = NULL, checkout = TRUE) {
   SetupPushDeploy$new(
@@ -365,6 +367,7 @@ DoPushDeploy <- R6Class(
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' # Deployment only works if a companion step_setup_push_deploy() is added
@@ -378,6 +381,7 @@ DoPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
+#' }
 step_do_push_deploy <- function(path = ".", commit_message = NULL,
                                 commit_paths = ".") {
   DoPushDeploy$new(
@@ -460,12 +464,14 @@ PushDeploy <- R6Class(
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man")))
 #'
 #' dsl_get()
+#' }
 step_push_deploy <- function(path = ".", branch = NULL,
                              remote_url = NULL,
                              commit_message = NULL, commit_paths = ".") {
