@@ -1,3 +1,15 @@
+- Same as previous version.
+
+# tic 0.2.13.9021
+
+- add argument "check_dir" to step_rcmdcheck (#179)
+- use `remotes::install_cran(upgrade = TRUE)` to install packages (#186)
+- added support for Circle CI (#177)
+- All packages installed for custom steps use binary packages if possible on Windows and macOS (#178).
+- Use `TRAVIS_BUILD_WEB_URL` for the commit message.
+- `do_package_checks()` gains `type` argument.
+- Tweak documentation.
+
 # tic 0.2.13.9020
 
 - Avoid building packages when installing dependencies.

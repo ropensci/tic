@@ -2,7 +2,7 @@ Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions
-Version: 0.2.13.9020
+Version: 0.2.13.9021
 Authors@R: 
     c(person(given = "Kirill",
              family = "Müller",
@@ -28,7 +28,7 @@ Authors@R:
              email = "jeroen.ooms@stat.ucla.edu"),
       person(given = "rOpenSci",
              role = "fnd"))
-Description:  Provides a way to describe common build and
+Description: Provides a way to describe common build and
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
