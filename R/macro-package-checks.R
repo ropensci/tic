@@ -36,7 +36,7 @@ do_package_checks <- function(...,
                               build_args = NULL,
                               error_on = "warning",
                               repos = repo_default(), timeout = Inf,
-                              type = NULL, check_dir = ".") {
+                              type = NULL, check_dir = NULL) {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.

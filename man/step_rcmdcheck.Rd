@@ -7,7 +7,7 @@
 step_rcmdcheck(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = NULL, build_args = NULL,
   error_on = "warning", repos = repo_default(), timeout = Inf,
-  check_dir = ".")
+  check_dir = NULL)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
