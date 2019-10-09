@@ -172,7 +172,7 @@ stages:</p>
     <pre class="usage"><span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
   <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>check_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,6 +240,11 @@ Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdc
 installation from source on Windows and macOS by passing
 <code><a href='https://rdrr.io/r/base/Platform.html'>.Platform</a>$pkgType</code>.</p></td>
     </tr>
+    <tr>
+      <th>check_dir</th>
+      <td><p><code>[character]</code> <br /> Path specifying the directory for R CMD
+check. Defaults to project root for easy upload of artifacts.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -256,7 +261,7 @@ installation from source on Windows and macOS by passing
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
-#&gt;     timeout = Inf)
+#&gt;     timeout = Inf, check_dir = NULL)
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div></pre>
   </div>
