@@ -365,6 +365,7 @@ DoPushDeploy <- R6Class(
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' # Deployment only works if a companion step_setup_push_deploy() is added
@@ -378,6 +379,7 @@ DoPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
+#' }
 step_do_push_deploy <- function(path = ".", commit_message = NULL,
                                 commit_paths = ".") {
   DoPushDeploy$new(
