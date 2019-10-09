@@ -27,6 +27,9 @@ The preparation consists of the following steps:
 \item Create a default \code{appveyor.yml} file
 (depending on repo type, overwrite after confirmation
 in interactive mode only)
+\item Create a default \code{.circleci/config.yml} file
+(depending on repo type, overwrite after confirmation
+in interactive mode only)
 \item Create a default \code{tic.R} file depending on the repo type
 (package, website, bookdown, ...)
 \item Enable deployment (if necessary, depending on repo type)
