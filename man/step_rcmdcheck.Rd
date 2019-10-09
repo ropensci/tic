@@ -6,7 +6,8 @@
 \usage{
 step_rcmdcheck(..., warnings_are_errors = NULL,
   notes_are_errors = NULL, args = NULL, build_args = NULL,
-  error_on = "warning", repos = repo_default(), timeout = Inf)
+  error_on = "warning", repos = repo_default(), timeout = Inf,
+  check_dir = NULL)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
@@ -40,6 +41,9 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \item{timeout}{\code{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
+
+\item{check_dir}{\code{[character]} \cr Path specifying the directory for R CMD
+check. Defaults to project root for easy upload of artifacts.}
 }
 \description{
 Check a package using \code{\link[rcmdcheck:rcmdcheck]{rcmdcheck::rcmdcheck()}},
