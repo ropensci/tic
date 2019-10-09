@@ -196,23 +196,14 @@ Use the high-level <code><a href='dsl.html'>get_stage()</a></code> and <code><a 
 and the <a href='stages.html'>stages</a> functions to run.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>dsl_init</span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'><span class='fu'>dsl_get</span>()</div><div class='output co'>#&gt; ℹ No steps defined in any stage</div><div class='input'>
-<span class='fu'>dsl_load</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"templates/package/tic.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tic"</span>))</div><div class='output co'>#&gt; ℹ Using existing tic stage configuration, use `force = TRUE` to reload</div><div class='input'><span class='fu'>dsl_load</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"templates/package/tic.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tic"</span>), <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ✔ Loading tic stage configuration from /home/travis/build/ropenscilabs/tic/inst/templates/package/tic.R</div><div class='input'><span class='fu'>dsl_get</span>()</div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_install_deps(repos = repo_default(), type = NULL)
-#&gt; ▶ step_install_deps(repos = repo_default())
-#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
-#&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
-#&gt;     timeout = Inf)
-#&gt; ── after_success ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))
-#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_setup_ssh()
-#&gt; ▶ step_setup_push_deploy(path = "docs", branch = "gh-pages", remote_url = NULL, 
-#&gt;     orphan = FALSE, checkout = TRUE)
-#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_build_pkgdown()
-#&gt; ▶ step_do_push_deploy(path = "docs", commit_message = NULL, commit_paths = ".")</div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>dsl_init</span>()
+<span class='fu'>dsl_get</span>()
+
+<span class='fu'>dsl_load</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"templates/package/tic.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tic"</span>))
+<span class='fu'>dsl_load</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"templates/package/tic.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tic"</span>), <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>dsl_get</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
