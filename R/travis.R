@@ -22,8 +22,7 @@ TravisCI <- R6Class(
     },
     get_build_url = function() {
       paste0(
-        "https://travis-ci.org/", self$get_slug(), "/builds/",
-        self$get_env("TRAVIS_BUILD_ID")
+        self$get_env("TRAVIS_BUILD_WEB_URL")
       )
     },
     get_commit = function() {
