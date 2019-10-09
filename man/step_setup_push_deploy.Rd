@@ -34,6 +34,7 @@ Clones a repo, inits author information, and sets up remotes
 for a subsequent \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 get_stage("deploy") \%>\%
@@ -48,6 +49,7 @@ if (rlang::is_installed("git2r") && git2r::in_repository()) {
 }
 
 dsl_get()
+}
 }
 \seealso{
 Other deploy steps: \code{\link{step_do_push_deploy}},

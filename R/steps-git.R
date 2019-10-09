@@ -189,6 +189,7 @@ SetupPushDeploy <- R6Class(
 #' @family steps
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("deploy") %>%
@@ -203,6 +204,7 @@ SetupPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
+#' }
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
                                    remote_url = NULL, checkout = TRUE) {
   SetupPushDeploy$new(
