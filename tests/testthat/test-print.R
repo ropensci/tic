@@ -1,4 +1,5 @@
 test_that("print stages", {
+  skip_on_appveyor()
   dsl_init(quiet = TRUE)
 
   expect_known_output(

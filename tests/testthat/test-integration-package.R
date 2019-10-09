@@ -1,6 +1,7 @@
 context("test-integration-package.R")
 
 test_that("integration test: package", {
+  skip_on_appveyor()
   cli::cat_boxx("integration test: package")
 
   package_path <- tempfile("ticpkg", fileext = "pkg")

@@ -1,29 +1,27 @@
 # nocov start
 #' @include ci.R
-TravisCI <- R6Class(
-  "TravisCI",
+CircleCI <- R6Class(
+  "CircleCI",
   inherit = CI,
 
   public = list(
     get_branch = function() {
-      Sys.getenv("TRAVIS_BRANCH")
+      Sys.getenv("CIRCLE_BRANCH")
     },
     get_tag = function() {
-      Sys.getenv("TRAVIS_TAG")
+      Sys.getenv("CIRCLE_TAG")
     },
     is_tag = function() {
       self$get_tag() != ""
     },
     get_slug = function() {
-      Sys.getenv("TRAVIS_REPO_SLUG")
+      Sys.getenv("CIRCLE_PROJECT_REPONAME")
     },
     get_build_number = function() {
-      paste0("Travis build ", self$get_env("TRAVIS_BUILD_NUMBER"))
+      paste0("CircleCI build ", self$get_env("CIRCLE_BUILD_NUM"))
     },
     get_build_url = function() {
-      paste0(
-        self$get_env("TRAVIS_BUILD_WEB_URL")
-      )
+      Sys.getenv("CIRCLE_BUILD_URL")
     },
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
@@ -40,13 +38,7 @@ TravisCI <- R6Class(
     has_env = function(env) {
       self$get_env(env) != ""
     },
-    cat_with_color = function(code) {
-      withr::with_options(
-        list(crayon.enabled = TRUE),
-        cat_line(code)
-      )
-    },
-    on_travis = function() {
+    on_circle = function() {
       TRUE
     }
   )

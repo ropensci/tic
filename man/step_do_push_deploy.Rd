@@ -46,6 +46,7 @@ In the opposite case, if the remote repo has new commits,
 the deployment is safely applied to the current tip.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 # Deployment only works if a companion step_setup_push_deploy() is added
@@ -59,6 +60,7 @@ if (rlang::is_installed("git2r") && git2r::in_repository()) {
 }
 
 dsl_get()
+}
 }
 \seealso{
 Other deploy steps: \code{\link{step_push_deploy}},

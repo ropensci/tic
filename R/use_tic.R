@@ -97,7 +97,15 @@ use_tic <- function(quiet = FALSE) {
   #' 1. Create a default `appveyor.yml` file
   #'    (depending on repo type, overwrite after confirmation
   #'    in interactive mode only)
-  if (needs_appveyor(repo_type)) use_appveyor_yml()
+  if (needs_appveyor(repo_type)) {
+    use_appveyor_yml()
+  }
+  #' 1. Create a default `.circleci/config.yml` file
+  #'    (depending on repo type, overwrite after confirmation
+  #'    in interactive mode only)
+  if (needs_circle(repo_type)) {
+    use_circle_yml()
+  }
 
   #' 1. Create a default `tic.R` file depending on the repo type
   #'    (package, website, bookdown, ...)
@@ -147,6 +155,14 @@ use_appveyor_yml <- function() {
   )
 }
 
+use_circle_yml <- function() {
+  use_tic_template(
+    "circle.yml",
+    save_as = ".circleci/config.yml",
+    data = list(install_tic = get_install_tic_code())
+  )
+}
+
 get_install_tic_code <- function() {
   if (getNamespaceVersion("tic") >= "1.0") {
     # We are on CRAN!
@@ -173,6 +189,10 @@ use_tic_template <- function(template, save_as = template, open = FALSE,
 }
 
 needs_appveyor <- function(repo_type) {
+  repo_type == "package"
+}
+
+needs_circle <- function(repo_type) {
   repo_type == "package"
 }
 
