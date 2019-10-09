@@ -64,6 +64,7 @@ GitHub version is different from the locally installed version." />
 
   gtag('config', 'UA-462421-8');
 </script>
+
   </head>
 
   <body>
@@ -130,7 +131,7 @@ GitHub version is different from the locally installed version." />
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,6 +142,7 @@ GitHub version is different from the locally installed version." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -158,12 +160,12 @@ but it is also possible to install dependencies manually.
 By default, binary versions of packages are installed if possible,
 even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
-<code>DESCRIPTION</code>, using <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_deps'>remotes::install_deps()</a></code>.
+<code>DESCRIPTION</code>, using <code><a href='https://rdrr.io/pkg/remotes/man/install_deps.html'>remotes::install_deps()</a></code>.
 This includes upgrading outdated packages.</p>
-<p>A <code>step_install_cran()</code> step installs one package from CRAN via <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>,
+<p>A <code>step_install_cran()</code> step installs one package from CRAN via <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>,
 but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
-via <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_github'>remotes::install_github()</a></code>, the packages are only installed if their
+via <code><a href='https://rdrr.io/pkg/remotes/man/install_github.html'>remotes::install_github()</a></code>, the packages are only installed if their
 GitHub version is different from the locally installed version.</p>
     </div>
 
@@ -184,9 +186,9 @@ GitHub version is different from the locally installed version.</p>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Passed on to <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>. The default avoids
+      <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>. The default avoids
 installation from source on Windows and macOS by passing
-<code><a href='https://www.rdocumentation.org/packages/base/topics/Platform'>.Platform</a>$pkgType</code>.</p></td>
+<code><a href='https://rdrr.io/r/base/Platform.html'>.Platform</a>$pkgType</code>.</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -194,7 +196,7 @@ installation from source on Windows and macOS by passing
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passed on to <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code> or <code><a href='https://www.rdocumentation.org/packages/remotes/topics/install_github'>remotes::install_github()</a></code>.</p></td>
+      <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code> or <code><a href='https://rdrr.io/pkg/remotes/man/install_github.html'>remotes::install_github()</a></code>.</p></td>
     </tr>
     <tr>
       <th>repo</th>
@@ -246,6 +248,7 @@ installation from source on Windows and macOS by passing
   </div>
 </div>
 
+
       <footer>
       <div style="margin-top:-9px">
   <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
@@ -257,11 +260,14 @@ installation from source on Windows and macOS by passing
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

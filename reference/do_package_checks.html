@@ -48,6 +48,7 @@ warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
 A call to covr::codecov() in the &quot;after_success&quot; stage
 (only if the codecov flag is set)
+
 " />
 <meta name="twitter:card" content="summary" />
 
@@ -63,6 +64,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
 
   gtag('config', 'UA-462421-8');
 </script>
+
   </head>
 
   <body>
@@ -129,7 +131,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,6 +142,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -160,9 +163,10 @@ stages:</p>
 <li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>
-<li><p>A call to <code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov()</a></code> in the <code>"after_success"</code> stage
+<li><p>A call to <code><a href='https://rdrr.io/pkg/covr/man/codecov.html'>covr::codecov()</a></code> in the <code>"after_success"</code> stage
 (only if the <code>codecov</code> flag is set)</p></li>
 </ol>
+
     </div>
 
     <pre class="usage"><span class='fu'>do_package_checks</span>(<span class='no'>...</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> !<span class='fu'><a href='ci.html'>ci_is_interactive</a></span>(),
@@ -180,7 +184,7 @@ stages:</p>
     <tr>
       <th>codecov</th>
       <td><p><code>[flag]</code><br /> Whether to include a step running
-<code><a href='https://www.rdocumentation.org/packages/covr/topics/codecov'>covr::codecov(quiet = FALSE)</a></code> (default: only for non-interactive CI,
+<code><a href='https://rdrr.io/pkg/covr/man/codecov.html'>covr::codecov(quiet = FALSE)</a></code> (default: only for non-interactive CI,
 see <code><a href='ci.html'>ci_is_interactive()</a></code>).</p></td>
     </tr>
     <tr>
@@ -196,17 +200,17 @@ Deprecated, use <code>error_on</code>.</p></td>
     <tr>
       <th>args</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran")</a></code>.<br />
+Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
+Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.<br />
 Default for Appveyor:
-<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.<br /></p></td>
+<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.<br /></p></td>
     </tr>
     <tr>
       <th>build_args</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>.<br />
+Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
 Default for Travis and local runs: <code>"--force"</code>.<br />
-Default for Appveyor: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
+Default for Appveyor: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
     </tr>
     <tr>
       <th>error_on</th>
@@ -221,20 +225,20 @@ error.</p></td>
     <tr>
       <th>repos</th>
       <td><p><code>[character]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code><a href='repo.html'>repo_default()</a></code>.</p></td>
     </tr>
     <tr>
       <th>timeout</th>
       <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck'>rcmdcheck::rcmdcheck()</a></code>, default:
+Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Passed on to <code><a href='https://www.rdocumentation.org/packages/utils/topics/install.packages'>install.packages()</a></code>. The default avoids
+      <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>. The default avoids
 installation from source on Windows and macOS by passing
-<code><a href='https://www.rdocumentation.org/packages/base/topics/Platform'>.Platform</a>$pkgType</code>.</p></td>
+<code><a href='https://rdrr.io/r/base/Platform.html'>.Platform</a>$pkgType</code>.</p></td>
     </tr>
     </table>
 
@@ -267,6 +271,7 @@ installation from source on Windows and macOS by passing
   </div>
 </div>
 
+
       <footer>
       <div style="margin-top:-9px">
   <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
@@ -278,11 +283,14 @@ installation from source on Windows and macOS by passing
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

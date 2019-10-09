@@ -85,7 +85,7 @@
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,6 +98,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -118,7 +119,7 @@
 <h2 class="hasAnchor">
 <a href="#the-ticstep-class" class="anchor"></a>The <code>TicStep</code> class</h2>
 <p>A step is a subclass of the <a href="https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38"><code>TicStep</code> class</a>. The <code>step_...</code> functions in <em>tic</em> are forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
-<p>The <code>TicStep</code> class implements the public methods <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code>, <code>prepare()</code>, and <code>run()</code>. These methods must be callable without arguments. This means that you only need to override the methods you need; if you don’t need a <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code> or <code>prepare()</code> method you can leave it out. The following sections describe these methods and show examples.</p>
+<p>The <code>TicStep</code> class implements the public methods <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code>, <code>prepare()</code>, and <code>run()</code>. These methods must be callable without arguments. This means that you only need to override the methods you need; if you don’t need a <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> or <code>prepare()</code> method you can leave it out. The following sections describe these methods and show examples.</p>
 <div id="the-prepare-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-prepare-method" class="anchor"></a>The <code>prepare()</code> method</h3>
@@ -133,8 +134,8 @@
 </div>
 <div id="the-check-method" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-check-method" class="anchor"></a>The <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code> method</h3>
-<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24"><code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code></a> function is an example step with the following implementation of the <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code> method:</p>
+<a href="#the-check-method" class="anchor"></a>The <code>check()</code> method</h3>
+<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24"><code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code></a> function is an example step with the following implementation of the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">WriteTextFile<span class="op">$</span>public_methods<span class="op">$</span>check</a></code></pre></div>
 </div>
 </div>
@@ -146,9 +147,9 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">HelloWorld &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="st">"HelloWorld"</span>, <span class="dt">inherit =</span> TicStep,</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">public =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">public =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">run =</span> <span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="st">"Hello, world!"</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">      <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="st">"Hello, world!"</span>)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">    }</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8">  )</a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">)</a>
@@ -191,6 +192,7 @@
 </div>
 
 
+
       <footer><div style="margin-top:-9px">
   <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
 </div>
@@ -201,10 +203,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

@@ -53,6 +53,7 @@ Calls pkgdown::clean_site() and then pkgdown::build_site(...)." />
 
   gtag('config', 'UA-462421-8');
 </script>
+
   </head>
 
   <body>
@@ -119,7 +120,7 @@ Calls pkgdown::clean_site() and then pkgdown::build_site(...)." />
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -130,6 +131,7 @@ Calls pkgdown::clean_site() and then pkgdown::build_site(...)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -164,16 +166,10 @@ if the source is newer than the destination.</p></dd>
 values in <code>_pkgdown.yml</code></p></dd>
   <dt>preview</dt><dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
-  <dt>devel</dt><dd><p>Use development or deployment process?
-
-If <code>TRUE</code>, uses lighter-weight process suitable for rapid
+  <dt>devel</dt><dd><p>Use development or deployment process?If <code>TRUE</code>, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
-and will load code with <code>pkgload::load_call()</code>.
-
-If <code>FALSE</code>, will first install the package to a temporary library,
-and will run all examples and vignettes in a new process.
-
-<code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
+and will load code with <code>pkgload::load_call()</code>.If <code>FALSE</code>, will first install the package to a temporary library,
+and will run all examples and vignettes in a new process.<code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
 outputs when you building the complete site; <code>build_reference()</code>,
 <code>build_home()</code> and friends default to <code>devel = TRUE</code> so that you can
 rapidly iterate during development.</p></dd>
@@ -183,6 +179,7 @@ in the current process affects the build process.</p></dd>
   <dt>install</dt><dd><p>If <code>TRUE</code>, will install the package in a temporary library
 so it is available for vignettes.</p></dd>
   <dt>document</dt><dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
+
 </dl></td>
     </tr>
     </table>
@@ -221,6 +218,7 @@ so it is available for vignettes.</p></dd>
   </div>
 </div>
 
+
       <footer>
       <div style="margin-top:-9px">
   <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
@@ -232,11 +230,14 @@ so it is available for vignettes.</p></dd>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

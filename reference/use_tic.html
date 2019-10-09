@@ -52,6 +52,7 @@
 
   gtag('config', 'UA-462421-8');
 </script>
+
   </head>
 
   <body>
@@ -118,7 +119,7 @@
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -129,6 +130,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -161,7 +163,7 @@ Less verbose output? Default: <code>FALSE</code>.</p></td>
 <p>The project path is retrieved with <code><a href='https://usethis.r-lib.org/reference/proj_utils.html'>usethis::proj_get()</a></code>.</p>
 <p>The preparation consists of the following steps:</p><ol>
 <li><p>If necessary, create a GitHub repository via <code><a href='https://usethis.r-lib.org/reference/use_github.html'>usethis::use_github()</a></code></p></li>
-<li><p>Enable Travis via <code><a href='https://www.rdocumentation.org/packages/travis/topics/travis_enable'>travis::travis_enable()</a></code></p></li>
+<li><p>Enable Travis via <code><a href='https://rdrr.io/pkg/travis/man/travis_enable.html'>travis::travis_enable()</a></code></p></li>
 <li><p>Create a default <code>.travis.yml</code> file
 (overwrite after confirmation in interactive mode only)</p></li>
 <li><p>Create a default <code>appveyor.yml</code> file
@@ -175,9 +177,10 @@ in interactive mode only)</p></li>
 <li><p>Enable deployment (if necessary, depending on repo type)
 via <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code></p></li>
 <li><p>Create a GitHub PAT and install it on Travis CI
-via <code><a href='https://www.rdocumentation.org/packages/travis/topics/travis_set_pat'>travis::travis_set_pat()</a></code></p></li>
+via <code><a href='https://rdrr.io/pkg/travis/man/travis_set_pat.html'>travis::travis_set_pat()</a></code></p></li>
 </ol>
-    <p>This function is aimed at supporting the most common use cases.
+
+<p>This function is aimed at supporting the most common use cases.
 Users who require more control are advised to review
 the source code of <code>use_tic()</code>
 and manually call the individual functions, some of which aren't exported.</p>
@@ -193,6 +196,7 @@ and manually call the individual functions, some of which aren't exported.</p>
   </div>
 </div>
 
+
       <footer>
       <div style="margin-top:-9px">
   <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
@@ -204,11 +208,14 @@ and manually call the individual functions, some of which aren't exported.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

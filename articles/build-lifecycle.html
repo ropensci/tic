@@ -85,7 +85,7 @@
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,6 +98,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -121,10 +122,10 @@
 <p><em>tic</em> also employs an approach based on stages. All action specifications that should be run in each stage are defined in the <code>tic.R</code> file. The steps are specified in an CI-agnostic way using R syntax. A large part of the <code>.travis.yml</code> file consists of glue code and is not meant to be edited anymore.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># DO NOT CHANGE THE CODE BELOW</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">before_install:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> R -q -e <span class="st">'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> R -q -e <span class="st">'if (getRversion() &lt; "3.2" &amp;&amp; !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:before_install()'</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'if (getRversion() &lt; "3.2" &amp;&amp; !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:before_install()'</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
@@ -154,7 +155,7 @@
 <div id="the-before_install-install-stages" class="section level4">
 <h4 class="hasAnchor">
 <a href="#the-before_install-install-stages" class="anchor"></a>The <code>before_install</code> &amp; <code>install</code> stages</h4>
-<p>An important stage for <em>tic</em> is the <code>before_install</code> stage. Here, <em>tic</em> itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Essentially it calls the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code>. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_deps">remotes::install_deps()</a></code>.</p>
+<p>An important stage for <em>tic</em> is the <code>before_install</code> stage. Here, <em>tic</em> itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Essentially it calls the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code>. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://rdrr.io/pkg/remotes/man/install_deps.html">remotes::install_deps()</a></code>.</p>
 <p>All packages that should be stored in the “cache” of the CI service (so that they do not need to be installed again on every CI build) should be installed during preparation.</p>
 </div>
 <div id="the-script-stage" class="section level4">
@@ -200,9 +201,9 @@
 <a href="#installation" class="anchor"></a>Installation</h4>
 <ul>
 <li>
-<code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code>: Installs one package from CRAN via <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages()</a></code>, but only if it’s not already installed.</li>
+<code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code>: Installs one package from CRAN via <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>, but only if it’s not already installed.</li>
 <li>
-<code><a href="../reference/step_install_pkg.html">step_install_github()</a></code>: Installs one or more packages from GitHub via <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github()</a></code>
+<code><a href="../reference/step_install_pkg.html">step_install_github()</a></code>: Installs one or more packages from GitHub via <code><a href="https://rdrr.io/pkg/remotes/man/install_github.html">remotes::install_github()</a></code>
 </li>
 </ul>
 </div>
@@ -222,7 +223,7 @@
 <a href="#deployment" class="anchor"></a>Deployment</h4>
 <ul>
 <li>
-<code>step_install_ssh_key()</code>: Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://www.rdocumentation.org/packages/travis/topics/use_travis_deploy">travis::use_travis_deploy()</a></code>)</li>
+<code>step_install_ssh_key()</code>: Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>)</li>
 <li>
 <code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code>: Test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
 <li>
@@ -245,7 +246,7 @@
 <p>The macro function <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
 <ol style="list-style-type: decimal">
 <li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the <code>error_on</code>, <code>args</code>, <code>build_args</code>, <code>repos</code> and <code>timeout</code> arguments.</p></li>
-<li><p>A call to <code><a href="https://www.rdocumentation.org/packages/covr/topics/codecov">covr::codecov()</a></code> in the <code>"after_success"</code> stage.</p></li>
+<li><p>A call to <code><a href="https://rdrr.io/pkg/covr/man/codecov.html">covr::codecov()</a></code> in the <code>"after_success"</code> stage.</p></li>
 </ol>
 <p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
 <p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
@@ -269,6 +270,7 @@
 </div>
 
 
+
       <footer><div style="margin-top:-9px">
   <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
 </div>
@@ -279,10 +281,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

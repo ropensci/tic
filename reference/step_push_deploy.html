@@ -58,6 +58,7 @@ use_tic() or use_travis_deploy()." />
 
   gtag('config', 'UA-462421-8');
 </script>
+
   </head>
 
   <body>
@@ -124,7 +125,7 @@ use_tic() or use_travis_deploy()." />
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,6 +136,7 @@ use_tic() or use_travis_deploy()." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -220,14 +222,14 @@ and create the files to be deployed inbetween these steps.</p>
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
 
 <span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_push_deploy</span>(<span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"NAMESPACE"</span>, <span class='st'>"man"</span>)))
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_push_deploy</span>(<span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NAMESPACE"</span>, <span class='st'>"man"</span>)))
 
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -241,6 +243,7 @@ and create the files to be deployed inbetween these steps.</p>
   </div>
 </div>
 
+
       <footer>
       <div style="margin-top:-9px">
   <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
@@ -252,11 +255,14 @@ and create the files to be deployed inbetween these steps.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

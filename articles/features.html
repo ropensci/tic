@@ -85,7 +85,7 @@
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,6 +98,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -118,14 +119,14 @@
 <li><p>Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. Set up your project to deploy rendered versions of your book or blog with a single push.</p></li>
 <li><p>Workflow specification are specified in a single R script, regardless of the CI system used. No need anymore for YAML configuration files that differ across CI services.</p></li>
 </ol>
-<p>Other minor advantages include the use of <code><a href="https://www.rdocumentation.org/packages/rcmdcheck/topics/rcmdcheck">rcmdcheck::rcmdcheck()</a></code> for package checking (instead of <code>R CMD check</code>) a and robust caching approach of project dependencies.</p>
+<p>Other minor advantages include the use of <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck::rcmdcheck()</a></code> for package checking (instead of <code>R CMD check</code>) a and robust caching approach of project dependencies.</p>
 <div id="easier-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#easier-deployment" class="anchor"></a>Easier deployment</h2>
 <p>CI services can be used to automatically build and deploy files. This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.). Possible use cases are:</p>
 <ul>
 <li>changed site contents of a <em>pkgdown</em> site</li>
-<li>updated .Rd files of a package (by calling <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> before)</li>
+<li>updated .Rd files of a package (by calling <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> before)</li>
 <li>an automatic generated <a href="https://github.com/yonicd/covrpage">test summary page</a> of a package</li>
 </ul>
 <p>If <em>tic</em> should be used for deployment, some preparatory work is required. Luckily, <em>tic</em> takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)). When calling <code><a href="../reference/use_tic.html">use_tic()</a></code>, the streamlined preparation process is run. This is only needed once per repository.</p>
@@ -162,7 +163,7 @@
 <div id="enhanced-r-package-checking-rcmdcheck-r-cmd-check" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhanced-r-package-checking-rcmdcheck-r-cmd-check" class="anchor"></a>Enhanced R package checking: <code>rcmdcheck()</code> &gt; R CMD check</h2>
-<p>As a R package developer you are most likely used to call <code><a href="https://www.rdocumentation.org/packages/devtools/topics/check">devtools::check()</a></code> or directly <code>R CMD check</code> on your built package. Usually also Travis will run <code>R CMD check</code> to check the R package. <em>tic</em> instead uses <a href="https://github.com/r-lib/rcmdcheck"><em>rcmdcheck</em></a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code>. It was developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. <em>rcmdcheck</em> comes with several enhancements:</p>
+<p>As a R package developer you are most likely used to call <code><a href="https://rdrr.io/pkg/devtools/man/check.html">devtools::check()</a></code> or directly <code>R CMD check</code> on your built package. Usually also Travis will run <code>R CMD check</code> to check the R package. <em>tic</em> instead uses <a href="https://github.com/r-lib/rcmdcheck"><em>rcmdcheck</em></a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code>. It was developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. <em>rcmdcheck</em> comes with several enhancements:</p>
 <ul>
 <li>Coloring of important steps, simplifying the readability of the log</li>
 <li>Enhanced and extended tracebacks of errors, especially errors in tests</li>
@@ -203,6 +204,7 @@
 </div>
 
 
+
       <footer><div style="margin-top:-9px">
   <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
 </div>
@@ -213,10 +215,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

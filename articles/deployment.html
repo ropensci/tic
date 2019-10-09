@@ -85,7 +85,7 @@
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,6 +98,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -197,25 +198,25 @@
 <p><code>.travis.yml</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">jobs:</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="fu">include:</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">stage:</span><span class="at"> stage1</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">stage:</span><span class="at"> stage1</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">      <span class="fu">before_install:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">        <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> R -q -e <span class="st">'install.packages("remotes")'</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">        <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_github("ropenscilabs/tic")'</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Arithmetic">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages(); tic::before_install()'</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extract">[</a></span>...<span class="kw">]</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'install.packages("remotes")'</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_github("ropenscilabs/tic")'</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages(); tic::before_install()'</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>...<span class="kw">]</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">      <span class="fu">deploy:</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">        <span class="fu">provider:</span><span class="at"> script</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">        <span class="fu">on:</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">          <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
 <p><code>tic.R</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Logic">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
@@ -225,13 +226,13 @@
 <h2 class="hasAnchor">
 <a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
 <p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> function has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created via Travis.</p>
-<p>In the following example, these files are created/updated by calling <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
+<p>In the following example, these files are created/updated by calling <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>(<span class="dt">roclets =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">commit_paths =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/document.html">document</a></span>(<span class="dt">roclets =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">commit_paths =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
 <p>Applying this idea depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NAMESPACE</code> directly or let them be created by Travis? An example project that uses the latter strategy is <a href="https://github.com/mlr-org/mlrng/blob/master/tic.R">mlr</a>.</p>
 </div>
   </div>
@@ -253,6 +254,7 @@
 </div>
 
 
+
       <footer><div style="margin-top:-9px">
   <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
 </div>
@@ -263,10 +265,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

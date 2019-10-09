@@ -54,6 +54,7 @@ use_tic() or use_travis_deploy()." />
 
   gtag('config', 'UA-462421-8');
 </script>
+
   </head>
 
   <body>
@@ -120,7 +121,7 @@ use_tic() or use_travis_deploy()." />
 </li>
         <li>
   <a href="https://github.com/ropenscilabs/tic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,6 +132,7 @@ use_tic() or use_travis_deploy()." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -185,7 +187,8 @@ the following strategy is used:</p><ul>
 <li><p>Before pushing, new commits are fetched, and the changes are cherry-picked
 on top of the new commits</p></li>
 </ul>
-    <p>If no new commits were pushed after the CI run has started,
+
+<p>If no new commits were pushed after the CI run has started,
 this strategy is equivalent to committing and pushing.
 In the opposite case, if the remote repo has new commits,
 the deployment is safely applied to the current tip.</p>
@@ -207,7 +210,7 @@ the deployment is safely applied to the current tip.</p>
   <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
 
 <span class='co'># Deployment only works if a companion step_setup_push_deploy() is added</span>
@@ -215,13 +218,13 @@ the deployment is safely applied to the current tip.</p>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'><a href='step_build_pkgdown.html'>step_build_pkgdown</a></span>())
 
-<span class='kw'>if</span> (<span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_installed.html'>is_installed</a></span>(<span class='st'>"git2r"</span>) <span class='kw'>&amp;&amp;</span> <span class='kw pkg'>git2r</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/git2r/topics/in_repository'>in_repository</a></span>()) {
+<span class='kw'>if</span> (<span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_installed.html'>is_installed</a></span>(<span class='st'>"git2r"</span>) <span class='kw'>&amp;&amp;</span> <span class='kw pkg'>git2r</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/git2r/reference/in_repository.html'>in_repository</a></span>()) {
   <span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"deploy"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>))
 }
 
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -235,6 +238,7 @@ the deployment is safely applied to the current tip.</p>
   </div>
 </div>
 
+
       <footer>
       <div style="margin-top:-9px">
   <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
@@ -246,11 +250,14 @@ the deployment is safely applied to the current tip.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
