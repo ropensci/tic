@@ -49,12 +49,14 @@ For more control, create two separate steps with
 and create the files to be deployed inbetween these steps.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man")))
 
 dsl_get()
+}
 }
 \seealso{
 Other deploy steps: \code{\link{step_do_push_deploy}},

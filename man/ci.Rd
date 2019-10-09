@@ -16,6 +16,7 @@
 \alias{ci_cat_with_color}
 \alias{ci_on_travis}
 \alias{ci_on_appveyor}
+\alias{ci_on_circle}
 \title{The current CI environment}
 \usage{
 ci_get_branch()
@@ -45,6 +46,8 @@ ci_cat_with_color(code)
 ci_on_travis()
 
 ci_on_appveyor()
+
+ci_on_circle()
 
 ci()
 }
@@ -93,6 +96,8 @@ normally wouldn't be.
 \code{ci_on_travis()}: Are we running on Travis CI?
 
 \code{ci_on_appveyor()}: Are we running on Appveyor CI?
+
+\code{ci_on_circle()}: Are we running on Circle CI?
 
 \code{ci()}: Return the current CI environment
 }

@@ -48,12 +48,14 @@ dslobj_init <- function(envir = parent.frame()) {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #' dsl_get()
 #'
 #' dsl_load(system.file("templates/package/tic.R", package = "tic"))
 #' dsl_load(system.file("templates/package/tic.R", package = "tic"), force = TRUE)
 #' dsl_get()
+#' }
 dsl_get <- function() {
   if (!dslobj_has()) {
     dsl_init()
