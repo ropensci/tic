@@ -99,6 +99,11 @@ use_tic <- function(quiet = FALSE) {
   #'    in interactive mode only)
   if (needs_appveyor(repo_type)) {
     use_appveyor_yml()
+  }
+  #' 1. Create a default `.circleci/config.yml` file
+  #'    (depending on repo type, overwrite after confirmation
+  #'    in interactive mode only)
+  if (needs_circle(repo_type)) {
     use_circle_yml()
   }
 
