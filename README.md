@@ -101,7 +101,7 @@ All examples listed here work with Travis, some work with AppVeyor too. The badg
 
 - [Get started](https://ropenscilabs.github.io/tic/articles/tic.html)
 
-- [Feature Overview](https://ropenscilabs.github.io/tic/articles/advantages.html)
+- [Feature Overview](https://ropenscilabs.github.io/tic/articles/features.html)
 
 - [The CI Build Lifecycle](https://ropenscilabs.github.io/tic/articles/build-lifecycle.html)
 
