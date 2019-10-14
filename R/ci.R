@@ -75,6 +75,11 @@ CI <- R6Class(
     on_appveyor = function() {
       FALSE
     },
+    #'   \item{`on_circle()`}{
+    #'     Returns `TRUE` only on circle, otherwise `FALSE`.}
+    on_circle = function() {
+      FALSE
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
