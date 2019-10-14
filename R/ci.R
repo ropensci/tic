@@ -7,7 +7,7 @@ ci_ <- function() {
     TravisCI$new()
   } else if (Sys.getenv("APPVEYOR") == "True") {
     AppVeyorCI$new()
-  } else if (Sys.getenv("CIRCLE") == "true") {
+  } else if (Sys.getenv("CIRCLECI") == "true") {
     CircleCI$new()
   } else {
     LocalCI$new()
