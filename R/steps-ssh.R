@@ -80,7 +80,8 @@ InstallSSHKeys <- R6Class(
       )
       message("Writing deploy key to ", deploy_key_path)
       if (file.exists(deploy_key_path)) {
-        stop("Not overwriting key", call. = FALSE)
+        message("Not overwriting existing SSH key.")
+        return()
       }
       writeLines(
         rawToChar(openssl::base64_decode(Sys.getenv(name))),
