@@ -15,7 +15,7 @@ CircleCI <- R6Class(
       self$get_tag() != ""
     },
     get_slug = function() {
-      Sys.getenv("CIRCLE_PROJECT_REPONAME")
+      sprintf("%s/%s", Sys.getenv("CIRCLE_PROJECT_USERNAME"), Sys.getenv("CIRCLE_PROJECT_REPONAME"))
     },
     get_build_number = function() {
       paste0("CircleCI build ", self$get_env("CIRCLE_BUILD_NUM"))
