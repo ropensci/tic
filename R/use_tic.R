@@ -10,30 +10,48 @@
 #'
 #' @export
 use_tic <- function(quiet = FALSE) {
-  cli::cat_boxx("Welcome to `tic`!", col = "green")
-  cli::cat_bullet(
-    "This wizard will set all the required tokens and files\n",
-    "on Travis CI and GitHub. Let's get started!",
-    bullet = "info"
+  cli_alert("Welcome to {.pkg tic}!")
+  cli_text(c(
+    "This wizard will guide you through the setup process for getting started with various CI providers."
+  ))
+
+  cli_h1("Introduction:")
+  cli_text("{.pkg tic} currently comes with support for three CI providers: ")
+
+  cli_ul(c("Appveyor", "Circle CI", "Travis CI"))
+
+  cli_par()
+  cli_text(c("There is no need to use all of them.",
+           " You can choose which one(s) you want to use and on which systems you want to build on.")
   )
+  cli_end()
 
-  #' @details
-  #' This function requires the \pkg{travis} and \pkg{usethis} packages.
-  if (!is_installed("travis")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `travis` package. Please ",
-      'install it using `remotes::install_github("ropenscilabs/travis")`.'
-    )
+  cli_text("We recommend the following setup:")
+  cli_ul(c("Appveyor: Windows", "Circle CI: Linux", "Travis CI: macOS"))
+
+  if (yesno("Ready to get started?")) {
+    return(invisible())
   }
 
-  if (!is_installed("usethis")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `usethis` package, ",
-      'please install using `install.packages("usethis")`.'
-    )
-  }
+  cli_h1("Choosing your setup.")
+  cli_text("We'll ask you a few yes/no questions to gather your preferences.")
+
+  windows = menu(c("Yes", "No"), title = "Do you want to build on Windows (= Appveyor)?")
+  mac = menu(c("Yes", "No"), title = "Do you want to build on macOS (= Travis CI)?")
+
+  linux = menu(c("Circle CI", "Travis CI", "None", "Both"), title = "Which provider do you want to use for Linux builds?")
+
+  deploy = menu(c("Circle CI", "Travis CI", "None", "Both"), title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?")
+
+  cli_h1("Setting up the CI providers.")
+
+  cli_text("Now we are getting the selected CI providers ready for deployment.",
+           "This requires some interaction with their API and you may need to create an API token.")
+  if (linux == 2 && deploy == 2) {
+  browser()
+
+    check_travis_pkg()
+    check_usethis_pkg()
 
   #' @details
   #' The project path is retrieved with [usethis::proj_get()].
@@ -46,54 +64,27 @@ use_tic <- function(quiet = FALSE) {
   repo_type <- detect_repo_type()
 
   if (needs_deploy(repo_type) && !is_installed("openssl")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `openssl` package to set up deployment, ",
-      'please install using install.packages("openssl").'
-    )
-  }
-
-
-  #' @details
-  #' The preparation consists of the following steps:
-  #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
-  #'
-  cli::cat_boxx(
-    "Step #1: We check if a GitHub repository exists.",
-    col = "green"
-  )
-
-  use_github_interactive()
-  if (!isTRUE(travis::uses_github())) {
-    stopc(
-      "A GitHub repository is needed. ",
-      "Please create one manually or re-run `use_tic()` to do it automatically."
-    )
-  } else {
-    cli::cat_bullet(
-      "GitHub repo exists.",
-      bullet = "tick", bullet_col = "green"
-    )
+  check_openssl_pkg()
   }
 
   #' 1. Enable Travis via [travis::travis_enable()]
-  cli::cat_boxx(
-    "Step #2: We check if Travis is already enabled.",
-    col = "green"
-  )
+  cli_alert_info("Step #1: Checking if Travis CI is enabled for this repo.")
   travis::travis_enable()
 
-  cli::cat_boxx(
-    c(
-      "Step #3: We create new files",
-      "`.travis.yml`, `appveyor.yml` and `tic.R`."
-    ),
-    col = "green"
-  )
+  cli_alert_info(c("Step #2: Creation of YAML file."))
 
   #' 1. Create a default `.travis.yml` file
   #'    (overwrite after confirmation in interactive mode only)
   use_travis_yml()
+
+
+
+
+
+
+
+
+
   #' 1. Create a default `appveyor.yml` file
   #'    (depending on repo type, overwrite after confirmation
   #'    in interactive mode only)

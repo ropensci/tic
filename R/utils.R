@@ -45,3 +45,34 @@ tempfile_slash <- function(pattern = "file", tmpdir = tempdir(), fileext = "") {
   path <- tempfile(pattern, tmpdir, fileext)
   normalizePath(path, winslash = "/", mustWork = FALSE)
 }
+
+yesno <- function(...) {
+  yeses <- c("Yes", "Definitely", "For sure", "Yup", "Yeah", "Of course", "Absolutely")
+  nos <- c("No way", "Not yet", "I forget", "No", "Nope", "Uhhhh... Maybe?")
+
+  cat(paste0(..., collapse = ""))
+  qs <- c(sample(yeses, 1), sample(nos, 2))
+  rand <- sample(length(qs))
+
+  menu(qs[rand]) != which(rand == 1)
+}
+
+check_travis_pkg = function() {
+  if (!is_installed("travis")) {
+    cli::cat_rule(col = "red")
+    stopc(
+      "`use_tic()` needs the `travis` package. Please ",
+      'install it using `remotes::install_github("ropenscilabs/travis")`.'
+    )
+  }
+}
+
+check_usethis_pkg = function() {
+  if (!is_installed("usethis")) {
+    cli::cat_rule(col = "red")
+    stopc(
+      "`use_tic()` needs the `usethis` package, ",
+      'please install using `install.packages("usethis")`.'
+    )
+  }
+}
