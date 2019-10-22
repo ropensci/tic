@@ -67,6 +67,16 @@ check_travis_pkg = function() {
   }
 }
 
+check_circle_pkg = function() {
+  if (!is_installed("circle")) {
+    cli::cat_rule(col = "red")
+    stopc(
+      "`use_tic()` needs the `circle` package. Please ",
+      'install it using `remotes::install_github("pat-s/circle")`.'
+    )
+  }
+}
+
 check_usethis_pkg = function() {
   if (!is_installed("usethis")) {
     cli::cat_rule(col = "red")
@@ -75,4 +85,12 @@ check_usethis_pkg = function() {
       'please install using `install.packages("usethis")`.'
     )
   }
+}
+
+check_openssl_pkg = function() {
+  cli::cat_rule(col = "red")
+  stopc(
+    "`use_tic()` needs the `openssl` package to set up deployment, ",
+    'please install using install.packages("openssl").'
+  )
 }

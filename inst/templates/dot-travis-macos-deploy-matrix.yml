@@ -29,10 +29,19 @@ after_script: R -q -e 'tic::after_script()'
 
 # Header
 language: r
-sudo: false
-dist: xenial
-cache: packages
+os: osx
+cache:
+  - packages
+  - $HOME/.ccache
 latex: false
+
+matrix:
+  allow_failures:
+  - r: oldrel
+  include:
+  - r: devel
+  - r: oldrel
+  - r: release
 
 #env
 env:

@@ -39,19 +39,112 @@ use_tic <- function(quiet = FALSE) {
   windows = menu(c("Yes", "No"), title = "Do you want to build on Windows (= Appveyor)?")
   mac = menu(c("Yes", "No"), title = "Do you want to build on macOS (= Travis CI)?")
 
-  linux = menu(c("Circle CI", "Travis CI", "None", "Both"), title = "Which provider do you want to use for Linux builds?")
+  linux = menu(c("Circle CI", "Travis CI", "None", "All"),
+               title = "Which provider do you want to use for Linux builds?")
 
-  deploy = menu(c("Circle CI", "Travis CI", "None", "Both"), title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?")
+  deploy = menu(c("Circle CI", "Travis CI", "None", "All"),
+                title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?")
+
+  matrix = menu(c("Circle CI", "Travis CI", "Appveyor", "None", "All"),
+                title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?")
 
   cli_h1("Setting up the CI providers.")
 
   cli_text("Now we are getting the selected CI providers ready for deployment.",
            "This requires some interaction with their API and you may need to create an API token.")
-  if (linux == 2 && deploy == 2) {
-  browser()
 
+  # init deploy ----------------------------------------------------------------
+
+  if (deploy == 1) {
+    check_circle_pkg()
+    circle::enable_project()
+    circle::use_circle_deploy()
+  } else if (deploy == 2) {
+    travis::travis_enable()
     check_travis_pkg()
-    check_usethis_pkg()
+    travis::use_travis_deploy()
+  } else if (deploy == 3) {
+    travis::travis_enable()
+    check_travis_pkg()
+
+    check_circle_pkg()
+
+    circle::use_circle_deploy()
+    travis::use_travis_deploy()
+  }
+
+  # create YAMLS ---------------------------------------------------------------
+
+  cli_h1("Creating YAML files.")
+
+  cli_text("Next, we are creating the YAML files based on your selected preferences.")
+
+  # Travis ---------------------------------------------------------------------
+
+  if (linux == 2 || linux == 4) {
+    # deployment
+    if (deploy == 2 || deploy == 4) {
+      # build matrix
+      if (matrix == 2 || matrix == 5) {
+        use_travis_yml("linux-deploy-matrix")
+      } else {
+        use_travis_yml("linux-deploy")
+      }
+    } else {
+      # build matrix
+      if (matrix == 2 || matrix == 5) {
+        use_travis_yml("linux=matrix")
+      } else {
+        use_travis_yml("linux")
+      }
+    }
+  } else if (mac == 1) {
+    if (deploy == 2 || deploy == 4) {
+      # build matrix
+      if (matrix == 2 || matrix == 5) {
+       use_travis_yml("macos-deploy-matrix")
+      } else {
+        use_travis_yml("macos-deploy")
+      }
+    } else {
+      # build matrix
+      if (matrix == 2 || matrix == 5) {
+        use_travis_yml("macos-matrix")
+      } else {
+        use_travis_yml("macos")
+      }
+    }
+  }
+
+ # Circle ----------------------------------------------------------------------
+
+
+
+
+
+
+    if (matrix)
+
+  } else if (deploy == 2) {
+    travis::travis_enable()
+    check_travis_pkg()
+    travis::use_travis_deploy()
+  } else if (deploy == 3) {
+    travis::travis_enable()
+    check_travis_pkg()
+
+    check_circle_pkg()
+
+    circle::use_circle_deploy()
+    travis::use_travis_deploy()
+  }
+
+
+
+
+
+  # build and deploy on Travis
+  if (linux == 2 && deploy == 2) {
 
   #' @details
   #' The project path is retrieved with [usethis::proj_get()].
@@ -78,6 +171,7 @@ use_tic <- function(quiet = FALSE) {
   use_travis_yml()
 
 
+  # FIXME> We should offer templates for building on one R version and on devel/release/oldrel
 
 
 
