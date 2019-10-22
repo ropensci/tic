@@ -4,7 +4,7 @@
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:
-  - R -q -e 'if (!requireNamespace("remotes")) install.packages("remotes")'
+  - R -q -e 'if (!requireNamespace("remotes") || "remotes" %in% old.packages()) install.packages("remotes")'
   - R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
   # The following line is different from the template:
   # we need to install tic from our local source!
