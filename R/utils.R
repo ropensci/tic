@@ -94,3 +94,69 @@ check_openssl_pkg = function() {
     'please install using install.packages("openssl").'
   )
 }
+
+detect_repo_type <- function() {
+  if (file.exists("_bookdown.yml")) {
+    return("bookdown")
+  }
+  if (file.exists("_site.yml")) {
+    return("site")
+  }
+  if (file.exists("config.toml")) {
+    return("blogdown")
+  }
+  if (file.exists("DESCRIPTION")) {
+    return("package")
+  }
+
+  if (!interactive()) {
+    return("unknown")
+  }
+
+  cli::cat_bullet(
+    "Unable to guess the repo type. ",
+    "Please choose the desired one from the menu.",
+    bullet = "warning"
+  )
+
+  choices <- c(
+    blogdown = "Blogdown", bookdown = "Bookdown",
+    package = "Package", website = "Website",
+    unknown = "Other"
+  )
+  chosen <- utils::menu(choices)
+  if (chosen == 0) {
+    stopc("Aborted.")
+  } else {
+    names(choices)[[chosen]]
+  }
+}
+
+use_github_interactive <- function() {
+  if (!interactive()) {
+    return()
+  }
+  if (travis::uses_github()) {
+    return()
+  }
+
+  if (!yesno("Create GitHub repo and push code?")) {
+    return()
+  }
+
+  message("Creating GitHub repository")
+  usethis::use_github()
+}
+
+get_install_tic_code <- function() {
+  if (getNamespaceVersion("tic") >= "1.0") {
+    # We are on CRAN!
+    "remotes::install_cran('tic', upgrade = 'always')"
+  } else {
+    "remotes::install_github('ropenscilabs/tic', upgrade = 'always')"
+  }
+}
+
+double_quotes <- function(x) {
+  gsub("'", '"', x, fixed = TRUE)
+}
