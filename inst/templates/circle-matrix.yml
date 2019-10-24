@@ -1,3 +1,5 @@
+# tic documentation to get started: https://ropenscilabs.github.io/tic/
+
 version: 2
 jobs:
   "r-3.6.1":
@@ -10,7 +12,7 @@ jobs:
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
       - run: echo "$(date -d "$D" '+%d')3.6.1" > /tmp/_tmp_file
       - restore_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          key: R-package-library-checksum "/tmp/_tmp_file"
 
       # install deps and check pkg ---------------------------------------------
       - run:
@@ -33,7 +35,7 @@ jobs:
 
       # save R pkg cache -------------------------------------------------------
       - save_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          key: R-package-library-checksum "/tmp/_tmp_file"
           paths:
             - /usr/local/lib/R/site-library
 
@@ -47,7 +49,7 @@ jobs:
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
       - run: echo "$(date -d "$D" '+%d')3.5.3" > /tmp/_tmp_file
       - restore_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          key: R-package-library-checksum "/tmp/_tmp_file"
 
       # install deps and check pkg ---------------------------------------------
       - run:
@@ -70,7 +72,7 @@ jobs:
 
       # save R pkg cache -------------------------------------------------------
       - save_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          key: R-package-library-checksum "/tmp/_tmp_file"
           paths:
             - /usr/local/lib/R/site-library
 

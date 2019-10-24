@@ -1,7 +1,5 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 # Default configuration for use with tic package
 # tic documentation to get started: https://ropenscilabs.github.io/tic/
-# Usually you shouldn't need to change the first part of the file
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:
@@ -25,18 +23,13 @@ after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
 # DO NOT CHANGE THE CODE ABOVE
 
-# Custom parts:
-
-# Header
 language: r
-sudo: false
 dist: bionic
 cache:
   - packages
   - $HOME/.ccache
 latex: false
 
-#env
 env:
   global:
   - MAKEFLAGS="-j 2"
@@ -48,6 +41,3 @@ matrix:
   - r: devel
   - r: oldrel
   - r: release
-
-#services
-services:

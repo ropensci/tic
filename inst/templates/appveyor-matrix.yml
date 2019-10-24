@@ -22,7 +22,13 @@ before_test: Rscript -e "tic::before_script()"
 test_script: Rscript -e "tic::script()"
 on_success: Rscript -e "try(tic::after_success(), silent = TRUE)"
 on_failure: Rscript -e "tic::after_failure()"
-before_deploy: Rscript -e "tic::before_deploy()"
-deploy_script: Rscript -e "tic::deploy()"
-after_deploy: Rscript -e "tic::after_deploy()"
 on_finish: Rscript -e "tic::after_script()"
+
+# no testing on R-devel because no package binaries are available
+environment:
+  matrix:
+    - R_VERSION: release
+    - R_VERSION: oldrel
+
+matrix:
+  fast_finish: true
