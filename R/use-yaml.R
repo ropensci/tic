@@ -1,20 +1,41 @@
+#' @title Use CI YAML templates
+#' @description Installs YAML templates for various CI providers.
+#'
+#' @param type `[character]`\cr
+#'   Which template to use. The string should be given following the logic
+#'   `<provider>-<platform>-<action>`. See details for more.
+#'
+#' @section Type:
+#' `tic` supports a variety of different YAML templates which follow the
+#'  `<provider>-<platform>-<action>` pattern. The first one is mandatory, the
+#'  others are optional.
+#'
+#'  * Possible values for `<provider>` are `travis`, and `circle`
+#'  * Possible values for `<platform>` are `linux`, and `macos`, `windows`.
+#'  * Possible values for `<action>` are `matrix` and `deploy`.
+#'
+#'  Not every combinations is supported on all CI systems.
+#'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix` are valid.
+#'
+#' @name yaml-templates
+#' @export
 use_travis_yml <- function(type) {
   if (type == "linux") {
-    template = "dot-travis-linux.yml"
+    template = "travis-linux.yml"
   } else if (type == "linux-matrix") {
-    template = "dot-travis-linux-matrix.yml"
+    template = "travis-linux-matrix.yml"
   } else if (type == "linux-deploy") {
-    template = "dot-travis-linux-deploy.yml"
+    template = "travis-linux-deploy.yml"
   } else if (type == "linux-deploy-matrix") {
-    template = "dot-travis-linux-deploy-matrix.yml"
+    template = "travis-linux-deploy-matrix.yml"
   } else if (type == "macos") {
-    template = "dot-travis-macos.yml"
+    template = "travis-macos.yml"
   } else if (type == "macos-matrix") {
-    template = "dot-travis-macos-matrix.yml"
+    template = "travis-macos-matrix.yml"
   } else if (type == "macos-deploy") {
-    template = "dot-travis-macos-deploy.yml"
+    template = "travis-macos-deploy.yml"
   } else if (type == "macos-deploy-matrix") {
-    template = "dot-travis-macos-deploy-matrix.yml"
+    template = "travis-macos-deploy-matrix.yml"
   }
   use_tic_template(
     template,
@@ -23,6 +44,8 @@ use_travis_yml <- function(type) {
   )
 }
 
+#' @rdname yaml-templates
+#' @export
 use_appveyor_yml <- function(type) {
   if (type == "windows") {
     template = "appveyor.yml"
@@ -36,6 +59,8 @@ use_appveyor_yml <- function(type) {
   )
 }
 
+#' @rdname yaml-templates
+#' @export
 use_circle_yml <- function(type) {
   if (type == "linux") {
     template = "circle.yml"
