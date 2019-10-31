@@ -71,7 +71,7 @@ use_circle_yml <- function(type) {
   } else if (type == "linux-deploy-matrix") {
     template = "circle-deploy-matrix.yml"
   }
-  dir.create(".circleci")
+  dir.create(".circleci", showWarnings = FALSE)
   use_tic_template(
     template,
     save_as = ".circleci/config.yml",
