@@ -37,7 +37,7 @@ use_tic <- function(quiet = FALSE) {
   cli_end()
 
   if (yesno("Ready to get started?")) {
-    return(invisible())
+    return(invisible(NULL))
   }
 
   cli_h1("Choosing your setup.")
@@ -64,28 +64,27 @@ use_tic <- function(quiet = FALSE) {
   cli_par()
   cli_end()
 
-  browser()
   # init deploy ----------------------------------------------------------------
 
   if (deploy == 1) {
-    cat(boxx("Circle CI", border_style = "double"))
+    rule(left = "Circle CI")
     check_circle_pkg()
-    circle::enable_project()
+    circle::enable_repo()
     circle::use_circle_deploy()
   } else if (deploy == 2) {
-    cat(boxx("Travis CI", border_style = "double"))
+    rule(left = "Travis CI")
     travis::travis_enable()
     check_travis_pkg()
     travis::use_travis_deploy()
   } else if (deploy == 3) {
-    cat(boxx("Travis CI", border_style = "double"))
+    rule(left = "Travis CI")
     check_travis_pkg()
     travis::travis_enable()
     travis::use_travis_deploy()
 
-    boxx("Circle CI", border_style = "double")
+    rule(left = "Circle CI")
     check_circle_pkg()
-    circle::enable_project()
+    circle::enable_repo()
     circle::use_circle_deploy()
   }
 
@@ -96,6 +95,8 @@ use_tic <- function(quiet = FALSE) {
   cli_h1("Creating YAML files...")
 
   # Travis ---------------------------------------------------------------------
+
+  rule(left = "Travis CI")
 
   if (linux == 2 || linux == 4) {
     # deployment
@@ -134,6 +135,9 @@ use_tic <- function(quiet = FALSE) {
 
   # Circle ----------------------------------------------------------------------
 
+  Sys.sleep(3)
+  rule(left = "Circle CI")
+
   if (linux == 1 || linux == 4) {
     # deployment
     if (deploy == 1 || deploy == 4) {
@@ -155,6 +159,9 @@ use_tic <- function(quiet = FALSE) {
 
   # Appveyor -------------------------------------------------------------------
 
+  Sys.sleep(3)
+  rule(left = "Appveyor CI")
+
   if (windows == 1) {
     if (matrix == 3 || matrix == 5) {
       use_appveyor_yml("windows-matrix")
@@ -165,12 +172,40 @@ use_tic <- function(quiet = FALSE) {
 
   # tic.R ----------------------------------------------------------------------
 
+  Sys.sleep(3)
+  rule(left = "tic")
+
   use_tic_r(repo_type = detect_repo_type())
+
+  rule("Finished")
+  cat_bullet(
+    "Done! Thanks for using ", crayon::blue("tic"), ".",
+    bullet = "star", bullet_col = "yellow"
+  )
+
+  cat_bullet(
+    "Below is the file structure of the newly added files (in case you selected all providers):",
+    bullet = "arrow_down", bullet_col = "blue"
+  )
+
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(basename(getwd()), ".circleci", "appveyor.yml", ".travis.yml", "config.yml", "tic.R"),
+    dependencies = I(list(
+      c(".circleci", "appveyor.yml", ".travis.yml", "tic.R"),
+      "config.yml",
+      character(0),
+      character(0),
+      character(0),
+      character(0)
+    ))
+  )
+  tree(data, root = basename(getwd()))
 
 }
 
 use_tic_r <- function(repo_type) {
-  use_tic_template(file.path(repo_type, "tic.R"), "tic.R", open = TRUE)
+  use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
 }
 
 # This code can only run interactively
