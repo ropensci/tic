@@ -219,7 +219,6 @@ You may find inspiration for your own project there.
 - [sf](https://github.com/r-spatial/sf)
 - [dbi](https://github.com/r-dbi/DBI)
 
-
 # Advanced
 
 The advanced usage of *tic* is described in more detail in the ["Advanced Usage" article](advanced.html):
