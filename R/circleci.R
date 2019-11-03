@@ -27,6 +27,7 @@ CircleCI <- R6Class(
       Sys.getenv("TRAVIS_COMMIT")
     },
     can_push = function(name) {
+      if (!requireNamespace("circle")) remotes::install_github("pat-s/circle")
       circle::has_checkout_key()
     },
     get_env = function(env) {
