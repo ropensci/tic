@@ -27,8 +27,10 @@ CircleCI <- R6Class(
       Sys.getenv("TRAVIS_COMMIT")
     },
     can_push = function(name) {
-      if (!requireNamespace("circle")) remotes::install_github("pat-s/circle")
-      circle::has_checkout_key()
+      # FIXME: Currently there is no way to check for the 'github-user-key' on
+      # Circle CI in an easy way (we always need the API key).
+      # Proceed anwyway and error during git push in `step_do_push_deploy()`.
+      TRUE
     },
     get_env = function(env) {
       Sys.getenv(env)
