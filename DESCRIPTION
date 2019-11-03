@@ -54,6 +54,7 @@ Suggests:
     base64enc,
     bookdown,
     callr,
+    circle,
     covr,
     devtools,
     drat,
@@ -69,7 +70,8 @@ Suggests:
 VignetteBuilder:
   knitr
 Remotes: 
-    ropenscilabs/travis
+    ropenscilabs/travis,
+    pat-s/circle
 ByteCompile: No
 Encoding: UTF-8
 LazyData: TRUE
