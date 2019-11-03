@@ -29,7 +29,7 @@ CircleCI <- R6Class(
     can_push = function(name) {
       # FIXME: Currently there is no way to check for the 'github-user-key' on
       # Circle CI in an easy way (we always need the API key).
-      # Proceed anwyway and error during git push in `step_do_push_deploy()`.
+      # Proceed anyway and error during git push in `step_do_push_deploy()`.
       TRUE
     },
     get_env = function(env) {

@@ -67,12 +67,21 @@ do_pkgdown <- function(...,
 
   if (isTRUE(deploy)) {
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
-    #'    the upcoming deployment (if `deploy` is set),
+    #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
     #'    (if `deploy` is set),
+    if (ci_on_travis()) {
+      get_stage("before_deploy") %>%
+        add_step(step_setup_ssh()) %>%
+        add_step(step_setup_push_deploy(
+          path = !!enquo(path),
+          branch = !!enquo(branch),
+          remote_url = !!enquo(remote_url),
+          orphan = !!enquo(orphan),
+          checkout = !!enquo(checkout)
+        ))
+    } else {
     get_stage("before_deploy") %>%
-      # step_setup_ssh only needed on Travis CI
-      { ifelse(ci_on_travis() , add_step(step_setup_ssh()), . ) } %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),
@@ -80,6 +89,7 @@ do_pkgdown <- function(...,
         orphan = !!enquo(orphan),
         checkout = !!enquo(checkout)
       ))
+    }
   }
 
   #' 1. [step_build_pkgdown()] in the `"deploy"` stage,
