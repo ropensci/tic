@@ -26,8 +26,8 @@ CircleCI <- R6Class(
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
     },
-    can_push = function(name = "id_rsa") {
-      self$has_env(name)
+    can_push = function() {
+      circle::has_checkout_key()
     },
     get_env = function(env) {
       Sys.getenv(env)
