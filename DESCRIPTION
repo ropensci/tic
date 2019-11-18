@@ -48,7 +48,7 @@ Imports:
     methods,
     R6,
     remotes,
-    rlang,
+    rlang (>= 0.4.1.9000),
     withr
 Suggests: 
     base64enc,
@@ -68,8 +68,9 @@ Suggests:
     travis (>= 0.2.11.9001),
     usethis
 VignetteBuilder:
-  knitr
+    knitr
 Remotes: 
+    r-lib/rlang,
     ropenscilabs/travis,
     pat-s/circle
 ByteCompile: No
