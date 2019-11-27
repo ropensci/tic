@@ -34,6 +34,9 @@ RunCode <- R6Class(
 
     install_call_dep = function(call) {
       pkg_name <- unique(get_deps_from_code(call))
+      base_packages <- rownames(utils::installed.packages(priority = "base"))
+      pkg_name <- setdiff(pkg_name, base_packages)
+
       verify_install(pkg_name)
     }
   )

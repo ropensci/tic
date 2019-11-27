@@ -26,8 +26,11 @@ CircleCI <- R6Class(
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
     },
-    can_push = function(name = "id_rsa") {
-      self$has_env(name)
+    can_push = function(name) {
+      # FIXME: Currently there is no way to check for the 'github-user-key' on
+      # Circle CI in an easy way (we always need the API key).
+      # Proceed anyway and error during git push in `step_do_push_deploy()`.
+      TRUE
     },
     get_env = function(env) {
       Sys.getenv(env)
