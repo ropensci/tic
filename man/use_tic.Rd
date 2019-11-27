@@ -7,39 +7,18 @@
 use_tic(quiet = FALSE)
 }
 \arguments{
-\item{quiet}{\code{[flag]}\cr
-Less verbose output? Default: \code{FALSE}.}
+\item{quiet}{\code{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
 \description{
-Prepares a repo for building and deploying supported by \pkg{tic}.
+Prepares a repo for building and deploying supported by
+\pkg{tic}.
 }
 \details{
-This function requires the \pkg{travis} and \pkg{usethis} packages.
-
-The project path is retrieved with \code{\link[usethis:proj_get]{usethis::proj_get()}}.
-
-The preparation consists of the following steps:
 \enumerate{
-\item If necessary, create a GitHub repository via \code{\link[usethis:use_github]{usethis::use_github()}}
-\item Enable Travis via \code{\link[travis:travis_enable]{travis::travis_enable()}}
-\item Create a default \code{.travis.yml} file
-(overwrite after confirmation in interactive mode only)
-\item Create a default \code{appveyor.yml} file
-(depending on repo type, overwrite after confirmation
-in interactive mode only)
-\item Create a default \code{.circleci/config.yml} file
-(depending on repo type, overwrite after confirmation
-in interactive mode only)
+\item Query information which CI providers should be used
+\item Setup permissions for providers selected for deployment
+\item Create YAML files for selected providers
 \item Create a default \code{tic.R} file depending on the repo type
 (package, website, bookdown, ...)
-\item Enable deployment (if necessary, depending on repo type)
-via \code{\link[=use_travis_deploy]{use_travis_deploy()}}
-\item Create a GitHub PAT and install it on Travis CI
-via \code{\link[travis:travis_set_pat]{travis::travis_set_pat()}}
 }
-
-This function is aimed at supporting the most common use cases.
-Users who require more control are advised to review
-the source code of \code{use_tic()}
-and manually call the individual functions, some of which aren't exported.
 }

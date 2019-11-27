@@ -1,17 +1,20 @@
 # tic
 
-[![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
-[![Build status](https://ci.appveyor.com/api/projects/status/r8w1psd0f5r4hs6t/branch/master?svg=true)](https://ci.appveyor.com/project/ropensci/tic/branch/master)
-[![CircleCI](https://circleci.com/gh/ropenscilabs/tic.svg?style=svg)](https://circleci.com/gh/ropenscilabs/tic)
+<!-- badges: start -->
+[![Travis build status](https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic)
+[![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic)
+[![CircleCI](https://img.shields.io/circleci/build/gh/ropenscilabs/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropenscilabs/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![codecov](https://codecov.io/gh/ropenscilabs/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/tic)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
+<!-- badges: end -->
 
 The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
 
 The following ones are supported: 
 
-- [Travis CI](https://travis-ci.org) (Linux)
+- [Travis CI](https://travis-ci.org) (Linux, macOS)
 - [AppVeyor](https://www.appveyor.com/) (Windows)
 - [Circle CI](https://circleci.com/) (Linux)
 
@@ -39,7 +42,7 @@ remotes::install_github("ropenscilabs/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.org and https://appveyor.com.
+The created templates will use the providers https://travis-ci.org, https://appveyor.com and https://circleci.com.
 For an R package, the following steps will be set up for the CI workflow:
 
 - Installation of required dependencies for the project

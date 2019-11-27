@@ -16,8 +16,7 @@ The private environment variable on Travis CI to write the private key to,
 default: \code{"id_rsa"}.  Use this value as \code{name} argument to
 \code{\link[=step_setup_ssh]{step_setup_ssh()}} or \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}}.}
 
-\item{quiet}{\code{[flag]}\cr
-Less verbose output? Default: \code{FALSE}.}
+\item{quiet}{\code{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
 \description{
 Creates a public-private key pair,

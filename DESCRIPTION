@@ -32,8 +32,7 @@ Description: Provides a way to describe common build and
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or
-    'AppVeyor').
+    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
@@ -70,9 +69,9 @@ Suggests:
 VignetteBuilder:
     knitr
 Remotes: 
+    pat-s/circle,
     r-lib/rlang,
-    ropenscilabs/travis,
-    pat-s/circle
+    ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
 LazyData: TRUE
@@ -110,5 +109,6 @@ Collate:
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
+    'use-yaml.R'
     'use_tic.R'
     'utils.R'
