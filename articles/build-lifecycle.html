@@ -127,20 +127,19 @@
 <a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:before_install()'</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">after_install:</span><span class="at"> R -q -e 'tic::after_install()'</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
 <p>In a nutshell, the workflow is as follows:</p>
 <p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands/steps to execute</p>
 <p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. The workflow can be loaded using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>, this will not run any of the commands defined there. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>. This latter emulates a CI build on your local system. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more information.</p>

@@ -18,8 +18,7 @@
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  Travis CI or
-    AppVeyor).">
+    used for processing the workflow (e.g.  Travis CI or AppVeyor).">
 <meta name="twitter:card" content="summary">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
   window.dataLayer = window.dataLayer || [];
@@ -111,12 +110,13 @@
 <div id="tic" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tic" class="anchor"></a>tic</h1></div>
+<!-- badges: start -->
 
 <p>The goal of tic is to enhance and simplify working with continuous integration (CI) systems.</p>
 <p>The following ones are supported:</p>
 <ul>
 <li>
-<a href="https://travis-ci.org">Travis CI</a> (Linux)</li>
+<a href="https://travis-ci.org">Travis CI</a> (Linux, macOS)</li>
 <li>
 <a href="https://www.appveyor.com/">AppVeyor</a> (Windows)</li>
 <li>
@@ -140,7 +140,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://appveyor.com" class="uri">https://appveyor.com</a>. For an R package, the following steps will be set up for the CI workflow:</p>
+<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a>, <a href="https://appveyor.com" class="uri">https://appveyor.com</a> and <a href="https://circleci.com" class="uri">https://circleci.com</a>. For an R package, the following steps will be set up for the CI workflow:</p>
 <ul>
 <li>Installation of required dependencies for the project</li>
 <li>Satisfying build-time dependencies of steps to be run in all CI stages</li>
@@ -255,11 +255,12 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/ropenscilabs/tic"><img src="https://travis-ci.org/ropenscilabs/tic.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/ropensci/tic/branch/master"><img src="https://ci.appveyor.com/api/projects/status/r8w1psd0f5r4hs6t/branch/master?svg=true" alt="Build status"></a></li>
-<li><a href="https://circleci.com/gh/ropenscilabs/tic"><img src="https://circleci.com/gh/ropenscilabs/tic.svg?style=svg" alt="CircleCI"></a></li>
+<li><a href="https://travis-ci.org/ropenscilabs/tic"><img src="https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&amp;style=flat-square&amp;label=Linux" alt="Travis build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/ropensci/tic"><img src="https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&amp;logo=appveyor&amp;style=flat-square" alt="AppVeyor build status"></a></li>
+<li><a href="https://circleci.com/gh/ropenscilabs/tic"><img src="https://img.shields.io/circleci/build/gh/ropenscilabs/tic/master?label=Linux&amp;logo=circle&amp;logoColor=green&amp;style=flat-square" alt="CircleCI"></a></li>
 <li><a href="https://cran.r-project.org/package=tic"><img src="https://www.r-pkg.org/badges/version/tic" alt="CRAN status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
+<li><a href="https://codecov.io/gh/ropenscilabs/tic"><img src="https://codecov.io/gh/ropenscilabs/tic/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://github.com/ropensci/software-review/issues/305"><img src="https://badges.ropensci.org/305_status.svg"></a></li>
 </ul>
 </div>

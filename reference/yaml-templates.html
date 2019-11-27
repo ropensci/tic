@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set up deployment for Travis CI — use_travis_deploy • tic</title>
+<title>Use CI YAML templates — yaml-templates • tic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -36,13 +36,8 @@
 <!-- ropensci -->
 <link href="../ropensci.css" rel="stylesheet">
 
-<meta property="og:title" content="Set up deployment for Travis CI — use_travis_deploy" />
-<meta property="og:description" content="Creates a public-private key pair,
-adds the public key to the GitHub repository via travis::github_add_key(),
-and stores the private key as an encrypted environment variable in Travis CI
-via travis::travis_set_var(), possibly in a different repository.
-See step_setup_ssh() or step_install_ssh_keys()
-for installing such a key during a Travis CI build." />
+<meta property="og:title" content="Use CI YAML templates — yaml-templates" />
+<meta property="og:description" content="Installs YAML templates for various CI providers." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -143,50 +138,53 @@ for installing such a key during a Travis CI build." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set up deployment for Travis CI</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/setup.R'><code>R/setup.R</code></a></small>
-    <div class="hidden name"><code>use_travis_deploy.Rd</code></div>
+    <h1>Use CI YAML templates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/use-yaml.R'><code>R/use-yaml.R</code></a></small>
+    <div class="hidden name"><code>yaml-templates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates a public-private key pair,
-adds the public key to the GitHub repository via <code><a href='https://rdrr.io/pkg/travis/man/github_add_key.html'>travis::github_add_key()</a></code>,
-and stores the private key as an encrypted environment variable in Travis CI
-via <code><a href='https://rdrr.io/pkg/travis/man/travis_get_vars.html'>travis::travis_set_var()</a></code>, possibly in a different repository.
-See <code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> or <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys()</a></code>
-for installing such a key during a Travis CI build.</p>
+    <p>Installs YAML templates for various CI providers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_travis_deploy</span>(<span class='kw'>travis_repo</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='no'>type</span>)
+
+<span class='fu'>use_appveyor_yml</span>(<span class='no'>type</span>)
+
+<span class='fu'>use_circle_yml</span>(<span class='no'>type</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>travis_repo</th>
-      <td><p><code>[string]</code><br />
-The Travis CI repository to add the private key to, default:
-the GitHub repo to which the public deploy key is added.</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p><code>[string]</code><br />
-The private environment variable on Travis CI to write the private key to,
-default: <code>"id_rsa"</code>.  Use this value as <code>name</code> argument to
-<code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> or <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p><code>[flag]</code><br /> Less verbose output? Default: <code>FALSE</code>.</p></td>
+      <th>type</th>
+      <td><p><code>[character]</code><br />
+Which template to use. The string should be given following the logic
+<code>&lt;provider&gt;-&lt;platform&gt;-&lt;action&gt;</code>. See details for more.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="type"><a class="anchor" href="#type"></a>Type</h2>
+
+    
+
+<p><code>tic</code> supports a variety of different YAML templates which follow the
+<code>&lt;provider&gt;-&lt;platform&gt;-&lt;action&gt;</code> pattern. The first one is mandatory, the
+others are optional.</p><ul>
+<li><p>Possible values for <code>&lt;provider&gt;</code> are <code>travis</code>, and <code>circle</code></p></li>
+<li><p>Possible values for <code>&lt;platform&gt;</code> are <code>linux</code>, and <code>macos</code>, <code>windows</code>.</p></li>
+<li><p>Possible values for <code>&lt;action&gt;</code> are <code>matrix</code> and <code>deploy</code>.</p></li>
+</ul>
+
+<p>Not every combinations is supported on all CI systems.
+For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and <code>windows-matrix</code> are valid.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#type">Type</a></li>
     </ul>
 
   </div>
