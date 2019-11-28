@@ -70,7 +70,6 @@ VignetteBuilder:
     knitr
 Remotes: 
     pat-s/circle,
-    r-lib/rlang,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
