@@ -124,9 +124,9 @@
 </ul>
 <p>See the <a href="features.html">“Features” article</a> for a comparison with other solutions for Continuous Integration for R.</p>
 </div>
-<div id="initialization" class="section level1">
+<div id="initializationsetup" class="section level1">
 <h1 class="hasAnchor">
-<a href="#initialization" class="anchor"></a>Initialization</h1>
+<a href="#initializationsetup" class="anchor"></a>Initialization/Setup</h1>
 <p>The easiest way to use <em>tic</em> for CI services is to call <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>. This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by <em>tic</em>.</p>
 <p>Several yes/no questions need to be answered. Based on the replies we’ll select specific templates.</p>
 <p>Besides the question which CI system you want to use, you’ll be asked if you want to</p>
@@ -195,9 +195,9 @@
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
 <p>The deployment setup functionality comes from the <em>travis</em> and <em>circle</em> packages. See the <a href="tic-travis.html">“tic &amp; travis” article</a> for more detailed information on how <em>tic</em> and <em>travis</em> work together.</p>
 </div>
-<div id="explanation-of-the-basic-template" class="section level1">
+<div id="explanation-of-the-basic-tic-r-template" class="section level1">
 <h1 class="hasAnchor">
-<a href="#explanation-of-the-basic-template" class="anchor"></a>Explanation of the basic template</h1>
+<a href="#explanation-of-the-basic-tic-r-template" class="anchor"></a>Explanation of the basic <code>tic.R</code> template</h1>
 <p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find a <code>.travis.yml</code>, <code>.circleci/config.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo. Usually you do not need to touch the YAML files anymore. All build customization are done in <code>tic.R</code> and apply to all providers. For more information about the whole build lifecycle, check the <a href="build-lifecycle.html">“Build lifecycle” article</a>.</p>
 <p>The basic <code>tic.R</code> template looks as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a>
@@ -205,15 +205,23 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">}</a></code></pre></div>
-<p>Let’s break down what happens here:</p>
+<div id="macros" class="section level2">
+<h2 class="hasAnchor">
+<a href="#macros" class="anchor"></a>Macros</h2>
+<p><em>tic</em> builds on the “macro” idea. Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:</p>
+<ul>
+<li>Checking a package (R CMD check)</li>
+<li>Building and deploying a pkgdown site</li>
+<li>Build and deploy a bookdown project</li>
+</ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
-<p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> Is a macro which adds essential steps to various stages of a CI run. Essentially, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of a R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>.</p>
+<p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># </span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># </span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
-<p>The other macro in the default template is <code>do_pkdown()</code>.</p>
+<p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">}</a></code></pre></div>
@@ -227,12 +235,12 @@
 # step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
 # 
 # step_do_push_deploy() in the "deploy" stage.</code></pre>
-<p>In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed.</p>
-<p>This happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> evaluates to <code>TRUE</code> only on that platform. This is also the default in the <a href="https://github.com/ropenscilabs/tic/blob/e7649fc32cd5071f62289974af7f38bd36f90cd3/inst/templates/package/tic.R">template</a> for packages. Building the pkgdown site on multiple CI services might cause problems and increases build time for no reason.</p>
+<p>By default this currently happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
 </div>
-<div id="examples-projects" class="section level1">
+</div>
+<div id="example-projects" class="section level1">
 <h1 class="hasAnchor">
-<a href="#examples-projects" class="anchor"></a>Examples projects</h1>
+<a href="#example-projects" class="anchor"></a>Example projects</h1>
 <p><em>tic</em> can be used for various R projects:</p>
 <ul>
 <li>
@@ -256,18 +264,22 @@
 <li>
 <a href="https://github.com/ropenscilabs/tic.covrpage">tic.covrpage</a>: Unit test summary report.</li>
 </ul>
+<div id="blogdown" class="section level3">
+<h3 class="hasAnchor">
+<a href="#blogdown" class="anchor"></a>Blogdown</h3>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>())</a></code></pre></div>
-<p>Then the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
+<p>Next the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <em>tic</em> is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
-<div id="tic-based-r-projects-from-the-community" class="section level2">
+</div>
+<div id="tic-projects-from-the-community" class="section level2">
 <h2 class="hasAnchor">
-<a href="#tic-based-r-projects-from-the-community" class="anchor"></a><em>tic</em> based R projects from the community</h2>
+<a href="#tic-projects-from-the-community" class="anchor"></a><em>tic</em> projects from the community</h2>
 <p>The templates we provide with <em>tic</em> are minimal working examples. In the following we list various R projects with non-standard/tailored <em>tic</em>-based workflows. You may find inspiration for your own project there. (Please contact us if you want to add yours to the list!)</p>
 <ul>
 <li><a href="https://github.com/mlr-org/mlr">mlr</a></li>
@@ -297,11 +309,15 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#initialization">Initialization</a></li>
-      <li><a href="#explanation-of-the-basic-template">Explanation of the basic template</a></li>
+      <li><a href="#initializationsetup">Initialization/Setup</a></li>
       <li>
-<a href="#examples-projects">Examples projects</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#tic-based-r-projects-from-the-community"><em>tic</em> based R projects from the community</a></li>
+<a href="#explanation-of-the-basic-tic-r-template">Explanation of the basic <code>tic.R</code> template</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#macros">Macros</a></li>
+      </ul>
+</li>
+      <li>
+<a href="#example-projects">Example projects</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#tic-projects-from-the-community"><em>tic</em> projects from the community</a></li>
       </ul>
 </li>
       <li><a href="#advanced">Advanced</a></li>
