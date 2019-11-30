@@ -7,20 +7,21 @@
 step_build_pkgdown(...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{pkgdown::build_site}
-\describe{
-  \item{pkg}{Path to package.}
-  \item{examples}{Run examples?}
-  \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
-  \item{seed}{Seed used to initialize so that random examples are
+\item{...}{
+  Arguments passed on to \code{\link[pkgdown:build_site]{pkgdown::build_site}}
+  \describe{
+    \item{\code{pkg}}{Path to package.}
+    \item{\code{examples}}{Run examples?}
+    \item{\code{run_dont_run}}{Run examples that are surrounded in \\dontrun?}
+    \item{\code{seed}}{Seed used to initialize so that random examples are
 reproducible.}
-  \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
+    \item{\code{lazy}}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
-  \item{override}{An optional named list used to temporarily override
+    \item{\code{override}}{An optional named list used to temporarily override
 values in \code{_pkgdown.yml}}
-  \item{preview}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
+    \item{\code{preview}}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
-  \item{devel}{Use development or deployment process?
+    \item{\code{devel}}{Use development or deployment process?
 
 If \code{TRUE}, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
@@ -33,13 +34,13 @@ and will run all examples and vignettes in a new process.
 outputs when you building the complete site; \code{build_reference()},
 \code{build_home()} and friends default to \code{devel = TRUE} so that you can
 rapidly iterate during development.}
-  \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
+    \item{\code{new_process}}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
-  \item{install}{If \code{TRUE}, will install the package in a temporary library
+    \item{\code{install}}{If \code{TRUE}, will install the package in a temporary library
 so it is available for vignettes.}
-  \item{document}{\strong{Deprecated} Use \code{devel} instead.}
-}}
+    \item{\code{document}}{\strong{Deprecated} Use \code{devel} instead.}
+  }}
 }
 \description{
 Builds package documentation with the \pkg{pkgdown} package.
@@ -54,17 +55,18 @@ get_stage("script") \%>\%
 dsl_get()
 }
 \seealso{
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_pkg}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_hello_world}()},
+\code{\link{step_install_pkg}},
+\code{\link{step_install_ssh_keys}()},
+\code{\link{step_push_deploy}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_push_deploy}()},
+\code{\link{step_setup_ssh}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{steps}

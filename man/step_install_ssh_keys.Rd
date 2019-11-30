@@ -7,12 +7,12 @@
 step_install_ssh_keys(name = "id_rsa")
 }
 \arguments{
-\item{name}{\code{[string]}\cr
+\item{name}{\verb{[string]}\cr
 Name of the environment variable and the target file, default: \code{"id_rsa"}.}
 }
 \description{
 Writes a private SSH key encoded in an environment variable
-to a file in \code{~/.ssh}.
+to a file in \verb{~/.ssh}.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
 The \code{\link[=use_travis_deploy]{use_travis_deploy()}} and \code{\link[=use_tic]{use_tic()}} functions encode a private key
@@ -29,17 +29,18 @@ dsl_get()
 \seealso{
 \code{\link[=use_travis_deploy]{use_travis_deploy()}}, \code{\link[=use_tic]{use_tic()}}
 
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_pkg}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_build_pkgdown}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_hello_world}()},
+\code{\link{step_install_pkg}},
+\code{\link{step_push_deploy}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_push_deploy}()},
+\code{\link{step_setup_ssh}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{steps}

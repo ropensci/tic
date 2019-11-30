@@ -14,9 +14,9 @@ use_appveyor_yml(type)
 use_circle_yml(type)
 }
 \arguments{
-\item{type}{\code{[character]}\cr
+\item{type}{\verb{[character]}\cr
 Which template to use. The string should be given following the logic
-\code{<provider>-<platform>-<action>}. See details for more.}
+\verb{<platform>-<action>}. See details for more.}
 }
 \description{
 Installs YAML templates for various CI providers.
@@ -24,15 +24,36 @@ Installs YAML templates for various CI providers.
 \section{Type}{
 
 \code{tic} supports a variety of different YAML templates which follow the
-\code{<provider>-<platform>-<action>} pattern. The first one is mandatory, the
+\verb{<platform>-<action>} pattern. The first one is mandatory, the
 others are optional.
 \itemize{
-\item Possible values for \code{<provider>} are \code{travis}, and \code{circle}
-\item Possible values for \code{<platform>} are \code{linux}, and \code{macos}, \code{windows}.
-\item Possible values for \code{<action>} are \code{matrix} and \code{deploy}.
+\item Possible values for \verb{<provider>} are \code{travis}, and \code{circle}
+\item Possible values for \verb{<platform>} are \code{linux}, and \code{macos}, \code{windows}.
+\item Possible values for \verb{<action>} are \code{matrix} and \code{deploy}.
 }
 
 Not every combinations is supported on all CI systems.
 For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix} are valid.
+
+Here is a list of all available combinations:\tabular{lllll}{
+   Provider \tab Operating system \tab Deployment \tab multiple R versions \tab Call \cr
+   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------------- \cr
+   Travis \tab Linux \tab no \tab no \tab \code{use_travis_yml("linux.yml")} \cr
+    \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy.yml")} \cr
+    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix.yml")} \cr
+    \tab Linux \tab yes \tab yes \tab \code{use_travis_yml("linux-deploy-matrix.yml")} \cr
+    \tab macOS \tab no \tab no \tab \code{use_travis_yml("macOS.yml")} \cr
+    \tab macOS \tab yes \tab no \tab \code{use_travis_yml("macos-deploy.yml")} \cr
+    \tab macOS \tab no \tab yes \tab \code{use_travis_yml("macos-matrix.yml")} \cr
+    \tab macOS \tab yes \tab yes \tab \code{use_travis_yml("macos-deploy-matrix.yml")} \cr
+   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------------- \cr
+   Circle \tab Linux \tab no \tab no \tab \code{use_circle_yml("linux.yml")} \cr
+    \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy.yml")} \cr
+    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix.yml")} \cr
+    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-deploy-matrix.yml")} \cr
+   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------------- \cr
+   Appveyor \tab Windows \tab no \tab no \tab \code{use_appveyor_yml("windows.yml")} \cr
+    \tab Windows \tab no \tab yes \tab \code{use_travis_yml("windows-matrix.yml")} \cr
+}
 }
 

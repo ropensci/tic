@@ -21,17 +21,18 @@ get_stage("script") \%>\%
 dsl_get()
 }
 \seealso{
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_install_pkg}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_build_pkgdown}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_install_pkg}},
+\code{\link{step_install_ssh_keys}()},
+\code{\link{step_push_deploy}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_push_deploy}()},
+\code{\link{step_setup_ssh}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{steps}

@@ -4,36 +4,45 @@
 \alias{do_package_checks}
 \title{Add default checks for packages}
 \usage{
-do_package_checks(..., codecov = !ci_is_interactive(),
-  warnings_are_errors = NULL, notes_are_errors = NULL, args = NULL,
-  build_args = NULL, error_on = "warning", repos = repo_default(),
-  timeout = Inf, type = NULL, check_dir = NULL)
+do_package_checks(
+  ...,
+  codecov = !ci_is_interactive(),
+  warnings_are_errors = NULL,
+  notes_are_errors = NULL,
+  args = NULL,
+  build_args = NULL,
+  error_on = "warning",
+  repos = repo_default(),
+  timeout = Inf,
+  type = NULL,
+  check_dir = NULL
+)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
 
-\item{codecov}{\code{[flag]}\cr Whether to include a step running
+\item{codecov}{\verb{[flag]}\cr Whether to include a step running
 \code{covr::codecov(quiet = FALSE)} (default: only for non-interactive CI,
 see \code{\link[=ci_is_interactive]{ci_is_interactive()}}).}
 
-\item{warnings_are_errors}{\code{[flag]}\cr
+\item{warnings_are_errors}{\verb{[flag]}\cr
 Deprecated, use \code{error_on}.}
 
-\item{notes_are_errors}{\code{[flag]}\cr
+\item{notes_are_errors}{\verb{[flag]}\cr
 Deprecated, use \code{error_on}.}
 
-\item{args}{\code{[character]}\cr
+\item{args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.\cr
 Default for Appveyor:
 \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
 
-\item{build_args}{\code{[character]}\cr
+\item{build_args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{"--force"}.\cr
 Default for Appveyor: \code{c("--no-build-vignettes", "--force")}.\cr}
 
-\item{error_on}{\code{[character]}\cr
+\item{error_on}{\verb{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is
 always completed (unless a timeout happens), and the error is only thrown
 after completion. If "never", then no errors are thrown. If "error", then
@@ -41,11 +50,11 @@ only ERROR failures generate errors. If "warning", then WARNING failures
 generate errors as well. If "note", then any check failure generated an
 error.}
 
-\item{repos}{\code{[character]}\cr
+\item{repos}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{\link[=repo_default]{repo_default()}}.}
 
-\item{timeout}{\code{[numeric]}\cr
+\item{timeout}{\verb{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
@@ -53,7 +62,7 @@ Passed to \code{rcmdcheck::rcmdcheck()}, default:
 installation from source on Windows and macOS by passing
 \code{\link{.Platform}$pkgType}.}
 
-\item{check_dir}{\code{[character]} \cr Path specifying the directory for R CMD
+\item{check_dir}{\verb{[character]} \cr Path specifying the directory for R CMD
 check. Defaults to project root for easy upload of artifacts.}
 }
 \description{
@@ -79,7 +88,8 @@ do_package_checks()
 dsl_get()
 }
 \seealso{
-Other macros: \code{\link{do_bookdown}},
-  \code{\link{do_pkgdown}}
+Other macros: 
+\code{\link{do_bookdown}()},
+\code{\link{do_pkgdown}()}
 }
 \concept{macros}

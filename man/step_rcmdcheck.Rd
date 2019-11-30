@@ -4,29 +4,36 @@
 \alias{step_rcmdcheck}
 \title{Step: Check a package}
 \usage{
-step_rcmdcheck(..., warnings_are_errors = NULL,
-  notes_are_errors = NULL, args = NULL, build_args = NULL,
-  error_on = "warning", repos = repo_default(), timeout = Inf,
-  check_dir = NULL)
+step_rcmdcheck(
+  ...,
+  warnings_are_errors = NULL,
+  notes_are_errors = NULL,
+  args = NULL,
+  build_args = NULL,
+  error_on = "warning",
+  repos = repo_default(),
+  timeout = Inf,
+  check_dir = NULL
+)
 }
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
 
-\item{warnings_are_errors, notes_are_errors}{\code{[flag]}\cr
+\item{warnings_are_errors, notes_are_errors}{\verb{[flag]}\cr
 Deprecated, use \code{error_on}.}
 
-\item{args}{\code{[character]}\cr
+\item{args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.\cr
 Default for Appveyor:
 \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
 
-\item{build_args}{\code{[character]}\cr
+\item{build_args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{"--force"}.\cr
 Default for Appveyor: \code{c("--no-build-vignettes", "--force")}.\cr}
 
-\item{error_on}{\code{[character]}\cr
+\item{error_on}{\verb{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is
 always completed (unless a timeout happens), and the error is only thrown
 after completion. If "never", then no errors are thrown. If "error", then
@@ -34,20 +41,20 @@ only ERROR failures generate errors. If "warning", then WARNING failures
 generate errors as well. If "note", then any check failure generated an
 error.}
 
-\item{repos}{\code{[character]}\cr
+\item{repos}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{\link[=repo_default]{repo_default()}}.}
 
-\item{timeout}{\code{[numeric]}\cr
+\item{timeout}{\verb{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{Inf}.}
 
-\item{check_dir}{\code{[character]} \cr Path specifying the directory for R CMD
+\item{check_dir}{\verb{[character]} \cr Path specifying the directory for R CMD
 check. Defaults to project root for easy upload of artifacts.}
 }
 \description{
 Check a package using \code{\link[rcmdcheck:rcmdcheck]{rcmdcheck::rcmdcheck()}},
-which ultimately calls \code{R CMD check}.
+which ultimately calls \verb{R CMD check}.
 }
 \section{Updating of (dependency) packages}{
 

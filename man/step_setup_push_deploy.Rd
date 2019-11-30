@@ -4,27 +4,32 @@
 \alias{step_setup_push_deploy}
 \title{Step: Setup push deploy}
 \usage{
-step_setup_push_deploy(path = ".", branch = NULL, orphan = FALSE,
-  remote_url = NULL, checkout = TRUE)
+step_setup_push_deploy(
+  path = ".",
+  branch = NULL,
+  orphan = FALSE,
+  remote_url = NULL,
+  checkout = TRUE
+)
 }
 \arguments{
-\item{path}{\code{[string]}\cr
+\item{path}{\verb{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
 repository.}
 
-\item{branch}{\code{[string]}\cr
+\item{branch}{\verb{[string]}\cr
 Target branch, default: current branch.}
 
-\item{orphan}{\code{[flag]}\cr
+\item{orphan}{\verb{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
+This can be useful e.g. for \verb{path = "docs", branch = "gh-pages"},
 but cannot be applied for pushing to the current branch.}
 
-\item{remote_url}{\code{[string]}\cr
+\item{remote_url}{\verb{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.}
 
-\item{checkout}{\code{[flag]}\cr
+\item{checkout}{\verb{[flag]}\cr
 Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
@@ -52,21 +57,23 @@ dsl_get()
 }
 }
 \seealso{
-Other deploy steps: \code{\link{step_do_push_deploy}},
-  \code{\link{step_push_deploy}}
+Other deploy steps: 
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_push_deploy}()}
 
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_pkg}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_build_pkgdown}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_hello_world}()},
+\code{\link{step_install_pkg}},
+\code{\link{step_install_ssh_keys}()},
+\code{\link{step_push_deploy}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_ssh}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{deploy steps}
 \concept{steps}
