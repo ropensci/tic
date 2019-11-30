@@ -1,5 +1,4 @@
-# Default configuration for use with tic package
-# tic documentation to get started: https://ropenscilabs.github.io/tic/
+# tic documentation: https://docs.ropensci.org/tic/dev/
 
 # OS ---------------------------------------------------------------------------
 os: linux

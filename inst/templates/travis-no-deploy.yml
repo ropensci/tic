@@ -1,5 +1,5 @@
-# Default configuration for use with tic package
-# tic documentation to get started: https://docs.ropensci.org/tic/dev/
+
+# Stages -----------------------------------------------------------------------
 
 # DO NOT CHANGE THE CODE BELOW -------------------------------------------------
 before_install:
@@ -14,5 +14,3 @@ after_success: R -q -e 'tic::after_success()'
 after_failure: R -q -e 'tic::after_failure()'
 after_script: R -q -e 'tic::after_script()'
 # DO NOT CHANGE THE CODE ABOVE -------------------------------------------------
-
-

@@ -1,22 +1,22 @@
-# tic documentation to get started: https://ropenscilabs.github.io/tic/
+# tic documentation: https://docs.ropensci.org/tic/dev/
 
-version: 2
+version: 2.1
 jobs:
-  "r-3.6.1":
+  r-release:
     docker:
-      - image: rocker/verse:3.6.1
+      - image: rocker/verse
     steps:
       - checkout
       # create a unique env var for the cache. Unfortunately normal env vars
       # are not picked up by the cache, therefore this workaround is needed.
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
-      - run: echo "$(date -d "$D" '+%d')3.6.1" > /tmp/_tmp_file
+      - run: echo "$(date -d "$D" '+%d')r-release" > /tmp/_tmp_file
       - restore_cache:
-          key: R-package-library-checksum "/tmp/_tmp_file"
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
       # install deps and check pkg ---------------------------------------------
       - run:
-          name: Install package dependencies
+          name: Install dependencies
           command: |
             sudo apt update
             sudo apt install -y libglu1-mesa-dev libgmp-dev libgs-dev libgdal-dev libproj-dev libgeos-dev libudunits2-dev jags
@@ -27,7 +27,7 @@ jobs:
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
       - run:
-          name: Check package
+          name: R CMD Check
           no_output_timeout: 60m
           command: |
             R -q -e 'tic::before_script()'
@@ -35,11 +35,11 @@ jobs:
 
       # save R pkg cache -------------------------------------------------------
       - save_cache:
-          key: R-package-library-checksum "/tmp/_tmp_file"
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
           paths:
             - /usr/local/lib/R/site-library
 
-  "r-3.5.3":
+  r-oldrelease:
     docker:
       - image: rocker/verse:3.5.3
     steps:
@@ -47,13 +47,13 @@ jobs:
       # create a unique env var for the cache. Unfortunately normal env vars
       # are not picked up by the cache, therefore this workaround is needed.
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
-      - run: echo "$(date -d "$D" '+%d')3.5.3" > /tmp/_tmp_file
+      - run: echo "$(date -d "$D" '+%d')r-oldrelease" > /tmp/_tmp_file
       - restore_cache:
-          key: R-package-library-checksum "/tmp/_tmp_file"
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
       # install deps and check pkg ---------------------------------------------
       - run:
-          name: Install package dependencies
+          name: Install dependencies
           command: |
             sudo apt update
             sudo apt install -y libglu1-mesa-dev libgmp-dev libgs-dev libgdal-dev libproj-dev libgeos-dev libudunits2-dev jags
@@ -64,7 +64,7 @@ jobs:
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
       - run:
-          name: Check package
+          name: R CMD Check
           no_output_timeout: 60m
           command: |
             R -q -e 'tic::before_script()'
@@ -72,16 +72,15 @@ jobs:
 
       # save R pkg cache -------------------------------------------------------
       - save_cache:
-          key: R-package-library-checksum "/tmp/_tmp_file"
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
           paths:
             - /usr/local/lib/R/site-library
 
 workflows:
-  version: 2
   build:
     jobs:
-      - "r-3.6.1"
-      - "r-3.5.3"
+      - r-release
+      - r-oldrelease
 
 # CRON job daily at 3 am in the morning
 # - runs the "build" job on the master branch and builds package cache
@@ -94,5 +93,5 @@ workflows:
               only:
                 - master
     jobs:
-      - "r-3.6.1"
-      - "r-3.5.3"
+      - r-release
+      - r-oldrelease
