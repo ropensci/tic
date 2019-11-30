@@ -1,0 +1,15 @@
+pandoc: '2.2'
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  advanced: advanced.html
+  build-lifecycle: build-lifecycle.html
+  ci-client-packages: ci-client-packages.html
+  custom-steps: custom-steps.html
+  deployment: deployment.html
+  features: features.html
+  tic: tic.html
+urls:
+  reference: https://docs.ropensci.org/tic/dev/reference
+  article: https://docs.ropensci.org/tic/dev/articles
+
