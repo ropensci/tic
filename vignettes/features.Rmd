@@ -37,8 +37,11 @@ Possible use cases are:
 - updated .Rd files of a package (by calling `devtools::document()` before)
 - an automatic generated [test summary page](https://github.com/yonicd/covrpage) of a package 
 
-If _tic_ should be used for deployment, some preparatory work is required.
-Luckily, _tic_ takes care of all of this (setting up SSH keys, granting permission for the repo on GitHub and the CI services, creation of a personal Personal Access Token (PAT)).
+If _tic_ should be used for deployment, some preparatory work is required:
+
+- Setting up deployment keys (differs across CI services).
+- Granting permission to push to the repo on GitHub.
+
 When calling `use_tic()`, the streamlined preparation process is run.
 This is only needed once per repository.
 
@@ -46,9 +49,15 @@ For more information on automatic deployment in _tic_, take a look [at the "Depl
 
 ## Support for various R projects
 
-*tic* was developed with the aim to not only simplify R package development using CI services but also to support other R project types (bookdown, blogdown, drat, website and figshare deployment). 
+*tic* was developed with the aim to not only simplify R package development using CI services but also to support other R project types:
 
-Each of these projects has its own standardized structure. 
+- bookdown
+- blogdown
+- drat
+- website deployment
+- figshare deployment
+
+Each of these project types has its own standardized structure. 
 *tic* detects this structure and adds templates tailored towards this specific project type to the repository when calling `use_tic()`.
 See [the "Example projects" section in the "Get started" article](tic.html#example-projects) for a list of supported project types including links to minimal example repositories. 
 
@@ -56,10 +65,10 @@ See [the "Example projects" section in the "Get started" article](tic.html#examp
 
 What does "CI-Agnostic" mean and why do we need it?
 
-You may know that Travis CI is not the only company offering (free) CI solutions.
+Travis CI is only one out of a bunch of providers which offer (free) CI solutions.
 Theoretically, R could be run on any CI system.
-Due to historic reasons, some folks from the R community started on Travis implementing an easy way for R package checking.
-The build script for R is still [community maintained](https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb) (and always was).
+Due to historic reasons, the R community first started on Travis to implement an easy way for R package checking.
+The build script for R is [community maintained](https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb).
 
 Each CI provider has its own way to specify the setup. 
 Usually it is a YAML file stored at the top-level directory of the repository.
@@ -69,29 +78,22 @@ To give you an example how different these control files can be, take a look at 
 While **Travis** is currently the CI service with the most mature R implementation, people also like to test their code on **Appveyor** which provides support for Windows.
 Getting everything setup on **Appveyor** is a bit more complicated than on **Travis**.
 Also, **Appveyor** has its own YAML notation to specify certain actions.
+At this we haven't mentioned other providers like [Circle CI](https://circleci.com/), [Azure](https://azure.microsoft.com/en-us/services/devops/pipelines/) or [Github Actions](https://github.com/features/actions) yet.
 
 We could list way more differences - but that's exactly the point when *tic* comes in!
 
 - Rather than dealing with all the CI differences, *tic* enables the specification of the complete workflow in an external R script file `tic.R`.
-- The commands specified in there will work the same way on every CI service that is supported by *tic*.
+- The calls listed in `tic.R` will work the same way on every CI service that is supported by *tic*.
 - You can emulate all the stages and steps locally by calling `run_all_stages()`.
-- You are less dependent from all the changes that are being made to the R setup for Travis or Appveyor.
-- A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file.
+- You are independent to changes made to the upstream runners of a specific CI system.
+- A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file as it builds on [macros](#macros).
 
 So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.
 
-## Less dependency on external CI control commands
-
-Most CI services come with no (native) support for the R programming language.
-For Travis and Appveyor, the support is provided by the R community.
-For example, [`r.rb`](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) controls what happens if you set `language: r` on Travis.
-All of the commands and arguments specified there can also be set in `tic.R` using R syntax.
-So you are no longer dependent on the syntax and restrictions coming from [`r.rb`](https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb) but able to control the whole CI workflow in a single R file.
-
 ## Enhanced R package checking: `rcmdcheck()` > R CMD check
 
-As a R package developer you are most likely used to call `devtools::check()` or directly `R CMD check` on your built package.
-Usually also Travis will run `R CMD check` to check the R package.
+As an R package developer calling `devtools::check()` is a common task.
+By default the CI provider will run `R CMD check <package>` to check the R package.
 *tic* instead uses  [*rcmdcheck*](https://github.com/r-lib/rcmdcheck), a wrapper around `R CMD build` and `R CMD check`.
 It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 *rcmdcheck* comes with several enhancements:
@@ -100,15 +102,15 @@ It was developed by [Gabor Csardi](https://github.com/gaborcsardi).
 - Enhanced and extended tracebacks of errors, especially errors in tests
 - The whole check process is returned in a R object, making it easier to inspect errors/warnings
 
-Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut log output of the console early, omitting important information about the error. 
+Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut the console log output early, often omitting important information about the error. 
 
 ## Caching of packages
 
-When using *tic*, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the `"before_install"` stage. 
-This has the advantage that all packages get added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
+When using *tic*, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the `"before_install"` and `"install"` stage. 
+This has the advantage that all packages are added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
 
-More information about the complete workflow can be found in the ["Build lifecyle" article](build-lifecycle.html).
+More information about the complete workflow can be found in the ["Build lifecyle"](build-lifecycle.html).
 
 ## Easier troubleshooting
 
-*tic* comes with the ability to [emulate a CI run locally](advanced.html#emulate-a-ci-run-locally) and [debug problems in the config file](advanced#troubleshooting-running-tic-locally) `tic.R` by calling `dsl_load()` locally.
+*tic* comes with the ability to [emulate a CI run locally](advanced.html#emulate-a-ci-run-locally) and [debug problems in the config file](advanced#troubleshooting-running-tic-locally) by calling `dsl_load()` locally.

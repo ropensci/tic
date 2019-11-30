@@ -108,7 +108,7 @@ All examples listed here work with Travis, some work with AppVeyor too. The badg
 
 - [The CI Build Lifecycle](https://ropenscilabs.github.io/tic/articles/build-lifecycle.html)
 
-- [tic & travis](https://ropenscilabs.github.io/tic/articles/tic-travis.html)
+- [CI Client Packages](https://ropenscilabs.github.io/tic/articles/ci-client-packages.html)
 
 - [Advanced Usage](https://ropenscilabs.github.io/tic/articles/advanced.html)
 

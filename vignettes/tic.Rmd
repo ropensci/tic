@@ -124,7 +124,7 @@ if (ci_on_travis()) {
 }
 ```
 
-## Macros
+## Macros {#macros}
 
 _tic_ builds on the "macro" idea.
 Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:
@@ -132,6 +132,9 @@ Macros are essentially wrappers of a sequence of steps for often used tasks on t
 - Checking a package (R CMD check)
 - Building and deploying a pkgdown site
 - Build and deploy a bookdown project
+
+They can be distinguished from other functions by their `do_` prefix.
+If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
 
 ```{r eval = FALSE}
 do_package_checks()
