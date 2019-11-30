@@ -37,23 +37,23 @@ For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{window
 
 Here is a list of all available combinations:\tabular{lllll}{
    Provider \tab Operating system \tab Deployment \tab multiple R versions \tab Call \cr
-   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------------- \cr
-   Travis \tab Linux \tab no \tab no \tab \code{use_travis_yml("linux.yml")} \cr
-    \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy.yml")} \cr
-    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix.yml")} \cr
-    \tab Linux \tab yes \tab yes \tab \code{use_travis_yml("linux-deploy-matrix.yml")} \cr
-    \tab macOS \tab no \tab no \tab \code{use_travis_yml("macOS.yml")} \cr
-    \tab macOS \tab yes \tab no \tab \code{use_travis_yml("macos-deploy.yml")} \cr
-    \tab macOS \tab no \tab yes \tab \code{use_travis_yml("macos-matrix.yml")} \cr
-    \tab macOS \tab yes \tab yes \tab \code{use_travis_yml("macos-deploy-matrix.yml")} \cr
-   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------------- \cr
-   Circle \tab Linux \tab no \tab no \tab \code{use_circle_yml("linux.yml")} \cr
-    \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy.yml")} \cr
-    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix.yml")} \cr
-    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-deploy-matrix.yml")} \cr
-   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------------- \cr
-   Appveyor \tab Windows \tab no \tab no \tab \code{use_appveyor_yml("windows.yml")} \cr
-    \tab Windows \tab no \tab yes \tab \code{use_travis_yml("windows-matrix.yml")} \cr
+   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
+   Travis \tab Linux \tab no \tab no \tab \code{use_travis_yml("linux")} \cr
+    \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy")} \cr
+    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix")} \cr
+    \tab Linux \tab yes \tab yes \tab \code{use_travis_yml("linux-deploy-matrix")} \cr
+    \tab macOS \tab no \tab no \tab \code{use_travis_yml("macOS")} \cr
+    \tab macOS \tab yes \tab no \tab \code{use_travis_yml("macos-deploy")} \cr
+    \tab macOS \tab no \tab yes \tab \code{use_travis_yml("macos-matrix")} \cr
+    \tab macOS \tab yes \tab yes \tab \code{use_travis_yml("macos-deploy-matrix")} \cr
+   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
+   Circle \tab Linux \tab no \tab no \tab \code{use_circle_yml("linux")} \cr
+    \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy")} \cr
+    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix")} \cr
+    \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-deploy-matrix")} \cr
+   ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
+   Appveyor \tab Windows \tab no \tab no \tab \code{use_appveyor_yml("windows")} \cr
+    \tab Windows \tab no \tab yes \tab \code{use_travis_yml("windows-matrix")} \cr
 }
 }
 
