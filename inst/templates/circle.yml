@@ -1,6 +1,8 @@
-version: 2
+# tic documentation to get started: https://ropenscilabs.github.io/tic/
+
+version: 2.1
 jobs:
-  build:
+  r-release:
     docker:
       - image: rocker/verse
     steps:
@@ -37,10 +39,9 @@ jobs:
             - /usr/local/lib/R/site-library
 
 workflows:
-  version: 2
   build:
     jobs:
-      - build
+      - r-release
 
 # CRON job daily at 3 am in the morning
 # - runs the "build" job on the master branch and builds package cache
@@ -53,4 +54,4 @@ workflows:
               only:
                 - master
     jobs:
-      - build
+      - r-release

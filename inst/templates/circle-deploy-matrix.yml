@@ -1,16 +1,16 @@
 # tic documentation to get started: https://ropenscilabs.github.io/tic/
 
-version: 2
+version: 2.1
 jobs:
-  "r-3.6.1":
+  r-release:
     docker:
-      - image: rocker/verse:3.6.1
+      - image: rocker/verse
     steps:
       - checkout
       # create a unique env var for the cache. Unfortunately normal env vars
       # are not picked up by the cache, therefore this workaround is needed.
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
-      - run: echo "$(date -d "$D" '+%d')3.6.1" > /tmp/_tmp_file
+      - run: echo "$(date -d "$D" '+%d')r-release" > /tmp/_tmp_file
       - restore_cache:
           key: R-package-library-checksum "/tmp/_tmp_file"
 
@@ -42,7 +42,7 @@ jobs:
     environment:
       id_rsa: true
     docker:
-      - image: rocker/verse:3.6.1
+      - image: rocker/verse
     steps:
       - checkout
       - run: echo "$(date -d "$D" '+%d')" > /tmp/_tmp_file
@@ -63,7 +63,7 @@ jobs:
             R -q -e 'tic::deploy()'
             R -q -e 'tic::after_deploy()'
 
-  "r-3.5.3":
+  r-oldrelease:
     docker:
       - image: rocker/verse:3.5.3
     steps:
@@ -101,14 +101,13 @@ jobs:
             - /usr/local/lib/R/site-library
 
 workflows:
-  version: 2
-  build:
+  build-and-deploy:
     jobs:
-      - "r-3.6.1"
-      - "r-3.5.3"
+      - r-release
+      - r-oldrelease
       - deploy:
           requires:
-            - "r-3.6.1"
+            - r-release
 
 # CRON job daily at 3 am in the morning
 # - runs the "build" job on the master branch and builds package cache
@@ -121,5 +120,5 @@ workflows:
               only:
                 - master
     jobs:
-      - "r-3.6.1"
-      - "r-3.5.3"
+      - r-release
+      - r-oldrelease
