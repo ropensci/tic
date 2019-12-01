@@ -26,170 +26,92 @@ If you are unfamiliar with the term Continuous Integration (CI), we highly recom
 See the ["Features" article](features.html) for a comparison with other solutions for Continuous Integration for R.
 
 
-# Initialization
+# Initialization/Setup
 
 The easiest way to use *tic* for CI services is to call `tic::use_tic()`.
-This will create templates for both "Travis CI" and "Appveyor" and initialize all the required authentication steps for deployment.
-During the process, browser pages will open up, ensuring that all permissions are set correctly and all apps are authorized.
-Also a Personal Access Token (PAT) will be created on GitHub and stored  as an encrypted variable on Travis.
-This avoids hitting rate limitations when accessing the GitHub API, see [Locke Data's blog post about GitHUB PATs](https://itsalocke.com/blog/using-travis-make-sure-you-use-a-github-pat/) for more details.
-The PAT creation cannot be fully automated as some input from the user on GitHub is required when creating the PAT.
+This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by _tic_.
 
-First, authentication with Travis (a browser window opens) and GitHub is initiated (another browser window opens).
-Also, the repo is activated on Travis.
+Several yes/no questions need to be answered. 
+Based on the replies we'll select specific templates.
+
+Besides the question which CI system you want to use, you'll be asked if you want to 
+
+- deploy from builds to Github (e.g. if you are building a pkgdown site)
+
+- test your package on multiple R versions
 
 ```r
 tic::use_tic()
-┌───────────────────────┐
-│                       │
-│   Welcome to `tic`!   │
-│                       │
-└───────────────────────┘
-ℹ This wizard will set all the required tokens and files
-  on Travis CI and GitHub. Lets get started!
-✔ Setting active project to '/home/pjs/git/test2'
-ℹ Using active project '/home/pjs/git/test2'
-┌──────────────────────────────────────────────────────┐
-│                                                      │
-│   Step #1: We check if a GitHub repository exists.   │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-❯  Authenticating to GitHub.
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-✔ Authentication successful.
-❯  Authenticating to GitHub.
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-✔ Authentication successful.
-✔ GitHub repo exists.
-┌─────────────────────────────────────────────────────┐
-│                                                     │
-│   Step #2: We check if Travis is already enabled.   │
-│                                                     │
-└─────────────────────────────────────────────────────┘
-❯  Authenticating to GitHub.
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-✔ Authentication successful.
-❯  Authenticating to GitHub.
-❯  Authenticating to GitHub.
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-✔ Authentication successful.
-Finished activating repo pat-s/test2 on Travis CI.
-```
 
-Next, you will be asked if the current `.travis.yml` should be replaced with the template from *tic* (if one exists).
-Otherwise, the template is added without asking.
+→ Welcome to → tic!
+This wizard will guide you through the setup process for getting started with various CI
+providers.
 
-```r
-┌────────────────────────────────────────────────┐
-│                                                │
-│   Step #3: We create new files                 │
-│   `.travis.yml`, `appveyor.yml` and `tic.R`.   │
-│                                                │
-└────────────────────────────────────────────────┘
-Overwrite pre-existing file '.travis.yml'?
-1: Absolutely not
-2: Nope
-3: Yeah
-```
+Introduction:
 
-The same is done for Appveyor.
+tic currently comes with support for three CI providers:
+● Appveyor
+● Circle CI
+● Travis CI
 
-```
-Selection: 3
-✔ Writing '.travis.yml'
-Overwrite pre-existing file 'appveyor.yml'?
-1: Yeah
-2: Nope
-3: No way
+There is no need to use all of them. You can choose which one(s) you want to use, whether
+you want to deploy (i.e. push from builds) and if you want to test on multiple R
+versions.
 
-Selection: 1
-✔ Writing 'appveyor.yml'
-```
+We recommend the following setup:
+● Appveyor: Windows
+● Circle CI: Linux
+● Travis CI: macOS
 
-And also for the `tic.R` file.
-Additionally, it is added to `.Rbuildignore` to not interfere with the package building.
+Selection: 2
+Choosing your setup.
 
-```
-Overwrite tic.R? 
+We'll ask you a few yes/no questions to gather your preferences.
+
+Do you want to build on Windows (= Appveyor)? 
 
 1: Yes
 2: No
 
-Selection: 1
-Added tic.R from template.
-✔ Adding '^tic\\.R$' to '.Rbuildignore'
+Do you want to build on macOS (= Travis CI)? 
+
+1: Yes
+2: No
+
+Which provider do you want to use for Linux builds? 
+
+1: Circle CI
+2: Travis CI
+3: None
+4: All
+
+Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones? 
+
+1: Circle CI
+2: Travis CI
+3: No
+4: All
+
+Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)? 
+
+1: Circle CI
+2: Travis CI
+3: Appveyor
+4: No
+5: All
 ```
 
-Next, the private deploy key for Travis is added to the GitHub repo.
-This is needed to give Travis permissions to deploy into the GitHub repo.
+Last, we'll add a `tic.R` file to the project root.
 
-```r
-┌───────────────────────────────────────────┐
-│                                           │
-│   Step #4: We create a SSH key pair       │
-│   to allow Travis deployment to GitHub.   │
-│                                           │
-└───────────────────────────────────────────┘
-Finished adding deploy keys on GitHub for repo <username/repo>.
-✔ Successfully added public deploy key 'travis+tic' to GitHub for <username/repo>. 
-❯  You should receive a confirmation e-mail from GitHub.
-❯  Delete the key in the repositorys settings to revoke access for that key or when you no longer need it.
-```
 
-Besides the private deploy key, also the public deploy key needs to be added as an environment variable to Travis.
-As it is a SSH key, its named `id_rsa` by default.
-
-```r
-❯  Authenticating to GitHub.
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-✔ Authentication successful.
-Finished updating private environment variable id_rsa for <username/repo> on Travis CI.
-✔ Successfully added private deploy key to <username/repo> as secure environment variable id_rsa to Travis CI.
-```
-
-Last, a PAT is created to avoid the download limit of GitHub packages on Travis.
-You now see two environment variables in your setting on Travis CI: `GITHUB_PAT` and `id_rsa`.
-
-```r
-┌─────────────────────────────────────────────────────────┐
-│                                                         │
-│   Step #5: We create a GitHub PAT key on Travis CI      │
-│   to avoid GitHub API rate limitations in the builds.   │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-❯  Authenticating to GitHub.
-Waiting for authentication in browser...
-Press Esc/Ctrl + C to abort
-Authentication complete.
-✔ Authentication successful.
-❯  Creating a personal access token (PAT).
-❯  The suggested description 'travis+tic for pat-s/test2' has been copied to the clipboard.travis+tic for pat-s/test2
-ℹ  If you use this token only to avoid GitHubs rate limit, you can leave all scopes unchecked.
-ℹ  Then, copy the new token to the clipboard, it will be detected and applied automatically.
-ℹ Please visit
-  https://github.com/settings/tokens/new
-  A browser window will be opened.
-ℹ  If you use this token only to avoid GitHubs rate limit, you can leave all scopes unchecked.
-```
-
-Most functionality of the wizard comes from the _travis_ package.
+The deployment setup functionality comes from the _travis_ and _circle_ packages.
 See the ["tic & travis" article](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
 
-# Explanation of the basic template
+# Explanation of the basic `tic.R` template
 
-After having called `tic::use_tic()` you will find a `.travis.yml`, `appveyor.yml` and a `tic.R` file in your repo.
-Usually you do not need to touch `appveyor.yml` and `.travis.yml` anymore.
-All build customizations are done in `tic.R` and apply to both services.
+After having called `tic::use_tic()` you will find a `.travis.yml`, `.circleci/config.yml`,  `appveyor.yml` and a `tic.R` file in your repo.
+Usually you do not need to touch the YAML files anymore.
+All build customization are done in `tic.R` and apply to all providers.
 For more information about the whole build lifecycle, check the ["Build lifecycle" article](build-lifecycle.html).
 
 The basic `tic.R` template looks as follows:
@@ -202,16 +124,27 @@ if (ci_on_travis()) {
 }
 ```
 
-Let's break down what happens here:
+## Macros {#macros}
+
+_tic_ builds on the "macro" idea.
+Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:
+
+- Checking a package (R CMD check)
+- Building and deploying a pkgdown site
+- Build and deploy a bookdown project
+
+They can be distinguished from other functions by their `do_` prefix.
+If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
 
 ```{r eval = FALSE}
 do_package_checks()
 ```
 
-`do_package_checks()` Is a macro which adds essential steps to various stages of a CI run. 
-Essentially, it adds `step_rcmdcheck()` to the "script" stage. 
-This step performs the check of a R package.
+`do_package_checks()` adds essential steps to various stages of a CI run. 
+Most importantly, it adds `step_rcmdcheck()` to the "script" stage. 
+This step performs the check of an R package.
 Afterwards, the code coverage is being checked using `covr::codecov()`.
+See `?do_package_checks()` for more information.
 
 ```{r}
 # step_install_deps() in the "install" stage, using the repos argument.
@@ -221,7 +154,7 @@ Afterwards, the code coverage is being checked using `covr::codecov()`.
 # A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
 ```
 
-The other macro in the default template is `do_pkdown()`.
+The other macro in the default template is `do_pkgdown()`.
 
 ```{r eval = FALSE}
 if (ci_on_travis()) {
@@ -243,13 +176,10 @@ if (ci_on_travis()) {
 # step_do_push_deploy() in the "deploy" stage.
 ```
 
-In a nutshell: All dependencies are being installed, the deployment setup is initialized, the pkgdown site is build and deployed.
+By default this currently happens only on Travis CI, because `ci_on_travis()` is used as a condition.
+Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.
 
-This happens only on Travis CI, because `ci_on_travis()` evaluates to `TRUE` only on that platform.
-This is also the default in the [template](https://github.com/ropenscilabs/tic/blob/e7649fc32cd5071f62289974af7f38bd36f90cd3/inst/templates/package/tic.R) for packages.
-Building the pkgdown site on multiple CI services might cause problems and increases build time for no reason.
-
-# Examples projects
+# Example projects
 
 *tic* can be used for various R projects:
 
@@ -262,6 +192,8 @@ Building the pkgdown site on multiple CI services might cause problems and incre
 - [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 - [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
 
+### Blogdown
+
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
 Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
@@ -271,7 +203,7 @@ get_stage("install") %>%
   add_code_step(blogdown::install_hugo())
 ```
 
-Then the website is built and deployed.
+Next the website is built and deployed.
 The `blogdown::build_site()` function for websites is the equivalent to `pkgdown::build_site()` for R packages.
 
 ```{r eval = FALSE}
@@ -286,7 +218,7 @@ Steps and stages differ between projects (e.g. between a "blogdown" website and 
 **Note:** Currently, publishing to https://figshare.com/ doesn't work.
 Also, publishing to https://zenodo.org/ is work in progress.
 
-## *tic* based R projects from the community
+## *tic* projects from the community
 
 The templates we provide with *tic* are minimal working examples.
 In the following we list various R projects with non-standard/tailored *tic*-based workflows.
@@ -296,7 +228,6 @@ You may find inspiration for your own project there.
 - [mlr](https://github.com/mlr-org/mlr)
 - [sf](https://github.com/r-spatial/sf)
 - [dbi](https://github.com/r-dbi/DBI)
-
 
 # Advanced
 

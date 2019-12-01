@@ -1,5 +1,12 @@
+url: https://docs.ropensci.org/tic/dev
+
 template:
   package: rotemplate
+
+development:
+  mode: auto
+  version_label: default
+  version_tooltip: "Version"
 
 reference:
 - title: DSL
@@ -30,6 +37,9 @@ reference:
   contents:
   - starts_with("base64")
 
+toc:
+  depth: 3
+
 navbar:
   title:
   type: default
@@ -46,8 +56,8 @@ navbar:
       href: articles/features.html
     - text: The CI Build Lifecycle
       href: articles/build-lifecycle.html
-    - text: tic & travis
-      href: articles/tic-travis.html
+    - text: CI Client Packages
+      href: articles/ci-client-packages.html
     - text: Advanced Usage
       href: articles/advanced.html
     - text: Deployment
@@ -61,4 +71,4 @@ authors:
   Kirill Müller:
     href: http://krlmlr.info
   Patrick Schratz:
-    href: https://pjs-web.de
+    href: https://pat-s.me

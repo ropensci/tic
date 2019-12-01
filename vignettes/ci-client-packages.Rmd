@@ -1,0 +1,29 @@
+---
+title: "tic & CI client packages - an overview"
+author: "Patrick Schratz, Kirill Müller"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tic and travis - an overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as [travis](https://docs.ropensci.org/travis/) or [circle](https://pat-s.github.io/circle/).
+This mainly comes down to enabling the repo on the CI system and setting up deployment keys.
+
+After everything is set up the rest of the work goes to _tic_.
+
+- Creating of the CI YAML templates
+- Which steps are going to be run
+- Deployment: Yes/no
+
+In summary, the interaction is as follows:
+
+To simplify the setup process, `tic::use_tic()` is a wrapper for creating CI YAML templates and setting up deployment on the CI systems.
