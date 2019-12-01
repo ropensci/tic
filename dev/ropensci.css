@@ -65,6 +65,7 @@ a:focus, a:hover {
   color: #c6deff;
   font-size: 24px;
   line-height: 26px;
+  margin-right: -100px;
 }
 
 .version.label.label-default.version-default {
