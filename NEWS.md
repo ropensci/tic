@@ -1,9 +1,5 @@
 # tic 0.3.0
 
-- Same as previous version.
-
-# tic 0.2.13.9021
-
 - add argument "check_dir" to step_rcmdcheck (#179)
 - use `remotes::install_cran(upgrade = TRUE)` to install packages (#186)
 - added support for Circle CI (#177)
