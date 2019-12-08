@@ -8,6 +8,11 @@
 
 <title>Step: Perform push deploy — step_do_push_deploy • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -151,8 +156,7 @@ use_tic() or use_travis_deploy()." />
 <code><a href='use_tic.html'>use_tic()</a></code> or <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>step_do_push_deploy</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,20 +200,22 @@ In the opposite case, if the remote repo has new commits,
 the deployment is safely applied to the current tip.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other deploy steps: <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
-  <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code></p>
-<p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
-  <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
-  <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
-  <code><a href='step_hello_world.html'>step_hello_world</a></code>,
-  <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
-  <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
-  <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
-  <code><a href='step_run_code.html'>step_run_code</a></code>,
-  <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
-  <code><a href='step_setup_ssh.html'>step_setup_ssh</a></code>,
-  <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
-  <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
+    <div class='dont-index'><p>Other deploy steps: 
+<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
+<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code></p>
+<p>Other steps: 
+<code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
+<code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
+<code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
+<code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
+<code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
+<code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
+<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
+<code><a href='step_run_code.html'>step_run_code</a>()</code>,
+<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
+<code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
+<code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,
+<code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

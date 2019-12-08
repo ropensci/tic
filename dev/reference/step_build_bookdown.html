@@ -8,6 +8,11 @@
 
 <title>Step: Build a bookdown book — step_build_bookdown • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -155,37 +160,37 @@
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/bookdown/man/render_book.html'>bookdown::render_book</a></code></p><dl class='dl-horizontal'>
-  <dt>input</dt><dd><p>An input filename (or multiple filenames). If <code>preview =
+    <dt><code>input</code></dt><dd><p>An input filename (or multiple filenames). If <code>preview =
 TRUE</code>, only files specified in this argument are rendered, otherwise all R
 Markdown files specified by the book are rendered.</p></dd>
-  <dt>output_format</dt><dd><p>Arguments to be passed to
+    <dt><code>output_format</code></dt><dd><p>Arguments to be passed to
 <code>rmarkdown::<a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a>()</code>. For <code>preview_chapter()</code>,
 <code>...</code> is passed to <code>render_book()</code>.</p></dd>
-  <dt>clean</dt><dd><p>Arguments to be passed to
+    <dt><code>clean</code></dt><dd><p>Arguments to be passed to
 <code>rmarkdown::<a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a>()</code>. For <code>preview_chapter()</code>,
 <code>...</code> is passed to <code>render_book()</code>.</p></dd>
-  <dt>envir</dt><dd><p>Arguments to be passed to
+    <dt><code>envir</code></dt><dd><p>Arguments to be passed to
 <code>rmarkdown::<a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a>()</code>. For <code>preview_chapter()</code>,
 <code>...</code> is passed to <code>render_book()</code>.</p></dd>
-  <dt>clean_envir</dt><dd><p>Whether to clean up the environment <code>envir</code> before
+    <dt><code>clean_envir</code></dt><dd><p>Whether to clean up the environment <code>envir</code> before
 rendering the book. By default, the environment is cleaned when rendering
 the book in a non-interactive R session.</p></dd>
-  <dt>output_dir</dt><dd><p>The output directory. If <code>NULL</code>, a field named
+    <dt><code>output_dir</code></dt><dd><p>The output directory. If <code>NULL</code>, a field named
 <code>output_dir</code> in the configuration file <code class="file">_bookdown.yml</code> will be
 used (possibly not specified, either, in which case a directory name
 <code class="file">_book</code> will be used).</p></dd>
-  <dt>new_session</dt><dd><p>Whether to use new R sessions to compile individual Rmd
+    <dt><code>new_session</code></dt><dd><p>Whether to use new R sessions to compile individual Rmd
 files (if not provided, the value of the <code>new_session</code> option in
 <code class="file">_bookdown.yml</code> is used; if this is also not provided,
 <code>new_session = FALSE</code>).</p></dd>
-  <dt>preview</dt><dd><p>Whether to render and preview the input files specified by the
+    <dt><code>preview</code></dt><dd><p>Whether to render and preview the input files specified by the
 <code>input</code> argument. Previewing a certain chapter may save compilation
 time as you actively work on this chapter, but the output may not be
 accurate (e.g. cross-references to other chapters will not work).</p></dd>
-  <dt>encoding</dt><dd><p>Ignored. The character encoding of all input files is
+    <dt><code>encoding</code></dt><dd><p>Ignored. The character encoding of all input files is
 supposed to be UTF-8.</p></dd>
-  <dt>config_file</dt><dd><p>The book configuration file.</p></dd>
-
+    <dt><code>config_file</code></dt><dd><p>The book configuration file.</p></dd>
+  
 </dl></td>
     </tr>
     </table>

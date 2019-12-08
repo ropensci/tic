@@ -8,6 +8,11 @@
 
 <title>Use CI YAML templates — yaml-templates • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -160,7 +165,7 @@
       <th>type</th>
       <td><p><code>[character]</code><br />
 Which template to use. The string should be given following the logic
-<code>&lt;provider&gt;-&lt;platform&gt;-&lt;action&gt;</code>. See details for more.</p></td>
+<code>&lt;platform&gt;-&lt;action&gt;</code>. See details for more.</p></td>
     </tr>
     </table>
 
@@ -169,7 +174,7 @@ Which template to use. The string should be given following the logic
     
 
 <p><code>tic</code> supports a variety of different YAML templates which follow the
-<code>&lt;provider&gt;-&lt;platform&gt;-&lt;action&gt;</code> pattern. The first one is mandatory, the
+<code>&lt;platform&gt;-&lt;action&gt;</code> pattern. The first one is mandatory, the
 others are optional.</p><ul>
 <li><p>Possible values for <code>&lt;provider&gt;</code> are <code>travis</code>, and <code>circle</code></p></li>
 <li><p>Possible values for <code>&lt;platform&gt;</code> are <code>linux</code>, and <code>macos</code>, <code>windows</code>.</p></li>
@@ -178,6 +183,28 @@ others are optional.</p><ul>
 
 <p>Not every combinations is supported on all CI systems.
 For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and <code>windows-matrix</code> are valid.</p>
+<p>Here is a list of all available combinations:</p><table class='table'>
+<tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>Travis</td><td>Linux</td><td>no</td><td>no</td><td><code>use_travis_yml("linux")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
+<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("macOS")</code></td></tr>
+<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("macos-deploy")</code></td></tr>
+<tr><td></td><td>macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("macos-matrix")</code></td></tr>
+<tr><td></td><td>macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("macos-deploy-matrix")</code></td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>Circle</td><td>Linux</td><td>no</td><td>no</td><td><code>use_circle_yml("linux")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
+<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_travis_yml("windows-matrix")</code></td></tr>
+</table>
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

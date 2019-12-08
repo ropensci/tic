@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions • tic</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
@@ -141,7 +144,9 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a>, <a href="https://appveyor.com" class="uri">https://appveyor.com</a> and <a href="https://circleci.com" class="uri">https://circleci.com</a>. For an R package, the following steps will be set up for the CI workflow:</p>
+<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a>, <a href="https://appveyor.com" class="uri">https://appveyor.com</a> and <a href="https://circleci.com" class="uri">https://circleci.com</a>.</p>
+<p>If you only the CI YAML from <em>tic</em> should be used, the <code>use_&lt;provider&gt;_yml()</code> functions can be used. See <a href="https://docs.ropensci.org/tic/dev/reference/yaml-templates.html">here</a> for a complete list of options.</p>
+<p>For an R package, the following steps will be set up for the CI workflow:</p>
 <ul>
 <li>Installation of required dependencies for the project</li>
 <li>Satisfying build-time dependencies of steps to be run in all CI stages</li>

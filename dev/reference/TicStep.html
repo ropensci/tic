@@ -8,6 +8,11 @@
 
 <title>The base class for all steps — TicStep • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -147,12 +152,8 @@
     <p>Override this class to create a new step.</p>
     </div>
 
-    <pre class="usage"><span class='no'>TicStep</span></pre>
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>An object of class <code>R6ClassGenerator</code> of length 24.</p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
@@ -169,12 +170,49 @@ Return <code>FALSE</code> if conditions for running this step are not met.</p></
 
 </dl>
 
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>TicStep$new()</code></a></p></li>
+<li><p><a href='#method-run'><code>TicStep$run()</code></a></p></li>
+<li><p><a href='#method-prepare'><code>TicStep$prepare()</code></a></p></li>
+<li><p><a href='#method-check'><code>TicStep$check()</code></a></p></li>
+</ul>
+<p><hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$new()</pre><p></div></p>
+
+<p><hr>
+<a id="method-run"></a></p><h3>Method <code>run()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$run()</pre><p></div></p>
+
+<p><hr>
+<a id="method-prepare"></a></p><h3>Method <code>prepare()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$prepare()</pre><p></div></p>
+
+<p><hr>
+<a id="method-check"></a></p><h3>Method <code><a href='https://rdrr.io/r/utils/PkgUtils.html'>check()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$check()</pre><p></div></p>
+
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
+      <li><a href="#methods">Methods</a></li>
       <li><a href="#methods">Methods</a></li>
     </ul>
 
