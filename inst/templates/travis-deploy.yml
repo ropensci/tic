@@ -1,7 +1,7 @@
-# Default configuration for use with tic package
-# tic documentation to get started: https://ropenscilabs.github.io/tic/
 
-# DO NOT CHANGE THE CODE BELOW
+# Stages -----------------------------------------------------------------------
+
+# DO NOT CHANGE THE CODE BELOW -------------------------------------------------
 before_install:
   - R -q -e 'if (!requireNamespace("remotes")) install.packages("remotes")'
   - R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
@@ -20,23 +20,4 @@ deploy:
     all_branches: true
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
-# DO NOT CHANGE THE CODE ABOVE
-
-language: r
-dist: bionic
-cache:
-  - packages
-  - $HOME/.ccache
-latex: false
-
-env:
-  global:
-  - MAKEFLAGS="-j 2"
-
-matrix:
-  allow_failures:
-  - r: oldrel
-  include:
-  - r: devel
-  - r: oldrel
-  - r: release
+# DO NOT CHANGE THE CODE ABOVE -------------------------------------------------

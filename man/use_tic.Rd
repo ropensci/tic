@@ -7,7 +7,7 @@
 use_tic(quiet = FALSE)
 }
 \arguments{
-\item{quiet}{\code{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
+\item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
 \description{
 Prepares a repo for building and deploying supported by

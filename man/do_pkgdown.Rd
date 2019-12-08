@@ -4,14 +4,23 @@
 \alias{do_pkgdown}
 \title{Build pkgdown documentation}
 \usage{
-do_pkgdown(..., deploy = NULL, orphan = FALSE, checkout = TRUE,
-  repos = repo_default(), path = "docs", branch = "gh-pages",
-  remote_url = NULL, commit_message = NULL, commit_paths = ".")
+do_pkgdown(
+  ...,
+  deploy = NULL,
+  orphan = FALSE,
+  checkout = TRUE,
+  repos = repo_default(),
+  path = "docs",
+  branch = "gh-pages",
+  remote_url = NULL,
+  commit_message = NULL,
+  commit_paths = "."
+)
 }
 \arguments{
 \item{...}{Passed on to \code{\link[=step_build_pkgdown]{step_build_pkgdown()}}}
 
-\item{deploy}{\code{[flag]}\cr
+\item{deploy}{\verb{[flag]}\cr
 If \code{TRUE}, deployment setup is performed
 before building the pkgdown site,
 and the site is deployed after building it.
@@ -25,12 +34,12 @@ if the following conditions are met:
 or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
 }}
 
-\item{orphan}{\code{[flag]}\cr
+\item{orphan}{\verb{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for \code{path = "docs", branch = "gh-pages"},
+This can be useful e.g. for \verb{path = "docs", branch = "gh-pages"},
 but cannot be applied for pushing to the current branch.}
 
-\item{checkout}{\code{[flag]}\cr
+\item{checkout}{\verb{[flag]}\cr
 Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
@@ -41,15 +50,15 @@ if you deploy to a different branch.}
 \item{path, branch}{By default, this macro deploys the \code{docs} directory
 to the \code{gh-pages} branch. This is different from \code{\link[=step_push_deploy]{step_push_deploy()}}.}
 
-\item{remote_url}{\code{[string]}\cr
+\item{remote_url}{\verb{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.}
 
-\item{commit_message}{\code{[string]}\cr
+\item{commit_message}{\verb{[string]}\cr
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
 
-\item{commit_paths}{\code{[character]}\cr
+\item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 }
@@ -69,7 +78,7 @@ forwarding all \code{...} arguments.
 \item \code{\link[=step_do_push_deploy]{step_do_push_deploy()}} in the \code{"deploy"} stage.
 }
 
-By default, the \code{docs/} directory is deployed to the \code{gh-pages} branch,
+By default, the \verb{docs/} directory is deployed to the \code{gh-pages} branch,
 keeping the history.
 }
 \examples{
@@ -80,7 +89,8 @@ do_pkgdown()
 dsl_get()
 }
 \seealso{
-Other macros: \code{\link{do_bookdown}},
-  \code{\link{do_package_checks}}
+Other macros: 
+\code{\link{do_bookdown}()},
+\code{\link{do_package_checks}()}
 }
 \concept{macros}

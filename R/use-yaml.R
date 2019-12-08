@@ -3,11 +3,11 @@
 #'
 #' @param type `[character]`\cr
 #'   Which template to use. The string should be given following the logic
-#'   `<provider>-<platform>-<action>`. See details for more.
+#'   `<platform>-<action>`. See details for more.
 #'
 #' @section Type:
 #' `tic` supports a variety of different YAML templates which follow the
-#'  `<provider>-<platform>-<action>` pattern. The first one is mandatory, the
+#'  `<platform>-<action>` pattern. The first one is mandatory, the
 #'  others are optional.
 #'
 #'  * Possible values for `<provider>` are `travis`, and `circle`
@@ -17,31 +17,78 @@
 #'  Not every combinations is supported on all CI systems.
 #'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix` are valid.
 #'
+#'  Here is a list of all available combinations:
+#'
+#'  | Provider | Operating system | Deployment | multiple R versions | Call |
+#'  | -------  | ---------------- | ---------- | ------------------- | ---- |
+#'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
+#'  | Travis   | Linux            | no         | no                  | `use_travis_yml("linux")` |
+#'  |          | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")` |
+#'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")` |
+#'  |          | Linux            | yes        | yes                 | `use_travis_yml("linux-deploy-matrix")` |
+#'  |          | macOS            | no         | no                  | `use_travis_yml("macOS")` |
+#'  |          | macOS            | yes        | no                  | `use_travis_yml("macos-deploy")` |
+#'  |          | macOS            | no         | yes                 | `use_travis_yml("macos-matrix")` |
+#'  |          | macOS            | yes        | yes                 | `use_travis_yml("macos-deploy-matrix")` |
+#'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
+#'  | Circle   | Linux            | no         | no                  | `use_circle_yml("linux")` |
+#'  |          | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")` |
+#'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")` |'
+#'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-deploy-matrix")` |
+#'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
+#'  | Appveyor | Windows          | no         | no                  | `use_appveyor_yml("windows")` |
+#'  |          | Windows          | no         | yes                 | `use_travis_yml("windows-matrix")` |'
+#'
 #' @name yaml-templates
+#' @aliases yaml-templates
 #' @export
 use_travis_yml <- function(type) {
   if (type == "linux") {
-    template = "travis-linux.yml"
+    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-no-deploy.yml", package = "tic"))
+    template = c(os, meta, stages)
   } else if (type == "linux-matrix") {
-    template = "travis-linux-matrix.yml"
+    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
+    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-no-deploy.yml", package = "tic"))
+    template = c(os, meta, matrix, stages)
   } else if (type == "linux-deploy") {
-    template = "travis-linux-deploy.yml"
-  } else if (type == "linux-deploy-matrix") {
-    template = "travis-linux-deploy-matrix.yml"
+    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
+    template = c(os, meta, stages)
+  } else if (type == "linux-deploy-matrix" || type == "linux-matrix-deploy") {
+    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
+    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
+    template = c(os, meta, matrix, stages)
   } else if (type == "macos") {
-    template = "travis-macos.yml"
+    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
+    template = c(os, meta, stages)
   } else if (type == "macos-matrix") {
-    template = "travis-macos-matrix.yml"
+    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
+    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-no-deploy.yml", package = "tic"))
+    template = c(os, meta, matrix, stages)
   } else if (type == "macos-deploy") {
-    template = "travis-macos-deploy.yml"
-  } else if (type == "macos-deploy-matrix") {
-    template = "travis-macos-deploy-matrix.yml"
+    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
+    template = c(os, meta, stages)
+  } else if (type == "macos-deploy-matrix" || type == "macos-matrix-deploy") {
+    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
+    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
+    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
+    template = c(os, meta, matrix, stages)
   }
-  use_tic_template(
-    template,
-    save_as = ".travis.yml",
-    data = list(install_tic = double_quotes(get_install_tic_code()))
-  )
+  writeLines(template, ".travis.yml")
 }
 
 #' @rdname yaml-templates
@@ -52,38 +99,23 @@ use_appveyor_yml <- function(type) {
   } else if (type == "windows-matrix") {
     template = "appveyor-matrix.yml"
   }
-  use_tic_template(
-    template,
-    save_as = "appveyor.yml",
-    data = list(install_tic = get_install_tic_code())
-  )
+  writeLines(template, "appveyor.yml")
 }
 
 #' @rdname yaml-templates
 #' @export
 use_circle_yml <- function(type) {
   if (type == "linux") {
-    template = "circle.yml"
+    template = readLines(system.file("templates/circle.yml", package = "tic"))
   } else if (type == "linux-matrix") {
-    template = "circle-matrix.yml"
+    template = readLines(system.file("templates/circle-matrix.yml", package = "tic"))
   } else if (type == "linux-deploy") {
-    template = "circle-deploy.yml"
-  } else if (type == "linux-deploy-matrix") {
-    template = "circle-deploy-matrix.yml"
+    template = readLines(system.file("templates/circle-deploy.yml", package = "tic"))
+  } else if (type == "linux-deploy-matrix" || type == "linux-matrix-deploy") {
+    template = readLines(system.file("templates/circle-deploy-matrix.yml", package = "tic"))
   }
   dir.create(".circleci", showWarnings = FALSE)
-  use_tic_template(
-    template,
-    save_as = ".circleci/config.yml",
-    data = list(install_tic = get_install_tic_code())
-  )
-
-  # FIXME: upstream issue in _whisker_ pkg which cannot handle curly braces
-  # https://github.com/edwindj/whisker/issues/20
-  tx  <- readLines(sprintf("%s/.circleci/config.yml", usethis::proj_path()))
-  tx2  <- gsub(pattern = "checksum", replacement = "{{ checksum", x = tx)
-  tx2  <- gsub(pattern = '_tmp_file"', replacement = '_tmp_file" }}', x = tx2)
-  writeLines(tx2, con=sprintf("%s/.circleci/config.yml", usethis::proj_path()))
+  writeLines(template, con = ".circleci/config.yml")
 }
 
 use_tic_template <- function(template, save_as = template, open = FALSE,

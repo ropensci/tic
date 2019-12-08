@@ -9,6 +9,7 @@
 - Use `TRAVIS_BUILD_WEB_URL` for the commit message.
 - `do_package_checks()` gains `type` argument.
 - Tweak documentation.
+- export `use_travis_yml()`, `use_circle_yml()` and `use_appveyor_yml()` and add overview table of available options
 
 # tic 0.2.13.9020
 

@@ -34,7 +34,7 @@ The most important improvements over existing solutions are:
 
 It can be installed from GitHub with:
 
-``` r
+```r
 # install.packages("remotes")
 remotes::install_github("ropenscilabs/tic")
 ```
@@ -43,6 +43,11 @@ remotes::install_github("ropenscilabs/tic")
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
 The created templates will use the providers https://travis-ci.org, https://appveyor.com and https://circleci.com.
+
+If you only the CI YAML from _tic_ should be used, the `use_<provider>_yml()` functions
+can be used.
+See [here](https://docs.ropensci.org/tic/dev/reference/yaml-templates.html) for a complete list of options.
+
 For an R package, the following steps will be set up for the CI workflow:
 
 - Installation of required dependencies for the project

@@ -7,10 +7,10 @@
 run_stage(name, stages = dsl_load())
 }
 \arguments{
-\item{name}{\code{[string]}\cr
+\item{name}{\verb{[string]}\cr
 The name of the stage to run.}
 
-\item{stages}{\code{[named list]}
+\item{stages}{\verb{[named list]}
 A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{dsl_load()}},
 by default loaded from \code{tic.R}.}
 }
@@ -21,7 +21,8 @@ Run the \code{run_all()} method for all defined steps of a stage for which the
 \seealso{
 \link{TicStep}
 
-Other runners: \code{\link{prepare_all_stages}},
-  \code{\link{run_all_stages}}
+Other runners: 
+\code{\link{prepare_all_stages}()},
+\code{\link{run_all_stages}()}
 }
 \concept{runners}
