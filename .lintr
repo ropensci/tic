@@ -1,0 +1,4 @@
+linters: with_defaults(object_name_linter(style = c("snake_case", "CamelCase")),
+  open_curly_linter = NULL)
+exclusions: list("R/use-yaml.R" = 20:43, "inst/templates/unknown/tic.R",
+  "R/tic-package.R" = 16)

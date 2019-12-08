@@ -1,4 +1,4 @@
-TicStage <- R6Class(
+TicStage <- R6Class( # nolint
   "TicStage",
   public = list(
     initialize = function(name) {
@@ -17,7 +17,7 @@ TicStage <- R6Class(
       step <- list(
         run = run,
         check = check %||% function() TRUE,
-        prepare = prepare %||% function() {},
+        prepare = prepare %||% function() {}, # nolint
         name = name %||% "<unknown task>"
       )
       private$steps <- c(private$steps, list(step))
@@ -103,7 +103,7 @@ TicStage <- R6Class(
       top <- environment()
 
       tryCatch(
-        {
+        { # nolint
           with_abort({
             step$run()
             TRUE

@@ -56,19 +56,23 @@ ci()
 
 \item{value}{Value for the environment variable to compare against.}
 
-\item{name}{Name of the environment variable to check, defaults to \code{"id_rsa"}.}
+\item{name}{Name of the environment variable to check, defaults to
+\code{"id_rsa"}.}
 
 \item{code}{Code that should be colored.}
 }
 \description{
-Functions that return environment settings that describe the CI environment.
-The value is retrieved only once and then cached.
+Functions that return environment settings that describe the CI
+environment. The value is retrieved only once and then cached.
 
-\code{ci_get_branch()}: Returns the current branch. Returns nothing if operating on a tag.
+\code{ci_get_branch()}: Returns the current branch. Returns nothing if operating
+on a tag.
 
-\code{ci_is_tag()}: Returns the current tag name. Returns nothing if a branch is selected.
+\code{ci_is_tag()}: Returns the current tag name. Returns nothing if a branch is
+selected.
 
-\code{ci_get_slug()}: Returns the repo slug in the format \code{user/repo} or \code{org/repo}
+\code{ci_get_slug()}: Returns the repo slug in the format \code{user/repo} or
+\code{org/repo}
 
 \code{ci_get_build_number()}: Returns the CI build number.
 
@@ -78,20 +82,22 @@ The value is retrieved only once and then cached.
 
 \code{ci_get_env()}: Return an environment or configuration variable.
 
-\code{ci_is_env()}: Checks if an environment or configuration variable is set to a particular value.
+\code{ci_is_env()}: Checks if an environment or configuration variable is set to a
+particular value.
 
-\code{ci_has_env()}: Checks if an environment or configuration variable is set to any value.
+\code{ci_has_env()}: Checks if an environment or configuration variable is set to
+any value.
 
 \code{ci_can_push()}: Checks if push deployment is possible. Always true
 for local environments, CI environments require an environment
 variable (by default \code{id_rsa}).
 
-\code{ci_is_interactive()}: Returns whether the current build is run interactively or not.
-Global setup operations shouldn't be run on interactive CIs.
+\code{ci_is_interactive()}: Returns whether the current build is run interactively
+or not. Global setup operations shouldn't be run on interactive CIs.
 
-\code{ci_cat_with_color()}: Colored output targeted to the CI log. The code argument can be an
-unevaluated call to a crayon function, the style will be applied even if it
-normally wouldn't be.
+\code{ci_cat_with_color()}: Colored output targeted to the CI log.
+The code argument can be an unevaluated call to a crayon function, the
+style will be applied even if it normally wouldn't be.
 
 \code{ci_on_travis()}: Are we running on Travis CI?
 

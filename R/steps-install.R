@@ -97,8 +97,8 @@ InstallCRAN <- R6Class(
 )
 
 #' @description
-#' A `step_install_cran()` step installs one package from CRAN via [install.packages()],
-#' but only if it's not already installed.
+#' A `step_install_cran()` step installs one package from CRAN via
+#' [install.packages()], but only if it's not already installed.
 #'
 #' @param package Package(s) to install
 #' @param ... Passed on to `install.packages()` or `remotes::install_github()`.

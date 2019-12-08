@@ -63,8 +63,8 @@ Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 }
 \description{
-\code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default steps
-to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
+\code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default
+steps to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the

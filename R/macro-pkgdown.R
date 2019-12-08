@@ -12,8 +12,8 @@ NULL
 #' Build pkgdown documentation
 #'
 #' @description
-#' `do_pkgdown()` builds and optionally deploys a pkgdown site and adds default steps
-#'   to the `"install"`, `"before_deploy"` and `"deploy"` stages:
+#' `do_pkgdown()` builds and optionally deploys a pkgdown site and adds default
+#' steps to the `"install"`, `"before_deploy"` and `"deploy"` stages:
 #'
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_setup_push_deploy
@@ -81,14 +81,14 @@ do_pkgdown <- function(...,
           checkout = !!enquo(checkout)
         ))
     } else {
-    get_stage("before_deploy") %>%
-      add_step(step_setup_push_deploy(
-        path = !!enquo(path),
-        branch = !!enquo(branch),
-        remote_url = !!enquo(remote_url),
-        orphan = !!enquo(orphan),
-        checkout = !!enquo(checkout)
-      ))
+      get_stage("before_deploy") %>%
+        add_step(step_setup_push_deploy(
+          path = !!enquo(path),
+          branch = !!enquo(branch),
+          remote_url = !!enquo(remote_url),
+          orphan = !!enquo(orphan),
+          checkout = !!enquo(checkout)
+        ))
     }
   }
 

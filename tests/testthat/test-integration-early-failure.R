@@ -13,7 +13,8 @@ test_that("integration test: early failure", {
   )
 
   withr::with_dir(
-    package_path, {
+    package_path,
+    { # nolint
       writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       expect_error(

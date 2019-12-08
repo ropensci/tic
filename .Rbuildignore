@@ -10,3 +10,4 @@
 ^pkgdown/
 ^\.circleci/config\.yml$
 ^\.pre-commit-config\.yaml$
+^\.lintr$

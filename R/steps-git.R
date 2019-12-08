@@ -37,7 +37,7 @@ Git <- R6Class(
   )
 )
 
-SetupPushDeploy <- R6Class(
+SetupPushDeploy <- R6Class( # nolint
   "SetupPushDeploy",
   inherit = TicStep,
 
@@ -128,7 +128,7 @@ SetupPushDeploy <- R6Class(
       if (!private$orphan) {
         message("Fetching from remote ", remote_name)
         tryCatch(
-          {
+          { # nolint
             remote_branch <- private$try_fetch()
             if (!is.null(remote_branch)) {
               message("Remote branch is ", remote_branch$name)

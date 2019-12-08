@@ -12,11 +12,12 @@
 #'
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
-use_tic <- function(quiet = FALSE) {
+use_tic <- function(quiet = FALSE) { # nolint
   cli_alert("Welcome to {.pkg tic}!")
-  cli_text(c(
-    "This wizard will guide you through the setup process for getting started with various CI providers."
-  ))
+  cli_text(
+    "This wizard will guide you through the setup process for getting started
+    with various CI providers."
+  )
 
   cli_h1("Introduction:")
   cli_text("{.pkg tic} currently comes with support for three CI providers: ")
@@ -24,11 +25,12 @@ use_tic <- function(quiet = FALSE) {
   cli_ul(c("Appveyor", "Circle CI", "Travis CI"))
 
   cli_par()
-  cli_text(c("There is no need to use all of them.",
-             " You can choose which one(s) you want to use,",
-             " whether you want to deploy (i.e. push from builds)",
-             " and if you want to test on multiple R versions.")
-  )
+  cli_text(c(
+    "There is no need to use all of them.",
+    " You can choose which one(s) you want to use,",
+    " whether you want to deploy (i.e. push from builds)",
+    " and if you want to test on multiple R versions."
+  ))
   cli_end()
 
   cli_text("We recommend the following setup:")
@@ -45,22 +47,32 @@ use_tic <- function(quiet = FALSE) {
   cli_par()
   cli_end()
 
-  windows = menu(c("Yes", "No"), title = "Do you want to build on Windows (= Appveyor)?")
-  mac = menu(c("Yes", "No"), title = "Do you want to build on macOS (= Travis CI)?")
+  windows <- menu(c("Yes", "No"),
+    title = "Do you want to build on Windows (= Appveyor)?"
+  )
+  mac <- menu(c("Yes", "No"),
+    title = "Do you want to build on macOS (= Travis CI)?"
+  )
 
-  linux = menu(c("Circle CI", "Travis CI", "None", "All"),
-               title = "Which provider do you want to use for Linux builds?")
+  linux <- menu(c("Circle CI", "Travis CI", "None", "All"),
+    title = "Which provider do you want to use for Linux builds?"
+  )
 
-  deploy = menu(c("Circle CI", "Travis CI", "No", "All"),
-                title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?")
+  deploy <- menu(c("Circle CI", "Travis CI", "No", "All"),
+    title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?" # nolint
+  )
 
-  matrix = menu(c("Circle CI", "Travis CI", "Appveyor", "No", "All"),
-                title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?")
+  matrix <- menu(c("Circle CI", "Travis CI", "Appveyor", "No", "All"),
+    title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
+  )
 
   cli_h1("Setting up the CI providers.")
 
-  cli_text("Next we are getting the selected CI providers ready for deployment.",
-           " This requires some interaction with their API and you may need to create an API token.")
+  cli_text(
+    "Next we are getting the selected CI providers ready for deployment.",
+    " This requires some interaction with their API and you may need to create
+    an API token."
+  )
   cli_par()
   cli_end()
 
@@ -133,7 +145,7 @@ use_tic <- function(quiet = FALSE) {
     }
   }
 
-  # Circle ----------------------------------------------------------------------
+  # Circle ---------------------------------------------------------------------
 
   Sys.sleep(3)
   rule(left = "Circle CI")
@@ -184,13 +196,17 @@ use_tic <- function(quiet = FALSE) {
   )
 
   cat_bullet(
-    "Below is the file structure of the newly added files (in case you selected all providers):",
+    "Below is the file structure of the newly added files (in case you selected
+    all providers):",
     bullet = "arrow_down", bullet_col = "blue"
   )
 
   data <- data.frame(
     stringsAsFactors = FALSE,
-    package = c(basename(getwd()), ".circleci", "appveyor.yml", ".travis.yml", "config.yml", "tic.R"),
+    package = c(
+      basename(getwd()), ".circleci", "appveyor.yml", ".travis.yml",
+      "config.yml", "tic.R"
+    ),
     dependencies = I(list(
       c(".circleci", "appveyor.yml", ".travis.yml", "tic.R"),
       "config.yml",

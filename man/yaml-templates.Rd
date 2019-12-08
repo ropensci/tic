@@ -33,7 +33,8 @@ others are optional.
 }
 
 Not every combinations is supported on all CI systems.
-For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix} are valid.
+For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix}
+are valid.
 
 Here is a list of all available combinations:\tabular{lllll}{
    Provider \tab Operating system \tab Deployment \tab multiple R versions \tab Call \cr

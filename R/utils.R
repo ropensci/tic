@@ -5,7 +5,7 @@ get_head_commit <- function(branch) {
   git2r::lookup(git2r_attrib(branch, "repo"), git2r::branch_target(branch))
 }
 
-vlapply <- function(X, FUN, ..., USE.NAMES = TRUE) {
+vlapply <- function(X, FUN, ..., USE.NAMES = TRUE) { # nolint
   vapply(X = X, FUN = FUN, FUN.VALUE = logical(1L), ..., USE.NAMES = USE.NAMES)
 }
 
@@ -19,7 +19,7 @@ warningc <- function(...) {
 
 warning_once <- memoise::memoise(warningc)
 
-`%||%` <- function(o1, o2) {
+`%||%` <- function(o1, o2) { # nolint
   if (is.null(o1)) o2 else o1
 }
 
@@ -47,7 +47,10 @@ tempfile_slash <- function(pattern = "file", tmpdir = tempdir(), fileext = "") {
 }
 
 yesno <- function(...) {
-  yeses <- c("Yes", "Definitely", "For sure", "Yup", "Yeah", "Of course", "Absolutely")
+  yeses <- c(
+    "Yes", "Definitely", "For sure", "Yup", "Yeah", "Of course",
+    "Absolutely"
+  )
   nos <- c("No way", "Not yet", "I forget", "No", "Nope", "Uhhhh... Maybe?")
 
   cat(paste0(..., collapse = ""))
@@ -57,7 +60,7 @@ yesno <- function(...) {
   menu(qs[rand]) != which(rand == 1)
 }
 
-check_travis_pkg = function() {
+check_travis_pkg <- function() {
   if (!is_installed("travis")) {
     cli::cat_rule(col = "red")
     stopc(
@@ -67,7 +70,7 @@ check_travis_pkg = function() {
   }
 }
 
-check_circle_pkg = function() {
+check_circle_pkg <- function() {
   if (!is_installed("circle")) {
     cli::cat_rule(col = "red")
     stopc(
@@ -77,7 +80,7 @@ check_circle_pkg = function() {
   }
 }
 
-check_usethis_pkg = function() {
+check_usethis_pkg <- function() {
   if (!is_installed("usethis")) {
     cli::cat_rule(col = "red")
     stopc(
@@ -87,7 +90,7 @@ check_usethis_pkg = function() {
   }
 }
 
-check_openssl_pkg = function() {
+check_openssl_pkg <- function() {
   cli::cat_rule(col = "red")
   stopc(
     "`use_tic()` needs the `openssl` package to set up deployment, ",

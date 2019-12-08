@@ -15,7 +15,8 @@
 #'  * Possible values for `<action>` are `matrix` and `deploy`.
 #'
 #'  Not every combinations is supported on all CI systems.
-#'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix` are valid.
+#'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix`
+#'  are valid.
 #'
 #'  Here is a list of all available combinations:
 #'
@@ -44,49 +45,91 @@
 #' @export
 use_travis_yml <- function(type) {
   if (type == "linux") {
-    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-no-deploy.yml", package = "tic"))
-    template = c(os, meta, stages)
+    os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-linux.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-no-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
   } else if (type == "linux-matrix") {
-    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
-    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-no-deploy.yml", package = "tic"))
-    template = c(os, meta, matrix, stages)
+    os <- readLines(system.file("templates/travis-linux.yml",
+      package = "tic"
+    ))
+    meta <- readLines(system.file("templates/travis-meta-linux.yml",
+      package = "tic"
+    ))
+    matrix <- readLines(system.file("templates/travis-matrix.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-no-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, matrix, stages)
   } else if (type == "linux-deploy") {
-    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
-    template = c(os, meta, stages)
+    os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-linux.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
   } else if (type == "linux-deploy-matrix" || type == "linux-matrix-deploy") {
-    os = readLines(system.file("templates/travis-linux.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-linux.yml", package = "tic"))
-    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
-    template = c(os, meta, matrix, stages)
+    os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-linux.yml",
+      package = "tic"
+    ))
+    matrix <- readLines(system.file("templates/travis-matrix.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, matrix, stages)
   } else if (type == "macos") {
-    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
-    template = c(os, meta, stages)
+    os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
   } else if (type == "macos-matrix") {
-    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
-    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-no-deploy.yml", package = "tic"))
-    template = c(os, meta, matrix, stages)
+    os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    matrix <- readLines(system.file("templates/travis-matrix.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-no-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, matrix, stages)
   } else if (type == "macos-deploy") {
-    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
-    template = c(os, meta, stages)
+    os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
   } else if (type == "macos-deploy-matrix" || type == "macos-matrix-deploy") {
-    os = readLines(system.file("templates/travis-macos.yml", package = "tic"))
-    meta = readLines(system.file("templates/travis-meta-macos.yml", package = "tic"))
-    matrix = readLines(system.file("templates/travis-matrix.yml", package = "tic"))
-    stages = readLines(system.file("templates/travis-deploy.yml", package = "tic"))
-    template = c(os, meta, matrix, stages)
+    os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    matrix <- readLines(system.file("templates/travis-matrix.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, matrix, stages)
   }
   writeLines(template, ".travis.yml")
 }
@@ -95,9 +138,9 @@ use_travis_yml <- function(type) {
 #' @export
 use_appveyor_yml <- function(type) {
   if (type == "windows") {
-    template = "appveyor.yml"
+    template <- "appveyor.yml"
   } else if (type == "windows-matrix") {
-    template = "appveyor-matrix.yml"
+    template <- "appveyor-matrix.yml"
   }
   writeLines(template, "appveyor.yml")
 }
@@ -106,13 +149,19 @@ use_appveyor_yml <- function(type) {
 #' @export
 use_circle_yml <- function(type) {
   if (type == "linux") {
-    template = readLines(system.file("templates/circle.yml", package = "tic"))
+    template <- readLines(system.file("templates/circle.yml", package = "tic"))
   } else if (type == "linux-matrix") {
-    template = readLines(system.file("templates/circle-matrix.yml", package = "tic"))
+    template <- readLines(system.file("templates/circle-matrix.yml",
+      package = "tic"
+    ))
   } else if (type == "linux-deploy") {
-    template = readLines(system.file("templates/circle-deploy.yml", package = "tic"))
+    template <- readLines(system.file("templates/circle-deploy.yml",
+      package = "tic"
+    ))
   } else if (type == "linux-deploy-matrix" || type == "linux-matrix-deploy") {
-    template = readLines(system.file("templates/circle-deploy-matrix.yml", package = "tic"))
+    template <- readLines(system.file("templates/circle-deploy-matrix.yml",
+      package = "tic"
+    ))
   }
   dir.create(".circleci", showWarnings = FALSE)
   writeLines(template, con = ".circleci/config.yml")

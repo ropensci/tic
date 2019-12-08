@@ -1,6 +1,6 @@
 # nocov start
 #' @include ci.R
-CircleCI <- R6Class(
+CircleCI <- R6Class( # nolint
   "CircleCI",
   inherit = CI,
 
@@ -15,7 +15,10 @@ CircleCI <- R6Class(
       self$get_tag() != ""
     },
     get_slug = function() {
-      sprintf("%s/%s", Sys.getenv("CIRCLE_PROJECT_USERNAME"), Sys.getenv("CIRCLE_PROJECT_REPONAME"))
+      sprintf(
+        "%s/%s", Sys.getenv("CIRCLE_PROJECT_USERNAME"),
+        Sys.getenv("CIRCLE_PROJECT_REPONAME")
+      )
     },
     get_build_number = function() {
       paste0("CircleCI build ", self$get_env("CIRCLE_BUILD_NUM"))

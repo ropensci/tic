@@ -38,8 +38,8 @@ A \code{step_install_deps()} step installs all package dependencies declared in
 \code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
 This includes upgrading outdated packages.
 
-A \code{step_install_cran()} step installs one package from CRAN via \code{\link[=install.packages]{install.packages()}},
-but only if it's not already installed.
+A \code{step_install_cran()} step installs one package from CRAN via
+\code{\link[=install.packages]{install.packages()}}, but only if it's not already installed.
 
 A \code{step_install_github()} step installs one or more packages from GitHub
 via \code{\link[remotes:install_github]{remotes::install_github()}}, the packages are only installed if their

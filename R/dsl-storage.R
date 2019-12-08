@@ -7,7 +7,7 @@ dslobj_has <- function() {
 }
 
 dslobj_get <- function() {
-  .dsl_storage$dsl
+  .dsl_storage$dsl # nolint
 }
 
 dslobj_set <- function(dsl) {
@@ -21,7 +21,7 @@ dslobj_new <- function(envir = parent.frame()) {
 }
 
 dslobj_init <- function(envir = parent.frame()) {
-  dsl <- dslobj_new(envir)
+  dsl <- dslobj_new(envir) # nolint
   dslobj_set(dsl)
 }
 
@@ -53,7 +53,10 @@ dslobj_init <- function(envir = parent.frame()) {
 #' dsl_get()
 #'
 #' dsl_load(system.file("templates/package/tic.R", package = "tic"))
-#' dsl_load(system.file("templates/package/tic.R", package = "tic"), force = TRUE)
+#' dsl_load(system.file("templates/package/tic.R", package = "tic"),
+#'   force =
+#'     TRUE
+#' )
 #' dsl_get()
 #' }
 dsl_get <- function() {

@@ -99,7 +99,7 @@ add_code_step <- function(stage, call = NULL, prepare_call = NULL) {
 #' @export
 magrittr::`%>%`
 
-TicDSL <- R6Class(
+TicDSL <- R6Class( # nolint
   "TicDSL",
   public = list(
     initialize = function() {
