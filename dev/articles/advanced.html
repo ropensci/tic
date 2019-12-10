@@ -39,7 +39,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci"></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/android-chrome-512x512.png" id="hexlogo" alt="rOpenSci"></a>
         <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9000</small></i></a>
       </div>
     </div>
@@ -227,11 +227,11 @@ $install
 <div id="travis-ci" class="section level3">
 <h3 class="hasAnchor">
 <a href="#travis-ci" class="anchor"></a>Travis CI</h3>
-<p>If your build fails and you don’t understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can SSH into the build to debug it. To do so, your repository must be enabled on Travis CI for “ssh debugging”. Unfortunately you need to take manual action by contacting Travis CI via e-mail, asking whether they can activate your repo for <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode">ssh debugging</a>. Usually you get a reply within one day including additional information. After that, you either follow the manual instructions you get via mail or take the easy way: <code><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis::travis_debug_job()</a></code>.</p>
+<p>If your build fails and you don’t understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can SSH into the build to debug it. To do so, your repository must be enabled on Travis CI for “ssh debugging”. Unfortunately you need to take manual action by contacting Travis CI via e-mail, asking whether they can activate your repo for <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode">ssh debugging</a>. Usually you get a reply within one day including additional information. After that, you either follow the manual instructions you get via mail or take the easy way: <code><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis::travis_debug_job()</a></code>.</p>
 <p>All it needs is the “Job ID” of the respective build you want to enter.</p>
 <p><img src="img/travis-job-id.png" style="display: block; margin: auto;"></p>
 <p>Rather than going to the web interface and getting the “Job ID” there, you can also do this from the command line. First, you need to query the overall “Build ID” of the run:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">travis<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis_get_builds</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_builds</a></span>()</a></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="ex">A</span> collection of 25 Travis CI builds:</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="ex">-</span> id: 416858821, number: 342, state: errored, duration: 3820, event_type: push, ...</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="ex">-</span> id: 416834229, number: 341, state: errored, duration: 3738, event_type: push, ...</a>
@@ -239,17 +239,17 @@ $install
 <a class="sourceLine" id="cb14-5" data-line-number="5"><span class="ex">-</span> id: 416107143, number: 339, state: errored, duration: 3670, event_type: push, ...</a>
 <a class="sourceLine" id="cb14-6" data-line-number="6"><span class="ex">-</span> id: 416095854, number: 338, state: passed, duration: 3135, event_type: push, ...</a></code></pre></div>
 <p>Because every “build” has multiple “Jobs”, you can now query the “Job ID”. For example, when you know that you want to debug the latest build, you can combine both commands:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">build_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis_get_builds</a></span>()[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis_get_jobs</a></span>(build_id)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">build_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_builds</a></span>()[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_jobs</a></span>(build_id)</a></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="ex">A</span> collection of 7 Travis CI jobs:</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">-</span> id: 416858822, allow_failure: FALSE, number: 342.1, state: passed, started_at: 2018-08-16T15:02:52Z, ...</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="ex">-</span> id: 416858823, allow_failure: FALSE, number: 342.2, state: passed, started_at: 2018-08-16T15:02:18Z, ...</a>
 <a class="sourceLine" id="cb16-4" data-line-number="4"><span class="ex">-</span> id: 416858824, allow_failure: FALSE, number: 342.3, state: passed, started_at: 2018-08-16T15:02:43Z, ...</a>
 <a class="sourceLine" id="cb16-5" data-line-number="5"><span class="ex">-</span> id: 416858825, allow_failure: FALSE, number: 342.4, state: passed, started_at: 2018-08-16T15:02:23Z, ...</a>
 <a class="sourceLine" id="cb16-6" data-line-number="6"><span class="ex">-</span> id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...</a></code></pre></div>
-<p>Finally, the build can be restarted by calling <code><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis::travis_debug_job()</a></code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">job_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis_get_jobs</a></span>(build_id)[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/travis/reference/travis_get_builds.html">travis_debug_job</a></span>(job_id)</a></code></pre></div>
+<p>Finally, the build can be restarted by calling <code><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis::travis_debug_job()</a></code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">job_id &lt;-<span class="st"> </span>travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_jobs</a></span>(build_id)[[<span class="dv">1</span>]]<span class="op">$</span>id</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_debug_job</a></span>(job_id)</a></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="ex">Finished</span> restarting debug job 416983664 from Travis CI.</a></code></pre></div>
 <p>Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to enter the build. It should look similar to <code>ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io</code>. If you still do not want to use the browser manually, simple call <code>travis::browse()</code> to open your project on Travis.</p>
 <p>Once you are in the build you can use <code>bash</code> functions defined by Travis to to execute specific stages:</p>
@@ -327,22 +327,69 @@ $install
 
 
 
-      <footer><div style="margin-top:-9px">
-  <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
+
+   </div>
+    <footer><!-- begin footer --><div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
 </div>
-
-<div class="author">
-  <p>
-    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, <a href="https://pat-s.me">Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
 </div>
-
-      </footer>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
 </div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-  
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / end footer -->
 
-  </body>
+    </footer>
+</body>
 </html>
