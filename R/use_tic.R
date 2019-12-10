@@ -2,6 +2,7 @@
 #' @description Prepares a repo for building and deploying supported by
 #' \pkg{tic}.
 #'
+#' @importFrom utils menu
 #' @details
 #'
 #' 1. Query information which CI providers should be used
