@@ -40,7 +40,7 @@ Depends:
     R (>= 3.2.0)
 Imports: 
     backports (>= 1.1.5),
-    cli,
+    cli (>= 2.0.0),
     crayon,
     magrittr,
     memoise,
