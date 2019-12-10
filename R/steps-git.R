@@ -333,7 +333,7 @@ DoPushDeploy <- R6Class(
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
 #'
 #' Deployment usually requires setting up SSH keys with
-#' [use_tic()] or [use_travis_deploy()].
+#' [use_tic()] or [travis::use_travis_deploy()].
 #'
 #'
 #' @details
@@ -443,7 +443,7 @@ PushDeploy <- R6Class(
 #' and [step_do_push_deploy()].
 #'
 #' Deployment usually requires setting up SSH keys with
-#' [use_tic()] or [use_travis_deploy()].
+#' [use_tic()] or [travis::use_travis_deploy()].
 #'
 #' @details
 #' Setup and deployment are combined in one step,

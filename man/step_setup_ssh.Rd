@@ -28,8 +28,8 @@ Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
 Adds to known hosts, installs private key, and tests the connection.
 Chaining \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}}, \code{\link[=step_add_to_known_hosts]{step_add_to_known_hosts()}}
 and \code{\link[=step_test_ssh]{step_test_ssh()}}.
-The \code{\link[=use_travis_deploy]{use_travis_deploy()}} and \code{\link[=use_tic]{use_tic()}} functions encode a private key
-as an environment variable for use with this function.
+The \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} and \code{\link[=use_tic]{use_tic()}} functions encode a private
+key as an environment variable for use with this function.
 }
 \examples{
 dsl_init()

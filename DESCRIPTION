@@ -94,7 +94,6 @@ Collate:
     'print.R'
     'repo.R'
     'run.R'
-    'setup.R'
     'stage.R'
     'steps-base.R'
     'steps-bookdown.R'

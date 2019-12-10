@@ -40,7 +40,7 @@ a suitable \code{orphan} argument,
 and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
 
 Deployment usually requires setting up SSH keys with
-\code{\link[=use_tic]{use_tic()}} or \code{\link[=use_travis_deploy]{use_travis_deploy()}}.
+\code{\link[=use_tic]{use_tic()}} or \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.
 }
 \details{
 Setup and deployment are combined in one step,
