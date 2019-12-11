@@ -1,11 +1,10 @@
-
-# meta -------------------------------------------------------------------------
+--- # meta -------------------------------------------------------------------------
 language: r
 cache:
   - packages
-  - $HOME/.ccache
+  - ccache
 latex: false
 
 env:
   global:
-  - MAKEFLAGS="-j 2"
+    - MAKEFLAGS="-j 2"
