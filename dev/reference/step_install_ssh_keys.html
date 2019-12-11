@@ -39,15 +39,15 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Step: Install an SSH key — step_install_ssh_keys" />
 <meta property="og:description" content="Writes a private SSH key encoded in an environment variable
 to a file in ~/.ssh.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-The use_travis_deploy() and use_tic() functions encode a private key
-as an environment variable for use with this function." />
+The travis::use_travis_deploy() and use_tic() functions encode a private
+key as an environment variable for use with this function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -81,7 +81,7 @@ as an environment variable for use with this function." />
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="https://ropensci.org/android-chrome-512x512.png" id="hexlogo" alt="rOpenSci" /></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
         <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9000</small></i></a>
       </div>
     </div>
@@ -158,8 +158,8 @@ as an environment variable for use with this function." />
 to a file in <code>~/.ssh</code>.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-The <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private key
-as an environment variable for use with this function.</p>
+The <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private
+key as an environment variable for use with this function.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>)</pre>
@@ -176,7 +176,7 @@ Name of the environment variable and the target file, default: <code>"id_rsa"</c
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code></p>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code></p>
 <p>Other steps: 
 <code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
 <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
@@ -211,10 +211,8 @@ Name of the environment variable and the target file, default: <code>"id_rsa"</c
 </div>
 
 
-
-   </div>
-    <footer>
-    <!-- begin footer -->
+      <footer>
+      <!-- begin footer -->
 <div class="footer">
     <div class="container">
         <div class="row start bottom-8">
@@ -275,7 +273,11 @@ Name of the environment variable and the target file, default: <code>"id_rsa"</c
 </div>
 <!-- / end footer -->
 
-    </footer>
+      </footer>
+   </div>
+
+  
+
 
   </body>
 </html>

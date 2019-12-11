@@ -39,7 +39,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Step: Setup and perform push deploy — step_push_deploy" />
 <meta property="og:description" content="Clones a repo, inits author information, sets up remotes,
@@ -48,7 +48,7 @@ Combines step_setup_push_deploy() with checkout = FALSE and
 a suitable orphan argument,
 and step_do_push_deploy().
 Deployment usually requires setting up SSH keys with
-use_tic() or use_travis_deploy()." />
+use_tic() or travis::use_travis_deploy()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +82,7 @@ use_tic() or use_travis_deploy()." />
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="https://ropensci.org/android-chrome-512x512.png" id="hexlogo" alt="rOpenSci" /></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
         <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9000</small></i></a>
       </div>
     </div>
@@ -161,7 +161,7 @@ Combines <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a
 a suitable <code>orphan</code> argument,
 and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</p>
 <p>Deployment usually requires setting up SSH keys with
-<code><a href='use_tic.html'>use_tic()</a></code> or <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code>.</p>
+<code><a href='use_tic.html'>use_tic()</a></code> or <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_push_deploy</span>(
@@ -258,10 +258,8 @@ and create the files to be deployed inbetween these steps.</p>
 </div>
 
 
-
-   </div>
-    <footer>
-    <!-- begin footer -->
+      <footer>
+      <!-- begin footer -->
 <div class="footer">
     <div class="container">
         <div class="row start bottom-8">
@@ -322,7 +320,11 @@ and create the files to be deployed inbetween these steps.</p>
 </div>
 <!-- / end footer -->
 
-    </footer>
+      </footer>
+   </div>
+
+  
+
 
   </body>
 </html>

@@ -117,15 +117,16 @@ a:focus, a:hover {
 }
 
 #hexlogo {
-  height: 50px;
+  height: 40px;
   float: left;
-  margin-right: 10px;
-  margin-left: 5px;
+  margin: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 @media screen and (min-width: 768px) {
   .navbar, #hexlogo {
-    height: 40px;
+    height: 30px;
   }
   .navbar .navbar-brand {
     line-height: 19px;
@@ -149,9 +150,9 @@ a:focus, a:hover {
   font-size: 18px;
 }
 
-html, body {
-  height: auto;
-}
+/* Position hack to get full width footer even though pkgdown puts it inside a container
+ * See: https://css-tricks.com/full-width-containers-limited-width-parents/
+ */
 
 footer {
   background-color: #4b8add;
@@ -159,6 +160,12 @@ footer {
   color: #ccdef6;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 22px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 footer img {
