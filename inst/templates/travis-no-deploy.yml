@@ -1,4 +1,4 @@
---- # DO NOT CHANGE THE CODE BELOW -------------------------------------------------
+--- # DO NOT CHANGE THE CODE BELOW ---------------------------------------------
 # Stages -----------------------------------------------------------------------
 
 before_install:
@@ -16,3 +16,5 @@ after_success: R -q -e 'tic::after_success()'
 after_failure: R -q -e 'tic::after_failure()'
 after_script: R -q -e 'tic::after_script()'
 # DO NOT CHANGE THE CODE ABOVE -------------------------------------------------
+
+# Custom user code -------------------------------------------------------------

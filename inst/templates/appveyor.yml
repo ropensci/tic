@@ -3,9 +3,9 @@
 # Download script file from GitHub
 init:
   ps: |
-        $ErrorActionPreference = "Stop"
-        Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
-        Import-Module '..\appveyor-tool.ps1'
+    $ErrorActionPreference = "Stop"
+    Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
+    Import-Module '..\appveyor-tool.ps1'
 
 install:
   - ps: Bootstrap
@@ -26,3 +26,4 @@ before_deploy: Rscript -e "tic::before_deploy()"
 deploy_script: Rscript -e "tic::deploy()"
 after_deploy: Rscript -e "tic::after_deploy()"
 on_finish: Rscript -e "tic::after_script()"
+# Custom user code -------------------------------------------------------------

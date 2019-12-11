@@ -1,4 +1,4 @@
---- # DO NOT CHANGE THE CODE BELOW -------------------------------------------------
+--- # DO NOT CHANGE THE CODE BELOW ---------------------------------------------
 # Stages -----------------------------------------------------------------------
 
 before_install:
@@ -26,3 +26,5 @@ deploy:
 after_deploy: R -q -e 'tic::after_deploy()'
 after_script: R -q -e 'tic::after_script()'
 # DO NOT CHANGE THE CODE ABOVE -------------------------------------------------
+
+# Custom user code -------------------------------------------------------------

@@ -79,3 +79,4 @@ workflows:
                 - master
     jobs:
       - r-release
+# Custom user code -------------------------------------------------------------
