@@ -1,7 +1,7 @@
 # tic
 
 <!-- badges: start -->
-[![Travis build status](https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic)
+[![Travis build status](https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.com/ropenscilabs/tic)
 [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropenscilabs/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropenscilabs/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
