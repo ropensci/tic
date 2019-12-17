@@ -223,3 +223,9 @@ footer p {
 .bottom-8 {
   margin-bottom: 40px;
 }
+
+@media screen and (max-width: 991px) {
+  .docsearch {
+    display: none;
+  }
+}
