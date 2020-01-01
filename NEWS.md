@@ -1,4 +1,7 @@
-# tic (development version)
+# tic 0.3.0.9001
+
+- Move `use_travis_deploy()` back to {travis}.
+
 
 # tic 0.3.0
 
@@ -10,6 +13,7 @@
 - `do_package_checks()` gains `type` argument.
 - Tweak documentation.
 - export `use_travis_yml()`, `use_circle_yml()` and `use_appveyor_yml()` and add overview table of available options
+
 
 # tic 0.2.13.9020
 
