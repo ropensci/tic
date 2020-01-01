@@ -100,7 +100,7 @@ use_tic <- function(wizard = interactive(),
     )
 
     wizard <- FALSE
-    use_tic_call <- c(
+    use_tic_call <- paste0(
       'tic::use_tic(',
       arg_desc(wizard),
       arg_desc(linux),
@@ -111,9 +111,7 @@ use_tic <- function(wizard = interactive(),
       ')'
     )
     cli_text("If setup fails, rerun with:")
-
-    # https://github.com/r-lib/cli/issues/127
-    withr::with_options(c(cli.width = 30), cli_code(use_tic_call))
+    cli_text("{.code ", use_tic_call, "}")
   } else {
     linux <- match.arg(linux, several.ok = TRUE)
     mac <- match.arg(mac, several.ok = TRUE)
@@ -272,7 +270,7 @@ use_tic <- function(wizard = interactive(),
 arg_desc <- function(arg, last = FALSE) {
   arg_name <- substitute(arg)
   arg_value <- deparse(arg)
-  paste0("  ", arg_name, " = ", arg_value, if (!last) ",")
+  paste0(arg_name, " = ", arg_value, if (!last) ", ")
 }
 
 travis_in <- function(x) {
