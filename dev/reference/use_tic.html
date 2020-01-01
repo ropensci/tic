@@ -154,11 +154,39 @@ tic." />
 <span class="pkg">tic</span>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_tic</span>(<span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>use_tic</span>(
+  <span class='kw'>wizard</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(),
+  <span class='kw'>linux</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"travis"</span>, <span class='st'>"circle"</span>, <span class='st'>"none"</span>, <span class='st'>"all"</span>),
+  <span class='kw'>mac</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"travis"</span>, <span class='st'>"all"</span>),
+  <span class='kw'>windows</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"appveyor"</span>, <span class='st'>"all"</span>),
+  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"travis"</span>, <span class='st'>"circle"</span>, <span class='st'>"none"</span>, <span class='st'>"all"</span>),
+  <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"travis"</span>, <span class='st'>"circle"</span>, <span class='st'>"appveyor"</span>, <span class='st'>"all"</span>),
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>wizard</th>
+      <td><p><code>[flag]</code><br /> Interactive operation? If <code>TRUE</code>,
+a menu will be shown.</p></td>
+    </tr>
+    <tr>
+      <th>linux, windows, mac</th>
+      <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on
+Linux, Windows, and macOS, respectively.</p></td>
+    </tr>
+    <tr>
+      <th>deploy</th>
+      <td><p><code>[string]</code><br /> Which CI provider(s) to use to
+deploy artifacts such as pkgdown documentation.</p></td>
+    </tr>
+    <tr>
+      <th>matrix</th>
+      <td><p><code>[string]</code><br /> For which CI provider(s) to set up
+matrix builds.</p></td>
+    </tr>
     <tr>
       <th>quiet</th>
       <td><p><code>[flag]</code><br /> Less verbose output? Default: <code>FALSE</code>.</p></td>
@@ -177,12 +205,27 @@ tic." />
 </ol>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Requires interactive mode</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+  <span class='fu'>use_tic</span>()
+
+  <span class='co'># Pre-specified settings favoring Circle CI:</span>
+  <span class='fu'>use_tic</span>(
+    <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
+    <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
+    <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
+    <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
+    <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"all"</span>
+  )
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
