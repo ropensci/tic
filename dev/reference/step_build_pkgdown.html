@@ -175,7 +175,7 @@ values in <code>_pkgdown.yml</code></p></dd>
 freshly generated section in browser.</p></dd>
     <dt><code>devel</code></dt><dd><p>Use development or deployment process?If <code>TRUE</code>, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
-and will load code with <code>pkgload::load_call()</code>.If <code>FALSE</code>, will first install the package to a temporary library,
+and will load code with <code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.If <code>FALSE</code>, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.<code>build_site()</code> defaults to <code>devel = FALSE</code> so that you get high fidelity
 outputs when you building the complete site; <code>build_reference()</code>,
 <code>build_home()</code> and friends default to <code>devel = TRUE</code> so that you can
