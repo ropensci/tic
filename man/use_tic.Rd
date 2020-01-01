@@ -4,9 +4,30 @@
 \alias{use_tic}
 \title{Initialize CI testing using tic}
 \usage{
-use_tic(quiet = FALSE)
+use_tic(
+  wizard = interactive(),
+  linux = c("travis", "circle", "none", "all"),
+  mac = c("none", "travis", "all"),
+  windows = c("none", "appveyor", "all"),
+  deploy = c("travis", "circle", "none", "all"),
+  matrix = c("none", "travis", "circle", "appveyor", "all"),
+  quiet = FALSE
+)
 }
 \arguments{
+\item{wizard}{\verb{[flag]}\cr Interactive operation? If \code{TRUE},
+a menu will be shown, and the \code{linux}, \code{mac}, \code{windows},
+\code{deploy} and \code{matrix} arguments are ignored.}
+
+\item{linux, windows, mac}{\verb{[string]}\cr Which CI provider(s) to use to test on
+Linux, Windows, and macOS, respectively.}
+
+\item{deploy}{\verb{[string]}\cr Which CI provider(s) to use to
+deploy artifacts such as pkgdown documentation.}
+
+\item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up
+matrix builds.}
+
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
 \description{
@@ -20,5 +41,20 @@ Prepares a repo for building and deploying supported by
 \item Create YAML files for selected providers
 \item Create a default \code{tic.R} file depending on the repo type
 (package, website, bookdown, ...)
+}
+}
+\examples{
+# Requires interactive mode
+if (FALSE) {
+  use_tic()
+
+  # Pre-specified settings favoring Circle CI:
+  use_tic(
+    linux = "circle",
+    mac = "travis",
+    windows = "appveyor",
+    deploy = "circle",
+    matrix = "all"
+  )
 }
 }
