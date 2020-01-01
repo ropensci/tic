@@ -288,6 +288,10 @@ appveyor_in <- function(x) {
 }
 
 ci_menu <- function(choices, title) {
+  if (length(setdiff(choices, c("all", "none"))) <= 1) {
+    choices <- setdiff(choices, "all")
+  }
+
   choice_map <- c(
     travis = "Travis CI",
     circle = "Circle CI",
