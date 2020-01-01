@@ -1,3 +1,5 @@
+# nocov start
+
 #' @title Initialize CI testing using tic
 #' @description Prepares a repo for building and deploying supported by
 #' \pkg{tic}.
