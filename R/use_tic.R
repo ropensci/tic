@@ -12,8 +12,7 @@
 #'    (package, website, bookdown, ...)
 #'
 #' @param wizard `[flag]`\cr Interactive operation? If `TRUE`,
-#'   a menu will be shown, and the `linux`, `mac`, `windows`,
-#'   `deploy` and `matrix` arguments are ignored.
+#'   a menu will be shown.
 #' @param linux,windows,mac `[string]`\cr Which CI provider(s) to use to test on
 #'   Linux, Windows, and macOS, respectively.
 #' @param deploy `[string]`\cr Which CI provider(s) to use to
@@ -133,12 +132,12 @@ use_tic <- function(wizard = interactive(),
 
   # init deploy ----------------------------------------------------------------
 
-  if ("circle" %in% deploy) {
+  if (circle_in(deploy)) {
     rule(left = "Circle CI")
     check_circle_pkg()
     circle::enable_repo()
     circle::use_circle_deploy()
-  } else if ("travis" %in% deploy) {
+  } else if (travis_in(deploy)) {
     rule(left = "Travis CI")
     check_travis_pkg()
     travis::travis_enable()

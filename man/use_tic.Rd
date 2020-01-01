@@ -16,8 +16,7 @@ use_tic(
 }
 \arguments{
 \item{wizard}{\verb{[flag]}\cr Interactive operation? If \code{TRUE},
-a menu will be shown, and the \code{linux}, \code{mac}, \code{windows},
-\code{deploy} and \code{matrix} arguments are ignored.}
+a menu will be shown.}
 
 \item{linux, windows, mac}{\verb{[string]}\cr Which CI provider(s) to use to test on
 Linux, Windows, and macOS, respectively.}
