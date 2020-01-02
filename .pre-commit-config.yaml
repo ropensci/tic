@@ -7,6 +7,7 @@ repos:
     -   id: style-files
         args: [--style_pkg=styler, --style_fun=tidyverse_style]
     -   id: lintr
+        args: [--warn_only]
     -   id: parsable-R
     -   id: no-browser-statement
     -   id: readme-rmd-rendered
