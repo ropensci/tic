@@ -1,0 +1,9 @@
+# OS: Linux + macOS ------------------------------------------------------------
+# tic documentation: https://docs.ropensci.org/tic/dev/
+
+matrix:
+  include:
+    - os: osx
+      r: release
+    - os: linux
+      r: release

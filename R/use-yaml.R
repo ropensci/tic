@@ -27,10 +27,14 @@
 #'  |          | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")` |
 #'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")` |
 #'  |          | Linux            | yes        | yes                 | `use_travis_yml("linux-deploy-matrix")` |
-#'  |          | macOS            | no         | no                  | `use_travis_yml("macOS")` |
+#'  |          | macOS            | no         | no                  | `use_travis_yml("macos")` |
 #'  |          | macOS            | yes        | no                  | `use_travis_yml("macos-deploy")` |
 #'  |          | macOS            | no         | yes                 | `use_travis_yml("macos-matrix")` |
 #'  |          | macOS            | yes        | yes                 | `use_travis_yml("macos-deploy-matrix")` |
+#'  |          | Linux + macOS    | no         | no                  | `use_travis_yml("linux-macos")` |
+#'  |          | Linux + macOS    | yes        | no                  | `use_travis_yml("linux-macos-deploy")` |
+#'  |          | Linux + macOS    | no         | yes                 | `use_travis_yml("linux-macos-matrix")` |
+#'  |          | Linux + macOS    | yes        | yes                 | `use_travis_yml("linux-macos-deploy-matrix")` |
 #'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
 #'  | Circle   | Linux            | no         | no                  | `use_circle_yml("linux")` |
 #'  |          | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")` |
@@ -109,6 +113,50 @@ use_travis_yml <- function(type) {
       package = "tic"
     ))
     template <- c(os, meta, matrix, stages)
+  } else if (type == "linux-macos-matrix") {
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    os <- readLines(system.file("templates/travis-matrix-linux-macos.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-no-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
+  } else if (type == "linux-macos-deploy-matrix") {
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    os <- readLines(system.file("templates/travis-matrix-linux-macos.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
+  } else if (type == "linux-macos") {
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    os <- readLines(system.file("templates/travis-linux-macos.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-no-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
+  } else if (type == "linux-macos-deploy") {
+    meta <- readLines(system.file("templates/travis-meta-macos.yml",
+      package = "tic"
+    ))
+    os <- readLines(system.file("templates/travis-linux-macos.yml",
+      package = "tic"
+    ))
+    stages <- readLines(system.file("templates/travis-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, stages)
   } else if (type == "macos-deploy") {
     os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",

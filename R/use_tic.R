@@ -101,14 +101,14 @@ use_tic <- function(wizard = interactive(),
 
     wizard <- FALSE
     use_tic_call <- paste0(
-      'tic::use_tic(',
+      "tic::use_tic(",
       arg_desc(wizard),
       arg_desc(linux),
       arg_desc(mac),
       arg_desc(windows),
       arg_desc(deploy),
       arg_desc(matrix, last = TRUE),
-      ')'
+      ")"
     )
     cli_text("If setup fails, rerun with:")
     cli_text("{.code ", use_tic_call, "}")
@@ -154,29 +154,22 @@ use_tic <- function(wizard = interactive(),
 
   rule(left = "Travis CI")
 
-  if (travis_in(linux)) {
-    # deployment
-    if (travis_in(deploy)) {
-      # build matrix
-      if (travis_in(matrix)) {
-        use_travis_yml("linux-deploy-matrix")
+  if (travis_in(linux) && travis_in(mac)) {
+
+    if (travis_in(matrix)) {
+      if (travis_in(deploy)) {
+        use_travis_yml("linux-macos-deploy-matrix")
       } else {
-        use_travis_yml("linux-deploy")
+        use_travis_yml("linux-macos-matrix")
       }
     } else {
-      # build matrix
-      if (travis_in(matrix)) {
-        use_travis_yml("linux-matrix")
+      if (travis_in(deploy)) {
+        use_travis_yml("linux-macos-deploy")
       } else {
-        use_travis_yml("linux")
+        use_travis_yml("linux-macos")
       }
     }
-  }
-
-  if (travis_in(mac)) {
-    if (travis_in(linux)) {
-      stopc("Currently failing, https://github.com/ropenscilabs/tic/issues/202")
-    }
+  } else if (travis_in(mac)) {
 
     if (travis_in(deploy)) {
       # build matrix
@@ -191,6 +184,23 @@ use_tic <- function(wizard = interactive(),
         use_travis_yml("macos-matrix")
       } else {
         use_travis_yml("macos")
+      }
+    }
+  } else if (travis_in(linux)) {
+    # deployment
+    if (travis_in(deploy)) {
+      # build matrix
+      if (travis_in(matrix)) {
+        use_travis_yml("linux-deploy-matrix")
+      } else {
+        use_travis_yml("linux-deploy")
+      }
+    } else {
+      # build matrix
+      if (travis_in(matrix)) {
+        use_travis_yml("linux-matrix")
+      } else {
+        use_travis_yml("linux")
       }
     }
   }
