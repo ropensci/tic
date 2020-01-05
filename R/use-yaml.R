@@ -186,9 +186,13 @@ use_travis_yml <- function(type) {
 #' @export
 use_appveyor_yml <- function(type) {
   if (type == "windows") {
-    template <- "appveyor.yml"
+    template <- readLines(system.file("templates/appveyor.yml",
+      package = "tic"
+    ))
   } else if (type == "windows-matrix") {
-    template <- "appveyor-matrix.yml"
+    template <- readLines(system.file("templates/appveyor-matrix.yml",
+      package = "tic"
+    ))
   }
   writeLines(template, "appveyor.yml")
 }
