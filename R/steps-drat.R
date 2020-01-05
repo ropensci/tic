@@ -4,7 +4,7 @@ AddToDrat <- R6Class(
 
   public = list(
     prepare = function() {
-      verify_install("drat", "remotes", "knitr", "withr", "pkgbuild")
+      verify_install(c("drat", "remotes", "knitr", "withr", "pkgbuild"))
     },
 
     run = function() {
