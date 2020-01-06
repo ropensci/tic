@@ -69,7 +69,7 @@ Suggests:
 VignetteBuilder:
     knitr
 Remotes: 
-    pat-s/circle,
+    ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
