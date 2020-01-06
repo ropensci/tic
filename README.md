@@ -44,8 +44,7 @@ remotes::install_github("ropenscilabs/tic")
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
 The created templates will use the providers https://travis-ci.org, https://appveyor.com and https://circleci.com.
 
-If you only the CI YAML from _tic_ should be used, the `use_<provider>_yml()` functions
-can be used.
+If only the CI YAML templates from _tic_ are desired, the `use_<provider>_yml()` functions can be used.
 Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml-templates.html).
 
 For an R package, the following steps will be set up for the CI workflow:
