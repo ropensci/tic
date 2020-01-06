@@ -13,12 +13,16 @@ Override this class to create a new step.
 This method must be overridden, it is called when running the stage
 to which a step has been added.
 }
-\item{\code{prepare}}{
-This method is called when preparing the stage
-to which a step has been added.
-Override this method to install any R packages your step might need,
-because this allows them to be cached for subsequential runs.
-}
+\item{\code{prepare}}{ This method is called when preparing the stage to
+which a step has been added. It auto-install all packages which are
+needed for a certain step. For example, \code{step_build_pkgdown()} requires
+the \emph{pkgdown} package.
+
+For \code{add_code_step()}, it autodetects any package calls in the form of
+\code{pkg::fun} and tries to install these packages from CRAN. If a steps
+\code{prepare_call} is not empty, the \verb{$prepare} method is skipped for this
+step. This can be useful if a package should be installed from
+non-standard repositories, e.g. from Github. }
 \item{\code{check}}{
 This method determines if a step is prepared and run.
 Return \code{FALSE} if conditions for running this step are not met.
