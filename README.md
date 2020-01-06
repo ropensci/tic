@@ -46,7 +46,7 @@ The created templates will use the providers https://travis-ci.org, https://appv
 
 If you only the CI YAML from _tic_ should be used, the `use_<provider>_yml()` functions
 can be used.
-See [here](https://docs.ropensci.org/tic/dev/reference/yaml-templates.html) for a complete list of options.
+Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml-templates.html).
 
 For an R package, the following steps will be set up for the CI workflow:
 
