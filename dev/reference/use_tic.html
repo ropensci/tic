@@ -156,11 +156,11 @@ tic." />
 
     <pre class="usage"><span class='fu'>use_tic</span>(
   <span class='kw'>wizard</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(),
-  <span class='kw'>linux</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"travis"</span>, <span class='st'>"circle"</span>, <span class='st'>"none"</span>, <span class='st'>"all"</span>),
-  <span class='kw'>mac</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"travis"</span>, <span class='st'>"all"</span>),
-  <span class='kw'>windows</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"appveyor"</span>, <span class='st'>"all"</span>),
-  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"travis"</span>, <span class='st'>"circle"</span>, <span class='st'>"none"</span>, <span class='st'>"all"</span>),
-  <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"travis"</span>, <span class='st'>"circle"</span>, <span class='st'>"appveyor"</span>, <span class='st'>"all"</span>),
+  <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
+  <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
+  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
+  <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -169,23 +169,34 @@ tic." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>wizard</th>
-      <td><p><code>[flag]</code><br /> Interactive operation? If <code>TRUE</code>,
-a menu will be shown.</p></td>
+      <td><p><code>[flag]</code><br /> Interactive operation? If <code>TRUE</code>, a menu will be
+shown.</p></td>
     </tr>
     <tr>
-      <th>linux, windows, mac</th>
-      <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on
-Linux, Windows, and macOS, respectively.</p></td>
+      <th>linux</th>
+      <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Linux.
+Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>mac</th>
+      <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on macOS
+Possible options are <code>"none"</code>, and <code>"travis"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>windows</th>
+      <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Windows
+Possible options are <code>"none"</code> and <code>"appveyor"</code>.</p></td>
     </tr>
     <tr>
       <th>deploy</th>
-      <td><p><code>[string]</code><br /> Which CI provider(s) to use to
-deploy artifacts such as pkgdown documentation.</p></td>
+      <td><p><code>[string]</code><br /> Which CI provider(s) to use to deploy artifacts
+such as pkgdown documentation. Possible options are <code>"travis"</code>, <code>"circle"</code>,
+<code>"none"</code> and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>matrix</th>
-      <td><p><code>[string]</code><br /> For which CI provider(s) to set up
-matrix builds.</p></td>
+      <td><p><code>[string]</code><br /> For which CI provider(s) to set up matrix builds.
+Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -212,6 +223,7 @@ matrix builds.</p></td>
 
   <span class='co'># Pre-specified settings favoring Circle CI:</span>
   <span class='fu'>use_tic</span>(
+    <span class='kw'>wizard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
     <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
     <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
     <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
