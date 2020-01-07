@@ -43,10 +43,14 @@ Here is a list of all available combinations:\tabular{lllll}{
     \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy")} \cr
     \tab Linux \tab no \tab yes \tab \code{use_travis_yml("linux-matrix")} \cr
     \tab Linux \tab yes \tab yes \tab \code{use_travis_yml("linux-deploy-matrix")} \cr
-    \tab macOS \tab no \tab no \tab \code{use_travis_yml("macOS")} \cr
+    \tab macOS \tab no \tab no \tab \code{use_travis_yml("macos")} \cr
     \tab macOS \tab yes \tab no \tab \code{use_travis_yml("macos-deploy")} \cr
     \tab macOS \tab no \tab yes \tab \code{use_travis_yml("macos-matrix")} \cr
     \tab macOS \tab yes \tab yes \tab \code{use_travis_yml("macos-deploy-matrix")} \cr
+    \tab Linux + macOS \tab no \tab no \tab \code{use_travis_yml("linux-macos")} \cr
+    \tab Linux + macOS \tab yes \tab no \tab \code{use_travis_yml("linux-macos-deploy")} \cr
+    \tab Linux + macOS \tab no \tab yes \tab \code{use_travis_yml("linux-macos-matrix")} \cr
+    \tab Linux + macOS \tab yes \tab yes \tab \code{use_travis_yml("linux-macos-deploy-matrix")} \cr
    ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
    Circle \tab Linux \tab no \tab no \tab \code{use_circle_yml("linux")} \cr
     \tab Linux \tab yes \tab no \tab \code{use_travis_yml("linux-deploy")} \cr
