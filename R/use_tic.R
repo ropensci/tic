@@ -26,6 +26,9 @@
 #'   `"none"` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
 #'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
+#'   options are `".org"` and `".com"`. Default is `".com"`. See
+#'   [travis::travis_eanble()] for more information.
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
 #' @examples
@@ -49,6 +52,7 @@ use_tic <- function(wizard = interactive(),
                     windows = "appveyor",
                     deploy = "travis",
                     matrix = "none",
+                    travis_endpoint = ".com",
                     quiet = FALSE) { # nolint
 
   cli_alert("Welcome to {.pkg tic}!")
@@ -166,8 +170,8 @@ use_tic <- function(wizard = interactive(),
   } else if (travis_in(deploy)) {
     rule(left = "Travis CI")
     check_travis_pkg()
-    travis::travis_enable()
-    travis::use_travis_deploy()
+    travis::travis_enable(endpoint = travis_endpoint)
+    travis::use_travis_deploy(endpoint = travis_endpoint)
   }
 
   # create YAMLs ---------------------------------------------------------------
