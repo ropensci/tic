@@ -33,6 +33,20 @@ TicStage <- R6Class(
     },
 
     prepare_all = function() {
+
+      # check if DESCRIPTION file exists
+      path <- path(path, "DESCRIPTION")
+      if (!file_exists(path)) {
+        cli::cli_alert_danger("{.pkg tic} requires a DESCRIPTION file for
+        installing dependencies, please add one.", wrap = TRUE)
+        stop("Can't find DESCRIPTION.",
+          call. = FALSE
+        )
+      }
+
+      # check if package name is valid
+      check_package_name()
+
       lapply(private$steps, private$prepare_one)
       invisible()
     },
