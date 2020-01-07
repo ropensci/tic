@@ -6,10 +6,10 @@
 \usage{
 use_tic(
   wizard = interactive(),
-  linux = "circle",
-  mac = "none",
+  linux = "travis",
+  mac = "travis",
   windows = "appveyor",
-  deploy = "circle",
+  deploy = "travis",
   matrix = "none",
   quiet = FALSE
 )
