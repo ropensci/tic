@@ -76,7 +76,7 @@ project_data <- function(base_path = proj_get()) {
   if (is_package(base_path)) {
     data <- package_data(base_path)
   } else {
-    data <- list(Project = path_file(base_path))
+    data <- list(Project = file.path(base_path))
   }
   data
 }
