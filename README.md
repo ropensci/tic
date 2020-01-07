@@ -14,7 +14,7 @@ The goal of tic is to enhance and simplify working with continuous integration (
 
 The following ones are supported: 
 
-- [Travis CI](https://travis-ci.org) (Linux, macOS)
+- [Travis CI](https://travis-ci.org) (both https://travis-ci.org and https://travis-ci.com) (Linux, macOS)
 - [AppVeyor](https://www.appveyor.com/) (Windows)
 - [Circle CI](https://circleci.com/) (Linux)
 
@@ -32,7 +32,7 @@ The most important improvements over existing solutions are:
 
 ## Installation
 
-_tic_ can be installed from GitHub with:
+{tic} can be installed from GitHub with:
 
 ``` r
 remotes::install_github("ropenscilabs/tic")
@@ -41,9 +41,10 @@ remotes::install_github("ropenscilabs/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.org, https://appveyor.com and https://circleci.com.
+The created templates will use the providers https://travis-ci.com, https://appveyor.com and https://circleci.com.
+For more information about the difference between https://travis-ci.org and https://travis-ci.com see the vignette about [Travis CI '.org' vs '.com'](https://ropenscilabs.github.io/tic/articles/org-vs-com.html).
 
-If only the CI YAML templates from _tic_ are desired, the `use_<provider>_yml()` functions can be used.
+If only the CI YAML templates from {tic} are desired, the `use_<provider>_yml()` functions can be used.
 Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml-templates.html).
 
 For an R package, the following steps will be set up for the CI workflow:
@@ -58,15 +59,15 @@ See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) 
 
 ## Good to know
 
-We would like to mention that _tic_ is a choice and sits on top of existing community efforts providing R support for various CI providers.
-While _tic_ will prevent you from dealing/learning every CIs YAML syntax, you will have to learn _tic_'s way of specifying your tasks on CI systems.
+We would like to mention that {tic} is a choice and sits on top of existing community efforts providing R support for various CI providers.
+While {tic} will prevent you from dealing/learning every CIs YAML syntax, you will have to learn {tic}'s way of specifying your tasks on CI systems.
 
 Also, there is no way around familiarizing yourself with the basics of CI systems in general. 
-Without this knowledge, you will also have a hard way understanding _tic_. 
+Without this knowledge, you will also have a hard way understanding {tic}. 
 
-There is not yet an automated way of updating the templates installed by _tic_, hence you need to manually check every once in a while if we made some changes to the templates.
+There is not yet an automated way of updating the templates installed by {tic}, hence you need to manually check every once in a while if we made some changes to the templates.
 
-We also recommend to take a look at the projects providing the direct R support for each CI system (which _tic_ builds upon) to gain a deeper understanding of the whole concept.
+We also recommend to take a look at the projects providing the direct R support for each CI system (which {tic} builds upon) to gain a deeper understanding of the whole concept.
 
 ## Examples
 
@@ -131,6 +132,8 @@ The badges link to the most recent build of the master branch.
 - [Deployment](https://ropenscilabs.github.io/tic/articles/deployment.html)
 
 - [Custom Steps](https://ropenscilabs.github.io/tic/articles/custom-steps.html)
+
+- [Travis CI '.org' vs '.com'](https://ropenscilabs.github.io/tic/articles/org-vs-com.html)
 
 ## Limitations
 

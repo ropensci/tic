@@ -70,6 +70,8 @@ navbar:
       href: articles/deployment.html
     - text: Custom Steps
       href: articles/custom-steps.html
+    - text: Travis CI .org vs .com
+      href: articles/org-vs-com.html
   - text: Changelog
     href: news/index.html
 
