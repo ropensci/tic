@@ -37,7 +37,7 @@ Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"
 
 \item{travis_endpoint}{\verb{[string]}\cr The Travis CI endpoint to use. Possible
 options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
-\code{\link[travis:travis_eanble]{travis::travis_eanble()}} for more information.}
+\code{\link[travis:travis_enable]{travis::travis_enable()}} for more information.}
 
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
