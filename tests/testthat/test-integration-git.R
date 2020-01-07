@@ -30,7 +30,8 @@ test_that("integration test: git", {
   )
 
   withr::with_dir(
-    package_path, {
+    package_path,
+    {
       writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
@@ -41,7 +42,8 @@ test_that("integration test: git", {
   )
 
   withr::with_dir(
-    package_path, {
+    package_path,
+    {
       callr::r(
         function() {
           tic::run_all_stages()

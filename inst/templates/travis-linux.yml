@@ -1,0 +1,5 @@
+# tic documentation: https://docs.ropensci.org/tic/dev/
+
+# OS ---------------------------------------------------------------------------
+os: linux
+dist: bionic

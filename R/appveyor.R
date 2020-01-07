@@ -1,6 +1,6 @@
 # nocov start
 #' @include ci.R
-AppVeyorCI <- R6Class(
+AppVeyorCI <- R6Class( # nolint
   "AppVeyorCI",
   inherit = CI,
 

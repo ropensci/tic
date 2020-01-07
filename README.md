@@ -1,12 +1,23 @@
 # tic
 
-[![Travis-CI Build Status](https://travis-ci.org/ropenscilabs/tic.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic)
-[![Build status](https://ci.appveyor.com/api/projects/status/r8w1psd0f5r4hs6t/branch/master?svg=true)](https://ci.appveyor.com/project/ropensci/tic/branch/master)
+<!-- badges: start -->
+[![Travis build status](https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.com/ropenscilabs/tic)
+[![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic)
+[![CircleCI](https://img.shields.io/circleci/build/gh/ropenscilabs/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropenscilabs/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![codecov](https://codecov.io/gh/ropenscilabs/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/tic)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
+<!-- badges: end -->
 
-The goal of tic is to enhance and simplify working with continuous integration (CI) systems like [Travis CI](https://travis-ci.org) or [AppVeyor](https://www.appveyor.com/) for R projects.
+The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
+
+The following ones are supported: 
+
+- [Travis CI](https://travis-ci.org) (Linux, macOS)
+- [AppVeyor](https://www.appveyor.com/) (Windows)
+- [Circle CI](https://circleci.com/) (Linux)
+
 To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html#prerequisites) vignette.
 
 The most important improvements over existing solutions are:
@@ -30,8 +41,12 @@ remotes::install_github("ropenscilabs/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-You will be asked which CI system you want to use and convenience functions will set up SSH deployment keys (currently only on Travis).
-For a R package, the following steps will be set up for the CI workflow:
+The created templates will use the providers https://travis-ci.org, https://appveyor.com and https://circleci.com.
+
+If only the CI YAML templates from _tic_ are desired, the `use_<provider>_yml()` functions can be used.
+Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml-templates.html).
+
+For an R package, the following steps will be set up for the CI workflow:
 
 - Installation of required dependencies for the project
 - Satisfying build-time dependencies of steps to be run in all CI stages
@@ -60,56 +75,56 @@ The badges link to the most recent build of the master branch.
 
 - [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.blogdown"><img src="https://travis-ci.org/ropenscilabs/tic.blogdown.svg?branch=master" alt="Travis-CI Build Status"/></a> <a href="https://ci.appveyor.com/project/ropensci/tic-blogdown"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.blogdown?branch=master&svg=true" alt="AppVeyor Build Status"/></a></p>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.blogdown/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.blogdown)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-blogdown?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-blogdown)
 
 - [tic.bookdown](https://github.com/ropenscilabs/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.bookdown"><img src="https://travis-ci.org/ropenscilabs/tic.bookdown.svg?branch=master" alt="Travis build status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-bookdown"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.bookdown?branch=master&svg=true" alt="AppVeyor Build Status"/></a></p>
-
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.bookdown/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.bookdown)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-bookdown?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-bookdown)
     
 - [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.covrpage"><img src="https://travis-ci.org/ropenscilabs/tic.covrpage.svg?branch=master" alt="Travis-CI Build Status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-covrpage"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.covrpage?branch=master&svg=true" alt="AppVeyor Build Status"/></a></p>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.covrpage/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.covrpage)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-covrpage?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-covrpage)
     
 - [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.drat"><img src="https://travis-ci.org/ropenscilabs/tic.drat.svg?branch=master" alt="Travis-CI Build Status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-drat"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.drat?branch=master&svg=true" alt="AppVeyor Build Status"/></a>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.drat/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.drat)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-drat?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-drat)
     <a href="https://codecov.io/github/ropenscilabs/tic.drat?branch=master"><img src="https://codecov.io/gh/ropenscilabs/tic.drat/branch/master/graph/badge.svg" alt="Coverage Status"/></a></p>
 
 - [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.figshare"><img src="https://travis-ci.org/ropenscilabs/tic.figshare.svg?branch=master" alt="Travis-CI Build Status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-figshare"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.figshare?branch=master&svg=true" alt="AppVeyor Build Status"/></a></p>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.figshare/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.figshare)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-figshare?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-figshare)
 
 - [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.package"><img src="https://travis-ci.org/ropenscilabs/tic.package.svg?branch=master" alt="Travis-CI Build Status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-package"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.package?branch=master&svg=true" alt="AppVeyor Build Status"/></a>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.package/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.package)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-package?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-package)
     <a href="https://codecov.io/github/ropenscilabs/tic.package?branch=master"><img src="https://codecov.io/gh/ropenscilabs/tic.package/branch/master/graph/badge.svg" alt="Coverage Status"/></a></p>
 
 - [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.packagedocs"><img src="https://travis-ci.org/ropenscilabs/tic.packagedocs.svg?branch=master" alt="Travis-CI Build Status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-packagedocs"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.packagedocs?branch=master&svg=true" alt="AppVeyor Build Status"/></a>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.packagedocs/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.packagedocs)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-packagedocs?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-packagedocs)
     <a href="https://codecov.io/github/ropenscilabs/tic.packagedocs?branch=master"><img src="https://codecov.io/gh/ropenscilabs/tic.packagedocs/branch/master/graph/badge.svg" alt="Coverage Status"/></a></p>
     
 - [tic.website](https://github.com/ropenscilabs/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
 
-    <p><a href="https://travis-ci.org/ropenscilabs/tic.website"><img src="https://travis-ci.org/ropenscilabs/tic.website.svg?branch=master" alt="Travis-CI Build Status"/></a>
-    <a href="https://ci.appveyor.com/project/ropensci/tic-website"><img src="https://ci.appveyor.com/api/projects/status/github/ropenscilabs/tic.website?branch=master&svg=true" alt="AppVeyor Build Status"/></a></p>
+    [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.website/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.website)
+    [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic-website?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic-website)
 
 ## Vignettes
 
 - [Get started](https://ropenscilabs.github.io/tic/articles/tic.html)
 
-- [Feature Overview](https://ropenscilabs.github.io/tic/articles/advantages.html)
+- [Feature Overview](https://ropenscilabs.github.io/tic/articles/features.html)
 
 - [The CI Build Lifecycle](https://ropenscilabs.github.io/tic/articles/build-lifecycle.html)
 
-- [tic & travis](https://ropenscilabs.github.io/tic/articles/tic-travis.html)
+- [CI Client Packages](https://ropenscilabs.github.io/tic/articles/ci-client-packages.html)
 
 - [Advanced Usage](https://ropenscilabs.github.io/tic/articles/advanced.html)
 

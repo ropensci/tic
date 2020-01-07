@@ -1,240 +1,346 @@
-# This code can only run interactively
 # nocov start
 
-#' Initialize CI testing using tic
+#' @title Initialize CI testing using tic
+#' @description Prepares a repo for building and deploying supported by
+#' \pkg{tic}.
 #'
-#' Prepares a repo for building and deploying supported by \pkg{tic}.
+#' @importFrom utils menu
+#' @details
 #'
-#' @param quiet `[flag]`\cr
-#'   Less verbose output? Default: `FALSE`.
+#' 1. Query information which CI providers should be used
+#' 1. Setup permissions for providers selected for deployment
+#' 1. Create YAML files for selected providers
+#' 1. Create a default `tic.R` file depending on the repo type
+#'    (package, website, bookdown, ...)
 #'
+#' @param wizard `[flag]`\cr Interactive operation? If `TRUE`, a menu will be
+#'   shown.
+#' @param linux `[string]`\cr Which CI provider(s) to use to test on Linux.
+#'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
+#'   Possible options are `"none"` and `"appveyor"`.
+#' @param mac `[string]`\cr Which CI provider(s) to use to test on macOS
+#'   Possible options are `"none"`, and `"travis"`.
+#' @param deploy `[string]`\cr Which CI provider(s) to use to deploy artifacts
+#'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
+#'   `"none"` and `"all"`.
+#' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
+#'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
-use_tic <- function(quiet = FALSE) {
-  cli::cat_boxx("Welcome to `tic`!", col = "green")
-  cli::cat_bullet(
-    "This wizard will set all the required tokens and files\n",
-    "on Travis CI and GitHub. Let's get started!",
-    bullet = "info"
-  )
+#' @examples
+#' # Requires interactive mode
+#' if (FALSE) {
+#'   use_tic()
+#'
+#'   # Pre-specified settings favoring Circle CI:
+#'   use_tic(
+#'     wizard = FALSE,
+#'     linux = "circle",
+#'     mac = "travis",
+#'     windows = "appveyor",
+#'     deploy = "circle",
+#'     matrix = "all"
+#'   )
+#' }
+use_tic <- function(wizard = interactive(),
+                    linux = "travis",
+                    mac = "travis",
+                    windows = "appveyor",
+                    deploy = "travis",
+                    matrix = "none",
+                    quiet = FALSE) { # nolint
 
-  #' @details
-  #' This function requires the \pkg{travis} and \pkg{usethis} packages.
-  if (!is_installed("travis")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `travis` package. Please ",
-      'install it using `remotes::install_github("ropenscilabs/travis")`.'
+  cli_alert("Welcome to {.pkg tic}!")
+  if (wizard) {
+    cli_text(
+      "This wizard will guide you through the setup process for getting started
+    with various CI providers."
     )
   }
 
-  if (!is_installed("usethis")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `usethis` package, ",
-      'please install using `install.packages("usethis")`.'
+  cli_h1("Introduction:")
+  cli_text("{.pkg tic} currently comes with support for three CI providers: ")
+
+  cli_ul(c("Appveyor", "Circle CI", "Travis CI"))
+
+  cli_par()
+  cli_text(c(
+    "There is no need to use all of them.",
+    " You can choose which one(s) you want to use,",
+    " whether you want to deploy (i.e. push from builds)",
+    " and if you want to test on multiple R versions."
+  ))
+  cli_end()
+
+  cli_text("We recommend the following setup:")
+  cli_ul(c("Travis CI: Linux", "Travis CI: macOS", "Appveyor: Windows"))
+  cli_par()
+  cli_end()
+
+  if (wizard) {
+    if (yesno("Ready to get started?")) {
+      return(invisible(NULL))
+    }
+
+    cli_h1("Choosing your setup.")
+    cli_text("We'll ask you a few yes/no questions to gather your preferences.")
+    cli_par()
+    cli_end()
+
+    linux <- ci_menu(c("travis", "circle", "none", "all"),
+      title = "Which provider do you want to use for Linux builds?"
     )
-  }
 
-  #' @details
-  #' The project path is retrieved with [usethis::proj_get()].
-  path <- usethis::proj_get()
-  cli::cat_bullet(
-    bullet = "info",
-    paste0("Using active project ", usethis::ui_value(path))
-  )
-
-  repo_type <- detect_repo_type()
-
-  if (needs_deploy(repo_type) && !is_installed("openssl")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `openssl` package to set up deployment, ",
-      'please install using install.packages("openssl").'
+    mac <- ci_menu(c("travis", "none"),
+      title = "Do you want to build on macOS (= Travis CI)?"
     )
-  }
 
-
-  #' @details
-  #' The preparation consists of the following steps:
-  #' 1. If necessary, create a GitHub repository via [usethis::use_github()]
-  #'
-  cli::cat_boxx(
-    "Step #1: We check if a GitHub repository exists.",
-    col = "green"
-  )
-
-  use_github_interactive()
-  if (!isTRUE(travis::uses_github())) {
-    stopc(
-      "A GitHub repository is needed. ",
-      "Please create one manually or re-run `use_tic()` to do it automatically."
+    windows <- ci_menu(c("appveyor", "none"),
+      title = "Do you want to build on Windows (= Appveyor)?"
     )
+
+    deploy <- ci_menu(intersect(
+      c("travis", "circle", "none", "all"),
+      c(linux, mac, windows, "all", "none")
+    ),
+    title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?" # nolint
+    )
+
+    matrix <- ci_menu(intersect(
+      c("none", "travis", "circle", "appveyor", "all"),
+      c(linux, mac, windows, "all", "none")
+    ),
+    title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
+    )
+
+    wizard <- FALSE
+    use_tic_call <- paste0(
+      "tic::use_tic(",
+      arg_desc(wizard),
+      arg_desc(linux),
+      arg_desc(mac),
+      arg_desc(windows),
+      arg_desc(deploy),
+      arg_desc(matrix, last = TRUE),
+      ")"
+    )
+    cli_text("If setup fails, rerun with:")
+    cli_text("{.code ", use_tic_call, "}")
   } else {
-    cli::cat_bullet(
-      "GitHub repo exists.",
-      bullet = "tick", bullet_col = "green"
+    linux <- match.arg(linux, c("travis", "circle", "none", "all"),
+      several.ok = TRUE
+    )
+    mac <- match.arg(mac, c("none", "travis"),
+      several.ok = TRUE
+    )
+    windows <- match.arg(windows, c("none", "appveyor", "all"),
+      several.ok = TRUE
+    )
+    deploy <- match.arg(deploy, c("travis", "circle", "none", "all"),
+      several.ok = TRUE
+    )
+    matrix <- match.arg(matrix,
+      c("none", "travis", "circle", "appveyor", "all"),
+      several.ok = TRUE
     )
   }
 
-  #' 1. Enable Travis via [travis::travis_enable()]
-  cli::cat_boxx(
-    "Step #2: We check if Travis is already enabled.",
-    col = "green"
+  cli_h1("Setting up the CI providers.")
+
+  cli_text(
+    "Next we are getting the selected CI providers ready for deployment.",
+    " This requires some interaction with their API and you may need to create
+    an API token."
   )
-  travis::travis_enable()
+  cli_par()
+  cli_end()
 
-  cli::cat_boxx(
-    c(
-      "Step #3: We create new files",
-      "`.travis.yml`, `appveyor.yml` and `tic.R`."
-    ),
-    col = "green"
-  )
+  # init deploy ----------------------------------------------------------------
 
-  #' 1. Create a default `.travis.yml` file
-  #'    (overwrite after confirmation in interactive mode only)
-  use_travis_yml()
-  #' 1. Create a default `appveyor.yml` file
-  #'    (depending on repo type, overwrite after confirmation
-  #'    in interactive mode only)
-  if (needs_appveyor(repo_type)) use_appveyor_yml()
-
-  #' 1. Create a default `tic.R` file depending on the repo type
-  #'    (package, website, bookdown, ...)
-  use_tic_r(repo_type)
-
-  #' 1. Enable deployment (if necessary, depending on repo type)
-  #'    via [use_travis_deploy()]
-  cli::cat_boxx(
-    c(
-      "Step #4: We create a SSH key pair",
-      "to allow Travis deployment to GitHub."
-    ),
-    col = "green"
-  )
-  if (needs_deploy(repo_type)) use_travis_deploy()
-
-  cli::cat_boxx(
-    c(
-      "Step #5: We create a GitHub PAT key on Travis CI",
-      "to avoid GitHub API rate limitations in the builds."
-    ),
-    col = "green"
-  )
-  #' 1. Create a GitHub PAT and install it on Travis CI
-  #'    via [travis::travis_set_pat()]
-  travis::travis_set_pat()
-
-  #'
-  #' This function is aimed at supporting the most common use cases.
-  #' Users who require more control are advised to review
-  #' the source code of `use_tic()`
-  #' and manually call the individual functions, some of which aren't exported.
-}
-
-use_travis_yml <- function() {
-  use_tic_template(
-    "dot-travis.yml",
-    save_as = ".travis.yml",
-    data = list(install_tic = double_quotes(get_install_tic_code()))
-  )
-}
-
-use_appveyor_yml <- function() {
-  use_tic_template(
-    "appveyor.yml",
-    data = list(install_tic = get_install_tic_code())
-  )
-}
-
-get_install_tic_code <- function() {
-  if (getNamespaceVersion("tic") >= "1.0") {
-    # We are on CRAN!
-    "remotes::install_cran('tic', upgrade = 'always')"
-  } else {
-    "remotes::install_github('ropenscilabs/tic', upgrade = 'always')"
+  if (circle_in(deploy)) {
+    rule(left = "Circle CI")
+    check_circle_pkg()
+    circle::enable_repo()
+    circle::use_circle_deploy()
+  } else if (travis_in(deploy)) {
+    rule(left = "Travis CI")
+    check_travis_pkg()
+    travis::travis_enable()
+    travis::use_travis_deploy()
   }
+
+  # create YAMLs ---------------------------------------------------------------
+
+  cli_par()
+  cli_end()
+  cli_h1("Creating YAML files...")
+
+  # Travis ---------------------------------------------------------------------
+
+  rule(left = "Travis CI")
+
+  if (travis_in(linux) && travis_in(mac)) {
+
+    if (travis_in(matrix)) {
+      if (travis_in(deploy)) {
+        use_travis_yml("linux-macos-deploy-matrix")
+      } else {
+        use_travis_yml("linux-macos-matrix")
+      }
+    } else {
+      if (travis_in(deploy)) {
+        use_travis_yml("linux-macos-deploy")
+      } else {
+        use_travis_yml("linux-macos")
+      }
+    }
+  } else if (travis_in(mac)) {
+
+    if (travis_in(deploy)) {
+      # build matrix
+      if (travis_in(matrix)) {
+        use_travis_yml("macos-deploy-matrix")
+      } else {
+        use_travis_yml("macos-deploy")
+      }
+    } else {
+      # build matrix
+      if (travis_in(matrix)) {
+        use_travis_yml("macos-matrix")
+      } else {
+        use_travis_yml("macos")
+      }
+    }
+  } else if (travis_in(linux)) {
+    # deployment
+    if (travis_in(deploy)) {
+      # build matrix
+      if (travis_in(matrix)) {
+        use_travis_yml("linux-deploy-matrix")
+      } else {
+        use_travis_yml("linux-deploy")
+      }
+    } else {
+      # build matrix
+      if (travis_in(matrix)) {
+        use_travis_yml("linux-matrix")
+      } else {
+        use_travis_yml("linux")
+      }
+    }
+  }
+
+  # Circle ---------------------------------------------------------------------
+
+  rule(left = "Circle CI")
+
+  if (circle_in(linux)) {
+    # deployment
+    if (circle_in(deploy)) {
+      # build matrix
+      if (circle_in(matrix)) {
+        use_circle_yml("linux-deploy-matrix")
+      } else {
+        use_circle_yml("linux-deploy")
+      }
+    } else {
+      # build matrix
+      if (circle_in(matrix)) {
+        use_circle_yml("linux-matrix")
+      } else {
+        use_circle_yml("linux")
+      }
+    }
+  }
+
+  # Appveyor -------------------------------------------------------------------
+
+  rule(left = "Appveyor CI")
+
+  if (appveyor_in(windows)) {
+    if (appveyor_in(matrix)) {
+      use_appveyor_yml("windows-matrix")
+    } else {
+      use_appveyor_yml("windows")
+    }
+  }
+
+  # tic.R ----------------------------------------------------------------------
+
+  rule(left = "tic")
+
+  use_tic_r(repo_type = detect_repo_type())
+
+  rule("Finished")
+  cat_bullet(
+    "Done! Thanks for using ", crayon::blue("tic"), ".",
+    bullet = "star", bullet_col = "yellow"
+  )
+
+  cat_bullet(
+    "Below is the file structure of the newly added files (in case you selected
+    all providers):",
+    bullet = "arrow_down", bullet_col = "blue"
+  )
+
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(
+      basename(getwd()), ".circleci", "appveyor.yml", ".travis.yml",
+      "config.yml", "tic.R"
+    ),
+    dependencies = I(list(
+      c(".circleci", "appveyor.yml", ".travis.yml", "tic.R"),
+      "config.yml",
+      character(0),
+      character(0),
+      character(0),
+      character(0)
+    ))
+  )
+  tree(data, root = basename(getwd()))
+
 }
 
-double_quotes <- function(x) {
-  gsub("'", '"', x, fixed = TRUE)
+arg_desc <- function(arg, last = FALSE) {
+  arg_name <- substitute(arg)
+  arg_value <- deparse(arg)
+  paste0(arg_name, " = ", arg_value, if (!last) ", ")
+}
+
+travis_in <- function(x) {
+  !all(is.na(match(c("travis", "all"), x)))
+}
+
+circle_in <- function(x) {
+  !all(is.na(match(c("circle", "all"), x)))
+}
+
+appveyor_in <- function(x) {
+  !all(is.na(match(c("appveyor", "all"), x)))
+}
+
+ci_menu <- function(choices, title) {
+  if (length(setdiff(choices, c("all", "none"))) <= 1) {
+    choices <- setdiff(choices, "all")
+  }
+
+  choice_map <- c(
+    travis = "Travis CI",
+    circle = "Circle CI",
+    appveyor = "AppVeyor CI",
+    all = "All",
+    none = "None"
+  )
+
+  reply <- menu(choice_map[choices], title = title)
+  stopifnot(reply != 0)
+  choices[reply]
 }
 
 use_tic_r <- function(repo_type) {
-  use_tic_template(file.path(repo_type, "tic.R"), "tic.R", open = TRUE)
-}
-
-use_tic_template <- function(template, save_as = template, open = FALSE,
-                             ignore = TRUE, data = NULL) {
-  usethis::use_template(
-    template, save_as,
-    package = "tic", open = open, ignore = ignore, data = data
-  )
-}
-
-needs_appveyor <- function(repo_type) {
-  repo_type == "package"
-}
-
-needs_deploy <- function(repo_type) {
-  repo_type != "unknown"
-}
-
-use_github_interactive <- function() {
-  if (!interactive()) {
-    return()
-  }
-  if (travis::uses_github()) {
-    return()
-  }
-
-  if (!yesno("Create GitHub repo and push code?")) {
-    return()
-  }
-
-  message("Creating GitHub repository")
-  usethis::use_github()
-}
-
-detect_repo_type <- function() {
-  if (file.exists("_bookdown.yml")) {
-    return("bookdown")
-  }
-  if (file.exists("_site.yml")) {
-    return("site")
-  }
-  if (file.exists("config.toml")) {
-    return("blogdown")
-  }
-  if (file.exists("DESCRIPTION")) {
-    return("package")
-  }
-
-  if (!interactive()) {
-    return("unknown")
-  }
-
-  cli::cat_bullet(
-    "Unable to guess the repo type. ",
-    "Please choose the desired one from the menu.",
-    bullet = "warning"
-  )
-
-  choices <- c(
-    blogdown = "Blogdown", bookdown = "Bookdown",
-    package = "Package", website = "Website",
-    unknown = "Other"
-  )
-  chosen <- utils::menu(choices)
-  if (chosen == 0) {
-    stopc("Aborted.")
-  } else {
-    names(choices)[[chosen]]
-  }
-}
-
-yesno <- function(...) {
-  utils::menu(c("Yes", "No"), title = paste0(...)) == 1
+  use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
 }
 
 # This code can only run interactively

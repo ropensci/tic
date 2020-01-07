@@ -4,28 +4,32 @@
 \alias{step_setup_ssh}
 \title{Step: Setup SSH}
 \usage{
-step_setup_ssh(name = "id_rsa", host = "github.com",
-  url = paste0("git@", host), verbose = "-v")
+step_setup_ssh(
+  name = "id_rsa",
+  host = "github.com",
+  url = paste0("git@", host),
+  verbose = "-v"
+)
 }
 \arguments{
-\item{name}{\code{[string]}\cr
+\item{name}{\verb{[string]}\cr
 Name of the environment variable and the target file, default: \code{"id_rsa"}.}
 
-\item{host}{\code{[string]}\cr
+\item{host}{\verb{[string]}\cr
 The host name to add to the \code{known_hosts} file, default: \code{github.com}.}
 
-\item{url}{\code{[string]}\cr
+\item{url}{\verb{[string]}\cr
 URL to establish SSH connection with, by default \code{git@github.com}}
 
-\item{verbose}{\code{[string]}\cr
+\item{verbose}{\verb{[string]}\cr
 Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
 }
 \description{
 Adds to known hosts, installs private key, and tests the connection.
 Chaining \code{\link[=step_install_ssh_keys]{step_install_ssh_keys()}}, \code{\link[=step_add_to_known_hosts]{step_add_to_known_hosts()}}
 and \code{\link[=step_test_ssh]{step_test_ssh()}}.
-The \code{\link[=use_travis_deploy]{use_travis_deploy()}} and \code{\link[=use_tic]{use_tic()}} functions encode a private key
-as an environment variable for use with this function.
+The \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} and \code{\link[=use_tic]{use_tic()}} functions encode a private
+key as an environment variable for use with this function.
 }
 \examples{
 dsl_init()
@@ -36,17 +40,18 @@ get_stage("script") \%>\%
 dsl_get()
 }
 \seealso{
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_pkg}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_build_pkgdown}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_hello_world}()},
+\code{\link{step_install_pkg}},
+\code{\link{step_install_ssh_keys}()},
+\code{\link{step_push_deploy}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_push_deploy}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{steps}

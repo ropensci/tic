@@ -15,22 +15,22 @@ add_step(stage, step)
 add_code_step(stage, call = NULL, prepare_call = NULL)
 }
 \arguments{
-\item{name}{\code{[string]}\cr
+\item{name}{\verb{[string]}\cr
 The name for the stage.}
 
-\item{stage}{\code{[TicStage]}\cr
+\item{stage}{\verb{[TicStage]}\cr
 A \code{TicStage} object as returned by \code{get_stage()}.}
 
-\item{step}{\code{[function]}\cr
+\item{step}{\verb{[function]}\cr
 An object of class \link{TicStep}, usually created by functions
 with the \code{step_} prefix like \code{\link[=step_hello_world]{step_hello_world()}}.}
 
-\item{call}{\code{[call]}\cr
+\item{call}{\verb{[call]}\cr
 An arbitrary R expression executed during the stage to which this step is
 added.
 The default is useful if you only pass \code{prepare_call}.}
 
-\item{prepare_call}{\code{[call]}\cr
+\item{prepare_call}{\verb{[call]}\cr
 An optional arbitrary R expression executed during preparation.}
 }
 \description{

@@ -2,10 +2,10 @@ Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions
-Version: 0.2.13.9020
+Version: 0.3.0.9002
 Authors@R: 
     c(person(given = "Kirill",
-             family = "Müller",
+             family = "M\u00fcller",
              role = c("aut", "cre"),
              email = "krlmlr+r@mailbox.org",
              comment = c(ORCID = "0000-0002-1416-3412")),
@@ -28,32 +28,32 @@ Authors@R:
              email = "jeroen.ooms@stat.ucla.edu"),
       person(given = "rOpenSci",
              role = "fnd"))
-Description:  Provides a way to describe common build and
+Description: Provides a way to describe common build and
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or
-    'AppVeyor').
+    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
 License: GPL (>= 2)
 URL: https://github.com/ropenscilabs/tic
 BugReports: https://github.com/ropenscilabs/tic/issues
 Depends: 
     R (>= 3.2.0)
 Imports: 
-    backports,
-    cli,
+    backports (>= 1.1.5),
+    cli (>= 2.0.0),
     crayon,
     magrittr,
     memoise,
     methods,
     R6,
     remotes,
-    rlang,
+    rlang (>= 0.4.1.9000),
     withr
 Suggests: 
     base64enc,
     bookdown,
     callr,
+    circle,
     covr,
     devtools,
     drat,
@@ -67,18 +67,20 @@ Suggests:
     travis (>= 0.2.11.9001),
     usethis
 VignetteBuilder:
-  knitr
+    knitr
 Remotes: 
+    ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
 LazyData: TRUE
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Collate: 
     'ci.R'
     'appveyor.R'
     'base64.R'
+    'circleci.R'
     'dsl-storage.R'
     'dsl.R'
     'git2r.R'
@@ -92,7 +94,6 @@ Collate:
     'print.R'
     'repo.R'
     'run.R'
-    'setup.R'
     'stage.R'
     'steps-base.R'
     'steps-bookdown.R'
@@ -106,5 +107,6 @@ Collate:
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
+    'use-yaml.R'
     'use_tic.R'
     'utils.R'

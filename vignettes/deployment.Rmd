@@ -17,9 +17,11 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-*tic* handles deployment as follows:
+_tic_ uses the [CI client packages](ci-client-packages.html) _travis_ and _circle_ for setting up deployment on the CI systems.
 
-1. When calling `use_travis_deploy()` (either directly or indirectly by using `use_tic()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
+### Travis CI
+
+1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `use_tic()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
 
     ```{r, echo = FALSE, fig.align='center', dpi = 10}
     knitr::include_graphics("img/ssh-deploy-key.png")
@@ -32,100 +34,100 @@ knitr::opts_chunk$set(
     ```
     
     Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
-    Additionally, when calling `use_tic()` a Personal Access token (PAT) is created (by `travis::create_github_pat()`) to avoid the errors caused by GitHubs download rate limitations. 
+    
+### Circle CI
+
+On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.
+
+When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "github-user-key" is created and stored in the Circle CI repo.
+This key makes it possible to deploy from Circle CI builds to your Github repo.
+No extra deploy key need to be stored in the Github repo.
 
 ## pkgdown deployment
 
-[`pkgdown`](https://github.com/r-lib/pkgdown) is a R package which builds a documentation wrapper-site of a R package.
-It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing web version.
-Without a _pkgdown_ site, these package resources need either be collected from various places (GitHub repository, CRAN function reference) or do even require a local installation of the package if vignettes are placed in custom locations.
-Therefore, it has become a quasi-standard to provide a _pkgdown_ site for a R package.
-However, it is tedious to update the site on every commit and check whether something has changed.
-On the other hand, the presence of a _pkgdown_ site is only really valuable to the user if the content reflects the most recent state of the package.
-_tic_ has the ability to automate the update tasks and having the site reflecting the latest state of the package.
+[`pkgdown`](https://github.com/r-lib/pkgdown) is an R package which builds a documentation wrapper-site of a R package.
+It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.
 
-The following example shows how _tic_ deploys a `pkgdown` site on Travis.
-In the `.travis.yml` file: 
+It has become a quasi-standard to provide a _pkgdown_ site for an R package.
+However, it is tedious to update the pkgdown site manually on every commit, check whether something has changed and commit the changes.
+_tic_ comes with the ability to automate this procedure.
+
+The following example shows how _tic_ deploys a `pkgdown` site on Travis CI.
+In the `.travis.yml` file the "before_deploy" and "deploy" stages are redirected to _tic_.
 
 ```{yml eval = FALSE}
 before_deploy: R -q -e 'tic::before_deploy()'
 deploy:
   provider: script
   script: R -q -e 'tic::deploy()'
-  on:
-    all_branches: true
 ```
 
-Let's break down what happens here:
+In the "before_deploy" stage, _tic_ will do the following:
 
-1. Travis executes `tic::before_deploy()` which will search for instructions regarding the `before_deploy()` stage in `tic.R`. 
+```{r eval = FALSE}
+if (ci_has_env("BUILD_PKGDOWN")) {
+  get_stage("before_deploy") %>%
+    add_step(step_setup_ssh())
+}
+```
 
-    By default this stage looks like
+- Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_depkoy()`.
+(The latter is just an example of an option that can be set to run certain commands (or stages) conditionally (see [secion "Running stages conditionally" in the "Advanced" article](advanced.html#running-stages-conditionally) for more examples).
+- Call `add_step(step_build_pkgdown())` and `add_step(step_push_deploy())` in the "deploy" stage.
 
-    ```{r eval = FALSE}
-    if (ci_has_env("BUILD_PKGDOWN")) {
-      get_stage("before_deploy") %>%
-        add_step(step_setup_ssh())
-    }
-    ```
+```{r eval = FALSE}
+get_stage("deploy") %>%
+  add_step(step_build_pkgdown()) %>% 
+  add_step(step_push_deploy())
+```
 
-    This block calls the function `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build.
-    That is just an example of an option that can be set to run certain commands (or stages) conditionally (see [secion "Running stages conditionally" in the "Advanced" article](advanced.html#running-stages-conditionally) for more examples).
-    After the prerequisite of setting up an ssh key for the upcoming deployment has been finished, 
-
-2. Travis is told to use a "script" (provider: script) for the deployment (which holds further instructions).
-
-3. This "script" is calling `tic::deploy()`.
-
-4. All this is happening on any branch. (If you want to restrict it to certain branches, you need to set a condition in `tic.R`.)
-
-    What happens now is that `tic::deploy()` again searches in `tic.R` for the "deploy" stage and then runs whatever is specified there.
-
-    With the default template of `tic.R`, the following will be executed:
-
-    ```{r eval = FALSE}
-    get_stage("deploy") %>%
-      add_step(step_build_pkgdown()) %>% 
-      add_step(step_push_deploy())
-    ```
-
-    First, `step_build_pkgdown()` will build your _pkgdown_ site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
-    By default this will be the `docs/` directory of the `master` branch.
+`step_build_pkgdown()` will build the _pkgdown_ site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
+By default the site will be pushed to the `gh-pages` branch of your repo.
     
 ### Deploying to docs/ (master) or gh-pages branch
 
-#### master branch deployment
-
-By default the deployment is done to the `docs/` directory of the `master` branch.
+By default the deployment is done to the `gh-pages` branch.
 This has the following advantages:
 
-- You can have per-branch versions of your _pkgdown_ site
+- No cluttering of the commit history in the master branch
+- Everything "just works" silently in the background
+
+#### master branch deployment
+
+Deploying to the `docs/` directoy of the master branch has the following advantages:
+
+- Per-branch versions of the pkgdown site (if desi)
 - Per-branch versions enable the possibility to have preview for pull requests via https://www.netlify.com/
 
-A disadvantage is that the `master` branch will be cluttered by automatic commits triggered by Travis that push the changes of the _pkgdown_ site to the `master` branch.
+The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the _pkgdown_ site to the `master` branch.
 
-#### gh-pages branch deployment
+#### Orphaning the `gh-pages` branch
 
-You can optionally set the deployment branch to `gh-pages` and then change the branch serving your site in the GitHub repo settings (change it to `gh-pages`).
-This option has the advantage 
+By default, changes to the pkgdown site will be added as incremental commits to the `gh-pages` branch.
+This is useful to keep a history of past versions and to enable a release and dev version of the site.
+To have this feature, set 
 
-- to not have all the automatic commits from Travis in the `master` branch -> the _pkgdown_ site will be "silently" updated in the background in the `gh-pages` branch.
+```yml
+development:
+  mode: auto
+```
 
-A disadvantage is that you cannot have per-branch versions of your site and hence no pull request previews of the site.
+in your `_pkgdown.yml` file.
+See `?pkgdown::build_site()` for more information.
 
-To use this option with *tic*, specify `branch = "gh-pages", path = "docs"` in `step_push_deploy()`.
-As the site serving in this setting will use the root of the branch, the `gh-pages` branch will only consist of the public _pkgdown_ files used to serve the site. 
+If you only want to have one version of your pkgdown site and not fill your repo with many commits in the `gh-pages` branch, you can use `do_pkgdown(orphan = TRUE)`.
+This will wipe all commits of this branch on every CI run so that there is only one commit corresponding to the latest version of your pkgdown site.
 
 ## Conditional deployment
 
-If you are running a [build matrix](https://docs.travis-ci.com/user/build-matrix/) or [build stages](https://docs.travis-ci.com/user/build-stages/) on Travis, you want to run certain tasks only once during a build. 
+If you are running a [build matrix](https://docs.travis-ci.com/user/build-matrix/) or [build stages](https://docs.travis-ci.com/user/build-stages/) on Travis CI, you want to run certain tasks only once during a build. 
 The creation of a _pkgdown_ site is a common task which applies to this.
 
 Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
 You can restrict on which stage/job a task is executed with the help of environment variables.
 
 _tic_ can make use of implicit set environment variables of the build and additional ones added by the user.
-In the following we show a "build stage" example on Travis using the custom env variable `"BUILD_PKGDOWN"`:
+In the following we show a "build stage" example on Travis CI using the custom env variable `"BUILD_PKGDOWN"`:
 
 `.travis.yml`:
 
@@ -164,7 +166,7 @@ if (isTRUE("BUILD_PKGDOWN")) {
 ## Committing single files
 
 The `step_push_deploy()` function has the ability to restrict the files that are committed and pushed.
-This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if these are automatically created via Travis.
+This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if these are automatically created during the CI run.
 
 In the following example, these files are created/updated by calling `devtools::document()`.
 The `commit_paths` argument in `step_push_deploy()` decides which files are committed and pushed:
@@ -178,5 +180,4 @@ get_stage("deploy") %>%
   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man/*")))
 ```
 
-Applying this idea depends on your overall R package development strategy: Commit files like `/man/` and `NAMESPACE` directly or let them be created by Travis?
-An example project that uses the latter strategy is [mlr](https://github.com/mlr-org/mlrng/blob/master/tic.R).
+Applying this idea depends on your overall R package development strategy: Commit files like `/man/` and `NAMESPACE` directly or let them be created during the CI run?

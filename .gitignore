@@ -4,3 +4,5 @@
 .Ruserdata
 .httr-oauth
 inst/doc
+.DS_Store
+.vscode

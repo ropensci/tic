@@ -15,15 +15,15 @@ RunCode <- R6Class(
     },
 
     prepare = function() {
-      # Needs to happen before auto-detection of package to be installed,
-      # to allow installation of packages from nonstandard repositories
+      # allow installation of packages from nonstandard repositories, e.g.
+      # Github packages using a repo slug
       if (!is.null(private$prepare_call)) {
         private$install_call_dep(private$prepare_call)
         set.seed(private$seed)
         eval(private$prepare_call, envir = .GlobalEnv)
+      } else {
+        private$install_call_dep(private$call)
       }
-
-      private$install_call_dep(private$call)
     }
   ),
 
@@ -34,6 +34,9 @@ RunCode <- R6Class(
 
     install_call_dep = function(call) {
       pkg_name <- unique(get_deps_from_code(call))
+      base_packages <- rownames(utils::installed.packages(priority = "base"))
+      pkg_name <- setdiff(pkg_name, base_packages)
+
       verify_install(pkg_name)
     }
   )

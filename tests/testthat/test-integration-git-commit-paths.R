@@ -16,12 +16,12 @@ test_that("integration test: git commit paths", {
   tic_r <- c(
     'get_stage("deploy") %>%',
     # step_write_text_file() evaluates eagerly, won't work here
-    '  add_code_step(writeLines(',
+    "  add_code_step(writeLines(",
     '    as.character(Sys.time()), "time.txt"',
-    '  )) %>%',
-    '  add_code_step(writeLines(',
+    "  )) %>%",
+    "  add_code_step(writeLines(",
     '    as.character(Sys.time()), "deploy/time.txt"',
-    '  )) %>%',
+    "  )) %>%",
     paste0(
       '  add_step(step_push_deploy(remote_url = "',
       bare_repo_path,
@@ -31,7 +31,8 @@ test_that("integration test: git commit paths", {
 
   cat("\n")
   withr::with_dir(
-    package_path, {
+    package_path,
+    { # nolint
       writeLines(tic_r, "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       dir.create("deploy")
@@ -44,7 +45,8 @@ test_that("integration test: git commit paths", {
   )
 
   withr::with_dir(
-    package_path, {
+    package_path,
+    { # nolint
       callr::r(
         function() {
           tic::run_all_stages()
@@ -62,7 +64,8 @@ test_that("integration test: git commit paths", {
   git2r::clone(bare_repo_path, package_path_2)
 
   withr::with_dir(
-    package_path_2, {
+    package_path_2,
+    { # nolint
       expect_false(file.exists("time.txt"))
       expect_true(file.exists("deploy/time.txt"))
     }

@@ -1,3 +1,29 @@
+# tic 0.3.0.9002
+
+- `use_tic()` supports running both Linux and macOS on Travis (#202).
+- Skip `TicStep$prepare` if `prepare_call` is given in `add_code_step()` (#211).
+- Fix preparation of `step_add_to_drat()`.
+- `use_tic()` gains arguments that allow non-interactive use and re-running with the same settings if setup fails (#203).
+- Removed artificial sleeps with interactive setup.
+
+
+# tic 0.3.0.9001
+
+- Move `use_travis_deploy()` back to {travis}.
+
+
+# tic 0.3.0
+
+- add argument "check_dir" to step_rcmdcheck (#179)
+- use `remotes::install_cran(upgrade = TRUE)` to install packages (#186)
+- added support for Circle CI (#177)
+- All packages installed for custom steps use binary packages if possible on Windows and macOS (#178).
+- Use `TRAVIS_BUILD_WEB_URL` for the commit message.
+- `do_package_checks()` gains `type` argument.
+- Tweak documentation.
+- export `use_travis_yml()`, `use_circle_yml()` and `use_appveyor_yml()` and add overview table of available options
+
+
 # tic 0.2.13.9020
 
 - Avoid building packages when installing dependencies.

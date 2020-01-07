@@ -8,3 +8,6 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown/
+^\.circleci/config\.yml$
+^\.pre-commit-config\.yaml$
+^\.lintr$

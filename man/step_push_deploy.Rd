@@ -4,26 +4,31 @@
 \alias{step_push_deploy}
 \title{Step: Setup and perform push deploy}
 \usage{
-step_push_deploy(path = ".", branch = NULL, remote_url = NULL,
-  commit_message = NULL, commit_paths = ".")
+step_push_deploy(
+  path = ".",
+  branch = NULL,
+  remote_url = NULL,
+  commit_message = NULL,
+  commit_paths = "."
+)
 }
 \arguments{
-\item{path}{\code{[string]}\cr
+\item{path}{\verb{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
 repository.}
 
-\item{branch}{\code{[string]}\cr
+\item{branch}{\verb{[string]}\cr
 Target branch, default: current branch.}
 
-\item{remote_url}{\code{[string]}\cr
+\item{remote_url}{\verb{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.}
 
-\item{commit_message}{\code{[string]}\cr
+\item{commit_message}{\verb{[string]}\cr
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
 
-\item{commit_paths}{\code{[character]}\cr
+\item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 }
@@ -35,7 +40,7 @@ a suitable \code{orphan} argument,
 and \code{\link[=step_do_push_deploy]{step_do_push_deploy()}}.
 
 Deployment usually requires setting up SSH keys with
-\code{\link[=use_tic]{use_tic()}} or \code{\link[=use_travis_deploy]{use_travis_deploy()}}.
+\code{\link[=use_tic]{use_tic()}} or \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.
 }
 \details{
 Setup and deployment are combined in one step,
@@ -49,6 +54,7 @@ For more control, create two separate steps with
 and create the files to be deployed inbetween these steps.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
@@ -56,22 +62,25 @@ get_stage("script") \%>\%
 
 dsl_get()
 }
+}
 \seealso{
-Other deploy steps: \code{\link{step_do_push_deploy}},
-  \code{\link{step_setup_push_deploy}}
+Other deploy steps: 
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_setup_push_deploy}()}
 
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_pkg}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_build_pkgdown}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_hello_world}()},
+\code{\link{step_install_pkg}},
+\code{\link{step_install_ssh_keys}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_push_deploy}()},
+\code{\link{step_setup_ssh}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{deploy steps}
 \concept{steps}

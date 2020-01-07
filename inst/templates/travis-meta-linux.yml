@@ -1,0 +1,11 @@
+
+# meta -------------------------------------------------------------------------
+language: r
+cache:
+  - packages
+  - ccache
+latex: false
+
+env:
+  global:
+    - MAKEFLAGS="-j 2"

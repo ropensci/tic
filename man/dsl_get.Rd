@@ -13,14 +13,14 @@ dsl_load(path = "tic.R", force = FALSE, quiet = FALSE)
 dsl_init(quiet = FALSE)
 }
 \arguments{
-\item{path}{\code{[string]}\cr
+\item{path}{\verb{[string]}\cr
 Path to the stage definition file, default: \code{"tic.R"}.}
 
-\item{force}{\code{[flag]}\cr
+\item{force}{\verb{[flag]}\cr
 Set to \code{TRUE} to force loading from file even if a configuration exists.
 By default an existing configuration is not overwritten by \code{dsl_load()}.}
 
-\item{quiet}{\code{[flag]}\cr
+\item{quiet}{\verb{[flag]}\cr
 Set to \code{TRUE} to turn off verbose output.}
 }
 \value{
@@ -43,10 +43,15 @@ This happens automatically the first time \code{dsl_get()} is called
 (directly or indirectly).
 }
 \examples{
+\dontrun{
 dsl_init()
 dsl_get()
 
 dsl_load(system.file("templates/package/tic.R", package = "tic"))
-dsl_load(system.file("templates/package/tic.R", package = "tic"), force = TRUE)
+dsl_load(system.file("templates/package/tic.R", package = "tic"),
+  force =
+    TRUE
+)
 dsl_get()
+}
 }

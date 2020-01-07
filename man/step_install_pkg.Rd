@@ -9,8 +9,7 @@
 \usage{
 step_install_deps(repos = repo_default(), type = NULL)
 
-step_install_cran(package = NULL, ..., repos = repo_default(),
-  type = NULL)
+step_install_cran(package = NULL, ..., repos = repo_default(), type = NULL)
 
 step_install_github(repo = NULL, ..., type = NULL)
 }
@@ -39,8 +38,8 @@ A \code{step_install_deps()} step installs all package dependencies declared in
 \code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
 This includes upgrading outdated packages.
 
-A \code{step_install_cran()} step installs one package from CRAN via \code{\link[=install.packages]{install.packages()}},
-but only if it's not already installed.
+A \code{step_install_cran()} step installs one package from CRAN via
+\code{\link[=install.packages]{install.packages()}}, but only if it's not already installed.
 
 A \code{step_install_github()} step installs one or more packages from GitHub
 via \code{\link[remotes:install_github]{remotes::install_github()}}, the packages are only installed if their
@@ -67,17 +66,18 @@ get_stage("install") \%>\%
 dsl_get()
 }
 \seealso{
-Other steps: \code{\link{step_add_to_drat}},
-  \code{\link{step_add_to_known_hosts}},
-  \code{\link{step_build_pkgdown}},
-  \code{\link{step_do_push_deploy}},
-  \code{\link{step_hello_world}},
-  \code{\link{step_install_ssh_keys}},
-  \code{\link{step_push_deploy}},
-  \code{\link{step_run_code}},
-  \code{\link{step_setup_push_deploy}},
-  \code{\link{step_setup_ssh}},
-  \code{\link{step_test_ssh}},
-  \code{\link{step_write_text_file}}
+Other steps: 
+\code{\link{step_add_to_drat}()},
+\code{\link{step_add_to_known_hosts}()},
+\code{\link{step_build_pkgdown}()},
+\code{\link{step_do_push_deploy}()},
+\code{\link{step_hello_world}()},
+\code{\link{step_install_ssh_keys}()},
+\code{\link{step_push_deploy}()},
+\code{\link{step_run_code}()},
+\code{\link{step_setup_push_deploy}()},
+\code{\link{step_setup_ssh}()},
+\code{\link{step_test_ssh}()},
+\code{\link{step_write_text_file}()}
 }
 \concept{steps}

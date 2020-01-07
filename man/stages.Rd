@@ -38,7 +38,7 @@ after_deploy(stages = dsl_load())
 after_script(stages = dsl_load())
 }
 \arguments{
-\item{stages}{\code{[named list]}
+\item{stages}{\verb{[named list]}
 A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{dsl_load()}},
 by default loaded from \code{tic.R}.}
 }

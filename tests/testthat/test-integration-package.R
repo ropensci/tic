@@ -1,6 +1,7 @@
 context("test-integration-package.R")
 
 test_that("integration test: package", {
+  skip_on_appveyor()
   cli::cat_boxx("integration test: package")
 
   package_path <- tempfile("ticpkg", fileext = "pkg")
@@ -11,7 +12,8 @@ test_that("integration test: package", {
     fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE
   )
   withr::with_dir(
-    package_path, {
+    package_path,
+    {
       writeLines("do_package_checks()", "tic.R")
       writeLines("^tic\\.R$", ".Rbuildignore")
       callr::r(

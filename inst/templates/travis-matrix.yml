@@ -1,0 +1,9 @@
+
+# multiple R versions ----------------------------------------------------------
+matrix:
+  allow_failures:
+  - r: oldrel
+  include:
+  - r: devel
+  - r: oldrel
+  - r: release

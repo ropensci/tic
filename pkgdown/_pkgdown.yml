@@ -1,5 +1,12 @@
+url: https://docs.ropensci.org/tic/dev
+
 template:
   package: rotemplate
+
+development:
+  mode: auto
+  version_label: default
+  version_tooltip: "Version"
 
 reference:
 - title: DSL
@@ -7,6 +14,9 @@ reference:
   - tic-package
   - DSL
   - starts_with("dsl_")
+- title: YAML templates
+  contents:
+  - ends_with("yml")
 - title: Macros
   contents:
   - macro
@@ -29,6 +39,12 @@ reference:
 - title: Serialization
   contents:
   - starts_with("base64")
+- title: R Repo functions
+  contents:
+  - starts_with("repo")
+
+toc:
+  depth: 3
 
 navbar:
   title:
@@ -46,8 +62,8 @@ navbar:
       href: articles/features.html
     - text: The CI Build Lifecycle
       href: articles/build-lifecycle.html
-    - text: tic & travis
-      href: articles/tic-travis.html
+    - text: CI Client Packages
+      href: articles/ci-client-packages.html
     - text: Advanced Usage
       href: articles/advanced.html
     - text: Deployment
@@ -61,4 +77,4 @@ authors:
   Kirill Müller:
     href: http://krlmlr.info
   Patrick Schratz:
-    href: https://pjs-web.de
+    href: https://pat-s.me

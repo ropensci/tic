@@ -1,0 +1,89 @@
+# tic documentation: https://docs.ropensci.org/tic/dev/
+
+version: 2.1
+jobs:
+  r-release:
+    docker:
+      - image: rocker/verse
+    steps:
+      - checkout
+
+      # create a unique env var for the cache. Unfortunately normal env vars
+      # are not picked up by the cache, therefore this workaround is needed.
+      # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
+      - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+      - restore_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+
+      # install deps and check pkg ---------------------------------------------
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt install -y ccache
+            echo -e 'options(Ncpus = 8, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
+            mkdir $HOME/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache gcc -std=gnu99\nCXX=ccache g++\nC11=ccache g++\nC14=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+            mkdir $HOME/.ccache && echo -e 'max_size = 5.0G\nsloppiness = include_file_ctime\nhash_dir=false' > $HOME/.ccache/ccache.conf
+            R -q -e 'install.packages("remotes")'
+            R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
+            R -q -e 'remotes::install_github("ropenscilabs/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'tic::before_install()'
+            R -q -e 'tic::install()'
+      - run:
+          name: R CMD Check
+          no_output_timeout: 60m
+          command: |
+            R -q -e 'tic::before_script()'
+            R -q -e 'tic::script()'
+
+      # save R pkg cache -------------------------------------------------------
+      - save_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          paths:
+            - /usr/local/lib/R/site-library
+            - $HOME/.ccache
+  deploy:
+    environment:
+      id_rsa: true
+    docker:
+      - image: rocker/verse
+    steps:
+      - checkout
+      - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+      - restore_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+      - run:
+          name: Deploy
+          command: |
+            sudo apt install -y ccache
+            echo -e 'options(Ncpus = 8, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
+            mkdir $HOME/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache gcc -std=gnu99\nCXX=ccache g++\nC11=ccache g++\nC14=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+            mkdir $HOME/.ccache && echo -e 'max_size = 5.0G\nsloppiness = include_file_ctime\nhash_dir=false' > $HOME/.ccache/ccache.conf
+            R -q -e 'install.packages("remotes")'
+            R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
+            R -q -e 'remotes::install_github("ropenscilabs/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'tic::before_deploy()'
+            R -q -e 'tic::deploy()'
+            R -q -e 'tic::after_deploy()'
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - r-release
+      - deploy:
+          requires:
+            - r-release
+
+  # CRON job daily at 3 am in the morning
+  # - runs the "build" job on the master branch and builds package cache
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 3 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - r-release
+# Custom user code -------------------------------------------------------------
+

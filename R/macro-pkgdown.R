@@ -12,8 +12,8 @@ NULL
 #' Build pkgdown documentation
 #'
 #' @description
-#' `do_pkgdown()` builds and optionally deploys a pkgdown site and adds default steps
-#'   to the `"install"`, `"before_deploy"` and `"deploy"` stages:
+#' `do_pkgdown()` builds and optionally deploys a pkgdown site and adds default
+#' steps to the `"install"`, `"before_deploy"` and `"deploy"` stages:
 #'
 #' @inheritParams step_build_pkgdown
 #' @inheritParams step_setup_push_deploy
@@ -67,11 +67,15 @@ do_pkgdown <- function(...,
 
   if (isTRUE(deploy)) {
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
-    #'    the upcoming deployment (if `deploy` is set),
+    #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
+    if (ci_on_travis()) {
+      get_stage("before_deploy") %>%
+        add_step(step_setup_ssh())
+    }
+
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
     #'    (if `deploy` is set),
     get_stage("before_deploy") %>%
-      add_step(step_setup_ssh()) %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),

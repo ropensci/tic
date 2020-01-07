@@ -7,12 +7,14 @@ ci_ <- function() {
     TravisCI$new()
   } else if (Sys.getenv("APPVEYOR") == "True") {
     AppVeyorCI$new()
+  } else if (Sys.getenv("CIRCLECI") == "true") {
+    CircleCI$new()
   } else {
     LocalCI$new()
   }
 }
 
-CI <- R6Class(
+CI <- R6Class( # nolint
   "CI",
   public = list(
     #' @section Methods:
@@ -73,6 +75,11 @@ CI <- R6Class(
     on_appveyor = function() {
       FALSE
     },
+    #'   \item{`on_circle()`}{
+    #'     Returns `TRUE` only on circle, otherwise `FALSE`.}
+    on_circle = function() {
+      FALSE
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
@@ -96,10 +103,11 @@ CI <- R6Class(
 
 #' The current CI environment
 #'
-#' @description Functions that return environment settings that describe the CI environment.
-#' The value is retrieved only once and then cached.
+#' @description Functions that return environment settings that describe the CI
+#'   environment. The value is retrieved only once and then cached.
 #'
-#' `ci_get_branch()`: Returns the current branch. Returns nothing if operating on a tag.
+#'   `ci_get_branch()`: Returns the current branch. Returns nothing if operating
+#'   on a tag.
 #' @name ci
 #' @export
 ci_get_branch <- function() {
@@ -108,7 +116,8 @@ ci_get_branch <- function() {
 
 #' CI tag
 #'
-#' `ci_is_tag()`: Returns the current tag name. Returns nothing if a branch is selected.
+#' `ci_is_tag()`: Returns the current tag name. Returns nothing if a branch is
+#' selected.
 #' @rdname ci
 #' @export
 ci_is_tag <- function() {
@@ -117,7 +126,8 @@ ci_is_tag <- function() {
 
 #' CI slug
 #'
-#' `ci_get_slug()`: Returns the repo slug in the format `user/repo` or `org/repo`
+#' `ci_get_slug()`: Returns the repo slug in the format `user/repo` or
+#' `org/repo`
 #' @rdname ci
 #' @export
 ci_get_slug <- function() {
@@ -162,7 +172,8 @@ ci_get_env <- function(env) {
 
 #' CI is env
 #'
-#' `ci_is_env()`: Checks if an environment or configuration variable is set to a particular value.
+#' `ci_is_env()`: Checks if an environment or configuration variable is set to a
+#' particular value.
 #' @rdname ci
 #' @param env Name of the environment variable to check.
 #' @param value Value for the environment variable to compare against.
@@ -173,7 +184,8 @@ ci_is_env <- function(env, value) {
 
 #' CI has env
 #'
-#' `ci_has_env()`: Checks if an environment or configuration variable is set to any value.
+#' `ci_has_env()`: Checks if an environment or configuration variable is set to
+#' any value.
 #' @rdname ci
 #' @export
 ci_has_env <- function(env) {
@@ -186,7 +198,8 @@ ci_has_env <- function(env) {
 #'   for local environments, CI environments require an environment
 #'   variable (by default `id_rsa`).
 #' @rdname ci
-#' @param name Name of the environment variable to check, defaults to `"id_rsa"`.
+#' @param name Name of the environment variable to check, defaults to
+#'   `"id_rsa"`.
 #' @export
 ci_can_push <- function(name = "id_rsa") {
   ci()$can_push(name)
@@ -194,8 +207,8 @@ ci_can_push <- function(name = "id_rsa") {
 
 #' CI is_interactive
 #'
-#' `ci_is_interactive()`: Returns whether the current build is run interactively or not.
-#' Global setup operations shouldn't be run on interactive CIs.
+#' `ci_is_interactive()`: Returns whether the current build is run interactively
+#' or not. Global setup operations shouldn't be run on interactive CIs.
 #' @rdname ci
 #' @export
 ci_is_interactive <- function() {
@@ -203,9 +216,9 @@ ci_is_interactive <- function() {
 }
 
 #' CI cat with color
-#' @description `ci_cat_with_color()`: Colored output targeted to the CI log. The code argument can be an
-#' unevaluated call to a crayon function, the style will be applied even if it
-#' normally wouldn't be.
+#' @description `ci_cat_with_color()`: Colored output targeted to the CI log.
+#'   The code argument can be an unevaluated call to a crayon function, the
+#'   style will be applied even if it normally wouldn't be.
 #' @param code Code that should be colored.
 #' @rdname ci
 #' @export
@@ -227,6 +240,14 @@ ci_on_travis <- function() {
 #' @export
 ci_on_appveyor <- function() {
   ci()$on_appveyor()
+}
+
+#' CI on_circle
+#' @description `ci_on_circle()`: Are we running on Circle CI?
+#' @rdname ci
+#' @export
+ci_on_circle <- function() {
+  ci()$on_circle()
 }
 
 #' The current CI environment

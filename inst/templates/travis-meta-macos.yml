@@ -1,0 +1,12 @@
+
+# meta -------------------------------------------------------------------------
+language: r
+cache:
+  - packages
+  - $HOME/.ccache
+  - $HOME/Library/Caches/Homebrew
+latex: false
+
+env:
+  global:
+  - MAKEFLAGS="-j 2"

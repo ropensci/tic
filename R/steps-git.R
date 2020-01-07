@@ -37,7 +37,7 @@ Git <- R6Class(
   )
 )
 
-SetupPushDeploy <- R6Class(
+SetupPushDeploy <- R6Class( # nolint
   "SetupPushDeploy",
   inherit = TicStep,
 
@@ -128,7 +128,7 @@ SetupPushDeploy <- R6Class(
       if (!private$orphan) {
         message("Fetching from remote ", remote_name)
         tryCatch(
-          {
+          { # nolint
             remote_branch <- private$try_fetch()
             if (!is.null(remote_branch)) {
               message("Remote branch is ", remote_branch$name)
@@ -189,6 +189,7 @@ SetupPushDeploy <- R6Class(
 #' @family steps
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("deploy") %>%
@@ -203,6 +204,7 @@ SetupPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
+#' }
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
                                    remote_url = NULL, checkout = TRUE) {
   SetupPushDeploy$new(
@@ -331,7 +333,7 @@ DoPushDeploy <- R6Class(
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
 #'
 #' Deployment usually requires setting up SSH keys with
-#' [use_tic()] or [use_travis_deploy()].
+#' [use_tic()] or [travis::use_travis_deploy()].
 #'
 #'
 #' @details
@@ -365,6 +367,7 @@ DoPushDeploy <- R6Class(
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' # Deployment only works if a companion step_setup_push_deploy() is added
@@ -378,6 +381,7 @@ DoPushDeploy <- R6Class(
 #' }
 #'
 #' dsl_get()
+#' }
 step_do_push_deploy <- function(path = ".", commit_message = NULL,
                                 commit_paths = ".") {
   DoPushDeploy$new(
@@ -439,7 +443,7 @@ PushDeploy <- R6Class(
 #' and [step_do_push_deploy()].
 #'
 #' Deployment usually requires setting up SSH keys with
-#' [use_tic()] or [use_travis_deploy()].
+#' [use_tic()] or [travis::use_travis_deploy()].
 #'
 #' @details
 #' Setup and deployment are combined in one step,
@@ -460,12 +464,14 @@ PushDeploy <- R6Class(
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man")))
 #'
 #' dsl_get()
+#' }
 step_push_deploy <- function(path = ".", branch = NULL,
                              remote_url = NULL,
                              commit_message = NULL, commit_paths = ".") {

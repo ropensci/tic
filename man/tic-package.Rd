@@ -10,8 +10,7 @@ Provides a way to describe common build and
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or
-    'AppVeyor').
+    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
 }
 \details{
 The \code{\link[=use_tic]{use_tic()}} function prepares a code repository for use with
@@ -31,11 +30,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org} (0000-0002-1416-3412)
+\strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org} (\href{https://orcid.org/0000-0002-1416-3412}{ORCID})
 
 Authors:
 \itemize{
-  \item Patrick Schratz \email{patrick.schratz@gmail.com} (0000-0003-0748-6624)
+  \item Patrick Schratz \email{patrick.schratz@gmail.com} (\href{https://orcid.org/0000-0003-0748-6624}{ORCID})
   \item Mika Braginsky \email{mika.br@gmail.com}
   \item Karthik Ram \email{karthik.ram@gmail.com}
   \item Jeroen Ooms \email{jeroen.ooms@stat.ucla.edu}
