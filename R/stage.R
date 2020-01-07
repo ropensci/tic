@@ -45,7 +45,7 @@ TicStage <- R6Class( # nolint
       }
 
       # check if package name is valid
-      check_package_name()
+      check_package_name(project_name())
 
       lapply(private$steps, private$prepare_one)
       invisible()
