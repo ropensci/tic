@@ -1,3 +1,12 @@
+# tic 0.3.0.9002
+
+- `use_tic()` supports running both Linux and macOS on Travis (#202).
+- Skip `TicStep$prepare` if `prepare_call` is given in `add_code_step()` (#211).
+- Fix preparation of `step_add_to_drat()`.
+- `use_tic()` gains arguments that allow non-interactive use and re-running with the same settings if setup fails (#203).
+- Removed artificial sleeps with interactive setup.
+
+
 # tic 0.3.0.9001
 
 - Move `use_travis_deploy()` back to {travis}.
