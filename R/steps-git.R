@@ -207,6 +207,9 @@ SetupPushDeploy <- R6Class( # nolint
 #' }
 step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
                                    remote_url = NULL, checkout = TRUE) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   SetupPushDeploy$new(
     path = path, branch = branch, orphan = orphan,
     remote_url = remote_url, checkout = checkout
@@ -384,6 +387,9 @@ DoPushDeploy <- R6Class(
 #' }
 step_do_push_deploy <- function(path = ".", commit_message = NULL,
                                 commit_paths = ".") {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   DoPushDeploy$new(
     path = path, commit_message = commit_message, commit_paths = commit_paths
   )
@@ -475,6 +481,9 @@ PushDeploy <- R6Class(
 step_push_deploy <- function(path = ".", branch = NULL,
                              remote_url = NULL,
                              commit_message = NULL, commit_paths = ".") {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   PushDeploy$new(
     path = path, branch = branch,
     remote_url = remote_url,

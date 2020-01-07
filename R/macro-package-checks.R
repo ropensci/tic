@@ -37,6 +37,11 @@ do_package_checks <- function(...,
                               error_on = "warning",
                               repos = repo_default(), timeout = Inf,
                               type = NULL, check_dir = NULL) {
+
+  if (interactive()) {
+    stop("Macro functions should only be used in tic.R and not interactively.")
+  }
+
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.

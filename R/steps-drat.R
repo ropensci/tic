@@ -36,5 +36,8 @@ AddToDrat <- R6Class(
 #'
 #' dsl_get()
 step_add_to_drat <- function() {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   AddToDrat$new()
 }

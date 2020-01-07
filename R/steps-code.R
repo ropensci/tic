@@ -70,5 +70,8 @@ RunCode <- R6Class(
 #' dsl_get()
 #' @export
 step_run_code <- function(call = NULL, prepare_call = NULL) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   RunCode$new(!!enexpr(call), !!enexpr(prepare_call))
 }

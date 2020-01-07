@@ -46,5 +46,8 @@ BuildPkgdown <- R6Class(
 #'
 #' dsl_get()
 step_build_pkgdown <- function(...) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   BuildPkgdown$new(...)
 }

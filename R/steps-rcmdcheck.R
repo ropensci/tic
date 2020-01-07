@@ -137,6 +137,9 @@ step_rcmdcheck <- function(...,
                            args = NULL, build_args = NULL, error_on = "warning",
                            repos = repo_default(), timeout = Inf,
                            check_dir = NULL) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
 
   #' @param build_args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr

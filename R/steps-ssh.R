@@ -58,6 +58,9 @@ AddToKnownHosts <- R6Class(
 #'
 #' dsl_get()
 step_add_to_known_hosts <- function(host = "github.com") {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   AddToKnownHosts$new(host = host)
 }
 
@@ -128,6 +131,9 @@ InstallSSHKeys <- R6Class(
 #'
 #' dsl_get()
 step_install_ssh_keys <- function(name = "id_rsa") {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   InstallSSHKeys$new(name = name)
 }
 
@@ -175,6 +181,9 @@ TestSSH <- R6Class(
 #'
 #' dsl_get()
 step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   TestSSH$new(url = url, verbose = verbose)
 }
 
@@ -248,6 +257,9 @@ SetupSSH <- R6Class(
 #' dsl_get()
 step_setup_ssh <- function(name = "id_rsa", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
 }
 

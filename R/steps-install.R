@@ -59,6 +59,9 @@ InstallDeps <- R6Class(
 #'
 #' dsl_get()
 step_install_deps <- function(repos = repo_default(), type = NULL) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   type <- update_type(type)
   InstallDeps$new(repos = repos, type = type)
 }
@@ -113,6 +116,9 @@ InstallCRAN <- R6Class(
 #' dsl_get()
 step_install_cran <- function(package = NULL, ..., repos = repo_default(),
                               type = NULL) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   type <- update_type(type)
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
@@ -166,6 +172,9 @@ InstallGitHub <- R6Class(
 #'
 #' dsl_get()
 step_install_github <- function(repo = NULL, ..., type = NULL) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   type <- update_type(type)
   InstallGitHub$new(repo = repo, ..., type = type)
 }

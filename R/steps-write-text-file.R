@@ -43,5 +43,8 @@ WriteTextFile <- R6Class(
 #'
 #' dsl_get()
 step_write_text_file <- function(..., path) {
+  if (interactive()) {
+    stop("step_* functions should only be used in tic.R and not interactively.")
+  }
   WriteTextFile$new(..., path = path)
 }

@@ -39,6 +39,10 @@ do_pkgdown <- function(...,
                        remote_url = NULL,
                        commit_message = NULL, commit_paths = ".") {
 
+  if (interactive()) {
+    stop("Macro functions should only be used in tic.R and not interactively.")
+  }
+
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
   #'   before building the pkgdown site,
