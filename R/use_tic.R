@@ -13,14 +13,19 @@
 #' 1. Create a default `tic.R` file depending on the repo type
 #'    (package, website, bookdown, ...)
 #'
-#' @param wizard `[flag]`\cr Interactive operation? If `TRUE`,
-#'   a menu will be shown.
-#' @param linux,windows,mac `[string]`\cr Which CI provider(s) to use to test on
-#'   Linux, Windows, and macOS, respectively.
-#' @param deploy `[string]`\cr Which CI provider(s) to use to
-#'   deploy artifacts such as pkgdown documentation.
-#' @param matrix `[string]`\cr For which CI provider(s) to set up
-#'   matrix builds.
+#' @param wizard `[flag]`\cr Interactive operation? If `TRUE`, a menu will be
+#'   shown.
+#' @param linux `[string]`\cr Which CI provider(s) to use to test on Linux.
+#'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
+#'   Possible options are `"none"` and `"appveyor"`.
+#' @param mac `[string]`\cr Which CI provider(s) to use to test on macOS
+#'   Possible options are `"none"`, and `"travis"`.
+#' @param deploy `[string]`\cr Which CI provider(s) to use to deploy artifacts
+#'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
+#'   `"none"` and `"all"`.
+#' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
+#'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
 #' @examples
@@ -30,6 +35,7 @@
 #'
 #'   # Pre-specified settings favoring Circle CI:
 #'   use_tic(
+#'     wizard = FALSE,
 #'     linux = "circle",
 #'     mac = "travis",
 #'     windows = "appveyor",
@@ -38,17 +44,20 @@
 #'   )
 #' }
 use_tic <- function(wizard = interactive(),
-                    linux = c("travis", "circle", "none", "all"),
-                    mac = c("none", "travis", "all"),
-                    windows = c("none", "appveyor", "all"),
-                    deploy = c("travis", "circle", "none", "all"),
-                    matrix = c("none", "travis", "circle", "appveyor", "all"),
+                    linux = "circle",
+                    mac = "none",
+                    windows = "appveyor",
+                    deploy = "circle",
+                    matrix = "none",
                     quiet = FALSE) { # nolint
+
   cli_alert("Welcome to {.pkg tic}!")
-  cli_text(
-    "This wizard will guide you through the setup process for getting started
+  if (wizard) {
+    cli_text(
+      "This wizard will guide you through the setup process for getting started
     with various CI providers."
-  )
+    )
+  }
 
   cli_h1("Introduction:")
   cli_text("{.pkg tic} currently comes with support for three CI providers: ")
@@ -79,45 +88,62 @@ use_tic <- function(wizard = interactive(),
     cli_par()
     cli_end()
 
-    linux <- ci_menu(linux,
+    linux <- ci_menu(c("travis", "circle", "none", "all"),
       title = "Which provider do you want to use for Linux builds?"
     )
 
-    mac <- ci_menu(mac,
+    mac <- ci_menu(c("travis", "none"),
       title = "Do you want to build on macOS (= Travis CI)?"
     )
 
-    windows <- ci_menu(windows,
+    windows <- ci_menu(c("appveyor", "none"),
       title = "Do you want to build on Windows (= Appveyor)?"
     )
 
-    deploy <- ci_menu(intersect(deploy, c(linux, mac, windows, "all", "none")),
-      title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?" # nolint
+    deploy <- ci_menu(intersect(
+      c("travis", "circle", "none", "all"),
+      c(linux, mac, windows, "all", "none")
+    ),
+    title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?" # nolint
     )
 
-    matrix <- ci_menu(intersect(matrix, c(linux, mac, windows, "all", "none")),
-      title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
+    matrix <- ci_menu(intersect(
+      c("none", "travis", "circle", "appveyor", "all"),
+      c(linux, mac, windows, "all", "none")
+    ),
+    title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
     )
 
     wizard <- FALSE
     use_tic_call <- paste0(
-      'tic::use_tic(',
+      "tic::use_tic(",
       arg_desc(wizard),
       arg_desc(linux),
       arg_desc(mac),
       arg_desc(windows),
       arg_desc(deploy),
       arg_desc(matrix, last = TRUE),
-      ')'
+      ")"
     )
     cli_text("If setup fails, rerun with:")
     cli_text("{.code ", use_tic_call, "}")
   } else {
-    linux <- match.arg(linux, several.ok = TRUE)
-    mac <- match.arg(mac, several.ok = TRUE)
-    windows <- match.arg(windows, several.ok = TRUE)
-    deploy <- match.arg(deploy, several.ok = TRUE)
-    matrix <- match.arg(matrix, several.ok = TRUE)
+    linux <- match.arg(linux, c("travis", "circle", "none", "all"),
+      several.ok = TRUE
+    )
+    mac <- match.arg(mac, c("none", "travis"),
+      several.ok = TRUE
+    )
+    windows <- match.arg(windows, c("none", "appveyor", "all"),
+      several.ok = TRUE
+    )
+    deploy <- match.arg(deploy, c("travis", "circle", "none", "all"),
+      several.ok = TRUE
+    )
+    matrix <- match.arg(matrix,
+      c("none", "travis", "circle", "appveyor", "all"),
+      several.ok = TRUE
+    )
   }
 
   cli_h1("Setting up the CI providers.")

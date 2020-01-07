@@ -6,26 +6,33 @@
 \usage{
 use_tic(
   wizard = interactive(),
-  linux = c("travis", "circle", "none", "all"),
-  mac = c("none", "travis", "all"),
-  windows = c("none", "appveyor", "all"),
-  deploy = c("travis", "circle", "none", "all"),
-  matrix = c("none", "travis", "circle", "appveyor", "all"),
+  linux = "circle",
+  mac = "none",
+  windows = "appveyor",
+  deploy = "circle",
+  matrix = "none",
   quiet = FALSE
 )
 }
 \arguments{
-\item{wizard}{\verb{[flag]}\cr Interactive operation? If \code{TRUE},
-a menu will be shown.}
+\item{wizard}{\verb{[flag]}\cr Interactive operation? If \code{TRUE}, a menu will be
+shown.}
 
-\item{linux, windows, mac}{\verb{[string]}\cr Which CI provider(s) to use to test on
-Linux, Windows, and macOS, respectively.}
+\item{linux}{\verb{[string]}\cr Which CI provider(s) to use to test on Linux.
+Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
 
-\item{deploy}{\verb{[string]}\cr Which CI provider(s) to use to
-deploy artifacts such as pkgdown documentation.}
+\item{mac}{\verb{[string]}\cr Which CI provider(s) to use to test on macOS
+Possible options are \code{"none"}, and \code{"travis"}.}
 
-\item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up
-matrix builds.}
+\item{windows}{\verb{[string]}\cr Which CI provider(s) to use to test on Windows
+Possible options are \code{"none"} and \code{"appveyor"}.}
+
+\item{deploy}{\verb{[string]}\cr Which CI provider(s) to use to deploy artifacts
+such as pkgdown documentation. Possible options are \code{"travis"}, \code{"circle"},
+\code{"none"} and \code{"all"}.}
+
+\item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up matrix builds.
+Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
 
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
@@ -49,6 +56,7 @@ if (FALSE) {
 
   # Pre-specified settings favoring Circle CI:
   use_tic(
+    wizard = FALSE,
     linux = "circle",
     mac = "travis",
     windows = "appveyor",
