@@ -46,7 +46,6 @@ tempfile_slash <- function(pattern = "file", tmpdir = tempdir(), fileext = "") {
   normalizePath(path, winslash = "/", mustWork = FALSE)
 }
 
-<<<<<<< HEAD
 # borrowed from {usethis} ------------------------------------------------------
 
 check_package_name <- function(name) {
