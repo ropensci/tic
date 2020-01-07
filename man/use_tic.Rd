@@ -11,6 +11,7 @@ use_tic(
   windows = "appveyor",
   deploy = "travis",
   matrix = "none",
+  travis_endpoint = ".com",
   quiet = FALSE
 )
 }
@@ -33,6 +34,10 @@ such as pkgdown documentation. Possible options are \code{"travis"}, \code{"circ
 
 \item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up matrix builds.
 Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
+
+\item{travis_endpoint}{\verb{[string]}\cr The Travis CI endpoint to use. Possible
+options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
+\code{\link[travis:travis_eanble]{travis::travis_eanble()}} for more information.}
 
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
