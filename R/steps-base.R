@@ -23,12 +23,16 @@ TicStep <- R6Class(
     },
 
     prepare = function() {
-      #' \item{`prepare`}{
-      #'   This method is called when preparing the stage
-      #'   to which a step has been added.
-      #'   Override this method to install any R packages your step might need,
-      #'   because this allows them to be cached for subsequential runs.
-      #' }
+      #' \item{`prepare`}{ This method is called when preparing the stage to
+      #' which a step has been added. It auto-install all packages which are
+      #' needed for a certain step. For example, `step_build_pkgdown()` requires
+      #' the _pkgdown_ package.
+      #'
+      #' For `add_code_step()`, it autodetects any package calls in the form of
+      #' `pkg::fun` and tries to install these packages from CRAN. If a steps
+      #' `prepare_call` is not empty, the `$prepare` method is skipped for this
+      #' step. This can be useful if a package should be installed from
+      #' non-standard repositories, e.g. from Github. }
     },
 
     check = function() {
