@@ -48,8 +48,8 @@ Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/
 
 For an R package, the following steps will be set up for the CI workflow:
 
-- Installation of required dependencies for the project
-- Satisfying build-time dependencies of steps to be run in all CI stages
+- Installation of required dependencies for the project (by checking the mandatory(!) DESCRIPTION file)
+- Satisfying build-time dependencies of steps to be run in all CI stages (by scraping `pkg::fun` calls in `tic.R`)
 - Checking of package via `rcmdcheck::rcmdcheck()`
 - Creation of a `pkgdown` site including Github deployment
 - Running a code coverage and upload to [codecov.io](https://codecov.io/)
