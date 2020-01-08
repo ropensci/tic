@@ -90,8 +90,8 @@ is_package <- function(base_path = usethis::proj_get()) {
 }
 
 package_data <- function(base_path = usethis::proj_get()) {
-  desc <- desc::description$new(base_path)
-  as.list(desc$get(desc$fields()))
+  descr <- desc::description$new(base_path)
+  as.list(descr$get(descr$fields()))
 }
 
 yesno <- function(...) {
