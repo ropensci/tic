@@ -16,12 +16,14 @@ SSH access.
 Requires \code{ssh-keyscan} on the system \code{PATH}.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 get_stage("before_deploy") \%>\%
   add_step(step_add_to_known_hosts("gitlab.com"))
 
 dsl_get()
+}
 }
 \seealso{
 Other steps: 

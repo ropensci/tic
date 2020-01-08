@@ -51,12 +51,14 @@ AddToKnownHosts <- R6Class(
 #' @family steps
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("before_deploy") %>%
 #'   add_step(step_add_to_known_hosts("gitlab.com"))
 #'
 #' dsl_get()
+#' }
 step_add_to_known_hosts <- function(host = "github.com") {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
