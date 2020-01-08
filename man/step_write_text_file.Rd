@@ -17,12 +17,14 @@ Path to the new text file.}
 Creates a text file with arbitrary contents
 }
 \examples{
+\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_write_text_file("Hi!", path = "hello.txt"))
 
 dsl_get()
+}
 }
 \seealso{
 Other steps: 

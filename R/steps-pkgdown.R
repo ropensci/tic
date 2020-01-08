@@ -39,12 +39,14 @@ BuildPkgdown <- R6Class(
 #' @family steps
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_build_pkgdown())
 #'
 #' dsl_get()
+#' }
 step_build_pkgdown <- function(...) {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")

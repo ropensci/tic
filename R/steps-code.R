@@ -57,7 +57,9 @@ RunCode <- R6Class(
 #' @param prepare_call `[call]`\cr
 #'   An optional arbitrary R expression executed during preparation.
 #' @family steps
+#' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("install") %>%
@@ -68,7 +70,7 @@ RunCode <- R6Class(
 #'   add_code_step(covr::codecov())
 #'
 #' dsl_get()
-#' @export
+#' }
 step_run_code <- function(call = NULL, prepare_call = NULL) {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")

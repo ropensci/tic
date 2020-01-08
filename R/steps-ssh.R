@@ -124,12 +124,14 @@ InstallSSHKeys <- R6Class(
 #' @seealso [travis::use_travis_deploy()], [use_tic()]
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("before_deploy") %>%
 #'   add_step(step_install_ssh_keys())
 #'
 #' dsl_get()
+#' }
 step_install_ssh_keys <- function(name = "id_rsa") {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
@@ -174,12 +176,14 @@ TestSSH <- R6Class(
 #' @family steps
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_test_ssh(verbose = "-vvv"))
 #'
 #' dsl_get()
+#' }
 step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
@@ -249,12 +253,14 @@ SetupSSH <- R6Class(
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_setup_ssh(host = "gitlab.com"))
 #'
 #' dsl_get()
+#' }
 step_setup_ssh <- function(name = "id_rsa", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
   if (interactive()) {

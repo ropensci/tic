@@ -52,12 +52,14 @@ InstallDeps <- R6Class(
 #' @export
 #' @name step_install_pkg
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("install") %>%
 #'   add_step(step_install_deps())
 #'
 #' dsl_get()
+#' }
 step_install_deps <- function(repos = repo_default(), type = NULL) {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
@@ -108,12 +110,14 @@ InstallCRAN <- R6Class(
 #' @export
 #' @rdname step_install_pkg
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("install") %>%
 #'   add_step(step_install_cran("magick"))
 #'
 #' dsl_get()
+#' }
 step_install_cran <- function(package = NULL, ..., repos = repo_default(),
                               type = NULL) {
   if (interactive()) {
@@ -165,12 +169,14 @@ InstallGitHub <- R6Class(
 #' @export
 #' @rdname step_install_pkg
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("install") %>%
 #'   add_step(step_install_github("rstudio/gt"))
 #'
 #' dsl_get()
+#' }
 step_install_github <- function(repo = NULL, ..., type = NULL) {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
