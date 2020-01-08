@@ -81,11 +81,13 @@ stages:
 }
 }
 \examples{
+\dontrun{
 dsl_init()
 
 do_package_checks()
 
 dsl_get()
+}
 }
 \seealso{
 Other macros: 

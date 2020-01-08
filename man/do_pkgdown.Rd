@@ -82,11 +82,13 @@ By default, the \verb{docs/} directory is deployed to the \code{gh-pages} branch
 keeping the history.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 do_pkgdown()
 
 dsl_get()
+}
 }
 \seealso{
 Other macros: 

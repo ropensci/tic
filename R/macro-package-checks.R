@@ -23,11 +23,13 @@ NULL
 #' @family macros
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' do_package_checks()
 #'
 #' dsl_get()
+#' }
 do_package_checks <- function(...,
                               codecov = !ci_is_interactive(),
                               warnings_are_errors = NULL,

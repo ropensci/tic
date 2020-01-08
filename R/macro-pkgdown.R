@@ -25,11 +25,13 @@ NULL
 #' @family macros
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' do_pkgdown()
 #'
 #' dsl_get()
+#' }
 do_pkgdown <- function(...,
                        deploy = NULL,
                        orphan = FALSE,
