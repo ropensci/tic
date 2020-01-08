@@ -11,3 +11,4 @@
 ^\.circleci/config\.yml$
 ^\.pre-commit-config\.yaml$
 ^\.lintr$
+^tests/testthat/tic$
