@@ -24,9 +24,11 @@ NULL
 #' @rdname dsl
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script")
+#' }
 get_stage <- function(name) {
   # Initialize if necessary
   dsl_get()
