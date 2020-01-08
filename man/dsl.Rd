@@ -55,14 +55,16 @@ dsl_init()
 
 get_stage("script")
 }
-
+\dontrun{
 get_stage("script") \%>\%
   add_step(step_hello_world())
 
 get_stage("script")
-
+}
+\dontrun{
 get_stage("script") \%>\%
   add_code_step(print("Hi!"))
 
 get_stage("script")
+}
 }
