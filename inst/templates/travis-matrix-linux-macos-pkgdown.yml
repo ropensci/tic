@@ -8,7 +8,7 @@ matrix:
     - os: osx
       r: release
     - os: osx
-      r: oldrelease
+      r: oldrel
     - os: linux
       r: devel
     - os: linux
@@ -16,4 +16,4 @@ matrix:
       env:
       - BUILD_PKGDOWN=true
     - os: linux
-      r: oldrelease
+      r: oldrel
