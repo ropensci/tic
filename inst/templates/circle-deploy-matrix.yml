@@ -42,7 +42,7 @@ jobs:
             - $HOME/.ccache
   deploy:
     environment:
-      id_rsa: true
+      BUILD_PKGDOWN: true
     docker:
       - image: rocker/verse
     steps:

@@ -35,9 +35,11 @@ do_pkgdown <- function(...,
                        orphan = FALSE,
                        checkout = TRUE,
                        repos = repo_default(),
-                       path = "docs", branch = "gh-pages",
+                       path = "docs",
+                       branch = "gh-pages",
                        remote_url = NULL,
-                       commit_message = NULL, commit_paths = ".") {
+                       commit_message = NULL,
+                       commit_paths = ".") {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed

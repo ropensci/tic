@@ -21,6 +21,16 @@ Which template to use. The string should be given following the logic
 \description{
 Installs YAML templates for various CI providers.
 }
+\section{pkgdown}{
+
+If a setting including "deploy" is selected, {tic} by default also adds
+the environment var \code{BUILD_PKGDOWN=true}. This setting triggers a call
+to \code{pkgdown::build_site()} via the \code{do_pkgdown} macro in \code{tic.R}.
+
+If a setting  includes "matrix" and builds on multiple R versions, the job
+building on R release is chosen to build the pkgdown site.
+}
+
 \section{Type}{
 
 \code{tic} supports a variety of different YAML templates which follow the

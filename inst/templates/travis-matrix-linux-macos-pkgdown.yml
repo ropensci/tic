@@ -1,0 +1,19 @@
+# OS: Linux + macOS ------------------------------------------------------------
+# tic documentation: https://docs.ropensci.org/tic/dev/
+
+matrix:
+  include:
+    - os: osx
+      r: devel
+    - os: osx
+      r: release
+    - os: osx
+      r: oldrelease
+    - os: linux
+      r: devel
+    - os: linux
+      r: release
+      env:
+      - BUILD_PKGDOWN=true
+    - os: linux
+      r: oldrelease
