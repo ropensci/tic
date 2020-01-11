@@ -86,11 +86,13 @@ By default, the \verb{_book/} directory is deployed
 to the \code{gh-pages} branch, keeping the history.
 }
 \examples{
+\dontrun{
 dsl_init()
 
 do_bookdown()
 
 dsl_get()
+}
 }
 \seealso{
 Other macros: 
