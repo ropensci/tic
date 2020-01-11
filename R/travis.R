@@ -33,7 +33,7 @@ TravisCI <- R6Class(
       # package. New default name: "TRAVIS_DEPLOY_KEY"
       # for backward comp we check for the old one too
       if (self$has_env("id_rsa")) {
-        return(invisible())
+        return(TRUE)
       }
       self$has_env(name)
     },
