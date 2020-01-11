@@ -66,7 +66,7 @@ InstallSSHKeys <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(name = "id_rsa") {
+    initialize = function(name = "TRAVIS_DEPLOY_KEY") {
       private$name <- name
     },
 
@@ -95,7 +95,7 @@ InstallSSHKeys <- R6Class(
     },
 
     check = function() {
-      # only if non-interactive and id_rsa env var is available
+      # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
       (!ci_is_interactive()) && (ci_can_push(private$name))
     }
   ),
@@ -115,7 +115,8 @@ InstallSSHKeys <- R6Class(
 #' key as an environment variable for use with this function.
 #'
 #' @param name `[string]`\cr
-#'   Name of the environment variable and the target file, default: `"id_rsa"`.
+#'   Name of the environment variable and the target file, default:
+#'   `"TRAVIS_DEPLOY_KEY"`.
 #'
 #' @family steps
 #' @seealso [travis::use_travis_deploy()], [use_tic()]
@@ -127,7 +128,7 @@ InstallSSHKeys <- R6Class(
 #'   add_step(step_install_ssh_keys())
 #'
 #' dsl_get()
-step_install_ssh_keys <- function(name = "id_rsa") {
+step_install_ssh_keys <- function(name = "TRAVIS_DEPLOY_KEY") {
   InstallSSHKeys$new(name = name)
 }
 
@@ -183,7 +184,7 @@ SetupSSH <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(name = "id_rsa", host = "github.com",
+    initialize = function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                           url = paste0("git@", host), verbose = "-v") {
 
       private$install_ssh_keys <- step_install_ssh_keys(name = name)
@@ -246,7 +247,7 @@ SetupSSH <- R6Class(
 #'   add_step(step_setup_ssh(host = "gitlab.com"))
 #'
 #' dsl_get()
-step_setup_ssh <- function(name = "id_rsa", host = "github.com",
+step_setup_ssh <- function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
 }

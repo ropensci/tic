@@ -37,7 +37,7 @@ ci_is_env(env, value)
 
 ci_has_env(env)
 
-ci_can_push(name = "id_rsa")
+ci_can_push(name = "TRAVIS_DEPLOY_KEY")
 
 ci_is_interactive()
 
@@ -57,7 +57,7 @@ ci()
 \item{value}{Value for the environment variable to compare against.}
 
 \item{name}{Name of the environment variable to check, defaults to
-\code{"id_rsa"}.}
+\code{"TRAVIS_DEPLOY_KEY"}.}
 
 \item{code}{Code that should be colored.}
 }
@@ -90,7 +90,7 @@ any value.
 
 \code{ci_can_push()}: Checks if push deployment is possible. Always true
 for local environments, CI environments require an environment
-variable (by default \code{id_rsa}).
+variable (by default \code{TRAVIS_DEPLOY_KEY}).
 
 \code{ci_is_interactive()}: Returns whether the current build is run interactively
 or not. Global setup operations shouldn't be run on interactive CIs.

@@ -25,7 +25,7 @@ LocalCI <- R6Class(
     get_commit = function() {
       git2r::revparse_single(revision = "HEAD")$sha
     },
-    can_push = function(name = "id_rsa") {
+    can_push = function(name = "TRAVIS_DEPLOY_KEY") {
       TRUE
     },
     get_env = function(env) {

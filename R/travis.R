@@ -28,7 +28,7 @@ TravisCI <- R6Class(
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
     },
-    can_push = function(name = "id_rsa") {
+    can_push = function(name = "TRAVIS_DEPLOY_KEY") {
       self$has_env(name)
     },
     get_env = function(env) {
