@@ -29,6 +29,12 @@ TravisCI <- R6Class(
       Sys.getenv("TRAVIS_COMMIT")
     },
     can_push = function(name = "TRAVIS_DEPLOY_KEY") {
+      # id_rsa is the "old" name which was previously hard coded in the {travis}
+      # package. New default name: "TRAVIS_DEPLOY_KEY"
+      # for backward comp we check for the old one too
+      if (self$has_env("id_rsa")) {
+        return(invisible())
+      }
       self$has_env(name)
     },
     get_env = function(env) {
