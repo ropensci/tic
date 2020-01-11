@@ -5,6 +5,14 @@
 #'   Which template to use. The string should be given following the logic
 #'   `<platform>-<action>`. See details for more.
 #'
+#' @section pkgdown:
+#'  If a setting including "deploy" is selected, {tic} by default also adds
+#'  the environment var `BUILD_PKGDOWN=true`. This setting triggers a call
+#'  to `pkgdown::build_site()` via the `do_pkgdown` macro in `tic.R`.
+#'
+#'  If a setting  includes "matrix" and builds on multiple R versions, the job
+#'  building on R release is chosen to build the pkgdown site.
+#'
 #' @section Type:
 #' `tic` supports a variety of different YAML templates which follow the
 #'  `<platform>-<action>` pattern. The first one is mandatory, the
@@ -56,7 +64,10 @@ use_travis_yml <- function(type) {
     stages <- readLines(system.file("templates/travis-no-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, env, stages)
   } else if (type == "linux-matrix") {
     os <- readLines(system.file("templates/travis-linux.yml",
       package = "tic"
@@ -64,28 +75,34 @@ use_travis_yml <- function(type) {
     meta <- readLines(system.file("templates/travis-meta-linux.yml",
       package = "tic"
     ))
-    matrix <- readLines(system.file("templates/travis-matrix.yml",
+    matrix <- readLines(system.file("templates/travis-matrix-no-pkgdown.yml",
+      package = "tic"
+    ))
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-no-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, matrix, stages)
+    template <- c(os, meta, matrix, env, stages)
   } else if (type == "linux-deploy") {
     os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-linux.yml",
       package = "tic"
     ))
+    env <- readLines(system.file("templates/travis-env-pkgdown.yml",
+      package = "tic"
+    ))
     stages <- readLines(system.file("templates/travis-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    template <- c(os, meta, env, stages)
   } else if (type == "linux-deploy-matrix" || type == "linux-matrix-deploy") {
     os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-linux.yml",
       package = "tic"
     ))
-    matrix <- readLines(system.file("templates/travis-matrix.yml",
+    matrix <- readLines(system.file("templates/travis-matrix-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-deploy.yml",
@@ -97,87 +114,111 @@ use_travis_yml <- function(type) {
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    stages <- readLines(system.file("templates/travis-deploy.yml",
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    stages <- readLines(system.file("templates/travis-no-deploy.yml",
+      package = "tic"
+    ))
+    template <- c(os, meta, env, stages)
   } else if (type == "macos-matrix") {
     os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    matrix <- readLines(system.file("templates/travis-matrix.yml",
+    matrix <- readLines(system.file("templates/travis-matrix-no-pkgdown.yml",
+      package = "tic"
+    ))
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-no-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, matrix, stages)
+    template <- c(os, meta, matrix, env, stages)
   } else if (type == "linux-macos-matrix") {
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    os <- readLines(system.file("templates/travis-matrix-linux-macos.yml",
+    os <- readLines(system.file("templates/travis-matrix-linux-macos-no-pkgdown.yml", # nolint
+      package = "tic"
+    ))
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-no-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    template <- c(os, meta, env, stages)
   } else if (type == "linux-macos-deploy-matrix") {
+    os <- readLines(system.file("templates/travis-matrix-linux-macos-pkgdown.yml",
+      package = "tic"
+    ))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    os <- readLines(system.file("templates/travis-matrix-linux-macos.yml",
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    template <- c(os, meta, env, stages)
   } else if (type == "linux-macos") {
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    os <- readLines(system.file("templates/travis-linux-macos.yml",
+    os <- readLines(system.file("templates/travis-linux-macos-no-pkgdown.yml",
+      package = "tic"
+    ))
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-no-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    template <- c(os, meta, env, stages)
   } else if (type == "linux-macos-deploy") {
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    os <- readLines(system.file("templates/travis-linux-macos.yml",
+    os <- readLines(system.file("templates/travis-linux-macos-pkgdown.yml",
+      package = "tic"
+    ))
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    template <- c(os, meta, env, stages)
   } else if (type == "macos-deploy") {
     os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
+    env <- readLines(system.file("templates/travis-env-pkgdown.yml",
+      package = "tic"
+    ))
     stages <- readLines(system.file("templates/travis-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, stages)
+    template <- c(os, meta, env, stages)
   } else if (type == "macos-deploy-matrix" || type == "macos-matrix-deploy") {
     os <- readLines(system.file("templates/travis-macos.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
       package = "tic"
     ))
-    matrix <- readLines(system.file("templates/travis-matrix.yml",
+    matrix <- readLines(system.file("templates/travis-matrix-pkgdown.yml",
+      package = "tic"
+    ))
+    env <- readLines(system.file("templates/travis-env-no-pkgdown.yml",
       package = "tic"
     ))
     stages <- readLines(system.file("templates/travis-deploy.yml",
       package = "tic"
     ))
-    template <- c(os, meta, matrix, stages)
+    template <- c(os, meta, matrix, env, stages)
   }
   writeLines(template, ".travis.yml")
 }

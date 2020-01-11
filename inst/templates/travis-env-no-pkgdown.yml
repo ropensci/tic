@@ -1,0 +1,6 @@
+
+# environment variables --------------------------------------------------------
+
+env:
+  global:
+    - MAKEFLAGS="-j 2"
