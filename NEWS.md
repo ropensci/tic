@@ -1,3 +1,10 @@
+# tic 0.3.0.9003
+
+* `use_tic()`: add key_name_private and key_name_public args from `travis::use_travis_deploy()`
+* `ci_can_push()`: Change default from `"id_rsa""` to `"TRAVIS_DEPLOY_KEY"` and also support backward comp
+* `use_tic()`: Travis as default for Linux and macOS
+
+
 # tic 0.3.0.9002
 
 - `use_tic()` supports running both Linux and macOS on Travis (#202).
