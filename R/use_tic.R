@@ -28,7 +28,7 @@
 #'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See
-#'   [travis::travis_eanble()] for more information.
+#'   [travis::travis_enable()] for more information.
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
 #' @examples
