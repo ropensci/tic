@@ -8,10 +8,10 @@ matrix:
     - os: osx
       r: release
     - os: osx
-      r: oldrelease
+      r: oldrel
     - os: linux
       r: devel
     - os: linux
       r: release
     - os: linux
-      r: oldrelease
+      r: oldrel
