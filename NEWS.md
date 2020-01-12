@@ -1,3 +1,17 @@
+# tic 0.3.0.9004
+
+* `ci_can_Push()`: Error with descriptive error message if deployment is not possible
+* `ci_can_push()`: Fix for Travis CI
+* optimize templates (especially matrix builds) by specifying which job is used for the pkgdown build
+
+
+# tic 0.3.0.9003
+
+* `use_tic()`: add key_name_private and key_name_public args from `travis::use_travis_deploy()`
+* `ci_can_push()`: Change default from `"id_rsa""` to `"TRAVIS_DEPLOY_KEY"` and also support backward comp
+* `use_tic()`: Travis as default for Linux and macOS
+
+
 # tic 0.3.0.9002
 
 - `use_tic()` supports running both Linux and macOS on Travis (#202).

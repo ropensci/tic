@@ -21,6 +21,11 @@ NULL
 #' @inheritParams step_install_pkg
 #' @param path,branch By default, this macro deploys the `docs` directory
 #'   to the `gh-pages` branch. This is different from [step_push_deploy()].
+#' @param travis_private_key_name `string`\cr
+#'   Only needed when deploying from builds on Travis CI.
+#'   If you have set a custom name for the private key during creation of the
+#'   SSH key pair in [travis::use_travis_deploy()] or via [use_tic], you need
+#'   to pass this name here.
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
@@ -37,9 +42,12 @@ do_pkgdown <- function(...,
                        orphan = FALSE,
                        checkout = TRUE,
                        repos = repo_default(),
-                       path = "docs", branch = "gh-pages",
+                       path = "docs",
+                       branch = "gh-pages",
                        remote_url = NULL,
-                       commit_message = NULL, commit_paths = ".") {
+                       commit_message = NULL,
+                       commit_paths = ".",
+                       travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
 
   if (interactive()) {
     stop("Macro functions should only be used in tic.R and not interactively.")
@@ -54,8 +62,14 @@ do_pkgdown <- function(...,
     #'   By default (if `deploy` is `NULL`), deployment happens
     #'   if the following conditions are met:
     #'
-    #'   1. The repo can be pushed to (see [ci_can_push()]).
-    deploy <- ci_can_push()
+    #'   1. The repo can be pushed to (see [ci_can_push()]).'
+    # account for old default "id_rsa"
+    if (ci_has_env("id_rsa")) {
+      name <- "id_rsa"
+    } else {
+      name <- travis_private_key_name
+    }
+    deploy <- ci_can_push(name = name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
@@ -76,7 +90,7 @@ do_pkgdown <- function(...,
     #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
     if (ci_on_travis()) {
       get_stage("before_deploy") %>%
-        add_step(step_setup_ssh())
+        add_step(step_setup_ssh(name = name))
     }
 
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage

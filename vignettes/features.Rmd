@@ -33,11 +33,11 @@ CI services can be used to automatically build and deploy files.
 This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.).
 Possible use cases are:
 
-- changed site contents of a _pkgdown_ site
+- changed site contents of a {pkgdown} site
 - updated .Rd files of a package (by calling `devtools::document()` before)
 - an automatic generated [test summary page](https://github.com/yonicd/covrpage) of a package 
 
-If _tic_ should be used for deployment, some preparatory work is required:
+If {tic} should be used for deployment, some preparatory work is required:
 
 - Setting up deployment keys (differs across CI services).
 - Granting permission to push to the repo on GitHub.
@@ -45,7 +45,7 @@ If _tic_ should be used for deployment, some preparatory work is required:
 When calling `use_tic()`, the streamlined preparation process is run.
 This is only needed once per repository.
 
-For more information on automatic deployment in _tic_, take a look [at the "Deployment" article](deployment.html).
+For more information on automatic deployment in {tic}, take a look [at the "Deployment" article](deployment.html).
 
 ## Support for various R projects
 

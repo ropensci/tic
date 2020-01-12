@@ -1,0 +1,9 @@
+
+# multiple R versions ----------------------------------------------------------
+matrix:
+  include:
+  - r: devel
+  - r: oldrel
+  - r: release
+    env:
+    - BUILD_PKGDOWN=true

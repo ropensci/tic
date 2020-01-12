@@ -5,7 +5,7 @@
 \title{Step: Setup SSH}
 \usage{
 step_setup_ssh(
-  name = "id_rsa",
+  name = "TRAVIS_DEPLOY_KEY",
   host = "github.com",
   url = paste0("git@", host),
   verbose = "-v"
@@ -13,7 +13,8 @@ step_setup_ssh(
 }
 \arguments{
 \item{name}{\verb{[string]}\cr
-Name of the environment variable and the target file, default: \code{"id_rsa"}.}
+Name of the environment variable and the target file, default:
+\code{"TRAVIS_DEPLOY_KEY"}.}
 
 \item{host}{\verb{[string]}\cr
 The host name to add to the \code{known_hosts} file, default: \code{github.com}.}

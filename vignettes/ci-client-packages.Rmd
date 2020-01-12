@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as [travis](https://docs.ropensci.org/travis/) or [circle](https://pat-s.github.io/circle/).
 This mainly comes down to enabling the repo on the CI system and setting up deployment keys.
 
-After everything is set up the rest of the work goes to _tic_.
+After everything is set up the rest of the work goes to {tic}.
 
 - Creating of the CI YAML templates
 - Which steps are going to be run

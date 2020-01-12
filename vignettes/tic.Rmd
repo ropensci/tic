@@ -29,7 +29,7 @@ See the ["Features" article](features.html) for a comparison with other solution
 # Initialization/Setup
 
 The easiest way to use *tic* for CI services is to call `tic::use_tic()`.
-This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by _tic_.
+This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by {tic}.
 
 Several yes/no questions need to be answered. 
 Based on the replies we'll select specific templates.
@@ -104,7 +104,7 @@ Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrele
 Last, we'll add a `tic.R` file to the project root.
 
 
-The deployment setup functionality comes from the _travis_ and _circle_ packages.
+The deployment setup functionality comes from the {travis} and {circle} packages.
 See the ["tic & travis" article](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
 
 # Explanation of the basic `tic.R` template
@@ -126,7 +126,7 @@ if (ci_on_travis()) {
 
 ## Macros {#macros}
 
-_tic_ builds on the "macro" idea.
+{tic} builds on the "macro" idea.
 Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:
 
 - Checking a package (R CMD check)
@@ -148,9 +148,9 @@ See `?do_package_checks()` for more information.
 
 ```{r}
 # step_install_deps() in the "install" stage, using the repos argument.
-# 
+#
 # step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.
-# 
+#
 # A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
 ```
 
@@ -183,7 +183,7 @@ Why do we do this? Building the pkgdown site on multiple CI services has no adde
 
 *tic* can be used for various R projects:
 
-- [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
+- [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [{pkgdown}](https://pkgdown.r-lib.org/) documentation
 - [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
 - [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
 - [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
@@ -208,8 +208,8 @@ The `blogdown::build_site()` function for websites is the equivalent to `pkgdown
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
-    add_code_step(blogdown::build_site()) %>%
-    add_step(step_push_deploy())
+  add_code_step(blogdown::build_site()) %>%
+  add_step(step_push_deploy())
 ```
 
 Steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
@@ -233,7 +233,7 @@ You may find inspiration for your own project there.
 
 The advanced usage of *tic* is described in more detail in the ["Advanced Usage" article](advanced.html):
 
-- [Options for _pkgdown_ deployment](advanced.html#pkgdown-deployment) 
+- [Options for {pkgdown} deployment](advanced.html#pkgdown-deployment) 
 - [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
 - [Troubleshooting: Running *tic* locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)

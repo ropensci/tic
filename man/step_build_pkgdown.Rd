@@ -18,14 +18,14 @@ reproducible.}
     \item{\code{lazy}}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
     \item{\code{override}}{An optional named list used to temporarily override
-values in \code{_pkgdown.yml}}
+values in \verb{_pkgdown.yml}}
     \item{\code{preview}}{If \code{TRUE}, or \code{is.na(preview) && interactive()}, will preview
 freshly generated section in browser.}
     \item{\code{devel}}{Use development or deployment process?
 
 If \code{TRUE}, uses lighter-weight process suitable for rapid
 iteration; it will run examples and vignettes in the current process,
-and will load code with \code{pkgload::load_call()}.
+and will load code with \code{pkgload::load_all()}.
 
 If \code{FALSE}, will first install the package to a temporary library,
 and will run all examples and vignettes in a new process.

@@ -86,8 +86,8 @@ Again, remember that the order of the stages is fixed (see the ["Stages"](#stage
 
 #### The `"before_install"` & `"install"` stages
 
-An important stage for _tic_ is the `"before_install"` stage.
-Here, _tic_ itself gets installed and runs `prepare_all_stages()`.
+An important stage for {tic} is the `"before_install"` stage.
+Here, {tic} itself gets installed and runs `prepare_all_stages()`.
 This function ensures that all subsequent steps can be executed.
 Under the hood the `prepare()` method of all steps that were declared in `tic.R` is being called.
 For example, the `prepare()` method of the `step_rcmdcheck()` step ensures that all dependencies of an R package get installed by calling `remotes::install_deps()`.
@@ -102,7 +102,7 @@ When arriving at this stage, all dependencies for a successful run are already i
 #### The `"deploy"` stage
 
 This stage initiates the deployment (e.g., setting up deployment keys) and executes it.
-If you want to automatically build a _pkgdown_ site, you can do it here.
+If you want to automatically build a {pkgdown} site, you can do it here.
 See [the article about deployment](deployment.html) for more information.
 
 ## Steps
@@ -140,7 +140,7 @@ Here is a list that shows a rough grouping of the steps into their default stage
 | Step | Description |
 | ---  | ----------- |
 | `step_build_pkgdown()` | Building package documentation via [pkgdown](https://github.com/r-lib/pkgdown) |
-| `step_rcmdcheck()` | Run `R CMD check` via the _rcmdcheck_ package |
+| `step_rcmdcheck()` | Run `R CMD check` via the {rcmdcheck} package |
     
 #### Deployment
 

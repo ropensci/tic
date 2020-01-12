@@ -71,12 +71,17 @@ InstallSSHKeys <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(name = "id_rsa") {
+    initialize = function(name = "TRAVIS_DEPLOY_KEY") {
       private$name <- name
     },
 
     run = function() {
       name <- private$name
+
+      # for backward comp, if "id_rsa" exists we take this key
+      if (Sys.getenv("id_rsa") != "") {
+        name <- "id_rsa"
+      }
 
       deploy_key_path <- file.path("~", ".ssh", name)
       dir.create(
@@ -92,7 +97,17 @@ InstallSSHKeys <- R6Class(
         rawToChar(openssl::base64_decode(Sys.getenv(name))),
         deploy_key_path
       )
-      Sys.chmod(deploy_key_path, "600")
+
+      Sys.chmod(file.path("~", ".ssh", name), "600")
+
+      # set the ssh command which which git should use including the key name
+      git2r::config(
+        core.sshCommand = sprintf(
+          "ssh -i ~/.ssh/%s -F /dev/null",
+          name
+        ),
+        global = TRUE
+      )
     },
 
     prepare = function() {
@@ -100,7 +115,7 @@ InstallSSHKeys <- R6Class(
     },
 
     check = function() {
-      # only if non-interactive and id_rsa env var is available
+      # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
       (!ci_is_interactive()) && (ci_can_push(private$name))
     }
   ),
@@ -120,7 +135,8 @@ InstallSSHKeys <- R6Class(
 #' key as an environment variable for use with this function.
 #'
 #' @param name `[string]`\cr
-#'   Name of the environment variable and the target file, default: `"id_rsa"`.
+#'   Name of the environment variable and the target file, default:
+#'   `"TRAVIS_DEPLOY_KEY"`.
 #'
 #' @family steps
 #' @seealso [travis::use_travis_deploy()], [use_tic()]
@@ -134,9 +150,14 @@ InstallSSHKeys <- R6Class(
 #'
 #' dsl_get()
 #' }
-step_install_ssh_keys <- function(name = "id_rsa") {
+step_install_ssh_keys <- function(name = "TRAVIS_DEPLOY_KEY") {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
+  }
+
+  # support for old "id_rsa" default: prefer this key if it exists
+  if (ci_has_env("id_rsa")) {
+    name <- "id_rsa"
   }
   InstallSSHKeys$new(name = name)
 }
@@ -146,20 +167,33 @@ TestSSH <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(url = "git@github.com", verbose = "-v") {
+    initialize = function(url = "git@github.com",
+                          verbose = "-v",
+                          name = "TRAVIS_DEPLOY_KEY") {
       private$url <- url
       private$verbose <- verbose
+      private$name <- name
     },
 
     run = function() {
+
       message("Trying to ssh into ", private$url)
-      system2("ssh", c(private$url, private$verbose))
+      message("Using command: '", sprintf(
+        "ssh -i %s %s %s'",
+        file.path("~", ".ssh", private$name),
+        private$url, private$verbose
+      ))
+      system2("ssh", c(
+        "-i", file.path("~", ".ssh", private$name),
+        private$url, private$verbose
+      ))
     }
   ),
 
   private = list(
     url = NULL,
-    verbose = NULL
+    verbose = NULL,
+    name = NULL
   )
 )
 
@@ -174,7 +208,7 @@ TestSSH <- R6Class(
 #'   URL to establish SSH connection with, by default `git@github.com`
 #' @param verbose `[string]`\cr
 #'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
-#'
+#' @inheritParams step_install_ssh_keys
 #' @family steps
 #' @export
 #' @examples
@@ -186,11 +220,13 @@ TestSSH <- R6Class(
 #'
 #' dsl_get()
 #' }
-step_test_ssh <- function(url = "git@github.com", verbose = "-v") {
+step_test_ssh <- function(url = "git@github.com",
+                          verbose = "-v",
+                          name = "TRAVIS_DEPLOY_KEY") {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")
   }
-  TestSSH$new(url = url, verbose = verbose)
+  TestSSH$new(url = url, verbose = verbose, name = name)
 }
 
 SetupSSH <- R6Class(
@@ -198,12 +234,15 @@ SetupSSH <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(name = "id_rsa", host = "github.com",
+    initialize = function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                           url = paste0("git@", host), verbose = "-v") {
 
       private$install_ssh_keys <- step_install_ssh_keys(name = name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
-      private$test_ssh <- step_test_ssh(url = url, verbose = verbose)
+      private$test_ssh <- step_test_ssh(
+        url = url, verbose = verbose,
+        name = name
+      )
     },
 
     prepare = function() {
@@ -263,7 +302,7 @@ SetupSSH <- R6Class(
 #'
 #' dsl_get()
 #' }
-step_setup_ssh <- function(name = "id_rsa", host = "github.com",
+step_setup_ssh <- function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
   if (interactive()) {
     stop("step_* functions should only be used in tic.R and not interactively.")

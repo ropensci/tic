@@ -14,7 +14,8 @@ do_bookdown(
   branch = "gh-pages",
   remote_url = NULL,
   commit_message = NULL,
-  commit_paths = "."
+  commit_paths = ".",
+  travis_private_key_name = "TRAVIS_DEPLOY_KEY"
 )
 }
 \arguments{
@@ -65,6 +66,13 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{travis_private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI.
+If you have set a custom name for the private key during creation of the
+SSH key pair in \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} or via \link{use_tic}, you need
+to pass this name here. If not set, \code{"TRAVIS_DEPLOY_KEY"} will be used
+by default.}
 }
 \description{
 \code{do_bookdown()} adds default steps related to package checks

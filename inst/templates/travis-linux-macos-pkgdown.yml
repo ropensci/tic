@@ -4,14 +4,8 @@
 matrix:
   include:
     - os: osx
-      r: devel
-    - os: osx
-      r: release
-    - os: osx
-      r: oldrelease
-    - os: linux
-      r: devel
-    - os: linux
       r: release
     - os: linux
-      r: oldrelease
+      r: release
+      env:
+      - BUILD_PKGDOWN=true

@@ -14,7 +14,8 @@ do_pkgdown(
   branch = "gh-pages",
   remote_url = NULL,
   commit_message = NULL,
-  commit_paths = "."
+  commit_paths = ".",
+  travis_private_key_name = "TRAVIS_DEPLOY_KEY"
 )
 }
 \arguments{
@@ -28,7 +29,7 @@ Set to \code{FALSE} to skip deployment.
 By default (if \code{deploy} is \code{NULL}), deployment happens
 if the following conditions are met:
 \enumerate{
-\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).
+\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).'
 \item The \code{branch} argument is \code{NULL}
 (i.e., if the deployment happens to the active branch),
 or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
@@ -61,6 +62,12 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{travis_private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI.
+If you have set a custom name for the private key during creation of the
+SSH key pair in \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} or via \link{use_tic}, you need
+to pass this name here.}
 }
 \description{
 \code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default

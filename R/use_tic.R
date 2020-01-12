@@ -29,6 +29,8 @@
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See
 #'   [travis::travis_enable()] for more information.
+#' @param travis_key_name_private See [travis::use_travis_deploy()].
+#' @param travis_key_name_public See [travis::use_travis_deploy()].
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
 #' @examples
@@ -53,6 +55,8 @@ use_tic <- function(wizard = interactive(),
                     deploy = "travis",
                     matrix = "none",
                     travis_endpoint = ".com",
+                    travis_key_name_private = NULL,
+                    travis_key_name_public = NULL,
                     quiet = FALSE) { # nolint
 
   cli_alert("Welcome to {.pkg tic}!")
@@ -171,7 +175,11 @@ use_tic <- function(wizard = interactive(),
     rule(left = "Travis CI")
     check_travis_pkg()
     travis::travis_enable(endpoint = travis_endpoint)
-    travis::use_travis_deploy(endpoint = travis_endpoint)
+    travis::use_travis_deploy(
+      endpoint = travis_endpoint,
+      key_name_private = travis_key_name_private,
+      key_name_public = travis_key_name_public
+    )
   }
 
   # create YAMLs ---------------------------------------------------------------

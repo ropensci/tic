@@ -1,0 +1,7 @@
+
+# environment variables --------------------------------------------------------
+
+env:
+  global:
+    - MAKEFLAGS="-j 2"
+    - BUILD_PKGDOWN=true

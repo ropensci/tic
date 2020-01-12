@@ -4,11 +4,12 @@
 \alias{step_install_ssh_keys}
 \title{Step: Install an SSH key}
 \usage{
-step_install_ssh_keys(name = "id_rsa")
+step_install_ssh_keys(name = "TRAVIS_DEPLOY_KEY")
 }
 \arguments{
 \item{name}{\verb{[string]}\cr
-Name of the environment variable and the target file, default: \code{"id_rsa"}.}
+Name of the environment variable and the target file, default:
+\code{"TRAVIS_DEPLOY_KEY"}.}
 }
 \description{
 Writes a private SSH key encoded in an environment variable

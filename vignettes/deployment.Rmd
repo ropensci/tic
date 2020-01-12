@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-_tic_ uses the [CI client packages](ci-client-packages.html) _travis_ and _circle_ for setting up deployment on the CI systems.
+{tic} uses the [CI client packages](ci-client-packages.html) {travis} and {circle} for setting up deployment on the CI systems.
 
 ### Travis CI
 
@@ -27,7 +27,8 @@ _tic_ uses the [CI client packages](ci-client-packages.html) _travis_ and _circl
     knitr::include_graphics("img/ssh-deploy-key.png")
     ```
     
-2. A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, _tic_ installs it in the `~/.ssh` directory so that it can be used for authentication:
+2. A private key is encoded in base64 and stored in an environment variable on Travis. 
+   During the CI run, {tic} installs it in the `~/.ssh` directory so that it can be used for authentication:
 
     ```{r, echo = FALSE, fig.align='center', dpi = 10}
     knitr::include_graphics("img/private-key-travis.png")
@@ -39,7 +40,7 @@ _tic_ uses the [CI client packages](ci-client-packages.html) _travis_ and _circl
 
 On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.
 
-When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "github-user-key" is created and stored in the Circle CI repo.
+When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "user-key" is created and stored in the Circle CI repo.
 This key makes it possible to deploy from Circle CI builds to your Github repo.
 No extra deploy key need to be stored in the Github repo.
 
@@ -48,12 +49,12 @@ No extra deploy key need to be stored in the Github repo.
 [`pkgdown`](https://github.com/r-lib/pkgdown) is an R package which builds a documentation wrapper-site of a R package.
 It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.
 
-It has become a quasi-standard to provide a _pkgdown_ site for an R package.
+It has become a quasi-standard to provide a {pkgdown} site for an R package.
 However, it is tedious to update the pkgdown site manually on every commit, check whether something has changed and commit the changes.
-_tic_ comes with the ability to automate this procedure.
+{tic} comes with the ability to automate this procedure.
 
-The following example shows how _tic_ deploys a `pkgdown` site on Travis CI.
-In the `.travis.yml` file the "before_deploy" and "deploy" stages are redirected to _tic_.
+The following example shows how {tic} deploys a `pkgdown` site on Travis CI.
+In the `.travis.yml` file the "before_deploy" and "deploy" stages are redirected to {tic}.
 
 ```{yml eval = FALSE}
 before_deploy: R -q -e 'tic::before_deploy()'
@@ -62,26 +63,33 @@ deploy:
   script: R -q -e 'tic::deploy()'
 ```
 
-In the "before_deploy" stage, _tic_ will do the following:
+In the "before_deploy" stage, {tic} will do the following:
 
 ```{r eval = FALSE}
-if (ci_has_env("BUILD_PKGDOWN")) {
+if (ci_on_travis()) {
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
+    add_step(step_setup_ssh(name = travis_private_key_name))
 }
 ```
 
-- Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_depkoy()`.
-(The latter is just an example of an option that can be set to run certain commands (or stages) conditionally (see [secion "Running stages conditionally" in the "Advanced" article](advanced.html#running-stages-conditionally) for more examples).
+- Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. 
+  This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_deploy()`.
+  Argument `name = travis_private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
+  If so, then supply it via the `travis_private_key_name` argument in `do_pkgdown()`.
+  By default, `"TRAVIS_DEPLOY_KEY"` is used. 
+  
+  For backward compatibility, the previous default `"id_rsa"` is also supported out of the box.
+  This step is only needed on Travis CI because setting up deployment via SSH keys is somewhat complicated.
+  
 - Call `add_step(step_build_pkgdown())` and `add_step(step_push_deploy())` in the "deploy" stage.
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
-  add_step(step_build_pkgdown()) %>% 
+  add_step(step_build_pkgdown()) %>%
   add_step(step_push_deploy())
 ```
 
-`step_build_pkgdown()` will build the _pkgdown_ site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
+`step_build_pkgdown()` will build the {pkgdown} site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
 By default the site will be pushed to the `gh-pages` branch of your repo.
     
 ### Deploying to docs/ (master) or gh-pages branch
@@ -99,7 +107,7 @@ Deploying to the `docs/` directoy of the master branch has the following advanta
 - Per-branch versions of the pkgdown site (if desi)
 - Per-branch versions enable the possibility to have preview for pull requests via https://www.netlify.com/
 
-The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the _pkgdown_ site to the `master` branch.
+The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the {pkgdown} site to the `master` branch.
 
 #### Orphaning the `gh-pages` branch
 
@@ -121,12 +129,12 @@ This will wipe all commits of this branch on every CI run so that there is only 
 ## Conditional deployment
 
 If you are running a [build matrix](https://docs.travis-ci.com/user/build-matrix/) or [build stages](https://docs.travis-ci.com/user/build-stages/) on Travis CI, you want to run certain tasks only once during a build. 
-The creation of a _pkgdown_ site is a common task which applies to this.
+The creation of a {pkgdown} site is a common task which applies to this.
 
 Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
 You can restrict on which stage/job a task is executed with the help of environment variables.
 
-_tic_ can make use of implicit set environment variables of the build and additional ones added by the user.
+{tic} can make use of implicit set environment variables of the build and additional ones added by the user.
 In the following we show a "build stage" example on Travis CI using the custom env variable `"BUILD_PKGDOWN"`:
 
 `.travis.yml`:
@@ -173,7 +181,7 @@ The `commit_paths` argument in `step_push_deploy()` decides which files are comm
 
 ```{r eval = FALSE}
 get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
+  add_step(step_setup_ssh())
 
 get_stage("deploy") %>%
   add_code_step(devtools::document(roclets = c("rd", "collate", "namespace"))) %>%

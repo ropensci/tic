@@ -20,6 +20,12 @@ NULL
 #' @inheritParams step_do_push_deploy
 #' @inheritParams step_install_pkg
 #' @param ... Passed on to [step_build_bookdown()]
+#' @param travis_private_key_name `string`\cr
+#'   Only needed when deploying from builds on Travis CI.
+#'   If you have set a custom name for the private key during creation of the
+#'   SSH key pair in [travis::use_travis_deploy()] or via [use_tic], you need
+#'   to pass this name here. If not set, `"TRAVIS_DEPLOY_KEY"` will be used
+#'   by default.
 #' @family macros
 #' @export
 #' @examples
@@ -35,9 +41,12 @@ do_bookdown <- function(...,
                         orphan = FALSE,
                         checkout = TRUE,
                         repos = repo_default(),
-                        path = "_book", branch = "gh-pages",
+                        path = "_book",
+                        branch = "gh-pages",
                         remote_url = NULL,
-                        commit_message = NULL, commit_paths = ".") {
+                        commit_message = NULL,
+                        commit_paths = ".",
+                        travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
 
   if (interactive()) {
     stop("Macro functions should only be used in tic.R and not interactively.")
@@ -53,7 +62,14 @@ do_bookdown <- function(...,
     #'   if the following conditions are met:
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).
-    deploy <- ci_can_push()
+    # account for old default "id_rsa"
+    if (ci_has_env("id_rsa")) {
+      name <- "id_rsa"
+    } else {
+      name <- travis_private_key_name
+    }
+    cli_text("Using {name} env var as the private key name for SSH deployment.")
+    deploy <- ci_can_push(name = name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
@@ -74,8 +90,14 @@ do_bookdown <- function(...,
     #'    to setup the upcoming deployment (if `deploy` is set),
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
     #'    (if `deploy` is set),
+    #'
+    if (ci_has_env("id_rsa")) {
+      name <- "id_rsa"
+    } else {
+      name <- travis_private_key_name
+    }
     get_stage("before_deploy") %>%
-      add_step(step_setup_ssh()) %>%
+      add_step(step_setup_ssh(name = name)) %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),

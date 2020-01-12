@@ -12,6 +12,8 @@ use_tic(
   deploy = "travis",
   matrix = "none",
   travis_endpoint = ".com",
+  travis_key_name_private = NULL,
+  travis_key_name_public = NULL,
   quiet = FALSE
 )
 }
@@ -38,6 +40,10 @@ Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"
 \item{travis_endpoint}{\verb{[string]}\cr The Travis CI endpoint to use. Possible
 options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
 \code{\link[travis:travis_enable]{travis::travis_enable()}} for more information.}
+
+\item{travis_key_name_private}{See \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.}
+
+\item{travis_key_name_public}{See \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.}
 
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
