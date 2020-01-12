@@ -163,8 +163,8 @@ TestSSH <- R6Class(
     run = function() {
 
       message("Trying to ssh into ", private$url)
-      message("Using command:", sprintf(
-        "ssh -i %s %s %s",
+      message("Using command: '", sprintf(
+        "ssh -i %s %s %s'",
         file.path("~", ".ssh", private$name),
         private$url, private$verbose
       ))
@@ -219,7 +219,10 @@ SetupSSH <- R6Class(
 
       private$install_ssh_keys <- step_install_ssh_keys(name = name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
-      private$test_ssh <- step_test_ssh(url = url, verbose = verbose)
+      private$test_ssh <- step_test_ssh(
+        url = url, verbose = verbose,
+        name = name
+      )
     },
 
     prepare = function() {
