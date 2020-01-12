@@ -73,6 +73,11 @@ InstallSSHKeys <- R6Class(
     run = function() {
       name <- private$name
 
+      # for backward comp, if "id_rsa" exists we take this key
+      if (Sys.getenv("id_rsa") != "") {
+        name <- "id_rsa"
+      }
+
       deploy_key_path <- file.path("~", ".ssh", name)
       dir.create(
         dirname(deploy_key_path),
@@ -161,6 +166,11 @@ TestSSH <- R6Class(
     },
 
     run = function() {
+
+      # for backward comp, if "id_rsa" exists we take this key
+      if (Sys.getenv("id_rsa") != "") {
+        private$name <- "id_rsa"
+      }
 
       message("Trying to ssh into ", private$url)
       message("Using command:", sprintf(
