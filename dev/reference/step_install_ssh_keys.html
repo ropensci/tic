@@ -82,7 +82,7 @@ key as an environment variable for use with this function." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9002</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9003</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -162,7 +162,7 @@ The <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis
 key as an environment variable for use with this function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,7 +170,8 @@ key as an environment variable for use with this function.</p>
     <tr>
       <th>name</th>
       <td><p><code>[string]</code><br />
-Name of the environment variable and the target file, default: <code>"id_rsa"</code>.</p></td>
+Name of the environment variable and the target file, default:
+<code>"TRAVIS_DEPLOY_KEY"</code>.</p></td>
     </tr>
     </table>
 

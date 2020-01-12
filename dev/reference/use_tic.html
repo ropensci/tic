@@ -78,7 +78,7 @@ tic." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9002</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9003</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -161,6 +161,9 @@ tic." />
   <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
   <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
   <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>travis_endpoint</span> <span class='kw'>=</span> <span class='st'>".com"</span>,
+  <span class='kw'>travis_key_name_private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>travis_key_name_public</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -197,6 +200,20 @@ such as pkgdown documentation. Possible options are <code>"travis"</code>, <code
       <th>matrix</th>
       <td><p><code>[string]</code><br /> For which CI provider(s) to set up matrix builds.
 Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>travis_endpoint</th>
+      <td><p><code>[string]</code><br /> The Travis CI endpoint to use. Possible
+options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"</code>. See
+<code><a href='https://rdrr.io/pkg/travis/man/travis_enable.html'>travis::travis_enable()</a></code> for more information.</p></td>
+    </tr>
+    <tr>
+      <th>travis_key_name_private</th>
+      <td><p>See <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>travis_key_name_public</th>
+      <td><p>See <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
