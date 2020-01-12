@@ -4,17 +4,22 @@ LocalCI <- R6Class(
 
   public = list(
     get_branch = function() {
-      system2("git", "rev-parse --abbrev-ref HEAD", stdout = TRUE)
+      suppressWarnings(system2("git", "rev-parse --abbrev-ref HEAD", stdout = TRUE))
     },
     get_tag = function() {
-      system2("git", "describe", stdout = TRUE)
+      suppressWarnings(system2("git", "describe", stdout = TRUE))
     },
     is_tag = function() {
-      length(system2("git", c("tag", "--points-at", "HEAD"), stdout = TRUE)) > 0
+      suppressWarnings(length(system2("git", c("tag", "--points-at", "HEAD"), stdout = TRUE)) > 0)
     },
     get_slug = function() {
-      remote <- gh::gh_tree_remote()
-      paste0(remote$username, "/", remote$repo)
+      tryCatch(
+        {
+          remote <- gh::gh_tree_remote()
+          paste0(remote$username, "/", remote$repo)
+        },
+        error = ""
+      )
     },
     get_build_number = function() {
       "local build"
@@ -23,7 +28,7 @@ LocalCI <- R6Class(
       NULL
     },
     get_commit = function() {
-      git2r::revparse_single(revision = "HEAD")$sha
+      tryCatch(git2r::revparse_single(revision = "HEAD")$sha, error = "")
     },
     can_push = function(name = "TRAVIS_DEPLOY_KEY") {
       TRUE
