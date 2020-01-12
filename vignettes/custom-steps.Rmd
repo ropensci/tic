@@ -27,7 +27,7 @@ However, if you have the need for a repeated use of specific combinations of `ad
 ## The `TicStep` class
 
 A step is a subclass of the [`TicStep` class](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
-The `step_...` functions in _tic_ are forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
+The `step_...` functions in {tic} are forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
 We recommend following the same pattern for your custom steps.
 
 The `TicStep` class implements the public methods `check()`, `prepare()`, and `run()`.
@@ -77,7 +77,8 @@ It is initialized by calling `step_hello_world()` which creates a new instance o
 
 ```{r eval = FALSE}
 HelloWorld <- R6Class(
-  "HelloWorld", inherit = TicStep,
+  "HelloWorld",
+  inherit = TicStep,
 
   public = list(
     run = function() {
