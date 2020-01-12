@@ -46,30 +46,24 @@ via \code{\link[remotes:install_github]{remotes::install_github()}}, the package
 GitHub version is different from the locally installed version.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("install") \%>\%
   add_step(step_install_deps())
 
 dsl_get()
-}
-\dontrun{
 dsl_init()
 
 get_stage("install") \%>\%
   add_step(step_install_cran("magick"))
 
 dsl_get()
-}
-\dontrun{
 dsl_init()
 
 get_stage("install") \%>\%
   add_step(step_install_github("rstudio/gt"))
 
 dsl_get()
-}
 }
 \seealso{
 Other steps: 

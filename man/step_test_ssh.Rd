@@ -28,14 +28,12 @@ but prints verbose output by default.
 It is useful for troubleshooting deployment problems.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_test_ssh(verbose = "-vvv"))
 
 dsl_get()
-}
 }
 \seealso{
 Other steps: 

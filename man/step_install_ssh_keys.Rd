@@ -20,14 +20,12 @@ The \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} and \cod
 key as an environment variable for use with this function.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("before_deploy") \%>\%
   add_step(step_install_ssh_keys())
 
 dsl_get()
-}
 }
 \seealso{
 \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}, \code{\link[=use_tic]{use_tic()}}

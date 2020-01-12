@@ -33,14 +33,12 @@ The \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} and \cod
 key as an environment variable for use with this function.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_setup_ssh(host = "gitlab.com"))
 
 dsl_get()
-}
 }
 \seealso{
 Other steps: 

@@ -12,14 +12,12 @@ does not require any preparation. This step may be useful to test a \pkg{tic}
 setup or as a starting point when implementing a custom step.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_hello_world())
 
 dsl_get()
-}
 }
 \seealso{
 Other steps: 

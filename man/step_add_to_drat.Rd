@@ -12,14 +12,12 @@ Builds a package (binary on OS X or Windows) and inserts it into an existing
 Also knits the \code{index.Rmd} file of the drat if it exists.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_add_to_drat())
 
 dsl_get()
-}
 }
 \seealso{
 Other steps: 

@@ -65,12 +65,10 @@ step to your workflow: \code{add_code_step(remotes::update_packages("<pkg>"))}.
 }
 
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("script") \%>\%
   add_step(step_rcmdcheck(error_on = "note", repos = repo_bioc()))
 
 dsl_get()
-}
 }

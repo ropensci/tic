@@ -23,7 +23,6 @@ If the top-level expression is a qualified function call (of the format
 \code{package::fun()}), the package is installed during preparation.
 }
 \examples{
-\dontrun{
 dsl_init()
 
 get_stage("install") \%>\%
@@ -34,7 +33,6 @@ get_stage("after_success") \%>\%
   add_code_step(covr::codecov())
 
 dsl_get()
-}
 }
 \seealso{
 Other steps: 
