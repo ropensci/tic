@@ -221,7 +221,7 @@
 <a class="sourceLine" id="cb5-13" data-line-number="13">        <span class="fu">on:</span></a>
 <a class="sourceLine" id="cb5-14" data-line-number="14">          <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
 <p><code>tic.R</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"TRAVIS_DEPLOY_KEY"</span>)) {</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">}</a>
