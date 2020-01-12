@@ -238,5 +238,5 @@ The advanced usage of *tic* is described in more detail in the ["Advanced Usage"
 - [Troubleshooting: Running *tic* locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 
-The build lifecycle when using *tic* is explained in the ["Build lifecycle" article](build-lifecycle.html)e.
+The build lifecycle when using *tic* is explained in the ["Build lifecycle" article](build-lifecycle.html).
 Implementation of custom steps is described in the ["Writing custom steps" article](custom-steps.html).
