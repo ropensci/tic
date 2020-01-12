@@ -26,48 +26,44 @@ Running <- R6Class(
     run_calls = 0L
   )
 )
-withr::with_dir(
-  "tic",
-  {
-    test_that("prepare tasks", {
-      running <- Running$new()
-      not_running <- Running$new(FALSE)
-      stage <- local(
-        TicStage$new("test") %>%
-          add_step(running) %>%
-          add_step(not_running),
-        dslobj_new()
-      )
 
-      expect_output(stage$prepare_all(), "Skipping", fixed = TRUE)
-      expect_equal(running$get_prepare_calls(), 1L)
-      expect_equal(not_running$get_prepare_calls(), 0L)
+test_that("prepare tasks", {
+  running <- Running$new()
+  not_running <- Running$new(FALSE)
+  stage <- local(
+    TicStage$new("test") %>%
+      add_step(running) %>%
+      add_step(not_running),
+    dslobj_new()
+  )
 
-      expect_output(stage$prepare_all(), "private$running", fixed = TRUE)
+  expect_output(stage$prepare_all(), "Skipping", fixed = TRUE)
+  expect_equal(running$get_prepare_calls(), 1L)
+  expect_equal(not_running$get_prepare_calls(), 0L)
 
-      expect_equal(running$get_run_calls(), 0L)
-      expect_equal(not_running$get_run_calls(), 0L)
-    })
+  expect_output(stage$prepare_all(), "private$running", fixed = TRUE)
 
-    test_that("run tasks", {
-      running <- Running$new()
-      not_running <- Running$new(FALSE)
-      stage <- local(
-        TicStage$new("asdfgh") %>%
-          add_step(running) %>%
-          add_step(not_running),
-        dslobj_new()
-      )
+  expect_equal(running$get_run_calls(), 0L)
+  expect_equal(not_running$get_run_calls(), 0L)
+})
 
-      expect_output(stage$run_all(), "Skipping asdfgh", fixed = TRUE)
+test_that("run tasks", {
+  running <- Running$new()
+  not_running <- Running$new(FALSE)
+  stage <- local(
+    TicStage$new("asdfgh") %>%
+      add_step(running) %>%
+      add_step(not_running),
+    dslobj_new()
+  )
 
-      expect_equal(running$get_prepare_calls(), 0L)
-      expect_equal(not_running$get_prepare_calls(), 0L)
+  expect_output(stage$run_all(), "Skipping asdfgh", fixed = TRUE)
 
-      expect_equal(running$get_run_calls(), 1L)
-      expect_equal(not_running$get_run_calls(), 0L)
+  expect_equal(running$get_prepare_calls(), 0L)
+  expect_equal(not_running$get_prepare_calls(), 0L)
 
-      expect_output(stage$run_all(), "private$running", fixed = TRUE)
-    })
-  }
-)
+  expect_equal(running$get_run_calls(), 1L)
+  expect_equal(not_running$get_run_calls(), 0L)
+
+  expect_output(stage$run_all(), "private$running", fixed = TRUE)
+})
