@@ -5,7 +5,7 @@ Title: Tasks Integrating Continuously: CI-Agnostic Workflow
 Version: 0.3.0.9004
 Authors@R: 
     c(person(given = "Kirill",
-             family = "Müller",
+             family = "M\u00fcller",
              role = c("aut", "cre"),
              email = "krlmlr+r@mailbox.org",
              comment = c(ORCID = "0000-0002-1416-3412")),
@@ -48,7 +48,6 @@ Imports:
     R6,
     remotes,
     rlang (>= 0.4.1.9000),
-    usethis,
     withr
 Suggests: 
     base64enc,
@@ -56,7 +55,6 @@ Suggests:
     callr,
     circle,
     covr,
-    desc,
     devtools,
     drat,
     fansi,
@@ -68,7 +66,8 @@ Suggests:
     rmarkdown,
     rprojroot,
     testthat (>= 2.1.0),
-    travis (>= 0.2.11.9001)
+    travis (>= 0.2.11.9001),
+    usethis
 VignetteBuilder:
     knitr
 Remotes: 
