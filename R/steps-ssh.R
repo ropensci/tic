@@ -103,11 +103,6 @@ InstallSSHKeys <- R6Class(
         ),
         global = TRUE
       )
-
-      # add ssh key to agent
-      # system("eval `ssh-agent -s`")
-      # message("Adding ssh key to ssh-agent.")
-      system2("ssh-add", c(file.path("~", ".ssh", name)))
     },
 
     prepare = function() {
