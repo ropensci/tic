@@ -1,0 +1,7 @@
+── install ──────────────────────────────────────────────────────────── stage ──
+▶ step_install_deps()
+▶ step_install_deps(repos = repo_default())
+── script ───────────────────────────────────────────────────────────── stage ──
+▶ step_rcmdcheck()
+── deploy ───────────────────────────────────────────────────────────── stage ──
+▶ step_build_pkgdown()

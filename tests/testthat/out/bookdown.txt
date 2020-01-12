@@ -1,0 +1,4 @@
+── install ──────────────────────────────────────────────────────────── stage ──
+▶ step_install_deps(repos = repo_default())
+── deploy ───────────────────────────────────────────────────────────── stage ──
+▶ step_build_bookdown()
