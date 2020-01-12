@@ -88,14 +88,16 @@ InstallSSHKeys <- R6Class(
         deploy_key_path
       )
 
-      # rename private key to "id_rsa" so that everybody if happy
-      # (git2r, ssh command)
-      file.rename(
-        file.path("~", ".ssh", name),
-        file.path("~", ".ssh", "id_rsa")
-      )
+      Sys.chmod(file.path("~", ".ssh", name), "600")
 
-      Sys.chmod(file.path("~", ".ssh", "id_rsa"), "600")
+      # set the ssh command which which git should use including the key name
+      git2r::config(
+        core.sshCommand = sprintf(
+          "ssh -i ~/.ssh/%s -F /dev/null",
+          name
+        ),
+        global = TRUE
+      )
     },
 
     prepare = function() {
@@ -146,21 +148,24 @@ TestSSH <- R6Class(
 
   public = list(
     initialize = function(url = "git@github.com",
-                          verbose = "-v") {
+                          verbose = "-v",
+                          name = "TRAVIS_DEPLOY_KEY") {
       private$url <- url
       private$verbose <- verbose
-
+      private$name <- name
     },
 
     run = function() {
+
       message("Trying to ssh into ", private$url)
-      system2("ssh", c(private$url, private$verbose))
+      system2("ssh", c("-i", private$name, private$url, private$verbose))
     }
   ),
 
   private = list(
     url = NULL,
-    verbose = NULL
+    verbose = NULL,
+    name = NULL
   )
 )
 
@@ -176,7 +181,6 @@ TestSSH <- R6Class(
 #' @param verbose `[string]`\cr
 #'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
 #' @inheritParams step_install_ssh_keys
-#'
 #' @family steps
 #' @export
 #' @examples
@@ -187,8 +191,9 @@ TestSSH <- R6Class(
 #'
 #' dsl_get()
 step_test_ssh <- function(url = "git@github.com",
-                          verbose = "-v") {
-  TestSSH$new(url = url, verbose = verbose)
+                          verbose = "-v",
+                          name = "TRAVIS_DEPLOY_KEY") {
+  TestSSH$new(url = url, verbose = verbose, name = name)
 }
 
 SetupSSH <- R6Class(
