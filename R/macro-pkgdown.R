@@ -60,7 +60,6 @@ do_pkgdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).'
     # account for old default "id_rsa"
-    print(ci_has_env("id_rsa"))
     if (ci_has_env("id_rsa")) {
       name <- "id_rsa"
     } else {
@@ -86,8 +85,13 @@ do_pkgdown <- function(...,
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
     #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
     if (ci_on_travis()) {
+      if (ci_has_env("id_rsa")) {
+        name <- "id_rsa"
+      } else {
+        name <- travis_private_key_name
+      }
       get_stage("before_deploy") %>%
-        add_step(step_setup_ssh(name = travis_private_key_name))
+        add_step(step_setup_ssh(name = name))
     }
 
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage

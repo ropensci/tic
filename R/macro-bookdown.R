@@ -64,6 +64,7 @@ do_bookdown <- function(...,
     } else {
       name <- travis_private_key_name
     }
+    cli_text("Using {name} env var as the private key name for SSH deployment.")
     deploy <- ci_can_push(name = name)
 
     #'   2. The `branch` argument is `NULL`
@@ -85,8 +86,14 @@ do_bookdown <- function(...,
     #'    to setup the upcoming deployment (if `deploy` is set),
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
     #'    (if `deploy` is set),
+    #'
+    if (ci_has_env("id_rsa")) {
+      name <- "id_rsa"
+    } else {
+      name <- travis_private_key_name
+    }
     get_stage("before_deploy") %>%
-      add_step(step_setup_ssh(name = travis_private_key_name)) %>%
+      add_step(step_setup_ssh(name = name)) %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),

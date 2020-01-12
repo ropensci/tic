@@ -162,11 +162,6 @@ TestSSH <- R6Class(
 
     run = function() {
 
-      # for backward comp, if "id_rsa" exists we take this key
-      if (Sys.getenv("id_rsa") != "") {
-        private$name <- "id_rsa"
-      }
-
       message("Trying to ssh into ", private$url)
       message("Using command:", sprintf(
         "ssh -i %s %s %s",
