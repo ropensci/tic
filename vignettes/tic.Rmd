@@ -103,6 +103,10 @@ Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrele
 
 Last, we'll add a `tic.R` file to the project root.
 
+After this, your project is ready for continuous integration.
+The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured.
+(Currently you need to enable the project manually on AppVeyor.)
+See the [Troubleshooting](advanced.html#troubleshooting) section in case anything doesn't work as expected.
 
 The deployment setup functionality comes from the {travis} and {circle} packages.
 See the ["tic & travis" article](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
