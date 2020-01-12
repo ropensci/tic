@@ -120,7 +120,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><em>tic</em> uses the <a href="ci-client-packages.html">CI client packages</a> <em>travis</em> and <em>circle</em> for setting up deployment on the CI systems.</p>
+<p><em>tic</em> uses the <a href="ci-client-packages.html">CI client packages</a> {travis} and {circle} for setting up deployment on the CI systems.</p>
 <div id="travis-ci" class="section level3">
 <h3 class="hasAnchor">
 <a href="#travis-ci" class="anchor"></a>Travis CI</h3>
@@ -140,7 +140,7 @@
 <h3 class="hasAnchor">
 <a href="#circle-ci" class="anchor"></a>Circle CI</h3>
 <p>On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.</p>
-<p>When calling <code><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “github-user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your Github repo. No extra deploy key need to be stored in the Github repo.</p>
+<p>When calling <code>circle::use{circle}deploy()</code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “github-user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your Github repo. No extra deploy key need to be stored in the Github repo.</p>
 </div>
 </div>
 <div id="pkgdown-deployment" class="section level2">
@@ -159,11 +159,11 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
 <ul>
-<li>Call <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via <code>travis::use_travis_depkoy()</code>. (The latter is just an example of an option that can be set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">secion “Running stages conditionally” in the “Advanced” article</a> for more examples).</li>
+<li>Call <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. (The latter is just an example of an option that can be set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">secion “Running stages conditionally” in the “Advanced” article</a> for more examples).</li>
 <li>Call <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the <em>pkgdown</em> site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo.</p>
 <div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
@@ -235,7 +235,7 @@
 <p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> function has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created during the CI run.</p>
 <p>In the following example, these files are created/updated by calling <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/document.html">document</a></span>(<span class="dt">roclets =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span></a>

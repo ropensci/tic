@@ -192,7 +192,8 @@ to the <code>gh-pages</code> branch, keeping the history.</p>
   <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>
+  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>travis_private_key_name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -264,6 +265,15 @@ and avoiding recursive CI runs.</p></td>
       <td><p><code>[character]</code><br />
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></td>
+    </tr>
+    <tr>
+      <th>travis_private_key_name</th>
+      <td><p><code>string</code><br />
+Only needed when deploying from builds on Travis CI.
+If you have set a custom name for the private key during creation of the
+SSH key pair in <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> or via <a href='use_tic.html'>use_tic</a>, you need
+to pass this name here. If not set, <code>"TRAVIS_DEPLOY_KEY"</code> will be used
+by default.</p></td>
     </tr>
     </table>
 
