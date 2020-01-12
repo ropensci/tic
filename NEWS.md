@@ -1,3 +1,10 @@
+# tic 0.3.0.9004
+
+* `ci_can_Push()`: Error with descriptive error message if deployment is not possible
+* `ci_can_push()`: Fix for Travis CI
+* optimize templates (especially matrix builds) by specifying which job is used for the pkgdown build
+
+
 # tic 0.3.0.9003
 
 * `use_tic()`: add key_name_private and key_name_public args from `travis::use_travis_deploy()`
