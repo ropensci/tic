@@ -87,6 +87,14 @@ InstallSSHKeys <- R6Class(
         rawToChar(openssl::base64_decode(Sys.getenv(name))),
         deploy_key_path
       )
+
+      # rename private key to "id_rsa" so that everybody if happy
+      # (git2r, ssh command)
+      file.rename(
+        file.path("~", ".ssh", name),
+        file.path("~", ".ssh", "id_rsa")
+      )
+
       Sys.chmod(deploy_key_path, "600")
     },
 
@@ -138,17 +146,10 @@ TestSSH <- R6Class(
 
   public = list(
     initialize = function(url = "git@github.com",
-                          verbose = "-v",
-                          name = "TRAVIS_DEPLOY_KEY") {
+                          verbose = "-v") {
       private$url <- url
       private$verbose <- verbose
 
-      # rename private key to "id_rsa" so that everybody if happy
-      # (git2r, ssh command)
-      file.rename(
-        file.path("~", ".ssh", name),
-        file.path("~", ".ssh", "id_rsa")
-      )
     },
 
     run = function() {
@@ -186,9 +187,8 @@ TestSSH <- R6Class(
 #'
 #' dsl_get()
 step_test_ssh <- function(url = "git@github.com",
-                          verbose = "-v",
-                          name = "TRAVIS_DEPLOY_KEY") {
-  TestSSH$new(url = url, verbose = verbose, name = name)
+                          verbose = "-v") {
+  TestSSH$new(url = url, verbose = verbose)
 }
 
 SetupSSH <- R6Class(
