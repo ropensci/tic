@@ -58,8 +58,12 @@ do_pkgdown <- function(...,
     #'   By default (if `deploy` is `NULL`), deployment happens
     #'   if the following conditions are met:
     #'
-    #'   1. The repo can be pushed to (see [ci_can_push()]).
-    deploy <- ci_can_push(name = travis_private_key_name)
+    #'   1. The repo can be pushed to (see [ci_can_push()]).'
+    # account for old default "id_rsa"
+    if (ci_has_env("id_rsa")) {
+      name <- "id_rsa"
+    }
+    deploy <- ci_can_push(name = name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),

@@ -32,10 +32,16 @@ TravisCI <- R6Class(
       # id_rsa is the "old" name which was previously hard coded in the {travis}
       # package. New default name: "TRAVIS_DEPLOY_KEY"
       # for backward comp we check for the old one too
-      if (self$has_env("id_rsa")) {
-        return(TRUE)
+      can_push <- self$has_env(name)
+      if (!can_push) {
+        cli_alert_danger("Deployment was requested but the build is not able to
+                         deploy. We checked for env var {.var {name}} but could
+                         not find as an env var in Travis CI.
+                         Double-check if it exists. Calling
+                         {.fun travis::use_travis_deploy} may help resolving
+                         issues.", wrap = TRUE)
+        stopc("This build cannot deploy to Github.")
       }
-      self$has_env(name)
     },
     get_env = function(env) {
       Sys.getenv(env)
