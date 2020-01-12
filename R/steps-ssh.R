@@ -143,22 +143,15 @@ TestSSH <- R6Class(
       private$url <- url
       private$verbose <- verbose
 
-      name <- private$name
-
-      # harcode renaming private key to "id_rsa" so that everybody if happy
+      # rename private key to "id_rsa" so that everybody if happy
       # (git2r, ssh command)
       file.rename(
         file.path("~", ".ssh", name),
         file.path("~", ".ssh", "id_rsa")
       )
-
-      private$deploy_key_path <- file.path("~", ".ssh", name)
     },
 
     run = function() {
-      name <- private$name
-      deploy_key_path <- file.path("~", ".ssh", name)
-
       message("Trying to ssh into ", private$url)
       system2("ssh", c(private$url, private$verbose))
     }
@@ -166,8 +159,7 @@ TestSSH <- R6Class(
 
   private = list(
     url = NULL,
-    verbose = NULL,
-    deploy_key_path = NULL
+    verbose = NULL
   )
 )
 
