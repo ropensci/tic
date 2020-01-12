@@ -36,7 +36,7 @@ TravisCI <- R6Class(
       if (!can_push) {
         cli_alert_danger("Deployment was requested but the build is not able to
                          deploy. We checked for env var {.var {name}} but could
-                         not find as an env var in Travis CI.
+                         not find it as an env var in the current build.
                          Double-check if it exists. Calling
                          {.fun travis::use_travis_deploy} may help resolving
                          issues.", wrap = TRUE)
