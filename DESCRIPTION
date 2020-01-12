@@ -5,7 +5,7 @@ Title: Tasks Integrating Continuously: CI-Agnostic Workflow
 Version: 0.3.0.9004
 Authors@R: 
     c(person(given = "Kirill",
-             family = "M\u00fcller",
+             family = "Müller",
              role = c("aut", "cre"),
              email = "krlmlr+r@mailbox.org",
              comment = c(ORCID = "0000-0002-1416-3412")),
