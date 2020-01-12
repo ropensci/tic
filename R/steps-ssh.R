@@ -100,7 +100,7 @@ InstallSSHKeys <- R6Class(
       )
 
       # add ssh key to agent
-      system2("eval", c("`ssh-agent -s`"))
+      system2("ssh-agent", "/bin/sh")
       message("Adding ssh key to ssh-agent.")
       system2("ssh-add", c(file.path("~", ".ssh", name)))
     },
