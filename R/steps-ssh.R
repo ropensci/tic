@@ -98,6 +98,10 @@ InstallSSHKeys <- R6Class(
         ),
         global = TRUE
       )
+
+      # add ssh key to agent
+      message("Adding ssh key to ssh-agent.")
+      system2("ssh-add", c(file.path("~", ".ssh", name)))
     },
 
     prepare = function() {
@@ -158,6 +162,11 @@ TestSSH <- R6Class(
     run = function() {
 
       message("Trying to ssh into ", private$url)
+      message("Using command:", sprintf(
+        "ssh -i %s %s %s",
+        file.path("~", ".ssh", private$name),
+        private$url, private$verbose
+      ))
       system2("ssh", c(
         "-i", file.path("~", ".ssh", private$name),
         private$url, private$verbose
