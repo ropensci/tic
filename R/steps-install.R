@@ -9,6 +9,9 @@ InstallDeps <- R6Class(
     },
 
     prepare = function() {
+      if (!file.exists("DESCRIPTION")) {
+        stopc("No DESCRIPTION file found. The step_build_pkgdown step and the do_pkgdown macro are only available for packages.")
+      }
       verify_install("remotes")
     },
 
