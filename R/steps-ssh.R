@@ -139,7 +139,7 @@ TestSSH <- R6Class(
   public = list(
     initialize = function(url = "git@github.com",
                           verbose = "-v",
-                          name) {
+                          name = "TRAVIS_DEPLOY_KEY") {
       private$url <- url
       private$verbose <- verbose
 
@@ -196,7 +196,7 @@ TestSSH <- R6Class(
 step_test_ssh <- function(url = "git@github.com",
                           verbose = "-v",
                           name = "TRAVIS_DEPLOY_KEY") {
-  TestSSH$new(url = url, verbose = verbose)
+  TestSSH$new(url = url, verbose = verbose, name = name)
 }
 
 SetupSSH <- R6Class(
