@@ -85,11 +85,6 @@ do_pkgdown <- function(...,
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
     #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
     if (ci_on_travis()) {
-      if (ci_has_env("id_rsa")) {
-        name <- "id_rsa"
-      } else {
-        name <- travis_private_key_name
-      }
       get_stage("before_deploy") %>%
         add_step(step_setup_ssh(name = name))
     }
