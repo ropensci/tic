@@ -158,7 +158,10 @@ TestSSH <- R6Class(
     run = function() {
 
       message("Trying to ssh into ", private$url)
-      system2("ssh", c("-i", private$name, private$url, private$verbose))
+      system2("ssh", c(
+        "-i", file.path("~", ".ssh", private$name),
+        private$url, private$verbose
+      ))
     }
   ),
 
