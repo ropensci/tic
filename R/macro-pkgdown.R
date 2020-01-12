@@ -60,6 +60,7 @@ do_pkgdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).'
     # account for old default "id_rsa"
+    print(ci_has_env("id_rsa"))
     if (ci_has_env("id_rsa")) {
       name <- "id_rsa"
     } else {
