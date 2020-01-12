@@ -1,6 +1,8 @@
 #' @import cli
 #' @export
 print.TicStages <- function(x, ...) {
+  cli_alert_info("tic configuration")
+
   if (all(vlapply(x, stage_is_empty))) {
     cat_bullet(
       "No steps defined in any stage",
