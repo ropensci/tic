@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-_tic_ uses the [CI client packages](ci-client-packages.html) _travis_ and _circle_ for setting up deployment on the CI systems.
+_tic_ uses the [CI client packages](ci-client-packages.html) {travis} and {circle} for setting up deployment on the CI systems.
 
 ### Travis CI
 
@@ -39,7 +39,7 @@ _tic_ uses the [CI client packages](ci-client-packages.html) _travis_ and _circl
 
 On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.
 
-When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "github-user-key" is created and stored in the Circle CI repo.
+When calling `circle::use{circle}deploy()` directly (or indirectly via `tic::use_tic()`), a so called "github-user-key" is created and stored in the Circle CI repo.
 This key makes it possible to deploy from Circle CI builds to your Github repo.
 No extra deploy key need to be stored in the Github repo.
 
@@ -71,13 +71,13 @@ if (ci_has_env("BUILD_PKGDOWN")) {
 }
 ```
 
-- Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_depkoy()`.
+- Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_deploy()`.
 (The latter is just an example of an option that can be set to run certain commands (or stages) conditionally (see [secion "Running stages conditionally" in the "Advanced" article](advanced.html#running-stages-conditionally) for more examples).
 - Call `add_step(step_build_pkgdown())` and `add_step(step_push_deploy())` in the "deploy" stage.
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
-  add_step(step_build_pkgdown()) %>% 
+  add_step(step_build_pkgdown()) %>%
   add_step(step_push_deploy())
 ```
 
@@ -173,7 +173,7 @@ The `commit_paths` argument in `step_push_deploy()` decides which files are comm
 
 ```{r eval = FALSE}
 get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
+  add_step(step_setup_ssh())
 
 get_stage("deploy") %>%
   add_code_step(devtools::document(roclets = c("rd", "collate", "namespace"))) %>%

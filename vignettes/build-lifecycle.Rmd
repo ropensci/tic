@@ -140,7 +140,7 @@ Here is a list that shows a rough grouping of the steps into their default stage
 | Step | Description |
 | ---  | ----------- |
 | `step_build_pkgdown()` | Building package documentation via [pkgdown](https://github.com/r-lib/pkgdown) |
-| `step_rcmdcheck()` | Run `R CMD check` via the _rcmdcheck_ package |
+| `step_rcmdcheck()` | Run `R CMD check` via the {rcmdcheck} package |
     
 #### Deployment
 

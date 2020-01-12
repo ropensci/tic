@@ -104,7 +104,7 @@ Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrele
 Last, we'll add a `tic.R` file to the project root.
 
 
-The deployment setup functionality comes from the _travis_ and _circle_ packages.
+The deployment setup functionality comes from the {travis} and {circle} packages.
 See the ["tic & travis" article](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
 
 # Explanation of the basic `tic.R` template
@@ -148,9 +148,9 @@ See `?do_package_checks()` for more information.
 
 ```{r}
 # step_install_deps() in the "install" stage, using the repos argument.
-# 
+#
 # step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.
-# 
+#
 # A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
 ```
 
@@ -208,8 +208,8 @@ The `blogdown::build_site()` function for websites is the equivalent to `pkgdown
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
-    add_code_step(blogdown::build_site()) %>%
-    add_step(step_push_deploy())
+  add_code_step(blogdown::build_site()) %>%
+  add_step(step_push_deploy())
 ```
 
 Steps and stages differ between projects (e.g. between a "blogdown" website and a "package").
