@@ -95,7 +95,7 @@ InstallSSHKeys <- R6Class(
         file.path("~", ".ssh", "id_rsa")
       )
 
-      Sys.chmod(deploy_key_path, "600")
+      Sys.chmod(file.path("~", ".ssh", "id_rsa"), "600")
     },
 
     prepare = function() {
