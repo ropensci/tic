@@ -159,7 +159,7 @@ jobs:
 `tic.R`:
 
 ```{r eval = FALSE}
-if (Sys.getenv("id_rsa") != "") {
+if (ci_has_env("TRAVIS_DEPLOY_KEY")) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 }

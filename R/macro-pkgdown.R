@@ -60,10 +60,9 @@ do_pkgdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).'
     # account for old default "id_rsa"
-    if (ci_has_env("id_rsa")) {
+    name <- travis_private_key_name
+    if (ci_has_env("id_rsa") && !ci_has_env(name)) {
       name <- "id_rsa"
-    } else {
-      name <- travis_private_key_name
     }
     deploy <- ci_can_push(name = name)
 

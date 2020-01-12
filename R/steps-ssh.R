@@ -74,7 +74,7 @@ InstallSSHKeys <- R6Class(
       name <- private$name
 
       # for backward comp, if "id_rsa" exists we take this key
-      if (Sys.getenv("id_rsa") != "") {
+      if (ci_has_env("id_rsa") && !ci_has_env(name)) {
         name <- "id_rsa"
       }
 
@@ -145,7 +145,7 @@ InstallSSHKeys <- R6Class(
 #' dsl_get()
 step_install_ssh_keys <- function(name = "TRAVIS_DEPLOY_KEY") {
   # support for old "id_rsa" default: prefer this key if it exists
-  if (ci_has_env("id_rsa")) {
+  if (ci_has_env("id_rsa") && !ci_has_env(name)) {
     name <- "id_rsa"
   }
   InstallSSHKeys$new(name = name)
