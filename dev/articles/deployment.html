@@ -120,7 +120,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><em>tic</em> uses the <a href="ci-client-packages.html">CI client packages</a> {travis} and {circle} for setting up deployment on the CI systems.</p>
+<p>{tic} uses the <a href="ci-client-packages.html">CI client packages</a> {travis} and {circle} for setting up deployment on the CI systems.</p>
 <div id="travis-ci" class="section level3">
 <h3 class="hasAnchor">
 <a href="#travis-ci" class="anchor"></a>Travis CI</h3>
@@ -130,7 +130,7 @@
 <p><img src="img/ssh-deploy-key.png" style="display: block; margin: auto;"></p>
 </li>
 <li>
-<p>A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, <em>tic</em> installs it in the <code>~/.ssh</code> directory so that it can be used for authentication:</p>
+<p>A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, {tic} installs it in the <code>~/.ssh</code> directory so that it can be used for authentication:</p>
 <p><img src="img/private-key-travis.png" style="display: block; margin: auto;"></p>
 <p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.</p>
 </li>
@@ -140,32 +140,35 @@
 <h3 class="hasAnchor">
 <a href="#circle-ci" class="anchor"></a>Circle CI</h3>
 <p>On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.</p>
-<p>When calling <code>circle::use{circle}deploy()</code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “github-user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your Github repo. No extra deploy key need to be stored in the Github repo.</p>
+<p>When calling <code><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your Github repo. No extra deploy key need to be stored in the Github repo.</p>
 </div>
 </div>
 <div id="pkgdown-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pkgdown-deployment" class="anchor"></a>pkgdown deployment</h2>
 <p><a href="https://github.com/r-lib/pkgdown"><code>pkgdown</code></a> is an R package which builds a documentation wrapper-site of a R package. It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.</p>
-<p>It has become a quasi-standard to provide a <em>pkgdown</em> site for an R package. However, it is tedious to update the pkgdown site manually on every commit, check whether something has changed and commit the changes. <em>tic</em> comes with the ability to automate this procedure.</p>
-<p>The following example shows how <em>tic</em> deploys a <code>pkgdown</code> site on Travis CI. In the <code>.travis.yml</code> file the “before_deploy” and “deploy” stages are redirected to <em>tic</em>.</p>
+<p>It has become a quasi-standard to provide a {pkgdown} site for an R package. However, it is tedious to update the pkgdown site manually on every commit, check whether something has changed and commit the changes. {tic} comes with the ability to automate this procedure.</p>
+<p>The following example shows how {tic} deploys a <code>pkgdown</code> site on Travis CI. In the <code>.travis.yml</code> file the “before_deploy” and “deploy” stages are redirected to {tic}.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">deploy:</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a></code></pre></div>
-<p>In the “before_deploy” stage, <em>tic</em> will do the following:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {</a>
+<p>In the “before_deploy” stage, {tic} will do the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>(<span class="dt">name =</span> travis_private_key_name))</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
 <ul>
-<li>Call <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. (The latter is just an example of an option that can be set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">secion “Running stages conditionally” in the “Advanced” article</a> for more examples).</li>
-<li>Call <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</li>
+<li>
+<p>Call <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. Argument <code>name = travis_private_key_name</code> can be ignored as long as no custom private key name was used during <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. If so, then supply it via the <code>travis_private_key_name</code> argument in <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>. By default, <code>"TRAVIS_DEPLOY_KEY"</code> is used.</p>
+<p>For backward compatibility, the previous default <code>"id_rsa"</code> is also supported out of the box. This step is only needed on Travis CI because setting up deployment via SSH keys is somewhat complicated.</p>
+</li>
+<li><p>Call <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</p></li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the <em>pkgdown</em> site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo.</p>
+<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the {pkgdown} site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo.</p>
 <div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
 <h3 class="hasAnchor">
 <a href="#deploying-to-docs-master-or-gh-pages-branch" class="anchor"></a>Deploying to docs/ (master) or gh-pages branch</h3>
@@ -183,7 +186,7 @@
 <li>Per-branch versions enable the possibility to have preview for pull requests via <a href="https://www.netlify.com/" class="uri">https://www.netlify.com/</a>
 </li>
 </ul>
-<p>The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the <em>pkgdown</em> site to the <code>master</code> branch.</p>
+<p>The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the {pkgdown} site to the <code>master</code> branch.</p>
 </div>
 <div id="orphaning-the-gh-pages-branch" class="section level4">
 <h4 class="hasAnchor">
@@ -199,9 +202,9 @@
 <div id="conditional-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#conditional-deployment" class="anchor"></a>Conditional deployment</h2>
-<p>If you are running a <a href="https://docs.travis-ci.com/user/build-matrix/">build matrix</a> or <a href="https://docs.travis-ci.com/user/build-stages/">build stages</a> on Travis CI, you want to run certain tasks only once during a build. The creation of a <em>pkgdown</em> site is a common task which applies to this.</p>
+<p>If you are running a <a href="https://docs.travis-ci.com/user/build-matrix/">build matrix</a> or <a href="https://docs.travis-ci.com/user/build-stages/">build stages</a> on Travis CI, you want to run certain tasks only once during a build. The creation of a {pkgdown} site is a common task which applies to this.</p>
 <p>Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages. You can restrict on which stage/job a task is executed with the help of environment variables.</p>
-<p><em>tic</em> can make use of implicit set environment variables of the build and additional ones added by the user. In the following we show a “build stage” example on Travis CI using the custom env variable <code>"BUILD_PKGDOWN"</code>:</p>
+<p>{tic} can make use of implicit set environment variables of the build and additional ones added by the user. In the following we show a “build stage” example on Travis CI using the custom env variable <code>"BUILD_PKGDOWN"</code>:</p>
 <p><code>.travis.yml</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">jobs:</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="fu">include:</span></a>

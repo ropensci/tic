@@ -120,13 +120,13 @@
 <div id="running-steps-conditionally" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-steps-conditionally" class="anchor"></a>Running steps conditionally</h2>
-<p>Steps and stages can be run conditionally using the control workflow of <em>tic</em>. Possible conditionals are</p>
+<p>Steps and stages can be run conditionally using the control workflow of {tic}. Possible conditionals are</p>
 <ul>
 <li>Environment variables of the build (queried by <code><a href="../reference/ci.html">ci_is_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> or <code><a href="../reference/ci.html">ci_get_env()</a></code>)</li>
 <li>R Version of the current build (<code><a href="https://rdrr.io/r/base/numeric_version.html">getRversion()</a></code>)</li>
 <li>other features of the build (e.g. branch name via <code><a href="../reference/ci.html">ci_get_branch()</a></code>)</li>
 </ul>
-<p>Most common tasks are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a <em>pkgdown</em> site</a>).</p>
+<p>Most common tasks are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a {pkgdown} site</a>).</p>
 <div id="conditional-execution-use-cases" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conditional-execution-use-cases" class="anchor"></a>Conditional execution: Use cases</h3>
@@ -283,7 +283,7 @@ $install
 <a href="#whats-not-covered-yet" class="anchor"></a>What’s not covered yet?</h1>
 <ul>
 <li>
-<code>SystemRequirements</code>: <em>tic</em> is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically provide suggestions like “Please add <code>addons: apt: &lt;library&gt;</code> to <code>.travis.yml</code>” in case system requirements are missing.</li>
+<code>SystemRequirements</code>: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically provide suggestions like “Please add <code>addons: apt: &lt;library&gt;</code> to <code>.travis.yml</code>” in case system requirements are missing.</li>
 </ul>
 </div>
   </div>

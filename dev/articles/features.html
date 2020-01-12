@@ -129,17 +129,17 @@
 <a href="#easier-deployment" class="anchor"></a>Easier deployment</h2>
 <p>CI services can be used to automatically build and deploy files. This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.). Possible use cases are:</p>
 <ul>
-<li>changed site contents of a <em>pkgdown</em> site</li>
+<li>changed site contents of a {pkgdown} site</li>
 <li>updated .Rd files of a package (by calling <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> before)</li>
 <li>an automatic generated <a href="https://github.com/yonicd/covrpage">test summary page</a> of a package</li>
 </ul>
-<p>If <em>tic</em> should be used for deployment, some preparatory work is required:</p>
+<p>If {tic} should be used for deployment, some preparatory work is required:</p>
 <ul>
 <li>Setting up deployment keys (differs across CI services).</li>
 <li>Granting permission to push to the repo on GitHub.</li>
 </ul>
 <p>When calling <code><a href="../reference/use_tic.html">use_tic()</a></code>, the streamlined preparation process is run. This is only needed once per repository.</p>
-<p>For more information on automatic deployment in <em>tic</em>, take a look <a href="deployment.html">at the “Deployment” article</a>.</p>
+<p>For more information on automatic deployment in {tic}, take a look <a href="deployment.html">at the “Deployment” article</a>.</p>
 </div>
 <div id="support-for-various-r-projects" class="section level2">
 <h2 class="hasAnchor">
