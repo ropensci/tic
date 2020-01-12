@@ -41,6 +41,8 @@ TravisCI <- R6Class(
                          {.fun travis::use_travis_deploy} may help resolving
                          issues.", wrap = TRUE)
         stopc("This build cannot deploy to Github.")
+      } else {
+        return(can_push)
       }
     },
     get_env = function(env) {
