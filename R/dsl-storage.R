@@ -118,12 +118,6 @@ dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
 #' @rdname dsl_get
 #' @export
 dsl_init <- function(quiet = FALSE) {
-  path <- file.exists(paste0(usethis::proj_get(), "/tic.R"))
-  if (!path) {
-    cli_alert_danger("Please init {.pkg tic} first by calling {.fun use_tic}")
-    stop("tic.R does not exist.")
-  }
-
   if (!quiet) {
     cli_alert_success(
       "Creating a blank tic stage configuration",

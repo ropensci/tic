@@ -23,13 +23,11 @@ NULL
 #' @family macros
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' do_package_checks()
 #'
 #' dsl_get()
-#' }
 do_package_checks <- function(...,
                               codecov = !ci_is_interactive(),
                               warnings_are_errors = NULL,
@@ -39,11 +37,6 @@ do_package_checks <- function(...,
                               error_on = "warning",
                               repos = repo_default(), timeout = Inf,
                               type = NULL, check_dir = NULL) {
-
-  if (interactive()) {
-    stop("Macro functions should only be used in tic.R and not interactively.")
-  }
-
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
@@ -75,6 +68,8 @@ do_package_checks <- function(...,
     get_stage("after_success") %>%
       add_code_step(covr::codecov(quiet = FALSE))
   }
+
+  dsl_get()
 }
 
 #' Deprecated functions

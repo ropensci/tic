@@ -66,17 +66,12 @@ HelloWorld <- R6Class(
 #' @family steps
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_hello_world())
 #'
 #' dsl_get()
-#' }
 step_hello_world <- function() {
-  if (interactive()) {
-    stop("step_* functions should only be used in tic.R and not interactively.")
-  }
   HelloWorld$new()
 }

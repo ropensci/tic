@@ -46,54 +46,6 @@ tempfile_slash <- function(pattern = "file", tmpdir = tempdir(), fileext = "") {
   normalizePath(path, winslash = "/", mustWork = FALSE)
 }
 
-# borrowed from {usethis} ------------------------------------------------------
-
-check_package_name <- function(name) {
-  if (!valid_package_name(name)) {
-    cli::cli_par()
-    cli::cli_text("{.pkg name} is not a valid package name. It should:")
-    cli::cli_li("Contain only ASCII letters, numbers, and '.'")
-    cli::cli_li("Have at least two characters")
-    cli::cli_li("Start with a letter")
-    cli::cli_li("Not end with '.'")
-    cli::cli_end()
-  }
-}
-
-valid_package_name <- function(x) {
-  grepl("^[a-zA-Z][a-zA-Z0-9.]+$", x) && !grepl("\\.$", x)
-}
-
-project_name <- function(base_path = usethis::proj_get()) {
-  if (is_package(base_path)) {
-    project_data(base_path)$Package
-  } else {
-    project_data(base_path)$Project
-  }
-}
-
-project_data <- function(base_path = usethis::proj_get()) {
-  if (is_package(base_path)) {
-    data <- package_data(base_path)
-  } else {
-    data <- list(Project = file.path(base_path))
-  }
-  data
-}
-
-is_package <- function(base_path = usethis::proj_get()) {
-  res <- tryCatch(
-    rprojroot::find_package_root_file(path = base_path),
-    error = function(e) NULL
-  )
-  !is.null(res)
-}
-
-package_data <- function(base_path = usethis::proj_get()) {
-  descr <- desc::description$new(base_path)
-  as.list(descr$get(descr$fields()))
-}
-
 yesno <- function(...) {
   yeses <- c(
     "Yes", "Definitely", "For sure", "Yup", "Yeah", "Of course",

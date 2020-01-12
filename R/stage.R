@@ -33,20 +33,9 @@ TicStage <- R6Class( # nolint
     },
 
     prepare_all = function() {
-
-      # check if DESCRIPTION file exists
-      path <- paste0(usethis::proj_get(), "/DESCRIPTION")
-      if (!file.exists(path)) {
-        cli_alert_danger("{.pkg tic} requires a DESCRIPTION file for
-        installing dependencies, please add one.", wrap = TRUE)
-        stop("Can't find DESCRIPTION.",
-          call. = FALSE
-        )
-      }
-
-      # check if package name is valid
-      check_package_name(project_name())
-
+      # We don't necessarily require a DESCRIPTION file.
+      # Steps that need one can check beforehand and warn the user with a
+      # legible message.
       lapply(private$steps, private$prepare_one)
       invisible()
     },

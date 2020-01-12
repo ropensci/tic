@@ -48,10 +48,6 @@ do_bookdown <- function(...,
                         commit_paths = ".",
                         travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
 
-  if (interactive()) {
-    stop("Macro functions should only be used in tic.R and not interactively.")
-  }
-
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
   #'   before building the bookdown site,
@@ -125,4 +121,6 @@ do_bookdown <- function(...,
   #' @description
   #' By default, the `_book/` directory is deployed
   #' to the `gh-pages` branch, keeping the history.
+
+  dsl_get()
 }

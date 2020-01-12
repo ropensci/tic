@@ -31,17 +31,12 @@ BuildBookdown <- R6Class(
 #'
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_build_bookdown("."))
 #'
 #' dsl_get()
-#' }
 step_build_bookdown <- function(...) {
-  if (interactive()) {
-    stop("step_* functions should only be used in tic.R and not interactively.")
-  }
   BuildBookdown$new(...)
 }

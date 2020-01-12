@@ -51,18 +51,13 @@ AddToKnownHosts <- R6Class(
 #' @family steps
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("before_deploy") %>%
 #'   add_step(step_add_to_known_hosts("gitlab.com"))
 #'
 #' dsl_get()
-#' }
 step_add_to_known_hosts <- function(host = "github.com") {
-  if (interactive()) {
-    stop("step_* functions should only be used in tic.R and not interactively.")
-  }
   AddToKnownHosts$new(host = host)
 }
 
@@ -142,19 +137,13 @@ InstallSSHKeys <- R6Class(
 #' @seealso [travis::use_travis_deploy()], [use_tic()]
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("before_deploy") %>%
 #'   add_step(step_install_ssh_keys())
 #'
 #' dsl_get()
-#' }
 step_install_ssh_keys <- function(name = "TRAVIS_DEPLOY_KEY") {
-  if (interactive()) {
-    stop("step_* functions should only be used in tic.R and not interactively.")
-  }
-
   # support for old "id_rsa" default: prefer this key if it exists
   if (ci_has_env("id_rsa")) {
     name <- "id_rsa"
@@ -212,20 +201,15 @@ TestSSH <- R6Class(
 #' @family steps
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_test_ssh(verbose = "-vvv"))
 #'
 #' dsl_get()
-#' }
 step_test_ssh <- function(url = "git@github.com",
                           verbose = "-v",
                           name = "TRAVIS_DEPLOY_KEY") {
-  if (interactive()) {
-    stop("step_* functions should only be used in tic.R and not interactively.")
-  }
   TestSSH$new(url = url, verbose = verbose, name = name)
 }
 
@@ -294,19 +278,14 @@ SetupSSH <- R6Class(
 #'
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' get_stage("script") %>%
 #'   add_step(step_setup_ssh(host = "gitlab.com"))
 #'
 #' dsl_get()
-#' }
 step_setup_ssh <- function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
-  if (interactive()) {
-    stop("step_* functions should only be used in tic.R and not interactively.")
-  }
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
 }
 
