@@ -4,7 +4,7 @@
 \alias{dsl_get}
 \alias{dsl_load}
 \alias{dsl_init}
-\title{Storage for stages and steps}
+\title{Stages and steps}
 \usage{
 dsl_get()
 
@@ -30,6 +30,21 @@ Use the high-level \code{\link[=get_stage]{get_stage()}} and \code{\link[=add_st
 and the \link{stages} functions to run.
 }
 \description{
+\pkg{tic} works in a declarative way, centered around the \code{tic.R} file
+created by \code{\link[=use_tic]{use_tic()}}.
+This file contains the \emph{definition} of the steps to be run in each stage:
+calls to \code{\link[=get_stage]{get_stage()}} and \code{\link[=add_step]{add_step()}}, or macros like
+\code{\link[=do_package_checks]{do_package_checks()}}.
+
+Normally, this file is never executed directly.
+Running these functions in an interactive session will \strong{not} carry out
+the respective actions.
+Instead, a description of the code that would have been run is printed
+to the console.
+Edit \code{tic.R} to configure your CI builds.
+See \code{vignette("build-lifecycle", package = "tic")} for more details.
+}
+\details{
 Stages and steps defined using tic's \link{DSL} are stored in an
 internal object in the package.
 The stages are accessible through \code{dsl_get()}.
