@@ -20,6 +20,12 @@ NULL
 #' @inheritParams step_do_push_deploy
 #' @inheritParams step_install_pkg
 #' @param ... Passed on to [step_build_bookdown()]
+#' @param travis_private_key_name `string`\cr
+#'   Only needed when deploying from builds on Travis CI.
+#'   If you have set a custom name for the private key during creation of the
+#'   SSH key pair in [travis::use_travis_deploy()] or via [use_tic], you need
+#'   to pass this name here. If not set, `"TRAVIS_DEPLOY_KEY"` will be used
+#'   by default.
 #' @family macros
 #' @export
 #' @examples
@@ -35,9 +41,12 @@ do_bookdown <- function(...,
                         orphan = FALSE,
                         checkout = TRUE,
                         repos = repo_default(),
-                        path = "_book", branch = "gh-pages",
+                        path = "_book",
+                        branch = "gh-pages",
                         remote_url = NULL,
-                        commit_message = NULL, commit_paths = ".") {
+                        commit_message = NULL,
+                        commit_paths = ".",
+                        travis_private_key_name = NULL) {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
@@ -71,7 +80,7 @@ do_bookdown <- function(...,
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
     #'    (if `deploy` is set),
     get_stage("before_deploy") %>%
-      add_step(step_setup_ssh()) %>%
+      add_step(step_setup_ssh(name = travis_private_key_name)) %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),

@@ -21,6 +21,12 @@ NULL
 #' @inheritParams step_install_pkg
 #' @param path,branch By default, this macro deploys the `docs` directory
 #'   to the `gh-pages` branch. This is different from [step_push_deploy()].
+#' @param travis_private_key_name `string`\cr
+#'   Only needed when deploying from builds on Travis CI.
+#'   If you have set a custom name for the private key during creation of the
+#'   SSH key pair in [travis::use_travis_deploy()] or via [use_tic], you need
+#'   to pass this name here. If not set, `"TRAVIS_DEPLOY_KEY"` will be used
+#'   by default.
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
@@ -41,7 +47,8 @@ do_pkgdown <- function(...,
                        branch = "gh-pages",
                        remote_url = NULL,
                        commit_message = NULL,
-                       commit_paths = ".") {
+                       commit_paths = ".",
+                       travis_private_key_name = NULL) {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
@@ -74,7 +81,7 @@ do_pkgdown <- function(...,
     #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
     if (ci_on_travis()) {
       get_stage("before_deploy") %>%
-        add_step(step_setup_ssh())
+        add_step(step_setup_ssh(name = travis_private_key_name))
     }
 
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
