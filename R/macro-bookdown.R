@@ -58,7 +58,7 @@ do_bookdown <- function(...,
     #'   if the following conditions are met:
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).
-    deploy <- ci_can_push()
+    deploy <- ci_can_push(name = travis_private_key_name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
