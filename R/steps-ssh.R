@@ -139,11 +139,19 @@ TestSSH <- R6Class(
   public = list(
     initialize = function(url = "git@github.com",
                           verbose = "-v",
-                          name = "TRAVIS_DEPLOY_KEY") {
+                          name) {
       private$url <- url
       private$verbose <- verbose
 
       name <- private$name
+
+      # harcode renaming private key to "id_rsa" so that everybody if happy
+      # (git2r, ssh command)
+      file.rename(
+        file.path("~", ".ssh", name),
+        file.path("~", ".ssh", "id_rsa")
+      )
+
       private$deploy_key_path <- file.path("~", ".ssh", name)
     },
 
@@ -151,12 +159,8 @@ TestSSH <- R6Class(
       name <- private$name
       deploy_key_path <- file.path("~", ".ssh", name)
 
-
       message("Trying to ssh into ", private$url)
-      system2("ssh", c(
-        "-i", private$deploy_key_path,
-        private$url, private$verbose
-      ))
+      system2("ssh", c(private$url, private$verbose))
     }
   ),
 
@@ -178,9 +182,8 @@ TestSSH <- R6Class(
 #'   URL to establish SSH connection with, by default `git@github.com`
 #' @param verbose `[string]`\cr
 #'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
-#' @param name `[string]`\cr
-#'   Name of the environment variable and the target file, default:
-#'   `"TRAVIS_DEPLOY_KEY"`.
+#' @inheritParams step_install_ssh_keys
+#'
 #' @family steps
 #' @export
 #' @examples
@@ -193,7 +196,7 @@ TestSSH <- R6Class(
 step_test_ssh <- function(url = "git@github.com",
                           verbose = "-v",
                           name = "TRAVIS_DEPLOY_KEY") {
-  TestSSH$new(url = url, verbose = verbose, name = name)
+  TestSSH$new(url = url, verbose = verbose)
 }
 
 SetupSSH <- R6Class(
