@@ -15,7 +15,7 @@ do_pkgdown(
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
-  travis_private_key_name = NULL
+  travis_private_key_name = "TRAVIS_DEPLOY_KEY"
 )
 }
 \arguments{
@@ -67,8 +67,7 @@ Default: deploy all files.}
 Only needed when deploying from builds on Travis CI.
 If you have set a custom name for the private key during creation of the
 SSH key pair in \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} or via \link{use_tic}, you need
-to pass this name here. If not set, \code{"TRAVIS_DEPLOY_KEY"} will be used
-by default.}
+to pass this name here.}
 }
 \description{
 \code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default

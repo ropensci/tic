@@ -25,8 +25,7 @@ NULL
 #'   Only needed when deploying from builds on Travis CI.
 #'   If you have set a custom name for the private key during creation of the
 #'   SSH key pair in [travis::use_travis_deploy()] or via [use_tic], you need
-#'   to pass this name here. If not set, `"TRAVIS_DEPLOY_KEY"` will be used
-#'   by default.
+#'   to pass this name here.
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
@@ -48,7 +47,7 @@ do_pkgdown <- function(...,
                        remote_url = NULL,
                        commit_message = NULL,
                        commit_paths = ".",
-                       travis_private_key_name = NULL) {
+                       travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed

@@ -15,7 +15,7 @@ do_bookdown(
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
-  travis_private_key_name = NULL
+  travis_private_key_name = "TRAVIS_DEPLOY_KEY"
 )
 }
 \arguments{

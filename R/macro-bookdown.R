@@ -46,7 +46,7 @@ do_bookdown <- function(...,
                         remote_url = NULL,
                         commit_message = NULL,
                         commit_paths = ".",
-                        travis_private_key_name = NULL) {
+                        travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
