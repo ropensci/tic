@@ -1,3 +1,11 @@
+# tic 0.3.0.9005
+
+* Make it possible to pass the endpoint arg from {travis} funs to `use_tic()`
+* mention the difference between .com and .org -> new vignette "org-vs-com"
+* move package to ropensci org
+- `error_on = "note"` also fails on warnings.
+
+
 # tic 0.3.0.9004
 
 * `ci_can_Push()`: Error with descriptive error message if deployment is not possible
