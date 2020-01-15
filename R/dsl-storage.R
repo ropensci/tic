@@ -26,9 +26,24 @@ dslobj_init <- function(envir = parent.frame()) {
 }
 
 
-#' Storage for stages and steps
+#' Stages and steps
 #'
 #' @description
+#' \pkg{tic} works in a declarative way, centered around the `tic.R` file
+#' created by [use_tic()].
+#' This file contains the *definition* of the steps to be run in each stage:
+#' calls to [get_stage()] and [add_step()], or macros like
+#' [do_package_checks()].
+#'
+#' Normally, this file is never executed directly.
+#' Running these functions in an interactive session will **not** carry out
+#' the respective actions.
+#' Instead, a description of the code that would have been run is printed
+#' to the console.
+#' Edit `tic.R` to configure your CI builds.
+#' See `vignette("build-lifecycle", package = "tic")` for more details.
+#'
+#' @details
 #' Stages and steps defined using tic's [DSL] are stored in an
 #' internal object in the package.
 #' The stages are accessible through `dsl_get()`.
@@ -119,10 +134,8 @@ dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
 #' @export
 dsl_init <- function(quiet = FALSE) {
   if (!quiet) {
-    cat_bullet(
-      "Creating a blank tic stage configuration",
-      bullet = "tick", bullet_col = "green"
-    )
+    cli_alert_success("Creating a clean tic stage configuration")
+    cli_alert_info("See {.code ?tic::dsl_get} for details")
   }
 
   env <- asNamespace(packageName())

@@ -22,11 +22,11 @@ Internally, all steps are defined using the [R6](https://github.com/wch/R6) clas
 If you are not familiar with object-oriented programming using R6, the [R6 chapter](https://adv-r.hadley.nz/r6.html) in [Advanced R](https://adv-r.hadley.nz/) is a good place to start.
 
 In most cases there should be no need to write steps on your own, because `step_run_code()` can be used to run arbitrary code when preparing and running the step, and custom conditions in `tic.R` can be used to trigger the step.
-However, if you have the need for a repeated use of specific combinations of `add_code_step()`, please let us know (by opening an [issue](https://github.com/ropenscilabs/tic/issues)) so that we can discuss whether it makes sense to implement it as a custom step.
+However, if you have the need for a repeated use of specific combinations of `add_code_step()`, please let us know (by opening an [issue](https://github.com/ropensci/tic/issues)) so that we can discuss whether it makes sense to implement it as a custom step.
 
 ## The `TicStep` class
 
-A step is a subclass of the [`TicStep` class](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
+A step is a subclass of the [`TicStep` class](https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
 The `step_...` functions in {tic} are forwarded to the `new()` methods of the corresponding R6 class objects (and from there to `initialize()` member functions).
 We recommend following the same pattern for your custom steps.
 
@@ -61,7 +61,7 @@ RCMDcheck$public_methods$run
 
 This method checks whether the step is actually run.
 It returns a logical scalar.
-The [`step_write_text_file()`](https://github.com/ropenscilabs/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24) function is an example step with the following implementation of the `check()` method:
+The [`step_write_text_file()`](https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24) function is an example step with the following implementation of the `check()` method:
 
 ```{r}
 WriteTextFile$public_methods$check
@@ -69,9 +69,9 @@ WriteTextFile$public_methods$check
 
 ## A minimal example
 
-You can take a look at [a pull request that implements a new step](https://github.com/ropenscilabs/tic/pull/75/files).
+You can take a look at [a pull request that implements a new step](https://github.com/ropensci/tic/pull/75/files).
 
-The most minimalist version is the "Hello World" [example step](https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R).
+The most minimalist version is the "Hello World" [example step](https://github.com/ropensci/tic/blob/master/R/steps-base.R).
 This class only contains a `run()` method which does nothing more than printing "Hello World" to the console.
 It is initialized by calling `step_hello_world()` which creates a new instance of this class.
 
@@ -104,7 +104,7 @@ step_hello_world <- function() {
 ## Further information on the R6 class system
 
 If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed along:
-Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropenscilabs/tic/blob/master/R/steps-rcmdcheck.R)):
+Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R)):
 
 ```{r}
 step_rcmdcheck

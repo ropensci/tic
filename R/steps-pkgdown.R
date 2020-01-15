@@ -20,6 +20,10 @@ BuildPkgdown <- R6Class(
     },
 
     prepare = function() {
+      if (!file.exists("DESCRIPTION")) {
+        cli_alert_danger("The {.code step_build_pkgdown()} step and the {.code do_pkgdown()} macro are only available for packages.")
+        stopc("No DESCRIPTION file found.")
+      }
       verify_install(c("pkgdown", "remotes"))
       super$prepare()
     }

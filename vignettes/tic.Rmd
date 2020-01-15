@@ -103,6 +103,10 @@ Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrele
 
 Last, we'll add a `tic.R` file to the project root.
 
+After this, your project is ready for continuous integration.
+The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured.
+(Currently you need to enable the project manually on AppVeyor.)
+See the [Troubleshooting](advanced.html#troubleshooting) section in case anything doesn't work as expected.
 
 The deployment setup functionality comes from the {travis} and {circle} packages.
 See the ["tic & travis" article](tic-travis.html) for more detailed information on how *tic* and *travis* work together.
@@ -134,7 +138,7 @@ Macros are essentially wrappers of a sequence of steps for often used tasks on t
 - Build and deploy a bookdown project
 
 They can be distinguished from other functions by their `do_` prefix.
-If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
+If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropensci/tic/issues).
 
 ```{r eval = FALSE}
 do_package_checks()
@@ -238,5 +242,5 @@ The advanced usage of *tic* is described in more detail in the ["Advanced Usage"
 - [Troubleshooting: Running *tic* locally](advanced.html#troubleshooting-running-tic-locally)
 - [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
 
-The build lifecycle when using *tic* is explained in the ["Build lifecycle" article](build-lifecycle.html)e.
+The build lifecycle when using *tic* is explained in the ["Build lifecycle" article](build-lifecycle.html).
 Implementation of custom steps is described in the ["Writing custom steps" article](custom-steps.html).

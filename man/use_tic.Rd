@@ -50,6 +50,10 @@ options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
 \description{
 Prepares a repo for building and deploying supported by
 \pkg{tic}.
+Depending on your choice of CI system, this function requires
+properly set up authentication with Travis CI and/or Circle CI.
+See \code{vignette("travis", package = "travis")} and
+\code{vignette("circle", package = "circle")} for details.
 }
 \details{
 \enumerate{

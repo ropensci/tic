@@ -118,4 +118,6 @@ do_pkgdown <- function(...,
   #' @description
   #' By default, the `docs/` directory is deployed to the `gh-pages` branch,
   #' keeping the history.
+
+  dsl_get()
 }

@@ -119,4 +119,6 @@ do_bookdown <- function(...,
   #' @description
   #' By default, the `_book/` directory is deployed
   #' to the `gh-pages` branch, keeping the history.
+
+  dsl_get()
 }

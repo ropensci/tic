@@ -68,6 +68,8 @@ do_package_checks <- function(...,
     get_stage("after_success") %>%
       add_code_step(covr::codecov(quiet = FALSE))
   }
+
+  dsl_get()
 }
 
 #' Deprecated functions

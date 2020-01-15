@@ -138,17 +138,36 @@ $install
 ▶ step_install_deps(repos = repo_default())
 ```
 
+
 ### Emulating a CI run locally
 
-`run_all_stages()` emulates a CI run on your local machine by executing all stages and their corresponding steps as defined in `tic.R`.
+A tic configuration can be emulated locally.
 
+First, ensure that all prerequisites are met:
+
+```{r eval = FALSE}
+prepare_all_stages()
+```
+
+This might install additional packages, or even fail with a descriptive message.
+
+Then, run all steps defined in `tic.R`:
+
+```{r}
+run_all_stages()
+```
+
+This emulates a CI run on your local machine by executing all stages and their corresponding steps.
 Note that this action this will use your local system libraries and not the CI environment.
 Only the steps that are shown with `dsl_get()` are executed.
 Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. `add_step(covr::codcov())` added by the macro `do_package_checks()`.
 
 ```{r, eval = FALSE}
 run_all_stages()
-ℹ Using existing tic stage configuration, use `force = TRUE` to reload
+```
+
+```
+✓ Loading tic stage configuration from tic.R
 Running install: step_install_github("ropensci/rotemplate")
 Skipping install of 'rotemplate' from a github remote, the SHA1 (bec3e6eb) has not changed since last install.
   Use `force = TRUE` to force installation

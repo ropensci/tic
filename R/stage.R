@@ -33,6 +33,9 @@ TicStage <- R6Class( # nolint
     },
 
     prepare_all = function() {
+      # We don't necessarily require a DESCRIPTION file.
+      # Steps that need one can check beforehand and warn the user with a
+      # legible message.
       lapply(private$steps, private$prepare_one)
       invisible()
     },

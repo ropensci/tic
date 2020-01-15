@@ -68,7 +68,7 @@ Some important points:
   It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
 - The workflow can be loaded using `dsl_load()`, however this will not run any of the commands defined.
-- For testing purposes, all stages and steps defined in `tic.R` can be  executed by calling `run_all_stages()`.
+- For testing purposes, all stages and steps defined in `tic.R` can be executed by calling `run_all_stages()`.
   This emulates a CI build on your local system.
   See [Troubleshooting: Running tic locally](advanced#troubleshooting-running-tic-locally) for more information.
 

@@ -146,7 +146,7 @@ jobs:
       env: BUILD_PKGDOWN=TRUE
       before_install: 
         - R -q -e 'install.packages("remotes")'
-        - R -q -e 'remotes::install_github("ropenscilabs/tic")'
+        - R -q -e 'remotes::install_github("ropensci/tic")'
         - R -q -e 'tic::prepare_all_stages(); tic::before_install()'
       [...]
       deploy:

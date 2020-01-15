@@ -1,0 +1,34 @@
+---
+title: "Travis endpoints: '.org' vs '.com'"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Travis endpoints: '.org' vs '.com}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+When dealing with Travis CI (or the [{travis}](https://github.com/ropenscilabs/travis) package) the first time, one might be confused what the difference is between https://travis-ci.org and https://travis-ci.com.
+[This devops.stackexchange question](https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com) gives some insights on the history of both services and why both still exist.
+
+TL;DR
+
+- Both https://travis-ci.org and https://travis-ci.com are the same whereas the future belongs to https://travis-ci.com
+- Due to both being still active, the [{travis}](https://github.com/ropenscilabs/travis) package supports both endpoints for API queries.
+- If you start a new project, we recommend to enable the repo on https://travis-ci.com. If you are using the {travis] package, you can set the environment variable `R_TRAVIS` to `".com"` to always use this endpoint when calling a function from this package.
+
+# Github Apps
+
+For both endpoints different "Github Apps" exist.
+These apps are needed if you want to have the interactive status checks during Pull Requests.
+For `.com`, you can activate the app via https://github.com/apps/travis-ci/installations.
+The app for the old `.org` endpoint cannot be actively installed anymore. 
+It differs in the way that it is named "Travis CI for open-source" whereas the `.com` app is named "Travis CI" only.
