@@ -1,11 +1,11 @@
 # tic
 
 <!-- badges: start -->
-[![Travis build status](https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.com/ropenscilabs/tic)
+[![Travis build status](https://img.shields.io/travis/ropensci/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.com/ropensci/tic)
 [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic)
-[![CircleCI](https://img.shields.io/circleci/build/gh/ropenscilabs/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropenscilabs/tic)
+[![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
-[![codecov](https://codecov.io/gh/ropenscilabs/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/tic)
+[![codecov](https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tic)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
 <!-- badges: end -->
@@ -18,7 +18,7 @@ The following ones are supported:
 - [AppVeyor](https://www.appveyor.com/) (Windows)
 - [Circle CI](https://circleci.com/) (Linux)
 
-To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html#prerequisites) vignette.
+To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
 The most important improvements over existing solutions are:
 
@@ -35,14 +35,14 @@ The most important improvements over existing solutions are:
 {tic} can be installed from GitHub with:
 
 ``` r
-remotes::install_github("ropenscilabs/tic")
+remotes::install_github("ropensci/tic")
 ```
 
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
 The created templates will use the providers https://travis-ci.com, https://appveyor.com and https://circleci.com.
-For more information about the difference between https://travis-ci.org and https://travis-ci.com see the vignette about [Travis CI '.org' vs '.com'](https://ropenscilabs.github.io/tic/articles/org-vs-com.html).
+For more information about the difference between https://travis-ci.org and https://travis-ci.com see the vignette about [Travis CI '.org' vs '.com'](https://docs.ropensci.org/tic/articles/org-vs-com.html).
 
 If only the CI YAML templates from {tic} are desired, the `use_<provider>_yml()` functions can be used.
 Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml-templates.html).
@@ -55,7 +55,7 @@ For an R package, the following steps will be set up for the CI workflow:
 - Creation of a `pkgdown` site including Github deployment
 - Running a code coverage and upload to [codecov.io](https://codecov.io/)
 
-See the [Getting Started](https://ropenscilabs.github.io/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://ropenscilabs.github.io/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
+See the [Getting Started](https://docs.ropensci.org/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://docs.ropensci.org/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
 
 ## Good to know
 
@@ -119,27 +119,27 @@ The badges link to the most recent build of the master branch.
 
 ## Vignettes
 
-- [Get started](https://ropenscilabs.github.io/tic/articles/tic.html)
+- [Get started](https://docs.ropensci.org/tic/articles/tic.html)
 
-- [Feature Overview](https://ropenscilabs.github.io/tic/articles/features.html)
+- [Feature Overview](https://docs.ropensci.org/tic/articles/features.html)
 
-- [The CI Build Lifecycle](https://ropenscilabs.github.io/tic/articles/build-lifecycle.html)
+- [The CI Build Lifecycle](https://docs.ropensci.org/tic/articles/build-lifecycle.html)
 
-- [CI Client Packages](https://ropenscilabs.github.io/tic/articles/ci-client-packages.html)
+- [CI Client Packages](https://docs.ropensci.org/tic/articles/ci-client-packages.html)
 
-- [Advanced Usage](https://ropenscilabs.github.io/tic/articles/advanced.html)
+- [Advanced Usage](https://docs.ropensci.org/tic/articles/advanced.html)
 
-- [Deployment](https://ropenscilabs.github.io/tic/articles/deployment.html)
+- [Deployment](https://docs.ropensci.org/tic/articles/deployment.html)
 
-- [Custom Steps](https://ropenscilabs.github.io/tic/articles/custom-steps.html)
+- [Custom Steps](https://docs.ropensci.org/tic/articles/custom-steps.html)
 
-- [Travis CI '.org' vs '.com'](https://ropenscilabs.github.io/tic/articles/org-vs-com.html)
+- [Travis CI '.org' vs '.com'](https://docs.ropensci.org/tic/articles/org-vs-com.html)
 
 ## Limitations
 
 The setup functions in this package assume Git as version control system, and GitHub as platform.
 Automated setup works best if the project under test is located in the root of the Git repository.
-Multi-project repositories are not supported, see [the comment by @jwijffels](https://github.com/ropenscilabs/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
+Multi-project repositories are not supported, see [the comment by @jwijffels](https://github.com/ropensci/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
 
 ---
 
