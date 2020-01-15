@@ -26,6 +26,18 @@ Authors@R:
              family = "Ooms",
              role = "aut",
              email = "jeroen.ooms@stat.ucla.edu"),
+      person(given = "Max",
+             family = "Held",
+             role = "rev",
+             comment = "Max reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
+      person(given = "Anna",
+             family = "Krystalli",
+             role = "rev",
+             comment = "Anna reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
+      person(given = "Laura",
+             family = "DeCicco",
+             role = "rev",
+             comment = "Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
       person(given = "rOpenSci",
              role = "fnd"))
 Description: Provides a way to describe common build and
