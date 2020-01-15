@@ -11,6 +11,7 @@ Provides a way to describe common build and
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
     used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
+    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).
 }
 \details{
 The \code{\link[=use_tic]{use_tic()}} function prepares a code repository for use with
