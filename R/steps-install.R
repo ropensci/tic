@@ -9,9 +9,7 @@ InstallDeps <- R6Class(
     },
 
     prepare = function() {
-      if (!file.exists("DESCRIPTION")) {
-        stopc("No DESCRIPTION file found. The step_install_deps step and the do_package_checks macro are only available for packages.")
-      }
+      cli_alert_danger("The {.code step_install_deps()} step and the {.code do_package_checks()} macro are only available for packages.")
       verify_install("remotes")
     },
 
