@@ -24,8 +24,8 @@ several steps.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/ropenscilabs/tic}
-  \item Report bugs at \url{https://github.com/ropenscilabs/tic/issues}
+  \item \url{https://github.com/ropensci/tic}
+  \item Report bugs at \url{https://github.com/ropensci/tic/issues}
 }
 
 }

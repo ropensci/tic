@@ -138,7 +138,7 @@ Macros are essentially wrappers of a sequence of steps for often used tasks on t
 - Build and deploy a bookdown project
 
 They can be distinguished from other functions by their `do_` prefix.
-If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropenscilabs/tic/issues).
+If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropensci/tic/issues).
 
 ```{r eval = FALSE}
 do_package_checks()
