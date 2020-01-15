@@ -13,3 +13,4 @@
 ^\.lintr$
 ^tests/testthat/tic$
 ^\.vscode$
+^codemeta\.json$
