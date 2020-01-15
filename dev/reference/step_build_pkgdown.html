@@ -120,13 +120,16 @@ Calls pkgdown::clean_site() and then pkgdown::build_site(...)." />
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +148,7 @@ Calls pkgdown::clean_site() and then pkgdown::build_site(...)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Step: Build pkgdown documentation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-pkgdown.R'><code>R/steps-pkgdown.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-pkgdown.R'><code>R/steps-pkgdown.R</code></a></small>
     <div class="hidden name"><code>step_build_pkgdown.Rd</code></div>
     </div>
 
@@ -208,11 +211,11 @@ so it is available for vignettes.</p></dd>
 <code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
 <span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_build_pkgdown</span>())
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_build_pkgdown()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

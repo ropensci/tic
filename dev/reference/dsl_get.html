@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Storage for stages and steps — dsl_get • tic</title>
+<title>Stages and steps — dsl_get • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,17 +41,19 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Storage for stages and steps — dsl_get" />
-<meta property="og:description" content="Stages and steps defined using tic's DSL are stored in an
-internal object in the package.
-The stages are accessible through dsl_get().
-When running the stages, by default a configuration defined
-in the tic.R file is loaded with dsl_load().
-See use_tic() for setting up a tic.R file.
-For interactive tests, an empty storage can be initialized
-with dsl_init().
-This happens automatically the first time dsl_get() is called
-(directly or indirectly)." />
+<meta property="og:title" content="Stages and steps — dsl_get" />
+<meta property="og:description" content="tic works in a declarative way, centered around the tic.R file
+created by use_tic().
+This file contains the definition of the steps to be run in each stage:
+calls to get_stage() and add_step(), or macros like
+do_package_checks().
+Normally, this file is never executed directly.
+Running these functions in an interactive session will not carry out
+the respective actions.
+Instead, a description of the code that would have been run is printed
+to the console.
+Edit tic.R to configure your CI builds.
+See vignette(&quot;build-lifecycle&quot;, package = &quot;tic&quot;) for more details." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,13 +130,16 @@ This happens automatically the first time dsl_get() is called
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -152,22 +157,24 @@ This happens automatically the first time dsl_get() is called
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Storage for stages and steps</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/dsl-storage.R'><code>R/dsl-storage.R</code></a></small>
+    <h1>Stages and steps</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/dsl-storage.R'><code>R/dsl-storage.R</code></a></small>
     <div class="hidden name"><code>dsl_get.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Stages and steps defined using tic's <a href='dsl.html'>DSL</a> are stored in an
-internal object in the package.
-The stages are accessible through <code>dsl_get()</code>.
-When running the <a href='stages.html'>stages</a>, by default a configuration defined
-in the <code>tic.R</code> file is loaded with <code>dsl_load()</code>.
-See <code><a href='use_tic.html'>use_tic()</a></code> for setting up a <code>tic.R</code> file.</p>
-<p>For interactive tests, an empty storage can be initialized
-with <code>dsl_init()</code>.
-This happens automatically the first time <code>dsl_get()</code> is called
-(directly or indirectly).</p>
+    <p><span class="pkg">tic</span> works in a declarative way, centered around the <code>tic.R</code> file
+created by <code><a href='use_tic.html'>use_tic()</a></code>.
+This file contains the <em>definition</em> of the steps to be run in each stage:
+calls to <code><a href='dsl.html'>get_stage()</a></code> and <code><a href='dsl.html'>add_step()</a></code>, or macros like
+<code><a href='do_package_checks.html'>do_package_checks()</a></code>.</p>
+<p>Normally, this file is never executed directly.
+Running these functions in an interactive session will <strong>not</strong> carry out
+the respective actions.
+Instead, a description of the code that would have been run is printed
+to the console.
+Edit <code>tic.R</code> to configure your CI builds.
+See <code><a href='../articles/build-lifecycle.html'>vignette("build-lifecycle", package = "tic")</a></code> for more details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dsl_get</span>()
@@ -203,6 +210,18 @@ Set to <code>TRUE</code> to turn off verbose output.</p></td>
 and a corresponding <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code> method for pretty output.
 Use the high-level <code><a href='dsl.html'>get_stage()</a></code> and <code><a href='dsl.html'>add_step()</a></code> functions to configure,
 and the <a href='stages.html'>stages</a> functions to run.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Stages and steps defined using tic's <a href='dsl.html'>DSL</a> are stored in an
+internal object in the package.
+The stages are accessible through <code>dsl_get()</code>.
+When running the <a href='stages.html'>stages</a>, by default a configuration defined
+in the <code>tic.R</code> file is loaded with <code>dsl_load()</code>.
+See <code><a href='use_tic.html'>use_tic()</a></code> for setting up a <code>tic.R</code> file.</p>
+<p>For interactive tests, an empty storage can be initialized
+with <code>dsl_init()</code>.
+This happens automatically the first time <code>dsl_get()</code> is called
+(directly or indirectly).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -222,6 +241,7 @@ and the <a href='stages.html'>stages</a> functions to run.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

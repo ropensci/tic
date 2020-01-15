@@ -82,13 +82,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -110,7 +113,7 @@
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
       <div class="hidden name"><code>tic.Rmd</code></div>
 
     </div>
@@ -138,7 +141,7 @@
 <li><p>deploy from builds to Github (e.g. if you are building a pkgdown site)</p></li>
 <li><p>test your package on multiple R versions</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/tic/man/use_tic.html">use_tic</a></span>()</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/use_tic.html">use_tic</a></span>()</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">→ Welcome to → tic<span class="op">!</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">This wizard will guide you through the setup process <span class="cf">for</span> getting started with various CI</a>
@@ -197,6 +200,7 @@
 <a class="sourceLine" id="cb1-57" data-line-number="57"><span class="st">4: No</span></a>
 <a class="sourceLine" id="cb1-58" data-line-number="58"><span class="st">5: All</span></a></code></pre></div>
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
+<p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured. (Currently you need to enable the project manually on AppVeyor.) See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
 <p>The deployment setup functionality comes from the {travis} and {circle} packages. See the <a href="tic-travis.html">“tic &amp; travis” article</a> for more detailed information on how <em>tic</em> and <em>travis</em> work together.</p>
 </div>
 <div id="explanation-of-the-basic-tic-r-template" class="section level1">
@@ -218,7 +222,7 @@
 <li>Building and deploying a pkgdown site</li>
 <li>Build and deploy a bookdown project</li>
 </ul>
-<p>They can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
+<p>They can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
@@ -303,7 +307,7 @@
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Running <em>tic</em> locally</a></li>
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Enter into the Travis build</a></li>
 </ul>
-<p>The build lifecycle when using <em>tic</em> is explained in the <a href="build-lifecycle.html">“Build lifecycle” article</a>e. Implementation of custom steps is described in the <a href="custom-steps.html">“Writing custom steps” article</a>.</p>
+<p>The build lifecycle when using <em>tic</em> is explained in the <a href="build-lifecycle.html">“Build lifecycle” article</a>. Implementation of custom steps is described in the <a href="custom-steps.html">“Writing custom steps” article</a>.</p>
 </div>
   </div>
 

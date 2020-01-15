@@ -8,6 +8,7 @@ articles:
   custom-steps: custom-steps.html
   deployment: deployment.html
   features: features.html
+  org-vs-com: org-vs-com.html
   tic: tic.html
 urls:
   reference: https://docs.ropensci.org/tic/dev/reference

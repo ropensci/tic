@@ -21,7 +21,8 @@
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  Travis CI or AppVeyor).">
+    used for processing the workflow (e.g.  Travis CI or AppVeyor).
+    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
@@ -88,13 +89,16 @@
     <li>
       <a href="articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -120,13 +124,13 @@
 <p>The following ones are supported:</p>
 <ul>
 <li>
-<a href="https://travis-ci.org">Travis CI</a> (Linux, macOS)</li>
+<a href="https://travis-ci.org">Travis CI</a> (both <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>) (Linux, macOS)</li>
 <li>
 <a href="https://www.appveyor.com/">AppVeyor</a> (Windows)</li>
 <li>
 <a href="https://circleci.com/">Circle CI</a> (Linux)</li>
 </ul>
-<p>To learn more about CI, read <a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/">the “Travis CI for test automation” blog post</a> and our <a href="https://ropenscilabs.github.io/tic/articles/tic.html#prerequisites">Getting Started</a> vignette.</p>
+<p>To learn more about CI, read <a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/">the “Travis CI for test automation” blog post</a> and our <a href="https://docs.ropensci.org/tic/articles/tic.html#prerequisites">Getting Started</a> vignette.</p>
 <p>The most important improvements over existing solutions are:</p>
 <ol>
 <li><p>Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.</p></li>
@@ -137,26 +141,33 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>It can be installed from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ropenscilabs/tic"</span>)</a></code></pre></div>
+<p>{tic} can be installed from GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ropensci/tic"</span>)</a></code></pre></div>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a>, <a href="https://appveyor.com" class="uri">https://appveyor.com</a> and <a href="https://circleci.com" class="uri">https://circleci.com</a>.</p>
-<p>If only the CI YAML templates from <em>tic</em> are desired, the <code>use_&lt;provider&gt;_yml()</code> functions can be used. Refer to <a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">the complete list of options</a>.</p>
+<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>, <a href="https://appveyor.com" class="uri">https://appveyor.com</a> and <a href="https://circleci.com" class="uri">https://circleci.com</a>. For more information about the difference between <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a> see the vignette about <a href="https://docs.ropensci.org/tic/articles/org-vs-com.html">Travis CI ‘.org’ vs ‘.com’</a>.</p>
+<p>If only the CI YAML templates from {tic} are desired, the <code>use_&lt;provider&gt;_yml()</code> functions can be used. Refer to <a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">the complete list of options</a>.</p>
 <p>For an R package, the following steps will be set up for the CI workflow:</p>
 <ul>
-<li>Installation of required dependencies for the project</li>
-<li>Satisfying build-time dependencies of steps to be run in all CI stages</li>
-<li>Running <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck::rcmdcheck()</a></code>
+<li>Installation of required dependencies for the project (by checking the mandatory(!) DESCRIPTION file)</li>
+<li>Satisfying build-time dependencies of steps to be run in all CI stages (by scraping <code>pkg::fun</code> calls in <code>tic.R</code>)</li>
+<li>Checking of package via <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck::rcmdcheck()</a></code>
 </li>
-<li>Building of a <code>pkgdown</code> site with deployment GitHub</li>
-<li>Running a code coverage and uploading it to <a href="https://codecov.io/">codecov.io</a>
+<li>Creation of a <code>pkgdown</code> site including Github deployment</li>
+<li>Running a code coverage and upload to <a href="https://codecov.io/">codecov.io</a>
 </li>
 </ul>
-<p>See the <a href="https://ropenscilabs.github.io/tic/articles/tic.html">Getting Started</a> vignette for more information and links to <a href="https://ropenscilabs.github.io/tic/articles/tic.html#examples-projects">minimal example repositories</a> for various R projects (package, blogdown, bookdown and more).</p>
+<p>See the <a href="https://docs.ropensci.org/tic/articles/tic.html">Getting Started</a> vignette for more information and links to <a href="https://docs.ropensci.org/tic/articles/tic.html#examples-projects">minimal example repositories</a> for various R projects (package, blogdown, bookdown and more).</p>
+</div>
+<div id="good-to-know" class="section level2">
+<h2 class="hasAnchor">
+<a href="#good-to-know" class="anchor"></a>Good to know</h2>
+<p>We would like to mention that {tic} is a choice and sits on top of existing community efforts providing R support for various CI providers. While {tic} will prevent you from dealing/learning every CIs YAML syntax, you will have to learn {tic}’s way of specifying your tasks on CI systems.</p>
+<p>Also, there is no way around familiarizing yourself with the basics of CI systems in general. Without this knowledge, you will also have a hard way understanding {tic}.</p>
+<p>There is not yet an automated way of updating the templates installed by {tic}, hence you need to manually check every once in a while if we made some changes to the templates.</p>
+<p>We also recommend to take a look at the projects providing the direct R support for each CI system (which {tic} builds upon) to gain a deeper understanding of the whole concept.</p>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
@@ -201,19 +212,20 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
 <ul>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/tic.html">Get started</a></p></li>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/features.html">Feature Overview</a></p></li>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/build-lifecycle.html">The CI Build Lifecycle</a></p></li>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/ci-client-packages.html">CI Client Packages</a></p></li>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/advanced.html">Advanced Usage</a></p></li>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/deployment.html">Deployment</a></p></li>
-<li><p><a href="https://ropenscilabs.github.io/tic/articles/custom-steps.html">Custom Steps</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/tic.html">Get started</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/features.html">Feature Overview</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/build-lifecycle.html">The CI Build Lifecycle</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/ci-client-packages.html">CI Client Packages</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/advanced.html">Advanced Usage</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/deployment.html">Deployment</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/custom-steps.html">Custom Steps</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/org-vs-com.html">Travis CI ‘.org’ vs ‘.com’</a></p></li>
 </ul>
 </div>
 <div id="limitations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h2>
-<p>The setup functions in this package assume Git as version control system, and GitHub as platform. Automated setup works best if the project under test is located in the root of the Git repository. Multi-project repositories are not supported, see <a href="https://github.com/ropenscilabs/tic/issues/117#issuecomment-460814990">the comment by @jwijffels</a> for guidance to work around this limitation.</p>
+<p>The setup functions in this package assume Git as version control system, and GitHub as platform. Automated setup works best if the project under test is located in the root of the Git repository. Multi-project repositories are not supported, see <a href="https://github.com/ropensci/tic/issues/117#issuecomment-460814990">the comment by @jwijffels</a> for guidance to work around this limitation.</p>
 <hr>
 <p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/ropensci_footer.png" alt="ropensci_footer"></a></p>
 </div>
@@ -224,9 +236,9 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/ropenscilabs/tic">https://​github.com/​ropenscilabs/​tic</a>
+<li>Browse source code at <br><a href="https://github.com/ropensci/tic">https://​github.com/​ropensci/​tic</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/ropenscilabs/tic/issues">https://​github.com/​ropenscilabs/​tic/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/ropensci/tic/issues">https://​github.com/​ropensci/​tic/​issues</a>
 </li>
 </ul>
 </div>
@@ -247,17 +259,18 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <li>Karthik Ram <br><small class="roles"> Author </small>  </li>
 <li>Jeroen Ooms <br><small class="roles"> Author </small>  </li>
 <li>rOpenSci <br><small class="roles"> Funder </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.com/ropenscilabs/tic"><img src="https://img.shields.io/travis/ropenscilabs/tic/master?logo=travis&amp;style=flat-square&amp;label=Linux" alt="Travis build status"></a></li>
+<li><a href="https://travis-ci.com/ropensci/tic"><img src="https://img.shields.io/travis/ropensci/tic/master?logo=travis&amp;style=flat-square&amp;label=Linux" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/ropensci/tic"><img src="https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&amp;logo=appveyor&amp;style=flat-square" alt="AppVeyor build status"></a></li>
-<li><a href="https://circleci.com/gh/ropenscilabs/tic"><img src="https://img.shields.io/circleci/build/gh/ropenscilabs/tic/master?label=Linux&amp;logo=circle&amp;logoColor=green&amp;style=flat-square" alt="CircleCI"></a></li>
+<li><a href="https://circleci.com/gh/ropensci/tic"><img src="https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&amp;logo=circle&amp;logoColor=green&amp;style=flat-square" alt="CircleCI"></a></li>
 <li><a href="https://cran.r-project.org/package=tic"><img src="https://www.r-pkg.org/badges/version/tic" alt="CRAN status"></a></li>
-<li><a href="https://codecov.io/gh/ropenscilabs/tic"><img src="https://codecov.io/gh/ropenscilabs/tic/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://codecov.io/gh/ropensci/tic"><img src="https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg" alt="codecov"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://github.com/ropensci/software-review/issues/305"><img src="https://badges.ropensci.org/305_status.svg"></a></li>
 </ul>

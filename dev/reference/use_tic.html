@@ -43,7 +43,11 @@
 
 <meta property="og:title" content="Initialize CI testing using tic — use_tic" />
 <meta property="og:description" content="Prepares a repo for building and deploying supported by
-tic." />
+tic.
+Depending on your choice of CI system, this function requires
+properly set up authentication with Travis CI and/or Circle CI.
+See vignette(&quot;travis&quot;, package = &quot;travis&quot;) and
+vignette(&quot;circle&quot;, package = &quot;circle&quot;) for details." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -120,13 +124,16 @@ tic." />
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -145,13 +152,17 @@ tic." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Initialize CI testing using tic</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/use_tic.R'><code>R/use_tic.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/use_tic.R'><code>R/use_tic.R</code></a></small>
     <div class="hidden name"><code>use_tic.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Prepares a repo for building and deploying supported by
-<span class="pkg">tic</span>.</p>
+<span class="pkg">tic</span>.
+Depending on your choice of CI system, this function requires
+properly set up authentication with Travis CI and/or Circle CI.
+See <code>vignette("travis", package = "travis")</code> and
+<code><a href='https://cran.rstudio.com/web/packages/circle/vignettes/circle.html'>vignette("circle", package = "circle")</a></code> for details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>use_tic</span>(

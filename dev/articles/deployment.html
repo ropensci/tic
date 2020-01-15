@@ -82,13 +82,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -110,7 +113,7 @@
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/deployment.Rmd"><code>vignettes/deployment.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/deployment.Rmd"><code>vignettes/deployment.Rmd</code></a></small>
       <div class="hidden name"><code>deployment.Rmd</code></div>
 
     </div>
@@ -212,7 +215,7 @@
 <a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="fu">before_install:</span><span class="at"> </span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'install.packages("remotes")'</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_github("ropenscilabs/tic")'</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_github("ropensci/tic")'</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages(); tic::before_install()'</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9">      <span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>...<span class="kw">]</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10">      <span class="fu">deploy:</span></a>

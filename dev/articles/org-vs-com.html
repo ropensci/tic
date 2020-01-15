@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tic &amp; CI client packages - an overview • tic</title>
+<title>Travis endpoints: '.org' vs '.com' • tic</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
-<meta property="og:title" content="tic &amp; CI client packages - an overview">
+<meta property="og:title" content="Travis endpoints: '.org' vs '.com'">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -109,30 +109,45 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>tic &amp; CI client packages - an overview</h1>
-                        <h4 class="author">Patrick Schratz, Kirill Müller</h4>
+      <h1>Travis endpoints: ‘.org’ vs ‘.com’</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/ci-client-packages.Rmd"><code>vignettes/ci-client-packages.Rmd</code></a></small>
-      <div class="hidden name"><code>ci-client-packages.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/org-vs-com.Rmd"><code>vignettes/org-vs-com.Rmd</code></a></small>
+      <div class="hidden name"><code>org-vs-com.Rmd</code></div>
 
     </div>
 
     
     
-<p>Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as <a href="https://docs.ropensci.org/travis/">travis</a> or <a href="https://pat-s.github.io/circle/">circle</a>. This mainly comes down to enabling the repo on the CI system and setting up deployment keys.</p>
-<p>After everything is set up the rest of the work goes to {tic}.</p>
+<div id="overview" class="section level1">
+<h1 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h1>
+<p>When dealing with Travis CI (or the <a href="https://github.com/ropenscilabs/travis">{travis}</a> package) the first time, one might be confused what the difference is between <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. <a href="https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com">This devops.stackexchange question</a> gives some insights on the history of both services and why both still exist.</p>
+<p>TL;DR</p>
 <ul>
-<li>Creating of the CI YAML templates</li>
-<li>Which steps are going to be run</li>
-<li>Deployment: Yes/no</li>
+<li>Both <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a> are the same whereas the future belongs to <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>
+</li>
+<li>Due to both being still active, the <a href="https://github.com/ropenscilabs/travis">{travis}</a> package supports both endpoints for API queries.</li>
+<li>If you start a new project, we recommend to enable the repo on <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. If you are using the {travis] package, you can set the environment variable <code>R_TRAVIS</code> to <code>".com"</code> to always use this endpoint when calling a function from this package.</li>
 </ul>
-<p>In summary, the interaction is as follows:</p>
-<p>To simplify the setup process, <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> is a wrapper for creating CI YAML templates and setting up deployment on the CI systems.</p>
+</div>
+<div id="github-apps" class="section level1">
+<h1 class="hasAnchor">
+<a href="#github-apps" class="anchor"></a>Github Apps</h1>
+<p>For both endpoints different “Github Apps” exist. These apps are needed if you want to have the interactive status checks during Pull Requests. For <code>.com</code>, you can activate the app via <a href="https://github.com/apps/travis-ci/installations" class="uri">https://github.com/apps/travis-ci/installations</a>. The app for the old <code>.org</code> endpoint cannot be actively installed anymore. It differs in the way that it is named “Travis CI for open-source” whereas the <code>.com</code> app is named “Travis CI” only.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
 
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#overview">Overview</a></li>
+      <li><a href="#github-apps">Github Apps</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
