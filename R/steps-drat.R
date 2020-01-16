@@ -4,7 +4,8 @@ AddToDrat <- R6Class(
 
   public = list(
     prepare = function() {
-      verify_install(c("drat", "remotes", "rmarkdown", "withr", "pkgbuild"))
+      verify_install(c("drat", "remotes", "rmarkdown", "withr", "pkgbuild",
+                       "desc", "usethis"))
     },
 
     run = function() {

@@ -14,7 +14,8 @@ do_drat(
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
-  ssh_key_name = "id_rsa"
+  ssh_key_name = "id_rsa",
+  deploy_dev = FALSE
 )
 }
 \arguments{
@@ -49,6 +50,11 @@ Default: deploy all files.}
 \item{ssh_key_name}{\verb{[string]}\cr
 The name of the private SSH key which will be used for deployment.
 Must be available in the build as a secure environment variable.}
+
+\item{deploy_dev}{\verb{[logical]}\cr
+Should development versions of packages also be deployed to the drat repo?
+By default only "major", "minor" and "patch" releases are build and
+deployed.}
 }
 \description{
 \code{do_drat()} builds and deploys R packages to a drat repository and adds
