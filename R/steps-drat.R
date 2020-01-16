@@ -10,9 +10,6 @@ AddToDrat <- R6Class(
     run = function() {
       path <- pkgbuild::build(binary = (getOption("pkgType") != "source"))
       drat::insertPackage(path)
-      withr::with_dir(
-        "~/git/drat"
-      )
     }
   )
 )
