@@ -32,9 +32,11 @@ NULL
 #'   functionality when creating the drat repository on Github via `Settings ->
 #'   Github pages` and set it to the chosen setting here.
 #'
-#'   To build and deploy Windows binaries, builds on Travis CI with deployment permissions need to be triggered.
-#'   To build and deploy macOS binaries, builds on Travis CI with deployment permissions need to be triggered.
-#'   Have a look at
+#'   To build and deploy Windows binaries, builds on Travis CI with deployment
+#'   permissions need to be triggered. To build and deploy macOS binaries,
+#'   builds on Travis CI with deployment permissions need to be triggered. Have
+#'   a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for more
+#'   information and instructions.
 #' @family macros
 #' @export
 #' @examples
@@ -49,7 +51,7 @@ do_drat <- function(...,
                     repo_slug = NULL,
                     orphan = FALSE,
                     checkout = TRUE,
-                    path = "docs",
+                    path = "~/git/drat",
                     branch = "master",
                     remote_url = NULL,
                     commit_message = NULL,

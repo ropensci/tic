@@ -9,7 +9,7 @@ do_drat(
   repo_slug = NULL,
   orphan = FALSE,
   checkout = TRUE,
-  path = "docs",
+  path = "~/git/drat",
   branch = "master",
   remote_url = NULL,
   commit_message = NULL,
@@ -69,9 +69,11 @@ the upcoming deployment
 used to access the drat repository later on. You need to enable this
 functionality when creating the drat repository on Github via \verb{Settings -> Github pages} and set it to the chosen setting here.
 
-To build and deploy Windows binaries, builds on Travis CI with deployment permissions need to be triggered.
-To build and deploy macOS binaries, builds on Travis CI with deployment permissions need to be triggered.
-Have a look at
+To build and deploy Windows binaries, builds on Travis CI with deployment
+permissions need to be triggered. To build and deploy macOS binaries,
+builds on Travis CI with deployment permissions need to be triggered. Have
+a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for more
+information and instructions.
 }
 
 \examples{
