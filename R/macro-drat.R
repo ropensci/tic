@@ -55,7 +55,7 @@ do_drat <- function(...,
   if (is.null(repo)) {
     stopc("A repository to deploy to is required.")
   }
-  if (!ci_can_push(name = name)) {
+  if (!ci_can_push(name = ssh_key_name)) {
     stopc("Deployment not possible. Please the SSH deployment permissions of the build.")
   }
 
