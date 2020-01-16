@@ -77,7 +77,7 @@ do_drat <- function(...,
     if (length(unlist(ver)) > 3) {
       cli_alert_info("Detected dev version of current package. Not building
                       package binaries because {.code deploy_dev = FALSE} is
-                      set.", wrap = TRUE)
+                      set.", wrap = FALSE)
       return(invisible())
     }
   }
