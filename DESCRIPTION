@@ -55,6 +55,7 @@ Imports:
     backports (>= 1.1.5),
     cli (>= 2.0.0),
     crayon,
+    desc, 
     magrittr,
     memoise,
     methods,

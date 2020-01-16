@@ -3,6 +3,8 @@
 #' The [do_drat()] macro adds the necessary steps for building
 #' and deploying a drat repository to host R package sources.
 #'
+#' @importFrom desc desc_get_version
+#'
 #' @include macro.R
 #' @include macro-package-checks.R
 #' @name macro

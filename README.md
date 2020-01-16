@@ -34,7 +34,7 @@ The most important improvements over existing solutions are:
 
 {tic} can be installed from GitHub with:
 
-``` r
+```r
 remotes::install_github("ropensci/tic")
 ```
 
