@@ -43,6 +43,9 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Max Held (Max reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>) [reviewer]
+  \item Anna Krystalli (Anna reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>) [reviewer]
+  \item Laura DeCicco (Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>) [reviewer]
   \item rOpenSci [funder]
 }
 

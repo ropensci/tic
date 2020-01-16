@@ -4,17 +4,14 @@ AddToDrat <- R6Class(
 
   public = list(
     prepare = function() {
-      verify_install(c("drat", "remotes", "knitr", "withr", "pkgbuild"))
+      verify_install(c("drat", "remotes", "rmarkdown", "withr", "pkgbuild"))
     },
 
     run = function() {
       path <- pkgbuild::build(binary = (getOption("pkgType") != "source"))
       drat::insertPackage(path)
       withr::with_dir(
-        "~/git/drat",
-        if (file.exists("index.Rmd")) {
-          knitr::knit("index.Rmd", "index.md")
-        }
+        "~/git/drat"
       )
     }
   )
@@ -24,8 +21,6 @@ AddToDrat <- R6Class(
 #'
 #' Builds a package (binary on OS X or Windows) and inserts it into an existing
 #' \pkg{drat} repository via [drat::insertPackage()].
-#' Also knits the `index.Rmd` file of the drat if it exists.
-#'
 #' @family steps
 #' @export
 #' @examples

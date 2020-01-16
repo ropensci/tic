@@ -105,6 +105,7 @@ Collate:
     'macro-package-checks.R'
     'macro-pkgdown.R'
     'macro-bookdown.R'
+    'macro-drat.R'
     'mock.R'
     'print.R'
     'repo.R'
