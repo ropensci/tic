@@ -70,7 +70,8 @@ Follow these steps to add deployment capabilities via {tic} to Appveyor builds:
 1. Copy the private key and log into to your Appveyor account.
   Go to `Account -> Encrypt YAML` and encrypt the private key.
   
-1. Copy the resulting snipped into the `appveyor.yml` file of the repo
+1. Copy the resulting snipped into the `appveyor.yml` file of the repo. 
+   Name the environment variable "id_rsa".
 
 Now the Appveyor builds should be able to deploy to the drat repo (where you added the public key).
 If you are building a drat repo, make sure to also add `USE_RTOOLS: true` to `appveyor.yml`.
