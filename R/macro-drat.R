@@ -73,7 +73,7 @@ do_drat <- function(...,
   }
 
   if (!deploy_dev) {
-    ver <- desc::desc_get_version(usethis::proj_get())
+    ver <- desc::desc_get_version()
     if (length(unlist(ver)) > 3) {
       cli_alert_info("Detected dev version of current package. Not building
                       package binaries because {.code deploy_dev = FALSE} is
