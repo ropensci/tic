@@ -18,8 +18,8 @@ NULL
 #' @inheritParams step_setup_ssh
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param repo `[string]`\cr
-#'   The name of the drat repository to deploy to.
+#' @param repo_slug `[string]`\cr
+#'   The name of the drat repository to deploy to in the form `:owner/:repo`.
 #' @param path,branch By default, this macro deploys the `"master"` branch
 #'   of the drat repository. An alternative option is `"gh-pages"`.
 #' @param ssh_key_name `[string]`\cr
@@ -42,7 +42,7 @@ NULL
 #' dsl_get()
 #' }
 do_drat <- function(...,
-                    repo = NULL,
+                    repo_slug = NULL,
                     orphan = FALSE,
                     checkout = TRUE,
                     path = "docs",
@@ -59,6 +59,8 @@ do_drat <- function(...,
     stopc("Deployment not possible. Please the SSH deployment permissions of the build.")
   }
 
+  # FIXME: Account for already existing binaries/files and do not overwrite -> blows up the repo size
+
   #' @description
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
   #'    the upcoming deployment
@@ -71,10 +73,7 @@ do_drat <- function(...,
     add_step(step_setup_push_deploy(
       path = !!enquo(path),
       branch = !!enquo(branch),
-      remote = paste0("git@github.com:", gsub(
-        "/.*$", "/", repo,
-        ci()$get_slug()
-      ), ".git"),
+      remote = paste0("git@github.com:", repo_slug, ".git"),
       orphan = !!enquo(orphan),
       checkout = !!enquo(checkout)
     ))

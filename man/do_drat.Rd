@@ -6,7 +6,7 @@
 \usage{
 do_drat(
   ...,
-  repo = NULL,
+  repo_slug = NULL,
   orphan = FALSE,
   checkout = TRUE,
   path = "docs",
@@ -18,8 +18,8 @@ do_drat(
 )
 }
 \arguments{
-\item{repo}{\verb{[string]}\cr
-The name of the drat repository to deploy to.}
+\item{repo_slug}{\verb{[string]}\cr
+The name of the drat repository to deploy to in the form \verb{:owner/:repo}.}
 
 \item{orphan}{\verb{[flag]}\cr
 Create and force-push an orphan branch consisting of only one commit?
