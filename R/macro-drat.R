@@ -89,14 +89,12 @@ do_drat <- function(...,
     add_step(step_add_to_drat())
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
-  if (isTRUE(deploy)) {
-    get_stage("deploy") %>%
-      add_step(step_do_push_deploy(
-        path = !!enquo(path),
-        commit_message = !!enquo(commit_message),
-        commit_paths = !!enquo(commit_paths)
-      ))
-  }
+  get_stage("deploy") %>%
+    add_step(step_do_push_deploy(
+      path = !!enquo(path),
+      commit_message = !!enquo(commit_message),
+      commit_paths = !!enquo(commit_paths)
+    ))
 
   dsl_get()
 }
