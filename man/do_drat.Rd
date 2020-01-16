@@ -5,7 +5,6 @@
 \title{Build and deploy drat repository}
 \usage{
 do_drat(
-  ...,
   repo_slug = NULL,
   orphan = FALSE,
   checkout = TRUE,

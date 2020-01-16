@@ -53,8 +53,7 @@ NULL
 #'
 #' dsl_get()
 #' }
-do_drat <- function(...,
-                    repo_slug = NULL,
+do_drat <- function(repo_slug = NULL,
                     orphan = FALSE,
                     checkout = TRUE,
                     path = "~/git/drat",
