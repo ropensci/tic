@@ -76,6 +76,11 @@ Now the Appveyor builds should be able to deploy to the drat repo (where you add
 If you are building a drat repo, make sure to also add `USE_RTOOLS: true` to `appveyor.yml`.
 Otherwise R cannot build binaries on Windows.
 
+On a side note, we have an implicit R version requirement of >= 3.4 when building on Appveyor.
+This is due to the fact that we are only allowing binary installs on Appveyor with {tic} due to some nasty issues when building packages from source on Appveyor in the past.
+The requirement is caused by the {cli} >= 2.0.0 requirement of {tic}.
+This package version is not available as a binary on R =< 3.5.
+
 ## pkgdown deployment
 
 [`pkgdown`](https://github.com/r-lib/pkgdown) is an R package which builds a documentation wrapper-site of a R package.
