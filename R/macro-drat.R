@@ -31,6 +31,10 @@ NULL
 #'   used to access the drat repository later on. You need to enable this
 #'   functionality when creating the drat repository on Github via `Settings ->
 #'   Github pages` and set it to the chosen setting here.
+#'
+#'   To build and deploy Windows binaries, builds on Travis CI with deployment permissions need to be triggered.
+#'   To build and deploy macOS binaries, builds on Travis CI with deployment permissions need to be triggered.
+#'   Have a look at
 #' @family macros
 #' @export
 #' @examples
@@ -52,7 +56,7 @@ do_drat <- function(...,
                     commit_paths = ".",
                     ssh_key_name = "id_rsa") {
 
-  if (is.null(repo)) {
+  if (is.null(repo_slug)) {
     stopc("A repository to deploy to is required.")
   }
   if (!ci_can_push(name = ssh_key_name)) {

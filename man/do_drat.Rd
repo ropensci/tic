@@ -68,6 +68,10 @@ the upcoming deployment
 \code{gh-pages} branch because the Github Pages functionality from Github is
 used to access the drat repository later on. You need to enable this
 functionality when creating the drat repository on Github via \verb{Settings -> Github pages} and set it to the chosen setting here.
+
+To build and deploy Windows binaries, builds on Travis CI with deployment permissions need to be triggered.
+To build and deploy macOS binaries, builds on Travis CI with deployment permissions need to be triggered.
+Have a look at
 }
 
 \examples{
