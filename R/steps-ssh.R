@@ -67,8 +67,10 @@ InstallSSHKeys <- R6Class(
 
   public = list(
     initialize = function(name = "TRAVIS_DEPLOY_KEY") {
+
+      print("install SSHKey constructor")
       # for backward comp, if "id_rsa" exists we take this key
-      private$name <- compat_ssh_key(name)
+      private$name <- compat_ssh_key(name = name)
     },
 
     run = function() {
