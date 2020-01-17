@@ -114,11 +114,12 @@ InstallSSHKeys <- R6Class(
                        not find it as an env var in the current build.
                        Double-check if it exists. Calling
                        {.fun travis::use_travis_deploy} may help resolving
-                       issues.", wrap = TRUE)
-          stopc("This build cannot deploy to Github.")
+                       issues.", wrap = FALSE)
+          FALSE
         }
         TRUE
       }
+      FALSE
     }
   ),
 
@@ -225,6 +226,7 @@ SetupSSH <- R6Class(
     initialize = function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                           url = paste0("git@", host), verbose = "-v") {
 
+      browser()
       private$install_ssh_keys <- step_install_ssh_keys(name = name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
       private$test_ssh <- step_test_ssh(

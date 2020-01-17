@@ -46,10 +46,6 @@ and avoiding recursive CI runs.}
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 
-\item{ssh_key_name}{\verb{[string]}\cr
-The name of the private SSH key which will be used for deployment.
-Must be available in the build as a secure environment variable.}
-
 \item{deploy_dev}{\verb{[logical]}\cr
 Should development versions of packages also be deployed to the drat repo?
 By default only "major", "minor" and "patch" releases are build and
