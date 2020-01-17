@@ -106,7 +106,7 @@ if (ci_on_travis()) {
 By using the code above, the specified steps will only be executed on Travis CI.
 See `?ci` for more information on which CI build information can be extracted from this function.
 
-## Troubleshooting: Running tic locally
+## Debugging: Running tic locally
 
 ### Checking for syntax errors
 
@@ -174,7 +174,7 @@ Skipping install of 'rotemplate' from a github remote, the SHA1 (bec3e6eb) has n
 Running install: step_install_deps(repos = repo_default())
 ```
 
-## Troubleshooting: Entering the CI build directly
+## Debugging: Entering the CI build directly
 
 ### Travis CI
 
