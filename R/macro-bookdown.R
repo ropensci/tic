@@ -60,9 +60,7 @@ do_bookdown <- function(...,
     #'   1. The repo can be pushed to (see [ci_can_push()]).
     # account for old default "id_rsa"
     name <- travis_private_key_name
-    if (ci_has_env("id_rsa") && !ci_has_env(name)) {
-      name <- "id_rsa"
-    }
+
     cli_text("Using {name} env var as the private key name for SSH deployment.")
     deploy <- ci_can_push(name = name)
 
@@ -87,9 +85,6 @@ do_bookdown <- function(...,
     #'    (if `deploy` is set),
     #'
     name <- travis_private_key_name
-    if (ci_has_env("id_rsa") && !ci_has_env(name)) {
-      name <- "id_rsa"
-    }
     get_stage("before_deploy") %>%
       add_step(step_setup_ssh(name = name)) %>%
       add_step(step_setup_push_deploy(
