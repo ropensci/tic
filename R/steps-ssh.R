@@ -107,7 +107,20 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
       # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
-      (!ci_is_interactive()) && (ci_can_push(private$name))
+      if (!ci_is_interactive()) {
+        if (!ci_can_push(private$name)) {
+          cli_alert_danger("Deployment was requested but the build is not able to
+                       deploy. We checked for env var {.var {name}} but could
+                       not find it as an env var in the current build.
+                       Double-check if it exists. Calling
+                       {.fun travis::use_travis_deploy} may help resolving
+                       issues.", wrap = TRUE)
+          stopc("This build cannot deploy to Github.")
+        }
+        TRUE
+      } else {
+        FALSE
+      }
     }
   ),
 
