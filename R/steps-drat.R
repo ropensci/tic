@@ -18,7 +18,7 @@ AddToDrat <- R6Class(
     },
 
     run = function() {
-      if (!ci_can_push(name = ssh_key_name)) {
+      if (!ci_can_push(name = private$ssh_key_name)) {
         stopc("Deployment not possible. Please check the SSH deployment permissions of the build.")
       }
       if (is.null(private$repo_slug)) {
@@ -26,7 +26,7 @@ AddToDrat <- R6Class(
       }
 
       ver <- desc::desc_get_version()
-      if (length(unlist(ver)) > 3 && deploy_dev == FALSE) {
+      if (length(unlist(ver)) > 3 && private$deploy_dev == FALSE) {
         cli_alert_info("Detected dev version of current package. Not building
                       package binaries because {.code deploy_dev = FALSE} is
                       set.", wrap = FALSE)
