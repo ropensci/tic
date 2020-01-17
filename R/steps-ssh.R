@@ -118,8 +118,9 @@ InstallSSHKeys <- R6Class(
           stopc("This build cannot deploy to Github.")
         }
         TRUE
+      } else {
+        FALSE
       }
-      FALSE
     }
   ),
 
