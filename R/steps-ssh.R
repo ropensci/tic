@@ -153,7 +153,7 @@ InstallSSHKeys <- R6Class(
 #'
 #' dsl_get()
 step_install_ssh_keys <- function(name = "TRAVIS_DEPLOY_KEY") {
-  name <- compat_ssh_key(name)
+  name <- compat_ssh_key(name = name)
   InstallSSHKeys$new(name = name)
 }
 
@@ -300,7 +300,6 @@ compat_ssh_key <- function(name) {
   if (ci_has_env("id_rsa") && !ci_has_env(name)) {
     name <- "id_rsa"
   }
-
   name
 }
 
