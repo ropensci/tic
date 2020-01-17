@@ -119,6 +119,7 @@ InstallSSHKeys <- R6Class(
         }
         TRUE
       }
+      FALSE
     }
   ),
 
