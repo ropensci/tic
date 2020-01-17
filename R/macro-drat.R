@@ -39,11 +39,13 @@ NULL
 #' @family macros
 #' @export
 #' @examples
+#' \donttest{
 #' dsl_init()
 #'
 #' do_drat()
 #'
 #' dsl_get()
+#' }
 do_drat <- function(repo_slug = NULL,
                     orphan = FALSE,
                     checkout = TRUE,
