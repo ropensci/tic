@@ -107,7 +107,6 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
       # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
-      # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
       (!ci_is_interactive()) && (ci_can_push(private$name))
     }
   ),
