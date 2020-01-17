@@ -20,10 +20,6 @@ NULL
 #' @inheritParams step_do_push_deploy
 #' @param path,branch By default, this macro deploys the `"master"` branch
 #'   of the drat repository. An alternative option is `"gh-pages"`.
-#' @param ssh_key_name `[string]`\cr
-#'   The name of the private SSH key which will be used for deployment.
-#'   Must be available in the build as a secure environment variable.
-
 #'
 #' @section Deployment: Deployment can only happen to the `master` or
 #'   `gh-pages` branch because the Github Pages functionality from Github is
@@ -57,10 +53,6 @@ do_drat <- function(repo_slug = NULL,
                     ssh_key_name = "id_rsa",
                     deploy_dev = FALSE) {
 
-  if (!ci_can_push(name = ssh_key_name)) {
-    stopc("Deployment not possible. Please check the SSH deployment permissions of the build.")
-  }
-
   #' @description
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
   #'    the upcoming deployment
@@ -73,14 +65,17 @@ do_drat <- function(repo_slug = NULL,
     add_step(step_setup_push_deploy(
       path = !!enquo(path),
       branch = !!enquo(branch),
-      remote = paste0("git@github.com:", repo_slug, ".git"),
+      remote_url = paste0("git@github.com:", repo_slug, ".git"),
       orphan = !!enquo(orphan),
       checkout = !!enquo(checkout)
     ))
 
   #' 1. [step_add_to_drat()] in the `"deploy"`
   get_stage("deploy") %>%
-    add_step(step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev))
+    add_step(step_add_to_drat(
+      repo_slug = repo_slug, deploy_dev = deploy_dev,
+      ssh_key_name = ssh_key_name
+    ))
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
   get_stage("deploy") %>%

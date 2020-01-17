@@ -4,7 +4,7 @@
 \alias{step_add_to_drat}
 \title{Step: Add built package to a drat}
 \usage{
-step_add_to_drat(repo_slug = NULL, deploy_dev = FALSE)
+step_add_to_drat(repo_slug = NULL, deploy_dev = FALSE, ssh_key_name = "id_rsa")
 }
 \arguments{
 \item{repo_slug}{\verb{[string]}\cr
@@ -14,6 +14,10 @@ The name of the drat repository to deploy to in the form \verb{:owner/:repo}.}
 Should development versions of packages also be deployed to the drat repo?
 By default only "major", "minor" and "patch" releases are build and
 deployed.}
+
+\item{ssh_key_name}{\verb{[string]}\cr
+The name of the private SSH key which will be used for deployment.
+Must be available in the build as a secure environment variable.}
 }
 \description{
 Builds a package (binary on OS X or Windows) and inserts it into an existing
