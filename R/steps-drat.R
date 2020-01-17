@@ -3,11 +3,9 @@ AddToDrat <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(repo_slug = NULL, deploy_dev = FALSE,
-                          ssh_key_name = "id_rsa") {
+    initialize = function(repo_slug = NULL, deploy_dev = FALSE) {
       private$repo_slug <- repo_slug
       private$deploy_dev <- deploy_dev
-      private$ssh_key_name <- ssh_key_name
     },
 
     prepare = function() {
@@ -18,9 +16,6 @@ AddToDrat <- R6Class(
     },
 
     run = function() {
-      if (!ci_can_push(name = private$ssh_key_name)) {
-        stopc("Deployment not possible. Please check the SSH deployment permissions of the build.")
-      }
       if (is.null(private$repo_slug)) {
         stopc("A repository to deploy to is required.")
       }
@@ -41,8 +36,7 @@ AddToDrat <- R6Class(
 
   private = list(
     repo_slug = NULL,
-    deploy_dev = NULL,
-    ssh_key_name = NULL
+    deploy_dev = NULL
   )
 )
 
@@ -56,9 +50,6 @@ AddToDrat <- R6Class(
 #'   Should development versions of packages also be deployed to the drat repo?
 #'   By default only "major", "minor" and "patch" releases are build and
 #'   deployed.
-#' @param ssh_key_name `[string]`\cr
-#'   The name of the private SSH key which will be used for deployment.
-#'   Must be available in the build as a secure environment variable.
 #' @family steps
 #' @export
 #' @examples
@@ -68,10 +59,8 @@ AddToDrat <- R6Class(
 #'   add_step(step_add_to_drat())
 #'
 #' dsl_get()
-step_add_to_drat <- function(repo_slug = NULL, deploy_dev = FALSE,
-                             ssh_key_name = "id_rsa") {
+step_add_to_drat <- function(repo_slug = NULL, deploy_dev = FALSE) {
   AddToDrat$new(
-    repo_slug = repo_slug, deploy_dev = deploy_dev,
-    ssh_key_name = ssh_key_name
+    repo_slug = repo_slug, deploy_dev = deploy_dev
   )
 }

@@ -73,8 +73,7 @@ do_drat <- function(repo_slug = NULL,
   #' 1. [step_add_to_drat()] in the `"deploy"`
   get_stage("deploy") %>%
     add_step(step_add_to_drat(
-      repo_slug = repo_slug, deploy_dev = deploy_dev,
-      ssh_key_name = ssh_key_name
+      repo_slug = repo_slug, deploy_dev = deploy_dev
     ))
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
