@@ -226,7 +226,6 @@ SetupSSH <- R6Class(
     initialize = function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                           url = paste0("git@", host), verbose = "-v") {
 
-      browser()
       private$install_ssh_keys <- step_install_ssh_keys(name = name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
       private$test_ssh <- step_test_ssh(

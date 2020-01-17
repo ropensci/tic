@@ -20,6 +20,9 @@ NULL
 #' @inheritParams step_do_push_deploy
 #' @param path,branch By default, this macro deploys the `"master"` branch
 #'   of the drat repository. An alternative option is `"gh-pages"`.
+#' @param ssh_key_name `string`\cr
+#'   The name of the private SSH key which should be used for deployment to the
+#'   drat repo.
 #'
 #' @section Deployment: Deployment can only happen to the `master` or
 #'   `gh-pages` branch because the Github Pages functionality from Github is
