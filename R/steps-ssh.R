@@ -67,8 +67,6 @@ InstallSSHKeys <- R6Class(
 
   public = list(
     initialize = function(name = "TRAVIS_DEPLOY_KEY") {
-
-      print("install SSHKey constructor")
       # for backward comp, if "id_rsa" exists we take this key
       private$name <- compat_ssh_key(name = name)
     },
@@ -109,13 +107,11 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
 
-      print("Hello")
-      print(private$name)
       # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
       if (!ci_is_interactive()) {
         if (!ci_can_push(private$name)) {
           cli_alert_danger("Deployment was requested but the build is not able to
-                       deploy. We checked for env var {.var {name}} but could
+                       deploy. We checked for env var {.var {private$name}} but could
                        not find it as an env var in the current build.
                        Double-check if it exists. Calling
                        {.fun travis::use_travis_deploy} may help resolving

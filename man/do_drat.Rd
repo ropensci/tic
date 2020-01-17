@@ -82,13 +82,11 @@ more information and instructions.
 }
 
 \examples{
-\donttest{
 dsl_init()
 
 do_drat()
 
 dsl_get()
-}
 }
 \seealso{
 Other macros: 
