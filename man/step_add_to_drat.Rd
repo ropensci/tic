@@ -4,7 +4,16 @@
 \alias{step_add_to_drat}
 \title{Step: Add built package to a drat}
 \usage{
-step_add_to_drat()
+step_add_to_drat(repo_slug = NULL, deploy_dev = FALSE)
+}
+\arguments{
+\item{repo_slug}{\verb{[string]}\cr
+The name of the drat repository to deploy to in the form \verb{:owner/:repo}.}
+
+\item{deploy_dev}{\verb{[logical]}\cr
+Should development versions of packages also be deployed to the drat repo?
+By default only "major", "minor" and "patch" releases are build and
+deployed.}
 }
 \description{
 Builds a package (binary on OS X or Windows) and inserts it into an existing

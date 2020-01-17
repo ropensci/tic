@@ -77,18 +77,16 @@ functionality when creating the drat repository on Github via \verb{Settings -> 
 To build and deploy Windows binaries, builds on Travis CI with deployment
 permissions need to be triggered. To build and deploy macOS binaries,
 builds on Travis CI with deployment permissions need to be triggered. Have
-a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for more
-information and instructions.
+a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for
+more information and instructions.
 }
 
 \examples{
-\dontrun{
 dsl_init()
 
 do_drat()
 
 dsl_get()
-}
 }
 \seealso{
 Other macros: 

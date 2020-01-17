@@ -20,17 +20,12 @@ NULL
 #' @inheritParams step_setup_ssh
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param repo_slug `[string]`\cr
-#'   The name of the drat repository to deploy to in the form `:owner/:repo`.
 #' @param path,branch By default, this macro deploys the `"master"` branch
 #'   of the drat repository. An alternative option is `"gh-pages"`.
 #' @param ssh_key_name `[string]`\cr
 #'   The name of the private SSH key which will be used for deployment.
 #'   Must be available in the build as a secure environment variable.
-#' @param deploy_dev `[logical]`\cr
-#'   Should development versions of packages also be deployed to the drat repo?
-#'   By default only "major", "minor" and "patch" releases are build and
-#'   deployed.
+
 #'
 #' @section Deployment: Deployment can only happen to the `master` or
 #'   `gh-pages` branch because the Github Pages functionality from Github is
@@ -41,18 +36,16 @@ NULL
 #'   To build and deploy Windows binaries, builds on Travis CI with deployment
 #'   permissions need to be triggered. To build and deploy macOS binaries,
 #'   builds on Travis CI with deployment permissions need to be triggered. Have
-#'   a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for more
-#'   information and instructions.
+#'   a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for
+#'   more information and instructions.
 #' @family macros
 #' @export
 #' @examples
-#' \dontrun{
 #' dsl_init()
 #'
 #' do_drat()
 #'
 #' dsl_get()
-#' }
 do_drat <- function(repo_slug = NULL,
                     orphan = FALSE,
                     checkout = TRUE,
@@ -64,21 +57,8 @@ do_drat <- function(repo_slug = NULL,
                     ssh_key_name = "id_rsa",
                     deploy_dev = FALSE) {
 
-  if (is.null(repo_slug)) {
-    stopc("A repository to deploy to is required.")
-  }
   if (!ci_can_push(name = ssh_key_name)) {
-    stopc("Deployment not possible. Please the SSH deployment permissions of the build.")
-  }
-
-  if (!deploy_dev) {
-    ver <- desc::desc_get_version()
-    if (length(unlist(ver)) > 3) {
-      cli_alert_info("Detected dev version of current package. Not building
-                      package binaries because {.code deploy_dev = FALSE} is
-                      set.", wrap = FALSE)
-      return(invisible())
-    }
+    stopc("Deployment not possible. Please check the SSH deployment permissions of the build.")
   }
 
   #' @description
@@ -100,7 +80,7 @@ do_drat <- function(repo_slug = NULL,
 
   #' 1. [step_add_to_drat()] in the `"deploy"`
   get_stage("deploy") %>%
-    add_step(step_add_to_drat())
+    add_step(step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev))
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
   get_stage("deploy") %>%
