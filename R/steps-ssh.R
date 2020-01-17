@@ -248,12 +248,15 @@ SetupSSH <- R6Class(
 
     check = function() {
       if (!private$install_ssh_keys$check()) {
+        cli_alert_info("{.fun SetupSSH$check}: {.fun install_ssh_keys} failed.")
         return(FALSE)
       }
       if (!private$add_to_known_hosts$check()) {
+        cli_alert_info("{.fun SetupSSH$check}: {.fun add_to_known_hosts} failed.") # nolint
         return(FALSE)
       }
       if (!private$test_ssh$check()) {
+        cli_alert_info("{.fun SetupSSH$check}: {.fun test_ssh} failed.")
         return(FALSE)
       }
       TRUE
