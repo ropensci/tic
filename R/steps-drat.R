@@ -19,15 +19,14 @@ AddToDrat <- R6Class(
       if (is.null(private$repo_slug)) {
         stopc("A repository to deploy to is required.")
       }
-      if (!private$deploy_dev) {
-        ver <- desc::desc_get_version()
-        if (length(unlist(ver)) > 3) {
-          cli_alert_info("Detected dev version of current package. Not building
+      ver <- desc::desc_get_version()
+      if (length(unlist(ver)) > 3 && deploy_dev == FALSE) {
+        cli_alert_info("Detected dev version of current package. Not building
                       package binaries because {.code deploy_dev = FALSE} is
                       set.", wrap = FALSE)
-          return(invisible())
-        }
-      } else {
+        return(invisible())
+      }
+      else {
         path <- pkgbuild::build(binary = (getOption("pkgType") != "source"))
         drat::insertPackage(path)
       }
