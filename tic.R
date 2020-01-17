@@ -9,4 +9,3 @@ if (ci_has_env("BUILD_PKGDOWN")) {
   do_pkgdown(travis_private_key_name = "custom_ssh_key_name")
 }
 
-do_drat()
