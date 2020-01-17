@@ -67,16 +67,12 @@ InstallSSHKeys <- R6Class(
 
   public = list(
     initialize = function(name = "TRAVIS_DEPLOY_KEY") {
-      private$name <- name
+      # for backward comp, if "id_rsa" exists we take this key
+      private$name <- compat_ssh_key(name)
     },
 
     run = function() {
       name <- private$name
-
-      # for backward comp, if "id_rsa" exists we take this key
-      if (ci_has_env("id_rsa") && !ci_has_env(name)) {
-        name <- "id_rsa"
-      }
 
       deploy_key_path <- file.path("~", ".ssh", name)
       dir.create(
@@ -111,7 +107,18 @@ InstallSSHKeys <- R6Class(
 
     check = function() {
       # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
-      (!ci_is_interactive()) && (ci_can_push(private$name))
+      if (!ci_is_interactive()) {
+        if (!ci_can_push(private$name)) {
+          cli_alert_danger("Deployment was requested but the build is not able to
+                       deploy. We checked for env var {.var {name}} but could
+                       not find it as an env var in the current build.
+                       Double-check if it exists. Calling
+                       {.fun travis::use_travis_deploy} may help resolving
+                       issues.", wrap = TRUE)
+          stopc("This build cannot deploy to Github.")
+        }
+        TRUE
+      }
     }
   ),
 
@@ -144,10 +151,7 @@ InstallSSHKeys <- R6Class(
 #'
 #' dsl_get()
 step_install_ssh_keys <- function(name = "TRAVIS_DEPLOY_KEY") {
-  # support for old "id_rsa" default: prefer this key if it exists
-  if (ci_has_env("id_rsa") && !ci_has_env(name)) {
-    name <- "id_rsa"
-  }
+  name <- compat_ssh_key(name)
   InstallSSHKeys$new(name = name)
 }
 
@@ -287,6 +291,15 @@ SetupSSH <- R6Class(
 step_setup_ssh <- function(name = "TRAVIS_DEPLOY_KEY", host = "github.com",
                            url = paste0("git@", host), verbose = "-v") {
   SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
+}
+
+compat_ssh_key <- function(name) {
+  # for backward comp, if "id_rsa" exists we take this key
+  if (ci_has_env("id_rsa") && !ci_has_env(name)) {
+    name <- "id_rsa"
+  }
+
+  name
 }
 
 # This code can only run as part of a CI run
