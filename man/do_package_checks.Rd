@@ -90,6 +90,7 @@ dsl_get()
 \seealso{
 Other macros: 
 \code{\link{do_bookdown}()},
+\code{\link{do_drat}()},
 \code{\link{do_pkgdown}()}
 }
 \concept{macros}

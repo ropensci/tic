@@ -68,7 +68,7 @@ InstallSSHKeys <- R6Class(
   public = list(
     initialize = function(name = "TRAVIS_DEPLOY_KEY") {
       # for backward comp, if "id_rsa" exists we take this key
-      private$name <- compat_ssh_key(name)
+      private$name <- compat_ssh_key(name = name)
     },
 
     run = function() {
@@ -106,11 +106,12 @@ InstallSSHKeys <- R6Class(
     },
 
     check = function() {
+
       # only if non-interactive and TRAVIS_DEPLOY_KEY env var is available
       if (!ci_is_interactive()) {
         if (!ci_can_push(private$name)) {
           cli_alert_danger("Deployment was requested but the build is not able to
-                       deploy. We checked for env var {.var {name}} but could
+                       deploy. We checked for env var {.var {private$name}} but could
                        not find it as an env var in the current build.
                        Double-check if it exists. Calling
                        {.fun travis::use_travis_deploy} may help resolving
@@ -249,12 +250,15 @@ SetupSSH <- R6Class(
 
     check = function() {
       if (!private$install_ssh_keys$check()) {
+        cli_alert_info("{.fun SetupSSH$check}: {.fun install_ssh_keys} failed.")
         return(FALSE)
       }
       if (!private$add_to_known_hosts$check()) {
+        cli_alert_info("{.fun SetupSSH$check}: {.fun add_to_known_hosts} failed.") # nolint
         return(FALSE)
       }
       if (!private$test_ssh$check()) {
+        cli_alert_info("{.fun SetupSSH$check}: {.fun test_ssh} failed.")
         return(FALSE)
       }
       TRUE
