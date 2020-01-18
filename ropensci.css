@@ -18,24 +18,20 @@ a:focus, a:hover {
 }
 
 .btn-primary {
-    color: #c6deff;
-    background-color: #6faef5;
-    border-color: #6faef5;
+    color: #ccdef6;
+    background-color: #4b8add;
+    border-color: #4b8add;
 }
 
 .btn-primary:active, .btn-primary:hover, .btn-primary:focus{
 
     color: #fff;
-    background-color: #6faef5;
-    border-color: #6faef5;
+    background-color: #4b8add;
+    border-color: #4b8add;
 }
-/* footer ----------------------------------------------- */
-
-/* https://github.com/tidyverse/tidytemplate/blob/27af8fd35dbba81d83e8b4a7e8677b8821fb8cc3/inst/pkgdown/assets/tidyverse-2.css#L15*/
-/* navbar ----------------------------------------------- */
 
 .navbar {
-  background-color: #6faef5;
+  background-color: #4b8add;
   transition: all 0.3s ease;
   box-shadow: 0 0 15px 5px rgba(0,0,0,.15);
   border: none;
@@ -62,9 +58,10 @@ a:focus, a:hover {
 }
 
 .navbar .navbar-brand {
-  color: #c6deff;
+  color: #ccdef6;
   font-size: 24px;
   line-height: 26px;
+  margin-right: -100px;
 }
 
 .version.label.label-default.version-default {
@@ -75,7 +72,7 @@ a:focus, a:hover {
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-    background-color: #c6deff;
+    background-color: #ccdef6;
 }
 
 .navbar .navbar-brand:hover {
@@ -85,11 +82,11 @@ a:focus, a:hover {
 .navbar .info {
   width: 140px;
   margin-left: 5px;
-  background-color: #6faef5;
+  background-color: #4b8add;
 }
 
 .navbar-default .navbar-nav > li > a{
-  color: #c6deff;
+  color: #ccdef6;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover{
@@ -107,39 +104,11 @@ a:focus, a:hover {
   color: #5c677e;
 }
 
-/*
-#sidebar .links h2::before{
-  content: "\01f517 ";
-}
-
-#sidebar .community h2::before{
-  content: "\01f44b "
-}
-
-
-#sidebar .developers h2::before{
-  content: "\01f3ed ";
-}
-
-#sidebar .license h2::before{
-  content: "\00a9\fe0f ";
-}
-
-#sidebar .dev-status h2::before{
-  content: "\01f6a6\fe0f ";
-}
-
-#sidebar .citation h2::before{
-  content: "\270d\fe0f ";
-}
-*/
-
 /* reference navbar ----------------------------------------------- */
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
   color: #fff;
-  background-color: #6faef5;
+  background-color: #4b8add;
 }
-
 
 #sidebar .nav > li {
   padding: 0 0 0 20px;
@@ -148,18 +117,16 @@ a:focus, a:hover {
 }
 
 #hexlogo {
-  height: 50px;
-  padding: 4px;
-  background-color: white;
-  box-shadow: inset 0 0 9px 8px #6faef5;
+  height: 40px;
   float: left;
-  margin-right: 10px;
-  margin-left: 5px;
+  margin: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 @media screen and (min-width: 768px) {
   .navbar, #hexlogo {
-    height: 40px;
+    height: 30px;
   }
   .navbar .navbar-brand {
     line-height: 19px;
@@ -174,5 +141,91 @@ a:focus, a:hover {
     padding-left: 5px;
     padding-right: 0;
     margin-right: -120px;
+  }
+}
+
+/* Everything below here is used for the footer */
+
+:root {
+  font-size: 18px;
+}
+
+/* Position hack to get full width footer even though pkgdown puts it inside a container
+ * See: https://css-tricks.com/full-width-containers-limited-width-parents/
+ */
+
+footer {
+  background-color: #4b8add;
+  font-size: .875rem;
+  color: #ccdef6;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height: 22px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+footer img {
+  width: 100px;
+}
+
+footer .icon {
+  width: 20%;
+  font-size: 1.2rem;
+  margin-top: 9px;
+}
+
+footer h5 {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: .75rem;
+  margin-bottom: 10px;
+}
+
+footer ul {
+  text-align: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+footer ul li {
+  line-height: 1.4rem;
+}
+
+footer ul li a {
+  text-decoration: none;
+  color: #aac9f3;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+footer a {
+  color: #ccdef6;
+}
+
+footer p {
+  font-size: inherit;
+  line-height: 1.6rem;
+}
+
+.top-4 {
+  margin-top: 20px;
+}
+
+.bottom-8 {
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 991px) {
+  .docsearch {
+    display: none;
   }
 }

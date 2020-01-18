@@ -8,6 +8,11 @@
 
 <title>Step: Build a bookdown book — step_build_bookdown • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -34,7 +39,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Step: Build a bookdown book — step_build_bookdown" />
 <meta property="og:description" content="Build a bookdown book using bookdown::render_book()." />
@@ -71,8 +76,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -103,7 +108,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -114,13 +119,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -139,7 +147,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Step: Build a bookdown book</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-bookdown.R'><code>R/steps-bookdown.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-bookdown.R'><code>R/steps-bookdown.R</code></a></small>
     <div class="hidden name"><code>step_build_bookdown.Rd</code></div>
     </div>
 
@@ -155,48 +163,48 @@
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/bookdown/man/render_book.html'>bookdown::render_book</a></code></p><dl class='dl-horizontal'>
-  <dt>input</dt><dd><p>An input filename (or multiple filenames). If <code>preview =
+    <dt><code>input</code></dt><dd><p>An input filename (or multiple filenames). If <code>preview =
 TRUE</code>, only files specified in this argument are rendered, otherwise all R
 Markdown files specified by the book are rendered.</p></dd>
-  <dt>output_format</dt><dd><p>Arguments to be passed to
+    <dt><code>output_format</code></dt><dd><p>Arguments to be passed to
 <code>rmarkdown::<a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a>()</code>. For <code>preview_chapter()</code>,
 <code>...</code> is passed to <code>render_book()</code>.</p></dd>
-  <dt>clean</dt><dd><p>Arguments to be passed to
+    <dt><code>clean</code></dt><dd><p>Arguments to be passed to
 <code>rmarkdown::<a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a>()</code>. For <code>preview_chapter()</code>,
 <code>...</code> is passed to <code>render_book()</code>.</p></dd>
-  <dt>envir</dt><dd><p>Arguments to be passed to
+    <dt><code>envir</code></dt><dd><p>Arguments to be passed to
 <code>rmarkdown::<a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a>()</code>. For <code>preview_chapter()</code>,
 <code>...</code> is passed to <code>render_book()</code>.</p></dd>
-  <dt>clean_envir</dt><dd><p>Whether to clean up the environment <code>envir</code> before
+    <dt><code>clean_envir</code></dt><dd><p>Whether to clean up the environment <code>envir</code> before
 rendering the book. By default, the environment is cleaned when rendering
 the book in a non-interactive R session.</p></dd>
-  <dt>output_dir</dt><dd><p>The output directory. If <code>NULL</code>, a field named
+    <dt><code>output_dir</code></dt><dd><p>The output directory. If <code>NULL</code>, a field named
 <code>output_dir</code> in the configuration file <code class="file">_bookdown.yml</code> will be
 used (possibly not specified, either, in which case a directory name
 <code class="file">_book</code> will be used).</p></dd>
-  <dt>new_session</dt><dd><p>Whether to use new R sessions to compile individual Rmd
+    <dt><code>new_session</code></dt><dd><p>Whether to use new R sessions to compile individual Rmd
 files (if not provided, the value of the <code>new_session</code> option in
 <code class="file">_bookdown.yml</code> is used; if this is also not provided,
 <code>new_session = FALSE</code>).</p></dd>
-  <dt>preview</dt><dd><p>Whether to render and preview the input files specified by the
+    <dt><code>preview</code></dt><dd><p>Whether to render and preview the input files specified by the
 <code>input</code> argument. Previewing a certain chapter may save compilation
 time as you actively work on this chapter, but the output may not be
 accurate (e.g. cross-references to other chapters will not work).</p></dd>
-  <dt>encoding</dt><dd><p>Ignored. The character encoding of all input files is
+    <dt><code>encoding</code></dt><dd><p>Ignored. The character encoding of all input files is
 supposed to be UTF-8.</p></dd>
-  <dt>config_file</dt><dd><p>The book configuration file.</p></dd>
-
+    <dt><code>config_file</code></dt><dd><p>The book configuration file.</p></dd>
+  
 </dl></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
 <span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_build_bookdown</span>(<span class='st'>"."</span>))
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_build_bookdown(".")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -211,16 +219,66 @@ supposed to be UTF-8.</p></dd>
 
 
       <footer>
-      <div style="margin-top:-9px">
-  <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
-</div>
+      <!-- begin footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg" /></div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href='http://krlmlr.info'>Kirill Müller</a>, <a href='https://pjs-web.de'>Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
    </div>

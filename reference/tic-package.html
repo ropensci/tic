@@ -9,6 +9,11 @@
 <title>tic: Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions — tic-package • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -35,7 +40,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="tic: Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions — tic-package" />
@@ -43,7 +48,8 @@
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor')." />
+    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
+    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -77,8 +83,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -109,7 +115,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -120,13 +126,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -146,7 +155,7 @@
     <div class="page-header">
     <h1>tic: Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/tic-package.R'><code>R/tic-package.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/tic-package.R'><code>R/tic-package.R</code></a></small>
     <div class="hidden name"><code>tic-package.Rd</code></div>
     </div>
 
@@ -155,7 +164,8 @@
     deployment workflows for R-based projects: packages, websites (e.g.
     blogdown, pkgdown), or data processing (e.g. research compendia).  The
     recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').</p>
+    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
+    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).</p>
     </div>
 
 
@@ -172,8 +182,8 @@ several steps.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/ropenscilabs/tic'>https://github.com/ropenscilabs/tic</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/ropenscilabs/tic/issues'>https://github.com/ropenscilabs/tic/issues</a></p></li>
+<li><p><a href='https://github.com/ropensci/tic'>https://github.com/ropensci/tic</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/ropensci/tic/issues'>https://github.com/ropensci/tic/issues</a></p></li>
 </ul>
 
 </div>
@@ -187,15 +197,18 @@ several steps.</p>
     </ul>
 
     <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Kirill Müller <a href='mailto:krlmlr+r@mailbox.org'>krlmlr+r@mailbox.org</a> (0000-0002-1416-3412)</p>
+    <p><strong>Maintainer</strong>: Kirill Müller <a href='mailto:krlmlr+r@mailbox.org'>krlmlr+r@mailbox.org</a> (<a href='https://orcid.org/0000-0002-1416-3412'>ORCID</a>)</p>
 <p>Authors:</p><ul>
-<li><p>Patrick Schratz <a href='mailto:patrick.schratz@gmail.com'>patrick.schratz@gmail.com</a> (0000-0003-0748-6624)</p></li>
+<li><p>Patrick Schratz <a href='mailto:patrick.schratz@gmail.com'>patrick.schratz@gmail.com</a> (<a href='https://orcid.org/0000-0003-0748-6624'>ORCID</a>)</p></li>
 <li><p>Mika Braginsky <a href='mailto:mika.br@gmail.com'>mika.br@gmail.com</a></p></li>
 <li><p>Karthik Ram <a href='mailto:karthik.ram@gmail.com'>karthik.ram@gmail.com</a></p></li>
 <li><p>Jeroen Ooms <a href='mailto:jeroen.ooms@stat.ucla.edu'>jeroen.ooms@stat.ucla.edu</a></p></li>
 </ul>
 
 <p>Other contributors:</p><ul>
+<li><p>Max Held (Max reviewed the package for ropensci, see &lt;https://github.com/ropensci/software-review/issues/305&gt;) [reviewer]</p></li>
+<li><p>Anna Krystalli (Anna reviewed the package for ropensci, see &lt;https://github.com/ropensci/software-review/issues/305&gt;) [reviewer]</p></li>
+<li><p>Laura DeCicco (Laura reviewed the package for ropensci, see &lt;https://github.com/ropensci/software-review/issues/305&gt;) [reviewer]</p></li>
 <li><p>rOpenSci [funder]</p></li>
 </ul>
 
@@ -205,16 +218,66 @@ several steps.</p>
 
 
       <footer>
-      <div style="margin-top:-9px">
-  <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
-</div>
+      <!-- begin footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg" /></div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href='http://krlmlr.info'>Kirill Müller</a>, <a href='https://pjs-web.de'>Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
    </div>

@@ -8,6 +8,11 @@
 
 <title>The base class for all steps — TicStep • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -34,7 +39,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="The base class for all steps — TicStep" />
 <meta property="og:description" content="Override this class to create a new step." />
@@ -71,8 +76,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -103,7 +108,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -114,13 +119,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -139,7 +147,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The base class for all steps</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-base.R'><code>R/steps-base.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-base.R'><code>R/steps-base.R</code></a></small>
     <div class="hidden name"><code>TicStep.Rd</code></div>
     </div>
 
@@ -147,12 +155,8 @@
     <p>Override this class to create a new step.</p>
     </div>
 
-    <pre class="usage"><span class='no'>TicStep</span></pre>
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>An object of class <code>R6ClassGenerator</code> of length 24.</p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
@@ -160,21 +164,62 @@
 <dl class='dl-horizontal'>
 <dt><code>run</code></dt><dd><p>This method must be overridden, it is called when running the stage
 to which a step has been added.</p></dd>
-<dt><code>prepare</code></dt><dd><p>This method is called when preparing the stage
-to which a step has been added.
-Override this method to install any R packages your step might need,
-because this allows them to be cached for subsequential runs.</p></dd>
+<dt><code>prepare</code></dt><dd><p>This method is called when preparing the stage to
+which a step has been added. It auto-install all packages which are
+needed for a certain step. For example, <code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> requires
+the <em>pkgdown</em> package.For <code><a href='dsl.html'>add_code_step()</a></code>, it autodetects any package calls in the form of
+<code>pkg::fun</code> and tries to install these packages from CRAN. If a steps
+<code>prepare_call</code> is not empty, the <code>$prepare</code> method is skipped for this
+step. This can be useful if a package should be installed from
+non-standard repositories, e.g. from Github.</p></dd>
 <dt><code>check</code></dt><dd><p>This method determines if a step is prepared and run.
 Return <code>FALSE</code> if conditions for running this step are not met.</p></dd>
 
 </dl>
+
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>TicStep$new()</code></a></p></li>
+<li><p><a href='#method-run'><code>TicStep$run()</code></a></p></li>
+<li><p><a href='#method-prepare'><code>TicStep$prepare()</code></a></p></li>
+<li><p><a href='#method-check'><code>TicStep$check()</code></a></p></li>
+</ul>
+<p><hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$new()</pre><p></div></p>
+
+<p><hr>
+<a id="method-run"></a></p><h3>Method <code>run()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$run()</pre><p></div></p>
+
+<p><hr>
+<a id="method-prepare"></a></p><h3>Method <code>prepare()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$prepare()</pre><p></div></p>
+
+<p><hr>
+<a id="method-check"></a></p><h3>Method <code><a href='https://rdrr.io/r/utils/PkgUtils.html'>check()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>TicStep$check()</pre><p></div></p>
+
+
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
+      <li><a href="#methods">Methods</a></li>
       <li><a href="#methods">Methods</a></li>
     </ul>
 
@@ -183,16 +228,66 @@ Return <code>FALSE</code> if conditions for running this step are not met.</p></
 
 
       <footer>
-      <div style="margin-top:-9px">
-  <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
-</div>
+      <!-- begin footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg" /></div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href='http://krlmlr.info'>Kirill Müller</a>, <a href='https://pjs-web.de'>Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
    </div>

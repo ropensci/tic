@@ -6,11 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting started with CI for R • tic</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
 <meta property="og:title" content="Getting started with CI for R">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -35,8 +38,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -67,7 +70,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -78,13 +81,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -106,7 +112,7 @@
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/tic.Rmd"><code>vignettes/tic.Rmd</code></a></small>
       <div class="hidden name"><code>tic.Rmd</code></div>
 
     </div>
@@ -127,14 +133,14 @@
 <div id="initializationsetup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#initializationsetup" class="anchor"></a>Initialization/Setup</h1>
-<p>The easiest way to use <em>tic</em> for CI services is to call <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>. This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by <em>tic</em>.</p>
+<p>The easiest way to use <em>tic</em> for CI services is to call <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>. This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by {tic}.</p>
 <p>Several yes/no questions need to be answered. Based on the replies we’ll select specific templates.</p>
 <p>Besides the question which CI system you want to use, you’ll be asked if you want to</p>
 <ul>
 <li><p>deploy from builds to Github (e.g. if you are building a pkgdown site)</p></li>
 <li><p>test your package on multiple R versions</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/tic/man/use_tic.html">use_tic</a></span>()</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/use_tic.html">use_tic</a></span>()</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">→ Welcome to → tic<span class="op">!</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">This wizard will guide you through the setup process <span class="cf">for</span> getting started with various CI</a>
@@ -193,7 +199,8 @@
 <a class="sourceLine" id="cb1-57" data-line-number="57"><span class="st">4: No</span></a>
 <a class="sourceLine" id="cb1-58" data-line-number="58"><span class="st">5: All</span></a></code></pre></div>
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
-<p>The deployment setup functionality comes from the <em>travis</em> and <em>circle</em> packages. See the <a href="tic-travis.html">“tic &amp; travis” article</a> for more detailed information on how <em>tic</em> and <em>travis</em> work together.</p>
+<p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured. (Currently you need to enable the project manually on AppVeyor.) See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
+<p>The deployment setup functionality comes from the {travis} and {circle} packages. See the <a href="tic-travis.html">“tic &amp; travis” article</a> for more detailed information on how <em>tic</em> and <em>travis</em> work together.</p>
 </div>
 <div id="explanation-of-the-basic-tic-r-template" class="section level1">
 <h1 class="hasAnchor">
@@ -208,18 +215,19 @@
 <div id="macros" class="section level2">
 <h2 class="hasAnchor">
 <a href="#macros" class="anchor"></a>Macros</h2>
-<p><em>tic</em> builds on the “macro” idea. Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:</p>
+<p>{tic} builds on the “macro” idea. Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:</p>
 <ul>
 <li>Checking a package (R CMD check)</li>
 <li>Building and deploying a pkgdown site</li>
 <li>Build and deploy a bookdown project</li>
 </ul>
+<p>They can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
@@ -244,7 +252,7 @@
 <p><em>tic</em> can be used for various R projects:</p>
 <ul>
 <li>
-<a href="https://github.com/ropenscilabs/tic.package">tic.package</a>: R packages with <a href="https://pkgdown.r-lib.org/"><em>pkgdown</em></a> documentation</li>
+<a href="https://github.com/ropenscilabs/tic.package">tic.package</a>: R packages with <a href="https://pkgdown.r-lib.org/">{pkgdown}</a> documentation</li>
 <li>
 <a href="https://github.com/ropenscilabs/tic.packagedocs">tic.packagedocs</a>: R packages with <a href="http://hafen.github.io/packagedocs/"><em>packagedocs</em></a> documentation</li>
 <li>
@@ -272,8 +280,8 @@
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>())</a></code></pre></div>
 <p>Next the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). <em>tic</em> is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 </div>
@@ -293,12 +301,12 @@
 <a href="#advanced" class="anchor"></a>Advanced</h1>
 <p>The advanced usage of <em>tic</em> is described in more detail in the <a href="advanced.html">“Advanced Usage” article</a>:</p>
 <ul>
-<li><a href="advanced.html#pkgdown-deployment">Options for <em>pkgdown</em> deployment</a></li>
+<li><a href="advanced.html#pkgdown-deployment">Options for {pkgdown} deployment</a></li>
 <li><a href="advanced.html#using-travis-ci-meta-information">Using Travis CI Meta-information</a></li>
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Running <em>tic</em> locally</a></li>
 <li><a href="advanced.html#troubleshooting-running-tic-locally">Troubleshooting: Enter into the Travis build</a></li>
 </ul>
-<p>The build lifecycle when using <em>tic</em> is explained in the <a href="build-lifecycle.html">“Build lifecycle” article</a>e. Implementation of custom steps is described in the <a href="custom-steps.html">“Writing custom steps” article</a>.</p>
+<p>The build lifecycle when using <em>tic</em> is explained in the <a href="build-lifecycle.html">“Build lifecycle” article</a>. Implementation of custom steps is described in the <a href="custom-steps.html">“Writing custom steps” article</a>.</p>
 </div>
   </div>
 
@@ -317,7 +325,8 @@
 </li>
       <li>
 <a href="#example-projects">Example projects</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#tic-projects-from-the-community"><em>tic</em> projects from the community</a></li>
+<li><a href="#blogdown">Blogdown</a></li>
+      <li><a href="#tic-projects-from-the-community"><em>tic</em> projects from the community</a></li>
       </ul>
 </li>
       <li><a href="#advanced">Advanced</a></li>
@@ -329,16 +338,66 @@
 
 
 
-      <footer><div style="margin-top:-9px">
-  <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
+      <footer><!-- begin footer --><div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
 </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, <a href="https://pjs-web.de">Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
 </div>

@@ -8,6 +8,11 @@
 
 <title>Step: Setup SSH — step_setup_ssh • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -34,14 +39,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Step: Setup SSH — step_setup_ssh" />
 <meta property="og:description" content="Adds to known hosts, installs private key, and tests the connection.
 Chaining step_install_ssh_keys(), step_add_to_known_hosts()
 and step_test_ssh().
-The use_travis_deploy() and use_tic() functions encode a private key
-as an environment variable for use with this function." />
+The travis::use_travis_deploy() and use_tic() functions encode a private
+key as an environment variable for use with this function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -75,8 +80,8 @@ as an environment variable for use with this function." />
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -107,7 +112,7 @@ as an environment variable for use with this function." />
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -118,13 +123,16 @@ as an environment variable for use with this function." />
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -143,7 +151,7 @@ as an environment variable for use with this function." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Step: Setup SSH</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/tic/blob/master/R/steps-ssh.R'><code>R/steps-ssh.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-ssh.R'><code>R/steps-ssh.R</code></a></small>
     <div class="hidden name"><code>step_setup_ssh.Rd</code></div>
     </div>
 
@@ -151,12 +159,16 @@ as an environment variable for use with this function." />
     <p>Adds to known hosts, installs private key, and tests the connection.
 Chaining <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys()</a></code>, <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts()</a></code>
 and <code><a href='step_test_ssh.html'>step_test_ssh()</a></code>.
-The <code><a href='use_travis_deploy.html'>use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private key
-as an environment variable for use with this function.</p>
+The <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private
+key as an environment variable for use with this function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_setup_ssh</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"git@"</span>, <span class='no'>host</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_setup_ssh</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>,
+  <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>,
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"git@"</span>, <span class='no'>host</span>),
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,7 +176,8 @@ as an environment variable for use with this function.</p>
     <tr>
       <th>name</th>
       <td><p><code>[string]</code><br />
-Name of the environment variable and the target file, default: <code>"id_rsa"</code>.</p></td>
+Name of the environment variable and the target file, default:
+<code>"TRAVIS_DEPLOY_KEY"</code>.</p></td>
     </tr>
     <tr>
       <th>host</th>
@@ -185,25 +198,26 @@ Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbos
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other steps: <code><a href='step_add_to_drat.html'>step_add_to_drat</a></code>,
-  <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a></code>,
-  <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a></code>,
-  <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a></code>,
-  <code><a href='step_hello_world.html'>step_hello_world</a></code>,
-  <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
-  <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a></code>,
-  <code><a href='step_push_deploy.html'>step_push_deploy</a></code>,
-  <code><a href='step_run_code.html'>step_run_code</a></code>,
-  <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a></code>,
-  <code><a href='step_test_ssh.html'>step_test_ssh</a></code>,
-  <code><a href='step_write_text_file.html'>step_write_text_file</a></code></p></div>
+    <div class='dont-index'><p>Other steps: 
+<code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
+<code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
+<code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
+<code><a href='step_do_push_deploy.html'>step_do_push_deploy</a>()</code>,
+<code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
+<code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
+<code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
+<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
+<code><a href='step_run_code.html'>step_run_code</a>()</code>,
+<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
+<code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,
+<code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; ✔ Creating a blank tic stage configuration</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
 <span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_setup_ssh</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"gitlab.com"</span>))
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_setup_ssh(host = "gitlab.com")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -219,16 +233,66 @@ Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbos
 
 
       <footer>
-      <div style="margin-top:-9px">
-  <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
-</div>
+      <!-- begin footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg" /></div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href='http://krlmlr.info'>Kirill Müller</a>, <a href='https://pjs-web.de'>Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
    </div>

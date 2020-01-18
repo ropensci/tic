@@ -4,9 +4,14 @@ pkgdown_sha: ~
 articles:
   advanced: advanced.html
   build-lifecycle: build-lifecycle.html
+  ci-client-packages: ci-client-packages.html
   custom-steps: custom-steps.html
   deployment: deployment.html
   features: features.html
-  tic-travis: tic-travis.html
+  org-vs-com: org-vs-com.html
   tic: tic.html
+  troubleshooting: troubleshooting.html
+urls:
+  reference: https://docs.ropensci.org/tic/dev/reference
+  article: https://docs.ropensci.org/tic/dev/articles
 

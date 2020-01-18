@@ -6,11 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deployment • tic</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
 <meta property="og:title" content="Deployment">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -35,8 +38,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -67,7 +70,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -78,13 +81,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -106,7 +112,7 @@
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/deployment.Rmd"><code>vignettes/deployment.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/deployment.Rmd"><code>vignettes/deployment.Rmd</code></a></small>
       <div class="hidden name"><code>deployment.Rmd</code></div>
 
     </div>
@@ -116,124 +122,151 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><em>tic</em> handles deployment as follows:</p>
+<p>{tic} uses the <a href="ci-client-packages.html">CI client packages</a> {travis} and {circle} for setting up deployment on the CI systems.</p>
+<div id="travis-ci" class="section level3">
+<h3 class="hasAnchor">
+<a href="#travis-ci" class="anchor"></a>Travis CI</h3>
 <ol style="list-style-type: decimal">
 <li>
-<p>When calling <code><a href="../reference/use_travis_deploy.html">use_travis_deploy()</a></code> (either directly or indirectly by using <code><a href="../reference/use_tic.html">use_tic()</a></code>), a public key is added to GitHub repository under the “Deploy keys” section and the user receives an e-mail:</p>
+<p>When calling <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code> (either directly or indirectly by using <code><a href="../reference/use_tic.html">use_tic()</a></code>), a public key is added to GitHub repository under the “Deploy keys” section and the user receives an e-mail:</p>
 <p><img src="img/ssh-deploy-key.png" style="display: block; margin: auto;"></p>
 </li>
 <li>
-<p>A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, <em>tic</em> installs it in the <code>~/.ssh</code> directory so that it can be used for authentication:</p>
+<p>A private key is encoded in base64 and stored in an environment variable on Travis. During the CI run, {tic} installs it in the <code>~/.ssh</code> directory so that it can be used for authentication:</p>
 <p><img src="img/private-key-travis.png" style="display: block; margin: auto;"></p>
-<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated. Additionally, when calling <code><a href="../reference/use_tic.html">use_tic()</a></code> a Personal Access token (PAT) is created (by <code>travis::create_github_pat()</code>) to avoid the errors caused by GitHubs download rate limitations.</p>
+<p>Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.</p>
 </li>
 </ol>
+</div>
+<div id="circle-ci" class="section level3">
+<h3 class="hasAnchor">
+<a href="#circle-ci" class="anchor"></a>Circle CI</h3>
+<p>On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.</p>
+<p>When calling <code><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your Github repo. No extra deploy key need to be stored in the Github repo.</p>
+</div>
+<div id="appveyor-ci" class="section level3">
+<h3 class="hasAnchor">
+<a href="#appveyor-ci" class="anchor"></a>Appveyor CI</h3>
+<p>Appveyor follows the same philosophy as Travis CI when it comes to deployment. A bunch of <a href="https://www.appveyor.com/docs/deployment/">predefined deployment providers</a> are available but deploying to the Github repo of the project is not possible. Unfortunately, there is no R client package for Appveyor yet. This means one needs to manually set up an SSH key pair which is used for deployment.</p>
+<p>Usually we suggest to simply deploy on one of the other CI providers. However, when it comes to deployment to a drat repository (see <code>?do_drat()</code>), one usually also wants to build and deploy Windows binaries.</p>
+<p>Follow these steps to add deployment capabilities via {tic} to Appveyor builds:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Generate a SSH key pair</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">key &lt;-<span class="st"> </span>openssl<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span>()</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">pub_key &lt;-<span class="st"> </span>travis<span class="op">:::</span><span class="kw">get_public_key</span>(key)<span class="op">$</span>ssh</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">private_key &lt;-<span class="st"> </span>travis<span class="op">:::</span><span class="kw">encode_private_key</span>(key)</a></code></pre></div>
+</li>
+<li><p>Copy the public key and add it as an deploy key to <code>Settings -&gt; Deploy Key</code> of the <em>drat repo you want to deploy to</em> (<strong>not</strong> the one of the package which should be deployed).</p></li>
+<li><p>Copy the private key and log into to your Appveyor account. Go to <code>Account -&gt; Encrypt YAML</code> and encrypt the private key.</p></li>
+<li><p>Copy the resulting snipped into the <code>appveyor.yml</code> file of the repo. Name the environment variable “id_rsa”.</p></li>
+</ol>
+<p>Now the Appveyor builds should be able to deploy to the drat repo (where you added the public key). If you are building a drat repo, make sure to also add <code>USE_RTOOLS: true</code> to <code>appveyor.yml</code>. Otherwise R cannot build binaries on Windows.</p>
+<p>On a side note, we have an implicit R version requirement of &gt;= 3.4 when building on Appveyor. This is due to the fact that we are only allowing binary installs on Appveyor with {tic} due to some nasty issues when building packages from source on Appveyor in the past. The requirement is caused by the {cli} &gt;= 2.0.0 requirement of {tic}. This package version is not available as a binary on R =&lt; 3.5.</p>
+</div>
 </div>
 <div id="pkgdown-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pkgdown-deployment" class="anchor"></a>pkgdown deployment</h2>
-<p><a href="https://github.com/r-lib/pkgdown"><code>pkgdown</code></a> is a R package which builds a documentation wrapper-site of a R package. It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing web version. Without a <em>pkgdown</em> site, these package resources need either be collected from various places (GitHub repository, CRAN function reference) or do even require a local installation of the package if vignettes are placed in custom locations. Therefore, it has become a quasi-standard to provide a <em>pkgdown</em> site for a R package. However, it is tedious to update the site on every commit and check whether something has changed. On the other hand, the presence of a <em>pkgdown</em> site is only really valuable to the user if the content reflects the most recent state of the package. <em>tic</em> has the ability to automate the update tasks and having the site reflecting the latest state of the package.</p>
-<p>The following example shows how <em>tic</em> deploys a <code>pkgdown</code> site on Travis. In the <code>.travis.yml</code> file:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
-<p>Let’s break down what happens here:</p>
-<ol style="list-style-type: decimal">
+<p><a href="https://github.com/r-lib/pkgdown"><code>pkgdown</code></a> is an R package which builds a documentation wrapper-site of a R package. It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.</p>
+<p>It has become a quasi-standard to provide a {pkgdown} site for an R package. However, it is tedious to update the pkgdown site manually on every commit, check whether something has changed and commit the changes. {tic} comes with the ability to automate this procedure.</p>
+<p>The following example shows how {tic} deploys a <code>pkgdown</code> site on Travis CI. In the <code>.travis.yml</code> file the “before_deploy” and “deploy” stages are redirected to {tic}.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a></code></pre></div>
+<p>In the “before_deploy” stage, {tic} will do the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>(<span class="dt">name =</span> travis_private_key_name))</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">}</a></code></pre></div>
+<ul>
 <li>
-<p>Travis executes <code><a href="../reference/stages.html">tic::before_deploy()</a></code> which will search for instructions regarding the <code><a href="../reference/stages.html">before_deploy()</a></code> stage in <code>tic.R</code>.</p>
-<p>By default this stage looks like</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
-<p>This block calls the function <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. That is just an example of an option that can be set to run certain commands (or stages) conditionally (see <a href="advanced.html#running-stages-conditionally">secion “Running stages conditionally” in the “Advanced” article</a> for more examples). After the prerequisite of setting up an ssh key for the upcoming deployment has been finished,</p>
+<p>Call <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis build. This step sets up SSH key previously added to the Github and Travis via <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. Argument <code>name = travis_private_key_name</code> can be ignored as long as no custom private key name was used during <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. If so, then supply it via the <code>travis_private_key_name</code> argument in <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>. By default, <code>"TRAVIS_DEPLOY_KEY"</code> is used.</p>
+<p>For backward compatibility, the previous default <code>"id_rsa"</code> is also supported out of the box. This step is only needed on Travis CI because setting up deployment via SSH keys is somewhat complicated.</p>
 </li>
-<li><p>Travis is told to use a “script” (provider: script) for the deployment (which holds further instructions).</p></li>
-<li><p>This “script” is calling <code><a href="../reference/stages.html">tic::deploy()</a></code>.</p></li>
-<li>
-<p>All this is happening on any branch. (If you want to restrict it to certain branches, you need to set a condition in <code>tic.R</code>.)</p>
-<p>What happens now is that <code><a href="../reference/stages.html">tic::deploy()</a></code> again searches in <code>tic.R</code> for the “deploy” stage and then runs whatever is specified there.</p>
-<p>With the default template of <code>tic.R</code>, the following will be executed:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
-<p>First, <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build your <em>pkgdown</em> site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default this will be the <code>docs/</code> directory of the <code>master</code> branch.</p>
-</li>
-</ol>
+<li><p>Call <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
+<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the {pkgdown} site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo.</p>
 <div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
 <h3 class="hasAnchor">
 <a href="#deploying-to-docs-master-or-gh-pages-branch" class="anchor"></a>Deploying to docs/ (master) or gh-pages branch</h3>
+<p>By default the deployment is done to the <code>gh-pages</code> branch. This has the following advantages:</p>
+<ul>
+<li>No cluttering of the commit history in the master branch</li>
+<li>Everything “just works” silently in the background</li>
+</ul>
 <div id="master-branch-deployment" class="section level4">
 <h4 class="hasAnchor">
 <a href="#master-branch-deployment" class="anchor"></a>master branch deployment</h4>
-<p>By default the deployment is done to the <code>docs/</code> directory of the <code>master</code> branch. This has the following advantages:</p>
+<p>Deploying to the <code>docs/</code> directoy of the master branch has the following advantages:</p>
 <ul>
-<li>You can have per-branch versions of your <em>pkgdown</em> site</li>
+<li>Per-branch versions of the pkgdown site (if desi)</li>
 <li>Per-branch versions enable the possibility to have preview for pull requests via <a href="https://www.netlify.com/" class="uri">https://www.netlify.com/</a>
 </li>
 </ul>
-<p>A disadvantage is that the <code>master</code> branch will be cluttered by automatic commits triggered by Travis that push the changes of the <em>pkgdown</em> site to the <code>master</code> branch.</p>
+<p>The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the {pkgdown} site to the <code>master</code> branch.</p>
 </div>
-<div id="gh-pages-branch-deployment" class="section level4">
+<div id="orphaning-the-gh-pages-branch" class="section level4">
 <h4 class="hasAnchor">
-<a href="#gh-pages-branch-deployment" class="anchor"></a>gh-pages branch deployment</h4>
-<p>You can optionally set the deployment branch to <code>gh-pages</code> and then change the branch serving your site in the GitHub repo settings (change it to <code>gh-pages</code>). This option has the advantage</p>
-<ul>
-<li>to not have all the automatic commits from Travis in the <code>master</code> branch -&gt; the <em>pkgdown</em> site will be “silently” updated in the background in the <code>gh-pages</code> branch.</li>
-</ul>
-<p>A disadvantage is that you cannot have per-branch versions of your site and hence no pull request previews of the site.</p>
-<p>To use this option with <em>tic</em>, specify <code>branch = "gh-pages", path = "docs"</code> in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>. As the site serving in this setting will use the root of the branch, the <code>gh-pages</code> branch will only consist of the public <em>pkgdown</em> files used to serve the site.</p>
+<a href="#orphaning-the-gh-pages-branch" class="anchor"></a>Orphaning the <code>gh-pages</code> branch</h4>
+<p>By default, changes to the pkgdown site will be added as incremental commits to the <code>gh-pages</code> branch. This is useful to keep a history of past versions and to enable a release and dev version of the site. To have this feature, set</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">development:</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="fu">mode:</span><span class="at"> auto</span></a></code></pre></div>
+<p>in your <code>_pkgdown.yml</code> file. See <code>?pkgdown::build_site()</code> for more information.</p>
+<p>If you only want to have one version of your pkgdown site and not fill your repo with many commits in the <code>gh-pages</code> branch, you can use <code><a href="../reference/do_pkgdown.html">do_pkgdown(orphan = TRUE)</a></code>. This will wipe all commits of this branch on every CI run so that there is only one commit corresponding to the latest version of your pkgdown site.</p>
 </div>
 </div>
 </div>
 <div id="conditional-deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#conditional-deployment" class="anchor"></a>Conditional deployment</h2>
-<p>If you are running a <a href="https://docs.travis-ci.com/user/build-matrix/">build matrix</a> or <a href="https://docs.travis-ci.com/user/build-stages/">build stages</a> on Travis, you want to run certain tasks only once during a build. The creation of a <em>pkgdown</em> site is a common task which applies to this.</p>
+<p>If you are running a <a href="https://docs.travis-ci.com/user/build-matrix/">build matrix</a> or <a href="https://docs.travis-ci.com/user/build-stages/">build stages</a> on Travis CI, you want to run certain tasks only once during a build. The creation of a {pkgdown} site is a common task which applies to this.</p>
 <p>Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages. You can restrict on which stage/job a task is executed with the help of environment variables.</p>
-<p><em>tic</em> can make use of implicit set environment variables of the build and additional ones added by the user. In the following we show a “build stage” example on Travis using the custom env variable <code>"BUILD_PKGDOWN"</code>:</p>
+<p>{tic} can make use of implicit set environment variables of the build and additional ones added by the user. In the following we show a “build stage” example on Travis CI using the custom env variable <code>"BUILD_PKGDOWN"</code>:</p>
 <p><code>.travis.yml</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">jobs:</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="fu">include:</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">stage:</span><span class="at"> stage1</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">      <span class="fu">before_install:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'install.packages("remotes")'</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_github("ropenscilabs/tic")'</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages(); tic::before_install()'</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>...<span class="kw">]</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">      <span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">        <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">        <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">          <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">jobs:</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="fu">include:</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">stage:</span><span class="at"> stage1</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">      <span class="fu">env:</span><span class="at"> BUILD_PKGDOWN=TRUE</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">      <span class="fu">before_install:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'install.packages("remotes")'</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_github("ropensci/tic")'</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">        <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:prepare_all_stages(); tic::before_install()'</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">      <span class="kw"><a href="https://rdrr.io/r/base/Extract.html">[</a></span>...<span class="kw">]</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">      <span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">        <span class="fu">provider:</span><span class="at"> script</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">        <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">        <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">          <span class="fu">all_branches:</span><span class="at"> true</span></a></code></pre></div>
 <p><code>tic.R</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"id_rsa"</span>) <span class="op">!=</span><span class="st"> ""</span>) {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"TRAVIS_DEPLOY_KEY"</span>)) {</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">  <span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">}</a></code></pre></div>
 </div>
 <div id="committing-single-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
-<p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> function has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created via Travis.</p>
+<p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> function has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created during the CI run.</p>
 <p>In the following example, these files are created/updated by calling <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/document.html">document</a></span>(<span class="dt">roclets =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">commit_paths =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
-<p>Applying this idea depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NAMESPACE</code> directly or let them be created by Travis? An example project that uses the latter strategy is <a href="https://github.com/mlr-org/mlrng/blob/master/tic.R">mlr</a>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/document.html">document</a></span>(<span class="dt">roclets =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="dt">commit_paths =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</a></code></pre></div>
+<p>Applying this idea depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NAMESPACE</code> directly or let them be created during the CI run?</p>
 </div>
   </div>
 
@@ -243,8 +276,18 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#pkgdown-deployment">pkgdown deployment</a></li>
+<li>
+<a href="#introduction">Introduction</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#travis-ci">Travis CI</a></li>
+      <li><a href="#circle-ci">Circle CI</a></li>
+      <li><a href="#appveyor-ci">Appveyor CI</a></li>
+      </ul>
+</li>
+      <li>
+<a href="#pkgdown-deployment">pkgdown deployment</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#deploying-to-docs-master-or-gh-pages-branch">Deploying to docs/ (master) or gh-pages branch</a></li>
+      </ul>
+</li>
       <li><a href="#conditional-deployment">Conditional deployment</a></li>
       <li><a href="#committing-single-files">Committing single files</a></li>
       </ul>
@@ -255,16 +298,66 @@
 
 
 
-      <footer><div style="margin-top:-9px">
-  <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
+      <footer><!-- begin footer --><div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
 </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, <a href="https://pjs-web.de">Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
 </div>

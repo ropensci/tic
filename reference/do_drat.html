@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Run arbitrary R code — step_run_code • tic</title>
+<title>Build and deploy drat repository — do_drat • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,12 +41,18 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Step: Run arbitrary R code — step_run_code" />
-<meta property="og:description" content="Captures the expression and executes it when running the step.
-An optional preparatory expression can be provided that is executed
-during preparation.
-If the top-level expression is a qualified function call (of the format
-package::fun()), the package is installed during preparation." />
+<meta property="og:title" content="Build and deploy drat repository — do_drat" />
+<meta property="og:description" content="do_drat() builds and deploys R packages to a drat repository and adds
+default steps to the &quot;install&quot;, &quot;before_deploy&quot; and &quot;deploy&quot; stages:
+
+step_setup_ssh() in the &quot;before_deploy&quot; to setup
+the upcoming deployment
+step_setup_push_deploy() in the &quot;before_deploy&quot; stage
+(if deploy is set),
+step_add_to_drat() in the &quot;deploy&quot;
+step_do_push_deploy() in the &quot;deploy&quot; stage.
+
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -150,72 +156,142 @@ package::fun()), the package is installed during preparation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Run arbitrary R code</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-code.R'><code>R/steps-code.R</code></a></small>
-    <div class="hidden name"><code>step_run_code.Rd</code></div>
+    <h1>Build and deploy drat repository</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-drat.R'><code>R/macro-drat.R</code></a></small>
+    <div class="hidden name"><code>do_drat.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Captures the expression and executes it when running the step.
-An optional preparatory expression can be provided that is executed
-during preparation.
-If the top-level expression is a qualified function call (of the format
-<code>package::fun()</code>), the package is installed during preparation.</p>
+    <p><code>do_drat()</code> builds and deploys R packages to a drat repository and adds
+default steps to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</code> stages:</p>
+<ol>
+<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
+the upcoming deployment</p></li>
+<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage
+(if <code>deploy</code> is set),</p></li>
+<li><p><code><a href='step_add_to_drat.html'>step_add_to_drat()</a></code> in the <code>"deploy"</code></p></li>
+<li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage.</p></li>
+</ol>
+
     </div>
 
-    <pre class="usage"><span class='fu'>step_run_code</span>(<span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>do_drat</span>(
+  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"~/git/drat"</span>,
+  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>,
+  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>ssh_key_name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>,
+  <span class='kw'>deploy_dev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>call</th>
-      <td><p><code>[call]</code><br />
-An arbitrary R expression executed during the stage to which this step is
-added.
-The default is useful if you only pass <code>prepare_call</code>.</p></td>
+      <th>repo_slug</th>
+      <td><p><code>[string]</code><br />
+The name of the drat repository to deploy to in the form <code>:owner/:repo</code>.</p></td>
     </tr>
     <tr>
-      <th>prepare_call</th>
-      <td><p><code>[call]</code><br />
-An optional arbitrary R expression executed during preparation.</p></td>
+      <th>orphan</th>
+      <td><p><code>[flag]</code><br />
+Create and force-push an orphan branch consisting of only one commit?
+This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
+but cannot be applied for pushing to the current branch.</p></td>
+    </tr>
+    <tr>
+      <th>checkout</th>
+      <td><p><code>[flag]</code><br />
+Check out the current contents of the repository? Defaults to <code>TRUE</code>,
+set to <code>FALSE</code> if the build process relies on existing contents or
+if you deploy to a different branch.</p></td>
+    </tr>
+    <tr>
+      <th>path, branch</th>
+      <td><p>By default, this macro deploys the <code>"master"</code> branch
+of the drat repository. An alternative option is <code>"gh-pages"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>remote_url</th>
+      <td><p><code>[string]</code><br />
+The URL of the remote Git repository to push to, defaults to the
+current GitHub repository.</p></td>
+    </tr>
+    <tr>
+      <th>commit_message</th>
+      <td><p><code>[string]</code><br />
+Commit message to use, defaults to a useful message linking to the CI build
+and avoiding recursive CI runs.</p></td>
+    </tr>
+    <tr>
+      <th>commit_paths</th>
+      <td><p><code>[character]</code><br />
+Restrict the set of directories and/or files added to Git before deploying.
+Default: deploy all files.</p></td>
+    </tr>
+    <tr>
+      <th>ssh_key_name</th>
+      <td><p><code>string</code><br />
+The name of the private SSH key which should be used for deployment to the
+drat repo.</p></td>
+    </tr>
+    <tr>
+      <th>deploy_dev</th>
+      <td><p><code>[logical]</code><br />
+Should development versions of packages also be deployed to the drat repo?
+By default only "major", "minor" and "patch" releases are build and
+deployed.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="deployment"><a class="anchor" href="#deployment"></a>Deployment</h2>
+
+    <p>Deployment can only happen to the <code>master</code> or
+<code>gh-pages</code> branch because the Github Pages functionality from Github is
+used to access the drat repository later on. You need to enable this
+functionality when creating the drat repository on Github via <code>Settings -&gt; Github pages</code> and set it to the chosen setting here.</p>
+<p>To build and deploy Windows binaries, builds on Travis CI with deployment
+permissions need to be triggered. To build and deploy macOS binaries,
+builds on Travis CI with deployment permissions need to be triggered. Have
+a look at <a href='https://docs.ropensci.org/tic/articles/deployment.html'>https://docs.ropensci.org/tic/articles/deployment.html</a> for
+more information and instructions.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other steps: 
-<code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
-<code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
-<code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
-<code><a href='step_do_push_deploy.html'>step_do_push_deploy</a>()</code>,
-<code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
-<code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
-<code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
-<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
-<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
-<code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
-<code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,
-<code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
+    <div class='dont-index'><p>Other macros: 
+<code><a href='do_bookdown.html'>do_bookdown</a>()</code>,
+<code><a href='do_package_checks.html'>do_package_checks</a>()</code>,
+<code><a href='do_pkgdown.html'>do_pkgdown</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"install"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_run_code</span>(<span class='fu'><a href='https://rdrr.io/r/utils/update.packages.html'>update.packages</a></span>(<span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)))
-
-<span class='co'># Will install covr from CRAN during preparation:</span>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"after_success"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_code_step</a></span>(<span class='kw pkg'>covr</span><span class='kw ns'>::</span><span class='fu'><a href='http://covr.r-lib.org/reference/codecov.html'>codecov</a></span>())
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_run_code(update.packages(ask = FALSE))
-#&gt; ── after_success ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_run_code(covr::codecov())</div></pre>
+<span class='fu'>do_drat</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh(name = ssh_key_name)
+#&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
+#&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
+#&gt;     orphan = FALSE, checkout = TRUE)
+#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
+#&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
+#&gt;     commit_paths = ".")</div><div class='input'>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh(name = ssh_key_name)
+#&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
+#&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
+#&gt;     orphan = FALSE, checkout = TRUE)
+#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
+#&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
+#&gt;     commit_paths = ".")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#deployment">Deployment</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

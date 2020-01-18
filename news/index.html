@@ -8,6 +8,11 @@
 
 <title>Changelog • tic</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -34,7 +39,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css" rel="stylesheet">
+<link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Changelog" />
 
@@ -69,8 +74,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -101,7 +106,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -112,13 +117,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -137,21 +145,91 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/ropenscilabs/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/ropensci/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tic-0-2-13-9021" class="section level1">
+    <div id="tic-0-4-0" class="section level1">
 <h1 class="page-header">
-<a href="#tic-0-2-13-9021" class="anchor"></a>tic 0.2.13.9021</h1>
+<a href="#tic-0-4-0" class="anchor"></a>tic 0.4.0</h1>
 <ul>
-<li>add argument “check_dir” to step_rcmdcheck (<a href='https://github.com/ropenscilabs/tic/issues/179'>#179</a>)</li>
-<li>use <code><a href="https://rdrr.io/pkg/remotes/man/install_cran.html">remotes::install_cran(upgrade = TRUE)</a></code> to install packages (<a href='https://github.com/ropenscilabs/tic/issues/186'>#186</a>)</li>
-<li>added support for Circle CI (<a href='https://github.com/ropenscilabs/tic/issues/177'>#177</a>)</li>
-<li>All packages installed for custom steps use binary packages if possible on Windows and macOS (<a href='https://github.com/ropenscilabs/tic/issues/178'>#178</a>).</li>
+<li>add macro <code><a href="../reference/do_drat.html">do_drat()</a></code>
+</li>
+<li>start vignette “troubleshooting”</li>
+<li>add {desc} to suggests</li>
+<li>
+<code><a href="../reference/ci.html">ci_can_push()</a></code> never fails.</li>
+<li>templates: always upgrade dep packages during {tic} installation</li>
+</ul>
+</div>
+    <div id="tic-0-3-0-9005" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-3-0-9005" class="anchor"></a>tic 0.3.0.9005</h1>
+<ul>
+<li>Make it possible to pass the endpoint arg from {travis} funs to <code><a href="../reference/use_tic.html">use_tic()</a></code>
+</li>
+<li>mention the difference between .com and .org -&gt; new vignette “org-vs-com”</li>
+<li>move package to ropensci org</li>
+<li>
+<code>error_on = "note"</code> also fails on warnings.</li>
+</ul>
+</div>
+    <div id="tic-0-3-0-9004" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-3-0-9004" class="anchor"></a>tic 0.3.0.9004</h1>
+<ul>
+<li>
+<code>ci_can_Push()</code>: Error with descriptive error message if deployment is not possible</li>
+<li>
+<code><a href="../reference/ci.html">ci_can_push()</a></code>: Fix for Travis CI</li>
+<li>optimize templates (especially matrix builds) by specifying which job is used for the pkgdown build</li>
+</ul>
+</div>
+    <div id="tic-0-3-0-9003" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-3-0-9003" class="anchor"></a>tic 0.3.0.9003</h1>
+<ul>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code>: add key_name_private and key_name_public args from <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>
+</li>
+<li>
+<code><a href="../reference/ci.html">ci_can_push()</a></code>: Change default from <code>"id_rsa""</code> to <code>"TRAVIS_DEPLOY_KEY"</code> and also support backward comp</li>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code>: Travis as default for Linux and macOS</li>
+</ul>
+</div>
+    <div id="tic-0-3-0-9002" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-3-0-9002" class="anchor"></a>tic 0.3.0.9002</h1>
+<ul>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> supports running both Linux and macOS on Travis (<a href='https://github.com/ropensci/tic/issues/202'>#202</a>).</li>
+<li>Skip <code>TicStep$prepare</code> if <code>prepare_call</code> is given in <code><a href="../reference/dsl.html">add_code_step()</a></code> (<a href='https://github.com/ropensci/tic/issues/211'>#211</a>).</li>
+<li>Fix preparation of <code><a href="../reference/step_add_to_drat.html">step_add_to_drat()</a></code>.</li>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> gains arguments that allow non-interactive use and re-running with the same settings if setup fails (<a href='https://github.com/ropensci/tic/issues/203'>#203</a>).</li>
+<li>Removed artificial sleeps with interactive setup.</li>
+</ul>
+</div>
+    <div id="tic-0-3-0-9001" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-3-0-9001" class="anchor"></a>tic 0.3.0.9001</h1>
+<ul>
+<li>Move <code>use_travis_deploy()</code> back to {travis}.</li>
+</ul>
+</div>
+    <div id="tic-0-3-0" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-3-0" class="anchor"></a>tic 0.3.0</h1>
+<ul>
+<li>add argument “check_dir” to step_rcmdcheck (<a href='https://github.com/ropensci/tic/issues/179'>#179</a>)</li>
+<li>use <code><a href="https://rdrr.io/pkg/remotes/man/install_cran.html">remotes::install_cran(upgrade = TRUE)</a></code> to install packages (<a href='https://github.com/ropensci/tic/issues/186'>#186</a>)</li>
+<li>added support for Circle CI (<a href='https://github.com/ropensci/tic/issues/177'>#177</a>)</li>
+<li>All packages installed for custom steps use binary packages if possible on Windows and macOS (<a href='https://github.com/ropensci/tic/issues/178'>#178</a>).</li>
 <li>Use <code>TRAVIS_BUILD_WEB_URL</code> for the commit message.</li>
 <li>
 <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> gains <code>type</code> argument.</li>
 <li>Tweak documentation.</li>
+<li>export <code><a href="../reference/yaml-templates.html">use_travis_yml()</a></code>, <code><a href="../reference/yaml-templates.html">use_circle_yml()</a></code> and <code><a href="../reference/yaml-templates.html">use_appveyor_yml()</a></code> and add overview table of available options</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9020" class="section level1">
@@ -167,14 +245,14 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9019" class="anchor"></a>tic 0.2.13.9019</h1>
 <ul>
-<li>Building pkgdown site succeeds if <code>docs/</code> directory is missing (<a href='https://github.com/ropenscilabs/tic/issues/173'>#173</a>, r-lib/pkgdown<a href='https://github.com/ropenscilabs/tic/issues/1050'>#1050</a>).</li>
+<li>Building pkgdown site succeeds if <code>docs/</code> directory is missing (<a href='https://github.com/ropensci/tic/issues/173'>#173</a>, r-lib/pkgdown<a href='https://github.com/ropensci/tic/issues/1050'>#1050</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9018" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9018" class="anchor"></a>tic 0.2.13.9018</h1>
 <ul>
-<li>Move <code><a href="../reference/use_travis_deploy.html">use_travis_deploy()</a></code> from the travis package to here.</li>
+<li>Move <code>use_travis_deploy()</code> from the travis package to here.</li>
 <li>Unexport <code>get_public_key()</code> and <code>encode_private_key()</code>.</li>
 </ul>
 </div>
@@ -197,17 +275,17 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9016" class="anchor"></a>tic 0.2.13.9016</h1>
 <ul>
-<li>Fix compatibility with git 2.21 and above for race conditions (<a href='https://github.com/ropenscilabs/tic/issues/160'>#160</a>).</li>
+<li>Fix compatibility with git 2.21 and above for race conditions (<a href='https://github.com/ropensci/tic/issues/160'>#160</a>).</li>
 <li>
 <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> clean site before building.</li>
 <li>AppVeyor template makes sure packages are always installed from binary during bootstrapping.</li>
 <li>CI templates install from GitHub if the version number indicates that the package is not on CRAN yet.</li>
 <li>AppVeyor doesn’t cache R packages, because this leads to update problems. Binary installation is fast enough.</li>
-<li>Don’t perform CRAN incoming checks, in particular the checks for large version components (<a href='https://github.com/ropenscilabs/tic/issues/168'>#168</a>).</li>
+<li>Don’t perform CRAN incoming checks, in particular the checks for large version components (<a href='https://github.com/ropensci/tic/issues/168'>#168</a>).</li>
 <li>The <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code>, <code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code> and <code><a href="../reference/step_install_pkg.html">step_install_github()</a></code> steps install binary packages by default, even if the CRAN version is ahead.</li>
 <li>All files created by <code><a href="../reference/use_tic.html">use_tic()</a></code> are added to <code>.Rbuildignore</code>.</li>
-<li>Package template for <code>tic.R</code> runs pkgdown only on Travis (<a href='https://github.com/ropenscilabs/tic/issues/167'>#167</a>).</li>
-<li>Update vignettes (<a href='https://github.com/ropenscilabs/tic/issues/156'>#156</a>).</li>
+<li>Package template for <code>tic.R</code> runs pkgdown only on Travis (<a href='https://github.com/ropensci/tic/issues/167'>#167</a>).</li>
+<li>Update vignettes (<a href='https://github.com/ropensci/tic/issues/156'>#156</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9015" class="section level1">
@@ -215,13 +293,13 @@
 <a href="#tic-0-2-13-9015" class="anchor"></a>tic 0.2.13.9015</h1>
 <ul>
 <li>
-<code>detect_repo_type()</code> now prompts the user for unknown repository types (<a href='https://github.com/ropenscilabs/tic/issues/161'>#161</a>).</li>
+<code>detect_repo_type()</code> now prompts the user for unknown repository types (<a href='https://github.com/ropensci/tic/issues/161'>#161</a>).</li>
 <li>
 <code><a href="../reference/use_tic.html">use_tic()</a></code> loses <code>path</code> argument, now taken from <code><a href="https://usethis.r-lib.org/reference/proj_utils.html">usethis::proj_get()</a></code> .</li>
 <li>
-<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> and <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> now avoid building the vignette by default on AppVeyor (<a href='https://github.com/ropenscilabs/tic/issues/150'>#150</a>).</li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> and <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> now avoid building the vignette by default on AppVeyor (<a href='https://github.com/ropensci/tic/issues/150'>#150</a>).</li>
 <li>
-<code><a href="../reference/use_tic.html">use_tic()</a></code> now uses boxes from {cli} for better structured output (<a href='https://github.com/ropenscilabs/tic/issues/153'>#153</a>).</li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> now uses boxes from {cli} for better structured output (<a href='https://github.com/ropensci/tic/issues/153'>#153</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9014" class="section level1">
@@ -231,43 +309,43 @@
 <li>Configuration storage modeled after <code><a href="https://usethis.r-lib.org/reference/proj_utils.html">usethis::proj_get()</a></code>.</li>
 <li>New <code><a href="../reference/dsl_get.html">dsl_load()</a></code>, renamed from <code>load_from_file()</code>.</li>
 <li>New <code><a href="../reference/dsl_get.html">dsl_get()</a></code> and <code><a href="../reference/dsl_get.html">dsl_init()</a></code>.</li>
-<li>Added examples to help for <code><a href="../reference/dsl.html">get_stage()</a></code> and macros (<a href='https://github.com/ropenscilabs/tic/issues/77'>#77</a>).</li>
+<li>Added examples to help for <code><a href="../reference/dsl.html">get_stage()</a></code> and macros (<a href='https://github.com/ropensci/tic/issues/77'>#77</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9013" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9013" class="anchor"></a>tic 0.2.13.9013</h1>
 <ul>
-<li>Using tidy evaluation for simpler code, more control and better printing of steps (<a href='https://github.com/ropenscilabs/tic/issues/77'>#77</a>).</li>
+<li>Using tidy evaluation for simpler code, more control and better printing of steps (<a href='https://github.com/ropensci/tic/issues/77'>#77</a>).</li>
 <li>Fix AppVeyor builds.</li>
-<li>The README is now explicit about suggesting that each repo should contain only one project (<a href='https://github.com/ropenscilabs/tic/issues/152'>#152</a>).</li>
-<li>Documentation uses the {rotemplate} package (<a href='https://github.com/ropenscilabs/tic/issues/121'>#121</a>).</li>
-<li>Only install {remotes} and {curl} if not yet installed (<a href='https://github.com/ropenscilabs/tic/issues/97'>#97</a>).</li>
-<li>New <code><a href="../reference/use_tic.html">use_tic()</a></code>, moved from {travis} (<a href='https://github.com/ropenscilabs/tic/issues/138'>#138</a>).</li>
-<li>Updated templates (<a href='https://github.com/ropenscilabs/tic/issues/81'>#81</a>).</li>
-<li>A failing step displays a traceback generated by <code><a href="https://rlang.r-lib.org/reference/trace_back.html">rlang::trace_back()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/105'>#105</a>).</li>
+<li>The README is now explicit about suggesting that each repo should contain only one project (<a href='https://github.com/ropensci/tic/issues/152'>#152</a>).</li>
+<li>Documentation uses the {rotemplate} package (<a href='https://github.com/ropensci/tic/issues/121'>#121</a>).</li>
+<li>Only install {remotes} and {curl} if not yet installed (<a href='https://github.com/ropensci/tic/issues/97'>#97</a>).</li>
+<li>New <code><a href="../reference/use_tic.html">use_tic()</a></code>, moved from {travis} (<a href='https://github.com/ropensci/tic/issues/138'>#138</a>).</li>
+<li>Updated templates (<a href='https://github.com/ropensci/tic/issues/81'>#81</a>).</li>
+<li>A failing step displays a traceback generated by <code><a href="https://rlang.r-lib.org/reference/trace_back.html">rlang::trace_back()</a></code> (<a href='https://github.com/ropensci/tic/issues/105'>#105</a>).</li>
 <li>
 <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> and <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code> now have a <code>deploy</code> argument and are documented on separate help pages. The new <code><a href="../reference/macro.html">?macro</a></code> help page provides an overview.</li>
-<li>Implement <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> methods for DSL and stages (<a href='https://github.com/ropenscilabs/tic/issues/77'>#77</a>).</li>
-<li>New <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/137'>#137</a>).</li>
+<li>Implement <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> methods for DSL and stages (<a href='https://github.com/ropensci/tic/issues/77'>#77</a>).</li>
+<li>New <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code> (<a href='https://github.com/ropensci/tic/issues/137'>#137</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9012" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9012" class="anchor"></a>tic 0.2.13.9012</h1>
 <ul>
-<li>New <code>repo_*()</code> functions to simplify specification of the <code>repos</code> argument to installer functions (<a href='https://github.com/ropenscilabs/tic/issues/101'>#101</a>).</li>
-<li>Add Appveyor checks (<a href='https://github.com/ropenscilabs/tic/issues/147'>#147</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
-<li>New pkgdown macro via <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/126'>#126</a>, <a href='https://github.com/pat-s'>@pat-s</a>)</li>
+<li>New <code>repo_*()</code> functions to simplify specification of the <code>repos</code> argument to installer functions (<a href='https://github.com/ropensci/tic/issues/101'>#101</a>).</li>
+<li>Add Appveyor checks (<a href='https://github.com/ropensci/tic/issues/147'>#147</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>New pkgdown macro via <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> (<a href='https://github.com/ropensci/tic/issues/126'>#126</a>, <a href='https://github.com/pat-s'>@pat-s</a>)</li>
 <li>New example: covrpage, cc <a href='https://github.com/yonicd'>@yonicd</a></li>
 <li>
-<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck(error_on = "note")</a></code> works again (<a href='https://github.com/ropenscilabs/tic/issues/119'>#119</a>).</li>
-<li>New <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href='https://github.com/ropenscilabs/tic/issues/146'>#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href='https://github.com/ropenscilabs/tic/issues/128'>#128</a>).</li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck(error_on = "note")</a></code> works again (<a href='https://github.com/ropensci/tic/issues/119'>#119</a>).</li>
+<li>New <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href='https://github.com/ropensci/tic/issues/146'>#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href='https://github.com/ropensci/tic/issues/128'>#128</a>).</li>
 <li>
-<code><a href="../reference/dsl.html">add_step()</a></code> now evaluates the <code>step</code> argument in a <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> block and gives a bit of context if this fails (<a href='https://github.com/ropenscilabs/tic/issues/73'>#73</a>).</li>
-<li>New <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>, previously <code>tic()</code> (<a href='https://github.com/ropenscilabs/tic/issues/66'>#66</a>).</li>
-<li>New <code><a href="../reference/ci.html">ci_get_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> and <code><a href="../reference/ci.html">ci_is_env()</a></code> functions to avoid verbose <code><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv()</a></code> calls in <code>tic.R</code> (<a href='https://github.com/ropenscilabs/tic/issues/124'>#124</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
-<li>New <code>ci_*()</code> functions to avoid R6 notation in <code>tic.R</code> (<a href='https://github.com/ropenscilabs/tic/issues/125'>#125</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<code><a href="../reference/dsl.html">add_step()</a></code> now evaluates the <code>step</code> argument in a <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> block and gives a bit of context if this fails (<a href='https://github.com/ropensci/tic/issues/73'>#73</a>).</li>
+<li>New <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>, previously <code>tic()</code> (<a href='https://github.com/ropensci/tic/issues/66'>#66</a>).</li>
+<li>New <code><a href="../reference/ci.html">ci_get_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> and <code><a href="../reference/ci.html">ci_is_env()</a></code> functions to avoid verbose <code><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv()</a></code> calls in <code>tic.R</code> (<a href='https://github.com/ropensci/tic/issues/124'>#124</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>New <code>ci_*()</code> functions to avoid R6 notation in <code>tic.R</code> (<a href='https://github.com/ropensci/tic/issues/125'>#125</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9011" class="section level1">
@@ -276,10 +354,10 @@
 <ul>
 <li>New <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code>, reorganizing help pages so that installer steps are on the same page.</li>
 <li>
-<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> no longer installs dependencies. Instead, <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> includes <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/74'>#74</a>).</li>
-<li>Fix two links in README (<a href='https://github.com/ropenscilabs/tic/issues/115'>#115</a>, <a href='https://github.com/Rekyt'>@Rekyt</a>).</li>
-<li>Vignette update (<a href='https://github.com/ropenscilabs/tic/issues/80'>#80</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
-<li>Support <code>build_args</code> argument in <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/64'>#64</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> no longer installs dependencies. Instead, <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> includes <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> (<a href='https://github.com/ropensci/tic/issues/74'>#74</a>).</li>
+<li>Fix two links in README (<a href='https://github.com/ropensci/tic/issues/115'>#115</a>, <a href='https://github.com/Rekyt'>@Rekyt</a>).</li>
+<li>Vignette update (<a href='https://github.com/ropensci/tic/issues/80'>#80</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>Support <code>build_args</code> argument in <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> (<a href='https://github.com/ropensci/tic/issues/64'>#64</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9011-1" class="section level1">
@@ -301,8 +379,8 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9010" class="anchor"></a>tic 0.2.13.9010</h1>
 <ul>
-<li>No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (<a href='https://github.com/ropenscilabs/tic/issues/86'>#86</a>, <a href='https://github.com/ropenscilabs/tic/issues/88'>#88</a>).</li>
-<li>Packages coming with the R-installation are not updated anymore when preparing <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>. See <code>?step_rcmdcheck()</code> for detailed info. (<a href='https://github.com/ropenscilabs/tic/issues/103'>#103</a>)</li>
+<li>No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (<a href='https://github.com/ropensci/tic/issues/86'>#86</a>, <a href='https://github.com/ropensci/tic/issues/88'>#88</a>).</li>
+<li>Packages coming with the R-installation are not updated anymore when preparing <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>. See <code>?step_rcmdcheck()</code> for detailed info. (<a href='https://github.com/ropensci/tic/issues/103'>#103</a>)</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9009" class="section level1">
@@ -310,15 +388,15 @@
 <a href="#tic-0-2-13-9009" class="anchor"></a>tic 0.2.13.9009</h1>
 <ul>
 <li>The <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> step now uses the same dedicated library as <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
-<li>Using the development version of <em>rcmdcheck</em> to work around problems finding the vignette builder (<a href='https://github.com/ropenscilabs/tic/issues/84'>#84</a>).</li>
-<li>Draft for new “Get started” vignette (<a href='https://github.com/ropenscilabs/tic/issues/63'>#63</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>Using the development version of <em>rcmdcheck</em> to work around problems finding the vignette builder (<a href='https://github.com/ropensci/tic/issues/84'>#84</a>).</li>
+<li>Draft for new “Get started” vignette (<a href='https://github.com/ropensci/tic/issues/63'>#63</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9008" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9008" class="anchor"></a>tic 0.2.13.9008</h1>
 <ul>
-<li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> macro no longer includes an <code><a href="https://rdrr.io/r/utils/update.packages.html">update.packages()</a></code> call (<a href='https://github.com/ropenscilabs/tic/issues/35'>#35</a>).</li>
+<li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> macro no longer includes an <code><a href="https://rdrr.io/r/utils/update.packages.html">update.packages()</a></code> call (<a href='https://github.com/ropensci/tic/issues/35'>#35</a>).</li>
 <li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now installs all dependencies during preparation. The <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> macro no longer adds the code step that installs dependencies.</li>
 </ul>
 </div>
@@ -326,37 +404,37 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9007" class="anchor"></a>tic 0.2.13.9007</h1>
 <ul>
-<li>The <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> and <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (<a href='https://github.com/ropenscilabs/tic/issues/27'>#27</a>).</li>
+<li>The <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> and <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (<a href='https://github.com/ropensci/tic/issues/27'>#27</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9006" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9006" class="anchor"></a>tic 0.2.13.9006</h1>
 <ul>
-<li>Support creating variables in <code>tic.R</code> by sourcing <code>tic.R</code> in a modifiable environment (<a href='https://github.com/ropenscilabs/tic/issues/33'>#33</a>).</li>
-<li>Replaced <code>private</code> arguments with an environment that keeps track of internal state, now the code from <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> can be copied to a <code>tic.R</code> file (<a href='https://github.com/ropenscilabs/tic/issues/74'>#74</a>).</li>
+<li>Support creating variables in <code>tic.R</code> by sourcing <code>tic.R</code> in a modifiable environment (<a href='https://github.com/ropensci/tic/issues/33'>#33</a>).</li>
+<li>Replaced <code>private</code> arguments with an environment that keeps track of internal state, now the code from <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> can be copied to a <code>tic.R</code> file (<a href='https://github.com/ropensci/tic/issues/74'>#74</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9005" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9005" class="anchor"></a>tic 0.2.13.9005</h1>
 <ul>
-<li>A failing step immediately fails the entire stage, subsequent steps are not run (<a href='https://github.com/ropenscilabs/tic/issues/59'>#59</a>).</li>
+<li>A failing step immediately fails the entire stage, subsequent steps are not run (<a href='https://github.com/ropensci/tic/issues/59'>#59</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9004" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9004" class="anchor"></a>tic 0.2.13.9004</h1>
 <ul>
-<li>New <code>get_public_key()</code> and <code>encode_private_key()</code> moved from <em>travis</em> (<a href='https://github.com/ropenscilabs/tic/issues/71'>#71</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
-<li>Add <code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code> and <code><a href="../reference/step_install_pkg.html">step_install_github()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/65'>#65</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>New <code>get_public_key()</code> and <code>encode_private_key()</code> moved from <em>travis</em> (<a href='https://github.com/ropensci/tic/issues/71'>#71</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
+<li>Add <code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code> and <code><a href="../reference/step_install_pkg.html">step_install_github()</a></code> (<a href='https://github.com/ropensci/tic/issues/65'>#65</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9003" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-9003" class="anchor"></a>tic 0.2.13.9003</h1>
 <ul>
-<li>Added integration tests for package checks and deployment, covering various common cases (<a href='https://github.com/ropenscilabs/tic/issues/62'>#62</a>).</li>
+<li>Added integration tests for package checks and deployment, covering various common cases (<a href='https://github.com/ropensci/tic/issues/62'>#62</a>).</li>
 <li>Add integration test for deploying from a subdirectory.</li>
 <li>Remove <code>orphan</code> argument from <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>, because there’s no easy way to implement it reliably. If only a subdirectory is deployed to a separate branch (i.e., the <code>path</code> argument is set), <code>orphan = TRUE</code> is required.</li>
 </ul>
@@ -365,14 +443,14 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9002" class="anchor"></a>tic 0.2.13.9002</h1>
 <ul>
-<li>Better strategy for handling race conditions during deployment, new changes are no longer silently overwritten with <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/45'>#45</a>).</li>
-<li>Add integration test for package checks and race conditions (<a href='https://github.com/ropenscilabs/tic/issues/62'>#62</a>).</li>
+<li>Better strategy for handling race conditions during deployment, new changes are no longer silently overwritten with <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> (<a href='https://github.com/ropensci/tic/issues/45'>#45</a>).</li>
+<li>Add integration test for package checks and race conditions (<a href='https://github.com/ropensci/tic/issues/62'>#62</a>).</li>
 <li>Clarify error message upon step failure.</li>
 <li>
 <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> adds coverage checks only for non-interactive CIs.</li>
-<li>Add reference to <code><a href="../reference/use_tic.html">use_tic()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/55'>#55</a>).</li>
-<li>Document purpose of testing steps (<a href='https://github.com/ropenscilabs/tic/issues/49'>#49</a>).</li>
-<li>Allow only predefined stage names (<a href='https://github.com/ropenscilabs/tic/issues/48'>#48</a>).</li>
+<li>Add reference to <code><a href="../reference/use_tic.html">use_tic()</a></code> (<a href='https://github.com/ropensci/tic/issues/55'>#55</a>).</li>
+<li>Document purpose of testing steps (<a href='https://github.com/ropensci/tic/issues/49'>#49</a>).</li>
+<li>Allow only predefined stage names (<a href='https://github.com/ropensci/tic/issues/48'>#48</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-9001" class="section level1">
@@ -386,16 +464,16 @@
 <h1 class="page-header">
 <a href="#tic-0-2-13-9000" class="anchor"></a>tic 0.2.13.9000</h1>
 <ul>
-<li>New <code>subdir</code> argument to <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>, allows restricting the set of files to be committed to Git (<a href='https://github.com/ropenscilabs/tic/issues/42'>#42</a>).</li>
+<li>New <code>subdir</code> argument to <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>, allows restricting the set of files to be committed to Git (<a href='https://github.com/ropensci/tic/issues/42'>#42</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-13-2018-02-01" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-13-2018-02-01" class="anchor"></a>tic 0.2-13 (2018-02-01)</h1>
 <ul>
-<li>New <code><a href="../reference/base64serialize.html">base64serialize()</a></code> and <code><a href="../reference/base64serialize.html">base64unserialize()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/37'>#37</a>).</li>
+<li>New <code><a href="../reference/base64serialize.html">base64serialize()</a></code> and <code><a href="../reference/base64serialize.html">base64unserialize()</a></code> (<a href='https://github.com/ropensci/tic/issues/37'>#37</a>).</li>
 <li>
-<code><a href="../reference/dsl.html">add_code_step()</a></code> detects required packages also for complex expressions. Packages that need to be installed from GitHub still need to be installed manually (<a href='https://github.com/ropenscilabs/tic/issues/36'>#36</a>).</li>
+<code><a href="../reference/dsl.html">add_code_step()</a></code> detects required packages also for complex expressions. Packages that need to be installed from GitHub still need to be installed manually (<a href='https://github.com/ropensci/tic/issues/36'>#36</a>).</li>
 <li>
 <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> now prints a summary, which also shows e.g. details on installation failures.</li>
 <li>New <code>prepare_call</code> argument to <code><a href="../reference/step_run_code.html">step_run_code()</a></code> and <code><a href="../reference/dsl.html">add_code_step()</a></code>.</li>
@@ -414,17 +492,17 @@
 <ul>
 <li>
 <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> gains arguments that are passed to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
-<li>New <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/24'>#24</a>).</li>
-<li>New <code><a href="../reference/dsl.html">add_code_step()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/21'>#21</a>).</li>
-<li>New <code>tic()</code> to run all steps locally (<a href='https://github.com/ropenscilabs/tic/issues/23'>#23</a>).</li>
-<li>New <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/25'>#25</a>).</li>
+<li>New <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> (<a href='https://github.com/ropensci/tic/issues/24'>#24</a>).</li>
+<li>New <code><a href="../reference/dsl.html">add_code_step()</a></code> (<a href='https://github.com/ropensci/tic/issues/21'>#21</a>).</li>
+<li>New <code>tic()</code> to run all steps locally (<a href='https://github.com/ropensci/tic/issues/23'>#23</a>).</li>
+<li>New <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> (<a href='https://github.com/ropensci/tic/issues/25'>#25</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-10-2017-06-29" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-10-2017-06-29" class="anchor"></a>tic 0.2-10 (2017-06-29)</h1>
 <ul>
-<li>Document all exported functions and many classes (<a href='https://github.com/ropenscilabs/tic/issues/8'>#8</a>).</li>
+<li>Document all exported functions and many classes (<a href='https://github.com/ropensci/tic/issues/8'>#8</a>).</li>
 <li>
 <code><a href="../reference/step_add_to_drat.html">step_add_to_drat()</a></code> will also update the overview page if it exists.</li>
 </ul>
@@ -438,34 +516,34 @@
 <li>Split <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> into <code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>.</li>
 <li>Better traceback output.</li>
 <li>Use “remotes” instead of “devtools”.</li>
-<li>Reduce output after preparation (<a href='https://github.com/ropenscilabs/tic/issues/5'>#5</a>).</li>
+<li>Reduce output after preparation (<a href='https://github.com/ropensci/tic/issues/5'>#5</a>).</li>
 <li>New <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
-<li>The deparsed code is used as step name (<a href='https://github.com/ropenscilabs/tic/issues/5'>#5</a>).</li>
+<li>The deparsed code is used as step name (<a href='https://github.com/ropensci/tic/issues/5'>#5</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-8-2017-06-17" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-8-2017-06-17" class="anchor"></a>tic 0.2-8 (2017-06-17)</h1>
 <ul>
-<li>An error occurring when running a step is printed in red (<a href='https://github.com/ropenscilabs/tic/issues/5'>#5</a>).</li>
+<li>An error occurring when running a step is printed in red (<a href='https://github.com/ropensci/tic/issues/5'>#5</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-7-2017-06-13" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-7-2017-06-13" class="anchor"></a>tic 0.2-7 (2017-06-13)</h1>
 <ul>
-<li>New <code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code> for creating arbitrary text files, including <code>~/.R/Makevars</code> (<a href='https://github.com/ropenscilabs/tic/issues/14'>#14</a>).</li>
-<li>pkgdown documentation is now built for tags by default (<a href='https://github.com/ropenscilabs/tic/issues/13'>#13</a>).</li>
+<li>New <code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code> for creating arbitrary text files, including <code>~/.R/Makevars</code> (<a href='https://github.com/ropensci/tic/issues/14'>#14</a>).</li>
+<li>pkgdown documentation is now built for tags by default (<a href='https://github.com/ropensci/tic/issues/13'>#13</a>).</li>
 <li>The “openssl” package is now only suggested, not imported.</li>
-<li>Removed <code>step_run_covr()</code> in favor of the new <code><a href="../reference/step_run_code.html">step_run_code()</a></code> (<a href='https://github.com/ropenscilabs/tic/issues/18'>#18</a>).</li>
+<li>Removed <code>step_run_covr()</code> in favor of the new <code><a href="../reference/step_run_code.html">step_run_code()</a></code> (<a href='https://github.com/ropensci/tic/issues/18'>#18</a>).</li>
 <li>
-<code>load_from_file()</code> reloads the file from disk if its mtime changes (<a href='https://github.com/ropenscilabs/tic/issues/11'>#11</a>).</li>
-<li>All steps of a stage are run even in case of previous errors, but the stage still fails if at least one of its steps failed (<a href='https://github.com/ropenscilabs/tic/issues/10'>#10</a>).</li>
+<code>load_from_file()</code> reloads the file from disk if its mtime changes (<a href='https://github.com/ropensci/tic/issues/11'>#11</a>).</li>
+<li>All steps of a stage are run even in case of previous errors, but the stage still fails if at least one of its steps failed (<a href='https://github.com/ropensci/tic/issues/10'>#10</a>).</li>
 <li>Adding to known hosts or installing a SSH keys now requires a non-interactive CI.</li>
-<li>New <code><a href="../reference/step_run_code.html">step_run_code()</a></code> to run arbitrary code. If the code is a call with the <code>pkg::fun()</code>, notation, pkg is installed if missing (<a href='https://github.com/ropenscilabs/tic/issues/1'>#1</a>, <a href='https://github.com/ropenscilabs/tic/issues/3'>#3</a>). <code>step_run_covr()</code> remains for compatibility but is scheduled for removal.</li>
-<li>Color the start of each step in the log (<a href='https://github.com/ropenscilabs/tic/issues/5'>#5</a>).</li>
-<li>New <code><a href="../reference/step_add_to_known_hosts.html">step_add_to_known_hosts()</a></code> to work around configuration problems on OS X (<a href='https://github.com/ropenscilabs/tic/issues/16'>#16</a>).</li>
-<li>Export runner methods for all stages defined in Travis CI and AppVeyor (<a href='https://github.com/ropenscilabs/tic/issues/17'>#17</a>).</li>
+<li>New <code><a href="../reference/step_run_code.html">step_run_code()</a></code> to run arbitrary code. If the code is a call with the <code>pkg::fun()</code>, notation, pkg is installed if missing (<a href='https://github.com/ropensci/tic/issues/1'>#1</a>, <a href='https://github.com/ropensci/tic/issues/3'>#3</a>). <code>step_run_covr()</code> remains for compatibility but is scheduled for removal.</li>
+<li>Color the start of each step in the log (<a href='https://github.com/ropensci/tic/issues/5'>#5</a>).</li>
+<li>New <code><a href="../reference/step_add_to_known_hosts.html">step_add_to_known_hosts()</a></code> to work around configuration problems on OS X (<a href='https://github.com/ropensci/tic/issues/16'>#16</a>).</li>
+<li>Export runner methods for all stages defined in Travis CI and AppVeyor (<a href='https://github.com/ropensci/tic/issues/17'>#17</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-6-2017-06-04" class="section level1">
@@ -520,14 +598,14 @@
 <h1 class="page-header">
 <a href="#tic-0-2-2-2016-11-05" class="anchor"></a>tic 0.2-2 (2016-11-05)</h1>
 <ul>
-<li>DSL to define steps via <code><a href="https://rdrr.io/r/stats/step.html">step()</a></code>, which are tasks with a branch and/or env var filter (<a href='https://github.com/ropenscilabs/tic/issues/6'>#6</a>).</li>
+<li>DSL to define steps via <code><a href="https://rdrr.io/r/stats/step.html">step()</a></code>, which are tasks with a branch and/or env var filter (<a href='https://github.com/ropensci/tic/issues/6'>#6</a>).</li>
 </ul>
 </div>
     <div id="tic-0-2-1-2016-11-05" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-2-1-2016-11-05" class="anchor"></a>tic 0.2-1 (2016-11-05)</h1>
 <ul>
-<li>Support environment variables from both Travis and AppVeyor (<a href='https://github.com/ropenscilabs/tic/issues/6'>#6</a>).</li>
+<li>Support environment variables from both Travis and AppVeyor (<a href='https://github.com/ropensci/tic/issues/6'>#6</a>).</li>
 <li>Add tests.</li>
 <li>Rudimentary support for multiple CI systems.</li>
 <li>Clean up dependencies.</li>
@@ -538,7 +616,7 @@
 <a href="#tic-0-2-2016-11-05" class="anchor"></a>tic 0.2 (2016-11-05)</h1>
 <p>Initial release.</p>
 <ul>
-<li>Rudimentary configuration based on task objects. A task object is a list/environment which contains at least the members <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code>, <code>prepare()</code> and <code>run()</code> – functions without arguments, only <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> needs to return a <code>logical</code> scalar. These can be subclasses of the new <code>TravisTask</code> R6 class, the package now contains six subclasses: <code>HelloWorld</code>, <code>RunCovr</code>, <code>BuildPkgdown</code>, <code>InstallSSHKeys</code>, <code>TestSSH</code>, and <code>PushDeploy</code>. The <code>new</code> methods of theses subclasses are exported as <code>task_hello_world()</code>, <code>task_run_covr()</code>, <code>task_build_pkgdown()</code> <code>task_install_ssh_keys()</code>, <code>task_test_ssh()</code>, and <code>task_push_deploy()</code>, respectively. The three functions <code><a href="../reference/stages.html">before_script()</a></code>, <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code> accept a semicolon-separated list of task objects, which is by default taken from the <code>TIC_AFTER_SUCCESS_TASKS</code> and <code>TIC_DEPLOY_TASKS</code> environment variables. These functions call the <code>prepare()</code> and <code>run()</code> methods of the task objects if and only if the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method returns <code>TRUE</code> (<a href='https://github.com/ropenscilabs/tic/issues/42'>#42</a>).</li>
+<li>Rudimentary configuration based on task objects. A task object is a list/environment which contains at least the members <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code>, <code>prepare()</code> and <code>run()</code> – functions without arguments, only <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> needs to return a <code>logical</code> scalar. These can be subclasses of the new <code>TravisTask</code> R6 class, the package now contains six subclasses: <code>HelloWorld</code>, <code>RunCovr</code>, <code>BuildPkgdown</code>, <code>InstallSSHKeys</code>, <code>TestSSH</code>, and <code>PushDeploy</code>. The <code>new</code> methods of theses subclasses are exported as <code>task_hello_world()</code>, <code>task_run_covr()</code>, <code>task_build_pkgdown()</code> <code>task_install_ssh_keys()</code>, <code>task_test_ssh()</code>, and <code>task_push_deploy()</code>, respectively. The three functions <code><a href="../reference/stages.html">before_script()</a></code>, <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code> accept a semicolon-separated list of task objects, which is by default taken from the <code>TIC_AFTER_SUCCESS_TASKS</code> and <code>TIC_DEPLOY_TASKS</code> environment variables. These functions call the <code>prepare()</code> and <code>run()</code> methods of the task objects if and only if the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method returns <code>TRUE</code> (<a href='https://github.com/ropensci/tic/issues/42'>#42</a>).</li>
 </ul>
 </div>
   </div>
@@ -547,7 +625,13 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tic-0-2-13-9021">0.2.13.9021</a></li>
+        <li><a href="#tic-0-4-0">0.4.0</a></li>
+        <li><a href="#tic-0-3-0-9005">0.3.0.9005</a></li>
+        <li><a href="#tic-0-3-0-9004">0.3.0.9004</a></li>
+        <li><a href="#tic-0-3-0-9003">0.3.0.9003</a></li>
+        <li><a href="#tic-0-3-0-9002">0.3.0.9002</a></li>
+        <li><a href="#tic-0-3-0-9001">0.3.0.9001</a></li>
+        <li><a href="#tic-0-3-0">0.3.0</a></li>
         <li><a href="#tic-0-2-13-9020">0.2.13.9020</a></li>
         <li><a href="#tic-0-2-13-9019">0.2.13.9019</a></li>
         <li><a href="#tic-0-2-13-9018">0.2.13.9018</a></li>
@@ -592,16 +676,66 @@
 
 
       <footer>
-      <div style="margin-top:-9px">
-  <p>tic is a part of <img src='https://github.com/ropensci/logos/raw/master/icon_lettering_color.png' height=40 alt = 'rOpenSci'>. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
-</div>
+      <!-- begin footer -->
+<div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg" /></div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href='http://krlmlr.info'>Kirill Müller</a>, <a href='https://pjs-web.de'>Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> & <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
    </div>

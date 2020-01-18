@@ -6,11 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Build lifecycle • tic</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
 <meta property="og:title" content="Build lifecycle">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -35,8 +38,8 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="../hexlogo.png" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.2.13.9021</small></i></a>
+        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -67,7 +70,7 @@
       <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
     </li>
     <li>
-      <a href="../articles/tic-travis.html">tic &amp; travis</a>
+      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
@@ -78,13 +81,16 @@
     <li>
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
+    <li>
+      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropenscilabs/tic">
+  <a href="https://github.com/ropensci/tic">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -106,7 +112,7 @@
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropenscilabs/tic/blob/master/vignettes/build-lifecycle.Rmd"><code>vignettes/build-lifecycle.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/build-lifecycle.Rmd"><code>vignettes/build-lifecycle.Rmd</code></a></small>
       <div class="hidden name"><code>build-lifecycle.Rmd</code></div>
 
     </div>
@@ -118,8 +124,13 @@
 <a href="#stages" class="anchor"></a>Stages</h2>
 <p>CI services run builds in stages. Stages are usually ordered as follows:</p>
 <p><img src="img/build-lifecycle.png" style="display: block; margin: auto;"></p>
-<p>The <code>after_xxx</code> stages are executed conditionally after their corresponding <code>xxx</code> stage. For example, the <code>after_deploy</code> stage will only be run if the <code>deploy</code> stage was run before. The <code>after_success</code> stage will only be run if the <code>script</code> stage executed successfully, i.e. without error; otherwise <code>after_failure</code> will be run instead.</p>
-<p><em>tic</em> also employs an approach based on stages. All action specifications that should be run in each stage are defined in the <code>tic.R</code> file. The steps are specified in an CI-agnostic way using R syntax. A large part of the <code>.travis.yml</code> file consists of glue code and is not meant to be edited anymore.</p>
+<p>The <code>after_xxx</code> stages are executed conditionally after their corresponding <code>xxx</code> stage.</p>
+<ul>
+<li>The <code>after_deploy</code> stage will only be run if the <code>deploy</code> stage was run before.</li>
+<li>The <code>after_success</code> stage will only be run if the <code>script</code> stage executed successfully, i.e. without error; otherwise <code>after_failure</code> will be run instead.</li>
+</ul>
+<p><em>tic</em> also relies on a “stage” based approach. All action that should be run in a certain stage are defined in <code>tic.R</code>. The steps are specified in an CI-agnostic way using R syntax.</p>
+<p>The majority of <code>.travis.yml</code> consists of glue code and is not meant to be edited anymore.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># DO NOT CHANGE THE CODE BELOW</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">before_install:</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></a>
@@ -141,31 +152,38 @@
 <a class="sourceLine" id="cb1-19" data-line-number="19"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
 <a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
 <p>In a nutshell, the workflow is as follows:</p>
-<p><code>.travis.yml</code>/<code>appveyor.yml</code> -&gt; <code>tic.R</code> -&gt; commands/steps to execute</p>
-<p>An important point to note: The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build. The workflow can be loaded using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>, this will not run any of the commands defined there. For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>. This latter emulates a CI build on your local system. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more information.</p>
+<p>CI YAML -&gt; <code>tic.R</code> -&gt; commands/steps to execute</p>
+<p>Some important points:</p>
+<ul>
+<li>The R code declared in <code>tic.R</code> is not meant to be run manually. It also does not trigger a CI build. All commands just define the workflow of the CI build.</li>
+<li>The workflow can be loaded using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>, however this will not run any of the commands defined.</li>
+<li>For testing purposes, all stages and steps defined in <code>tic.R</code> can be executed by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>. This emulates a CI build on your local system. See <a href="advanced#troubleshooting-running-tic-locally">Troubleshooting: Running tic locally</a> for more information.</li>
+</ul>
 <div id="accessing-a-single-stage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#accessing-a-single-stage" class="anchor"></a>Accessing a single stage</h3>
-<p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This function then sources <code>tic.R</code> and collects all steps added to <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code>, e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage". Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stages” section</a>), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
+<p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This is what happens in the CI YAML templates if you take a closer look at them.</p>
+<p>These functions then source <code>tic.R</code> and collect all steps which belong to their stage by executing <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code> (e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage").</p>
+<p>Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stages”</a> section), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
 </div>
 <div id="details-of-stages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#details-of-stages" class="anchor"></a>Details of stages</h3>
 <div id="the-before_install-install-stages" class="section level4">
 <h4 class="hasAnchor">
-<a href="#the-before_install-install-stages" class="anchor"></a>The <code>before_install</code> &amp; <code>install</code> stages</h4>
-<p>An important stage for <em>tic</em> is the <code>before_install</code> stage. Here, <em>tic</em> itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Essentially it calls the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code>. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://rdrr.io/pkg/remotes/man/install_deps.html">remotes::install_deps()</a></code>.</p>
+<a href="#the-before_install-install-stages" class="anchor"></a>The <code>"before_install"</code> &amp; <code>"install"</code> stages</h4>
+<p>An important stage for {tic} is the <code>"before_install"</code> stage. Here, {tic} itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Under the hood the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code> is being called. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://rdrr.io/pkg/remotes/man/install_deps.html">remotes::install_deps()</a></code>.</p>
 <p>All packages that should be stored in the “cache” of the CI service (so that they do not need to be installed again on every CI build) should be installed during preparation.</p>
 </div>
 <div id="the-script-stage" class="section level4">
 <h4 class="hasAnchor">
-<a href="#the-script-stage" class="anchor"></a>The <code>script</code> stage</h4>
-<p>The <code>script</code> stage is responsible for executing the important tasks of the CI run: Typically, it runs <code>R CMD check</code> for a package or builds the site for a blogdown site. In this stage all dependencies for a successful run are already installed.</p>
+<a href="#the-script-stage" class="anchor"></a>The <code>"script"</code> stage</h4>
+<p>The <code>"script"</code> stage is responsible for executing the important tasks of the CI run: Typically, it runs <code>R CMD check</code> for a package or builds the site for a blogdown site. When arriving at this stage, all dependencies for a successful run are already installed.</p>
 </div>
 <div id="the-deploy-stage" class="section level4">
 <h4 class="hasAnchor">
-<a href="#the-deploy-stage" class="anchor"></a>The <code>deploy</code> stage</h4>
-<p>This stage initiates the deployment (e.g., setting up SSH keys) and executes it. If you want to automatically build a <em>pkgdown</em> site, you can do it here. See <a href="deployment.html">the article about deployment</a> for more information.</p>
+<a href="#the-deploy-stage" class="anchor"></a>The <code>"deploy"</code> stage</h4>
+<p>This stage initiates the deployment (e.g., setting up deployment keys) and executes it. If you want to automatically build a {pkgdown} site, you can do it here. See <a href="deployment.html">the article about deployment</a> for more information.</p>
 </div>
 </div>
 </div>
@@ -175,81 +193,118 @@
 <p>Steps are the commands that are executed in each stage. <em>tic</em> uses the <a href="https://magrittr.tidyverse.org/">pipe operator</a> and the <code><a href="../reference/dsl.html">add_step()</a></code> function to chain steps in <code>tic.R</code>, for example</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
-<p>In the code example above <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> is added to the <code>"deploy"</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code>. So in summary, steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
+<p>In the code example above <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> is added to the <code>"deploy"</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code>. In summary, steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
 <p>Here is a list that shows a rough grouping of the steps into their default stages:</p>
 <div id="basic" class="section level4">
 <h4 class="hasAnchor">
 <a href="#basic" class="anchor"></a>Basic</h4>
-<ul>
-<li>
-<code><a href="../reference/step_hello_world.html">step_hello_world()</a></code>: print “Hello, World!” to the console, helps testing a tic setup</li>
-<li>
-<code><a href="../reference/step_run_code.html">step_run_code()</a></code>: run arbitrary code, optionally run preparatory code and install dependent packages
-<ul>
-<li>
-<code><a href="../reference/dsl.html">add_step(step_run_code())</a></code> can be abbreviated with <code><a href="../reference/dsl.html">add_code_step()</a></code>
-</li>
-</ul>
-</li>
-<li>
-<code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code>: Creates a text file with arbitrary contents</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>Step</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="../reference/step_hello_world.html">step_hello_world()</a></code></td>
+<td>Print “Hello, World!” to the console, helps testing a tic setup</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code></td>
+<td>Creates a text file with arbitrary contents</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="installation" class="section level4">
 <h4 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h4>
-<ul>
-<li>
-<code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code>: Installs one package from CRAN via <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>, but only if it’s not already installed.</li>
-<li>
-<code><a href="../reference/step_install_pkg.html">step_install_github()</a></code>: Installs one or more packages from GitHub via <code><a href="https://rdrr.io/pkg/remotes/man/install_github.html">remotes::install_github()</a></code>
-</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>Step</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code></td>
+<td>Installs one package from CRAN via <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> if it is not yet installed.</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/step_install_pkg.html">step_install_github()</a></code></td>
+<td>Installs one or more packages from GitHub via <code><a href="https://rdrr.io/pkg/remotes/man/install_github.html">remotes::install_github()</a></code>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="r-package-specific" class="section level4">
 <h4 class="hasAnchor">
 <a href="#r-package-specific" class="anchor"></a>R package specific</h4>
-<ul>
-<li>
-<code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>: building package documentation via <a href="https://github.com/r-lib/pkgdown">pkgdown</a>
-</li>
-<li>
-<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: run <code>R CMD check</code> via the <em>rcmdcheck</em> package</li>
-</ul>
+<table class="table">
+<thead><tr class="header">
+<th>Step</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code></td>
+<td>Building package documentation via <a href="https://github.com/r-lib/pkgdown">pkgdown</a>
+</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code></td>
+<td>Run <code>R CMD check</code> via the {rcmdcheck} package</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="deployment" class="section level4">
 <h4 class="hasAnchor">
 <a href="#deployment" class="anchor"></a>Deployment</h4>
-<ul>
-<li>
-<code>step_install_ssh_key()</code>: Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>)</li>
-<li>
-<code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code>: Test the SSH connection to GitHub, helps troubleshooting deploy problems</li>
-<li>
-<code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code>: Adds to known hosts, installs private key, and tests the connection</li>
-<li>
-<code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code>: Clones a repo, initiates author information, and sets up remotes for a subsequent <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>
-</li>
-<li>
-<code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>: Deploy to GitHub</li>
-<li>
-<code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>: Combines <code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>
-</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="21%">
+<col width="78%">
+</colgroup>
+<thead><tr class="header">
+<th>Step</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>step_install_ssh_key()</code></td>
+<td>Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>). Only needed on Travis CI.</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code></td>
+<td>Test the SSH connection to GitHub, helps troubleshooting deploy problems.</td>
+</tr>
+<tr class="odd">
+<td><code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code></td>
+<td>Adds to known hosts, installs private key, and tests the connection. Only needed on Travis CI.</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code></td>
+<td>Clones a repo, initiates author information, and sets up remotes for a subsequent <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>.</td>
+</tr>
+<tr class="odd">
+<td><code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code></td>
+<td>Deploy to GitHub.</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code></td>
+<td>Combines <code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>.</td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
-<div id="macros" class="section level2">
-<h2 class="hasAnchor">
-<a href="#macros" class="anchor"></a>Macros</h2>
-<p>Macros in <em>tic</em> are combinations of steps for reoccurring workflows to keep <code>tic.R</code> tidy. When a macro is invoked, it defines several steps, which are added to stages where they fit best. Macros can have parameters to control the behavior of their constituent steps.</p>
-<p>The macro function <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> comes with the most important steps that are needed for R package checking. It adds the following steps:</p>
-<ol style="list-style-type: decimal">
-<li><p><code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the <code>error_on</code>, <code>args</code>, <code>build_args</code>, <code>repos</code> and <code>timeout</code> arguments.</p></li>
-<li><p>A call to <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code> in the <code>"after_success"</code> stage.</p></li>
-</ol>
-<p>If you manually add these steps to stages in <code>tic.R</code> while <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> is still present, the steps will be executed twice.</p>
-<p>Macros do not need to include steps across stages, they can also just cover a sequence of steps of a single stage.</p>
-<p>Macros can be distinguished from other functions by their <code>do_</code> prefix. Other examples for macros include <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> and <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code>. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropenscilabs/tic/issues">issue</a>.</p>
 </div>
   </div>
 
@@ -259,9 +314,13 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#stages">Stages</a></li>
+<li>
+<a href="#stages">Stages</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#accessing-a-single-stage">Accessing a single stage</a></li>
+      <li><a href="#details-of-stages">Details of stages</a></li>
+      </ul>
+</li>
       <li><a href="#steps">Steps</a></li>
-      <li><a href="#macros">Macros</a></li>
       </ul>
 </div>
       </div>
@@ -270,16 +329,66 @@
 
 
 
-      <footer><div style="margin-top:-9px">
-  <p>tic is a part of <img src="https://github.com/ropensci/logos/raw/master/icon_lettering_color.png" height="40" alt="rOpenSci">. Learn more at <a href="https://ropensci.org">ropensci.org</a>.</p>
+      <footer><!-- begin footer --><div class="footer">
+    <div class="container">
+        <div class="row start bottom-8">
+            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
 </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                    </div>
+                </div>
+                <div class="row top-4">
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Info</h5>
+                            <li><a href="https://ropensci.org/about">Mission</a></li>
+                            <li><a href="https://ropensci.org/about#team">Team</a></li>
+                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
+                            <li><a href="https://ropensci.org/careers">Careers</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Work</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
+                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
+                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-3 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Participate</h5>
+                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
+                            <li><a href="https://ropensci.org/community/">Community</a></li>
+                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
+                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-4 col-xs-12">
+                        <h5 class="bottom-2"></h5>
 
-<div class="author">
-  <p>
-    Developed by <a href="http://krlmlr.info">Kirill Müller</a>, <a href="https://pjs-web.de">Patrick Schratz</a>, Mika Braginsky, Karthik Ram, Jeroen Ooms, rOpenSci.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a> &amp; <a href="https://docs.ropensci.org/rotemplate/">rotemplate</a>.
-  </p>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- / end footer -->
 
       </footer>
 </div>
