@@ -10,6 +10,7 @@ articles:
   features: features.html
   org-vs-com: org-vs-com.html
   tic: tic.html
+  troubleshooting: troubleshooting.html
 urls:
   reference: https://docs.ropensci.org/tic/dev/reference
   article: https://docs.ropensci.org/tic/dev/articles

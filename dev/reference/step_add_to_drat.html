@@ -43,8 +43,7 @@
 
 <meta property="og:title" content="Step: Add built package to a drat — step_add_to_drat" />
 <meta property="og:description" content="Builds a package (binary on OS X or Windows) and inserts it into an existing
-drat repository via drat::insertPackage().
-Also knits the index.Rmd file of the drat if it exists." />
+drat repository via drat::insertPackage()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -155,12 +154,27 @@ Also knits the index.Rmd file of the drat if it exists." />
 
     <div class="ref-description">
     <p>Builds a package (binary on OS X or Windows) and inserts it into an existing
-<span class="pkg">drat</span> repository via <code><a href='https://rdrr.io/pkg/drat/man/insertPackage.html'>drat::insertPackage()</a></code>.
-Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
+<span class="pkg">drat</span> repository via <code><a href='https://rdrr.io/pkg/drat/man/insertPackage.html'>drat::insertPackage()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_add_to_drat</span>()</pre>
+    <pre class="usage"><span class='fu'>step_add_to_drat</span>(<span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>deploy_dev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>repo_slug</th>
+      <td><p><code>[string]</code><br />
+The name of the drat repository to deploy to in the form <code>:owner/:repo</code>.</p></td>
+    </tr>
+    <tr>
+      <th>deploy_dev</th>
+      <td><p><code>[logical]</code><br />
+Should development versions of packages also be deployed to the drat repo?
+By default only "major", "minor" and "patch" releases are build and
+deployed.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -189,6 +203,7 @@ Also knits the <code>index.Rmd</code> file of the drat if it exists.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

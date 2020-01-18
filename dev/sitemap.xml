@@ -19,6 +19,9 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/do_bookdown.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/do_drat.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/do_package_checks.html</loc>
   </url>
   <url>
@@ -128,5 +131,8 @@
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/tic.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/articles/troubleshooting.html</loc>
   </url>
 </urlset>
