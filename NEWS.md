@@ -1,3 +1,12 @@
+# tic 0.4.0
+
+* add macro `do_drat()`
+* start vignette "troubleshooting"
+* add {desc} to suggests
+* `ci_can_push()` never fails.
+* templates: always upgrade dep packages during {tic} installation
+
+
 # tic 0.3.0.9005
 
 * Make it possible to pass the endpoint arg from {travis} funs to `use_tic()`
