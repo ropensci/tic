@@ -36,7 +36,6 @@ do_readme_rmd <- function(checkout = TRUE,
                           branch = "master",
                           remote_url = NULL,
                           commit_message = NULL,
-                          commit_paths = ".",
                           ssh_key_name = "id_rsa") {
 
   #' @description
@@ -46,7 +45,6 @@ do_readme_rmd <- function(checkout = TRUE,
     add_step(step_setup_ssh(name = ssh_key_name))
 
   #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
-  #'    (if `deploy` is set),
   get_stage("before_deploy") %>%
     add_step(step_setup_push_deploy(
       path = !!enquo(path),
@@ -56,7 +54,7 @@ do_readme_rmd <- function(checkout = TRUE,
       checkout = !!enquo(checkout)
     ))
 
-  #' 1. [step_add_to_readme_rmd()] in the `"deploy"`
+  #' 1. `rmarkdown::render()` in the `"deploy"` stage
   get_stage("deploy") %>%
     add_code_step(rmarkdown::render("README.Rmd"))
 
