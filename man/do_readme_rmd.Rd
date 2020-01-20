@@ -29,6 +29,8 @@ and avoiding recursive CI runs.}
 The name of the private SSH key which should be used for deployment.}
 }
 \description{
+\lifecycle{experimental}
+
 \code{do_readme_rmd()} renders an R Markdown README and deploys
 the rendered README.md file to Github. It adds default steps to the
 \code{"before_deploy"} and \code{"deploy"} stages:

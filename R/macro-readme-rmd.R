@@ -11,6 +11,8 @@ NULL
 #' Render a R Markdown README and deploy to Github
 #'
 #' @description
+#' \lifecycle{experimental}
+#'
 #' `do_readme_rmd()` renders an R Markdown README and deploys
 #' the rendered README.md file to Github. It adds default steps to the
 #' `"before_deploy"` and `"deploy"` stages:

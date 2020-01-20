@@ -55,6 +55,7 @@ Imports:
     backports,
     cli (>= 2.0.0),
     crayon,
+    lifecycle,
     magrittr,
     memoise,
     methods,
@@ -84,6 +85,8 @@ Suggests:
     usethis
 VignetteBuilder:
     knitr
+RdMacros: 
+    lifecycle
 Remotes: 
     ropenscilabs/circle,
     ropenscilabs/travis

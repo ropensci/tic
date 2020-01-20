@@ -335,6 +335,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "lifecycle",
+      "name": "lifecycle",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lifecycle"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
       "provider": {
@@ -414,7 +426,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tic/blob/master/README.md",
-  "fileSize": "350.874KB",
+  "fileSize": "352.513KB",
   "contIntegration": [
     "https://travis-ci.com/ropensci/tic",
     "https://ci.appveyor.com/project/ropensci/tic",
