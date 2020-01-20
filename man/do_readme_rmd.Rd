@@ -6,8 +6,6 @@
 \usage{
 do_readme_rmd(
   checkout = TRUE,
-  path = ".",
-  branch = "master",
   remote_url = NULL,
   commit_message = NULL,
   ssh_key_name = "id_rsa"
@@ -18,9 +16,6 @@ do_readme_rmd(
 Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
-
-\item{path, branch}{By default, this macro deploys the \code{"master"} branch
-of the readme_rmd repository. An alternative option is \code{"gh-pages"}.}
 
 \item{remote_url}{\verb{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
