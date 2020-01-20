@@ -42,7 +42,7 @@ do_readme_rmd <- function(checkout = TRUE,
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
   #'    the upcoming deployment
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = ssh_key_name))
+    add_step(step_setup_ssh(name = !!enquo(ssh_key_name)))
 
   #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
   get_stage("before_deploy") %>%
