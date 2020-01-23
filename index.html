@@ -121,14 +121,43 @@
 
 <p>The goal of tic is to enhance and simplify working with continuous integration (CI) systems.</p>
 <p>The following ones are supported:</p>
-<ul>
-<li>
-<a href="https://travis-ci.org">Travis CI</a> (both <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>) (Linux, macOS)</li>
-<li>
-<a href="https://www.appveyor.com/">AppVeyor</a> (Windows)</li>
-<li>
-<a href="https://circleci.com/">Circle CI</a> (Linux)</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="37%">
+<col width="18%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th>Provider</th>
+<th>R package</th>
+<th>Platforms</th>
+<th>Info</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Travis CI</td>
+<td><a href="https://docs.ropensci.org/travis/">{travis}</a></td>
+<td>Linux, macOS</td>
+<td>
+<a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>
+</td>
+</tr>
+<tr class="even">
+<td>Appveyor CI</td>
+<td><a href="https://github.com/krlmlr/r-appveyor">{r-appveyor}</a></td>
+<td>Windows</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Circle CI</td>
+<td><a href="https://docs.ropensci.org/circle/">{circle}</a></td>
+<td>Linux</td>
+<td>via Docker images from <a href="https://github.com/rocker-org/rocker">rocker</a>
+</td>
+</tr>
+</tbody>
+</table>
 <p>To learn more about CI, read <a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/">the “Travis CI for test automation” blog post</a> and our <a href="https://docs.ropensci.org/tic/articles/tic.html#prerequisites">Getting Started</a> vignette.</p>
 <p>The most important improvements over existing solutions are:</p>
 <ol>
