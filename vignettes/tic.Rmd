@@ -120,12 +120,13 @@ However, all providers come with pros and cons and we cannot provide an exhausti
 The deployment setup functionality comes from the {travis} and {circle} packages.
 See the ["tic & travis" article](tic-travis.html) for more detailed information on how {tic} and {travis} work together.
 
-# Explanation of the basic `tic.R` template
+# The role of the `tic.R` file
 
-After having called `tic::use_tic()` you will find a `.travis.yml`, `.circleci/config.yml`,  `appveyor.yml` and a `tic.R` file in your repo.
+After having called `tic::use_tic()` you will find a `.travis.yml`, `.circleci/config.yml`,  `appveyor.yml` and a `tic.R` file in your repo, depending on your choices.
+The latter will always be present because it will be the main CI config file for all providers from now on.
 Usually you do not need to touch the YAML files anymore.
-All build customization are done in `tic.R` and apply to all providers.
-For more information about the whole build lifecycle, check the ["Build lifecycle" article](build-lifecycle.html).
+All build customization is done in `tic.R` and applies to all providers.
+For more information about the build lifecycle in general, check the ["Build lifecycle" article](build-lifecycle.html).
 
 The basic `tic.R` template looks as follows:
 
@@ -136,6 +137,12 @@ if (ci_on_travis()) {
   do_pkgdown()
 }
 ```
+
+The `tic.R` file has a declarative nature: It should consist of "stages", "steps" and "macro" functions (see below).
+These functions will only have an effect when specified in `tic.R` and should **not** be used standalone as they will only run in a (simulated) CI run following a certain order.
+
+To run plain R code within the build, encapsulate it within `add_code_step(<code>)` and add it to a certain build stage. 
+See [the Build Lifecycle vignette](build-lifecycle.html) for detailed info about how to do this.
 
 ## Macros {#macros}
 
