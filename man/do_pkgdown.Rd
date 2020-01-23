@@ -101,6 +101,7 @@ dsl_get()
 Other macros: 
 \code{\link{do_bookdown}()},
 \code{\link{do_drat}()},
-\code{\link{do_package_checks}()}
+\code{\link{do_package_checks}()},
+\code{\link{list_macros}()}
 }
 \concept{macros}

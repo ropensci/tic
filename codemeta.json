@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci/tic",
   "issueTracker": "https://github.com/ropensci/tic/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.3.0.9005",
+  "version": "0.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -287,6 +287,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=usethis"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
     }
   ],
   "softwareRequirements": [
@@ -412,9 +417,9 @@
       "sameAs": "https://CRAN.R-project.org/package=withr"
     }
   ],
-  "releaseNotes": "https://github.com/krlmlr/tic/blob/master/NEWS.md",
-  "readme": "https://github.com/krlmlr/tic/blob/master/README.md",
-  "fileSize": "349.538KB",
+  "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
+  "readme": "https://github.com/ropensci/tic/blob/master/README.md",
+  "fileSize": "350.557KB",
   "contIntegration": [
     "https://travis-ci.com/ropensci/tic",
     "https://ci.appveyor.com/project/ropensci/tic",
