@@ -209,16 +209,18 @@
 <p>If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience. However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.</p>
 <p>The deployment setup functionality comes from the {travis} and {circle} packages. See the <a href="tic-travis.html">“tic &amp; travis” article</a> for more detailed information on how {tic} and {travis} work together.</p>
 </div>
-<div id="explanation-of-the-basic-tic-r-template" class="section level1">
+<div id="the-role-of-the-tic-r-file" class="section level1">
 <h1 class="hasAnchor">
-<a href="#explanation-of-the-basic-tic-r-template" class="anchor"></a>Explanation of the basic <code>tic.R</code> template</h1>
-<p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find a <code>.travis.yml</code>, <code>.circleci/config.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo. Usually you do not need to touch the YAML files anymore. All build customization are done in <code>tic.R</code> and apply to all providers. For more information about the whole build lifecycle, check the <a href="build-lifecycle.html">“Build lifecycle” article</a>.</p>
+<a href="#the-role-of-the-tic-r-file" class="anchor"></a>The role of the <code>tic.R</code> file</h1>
+<p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find a <code>.travis.yml</code>, <code>.circleci/config.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo, depending on your choices. The latter will always be present because it will be the main CI config file for all providers from now on. Usually you do not need to touch the YAML files anymore. All build customization is done in <code>tic.R</code> and applies to all providers. For more information about the build lifecycle in general, check the <a href="build-lifecycle.html">“Build lifecycle” article</a>.</p>
 <p>The basic <code>tic.R</code> template looks as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">}</a></code></pre></div>
+<p>The <code>tic.R</code> file has a declarative nature: It should consist of “stages”, “steps” and “macro” functions (see below). These functions will only have an effect when specified in <code>tic.R</code> and should <strong>not</strong> be used standalone as they will only run in a (simulated) CI run following a certain order.</p>
+<p>To run plain R code within the build, encapsulate it within <code>add_code_step(&lt;code&gt;)</code> and add it to a certain build stage. See <a href="build-lifecycle.html">the Build Lifecycle vignette</a> for detailed info about how to do this.</p>
 <div id="macros" class="section level2">
 <h2 class="hasAnchor">
 <a href="#macros" class="anchor"></a>Macros</h2>
@@ -326,7 +328,7 @@
 <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#initializationsetup">Initialization/Setup</a></li>
       <li>
-<a href="#explanation-of-the-basic-tic-r-template">Explanation of the basic <code>tic.R</code> template</a><ul class="nav nav-pills nav-stacked">
+<a href="#the-role-of-the-tic-r-file">The role of the <code>tic.R</code> file</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#macros">Macros</a></li>
       </ul>
 </li>
