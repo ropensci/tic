@@ -8,10 +8,10 @@ verify_install <- function(pkg_names, pkgType = NULL) { # nolint
 }
 
 verify_install_one <- function(pkg_name, pkgType) { # nolint
+  if (Sys.getenv("pkgType") != "") pkgType = Sys.getenv("pkgType")
   withr::with_options(
     c(pkgType = pkgType),
-    #remotes::install_cran(pkg_name, upgrade = TRUE)
-    install.packages(pkg_name)
+    remotes::install_cran(pkg_name, upgrade = TRUE)
   )
   if (!package_installed(pkg_name)) {
     stopc(
