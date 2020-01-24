@@ -9,7 +9,7 @@ verify_install <- function(pkg_names, pkgType = NULL) { # nolint
 
 verify_install_one <- function(pkg_name, pkgType) { # nolint
   withr::with_options(
-    c(pkgType = pkgType),
+    c(type = pkgType),
     remotes::install_cran(pkg_name, upgrade = TRUE)
   )
   if (!package_installed(pkg_name)) {
