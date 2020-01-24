@@ -8,7 +8,10 @@ verify_install <- function(pkg_names, pkgType = NULL) { # nolint
 }
 
 verify_install_one <- function(pkg_name, pkgType) { # nolint
-  if (Sys.getenv("pkgType") != "") pkgType = Sys.getenv("pkgType")
+  if (Sys.getenv("pkgType") != "") {
+    cli_text("Using '{pkgType}' for argument {.code pkgType} in {.code remotes::install_cran()}.")
+    pkgType = Sys.getenv("pkgType")
+  }
   withr::with_options(
     c(pkgType = pkgType),
     remotes::install_cran(pkg_name, upgrade = TRUE)
