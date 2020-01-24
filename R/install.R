@@ -9,8 +9,8 @@ verify_install <- function(pkg_names, pkgType = NULL) { # nolint
 
 verify_install_one <- function(pkg_name, pkgType) { # nolint
   if (Sys.getenv("pkgType") != "") {
-    cli_text("Using '{pkgType}' for argument {.code pkgType} in {.code remotes::install_cran()}.")
     pkgType = Sys.getenv("pkgType")
+    cli_text("Using '{pkgType}' for argument {.code pkgType} in {.code remotes::install_cran()}.")
   }
   withr::with_options(
     c(pkgType = pkgType),
