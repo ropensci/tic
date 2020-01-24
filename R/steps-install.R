@@ -14,6 +14,10 @@ InstallDeps <- R6Class(
     },
 
     run = function() {
+      if (Sys.getenv("pkgType") != "") {
+        private$type <- Sys.getenv("pkgType")
+        cli_text("Using '{private$type}' for argument {.code pkgType} in {.code install.packages()}.")
+      }
       # https://github.com/r-lib/remotes/pull/369
       withr::with_options(
         c(pkgType = private$type),
