@@ -23,7 +23,8 @@ InstallDeps <- R6Class(
         c(pkgType = private$type),
         remotes::install_deps(
           # https://github.com/r-lib/remotes/pull/386
-          dependencies = TRUE, repos = private$repos, build = FALSE
+          dependencies = TRUE, repos = private$repos, build = FALSE,
+          INSTALL_OPTS = "--no-multiarch"
         )
       )
     }
@@ -94,7 +95,8 @@ InstallCRAN <- R6Class(
           c(pkgType = pkgType),
           do.call(
             install.packages,
-            c(list(pkg = private$package), private$install_args)
+            c(list(pkg = private$package), private$install_args,
+              INSTALL_OPTS = "--no-multiarch")
           )
         )
       } else {
