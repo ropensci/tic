@@ -49,6 +49,8 @@ do_pkgdown <- function(...,
                        commit_paths = ".",
                        travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
 
+  name <- travis_private_key_name
+
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
   #'   before building the pkgdown site,
@@ -60,7 +62,6 @@ do_pkgdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).'
     # account for old default "id_rsa"
-    name <- travis_private_key_name
     deploy <- ci_can_push(name = name)
 
     #'   2. The `branch` argument is `NULL`
