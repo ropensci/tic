@@ -65,7 +65,7 @@ check_travis_pkg <- function() {
     cli::cat_rule(col = "red")
     stopc(
       "`use_tic()` needs the `travis` package. Please ",
-      'install it using `remotes::install_github("ropensci/travis")`.'
+      'install it using `remotes::install_github("ropenscilabs/travis")`.'
     )
   }
 }
