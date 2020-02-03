@@ -82,6 +82,11 @@ CI <- R6Class( # nolint
     on_circle = function() {
       FALSE
     },
+    #'   \item{`on_ghactions()`}{
+    #'     Returns `TRUE` only on Github Actions, otherwise `FALSE`.}
+    on_ghactions = function() {
+      FALSE
+    },
     #'   \item{`is_interactive()`}{
     #'     Global setup operations shouldn't be run on an interactive CI,
     #'     only on unattended CIs where this method returns `FALSE`.}
