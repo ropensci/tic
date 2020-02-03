@@ -99,6 +99,7 @@ Collate:
     'circleci.R'
     'dsl-storage.R'
     'dsl.R'
+    'gh-actions.R'
     'git2r.R'
     'install.R'
     'local.R'
