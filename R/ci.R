@@ -9,6 +9,8 @@ ci_ <- function() {
     AppVeyorCI$new()
   } else if (Sys.getenv("CIRCLECI") == "true") {
     CircleCI$new()
+  } else if (Sys.getenv("GITHUB_ACTIONS") == "true") {
+    GHActionsCI$new()
   } else {
     LocalCI$new()
   }
