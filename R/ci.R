@@ -257,6 +257,14 @@ ci_on_circle <- function() {
   ci()$on_circle()
 }
 
+#' CI on_ghactions
+#' @description `ci_on_ghactions()`: Are we running on Github Actions?
+#' @rdname ci
+#' @export
+ci_on_ghactions <- function() {
+  ci()$on_ghactions()
+}
+
 #' The current CI environment
 #'
 #' `ci()`: Return the current CI environment
