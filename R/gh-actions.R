@@ -30,7 +30,7 @@ GHActionsCI <- R6Class( # nolint
     get_commit = function() {
       Sys.getenv("GITHUB_SHA")
     },
-    can_push = function() {
+    can_push = function(name) {
       if (Sys.getenv("GITHUB_TOKEN" != "")) {
         return(TRUE)
       } else {
