@@ -31,11 +31,12 @@ GHActionsCI <- R6Class( # nolint
       Sys.getenv("GITHUB_SHA")
     },
     can_push = function(name) {
-      if (Sys.getenv("GITHUB_TOKEN") != "") {
-        return(TRUE)
-      } else {
-        return(FALSE)
-      }
+      # if (Sys.getenv("GITHUB_TOKEN") != "") {
+      #   return(TRUE)
+      # } else {
+      #   return(FALSE)
+      # }
+      TRUE
     },
     get_env = function(env) {
       Sys.getenv(env)
