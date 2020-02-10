@@ -17,6 +17,7 @@
 \alias{ci_on_travis}
 \alias{ci_on_appveyor}
 \alias{ci_on_circle}
+\alias{ci_on_ghactions}
 \title{The current CI environment}
 \usage{
 ci_get_branch()
@@ -48,6 +49,8 @@ ci_on_travis()
 ci_on_appveyor()
 
 ci_on_circle()
+
+ci_on_ghactions()
 
 ci()
 }
@@ -104,6 +107,8 @@ style will be applied even if it normally wouldn't be.
 \code{ci_on_appveyor()}: Are we running on Appveyor CI?
 
 \code{ci_on_circle()}: Are we running on Circle CI?
+
+\code{ci_on_ghactions()}: Are we running on Github Actions?
 
 \code{ci()}: Return the current CI environment
 }
