@@ -8,7 +8,7 @@ GHActionsCI <- R6Class( # nolint
     get_branch = function() {
       ref = Sys.getenv("GITHUB_REF")
       # hopefully this also works for tags
-      branch = strsplit(ref, "/", )[[1]][3]
+      strsplit(ref, "/", )[[1]][3]
     },
     get_tag = function() {
       # FIXME: No way to get a tag? Merged with env var GITHUB_REF
