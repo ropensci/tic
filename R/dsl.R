@@ -1,4 +1,3 @@
-#' @import backports
 #' @import rlang
 NULL
 

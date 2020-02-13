@@ -14,9 +14,11 @@ The goal of tic is to enhance and simplify working with continuous integration (
 
 The following ones are supported: 
 
-- [Travis CI](https://travis-ci.org) (both https://travis-ci.org and https://travis-ci.com) (Linux, macOS)
-- [AppVeyor](https://www.appveyor.com/) (Windows)
-- [Circle CI](https://circleci.com/) (Linux)
+| Provider    | R package  | Platforms | Info |
+| ----        | ------     | ---       | ---  |
+| Travis CI   | [{travis}](https://docs.ropensci.org/travis/)         | Linux, macOS | https://travis-ci.org and https://travis-ci.com                       |
+| Appveyor CI | [{r-appveyor}](https://github.com/krlmlr/r-appveyor)  | Windows      |                                                                       | 
+| Circle CI   | [{circle}](https://docs.ropensci.org/circle/)         | Linux        | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
 
 To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
