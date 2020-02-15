@@ -4,11 +4,7 @@
 \alias{step_test_ssh}
 \title{Step: Test SSH connection}
 \usage{
-step_test_ssh(
-  url = "git@github.com",
-  verbose = "-v",
-  name = "TRAVIS_DEPLOY_KEY"
-)
+step_test_ssh(url = "git@github.com", verbose = "-v", name = "TIC_DEPLOY_KEY")
 }
 \arguments{
 \item{url}{\verb{[string]}\cr
@@ -19,7 +15,7 @@ Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
 
 \item{name}{\verb{[string]}\cr
 Name of the environment variable and the target file, default:
-\code{"TRAVIS_DEPLOY_KEY"}.}
+\code{"TIC_DEPLOY_KEY"}.}
 }
 \description{
 Establishes an SSH connection.

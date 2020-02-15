@@ -34,7 +34,7 @@ GHActionsCI <- R6Class( # nolint
     },
     can_push = function(name = "TIC_DEPLOY_KEY") {
       # id_rsa is the "old" name which was previously hard coded in the {travis}
-      # package. New default name: "TRAVIS_DEPLOY_KEY"
+      # package. New default name: "TIC_DEPLOY_KEY"
       # for backward comp we check for the old one too
       name <- compat_ssh_key(name)
       self$has_env(name)
@@ -67,16 +67,12 @@ GHActionsCI <- R6Class( # nolint
 #'
 #' @param path `[string]` \cr
 #'   The path to the repository.
-#' @template repo
 #' @param key_name_private `[string]`\cr
 #'   The name of the private key of the SSH key pair which will be created.
-#'   If not supplied, `"TRAVIS_DEPLOY_KEY"` will be used.
+#'   If not supplied, `"TIC_DEPLOY_KEY"` will be used.
 #' @param key_name_public `[string]`\cr
 #'   The name of the private key of the SSH key pair which will be created.
-#'   If not supplied, `"Deploy key for Travis CI (<endpoint>)"` will be used.
-#' @template endpoint
-#' @template remote
-#' @template quiet
+#'   If not supplied, `"Deploy key for Github Actions"` will be used.
 #'
 #' @export
 use_ghactions_deploy <- function(path = usethis::proj_get(),
@@ -208,12 +204,12 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   cli::cat_rule()
   cli::cli_alert_success(
     "Added the private SSH key as secret {.var {key_name_private}} to repository
-    {.code {get_owner(remote)}/{repo}}.",
+    {.code {travis::get_owner(remote)}/{repo}}.",
     wrap = TRUE
   )
   cli::cli_alert_success(
     "Added the public SSH key as a deploy key to project
-    {.code {get_owner(remote)}/{repo}} on Github.",
+    {.code {travis::get_owner(remote)}/{repo}} on Github.",
     wrap = TRUE
   )
 }

@@ -63,7 +63,7 @@ CI <- R6Class( # nolint
     get_commit = function() {
       stop("NYI")
     },
-    #'   \item{`get_commit()`}{Does an env variable named `"TRAVIS_DEPLOY_KEY"` exist?}
+    #'   \item{`get_commit()`}{Does an env variable named `"TIC_DEPLOY_KEY"` exist?}
     can_push = function() {
       stop("NYI")
     },
@@ -203,12 +203,12 @@ ci_has_env <- function(env) {
 #'
 #' `ci_can_push()`: Checks if push deployment is possible. Always true
 #'   for local environments, CI environments require an environment
-#'   variable (by default `TRAVIS_DEPLOY_KEY`).
+#'   variable (by default `TIC_DEPLOY_KEY`).
 #' @rdname ci
 #' @param name Name of the environment variable to check, defaults to
-#'   `"TRAVIS_DEPLOY_KEY"`.
+#'   `"TIC_DEPLOY_KEY"`.
 #' @export
-ci_can_push <- function(name = "TRAVIS_DEPLOY_KEY") {
+ci_can_push <- function(name = "TIC_DEPLOY_KEY") {
   ci()$can_push(name)
 }
 

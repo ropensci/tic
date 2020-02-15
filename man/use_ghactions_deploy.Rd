@@ -19,11 +19,11 @@ The path to the repository.}
 
 \item{key_name_private}{\verb{[string]}\cr
 The name of the private key of the SSH key pair which will be created.
-If not supplied, \code{"TRAVIS_DEPLOY_KEY"} will be used.}
+If not supplied, \code{"TIC_DEPLOY_KEY"} will be used.}
 
 \item{key_name_public}{\verb{[string]}\cr
 The name of the private key of the SSH key pair which will be created.
-If not supplied, \code{"Deploy key for Travis CI (<endpoint>)"} will be used.}
+If not supplied, \code{"Deploy key for Github Actions"} will be used.}
 }
 \description{
 Creates a public-private key pair,
