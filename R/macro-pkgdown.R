@@ -21,12 +21,7 @@ NULL
 #' @inheritParams step_install_pkg
 #' @param path,branch By default, this macro deploys the `docs` directory
 #'   to the `gh-pages` branch. This is different from [step_push_deploy()].
-#' @param private_key_name `string`\cr
-#'   Only needed when deploying from builds on Travis CI or Github Actions.
-#'   If you have set a custom name for the private key during creation of the
-#'   SSH key pair in [travis::use_travis_deploy()] or
-#'   [tic::use_ghactions_deploy()] via [use_tic], you need to pass this name
-#'   here.
+#' @template private_key_name
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
