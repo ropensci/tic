@@ -33,11 +33,12 @@ GHActionsCI <- R6Class( # nolint
       Sys.getenv("GITHUB_SHA")
     },
     can_push = function(name = "TIC_DEPLOY_KEY") {
-      # id_rsa is the "old" name which was previously hard coded in the {travis}
-      # package. New default name: "TIC_DEPLOY_KEY"
-      # for backward comp we check for the old one too
-      name <- compat_ssh_key(name)
-      self$has_env(name)
+      # # id_rsa is the "old" name which was previously hard coded in the {travis}
+      # # package. New default name: "TIC_DEPLOY_KEY"
+      # # for backward comp we check for the old one too
+      # name <- compat_ssh_key(name)
+      # self$has_env(name)
+      TRUE
     },
     get_env = function(env) {
       Sys.getenv(env)
@@ -77,8 +78,8 @@ GHActionsCI <- R6Class( # nolint
 #' @export
 use_ghactions_deploy <- function(path = usethis::proj_get(),
                                  repo = travis::get_repo_slug(remote),
-                                 key_name_private = NULL,
-                                 key_name_public = NULL,
+                                 key_name_private = "TIC_DEPLOY_KEY",
+                                 key_name_public = "Deploy key for Github Actions",
                                  remote = "origin",
                                  quiet = FALSE) {
 
@@ -91,14 +92,6 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   pub_key <- travis::get_public_key(key)
   private_key <- travis::encode_private_key(key)
 
-  # set key names
-  if (is.null(key_name_public)) {
-    key_name_public <- "Deploy key for Github Actions"
-  }
-
-  if (is.null(key_name_private)) {
-    key_name_private <- "TIC_DEPLOY_KEY"
-  }
   travis::check_private_key_name(key_name_private)
 
   # Clear old keys on Github deploy key ----------------------------------------

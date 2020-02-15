@@ -7,8 +7,8 @@
 use_ghactions_deploy(
   path = usethis::proj_get(),
   repo = travis::get_repo_slug(remote),
-  key_name_private = NULL,
-  key_name_public = NULL,
+  key_name_private = "TIC_DEPLOY_KEY",
+  key_name_public = "Deploy key for Github Actions",
   remote = "origin",
   quiet = FALSE
 )
