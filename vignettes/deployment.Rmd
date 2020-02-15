@@ -82,6 +82,20 @@ This is due to the fact that we are only allowing binary installs on Appveyor wi
 The requirement is caused by the {cli} >= 2.0.0 requirement of {tic}.
 This package version is not available as a binary on R =< 3.5.
 
+### Github Actions
+
+Github Actions comes with multiple options for deployment:
+
+- Deployment related actions on the Github marketplace
+- Supplying an `DEPLOY_PAT` secret as [r-lib/actions](https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site) suggests
+- Using an SSH key pair with the private key stored as a "secret" in the repo and the public key as a "Deploy key" ({tic} default)
+
+To reflect a successful deployment in the repo checks, actions from the Github marketplace help.
+For the actual deployment we recommend to use a SSH key pair.
+A SSH key can be easily created, is safe to use and when looking at the "Deploy key" section in each repo, the user can directly see if deployment was granted to a CI service for the repository.
+
+To simplify the creation of a SSH key pair for deployment and adding the keys to the appropriate places, {tic} comes with a little helper function `use_ghactions_deploy()`.
+
 ## pkgdown deployment
 
 [`pkgdown`](https://github.com/r-lib/pkgdown) is an R package which builds a documentation wrapper-site of a R package.
@@ -106,15 +120,14 @@ In the "before_deploy" stage, {tic} will do the following:
 ```{r eval = FALSE}
 if (ci_on_travis()) {
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = travis_private_key_name))
+    add_step(step_setup_ssh(name = private_key_name))
 }
 ```
 
 - Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. 
   This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_deploy()`.
-  Argument `name = travis_private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
-  If so, then supply it via the `travis_private_key_name` argument in `do_pkgdown()`.
-  By default, `"TRAVIS_DEPLOY_KEY"` is used. 
+  Argument `name = private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()` or `tic::use_ghactions_deploy()`. 
+  If so, then supply it via the `private_key_name` argument in `do_pkgdown()`.
   
   For backward compatibility, the previous default `"id_rsa"` is also supported out of the box.
   This step is only needed on Travis CI because setting up deployment via SSH keys is somewhat complicated.
@@ -197,7 +210,7 @@ jobs:
 `tic.R`:
 
 ```{r eval = FALSE}
-if (ci_has_env("TRAVIS_DEPLOY_KEY")) {
+if (ci_has_env("TIC_DEPLOY_KEY")) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 }
