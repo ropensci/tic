@@ -37,7 +37,7 @@ jobs:
 
       # save R pkg cache -------------------------------------------------------
       - save_cache:
-           key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
           paths:
             - /usr/local/lib/R/site-library
   deploy:
