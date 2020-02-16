@@ -83,6 +83,9 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
                                  remote = "origin",
                                  quiet = FALSE) {
 
+  requireNamespace("sodium", quietly = TRUE)
+  requireNamespace("gh", quietly = TRUE)
+
   travis::auth_github()
 
   # generate deploy key pair
@@ -138,11 +141,13 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     !private_key_exists && !public_key_exists) {
     cli::cli_alert("At least one key part is missing (private or public).
                     Deleting old keys and adding new Github Actions deploy keys
-                    for repo {travis::get_owner(remote)}/{repo}", wrap = TRUE)
+                    for repo {travis::get_owner(remote)}/{travis::get_repo()}",
+                   wrap = TRUE)
     cli::rule()
   } else if (!private_key_exists && !public_key_exists) {
     cli::cli_alert("Adding Deploy keys for repo
-                   {travis::get_owner(remote)}/{repo}", wrap = TRUE)
+                   {travis::get_owner(remote)}/{travis::get_repo()}",
+                   wrap = TRUE)
     cli::rule()
   }
 
@@ -185,24 +190,39 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     repo = travis::get_repo(remote)
   )$key_id
 
+
+  pub_key_gh = gh::gh("GET /repos/:owner/:repo/actions/secrets/public-key",
+                      owner = travis::get_owner(remote),
+                      repo = travis::get_repo(remote)
+  )$key
+
+  # convert to raw for sodium
+  private_key_raw <- charToRaw(private_key)
+  # decode public key
+  pub_key_gh_dec <- base64enc::base64decode(pub_key_gh)
+  # encrypt using the pub key
+  private_key_encr <- sodium::simple_encrypt(private_key_raw, pub_key_gh_dec)
+  # base64 encode secret
+  private_key_encr <- base64enc::base64encode(private_key_encr)
+
   # add private key
   gh::gh("PUT /repos/:owner/:repo/actions/secrets/:name",
     owner = travis::get_owner(remote),
     repo = travis::get_repo(remote),
     name = key_name_private,
     key_id = key_id,
-    encrypted_value = private_key
+    encrypted_value = private_key_encr
   )
 
   cli::cat_rule()
   cli::cli_alert_success(
     "Added the private SSH key as secret {.var {key_name_private}} to repository
-    {.code {travis::get_owner(remote)}/{repo}}.",
+    {.code {travis::get_owner(remote)}/{travis::get_repo()}}.",
     wrap = TRUE
   )
   cli::cli_alert_success(
     "Added the public SSH key as a deploy key to project
-    {.code {travis::get_owner(remote)}/{repo}} on Github.",
+    {.code {travis::get_owner(remote)}/{travis::get_repo()}} on Github.",
     wrap = TRUE
   )
 }
