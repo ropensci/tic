@@ -56,32 +56,30 @@ GHActionsCI <- R6Class( # nolint
 )
 # nocov end
 
-#' Setup deployment for Travis CI
+#' Setup deployment for Github Actions
 #'
-#' Creates a public-private key pair,
-#' adds the public key to the GitHub repository via `github_add_key()`,
-#' and stores the private key as an encrypted environment variable in Travis CI
-#' via [travis_set_var()],
-#' possibly in a different repository.
-#' The \pkg{tic} companion package contains facilities for installing such a key
-#' during a Travis CI build.
+#' Creates a public-private key pair, adds the public key to the GitHub
+#' repository via `github_add_key()`, and stores the private key as a "secret"
+#' in the Github repo.
 #'
 #' @param path `[string]` \cr
 #'   The path to the repository.
+#' @param repo `[string]`\cr
+#'   The repository slug to use. Must follow the "`user/repo`" structure.
 #' @param key_name_private `[string]`\cr
 #'   The name of the private key of the SSH key pair which will be created.
 #'   If not supplied, `"TIC_DEPLOY_KEY"` will be used.
 #' @param key_name_public `[string]`\cr
 #'   The name of the private key of the SSH key pair which will be created.
 #'   If not supplied, `"Deploy key for Github Actions"` will be used.
-#'
+#' @param remote `[string]`\cr
+#'   The Github remote which should be used. Defaults to "origin".
 #' @export
 use_ghactions_deploy <- function(path = usethis::proj_get(),
                                  repo = travis::get_repo_slug(remote),
                                  key_name_private = "TIC_DEPLOY_KEY",
                                  key_name_public = "Deploy key for Github Actions",
-                                 remote = "origin",
-                                 quiet = FALSE) {
+                                 remote = "origin") {
 
   requireNamespace("sodium", quietly = TRUE)
   requireNamespace("gh", quietly = TRUE)
@@ -100,9 +98,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   # Clear old keys on Github deploy key ----------------------------------------
 
   # query deploy key
-  if (!quiet) {
     cli::cli_alert_info("Querying Github deploy keys from repo.")
-  }
   gh_keys <- gh::gh("/repos/:owner/:repo/keys",
     owner = travis::get_owner(remote),
     repo = travis::get_repo(remote)

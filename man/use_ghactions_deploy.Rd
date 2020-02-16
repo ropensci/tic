@@ -2,20 +2,22 @@
 % Please edit documentation in R/gh-actions.R
 \name{use_ghactions_deploy}
 \alias{use_ghactions_deploy}
-\title{Setup deployment for Travis CI}
+\title{Setup deployment for Github Actions}
 \usage{
 use_ghactions_deploy(
   path = usethis::proj_get(),
   repo = travis::get_repo_slug(remote),
   key_name_private = "TIC_DEPLOY_KEY",
   key_name_public = "Deploy key for Github Actions",
-  remote = "origin",
-  quiet = FALSE
+  remote = "origin"
 )
 }
 \arguments{
 \item{path}{\verb{[string]} \cr
 The path to the repository.}
+
+\item{repo}{\verb{[string]}\cr
+The repository slug to use. Must follow the "\code{user/repo}" structure.}
 
 \item{key_name_private}{\verb{[string]}\cr
 The name of the private key of the SSH key pair which will be created.
@@ -24,13 +26,12 @@ If not supplied, \code{"TIC_DEPLOY_KEY"} will be used.}
 \item{key_name_public}{\verb{[string]}\cr
 The name of the private key of the SSH key pair which will be created.
 If not supplied, \code{"Deploy key for Github Actions"} will be used.}
+
+\item{remote}{\verb{[string]}\cr
+The Github remote which should be used. Defaults to "origin".}
 }
 \description{
-Creates a public-private key pair,
-adds the public key to the GitHub repository via \code{github_add_key()},
-and stores the private key as an encrypted environment variable in Travis CI
-via \code{\link[=travis_set_var]{travis_set_var()}},
-possibly in a different repository.
-The \pkg{tic} companion package contains facilities for installing such a key
-during a Travis CI build.
+Creates a public-private key pair, adds the public key to the GitHub
+repository via \code{github_add_key()}, and stores the private key as a "secret"
+in the Github repo.
 }
