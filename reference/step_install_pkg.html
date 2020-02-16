@@ -170,12 +170,12 @@ but it is also possible to install dependencies manually.
 By default, binary versions of packages are installed if possible,
 even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
-<code>DESCRIPTION</code>, using <code><a href='https://rdrr.io/pkg/remotes/man/install_deps.html'>remotes::install_deps()</a></code>.
+<code>DESCRIPTION</code>, using <code><a href='https://remotes.r-lib.org/reference/install_deps.html'>remotes::install_deps()</a></code>.
 This includes upgrading outdated packages.</p>
 <p>A <code>step_install_cran()</code> step installs one package from CRAN via
 <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>, but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
-via <code><a href='https://rdrr.io/pkg/remotes/man/install_github.html'>remotes::install_github()</a></code>, the packages are only installed if their
+via <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>, the packages are only installed if their
 GitHub version is different from the locally installed version.</p>
     </div>
 
@@ -205,7 +205,7 @@ installation from source on Windows and macOS by passing
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code> or <code><a href='https://rdrr.io/pkg/remotes/man/install_github.html'>remotes::install_github()</a></code>.</p></td>
+      <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code> or <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
     </tr>
     <tr>
       <th>repo</th>
