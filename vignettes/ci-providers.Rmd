@@ -1,0 +1,62 @@
+---
+title: "Implementation Details of CI Providers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ci-providers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Github Actions
+
+{tic} supports running builds on Github Actions on all major platforms (Linux, macOS, Windows).
+The upstream support for the R language was developed by Jim Hester in [r-lib/actions](https://github.com/r-lib/actions).
+This repo also stores some usage [examples](https://github.com/r-lib/actions/tree/master/examples) which differ to the {tic} approach in the following points:
+
+- {tic} makes use of `ccache` for compiler caching enabling faster source installation of packages. 
+  The `ccache` directory is cached and built once a week.
+- {tic} installs packages from source on macOS and does not use package binaries.
+- {tic} caches the complete R library and not only the direct packages dependencies (`actions` does this via `remotes::dev_package_deps(dependencies = TRUE)`). 
+  The cache is built once per day.
+
+Making use of binaries can speed up build times substantially.
+This can be especially attractive for packages with many dependencies or dependencies which take a long time to install.
+However, binaries do oft run into problems when the package needs linking against system libraries.
+The most prominent example for this is {rJava}.
+If the binary was built with the same version as the user is running on the system, everything will work.
+However, often enough a different version of the system library is installed and the R packages needs to be installed from source to successfully link against it.
+
+For the case of {rJava}, one needs to 
+
+- add a call to `R CMD javareconf` for **macOS** runners
+- add a call to `sudo R CMD javareconf` for **Linux** runners
+
+
+
+### Known issues
+
+- [macOS] Installation of {rJava} fails because the default JDK is zulu-13 and not openjdk@11.
+  Reconfiguring via `sudo R CMD javareconf` does not help.
+
+- [Windows] Installing {tinytex} for LaTeX availability does not complete
+
+- [All] Deployment from builds
+
+## Circle CI
+
+WIP
+
+## Travis CI
+
+WIP
+
+## Appveyor CI
+
+WIP

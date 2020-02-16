@@ -21,11 +21,11 @@ knitr::opts_chunk$set(
 Steps and stages can be run conditionally using the control workflow of {tic}.
 Possible conditionals are
 
-- Environment variables of the build (queried by `ci_is_env()`, `ci_has_env()` or `ci_get_env()`)
-- R Version of the current build (`getRversion()`)
-- other features of the build (e.g. branch name via `ci_get_branch()`)
+- Environment variables of the build (queried by `ci_is_env()`, `ci_has_env()` or `ci_get_env()`).
+- R Version of the current build (`getRversion()`).
+- Other features of the build (e.g. branch name via `ci_get_branch()`).
 
-Most common tasks are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a {pkgdown} site](deployment.html#pkgdown-deployment)).
+Common tasks to use this feature are testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the [deployment of a {pkgdown} site](deployment.html#pkgdown-deployment)).
 
 ### Conditional execution: Use cases
 
@@ -62,9 +62,9 @@ if (ci_get_branch() == "master") {
 
 ## Installation of packages
 
-Required packages are installed based on the Depends/Imports/Suggests fields of the DESCRIPTION file.
+Required packages are installed based on the "Depends"/"Imports"/"Suggests" fields of the `DESCRIPTION` file.
 You should only use the following steps in extraordinary circumstances.
-An example can be the use of a package in the REAMDE.Rmd file which is not listed within the package's DESCRIPTION file.
+An example can be the use of a package in the `README.Rmd` file which is not listed within the package's `DESCRIPTION` file.
 
 ### GitHub packages
 
@@ -106,7 +106,7 @@ if (ci_on_travis()) {
 By using the code above, the specified steps will only be executed on Travis CI.
 See `?ci` for more information on which CI build information can be extracted from this function.
 
-## Debugging: Running tic locally
+## Debugging: Running {tic} locally
 
 ### Checking for syntax errors
 
@@ -274,4 +274,6 @@ knitr::include_graphics("img/circleci-debug.png")
 # What's not covered yet?
 
 - `SystemRequirements`: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
-Our plan is to automatically provide suggestions like "Please add `addons: apt: <library>` to `.travis.yml`" in case system requirements are missing.
+Future plans include to automatically provide suggestions like 
+
+  > "Please add `addons: apt: <library>` to `.travis.yml`" in case system requirements are missing.
