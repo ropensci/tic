@@ -270,6 +270,8 @@ use_circle_yml <- function(type) {
 #' @export
 use_ghactions_yml <- function(type) {
 
+  usethis::use_build_ignore(".ccache")
+
   if (type == "linux" | type == "macOS" | type == "linux-macos" |
     type == "linux-macos-windows" | type == "all") {
     meta <- readLines(system.file("templates/ghactions-meta.yml", package = "tic"))
