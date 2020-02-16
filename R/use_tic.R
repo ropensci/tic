@@ -94,15 +94,15 @@ use_tic <- function(wizard = interactive(),
     cli_end()
 
     linux <- ci_menu(c("travis", "circle", "ghactions", "none", "all"),
-                     title = "Which provider do you want to use for Linux builds?"
+      title = "Which provider do you want to use for Linux builds?"
     )
 
     mac <- ci_menu(c("travis", "ghactions", "none"),
-                   title = "Do you want to build on macOS (= Travis CI)?"
+      title = "Do you want to build on macOS (= Travis CI)?"
     )
 
     windows <- ci_menu(c("appveyor", "ghactions", "none"),
-                       title = "Do you want to build on Windows (= Appveyor)?"
+      title = "Do you want to build on Windows (= Appveyor)?"
     )
 
     deploy <- ci_menu(intersect(
@@ -134,24 +134,24 @@ use_tic <- function(wizard = interactive(),
     cli_text("{.code ", use_tic_call, "}")
   } else {
     linux <- match.arg(linux, c("travis", "circle", "ghactions", "none", "all"),
-                       several.ok = TRUE
+      several.ok = TRUE
     )
     mac <- match.arg(mac, c("none", "travis", "ghactions"),
-                     several.ok = TRUE
+      several.ok = TRUE
     )
     windows <- match.arg(windows, c("none", "appveyor", "ghactions", "all"),
-                         several.ok = TRUE
+      several.ok = TRUE
     )
     deploy <- match.arg(deploy, c("travis", "circle", "ghactions", "none", "all"),
-                        several.ok = TRUE
+      several.ok = TRUE
     )
     matrix <- match.arg(matrix,
-                        c("none", "travis", "circle", "appveyor", "ghactions", "all"),
-                        several.ok = TRUE
+      c("none", "travis", "circle", "appveyor", "ghactions", "all"),
+      several.ok = TRUE
     )
   }
 
-  cli_h1("Setting up the CI providers.")
+  cli_h1("Setting up the CI providers")
 
   cli_text(
     "Next we are getting the selected CI providers ready for deployment.",
@@ -187,7 +187,7 @@ use_tic <- function(wizard = interactive(),
 
   # Travis ---------------------------------------------------------------------
 
-  rule(left = "Travis CI")
+  cli_h2("Travis CI")
 
   if (travis_in(linux) && travis_in(mac)) {
 
@@ -240,9 +240,11 @@ use_tic <- function(wizard = interactive(),
     }
   }
 
+  cli_alert_success("OK")
+
   # Circle ---------------------------------------------------------------------
 
-  rule(left = "Circle CI")
+  cli_h2("Circle CI")
 
   if (circle_in(linux)) {
     # deployment
@@ -263,9 +265,11 @@ use_tic <- function(wizard = interactive(),
     }
   }
 
+  cli_alert_success("OK")
+
   # Appveyor -------------------------------------------------------------------
 
-  rule(left = "Appveyor CI")
+  cli_h2("Appveyor CI")
 
   if (appveyor_in(windows)) {
     if (appveyor_in(matrix)) {
@@ -274,6 +278,24 @@ use_tic <- function(wizard = interactive(),
       use_appveyor_yml("windows")
     }
   }
+
+  cli_alert_success("OK")
+
+  # GH Actions -----------------------------------------------------------------
+
+  cli_h2("Github Actions")
+
+  if (ghactions_in(windows) | ghactions_in(linux) | ghactions_in(mac)) {
+    if (ghactions_in(deploy)) {
+      use_ghactions_yml("all-deploy")
+    } else {
+      use_ghactions_yml("all")
+    }
+  }
+
+  cli_par()
+  cli_end()
+  cli_alert_success("OK")
 
   # tic.R ----------------------------------------------------------------------
 
@@ -356,6 +378,9 @@ ci_menu <- function(choices, title) {
 }
 
 use_tic_r <- function(repo_type) {
+  cli_par()
+  cli_end()
+  cli_h2("tic.R")
   use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
 }
 
