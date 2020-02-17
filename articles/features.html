@@ -132,7 +132,7 @@
 <p>CI services can be used to automatically build and deploy files. This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.). Possible use cases are:</p>
 <ul>
 <li>changed site contents of a {pkgdown} site</li>
-<li>updated .Rd files of a package (by calling <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> before)</li>
+<li>updated .Rd files of a package (by calling <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code> before)</li>
 <li>an automatic generated <a href="https://github.com/yonicd/covrpage">test summary page</a> of a package</li>
 </ul>
 <p>If {tic} should be used for deployment, some preparatory work is required:</p>
@@ -176,7 +176,7 @@
 <div id="enhanced-r-package-checking-rcmdcheck-r-cmd-check" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhanced-r-package-checking-rcmdcheck-r-cmd-check" class="anchor"></a>Enhanced R package checking: <code>rcmdcheck()</code> &gt; R CMD check</h2>
-<p>As an R package developer calling <code><a href="https://rdrr.io/pkg/devtools/man/check.html">devtools::check()</a></code> is a common task. By default the CI provider will run <code>R CMD check &lt;package&gt;</code> to check the R package. <em>tic</em> instead uses <a href="https://github.com/r-lib/rcmdcheck"><em>rcmdcheck</em></a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code>. It was developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. <em>rcmdcheck</em> comes with several enhancements:</p>
+<p>As an R package developer calling <code><a href="https://devtools.r-lib.org//reference/check.html">devtools::check()</a></code> is a common task. By default the CI provider will run <code>R CMD check &lt;package&gt;</code> to check the R package. <em>tic</em> instead uses <a href="https://github.com/r-lib/rcmdcheck"><em>rcmdcheck</em></a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code>. It was developed by <a href="https://github.com/gaborcsardi">Gabor Csardi</a>. <em>rcmdcheck</em> comes with several enhancements:</p>
 <ul>
 <li>Coloring of important steps, simplifying the readability of the log</li>
 <li>Enhanced and extended tracebacks of errors, especially errors in tests</li>
