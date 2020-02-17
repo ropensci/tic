@@ -158,7 +158,7 @@ step_rcmdcheck <- function(...,
   #'   "--no-build-vignettes", "--no-multiarch")`.\cr
   if (is.null(args)) {
     if (isTRUE(ci_on_appveyor()) |
-        isTRUE((ci_on_ghactions() && Sys.info()[["sysname"]] == "Windows"))) {
+      isTRUE((ci_on_ghactions() && Sys.info()[["sysname"]] == "Windows"))) {
       args <- c(
         "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"
