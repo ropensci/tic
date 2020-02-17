@@ -95,8 +95,7 @@ InstallCRAN <- R6Class(
           c(pkgType = pkgType),
           do.call(
             install.packages,
-            c(list(pkg = private$package), private$install_args,
-              INSTALL_OPTS = "--no-multiarch")
+            c(list(pkg = private$package), private$install_args)
           )
         )
       } else {
