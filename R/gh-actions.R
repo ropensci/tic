@@ -33,12 +33,11 @@ GHActionsCI <- R6Class( # nolint
       Sys.getenv("GITHUB_SHA")
     },
     can_push = function(name = "TIC_DEPLOY_KEY") {
-      # # id_rsa is the "old" name which was previously hard coded in the {travis}
-      # # package. New default name: "TIC_DEPLOY_KEY"
-      # # for backward comp we check for the old one too
-      # name <- compat_ssh_key(name)
-      # self$has_env(name)
-      TRUE
+      # id_rsa is the "old" name which was previously hard coded in the {travis}
+      # package. New default name: "TIC_DEPLOY_KEY"
+      # for backward comp we check for the old one too
+      name <- compat_ssh_key(name)
+      self$has_env(name)
     },
     get_env = function(env) {
       Sys.getenv(env)
