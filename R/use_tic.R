@@ -172,7 +172,11 @@ use_tic <- function(wizard = interactive(),
     rule(left = "Travis CI")
     check_travis_pkg()
     travis::travis_enable(endpoint = travis_endpoint)
-    travis::use_travis_deploy(endpoint = travis_endpoint)
+    travis::use_travis_deploy(
+      endpoint = travis_endpoint,
+      key_name_private = travis_key_name_private,
+      key_name_public = travis_key_name_public
+    )
   } else if (ghactions_in(deploy)) {
     rule(left = "Github Actions")
     check_ghactions_pat()
