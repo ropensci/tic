@@ -136,7 +136,7 @@ The badges link to the most recent build of the master branch.
 
 - [Custom Steps](https://docs.ropensci.org/tic/articles/custom-steps.html)
 
-- [Travis CI '.org' vs '.com'](https://docs.ropensci.org/tic/articles/org-vs-com.html)
+- [FAQ](https://docs.ropensci.org/tic/articles/faq.html)
 
 ## Limitations
 
