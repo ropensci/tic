@@ -21,8 +21,8 @@ The upstream support for the R language was developed by Jim Hester in [r-lib/ac
 This repo also stores some usage [examples](https://github.com/r-lib/actions/tree/master/examples) which differ to the {tic} approach in the following points:
 
 - {tic} makes use of `ccache` for compiler caching enabling faster source installation of packages. 
-  The `ccache` directory is cached and built once a week.
-- {tic} installs packages from source on macOS and does not use package binaries.
+  The `ccache` directory is cached and build once a week.
+- {tic} installs packages from source on Linux by default and does not use package binaries.
 - {tic} caches the complete R library and not only the direct packages dependencies (`actions` does this via `remotes::dev_package_deps(dependencies = TRUE)`). 
   The cache is built once per day.
 
@@ -38,7 +38,12 @@ For the case of {rJava}, one needs to
 - add a call to `R CMD javareconf` for **macOS** runners
 - add a call to `sudo R CMD javareconf` for **Linux** runners
 
+### macOS toolchain
 
+macOS is a bit tricky when it comes to source installation of packages.
+By default `clang` is used instead of `gcc` (Linux) because the former is the default for macOS.
+While a custom installation of `clang7` is recommended in [this post](https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/) by James Balamuta, installing `clang7` is not just more than one line of code, it would also cost some time in every build.
+Instead, we currently use the system installation of `clang` and cross fingers...
 
 ### Known issues
 

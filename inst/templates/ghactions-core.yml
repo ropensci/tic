@@ -56,7 +56,7 @@
         if: runner.os == 'macOS'
         run: |
           brew install ccache
-          mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache clang -std=gnu99\nCXX=ccache clang++\nCXX11=ccache clang++ -std=gnu99\nCXX14=ccache clang++ -std=gnu99\nC11=ccache clang++\nC14=ccache clang++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+          mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache /usr/bin/clang\nCC11=ccache /usr/bin/clang\nCC14=ccache /usr/bin/clang\nCXX=ccache /usr/bin/clang++\nCXX11=ccache /usr/bin/clang++\nCXX14=ccache /usr/bin/clang++\nC11=ccache /usr/bin/clang++\nC14=ccache /usr/bin/clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' > $HOME/.R/Makevars
 
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Prepare"
