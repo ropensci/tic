@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Authentication
 
-**Question**
+#### Q-Auth-1
 
 I am getting an error when using one of `travis::use_travis_deploy()`, `circle::use_circle_deploy()` or `tic::use_ghactions_deploy()`.
 
@@ -34,7 +34,7 @@ Ensure that the following points are met:
 
 ## Github Actions
 
-**Question**
+#### Q-GHA-1
 
 How is {tic} different from what [r-lib/actions](https://github.com/r-lib/actions) does?
 
@@ -59,7 +59,7 @@ However in detail, {tic} does the following things differently which aim to enha
   
 ## Travis CI
 
-**Question**
+#### Q-Travis-1
 
 What is the difference between travis-ci.org and travis-ci.com and which one should I use?
 
@@ -76,7 +76,7 @@ When dealing with Travis CI (or the [{travis}](https://github.com/ropenscilabs/t
 
 ## Other
 
-**Question**
+#### Q-Other-1
 
 Is it possible to update the CI YAML templates installed by {tic} with upstream changes?
 
@@ -87,7 +87,7 @@ We are planning to add an update mechanism soon though!
 
 ---
 
-**Question**
+#### Q-Other-2
 
 Am I the only one using {tic}?
 
