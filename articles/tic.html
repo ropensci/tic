@@ -140,66 +140,25 @@
 <li><p>deploy from builds to Github (e.g. if you are building a pkgdown site)</p></li>
 <li><p>test your package on multiple R versions</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/use_tic.html">use_tic</a></span>()</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">→ Welcome to → tic<span class="op">!</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">This wizard will guide you through the setup process <span class="cf">for</span> getting started with various CI</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">providers.</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">Introduction<span class="op">:</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">tic currently comes with support <span class="cf">for</span> three CI providers<span class="op">:</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">● Appveyor</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">● Circle CI</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">● Travis CI</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">There is no need to use all of them. You can choose which <span class="kw">one</span>(s) you want to use, whether</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">you want to <span class="kw"><a href="../reference/stages.html">deploy</a></span> (i.e. push from builds) and <span class="cf">if</span> you want to test on multiple R</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">versions.</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">We recommend the following setup<span class="op">:</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">● Appveyor<span class="op">:</span><span class="st"> </span>Windows</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">● Travis CI<span class="op">:</span><span class="st"> </span>Linux</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">● Travis CI<span class="op">:</span><span class="st"> </span>macOS</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">Selection<span class="op">:</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24">Choosing your setup.</a>
-<a class="sourceLine" id="cb1-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">We<span class="st">'ll ask you a few yes/no questions to gather your preferences.</span></a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="st">Which provider do you want to use for Linux builds? </span></a>
-<a class="sourceLine" id="cb1-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb1-30" data-line-number="30"><span class="st">1: Travis CI</span></a>
-<a class="sourceLine" id="cb1-31" data-line-number="31"><span class="st">2: Circle CI</span></a>
-<a class="sourceLine" id="cb1-32" data-line-number="32"><span class="st">3: None</span></a>
-<a class="sourceLine" id="cb1-33" data-line-number="33"><span class="st">4: All</span></a>
-<a class="sourceLine" id="cb1-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb1-35" data-line-number="35"><span class="st">Do you want to build on macOS (= Travis CI)? </span></a>
-<a class="sourceLine" id="cb1-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb1-37" data-line-number="37"><span class="st">1: Travis CI</span></a>
-<a class="sourceLine" id="cb1-38" data-line-number="38"><span class="st">2: None</span></a>
-<a class="sourceLine" id="cb1-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb1-40" data-line-number="40"><span class="st">Do you want to build on Windows (= Appveyor)? </span></a>
-<a class="sourceLine" id="cb1-41" data-line-number="41"></a>
-<a class="sourceLine" id="cb1-42" data-line-number="42"><span class="st">1: AppVeyor CI</span></a>
-<a class="sourceLine" id="cb1-43" data-line-number="43"><span class="st">2: None</span></a>
-<a class="sourceLine" id="cb1-44" data-line-number="44"></a>
-<a class="sourceLine" id="cb1-45" data-line-number="45"><span class="st">Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones? </span></a>
-<a class="sourceLine" id="cb1-46" data-line-number="46"></a>
-<a class="sourceLine" id="cb1-47" data-line-number="47"><span class="st">1: Travis CI</span></a>
-<a class="sourceLine" id="cb1-48" data-line-number="48"><span class="st">2: Circle CI</span></a>
-<a class="sourceLine" id="cb1-49" data-line-number="49"><span class="st">3: None</span></a>
-<a class="sourceLine" id="cb1-50" data-line-number="50"><span class="st">4: All</span></a>
-<a class="sourceLine" id="cb1-51" data-line-number="51"></a>
-<a class="sourceLine" id="cb1-52" data-line-number="52"><span class="st">Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)? </span></a>
-<a class="sourceLine" id="cb1-53" data-line-number="53"></a>
-<a class="sourceLine" id="cb1-54" data-line-number="54"><span class="st">1: None</span></a>
-<a class="sourceLine" id="cb1-55" data-line-number="55"><span class="st">2: Travis CI</span></a>
-<a class="sourceLine" id="cb1-56" data-line-number="56"><span class="st">3: Circle CI</span></a>
-<a class="sourceLine" id="cb1-57" data-line-number="57"><span class="st">4: AppVeyor CI</span></a>
-<a class="sourceLine" id="cb1-58" data-line-number="58"><span class="st">5: All</span></a></code></pre></div>
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
 <p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured. (Currently you need to enable the project manually on AppVeyor.) See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
+<div id="quickstart" class="section level4">
+<h4 class="hasAnchor">
+<a href="#quickstart" class="anchor"></a>Quickstart</h4>
+<p>If you are a new user, run</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/use_tic.html">use_tic</a></span>()</a></code></pre></div>
+<p>If you already use {tic} and want to configure a new CI provider, do</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">## Travis CI</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span>() <span class="co"># (optional for deployment)</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_travis_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">## Circle CI</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">circle<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_circle_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">## Appveyor</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_appveyor_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a></code></pre></div>
+<hr>
 <p>The reason why we suggest Travis CI as the default builds on three points:</p>
 <ul>
 <li>Travis is the most widely used CI provider within the R community</li>
@@ -209,16 +168,17 @@
 <p>If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience. However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.</p>
 <p>The deployment setup functionality comes from the {travis} and {circle} packages. See the <a href="tic-travis.html">“tic &amp; travis” article</a> for more detailed information on how {tic} and {travis} work together.</p>
 </div>
+</div>
 <div id="the-role-of-the-tic-r-file" class="section level1">
 <h1 class="hasAnchor">
 <a href="#the-role-of-the-tic-r-file" class="anchor"></a>The role of the <code>tic.R</code> file</h1>
 <p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find a <code>.travis.yml</code>, <code>.circleci/config.yml</code>, <code>appveyor.yml</code> and a <code>tic.R</code> file in your repo, depending on your choices. The latter will always be present because it will be the main CI config file for all providers from now on. Usually you do not need to touch the YAML files anymore. All build customization is done in <code>tic.R</code> and applies to all providers. For more information about the build lifecycle in general, check the <a href="build-lifecycle.html">“Build lifecycle” article</a>.</p>
 <p>The basic <code>tic.R</code> template looks as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">}</a></code></pre></div>
 <p>The <code>tic.R</code> file has a declarative nature: It should consist of “stages”, “steps” and “macro” functions (see below). These functions will only have an effect when specified in <code>tic.R</code> and should <strong>not</strong> be used standalone as they will only run in a (simulated) CI run following a certain order.</p>
 <p>To run plain R code within the build, encapsulate it within <code>add_code_step(&lt;code&gt;)</code> and add it to a certain build stage. See <a href="build-lifecycle.html">the Build Lifecycle vignette</a> for detailed info about how to do this.</p>
 <div id="macros" class="section level2">
@@ -231,17 +191,17 @@
 <li>Build and deploy a bookdown project</li>
 </ul>
 <p>They can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">}</a></code></pre></div>
 <p><code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> adds five steps to the build process:</p>
 <pre class="reval"><code># step_install_deps() in the "install" stage, using the repos argument.
 # 
@@ -285,12 +245,12 @@
 <h3 class="hasAnchor">
 <a href="#blogdown" class="anchor"></a>Blogdown</h3>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>())</a></code></pre></div>
 <p>Next the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). {tic} is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 </div>
