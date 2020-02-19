@@ -52,7 +52,6 @@ BugReports: https://github.com/ropensci/tic/issues
 Depends: 
     R (>= 3.2.0)
 Imports: 
-    backports,
     cli (>= 2.0.0),
     crayon,
     lifecycle,
