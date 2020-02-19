@@ -57,6 +57,7 @@ GHActionsCI <- R6Class( # nolint
 
 #' Setup deployment for Github Actions
 #'
+#' @description
 #' \lifecycle{experimental}
 #'
 #' Creates a public-private key pair, adds the public key to the GitHub
