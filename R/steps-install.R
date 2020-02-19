@@ -87,20 +87,16 @@ InstallCRAN <- R6Class(
     },
     run = function() {
       if (Sys.getenv("pkgType") != "") {
-        pkgType <- Sys.getenv("pkgType")
-        cli_text("Using '{pkgType}' for argument {.code pkgType} in
+        private$install_args$type <- Sys.getenv("pkgType")
+        cli_text("Using '{pkgType}' for argument {.code type} in
                  {.code install.packages()}.", wrap = TRUE)
-      } else {
-        pkgType <- getOption("pkgType")
       }
 
       if (length(find.package(private$package, quiet = TRUE)) == 0) {
-        withr::with_options(
-          c(pkgType = pkgType),
-          rlang::exec(
-            install.packages,
-            c(list(pkg = private$package), private$install_args)
-          )
+        rlang::exec(
+          install.packages,
+          pkg = private$package,
+          !!!private$install_args
         )
       } else {
         message(paste0("Package ", private$package, " already installed."))
