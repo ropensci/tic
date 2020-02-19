@@ -88,12 +88,13 @@ InstallCRAN <- R6Class(
     run = function() {
       if (Sys.getenv("pkgType") != "") {
         pkgType <- Sys.getenv("pkgType")
-        cli_text("Using '{pkgType}' for argument {.code pkgType} in {.code install.packages()}.")
+        cli_text("Using '{pkgType}' for argument {.code pkgType} in
+                 {.code install.packages()}.", wrap = TRUE)
       }
       if (length(find.package(private$package, quiet = TRUE)) == 0) {
         withr::with_options(
           c(pkgType = pkgType),
-          do.call(
+          rlang::exec(
             install.packages,
             c(list(pkg = private$package), private$install_args)
           )
