@@ -32,7 +32,7 @@ TicStep <- R6Class(
       #' `pkg::fun` and tries to install these packages from CRAN. If a steps
       #' `prepare_call` is not empty, the `$prepare` method is skipped for this
       #' step. This can be useful if a package should be installed from
-      #' non-standard repositories, e.g. from Github. }
+      #' non-standard repositories, e.g. from GitHub. }
     },
 
     check = function() {

@@ -26,7 +26,7 @@
 #'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix`
 #'  are valid.
 #'
-#'  **Github Actions** is special in the sense that it support all operating
+#'  **GitHub Actions** is special in the sense that it support all operating
 #'  systems. Therefore, only the deploy/non/deploy switch is available and it
 #'  does not follow the scheme described above.
 #'

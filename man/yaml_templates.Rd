@@ -49,7 +49,7 @@ Not every combinations is supported on all CI systems.
 For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix}
 are valid.
 
-\strong{Github Actions} is special in the sense that it support all operating
+\strong{GitHub Actions} is special in the sense that it support all operating
 systems. Therefore, only the deploy/non/deploy switch is available and it
 does not follow the scheme described above.
 

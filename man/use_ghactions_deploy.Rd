@@ -2,13 +2,13 @@
 % Please edit documentation in R/gh-actions.R
 \name{use_ghactions_deploy}
 \alias{use_ghactions_deploy}
-\title{Setup deployment for Github Actions}
+\title{Setup deployment for GitHub Actions}
 \usage{
 use_ghactions_deploy(
   path = usethis::proj_get(),
   repo = travis::get_repo_slug(remote),
   key_name_private = "TIC_DEPLOY_KEY",
-  key_name_public = "Deploy key for Github Actions",
+  key_name_public = "Deploy key for GitHub Actions",
   remote = "origin"
 )
 }
@@ -25,16 +25,15 @@ If not supplied, \code{"TIC_DEPLOY_KEY"} will be used.}
 
 \item{key_name_public}{\verb{[string]}\cr
 The name of the private key of the SSH key pair which will be created.
-If not supplied, \code{"Deploy key for Github Actions"} will be used.}
+If not supplied, \code{"Deploy key for GitHub Actions"} will be used.}
 
 \item{remote}{\verb{[string]}\cr
-The Github remote which should be used. Defaults to "origin".}
+The GitHub remote which should be used. Defaults to "origin".}
 }
 \description{
 \lifecycle{experimental}
-}
-\details{
+
 Creates a public-private key pair, adds the public key to the GitHub
 repository via \code{github_add_key()}, and stores the private key as a "secret"
-in the Github repo.
+in the GitHub repo.
 }

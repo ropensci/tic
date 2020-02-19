@@ -39,5 +39,5 @@ For _Appveyor_ there is [r-appveyor](https://github.com/krlmlr/r-appveyor) from 
 This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the _Appveyor_ API and is not used by {tic} currently.
 Also, it does not come with automation for deployment setup.
 
-For _Github Actions_ there is [{ghactions}](https://github.com/maxheld83/ghactions) from Max Held which comes with functions helping to set up YAML templates and other convenience.
+For _GitHub Actions_ there is [{ghactions}](https://github.com/maxheld83/ghactions) from Max Held which comes with functions helping to set up YAML templates and other convenience.
 It does not provide API access and is not used by {tic} currently.

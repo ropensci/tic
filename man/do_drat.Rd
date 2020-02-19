@@ -70,9 +70,9 @@ the upcoming deployment
 }
 \section{Deployment}{
  Deployment can only happen to the \code{master} or
-\code{gh-pages} branch because the Github Pages functionality from Github is
+\code{gh-pages} branch because the GitHub Pages functionality from GitHub is
 used to access the drat repository later on. You need to enable this
-functionality when creating the drat repository on Github via \verb{Settings -> Github pages} and set it to the chosen setting here.
+functionality when creating the drat repository on GitHub via \verb{Settings -> GitHub pages} and set it to the chosen setting here.
 
 To build and deploy Windows binaries, builds on Travis CI with deployment
 permissions need to be triggered. To build and deploy macOS binaries,

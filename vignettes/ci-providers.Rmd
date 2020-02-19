@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Github Actions
+## GitHub Actions
 
-{tic} supports running builds on Github Actions on all major platforms (Linux, macOS, Windows).
+{tic} supports running builds on GitHub Actions on all major platforms (Linux, macOS, Windows).
 The upstream support for the R language was developed by Jim Hester in [r-lib/actions](https://github.com/r-lib/actions).
 This repo also stores some usage [examples](https://github.com/r-lib/actions/tree/master/examples) which differ to the {tic} approach in the following points:
 

@@ -83,7 +83,7 @@ CI <- R6Class( # nolint
       FALSE
     },
     #'   \item{`on_ghactions()`}{
-    #'     Returns `TRUE` only on Github Actions, otherwise `FALSE`.}
+    #'     Returns `TRUE` only on GitHub Actions, otherwise `FALSE`.}
     on_ghactions = function() {
       FALSE
     },
@@ -258,7 +258,7 @@ ci_on_circle <- function() {
 }
 
 #' CI on_ghactions
-#' @description `ci_on_ghactions()`: Are we running on Github Actions?
+#' @description `ci_on_ghactions()`: Are we running on GitHub Actions?
 #' @rdname ci
 #' @export
 ci_on_ghactions <- function() {

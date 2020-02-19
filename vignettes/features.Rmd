@@ -77,7 +77,7 @@ To give you an example how different these control files can be, take a look at 
 While _Travis_ is the CI service with the most mature R implementation, people also like to test their code on _Appveyor_ which provides support for Windows.
 Getting everything setup on _Appveyor_ is a bit more complicated than on _Travis CI_ because no client package for R exists.
 Also, _Appveyor_ has its own YAML notation to specify certain actions.
-At this we have not mentioned other providers like [Circle CI](https://circleci.com/), [Azure](https://azure.microsoft.com/en-us/services/devops/pipelines/) or [Github Actions](https://github.com/features/actions) yet.
+At this we have not mentioned other providers like [Circle CI](https://circleci.com/), [Azure](https://azure.microsoft.com/en-us/services/devops/pipelines/) or [GitHub Actions](https://github.com/features/actions) yet.
 
 We could list way more differences - but that's exactly the point when {tic} comes in!
 

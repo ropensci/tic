@@ -116,7 +116,7 @@ InstallSSHKeys <- R6Class(
                        Double-check if it exists. Calling
                        {.fun travis::use_travis_deploy} may help resolving
                        issues.", wrap = TRUE)
-          stopc("This build cannot deploy to Github.")
+          stopc("This build cannot deploy to GitHub.")
         }
         TRUE
       } else {

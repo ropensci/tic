@@ -83,7 +83,7 @@ check_circle_pkg <- function() {
 check_ghactions_pat <- function() {
   if (usethis::github_token() == "") {
     cli::cli_alert_danger("A {.var GITHUB_PAT} needs to be set to create
-                            the SSH key pair required for deployment on Github
+                            the SSH key pair required for deployment on GitHub
                             Actions. Please call
                             {.fun usethis::browse_github_pat}, follow the
                             instructions and then call {.fun use_tic} again.",

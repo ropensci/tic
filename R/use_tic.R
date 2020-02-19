@@ -67,7 +67,7 @@ use_tic <- function(wizard = interactive(),
   cli_h1("Introduction:")
   cli_text("{.pkg tic} currently comes with support for four CI providers: ")
 
-  cli_ul(c("Appveyor", "Circle CI", "Travis CI", "Github Actions"))
+  cli_ul(c("Appveyor", "Circle CI", "Travis CI", "GitHub Actions"))
 
   cli_par()
   cli_text(c(
@@ -178,7 +178,7 @@ use_tic <- function(wizard = interactive(),
       key_name_public = travis_key_name_public
     )
   } else if (ghactions_in(deploy)) {
-    rule(left = "Github Actions")
+    rule(left = "GitHub Actions")
     check_ghactions_pat()
     tic::use_ghactions_deploy()
   }
@@ -287,7 +287,7 @@ use_tic <- function(wizard = interactive(),
 
   # GH Actions -----------------------------------------------------------------
 
-  cli_h2("Github Actions")
+  cli_h2("GitHub Actions")
 
   if (ghactions_in(windows) | ghactions_in(linux) | ghactions_in(mac)) {
     if (ghactions_in(deploy)) {
@@ -371,7 +371,7 @@ ci_menu <- function(choices, title) {
     travis = "Travis CI",
     circle = "Circle CI",
     appveyor = "AppVeyor CI",
-    ghactions = "Github Actions",
+    ghactions = "GitHub Actions",
     all = "All",
     none = "None"
   )

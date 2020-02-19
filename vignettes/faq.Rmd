@@ -25,14 +25,14 @@ I am getting an error when using one of `travis::use_travis_deploy()`, `circle::
 In most cases this is related to API authentication issues.
 Ensure that the following points are met:
 
-1. For Circle CI and Travis CI, install the respective Github App from the [Github Marketplace](https://github.com/marketplace).
+1. For Circle CI and Travis CI, install the respective GitHub App from the [GitHub Marketplace](https://github.com/marketplace).
 2. Ensure that you have set the respective API keys for the problematic provider in your `.Renviron` file.
   Consult the help pages of the respective `use_*_deploy()` function for more help.
-  - Github Actions: A `GITHUB_PAT` with "public_repo" scopes.
+  - GitHub Actions: A `GITHUB_PAT` with "public_repo" scopes.
   - Travis CI: Env var `R_TRAVIS_ORG` or `R_TRAVIS_COM`, depending on the endpoint you use.
   - Circle CI: Env var `R_CIRCLE`.
 
-## Github Actions
+## GitHub Actions
 
 #### Q-GHA-1
 
@@ -52,7 +52,7 @@ However in detail, {tic} does the following things differently which aim to enha
   
 - Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as [r-lib/actions](https://github.com/r-lib/actions) does.
   This speeds up package installation a lot.
-  4 CPUs are max because all Github Actions runners have 2 hyperthreading cores available.
+  4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.
   
 - Use of SSH deployment keys: Once set up via `tic::use_ghactions_deploy()`, this deployment approach makes it possible to push any file of your repository to any branch of your remote.
   Other deployment approaches often limit you to only push to `gh-pages` branch or similar.
@@ -93,4 +93,4 @@ Am I the only one using {tic}?
 
 **Answer**
 
-You can see who and how many people use {tic.R} on Github via this query: https://github.com/search?p=5&q=filename%3Atic.R&type=Code
+You can see who and how many people use {tic.R} on GitHub via this query: https://github.com/search?p=5&q=filename%3Atic.R&type=Code

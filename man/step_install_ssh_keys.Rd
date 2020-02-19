@@ -16,7 +16,7 @@ Writes a private SSH key encoded in an environment variable
 to a file in \verb{~/.ssh}.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-\code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} , \code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} and\code{\link[=use_tic]{use_tic()}}
+\code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} , \code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} and \code{\link[=use_tic]{use_tic()}}
 functions encode a private key as an environment variable for use with this
 function.
 }

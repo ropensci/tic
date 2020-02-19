@@ -55,14 +55,14 @@ GHActionsCI <- R6Class( # nolint
 )
 # nocov end
 
-#' Setup deployment for Github Actions
+#' Setup deployment for GitHub Actions
 #'
 #' @description
 #' \lifecycle{experimental}
 #'
 #' Creates a public-private key pair, adds the public key to the GitHub
 #' repository via `github_add_key()`, and stores the private key as a "secret"
-#' in the Github repo.
+#' in the GitHub repo.
 #'
 #' @param path `[string]` \cr
 #'   The path to the repository.
@@ -73,14 +73,14 @@ GHActionsCI <- R6Class( # nolint
 #'   If not supplied, `"TIC_DEPLOY_KEY"` will be used.
 #' @param key_name_public `[string]`\cr
 #'   The name of the private key of the SSH key pair which will be created.
-#'   If not supplied, `"Deploy key for Github Actions"` will be used.
+#'   If not supplied, `"Deploy key for GitHub Actions"` will be used.
 #' @param remote `[string]`\cr
-#'   The Github remote which should be used. Defaults to "origin".
+#'   The GitHub remote which should be used. Defaults to "origin".
 #' @export
 use_ghactions_deploy <- function(path = usethis::proj_get(),
                                  repo = travis::get_repo_slug(remote),
                                  key_name_private = "TIC_DEPLOY_KEY",
-                                 key_name_public = "Deploy key for Github Actions",
+                                 key_name_public = "Deploy key for GitHub Actions",
                                  remote = "origin") {
 
   requireNamespace("sodium", quietly = TRUE)
@@ -97,10 +97,10 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
 
   travis::check_private_key_name(key_name_private)
 
-  # Clear old keys on Github deploy key ----------------------------------------
+  # Clear old keys on GitHub deploy key ----------------------------------------
 
   # query deploy key
-  cli::cli_alert_info("Querying Github deploy keys from repo.")
+  cli::cli_alert_info("Querying GitHub deploy keys from repo.")
   gh_keys <- gh::gh("/repos/:owner/:repo/keys",
     owner = travis::get_owner(remote),
     repo = travis::get_repo(remote)
@@ -113,7 +113,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
 
   # check if key(s) exist ------------------------------------------------------
 
-  # Github (public key)
+  # GitHub (public key)
   if (!gh_keys[1] == "") {
     public_key_exists <- any(gh_keys_names %in% key_name_public)
   } else {
@@ -132,13 +132,13 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   }
 
   if (private_key_exists && public_key_exists) {
-    cli::cli_alert("Deploy keys for Github Actions already present.
+    cli::cli_alert("Deploy keys for GitHub Actions already present.
                    No action required.", wrap = TRUE)
     return(invisible("Deploy keys already present."))
   } else if (private_key_exists | public_key_exists ||
     !private_key_exists && !public_key_exists) {
     cli::cli_alert("At least one key part is missing (private or public).
-                    Deleting old keys and adding new Github Actions deploy keys
+                    Deleting old keys and adding new GitHub Actions deploy keys
                     for repo {travis::get_owner(remote)}/{travis::get_repo()}",
       wrap = TRUE
     )
@@ -154,8 +154,8 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   # delete and set new keys since at least one is missing ----------------------
 
   if (public_key_exists) {
-    cli::cli_alert("Clearing old public key on Github because its counterpart
-                    (private key) is most likely missing on Github Actions.")
+    cli::cli_alert("Clearing old public key on GitHub because its counterpart
+                    (private key) is most likely missing on GitHub Actions.")
     # delete existing public key from github
     key_id <- which(gh_keys_names %>%
       purrr::map_lgl(~ .x == key_name_public))
@@ -222,7 +222,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   )
   cli::cli_alert_success(
     "Added the public SSH key as a deploy key to project
-    {.code {travis::get_owner(remote)}/{travis::get_repo()}} on Github.",
+    {.code {travis::get_owner(remote)}/{travis::get_repo()}} on GitHub.",
     wrap = TRUE
   )
 }

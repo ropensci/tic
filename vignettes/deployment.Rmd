@@ -41,13 +41,13 @@ knitr::opts_chunk$set(
 On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.
 
 When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "user-key" is created and stored in the Circle CI repo.
-This key makes it possible to deploy from Circle CI builds to your Github repo.
-No extra deploy key need to be stored in the Github repo.
+This key makes it possible to deploy from Circle CI builds to your GitHub repo.
+No extra deploy key need to be stored in the GitHub repo.
 
 ### Appveyor CI
 
 Appveyor follows the same philosophy as Travis CI when it comes to deployment.
-A bunch of [predefined deployment providers](https://www.appveyor.com/docs/deployment/) are available but deploying to the Github repo of the project is not possible.
+A bunch of [predefined deployment providers](https://www.appveyor.com/docs/deployment/) are available but deploying to the GitHub repo of the project is not possible.
 Unfortunately, there is no R client package for Appveyor yet.
 This means one needs to  manually set up an SSH key pair which is used for deployment.
 
@@ -82,15 +82,15 @@ This is due to the fact that we are only allowing binary installs on Appveyor wi
 The requirement is caused by the {cli} >= 2.0.0 requirement of {tic}.
 This package version is not available as a binary on R =< 3.5.
 
-### Github Actions
+### GitHub Actions
 
-Github Actions offers multiple options related to deployment:
+GitHub Actions offers multiple options related to deployment:
 
-- Deployment related actions on the Github marketplace
+- Deployment related actions on the GitHub marketplace
 - Supplying an `DEPLOY_PAT` secret as [r-lib/actions](https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site) suggests
 - Using an SSH key pair with the private key stored as a "secret" in the repo and the public key as a "Deploy key" ({tic} default)
 
-To reflect a successful deployment in the repo checks, [actions from the Github marketplace](https://github.com/chrnorm/deployment-status) help.
+To reflect a successful deployment in the repo checks, [actions from the GitHub marketplace](https://github.com/chrnorm/deployment-status) help.
 For the actual deployment we recommend to use a SSH key pair.
 A SSH key can be easily created, is safe to use and when browsing at the "Deploy key" section of a repo, one can directly see if deployment was granted to a CI service for the repository.
 
@@ -128,7 +128,7 @@ if (ci_on_travis()) {
 ```
 
 - Calls `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis CI build. 
-  This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_deploy()`.
+  This step sets up SSH key previously added to the GitHub and Travis via `travis::use_travis_deploy()`.
   Argument `name = private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
   If so, then supply it via the `private_key_name` argument in `do_pkgdown()`.
   

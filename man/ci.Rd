@@ -108,7 +108,7 @@ style will be applied even if it normally wouldn't be.
 
 \code{ci_on_circle()}: Are we running on Circle CI?
 
-\code{ci_on_ghactions()}: Are we running on Github Actions?
+\code{ci_on_ghactions()}: Are we running on GitHub Actions?
 
 \code{ci()}: Return the current CI environment
 }

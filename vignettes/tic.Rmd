@@ -36,7 +36,7 @@ Based on the replies we'll select specific templates.
 
 Besides the question which CI system you want to use, you'll be asked if you want to 
 
-- Deploy from builds to Github (e.g. if you are building a {pkgdown} site)
+- Deploy from builds to GitHub (e.g. if you are building a {pkgdown} site)
 
 - Test your package on multiple R versions
 
@@ -254,7 +254,7 @@ Also, publishing to https://zenodo.org/ is work in progress.
 ## {tic} projects from the community
 
 The templates we provide with {tic} are minimal working examples.
-By querying `tic.R` on Github one can see who else uses {tic} for their CI runs: https://github.com/search?p=5&q=filename%3Atic.R&type=Code
+By querying `tic.R` on GitHub one can see who else uses {tic} for their CI runs: https://github.com/search?p=5&q=filename%3Atic.R&type=Code
 
 ## Still got questions?
 
