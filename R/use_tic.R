@@ -98,11 +98,11 @@ use_tic <- function(wizard = interactive(),
     )
 
     mac <- ci_menu(c("travis", "ghactions", "none"),
-      title = "Do you want to build on macOS (= Travis CI)?"
+      title = "Do you want to build on macOS?"
     )
 
     windows <- ci_menu(c("appveyor", "ghactions", "none"),
-      title = "Do you want to build on Windows (= Appveyor)?"
+      title = "Do you want to build on Windows?"
     )
 
     deploy <- ci_menu(intersect(

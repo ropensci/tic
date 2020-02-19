@@ -278,7 +278,6 @@ use_ghactions_yml <- function(type) {
     env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
     core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
     template <- c(meta, env, core)
-    writeLines(template, con = ".github/workflows/main.yml")
   } else if (type == "linux-deploy" | type == "macOS-deploy" |
     type == "linux-macos-deploy" |
     type == "linux-macos-windows-deploy" |
@@ -288,13 +287,12 @@ use_ghactions_yml <- function(type) {
     core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
     deploy <- readLines(system.file("templates/ghactions-deploy.yml", package = "tic"))
     template <- c(meta, env, core, deploy)
-    writeLines(template, con = ".github/workflows/main.yml")
   }
+  dir.create(".github/workflows", showWarnings = FALSE, recursive = TRUE)
   cli::cli_alert_info("Please comment in/out the platforms you want to use
                       in {.file .github/workflows/main.yml}.", wrap = TRUE)
   cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
                 to open the YAML file.")
-  dir.create(".github/workflows", showWarnings = FALSE, recursive = TRUE)
   writeLines(template, con = ".github/workflows/main.yml")
 }
 
