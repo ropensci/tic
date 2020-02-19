@@ -13,7 +13,7 @@ do_drat(
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
-  ssh_key_name = "id_rsa",
+  private_key_name = "TIC_DEPLOY_KEY",
   deploy_dev = FALSE
 )
 }
@@ -46,9 +46,11 @@ and avoiding recursive CI runs.}
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 
-\item{ssh_key_name}{\code{string}\cr
-The name of the private SSH key which should be used for deployment to the
-drat repo.}
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 
 \item{deploy_dev}{\verb{[logical]}\cr
 Should development versions of packages also be deployed to the drat repo?

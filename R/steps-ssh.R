@@ -68,13 +68,13 @@ InstallSSHKeys <- R6Class(
   public = list(
     initialize = function(private_key_name = "TIC_DEPLOY_KEY") {
       # for backward comp, if "id_rsa" exists we take this key
-      private$name <- compat_ssh_key(private_key_name = private_key_name)
+      private$private_key_name <- compat_ssh_key(private_key_name = private_key_name)
     },
 
     run = function() {
-      name <- private$name
+      private_key_name <- private$private_key_name
 
-      deploy_key_path <- file.path("~", ".ssh", name)
+      deploy_key_path <- file.path("~", ".ssh", private_key_name)
       dir.create(
         dirname(deploy_key_path),
         recursive = TRUE, showWarnings = FALSE
@@ -85,17 +85,17 @@ InstallSSHKeys <- R6Class(
         return()
       }
       writeLines(
-        rawToChar(openssl::base64_decode(Sys.getenv(name))),
+        rawToChar(openssl::base64_decode(Sys.getenv(private_key_name))),
         deploy_key_path
       )
 
-      Sys.chmod(file.path("~", ".ssh", name), "600")
+      Sys.chmod(file.path("~", ".ssh", private_key_name), "600")
 
       # set the ssh command which which git should use including the key name
       git2r::config(
         core.sshCommand = sprintf(
           "ssh -i ~/.ssh/%s -F /dev/null",
-          name
+          private_key_name
         ),
         global = TRUE
       )
@@ -140,9 +140,7 @@ InstallSSHKeys <- R6Class(
 #' functions encode a private key as an environment variable for use with this
 #' function.
 #'
-#' @param name `[string]`\cr
-#'   Name of the environment variable and the target file, default:
-#'   `"TIC_DEPLOY_KEY"`.
+#' @template private_key_name
 #'
 #' @family steps
 #' @seealso [travis::use_travis_deploy()], [use_tic()], [use_ghactions_deploy()]
@@ -155,7 +153,7 @@ InstallSSHKeys <- R6Class(
 #'
 #' dsl_get()
 step_install_ssh_keys <- function(private_key_name = "TIC_DEPLOY_KEY") {
-  name <- compat_ssh_key(private_key_name = private_key_name)
+  private_key_name <- compat_ssh_key(private_key_name = private_key_name)
   InstallSSHKeys$new(private_key_name = private_key_name)
 }
 
@@ -169,7 +167,7 @@ TestSSH <- R6Class(
                           private_key_name = "TIC_DEPLOY_KEY") {
       private$url <- url
       private$verbose <- verbose
-      private$name <- name
+      private$private_key_name <- private_key_name
     },
 
     run = function() {
@@ -305,12 +303,12 @@ step_setup_ssh <- function(private_key_name = "TIC_DEPLOY_KEY",
                url = url, verbose = verbose)
 }
 
-compat_ssh_key <- function(name) {
+compat_ssh_key <- function(private_key_name) {
   # for backward comp, if "id_rsa" exists we take this key
-  if (ci_has_env("id_rsa") && !ci_has_env(name)) {
-    name <- "id_rsa"
+  if (ci_has_env("id_rsa") && !ci_has_env(private_key_name)) {
+    private_key_name <- "id_rsa"
   }
-  name
+  private_key_name
 }
 
 # This code can only run as part of a CI run

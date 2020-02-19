@@ -205,8 +205,7 @@ ci_has_env <- function(env) {
 #'   for local environments, CI environments require an environment
 #'   variable (by default `TIC_DEPLOY_KEY`).
 #' @rdname ci
-#' @param name Name of the environment variable to check, defaults to
-#'   `"TIC_DEPLOY_KEY"`.
+#' @template private_key_name
 #' @export
 ci_can_push <- function(private_key_name = "TIC_DEPLOY_KEY") {
   ci()$can_push(private_key_name)

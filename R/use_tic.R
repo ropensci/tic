@@ -27,6 +27,7 @@
 #'   `"ghactions"`, `"none"` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
 #'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#' @template private_key_name
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See
 #'   [travis::travis_enable()] for more information.
@@ -53,6 +54,7 @@ use_tic <- function(wizard = interactive(),
                     windows = "appveyor",
                     deploy = "travis",
                     matrix = "none",
+                    private_key_name = "TIC_DEPLOY_KEY",
                     travis_endpoint = ".com",
                     quiet = FALSE) { # nolint
 
@@ -174,8 +176,8 @@ use_tic <- function(wizard = interactive(),
     travis::travis_enable(endpoint = travis_endpoint)
     travis::use_travis_deploy(
       endpoint = travis_endpoint,
-      key_name_private = travis_key_name_private,
-      key_name_public = travis_key_name_public
+      key_name_private = private_key_name,
+      key_name_public = "Deploy Key for Travis CI"
     )
   } else if (ghactions_in(deploy)) {
     rule(left = "GitHub Actions")

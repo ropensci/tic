@@ -20,9 +20,7 @@ NULL
 #' @inheritParams step_do_push_deploy
 #' @param path,branch By default, this macro deploys the `"master"` branch
 #'   of the drat repository. An alternative option is `"gh-pages"`.
-#' @param ssh_key_name `string`\cr
-#'   The name of the private SSH key which should be used for deployment to the
-#'   drat repo.
+#' @template private_key_name
 #'
 #' @section Deployment: Deployment can only happen to the `master` or
 #'   `gh-pages` branch because the GitHub Pages functionality from GitHub is
@@ -51,14 +49,14 @@ do_drat <- function(repo_slug = NULL,
                     remote_url = NULL,
                     commit_message = NULL,
                     commit_paths = ".",
-                    ssh_key_name = "id_rsa",
+                    private_key_name = "TIC_DEPLOY_KEY",
                     deploy_dev = FALSE) {
 
   #' @description
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
   #'    the upcoming deployment
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = ssh_key_name))
+    add_step(step_setup_ssh(private_key_name = private_key_name))
 
   #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
   #'    (if `deploy` is set),

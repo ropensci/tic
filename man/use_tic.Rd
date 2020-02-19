@@ -11,6 +11,7 @@ use_tic(
   windows = "appveyor",
   deploy = "travis",
   matrix = "none",
+  private_key_name = "TIC_DEPLOY_KEY",
   travis_endpoint = ".com",
   quiet = FALSE
 )
@@ -35,6 +36,12 @@ such as pkgdown documentation. Possible options are \code{"travis"}, \code{"circ
 
 \item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up matrix builds.
 Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
+
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 
 \item{travis_endpoint}{\verb{[string]}\cr The Travis CI endpoint to use. Possible
 options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
