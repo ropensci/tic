@@ -109,13 +109,15 @@ InstallSSHKeys <- R6Class(
 
       # only if non-interactive and TIC_DEPLOY_KEY env var is available
       if (!ci_is_interactive()) {
-        if (!ci_can_push(private$name)) {
-          cli_alert_danger("Deployment was requested but the build is not able to
-                       deploy. We checked for env var {.var {private$name}} but could
-                       not find it as an env var in the current build.
-                       Double-check if it exists. Calling
-                       {.fun travis::use_travis_deploy} may help resolving
-                       issues.", wrap = TRUE)
+        if (!ci_can_push(private$private_key_name)) {
+          cli_alert_danger("Deployment was requested but the build is not able
+          to deploy. We checked for env var {.var {private$private_key_name}}
+          but could not find it as an env var in the current build.
+          Double-check if it exists.
+          Calling {.fun travis::use_travis_deploy} or
+          {.fun tic::use_ghactions_deploy} may help resolving issues.",
+            wrap = TRUE
+          )
           stopc("This build cannot deploy to GitHub.")
         }
         TRUE
@@ -175,11 +177,11 @@ TestSSH <- R6Class(
       message("Trying to ssh into ", private$url)
       message("Using command: '", sprintf(
         "ssh -i %s %s %s'",
-        file.path("~", ".ssh", private$name),
+        file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
       ))
       system2("ssh", c(
-        "-i", file.path("~", ".ssh", private$name),
+        "-i", file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
       ))
     }
@@ -299,8 +301,10 @@ step_setup_ssh <- function(private_key_name = "TIC_DEPLOY_KEY",
                            host = "github.com",
                            url = paste0("git@", host),
                            verbose = "-v") {
-  SetupSSH$new(private_key_name = private_key_name, host = host,
-               url = url, verbose = verbose)
+  SetupSSH$new(
+    private_key_name = private_key_name, host = host,
+    url = url, verbose = verbose
+  )
 }
 
 compat_ssh_key <- function(private_key_name) {

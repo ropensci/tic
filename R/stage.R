@@ -1,8 +1,8 @@
 TicStage <- R6Class( # nolint
   "TicStage",
   public = list(
-    initialize = function(name) {
-      private$name <- name
+    initialize = function(stage_name) {
+      private$stage_name <- stage_name
       private$steps <- list()
     },
 
@@ -45,7 +45,7 @@ TicStage <- R6Class( # nolint
       for (step in private$steps) {
         if (!private$run_one(step)) {
           stopc(
-            'A step failed in stage "', private$name, '": ', private$name, "."
+            'A step failed in stage "', private$stage_name, '": ', private$stage_name, "."
           )
         }
       }
@@ -55,7 +55,7 @@ TicStage <- R6Class( # nolint
       if (omit_if_empty && length(private$steps) == 0) {
         return()
       }
-      cat_rule(private$name, right = "stage", col = "green")
+      cat_rule(private$stage_name, right = "stage", col = "green")
 
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
@@ -66,7 +66,7 @@ TicStage <- R6Class( # nolint
   ),
 
   private = list(
-    name = NULL,
+    stage_name = NULL,
     steps = NULL,
 
     prepare_one = function(step) {
@@ -76,14 +76,14 @@ TicStage <- R6Class( # nolint
 
       if (!isTRUE(step$check())) {
         ci_cat_with_color(
-          crayon::magenta(paste0("Skipping prepare: ", step$name))
+          crayon::magenta(paste0("Skipping prepare: ", step$stage_name))
         )
         print(step$check)
         return()
       }
 
       ci_cat_with_color(
-        crayon::magenta(paste0("Preparing: ", step$name))
+        crayon::magenta(paste0("Preparing: ", step$stage_name))
       )
       step$prepare()
 
@@ -93,14 +93,14 @@ TicStage <- R6Class( # nolint
     run_one = function(step) {
       if (!isTRUE(step$check())) {
         ci_cat_with_color(
-          crayon::magenta(paste0("Skipping ", private$name, ": ", step$name))
+          crayon::magenta(paste0("Skipping ", private$stage_name, ": ", step$stage_name))
         )
         print(step$check)
         return(TRUE)
       }
 
       ci_cat_with_color(
-        crayon::magenta(paste0("Running ", private$name, ": ", step$name))
+        crayon::magenta(paste0("Running ", private$stage_name, ": ", step$name))
       )
 
       top <- environment()
