@@ -38,7 +38,7 @@ ci_is_env(env, value)
 
 ci_has_env(env)
 
-ci_can_push(name = "TIC_DEPLOY_KEY")
+ci_can_push(private_key_name = "TIC_DEPLOY_KEY")
 
 ci_is_interactive()
 
@@ -59,10 +59,10 @@ ci()
 
 \item{value}{Value for the environment variable to compare against.}
 
+\item{code}{Code that should be colored.}
+
 \item{name}{Name of the environment variable to check, defaults to
 \code{"TIC_DEPLOY_KEY"}.}
-
-\item{code}{Code that should be colored.}
 }
 \description{
 Functions that return environment settings that describe the CI

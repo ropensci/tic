@@ -4,7 +4,7 @@
 \alias{step_install_ssh_keys}
 \title{Step: Install an SSH key}
 \usage{
-step_install_ssh_keys(name = "TIC_DEPLOY_KEY")
+step_install_ssh_keys(private_key_name = "TIC_DEPLOY_KEY")
 }
 \arguments{
 \item{name}{\verb{[string]}\cr

@@ -66,9 +66,9 @@ InstallSSHKeys <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(name = "TIC_DEPLOY_KEY") {
+    initialize = function(private_key_name = "TIC_DEPLOY_KEY") {
       # for backward comp, if "id_rsa" exists we take this key
-      private$name <- compat_ssh_key(name = name)
+      private$name <- compat_ssh_key(private_key_name = private_key_name)
     },
 
     run = function() {
@@ -126,7 +126,7 @@ InstallSSHKeys <- R6Class(
   ),
 
   private = list(
-    name = NULL
+    private_key_name = NULL
   )
 )
 
@@ -154,9 +154,9 @@ InstallSSHKeys <- R6Class(
 #'   add_step(step_install_ssh_keys())
 #'
 #' dsl_get()
-step_install_ssh_keys <- function(name = "TIC_DEPLOY_KEY") {
-  name <- compat_ssh_key(name = name)
-  InstallSSHKeys$new(name = name)
+step_install_ssh_keys <- function(private_key_name = "TIC_DEPLOY_KEY") {
+  name <- compat_ssh_key(private_key_name = private_key_name)
+  InstallSSHKeys$new(private_key_name = private_key_name)
 }
 
 TestSSH <- R6Class(
@@ -166,7 +166,7 @@ TestSSH <- R6Class(
   public = list(
     initialize = function(url = "git@github.com",
                           verbose = "-v",
-                          name = "TIC_DEPLOY_KEY") {
+                          private_key_name = "TIC_DEPLOY_KEY") {
       private$url <- url
       private$verbose <- verbose
       private$name <- name
@@ -190,7 +190,7 @@ TestSSH <- R6Class(
   private = list(
     url = NULL,
     verbose = NULL,
-    name = NULL
+    private_key_name = NULL
   )
 )
 
@@ -217,8 +217,8 @@ TestSSH <- R6Class(
 #' dsl_get()
 step_test_ssh <- function(url = "git@github.com",
                           verbose = "-v",
-                          name = "TIC_DEPLOY_KEY") {
-  TestSSH$new(url = url, verbose = verbose, name = name)
+                          private_key_name = "TIC_DEPLOY_KEY") {
+  TestSSH$new(url = url, verbose = verbose, private_key_name = private_key_name)
 }
 
 SetupSSH <- R6Class(
@@ -226,14 +226,16 @@ SetupSSH <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(name = "TIC_DEPLOY_KEY", host = "github.com",
-                          url = paste0("git@", host), verbose = "-v") {
+    initialize = function(private_key_name = "TIC_DEPLOY_KEY",
+                          host = "github.com",
+                          url = paste0("git@", host),
+                          verbose = "-v") {
 
-      private$install_ssh_keys <- step_install_ssh_keys(name = name)
+      private$install_ssh_keys <- step_install_ssh_keys(private_key_name = private_key_name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
       private$test_ssh <- step_test_ssh(
         url = url, verbose = verbose,
-        name = name
+        private_key_name = private_key_name
       )
     },
 
@@ -295,9 +297,12 @@ SetupSSH <- R6Class(
 #'   add_step(step_setup_ssh(host = "gitlab.com"))
 #'
 #' dsl_get()
-step_setup_ssh <- function(name = "TIC_DEPLOY_KEY", host = "github.com",
-                           url = paste0("git@", host), verbose = "-v") {
-  SetupSSH$new(name = name, host = host, url = url, verbose = verbose)
+step_setup_ssh <- function(private_key_name = "TIC_DEPLOY_KEY",
+                           host = "github.com",
+                           url = paste0("git@", host),
+                           verbose = "-v") {
+  SetupSSH$new(private_key_name = private_key_name, host = host,
+               url = url, verbose = verbose)
 }
 
 compat_ssh_key <- function(name) {

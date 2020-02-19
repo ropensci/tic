@@ -123,13 +123,13 @@ In the "before_deploy" stage, {tic} will do the following:
 ```{r eval = FALSE}
 if (ci_on_travis()) {
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = private_key_name))
+    add_step(step_setup_ssh())
 }
 ```
 
 - Calls `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis CI build. 
   This step sets up SSH key previously added to the GitHub and Travis via `travis::use_travis_deploy()`.
-  Argument `name = private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
+  Argument `private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
   If so, then supply it via the `private_key_name` argument in `do_pkgdown()`.
   
   For backward compatibility, the deprecated default `"id_rsa"` is supported out of the box.

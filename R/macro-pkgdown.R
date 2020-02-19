@@ -56,8 +56,8 @@ do_pkgdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).'
     # account for old default "id_rsa"
-    name <- private_key_name
-    deploy <- ci_can_push(name = name)
+    private_key_name <- private_key_name
+    deploy <- ci_can_push(private_key_name = private_key_name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
@@ -78,7 +78,7 @@ do_pkgdown <- function(...,
     #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
     if (ci_on_travis() || ci_on_ghactions()) {
       get_stage("before_deploy") %>%
-        add_step(step_setup_ssh(name = name))
+        add_step(step_setup_ssh(private_key_name = private_key_name))
     }
 
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage

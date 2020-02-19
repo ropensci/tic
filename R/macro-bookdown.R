@@ -54,10 +54,11 @@ do_bookdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).
     # account for old default "id_rsa"
-    name <- private_key_name
+    private_key_name <- private_key_name
 
-    cli_text("Using {name} env var as the private key name for SSH deployment.")
-    deploy <- ci_can_push(name = name)
+    cli_text("Using {private_key_name} env var as the private key name for
+             SSH deployment.", wrap = TRUE)
+    deploy <- ci_can_push(private_key_name = private_key_name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
@@ -79,9 +80,9 @@ do_bookdown <- function(...,
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
     #'    (if `deploy` is set),
     #'
-    name <- private_key_name
+    private_key_name <- private_key_name
     get_stage("before_deploy") %>%
-      add_step(step_setup_ssh(name = !!private_key_name)) %>%
+      add_step(step_setup_ssh(private_key_name = !!private_key_name)) %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),

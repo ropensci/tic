@@ -208,8 +208,8 @@ ci_has_env <- function(env) {
 #' @param name Name of the environment variable to check, defaults to
 #'   `"TIC_DEPLOY_KEY"`.
 #' @export
-ci_can_push <- function(name = "TIC_DEPLOY_KEY") {
-  ci()$can_push(name)
+ci_can_push <- function(private_key_name = "TIC_DEPLOY_KEY") {
+  ci()$can_push(private_key_name)
 }
 
 #' CI is_interactive
