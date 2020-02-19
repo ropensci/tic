@@ -59,6 +59,29 @@ For an R package, the following steps will be set up for the CI workflow:
 
 See the [Getting Started](https://docs.ropensci.org/tic/articles/tic.html) vignette for more information and links to [minimal example repositories](https://docs.ropensci.org/tic/articles/tic.html#examples-projects) for various R projects (package, blogdown, bookdown and more).
 
+#### Quickstart
+
+If you are a new user, run 
+
+```r
+tic::use_tic()
+```
+
+If you already use {tic} and want to configure a new CI provider, do
+
+```r
+## Travis CI
+travis::use_travis_deploy() # (optional for deployment)
+tic::use_travis_yml(<option here>)
+
+## Circle CI
+circle::use_circle_deploy() # (optional for deployment)
+tic::use_circle_yml(<option here>)
+
+## Appveyor
+tic::use_appveyor_yml(<option here>)
+```
+
 ## Good to know
 
 We would like to mention that {tic} is a choice and sits on top of existing community efforts providing R support for various CI providers.
