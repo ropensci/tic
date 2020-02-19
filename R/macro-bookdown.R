@@ -81,7 +81,7 @@ do_bookdown <- function(...,
     #'
     name <- private_key_name
     get_stage("before_deploy") %>%
-      add_step(step_setup_ssh(name = name)) %>%
+      add_step(step_setup_ssh(name = !!private_key_name)) %>%
       add_step(step_setup_push_deploy(
         path = !!enquo(path),
         branch = !!enquo(branch),
