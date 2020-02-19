@@ -9,14 +9,18 @@ InstallDeps <- R6Class(
     },
 
     prepare = function() {
-      cli_alert_danger("The {.code step_install_deps()} step and the {.code do_package_checks()} macro are only available for packages.")
+      cli_alert_danger("The {.code step_install_deps()} step and the
+                       {.code do_package_checks()} macro are only available
+                       for packages.", wrap = TRUE)
       verify_install("remotes")
     },
 
     run = function() {
       if (Sys.getenv("pkgType") != "") {
         private$type <- Sys.getenv("pkgType")
-        crayon::magenta(cli_text('Using "{private$type}" for argument {.code pkgType} in {.code install.packages()}.'))
+        crayon::magenta(cli_text('Using "{private$type}" for argument
+                                 {.code pkgType} in
+                                 {.code install.packages()}.', wrap = TRUE))
       }
       # https://github.com/r-lib/remotes/pull/369
       withr::with_options(
@@ -87,7 +91,8 @@ InstallCRAN <- R6Class(
     },
     run = function() {
       if (Sys.getenv("pkgType") != "") {
-        private$install_args$type <- Sys.getenv("pkgType")
+        pkgType = Sys.getenv("pkgType")
+        private$install_args$type <- pkgType
         cli_text("Using '{pkgType}' for argument {.code type} in
                  {.code install.packages()}.", wrap = TRUE)
       }
