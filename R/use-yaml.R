@@ -56,8 +56,8 @@
 #'  | Appveyor   | Windows          | no         | no                  | `use_appveyor_yml("windows")`                           |
 #'  |            | Windows          | no         | yes                 | `use_travis_yml("windows-matrix")`                      |
 #'  |----------  |------------------|------------|---------------------|---------------------------------------------------------|
-#'  | GH Actions | All              | no         | yes                 | `use_ghactions_yml("all")`                              |
-#'  |            | All              | no         | yes                 | `use_ghactions_yml("all-deploy")`                       |
+#'  | GH Actions | All              | no         | yes                 | `use_ghactions_yml()`                              |
+#'  |            | All              | no         | yes                 | `use_ghactions_yml(deploy = TRUE)`                       |
 #' @name yaml_templates
 #' @aliases yaml_templates
 #' @export
@@ -268,8 +268,14 @@ use_circle_yml <- function(type) {
 
 #' @rdname yaml_templates
 #' @export
-use_ghactions_yml <- function(type) {
+use_ghactions_yml <- function(type = "all", deploy = FALSE) {
 
+  if (deploy == TRUE) {
+    type = "all-deploy"
+  }
+
+  # .ccache dir lives in the package root because we cannot write elsewhere
+  # -> need to ignore it for R CMD check
   usethis::use_build_ignore(".ccache")
 
   if (type == "linux" | type == "macOS" | type == "linux-macos" |

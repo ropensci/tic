@@ -31,6 +31,9 @@ If not supplied, \code{"Deploy key for Github Actions"} will be used.}
 The Github remote which should be used. Defaults to "origin".}
 }
 \description{
+\lifecycle{experimental}
+}
+\details{
 Creates a public-private key pair, adds the public key to the GitHub
 repository via \code{github_add_key()}, and stores the private key as a "secret"
 in the Github repo.

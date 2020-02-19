@@ -14,7 +14,7 @@ use_appveyor_yml(type)
 
 use_circle_yml(type)
 
-use_ghactions_yml(type)
+use_ghactions_yml(type = "all", deploy = FALSE)
 }
 \arguments{
 \item{type}{\verb{[character]}\cr
@@ -77,8 +77,8 @@ Here is a list of all available combinations:\tabular{lllll}{
    Appveyor \tab Windows \tab no \tab no \tab \code{use_appveyor_yml("windows")} \cr
     \tab Windows \tab no \tab yes \tab \code{use_travis_yml("windows-matrix")} \cr
    ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
-   GH Actions \tab All \tab no \tab yes \tab \code{use_ghactions_yml("all")} \cr
-    \tab All \tab no \tab yes \tab \code{use_ghactions_yml("all-deploy")} \cr
+   GH Actions \tab All \tab no \tab yes \tab \code{use_ghactions_yml()} \cr
+    \tab All \tab no \tab yes \tab \code{use_ghactions_yml(deploy = TRUE)} \cr
 }
 }
 
