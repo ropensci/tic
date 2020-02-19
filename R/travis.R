@@ -28,7 +28,7 @@ TravisCI <- R6Class(
     get_commit = function() {
       Sys.getenv("TRAVIS_COMMIT")
     },
-    can_push = function(name = "TIC_DEPLOY_KEY") {
+    can_push = function(private_key_name = "TIC_DEPLOY_KEY") {
       # id_rsa is the "old" name which was previously hard coded in the {travis}
       # package. New default name: "TIC_DEPLOY_KEY"
       # for backward comp we check for the old one too
