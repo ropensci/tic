@@ -136,7 +136,7 @@ InstallSSHKeys <- R6Class(
 #' to a file in `~/.ssh`.
 #' Only run in non-interactive settings and if the environment variable
 #' exists and is non-empty.
-#' [travis::use_travis_deploy()] , [use_ghactions_deploy()] and[use_tic()]
+#' [travis::use_travis_deploy()] , [use_ghactions_deploy()] and [use_tic()]
 #' functions encode a private key as an environment variable for use with this
 #' function.
 #'
