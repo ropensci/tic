@@ -31,7 +31,7 @@ If not supplied, \code{"Deploy key for GitHub Actions"} will be used.}
 The GitHub remote which should be used. Defaults to "origin".}
 }
 \description{
-\lifecycle{experimental}
+\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 
 Creates a public-private key pair, adds the public key to the GitHub
 repository via \code{github_add_key()}, and stores the private key as a "secret"

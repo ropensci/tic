@@ -58,7 +58,7 @@ GHActionsCI <- R6Class( # nolint
 #' Setup deployment for GitHub Actions
 #'
 #' @description
-#' \lifecycle{experimental}
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 #'
 #' Creates a public-private key pair, adds the public key to the GitHub
 #' repository via `github_add_key()`, and stores the private key as a "secret"
