@@ -42,8 +42,9 @@ For the case of {rJava}, one needs to
 
 macOS is a bit tricky when it comes to source installation of packages.
 By default `clang` is used instead of `gcc` (Linux) because the former is the default for macOS.
-While a custom installation of `clang7` is recommended in [this post](https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/) by James Balamuta, installing `clang7` is not just more than one line of code, it would also cost some time in every build.
-Instead, we currently use the system installation of `clang` and cross fingers...
+However, the default `clang` of macOS does not come with openMP support.
+Therefore, the R macOS core devs and CRAN currently use a [custom openMP-enabled](https://cran.r-project.org/bin/macosx/tools/) (old) version of `clang` to build the CRAN package binaries.
+In {tic} we reflect this by installing `clang7` and `clang8` for the respective R version during build initialization in the "ccache" stages.
 
 ### Known issues
 
