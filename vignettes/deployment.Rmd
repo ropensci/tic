@@ -100,7 +100,20 @@ To use this function, you need a `GITHUB_PAT` with public repo scope defined in 
 
 #### Updating the deployment status 
 
-The following action can be added after the "After Deploy" stage to conditionally update the deployment status based on the outcome of the "Deployment" stage:
+To update the deployment status in the "environments" menu (next to "release" and "branches") conditionally on the outcome of the "Deployment" stage, one can use the `chrnorm/deployment-status`.
+
+Add the following before the "Before Deploy" stage:
+
+```yml
+      - uses: chrnorm/deployment-action@v1.1.1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          environment: production
+```yml
+
+and then this part after the "After Deploy" stage:
 
 ```yml
       - name: Update deployment status (success)
