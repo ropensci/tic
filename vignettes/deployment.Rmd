@@ -96,7 +96,31 @@ A SSH key can be easily created, is safe to use and when browsing at the "Deploy
 
 To simplify the creation of a SSH key pair for deployment and adding the keys to the appropriate places, {tic} comes with a little helper function `use_ghactions_deploy()`.
 To use this function, you need a `GITHUB_PAT` with public repo scope defined in your `.Renviron`.
-`usethis::browse_github_pat()` helps etting one up if you haven't done so already.
+`usethis::browse_github_pat()` helps setting one up if you haven't done so already.
+
+#### Updating the deployment status 
+
+The following action can be added after the "After Deploy" stage to conditionally update the deployment status based on the outcome of the "Deployment" stage:
+
+```yml
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+```
 
 ## {pkgdown} deployment
 
