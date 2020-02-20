@@ -41,8 +41,8 @@
         uses: actions/cache@v1.1.0
         with:
           path: ${{ env.CCACHE_DIR}}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-test6-${{steps.datew.outputs.datew}}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-test6-${{steps.datew.outputs.datew}}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
 
       # install ccache and write config file
       - name: "[Linux] ccache"
