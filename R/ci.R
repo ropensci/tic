@@ -208,7 +208,7 @@ ci_has_env <- function(env) {
 #' @template private_key_name
 #' @export
 ci_can_push <- function(private_key_name = "TIC_DEPLOY_KEY") {
-  ci()$can_push(private_key_name = private_key_name)
+  ci()$can_push(private_key_name)
 }
 
 #' CI is_interactive
