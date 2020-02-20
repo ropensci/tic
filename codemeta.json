@@ -17,7 +17,7 @@
     "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 Patched (2019-12-12 r77564)",
+  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
   "author": [
     {
       "@type": "Person",
@@ -402,7 +402,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tic/blob/master/README.md",
-  "fileSize": "350.164KB",
+  "fileSize": "353.548KB",
   "contIntegration": [
     "https://travis-ci.com/ropensci/tic",
     "https://ci.appveyor.com/project/ropensci/tic",
