@@ -19,13 +19,13 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'  use_tic_badge(provider = "ghactions")
+#' use_tic_badge(provider = "ghactions")
 #'
-#'  # no logo, only label
-#'  use_tic_badge(provider = "ghactions", logo = FALSE)
+#' # no logo, only label
+#' use_tic_badge(provider = "ghactions", logo = FALSE)
 #'
-#'  # no label, only logo
-#'  use_tic_badge(provider = "ghactions", label = NULL)
+#' # no label, only logo
+#' use_tic_badge(provider = "ghactions", label = NULL)
 #' }
 use_tic_badge <- function(provider,
                           logo = TRUE,
@@ -36,17 +36,21 @@ use_tic_badge <- function(provider,
   if (provider == "ghactions") {
     if (logo) {
       logo <- "logo=github"
+    } else {
+      logo <- NULL
     }
 
     if (!is.null(label)) {
-      label <- paste0("label=", label)
+      label_badge <- paste0("label=", label)
+    } else {
+      label_badge <- NULL
     }
 
     # melt them if both are provided
-    if (!is.null(label) && is.character(logo)) {
-      badge_style <- paste0(logo, "&", label)
+    if (!is.null(label_badge) && is.character(logo)) {
+      badge_style <- paste0(logo, "&", label_badge)
     } else {
-      badge_style <- paste0(logo, label)
+      badge_style <- paste0(logo, label_badge)
     }
 
     github_home <- paste0("https://github.com/", ci_get_slug())
