@@ -2,11 +2,13 @@
 # nocov start
 
 verify_install <- function(pkg_names) { # nolint
-  lapply(pkg_names, function(x) verify_install_one(xe))
+  lapply(pkg_names, function(x) verify_install_one(x))
 }
 
 verify_install_one <- function(pkg_name) { # nolint
-  remotes::install_cran(pkg_name, upgrade = TRUE)
+  # suppressing warnings of missing binaries on R-devel
+  # these show up as build artifacts otherwise
+  suppressWarnings(remotes::install_cran(pkg_name, upgrade = TRUE))
   if (!package_installed(pkg_name)) {
     stopc(
       "Error installing package ", pkg_name, " or one of its dependencies."
