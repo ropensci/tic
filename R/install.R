@@ -1,22 +1,12 @@
 # This code can only run as part of a CI run
 # nocov start
 
-verify_install <- function(pkg_names, pkgType = NULL) { # nolint
-  # set "type" to platform default
-  pkgType <- update_type(pkgType) # nolint
-  lapply(pkg_names, function(x) verify_install_one(x, pkgType = pkgType))
+verify_install <- function(pkg_names) { # nolint
+  lapply(pkg_names, function(x) verify_install_one(xe))
 }
 
-verify_install_one <- function(pkg_name, pkgType) { # nolint
-  if (Sys.getenv("pkgType") != "") {
-    pkgType <- Sys.getenv("pkgType")
-    cli_text("Using '{pkgType}' for argument {.code pkgType} in
-             {.code remotes::install_cran()}.", wrap = TRUE)
-  }
-  withr::with_options(
-    c(pkgType = pkgType),
-    remotes::install_cran(pkg_name, upgrade = TRUE)
-  )
+verify_install_one <- function(pkg_name) { # nolint
+  remotes::install_cran(pkg_name, upgrade = TRUE)
   if (!package_installed(pkg_name)) {
     stopc(
       "Error installing package ", pkg_name, " or one of its dependencies."
