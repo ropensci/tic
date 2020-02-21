@@ -131,12 +131,6 @@ jobs:
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
-      - uses: chrnorm/deployment-action@v1.1.1
-        name: Create GitHub deployment
-        id: deployment
-        with:
-          token: "${{ github.token }}"
-          environment: production
 
       - name: "[Stage] Before Deploy"
         run: |
@@ -147,21 +141,3 @@ jobs:
 
       - name: "[Stage] After Deploy"
         run: Rscript -e "tic::after_deploy()"
-
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: "${{ github.token }}"
-          target-url: http://my-app-url.com
-          state: "success"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: "${{ github.token }}"
-          target-url: http://my-app-url.com
-          state: "failure"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
