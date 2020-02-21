@@ -1,3 +1,43 @@
+on:
+  push:
+  pull_request:
+  # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "0 3 * * *"
+
+name: R CMD Check via {tic}
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # comment out lines if you do not want to build on certain platforms
+          - { os: windows-latest, r: "release" }
+          - { os: macOS-latest, r: "release" }
+          - { os: macOS-latest, r: "devel" }
+          - { os: ubuntu-18.04, r: "release" }
+
+    env:
+      # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      CRAN: ${{ matrix.config.cran }}
+      # we are not allowed to write to ~/.ccache on GH Actions
+      # setting some ccache options
+      CCACHE_BASEDIR: ${{ GITHUB.WORKSPACE }}
+      CCACHE_DIR: ${{ GITHUB.WORKSPACE }}/.ccache
+      CCACHE_NOHASHDIR: true
+      CCACHE_SLOPPINESS: include_file_ctime
+      # make sure to run `tic::use_ghactions_deploy()` to set up deployment
+      TIC_DEPLOY_KEY: ${{ secrets.TIC_DEPLOY_KEY }}
+      # prevent rgl issues because no X11 display is available
+      RGL_USE_NULL: true
 
     steps:
       - uses: actions/checkout@v1
@@ -41,8 +81,8 @@
         uses: actions/cache@v1.1.0
         with:
           path: ${{ env.CCACHE_DIR}}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-test6-${{steps.datew.outputs.datew}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-test6-${{steps.datew.outputs.datew}}
 
       # install ccache and write config file
       - name: "[Linux] ccache"
@@ -52,26 +92,11 @@
           mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache gcc -std=gnu99\nCXX=ccache g++\nCXX11=ccache g++ -std=gnu99\nCXX14=ccache g++ -std=gnu99\nC11=ccache g++\nC14=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
 
       # install ccache and write config file
-      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
       - name: "[macOS] ccache"
-        if: runner.os == 'macOS' && matrix.config.r != 'devel'
+        if: runner.os == 'macOS'
         run: |
           brew install ccache
-          wget https://cran.r-project.org/bin/macosx/tools/clang-7.0.0.pkg
-          sudo installer -package clang-7.0.0.pkg -target /
-          mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache /usr/local/clang7/bin/clang\nCC11=ccache /usr/local/clang7/bin/clang\nCC14=ccache /usr/local/clang7/bin/clang\nCXX=ccache /usr/local/clang7/bin/clang++\nCXX11=ccache /usr/local/clang7/bin/clang++\nCXX14=ccache /usr/local/clang7/bin/clang++\nC11=ccache /usr/local/clang7/bin/clang++\nC14=ccache /usr/local/clang7/bin/clang++\nF77=ccache gfortran/nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' > $HOME/.R/Makevars
-          R CMD javareconf
-
-      # install ccache and write config file
-      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
-      - name: "[macOS-devel] ccache"
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: |
-          brew install ccache
-          wget https://cran.r-project.org/bin/macosx/tools/clang-8.0.0.pkg
-          sudo installer -package clang-8.0.0.pkg -target /
-          mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache /usr/local/clang8/bin/clang\nCC11=ccache /usr/local/clang8/bin/clang\nCC14=ccache /usr/local/clang8/bin/clang\nCXX=ccache /usr/local/clang8/bin/clang++\nCXX11=ccache /usr/local/clang8/bin/clang++\nCXX14=ccache /usr/local/clang8/bin/clang++\nC11=ccache /usr/local/clang8/bin/clang++\nC14=ccache /usr/local/clang8/bin/clang++\nF88=ccache gfortran/nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' > $HOME/.R/Makevars
-          R CMD javareconf
+          mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache /usr/bin/clang\nCC11=ccache /usr/bin/clang\nCC14=ccache /usr/bin/clang\nCXX=ccache /usr/bin/clang++\nCXX11=ccache /usr/bin/clang++\nCXX14=ccache /usr/bin/clang++\nC11=ccache /usr/bin/clang++\nC14=ccache /usr/bin/clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' > $HOME/.R/Makevars
 
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Prepare"
@@ -106,3 +131,37 @@
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
+      - uses: chrnorm/deployment-action@v1.1.1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          environment: production
+
+      - name: "[Stage] Before Deploy"
+        run: |
+          Rscript -e "tic::before_deploy()"
+
+      - name: "[Stage] Deploy"
+        run: Rscript -e "tic::deploy()"
+
+      - name: "[Stage] After Deploy"
+        run: Rscript -e "tic::after_deploy()"
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
