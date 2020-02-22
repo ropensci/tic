@@ -14,7 +14,7 @@ do_package_checks(
   error_on = "warning",
   repos = repo_default(),
   timeout = Inf,
-  type = NULL,
+  type = getOption("pkgType"),
   check_dir = NULL
 )
 }
