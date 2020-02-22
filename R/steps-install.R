@@ -1,3 +1,5 @@
+# installDeps ------------------------------------------------------------------
+
 InstallDeps <- R6Class(
   "InstallDeps",
   inherit = TicStep,
@@ -66,11 +68,7 @@ step_install_deps <- function(repos = repo_default(),
   InstallDeps$new(repos = repos, type = type)
 }
 
-
-
-
-
-
+# installCRAN ------------------------------------------------------------------
 
 InstallCRAN <- R6Class(
   "InstallCRAN",
@@ -121,11 +119,7 @@ step_install_cran <- function(package = NULL, ...,
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
 
-
-
-
-
-
+# installGithub ----------------------------------------------------------------
 
 InstallGitHub <- R6Class(
   "InstallGitHub",
