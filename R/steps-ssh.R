@@ -204,7 +204,7 @@ TestSSH <- R6Class(
 #' @param url `[string]`\cr
 #'   URL to establish SSH connection with, by default `git@github.com`
 #' @param verbose `[string]`\cr
-#'   Verbosity, by default `"-v"`. Use `"-vvv"` for more verbosity.
+#'   Verbosity, by default `""`. Use `-v` or `"-vvv"` for more verbosity.
 #' @inheritParams step_install_ssh_keys
 #' @family steps
 #' @export
@@ -300,7 +300,7 @@ SetupSSH <- R6Class(
 step_setup_ssh <- function(private_key_name = "TIC_DEPLOY_KEY",
                            host = "github.com",
                            url = paste0("git@", host),
-                           verbose = "-v") {
+                           verbose = "") {
   SetupSSH$new(
     private_key_name = private_key_name, host = host,
     url = url, verbose = verbose

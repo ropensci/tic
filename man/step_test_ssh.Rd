@@ -15,7 +15,7 @@ step_test_ssh(
 URL to establish SSH connection with, by default \code{git@github.com}}
 
 \item{verbose}{\verb{[string]}\cr
-Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
+Verbosity, by default \code{""}. Use \code{-v} or \code{"-vvv"} for more verbosity.}
 
 \item{private_key_name}{\code{string}\cr
 Only needed when deploying from builds on Travis CI or GitHub Actions.

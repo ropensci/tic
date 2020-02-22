@@ -8,7 +8,7 @@ step_setup_ssh(
   private_key_name = "TIC_DEPLOY_KEY",
   host = "github.com",
   url = paste0("git@", host),
-  verbose = "-v"
+  verbose = ""
 )
 }
 \arguments{
@@ -25,7 +25,7 @@ The host name to add to the \code{known_hosts} file, default: \code{github.com}.
 URL to establish SSH connection with, by default \code{git@github.com}}
 
 \item{verbose}{\verb{[string]}\cr
-Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
+Verbosity, by default \code{""}. Use \code{-v} or \code{"-vvv"} for more verbosity.}
 }
 \description{
 Adds to known hosts, installs private key, and tests the connection.
