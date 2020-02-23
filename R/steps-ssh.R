@@ -283,6 +283,7 @@ SetupSSH <- R6Class(
         return(FALSE)
       }
       cli_alert_success("{.fun step_setup_ssh} Everything ok.")
+      return(TRUE)
     }
   ),
 
