@@ -6,7 +6,7 @@
 \usage{
 step_test_ssh(
   url = "git@github.com",
-  verbose = "-v",
+  verbose = "",
   private_key_name = "TIC_DEPLOY_KEY"
 )
 }

@@ -99,7 +99,7 @@ InstallSSHKeys <- R6Class(
       git2r::config(
         core.sshCommand = sprintf(
           paste0(
-            "ssh",
+            "ssh ",
             "-i ~/.ssh/%s -F /dev/null ",
             "-o LogLevel=error"
           ),
