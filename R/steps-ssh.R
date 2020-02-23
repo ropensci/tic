@@ -176,10 +176,12 @@ TestSSH <- R6Class(
 
       cli_text("Trying to ssh into {private$url}")
       cli_text("Using command: {.code ssh -i ~/.ssh/{private$private_key_name}
+               -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
                {private$url} {private$verbose}}")
       # suppress the warning about adding the IP to .ssh/known_hosts
       system2("ssh", c(
         "-o", "UserKnownHostsFile=/dev/null",
+        "-o", "StrictHostKeyChecking=no",
         "-i", file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
       ))
