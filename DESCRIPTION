@@ -84,7 +84,8 @@ Suggests:
     sodium,
     testthat (>= 2.1.0),
     travis (>= 0.2.11.9001),
-    usethis
+    usethis,
+    utils
 VignetteBuilder:
     knitr
 RdMacros: 

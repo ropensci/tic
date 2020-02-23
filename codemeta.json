@@ -323,6 +323,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=usethis"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
     }
   ],
   "softwareRequirements": [
@@ -450,7 +455,6 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tic/blob/master/README.md",
-  "fileSize": "361.112KB",
   "contIntegration": [
     "https://travis-ci.com/ropensci/tic",
     "https://ci.appveyor.com/project/ropensci/tic",
@@ -482,5 +486,6 @@
     "deployment",
     "r-package",
     "rstats"
-  ]
+  ],
+  "fileSize": "361.217KB"
 }
