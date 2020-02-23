@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build and deploy drat repository — do_drat • tic</title>
+<title>Render a R Markdown README and deploy to Github — do_readme_rmd • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,15 +41,16 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Build and deploy drat repository — do_drat" />
-<meta property="og:description" content="do_drat() builds and deploys R packages to a drat repository and adds
-default steps to the &quot;install&quot;, &quot;before_deploy&quot; and &quot;deploy&quot; stages:
+<meta property="og:title" content="Render a R Markdown README and deploy to Github — do_readme_rmd" />
+<meta property="og:description" content="
+do_readme_rmd() renders an R Markdown README and deploys
+the rendered README.md file to Github. It adds default steps to the
+&quot;before_deploy&quot; and &quot;deploy&quot; stages:
 
 step_setup_ssh() in the &quot;before_deploy&quot; to setup
 the upcoming deployment
 step_setup_push_deploy() in the &quot;before_deploy&quot; stage
-(if deploy is set),
-step_add_to_drat() in the &quot;deploy&quot;
+rmarkdown::render() in the &quot;deploy&quot; stage
 step_do_push_deploy() in the &quot;deploy&quot; stage.
 
 " />
@@ -156,64 +157,42 @@ step_do_push_deploy() in the &quot;deploy&quot; stage.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build and deploy drat repository</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-drat.R'><code>R/macro-drat.R</code></a></small>
-    <div class="hidden name"><code>do_drat.Rd</code></div>
+    <h1>Render a R Markdown README and deploy to Github</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-readme-rmd.R'><code>R/macro-readme-rmd.R</code></a></small>
+    <div class="hidden name"><code>do_readme_rmd.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>do_drat()</code> builds and deploys R packages to a drat repository and adds
-default steps to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</code> stages:</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p><code>do_readme_rmd()</code> renders an R Markdown README and deploys
+the rendered README.md file to Github. It adds default steps to the
+<code>"before_deploy"</code> and <code>"deploy"</code> stages:</p>
 <ol>
 <li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
 the upcoming deployment</p></li>
-<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage
-(if <code>deploy</code> is set),</p></li>
-<li><p><code><a href='step_add_to_drat.html'>step_add_to_drat()</a></code> in the <code>"deploy"</code></p></li>
+<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> in the <code>"deploy"</code> stage</p></li>
 <li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage.</p></li>
 </ol>
 
     </div>
 
-    <pre class="usage"><span class='fu'>do_drat</span>(
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>do_readme_rmd</span>(
   <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"~/git/drat"</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>ssh_key_name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>,
-  <span class='kw'>deploy_dev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>ssh_key_name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>repo_slug</th>
-      <td><p><code>[string]</code><br />
-The name of the drat repository to deploy to in the form <code>:owner/:repo</code>.</p></td>
-    </tr>
-    <tr>
-      <th>orphan</th>
-      <td><p><code>[flag]</code><br />
-Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
-but cannot be applied for pushing to the current branch.</p></td>
-    </tr>
-    <tr>
       <th>checkout</th>
       <td><p><code>[flag]</code><br />
 Check out the current contents of the repository? Defaults to <code>TRUE</code>,
 set to <code>FALSE</code> if the build process relies on existing contents or
 if you deploy to a different branch.</p></td>
-    </tr>
-    <tr>
-      <th>path, branch</th>
-      <td><p>By default, this macro deploys the <code>"master"</code> branch
-of the drat repository. An alternative option is <code>"gh-pages"</code>.</p></td>
     </tr>
     <tr>
       <th>remote_url</th>
@@ -228,72 +207,42 @@ Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></td>
     </tr>
     <tr>
-      <th>commit_paths</th>
-      <td><p><code>[character]</code><br />
-Restrict the set of directories and/or files added to Git before deploying.
-Default: deploy all files.</p></td>
-    </tr>
-    <tr>
       <th>ssh_key_name</th>
       <td><p><code>string</code><br />
-The name of the private SSH key which should be used for deployment to the
-drat repo.</p></td>
-    </tr>
-    <tr>
-      <th>deploy_dev</th>
-      <td><p><code>[logical]</code><br />
-Should development versions of packages also be deployed to the drat repo?
-By default only "major", "minor" and "patch" releases are build and
-deployed.</p></td>
+The name of the private SSH key which should be used for deployment.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="deployment"><a class="anchor" href="#deployment"></a>Deployment</h2>
-
-    <p>Deployment can only happen to the <code>master</code> or
-<code>gh-pages</code> branch because the Github Pages functionality from Github is
-used to access the drat repository later on. You need to enable this
-functionality when creating the drat repository on Github via <code>Settings -&gt; Github pages</code> and set it to the chosen setting here.</p>
-<p>To build and deploy Windows binaries, builds on Travis CI with deployment
-permissions need to be triggered. To build and deploy macOS binaries,
-builds on Travis CI with deployment permissions need to be triggered. Have
-a look at <a href='https://docs.ropensci.org/tic/articles/deployment.html'>https://docs.ropensci.org/tic/articles/deployment.html</a> for
-more information and instructions.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other macros: 
 <code><a href='do_bookdown.html'>do_bookdown</a>()</code>,
+<code><a href='do_drat.html'>do_drat</a>()</code>,
 <code><a href='do_package_checks.html'>do_package_checks</a>()</code>,
 <code><a href='do_pkgdown.html'>do_pkgdown</a>()</code>,
-<code><a href='do_readme_rmd.html'>do_readme_rmd</a>()</code>,
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
-<span class='fu'>do_drat</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_setup_ssh(name = ssh_key_name)
-#&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
-#&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
+<span class='fu'>do_readme_rmd</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh(name = "id_rsa")
+#&gt; ▶ step_setup_push_deploy(path = ".", branch = "master", remote_url = NULL, 
 #&gt;     orphan = FALSE, checkout = TRUE)
 #&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
-#&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
-#&gt;     commit_paths = ".")</div><div class='input'>
+#&gt; ▶ step_run_code(rmarkdown::render("README.Rmd"))
+#&gt; ▶ step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = "README.md")</div><div class='input'>
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_setup_ssh(name = ssh_key_name)
-#&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
-#&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
+#&gt; ▶ step_setup_ssh(name = "id_rsa")
+#&gt; ▶ step_setup_push_deploy(path = ".", branch = "master", remote_url = NULL, 
 #&gt;     orphan = FALSE, checkout = TRUE)
 #&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
-#&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
-#&gt;     commit_paths = ".")</div></pre>
+#&gt; ▶ step_run_code(rmarkdown::render("README.Rmd"))
+#&gt; ▶ step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = "README.md")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#deployment">Deployment</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

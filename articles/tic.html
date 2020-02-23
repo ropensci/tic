@@ -193,8 +193,12 @@
 <p>They can be distinguished from other functions by their <code>do_</code> prefix. The following ones are currently implemented:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/list_macros.html">list_macros</a></span>()</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; [1] "do_bookdown"       "do_drat"           "do_package_checks"</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; [4] "do_pkgdown"</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; [4] "do_pkgdown"        "do_readme_rmd"</span></a></code></pre></div>
 <p>If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
+<div id="do_package_checks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#do_package_checks" class="anchor"></a><code>do_package_checks()</code>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
@@ -202,6 +206,11 @@
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
+</div>
+<div id="do_pkgdown" class="section level3">
+<h3 class="hasAnchor">
+<a href="#do_pkgdown" class="anchor"></a><code>do_pkgdown()</code>
+</h3>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
@@ -217,6 +226,14 @@
 # 
 # step_do_push_deploy() in the "deploy" stage.</code></pre>
 <p>By default this currently happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
+</div>
+<div id="do_readme_rmd" class="section level3">
+<h3 class="hasAnchor">
+<a href="#do_readme_rmd" class="anchor"></a><code>do_readme_rmd()</code>
+</h3>
+<p>Some projects rely on a dynamic README.Rmd file which contains R code. Sometimes the output of such README’s will change over time if the code driving it changes due to updates. To always stay up-to-date without needing to take manual action, you can use this macro. It will render <code>README.Rmd</code> and deploy <code>README.md</code> to the <code>master</code> branch. A deployment will only be made if the rendered output differs from the one stored upstream.</p>
+<p>This macro requires that you have set up deployment for your selected provider beforehand.</p>
+</div>
 </div>
 </div>
 <div id="example-projects" class="section level1">
@@ -293,7 +310,13 @@
       <li><a href="#initializationsetup">Initialization/Setup</a></li>
       <li>
 <a href="#the-role-of-the-tic-r-file">The role of the <code>tic.R</code> file</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#macros">Macros</a></li>
+<li>
+<a href="#macros">Macros</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#do_package_checks"><code>do_package_checks()</code></a></li>
+      <li><a href="#do_pkgdown"><code>do_pkgdown()</code></a></li>
+      <li><a href="#do_readme_rmd"><code>do_readme_rmd()</code></a></li>
+      </ul>
+</li>
       </ul>
 </li>
       <li>
