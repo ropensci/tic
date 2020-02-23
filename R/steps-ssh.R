@@ -14,7 +14,7 @@ AddToKnownHosts <- R6Class(
 
     run = function() {
       cli_text("{.fun step_add_to_known_hosts}: Running ssh-keyscan for
-               {private$host)")
+               {private$host}.")
       keyscan_result <- system2(
         "ssh-keyscan",
         c("-H", shQuote(private$host)),
