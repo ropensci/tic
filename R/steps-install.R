@@ -13,7 +13,7 @@ InstallDeps <- R6Class(
 
     prepare = function() {
       cli_alert_info("{.code step_install_deps()} and
-      {.code do_package_checks()} are only availablefor packages.",
+      {.code do_package_checks()} are only available for packages.",
         wrap = TRUE
       )
       verify_install("remotes")
