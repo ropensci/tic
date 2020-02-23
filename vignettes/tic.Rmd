@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library("tic")
 ```
 
 # Prerequisites
@@ -40,73 +41,37 @@ Besides the question which CI system you want to use, you'll be asked if you wan
 
 - test your package on multiple R versions
 
-```r
-tic::use_tic()
-
-→ Welcome to → tic!
-This wizard will guide you through the setup process for getting started with various CI
-providers.
-
-Introduction:
-
-tic currently comes with support for three CI providers:
-● Appveyor
-● Circle CI
-● Travis CI
-
-There is no need to use all of them. You can choose which one(s) you want to use, whether
-you want to deploy (i.e. push from builds) and if you want to test on multiple R
-versions.
-
-We recommend the following setup:
-● Appveyor: Windows
-● Travis CI: Linux
-● Travis CI: macOS
-
-Selection: 2
-Choosing your setup.
-
-We'll ask you a few yes/no questions to gather your preferences.
-
-Which provider do you want to use for Linux builds? 
-
-1: Travis CI
-2: Circle CI
-3: None
-4: All
-
-Do you want to build on macOS (= Travis CI)? 
-
-1: Travis CI
-2: None
-
-Do you want to build on Windows (= Appveyor)? 
-
-1: AppVeyor CI
-2: None
-
-Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones? 
-
-1: Travis CI
-2: Circle CI
-3: None
-4: All
-
-Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)? 
-
-1: None
-2: Travis CI
-3: Circle CI
-4: AppVeyor CI
-5: All
-```
-
 Last, we'll add a `tic.R` file to the project root.
 
 After this, your project is ready for continuous integration.
 The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured.
 (Currently you need to enable the project manually on AppVeyor.)
 See the [Troubleshooting](advanced.html#troubleshooting) section in case anything doesn't work as expected.
+
+#### Quickstart
+
+If you are a new user, run 
+
+```r
+tic::use_tic()
+```
+
+If you already use {tic} and want to configure a new CI provider, do
+
+```r
+## Travis CI
+travis::use_travis_deploy() # (optional for deployment)
+tic::use_travis_yml(<option here>)
+
+## Circle CI
+circle::use_circle_deploy() # (optional for deployment)
+tic::use_circle_yml(<option here>)
+
+## Appveyor
+tic::use_appveyor_yml(<option here>)
+```
+
+---
 
 The reason why we suggest Travis CI as the default builds on three points:
 
@@ -154,6 +119,12 @@ Macros are essentially wrappers of a sequence of steps for often used tasks on t
 - Build and deploy a bookdown project
 
 They can be distinguished from other functions by their `do_` prefix.
+The following ones are currently implemented:
+
+```{r}
+list_macros()
+```
+
 If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropensci/tic/issues).
 
 ### `do_package_checks()`
