@@ -1,3 +1,5 @@
+# AddToKnownHosts --------------------------------------------------------------
+
 # This code can only run as part of a CI run
 # nocov start
 
@@ -61,6 +63,8 @@ step_add_to_known_hosts <- function(host = "github.com") {
   AddToKnownHosts$new(host = host)
 }
 
+# InstallSSHKeys ---------------------------------------------------------------
+
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys",
   inherit = TicStep,
@@ -95,10 +99,9 @@ InstallSSHKeys <- R6Class(
       git2r::config(
         core.sshCommand = sprintf(
           paste0(
-            "ssh -q",
-            "-o UserKnownHostsFile=/dev/null ",
-            "-o StrictHostKeyChecking=no ",
-            "-i ~/.ssh/%s -F /dev/null "
+            "ssh",
+            "-i ~/.ssh/%s -F /dev/null ",
+            "-o LogLevel=error"
           ),
           private_key_name
         ),
@@ -164,13 +167,15 @@ step_install_ssh_keys <- function(private_key_name = "TIC_DEPLOY_KEY") {
   InstallSSHKeys$new(private_key_name = private_key_name)
 }
 
+# TestSSH ----------------------------------------------------------------------
+
 TestSSH <- R6Class(
   "TestSSH",
   inherit = TicStep,
 
   public = list(
     initialize = function(url = "git@github.com",
-                          verbose = "-v",
+                          verbose = "",
                           private_key_name = "TIC_DEPLOY_KEY") {
       private$url <- url
       private$verbose <- verbose
@@ -181,12 +186,11 @@ TestSSH <- R6Class(
 
       cli_text("Trying to ssh into {private$url}")
       cli_text("Using command: {.code ssh -i ~/.ssh/{private$private_key_name}
-               -o StrictHostKeyChecking=no
-               {private$url} {private$verbose}}")
+               -o LogLevel=error
+               {private$url} {private$verbose}}", wrap = TRUE)
       # suppress the warning about adding the IP to .ssh/known_hosts
       system2("ssh", c(
-        "-q",
-        "-o", "StrictHostKeyChecking=no",
+        "-o", "LogLevel=error",
         "-i", file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
       ))
@@ -226,6 +230,8 @@ step_test_ssh <- function(url = "git@github.com",
                           private_key_name = "TIC_DEPLOY_KEY") {
   TestSSH$new(url = url, verbose = verbose, private_key_name = private_key_name)
 }
+
+# SetupSSH ---------------------------------------------------------------------
 
 SetupSSH <- R6Class(
   "SetupSSH",
