@@ -67,5 +67,7 @@ use_tic_badge <- function(provider,
       label <- "build status"
     }
   }
-  usethis::use_badge(label, url, img)
+  # suppressing "Multiple github remotes found. Using origin."
+  # the git remote cannot be set anyways
+  suppressWarnings(usethis::use_badge(label, url, img))
 }
