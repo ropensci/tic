@@ -93,11 +93,13 @@ InstallSSHKeys <- R6Class(
 
       # set the ssh command which which git should use including the key name
       git2r::config(
-        core.sshCommand = sprintf(paste0(
-          "ssh ",
-          "-o UserKnownHostsFile=/dev/null ",
-          "-o StrictHostKeyChecking=no ",
-          "-i ~/.ssh/%s -F /dev/null "),
+        core.sshCommand = sprintf(
+          paste0(
+            "ssh -q",
+            "-o UserKnownHostsFile=/dev/null ",
+            "-o StrictHostKeyChecking=no ",
+            "-i ~/.ssh/%s -F /dev/null "
+          ),
           private_key_name
         ),
         global = TRUE
@@ -179,11 +181,11 @@ TestSSH <- R6Class(
 
       cli_text("Trying to ssh into {private$url}")
       cli_text("Using command: {.code ssh -i ~/.ssh/{private$private_key_name}
-               -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+               -o StrictHostKeyChecking=no
                {private$url} {private$verbose}}")
       # suppress the warning about adding the IP to .ssh/known_hosts
       system2("ssh", c(
-        "-o", "UserKnownHostsFile=/dev/null",
+        "-q",
         "-o", "StrictHostKeyChecking=no",
         "-i", file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
