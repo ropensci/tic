@@ -178,10 +178,11 @@ TestSSH <- R6Class(
       cli_text("Using command: {.code ssh -i ~/.ssh/{private$private_key_name}
                {private$url} {private$verbose}}")
       # suppress the warning about adding the IP to .ssh/known_hosts
-      suppressWarnings(system2("ssh", c(
+      system2("ssh", c(
+        "-o", "UserKnownHostsFile=/dev/null",
         "-i", file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
-      )))
+      ))
     }
   ),
 
