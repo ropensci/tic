@@ -93,8 +93,11 @@ InstallSSHKeys <- R6Class(
 
       # set the ssh command which which git should use including the key name
       git2r::config(
-        core.sshCommand = sprintf(
-          "ssh -i ~/.ssh/%s -F /dev/null",
+        core.sshCommand = sprintf(paste0(
+          "ssh ",
+          "-o UserKnownHostsFile=/dev/null ",
+          "-o StrictHostKeyChecking=no ",
+          "-i ~/.ssh/%s -F /dev/null "),
           private_key_name
         ),
         global = TRUE
