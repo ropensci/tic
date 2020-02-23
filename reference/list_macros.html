@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build pkgdown documentation — do_pkgdown • tic</title>
+<title>List available macros — list_macros • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,23 +41,8 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Build pkgdown documentation — do_pkgdown" />
-<meta property="og:description" content="do_pkgdown() builds and optionally deploys a pkgdown site and adds default
-steps to the &quot;install&quot;, &quot;before_deploy&quot; and &quot;deploy&quot; stages:
-
-step_install_deps() in the &quot;install&quot; stage, using the
-repos argument.
-step_setup_ssh() in the &quot;before_deploy&quot; to setup
-the upcoming deployment (if deploy is set and only on Travis CI),
-step_setup_push_deploy() in the &quot;before_deploy&quot; stage
-(if deploy is set),
-step_build_pkgdown() in the &quot;deploy&quot; stage,
-forwarding all ... arguments.
-step_do_push_deploy() in the &quot;deploy&quot; stage.
-
-
-By default, the docs/ directory is deployed to the gh-pages branch,
-keeping the history." />
+<meta property="og:title" content="List available macros — list_macros" />
+<meta property="og:description" content="Lists available macro functions of the tic package." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -161,141 +146,35 @@ keeping the history." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build pkgdown documentation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-pkgdown.R'><code>R/macro-pkgdown.R</code></a></small>
-    <div class="hidden name"><code>do_pkgdown.Rd</code></div>
+    <h1>List available macros</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro.R'><code>R/macro.R</code></a></small>
+    <div class="hidden name"><code>list_macros.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>do_pkgdown()</code> builds and optionally deploys a pkgdown site and adds default
-steps to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"deploy"</code> stages:</p>
-<ol>
-<li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
-<code>repos</code> argument.</p></li>
-<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
-the upcoming deployment (if <code>deploy</code> is set and only on Travis CI),</p></li>
-<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage
-(if <code>deploy</code> is set),</p></li>
-<li><p><code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage,
-forwarding all <code>...</code> arguments.</p></li>
-<li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage.</p></li>
-</ol>
-
-<p>By default, the <code>docs/</code> directory is deployed to the <code>gh-pages</code> branch,
-keeping the history.</p>
+    <p>Lists available macro functions of the <code>tic</code> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>do_pkgdown</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"docs"</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>travis_private_key_name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>list_macros</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>...</th>
-      <td><p>Passed on to <code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>deploy</th>
-      <td><p><code>[flag]</code><br />
-If <code>TRUE</code>, deployment setup is performed
-before building the pkgdown site,
-and the site is deployed after building it.
-Set to <code>FALSE</code> to skip deployment.
-By default (if <code>deploy</code> is <code>NULL</code>), deployment happens
-if the following conditions are met:</p><ol>
-<li><p>The repo can be pushed to (see <code><a href='ci.html'>ci_can_push()</a></code>).'</p></li>
-<li><p>The <code>branch</code> argument is <code>NULL</code>
-(i.e., if the deployment happens to the active branch),
-or the current branch is <code>master</code> (see <code><a href='ci.html'>ci_get_branch()</a></code>).</p></li>
-</ol></td>
-    </tr>
-    <tr>
-      <th>orphan</th>
-      <td><p><code>[flag]</code><br />
-Create and force-push an orphan branch consisting of only one commit?
-This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
-but cannot be applied for pushing to the current branch.</p></td>
-    </tr>
-    <tr>
-      <th>checkout</th>
-      <td><p><code>[flag]</code><br />
-Check out the current contents of the repository? Defaults to <code>TRUE</code>,
-set to <code>FALSE</code> if the build process relies on existing contents or
-if you deploy to a different branch.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p>CRAN-like repositories to install from, defaults to
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>path, branch</th>
-      <td><p>By default, this macro deploys the <code>docs</code> directory
-to the <code>gh-pages</code> branch. This is different from <code><a href='step_push_deploy.html'>step_push_deploy()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>remote_url</th>
-      <td><p><code>[string]</code><br />
-The URL of the remote Git repository to push to, defaults to the
-current GitHub repository.</p></td>
-    </tr>
-    <tr>
-      <th>commit_message</th>
-      <td><p><code>[string]</code><br />
-Commit message to use, defaults to a useful message linking to the CI build
-and avoiding recursive CI runs.</p></td>
-    </tr>
-    <tr>
-      <th>commit_paths</th>
-      <td><p><code>[character]</code><br />
-Restrict the set of directories and/or files added to Git before deploying.
-Default: deploy all files.</p></td>
-    </tr>
-    <tr>
-      <th>travis_private_key_name</th>
-      <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI.
-If you have set a custom name for the private key during creation of the
-SSH key pair in <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> or via <a href='use_tic.html'>use_tic</a>, you need
-to pass this name here.</p></td>
-    </tr>
-    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><a href='https://rdrr.io/r/base/character.html'>character</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other macros: 
 <code><a href='do_bookdown.html'>do_bookdown</a>()</code>,
 <code><a href='do_drat.html'>do_drat</a>()</code>,
 <code><a href='do_package_checks.html'>do_package_checks</a>()</code>,
-<code><a href='list_macros.html'>list_macros</a>()</code></p></div>
+<code><a href='do_pkgdown.html'>do_pkgdown</a>()</code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
-
-<span class='fu'>do_pkgdown</span>()
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

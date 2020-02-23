@@ -190,18 +190,22 @@
 <li>Building and deploying a pkgdown site</li>
 <li>Build and deploy a bookdown project</li>
 </ul>
-<p>They can be distinguished from other functions by their <code>do_</code> prefix. If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
+<p>They can be distinguished from other functions by their <code>do_</code> prefix. The following ones are currently implemented:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/list_macros.html">list_macros</a></span>()</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; [1] "do_bookdown"       "do_drat"           "do_package_checks"</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; [4] "do_pkgdown"</span></a></code></pre></div>
+<p>If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</a></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></a></code></pre></div>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ci.html">ci_on_travis</a></span>()) {</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">}</a></code></pre></div>
 <p><code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> adds five steps to the build process:</p>
 <pre class="reval"><code># step_install_deps() in the "install" stage, using the repos argument.
 # 
@@ -245,12 +249,12 @@
 <h3 class="hasAnchor">
 <a href="#blogdown" class="anchor"></a>Blogdown</h3>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">HUGO</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">install_hugo</span>())</a></code></pre></div>
 <p>Next the website is built and deployed. The <code>blogdown::build_site()</code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_code_step</a></span>(blogdown<span class="op">::</span><span class="kw">build_site</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</a></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). {tic} is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 </div>
