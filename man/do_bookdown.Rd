@@ -107,6 +107,7 @@ Other macros:
 \code{\link{do_drat}()},
 \code{\link{do_package_checks}()},
 \code{\link{do_pkgdown}()},
+\code{\link{do_readme_rmd}()},
 \code{\link{list_macros}()}
 }
 \concept{macros}

@@ -54,6 +54,7 @@ Depends:
 Imports: 
     cli (>= 2.0.0),
     crayon,
+    lifecycle,
     magrittr,
     memoise,
     methods,
@@ -84,6 +85,8 @@ Suggests:
     utils
 VignetteBuilder:
     knitr
+RdMacros: 
+    lifecycle
 Remotes: 
     ropenscilabs/circle,
     ropenscilabs/travis
@@ -107,6 +110,7 @@ Collate:
     'macro-pkgdown.R'
     'macro-bookdown.R'
     'macro-drat.R'
+    'macro-readme-rmd.R'
     'mock.R'
     'print.R'
     'repo.R'

@@ -17,7 +17,7 @@
     "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 Patched (2019-12-12 r77564)",
+  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
   "author": [
     {
       "@type": "Person",
@@ -328,6 +328,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "lifecycle",
+      "name": "lifecycle",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lifecycle"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
       "provider": {
@@ -407,7 +419,6 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tic/blob/master/README.md",
-  "fileSize": "350.557KB",
   "contIntegration": [
     "https://travis-ci.com/ropensci/tic",
     "https://ci.appveyor.com/project/ropensci/tic",
@@ -439,5 +450,6 @@
     "deployment",
     "r-package",
     "rstats"
-  ]
+  ],
+  "fileSize": "352.99KB"
 }
