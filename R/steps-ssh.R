@@ -282,7 +282,7 @@ SetupSSH <- R6Class(
         cli_alert_info("{.fun SetupSSH$check}: {.fun test_ssh} failed.")
         return(FALSE)
       }
-      TRUE
+      cli_alert_success("{.fun step_setup_ssh} Everything ok.")
     }
   ),
 
