@@ -79,9 +79,9 @@ InstallSSHKeys <- R6Class(
         dirname(deploy_key_path),
         recursive = TRUE, showWarnings = FALSE
       )
-      message("Writing deploy key to ", deploy_key_path)
+      cli_text("Writing deploy key to {.file {deploy_key_path}}.")
       if (file.exists(deploy_key_path)) {
-        message("Not overwriting existing SSH key.")
+        cli_text("Not overwriting existing SSH key.")
         return()
       }
       writeLines(
@@ -174,16 +174,14 @@ TestSSH <- R6Class(
 
     run = function() {
 
-      message("Trying to ssh into ", private$url)
-      message("Using command: '", sprintf(
-        "ssh -i %s %s %s'",
-        file.path("~", ".ssh", private$private_key_name),
-        private$url, private$verbose
-      ))
-      system2("ssh", c(
+      cli_text("Trying to ssh into {private$url}")
+      cli_text("Using command: {.code ssh -i ~/.ssh/{private$private_key_name}
+               {private$url} {private$verbose}}")
+      # suppress the warning about adding the IP to .ssh/known_hosts
+      suppressWarnings(system2("ssh", c(
         "-i", file.path("~", ".ssh", private$private_key_name),
         private$url, private$verbose
-      ))
+      )))
     }
   ),
 
@@ -216,7 +214,7 @@ TestSSH <- R6Class(
 #'
 #' dsl_get()
 step_test_ssh <- function(url = "git@github.com",
-                          verbose = "-v",
+                          verbose = "",
                           private_key_name = "TIC_DEPLOY_KEY") {
   TestSSH$new(url = url, verbose = verbose, private_key_name = private_key_name)
 }
@@ -229,7 +227,7 @@ SetupSSH <- R6Class(
     initialize = function(private_key_name = "TIC_DEPLOY_KEY",
                           host = "github.com",
                           url = paste0("git@", host),
-                          verbose = "-v") {
+                          verbose = "") {
 
       private$install_ssh_keys <- step_install_ssh_keys(private_key_name = private_key_name)
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
