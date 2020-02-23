@@ -13,7 +13,8 @@ AddToKnownHosts <- R6Class(
     },
 
     run = function() {
-      message("Running ssh-keyscan for ", private$host)
+      cli_text("{.fun step_add_to_known_hosts}: Running ssh-keyscan for
+               {private$host)")
       keyscan_result <- system2(
         "ssh-keyscan",
         c("-H", shQuote(private$host)),
@@ -26,7 +27,7 @@ AddToKnownHosts <- R6Class(
         dirname(known_hosts_path),
         showWarnings = FALSE, recursive = TRUE
       )
-      message("Adding to ", known_hosts_path)
+      cli_text("Adding to {known_hosts_path}.")
       write(keyscan_result, known_hosts_path, append = TRUE)
     },
 
@@ -83,7 +84,10 @@ InstallSSHKeys <- R6Class(
         dirname(deploy_key_path),
         recursive = TRUE, showWarnings = FALSE
       )
-      cli_text("Writing deploy key to {.file {deploy_key_path}}.")
+      cli_text("{.fun step_install_ssh_keys}:
+               Writing deploy key to {.file {deploy_key_path}}.",
+        wrap = TRUE
+      )
       if (file.exists(deploy_key_path)) {
         cli_text("Not overwriting existing SSH key.")
         return()
@@ -118,8 +122,9 @@ InstallSSHKeys <- R6Class(
       # only if non-interactive and TIC_DEPLOY_KEY env var is available
       if (!ci_is_interactive()) {
         if (!ci_can_push(private$private_key_name)) {
-          cli_alert_danger("Deployment was requested but the build is not able
-          to deploy. We checked for env var {.var {private$private_key_name}}
+          cli_alert_danger("{.fun step_install_ssh_keys}: Deployment was
+          requested but the build is not able to deploy.
+          We checked for env var {.var {private$private_key_name}}
           but could not find it as an env var in the current build.
           Double-check if it exists.
           Calling {.fun travis::use_travis_deploy} or
@@ -184,8 +189,9 @@ TestSSH <- R6Class(
 
     run = function() {
 
-      cli_text("Trying to ssh into {private$url}")
-      cli_text("Using command: {.code ssh -i ~/.ssh/{private$private_key_name}
+      cli_text("{.fun step_test_ssh}: Trying to ssh into {private$url}")
+      cli_text("{.fun step_test_ssh}: Using command:
+               {.code ssh -i ~/.ssh/{private$private_key_name}
                -o LogLevel=error
                {private$url} {private$verbose}}", wrap = TRUE)
       # suppress the warning about adding the IP to .ssh/known_hosts
