@@ -181,7 +181,7 @@ the upcoming deployment</p></li>
   <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ssh_key_name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>
+  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -207,7 +207,7 @@ Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></td>
     </tr>
     <tr>
-      <th>ssh_key_name</th>
+      <th>private_key_name</th>
       <td><p><code>string</code><br />
 The name of the private SSH key which should be used for deployment.</p></td>
     </tr>
@@ -223,21 +223,13 @@ The name of the private SSH key which should be used for deployment.</p></td>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
-<span class='fu'>do_readme_rmd</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_setup_ssh(name = "id_rsa")
-#&gt; ▶ step_setup_push_deploy(path = ".", branch = "master", remote_url = NULL, 
-#&gt;     orphan = FALSE, checkout = TRUE)
-#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_run_code(rmarkdown::render("README.Rmd"))
-#&gt; ▶ step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = "README.md")</div><div class='input'>
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_setup_ssh(name = "id_rsa")
-#&gt; ▶ step_setup_push_deploy(path = ".", branch = "master", remote_url = NULL, 
-#&gt;     orphan = FALSE, checkout = TRUE)
-#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_run_code(rmarkdown::render("README.Rmd"))
-#&gt; ▶ step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = "README.md")</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+
+<span class='fu'>do_readme_rmd</span>()
+
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
