@@ -134,6 +134,8 @@ list_macros()
 
 If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropensci/tic/issues).
 
+### `do_package_checks()`
+
 ```{r eval = FALSE}
 do_package_checks()
 ```
@@ -152,6 +154,8 @@ See `?do_package_checks()` for more information.
 #
 # A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
 ```
+
+### `do_pkgdown()`
 
 The other macro in the default template is `do_pkgdown()`.
 
@@ -179,6 +183,16 @@ By default this currently happens only on Travis CI, because `ci_on_travis()` is
 Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.
 
 `ci_on_travis()` can be replaced by one of its sibling functions like `ci_on_ghactions()`.
+
+### `do_readme_rmd()`
+
+Some projects rely on a dynamic README.Rmd file which contains R code.
+Sometimes the output of such README's will change over time if the code driving it changes due to updates.
+To always stay up-to-date without needing to take manual action, you can use this macro.
+It will render `README.Rmd` and deploy `README.md` to the `master` branch.
+A deployment will only be made if the rendered output differs from the one stored upstream.
+
+This macro requires that you have set up deployment for your selected provider beforehand.
 
 # Example projects
 

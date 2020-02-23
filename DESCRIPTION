@@ -115,6 +115,7 @@ Collate:
     'macro-pkgdown.R'
     'macro-bookdown.R'
     'macro-drat.R'
+    'macro-readme-rmd.R'
     'mock.R'
     'print.R'
     'repo.R'
