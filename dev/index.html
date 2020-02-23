@@ -47,7 +47,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="index.html"><i>tic <small>v0.3.0.9005</small></i></a>
+        <a class="navbar-brand" href="index.html"><i>tic <small>v0.4.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -122,14 +122,43 @@
 
 <p>The goal of tic is to enhance and simplify working with continuous integration (CI) systems.</p>
 <p>The following ones are supported:</p>
-<ul>
-<li>
-<a href="https://travis-ci.org">Travis CI</a> (both <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>) (Linux, macOS)</li>
-<li>
-<a href="https://www.appveyor.com/">AppVeyor</a> (Windows)</li>
-<li>
-<a href="https://circleci.com/">Circle CI</a> (Linux)</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="37%">
+<col width="18%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th>Provider</th>
+<th>R package</th>
+<th>Platforms</th>
+<th>Info</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Travis CI</td>
+<td><a href="https://docs.ropensci.org/travis/">{travis}</a></td>
+<td>Linux, macOS</td>
+<td>
+<a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>
+</td>
+</tr>
+<tr class="even">
+<td>Appveyor CI</td>
+<td><a href="https://github.com/krlmlr/r-appveyor">{r-appveyor}</a></td>
+<td>Windows</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Circle CI</td>
+<td><a href="https://docs.ropensci.org/circle/">{circle}</a></td>
+<td>Linux</td>
+<td>via Docker images from <a href="https://github.com/rocker-org/rocker">rocker</a>
+</td>
+</tr>
+</tbody>
+</table>
 <p>To learn more about CI, read <a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/">the “Travis CI for test automation” blog post</a> and our <a href="https://docs.ropensci.org/tic/articles/tic.html#prerequisites">Getting Started</a> vignette.</p>
 <p>The most important improvements over existing solutions are:</p>
 <ol>
@@ -142,7 +171,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>{tic} can be installed from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ropensci/tic"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ropensci/tic"</span>)</a></code></pre></div>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
@@ -160,6 +189,23 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 </li>
 </ul>
 <p>See the <a href="https://docs.ropensci.org/tic/articles/tic.html">Getting Started</a> vignette for more information and links to <a href="https://docs.ropensci.org/tic/articles/tic.html#examples-projects">minimal example repositories</a> for various R projects (package, blogdown, bookdown and more).</p>
+<div id="quickstart" class="section level4">
+<h4 class="hasAnchor">
+<a href="#quickstart" class="anchor"></a>Quickstart</h4>
+<p>If you are a new user, run</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/use_tic.html">use_tic</a></span>()</a></code></pre></div>
+<p>If you already use {tic} and want to configure a new CI provider, do</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">## Travis CI</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span>() <span class="co"># (optional for deployment)</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_travis_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">## Circle CI</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">circle<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_circle_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">## Appveyor</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_appveyor_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a></code></pre></div>
+</div>
 </div>
 <div id="good-to-know" class="section level2">
 <h2 class="hasAnchor">

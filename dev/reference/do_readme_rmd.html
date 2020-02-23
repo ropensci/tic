@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Check a package — step_rcmdcheck • tic</title>
+<title>Render a R Markdown README and deploy to Github — do_readme_rmd • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,9 +41,19 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Step: Check a package — step_rcmdcheck" />
-<meta property="og:description" content="Check a package using rcmdcheck::rcmdcheck(),
-which ultimately calls R CMD check." />
+<meta property="og:title" content="Render a R Markdown README and deploy to Github — do_readme_rmd" />
+<meta property="og:description" content="
+do_readme_rmd() renders an R Markdown README and deploys
+the rendered README.md file to Github. It adds default steps to the
+&quot;before_deploy&quot; and &quot;deploy&quot; stages:
+
+step_setup_ssh() in the &quot;before_deploy&quot; to setup
+the upcoming deployment
+step_setup_push_deploy() in the &quot;before_deploy&quot; stage
+rmarkdown::render() in the &quot;deploy&quot; stage
+step_do_push_deploy() in the &quot;deploy&quot; stage.
+
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -147,106 +157,93 @@ which ultimately calls R CMD check." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Check a package</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R'><code>R/steps-rcmdcheck.R</code></a></small>
-    <div class="hidden name"><code>step_rcmdcheck.Rd</code></div>
+    <h1>Render a R Markdown README and deploy to Github</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-readme-rmd.R'><code>R/macro-readme-rmd.R</code></a></small>
+    <div class="hidden name"><code>do_readme_rmd.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check a package using <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>,
-which ultimately calls <code>R CMD check</code>.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p><code>do_readme_rmd()</code> renders an R Markdown README and deploys
+the rendered README.md file to Github. It adds default steps to the
+<code>"before_deploy"</code> and <code>"deploy"</code> stages:</p>
+<ol>
+<li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
+the upcoming deployment</p></li>
+<li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> in the <code>"deploy"</code> stage</p></li>
+<li><p><code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code> in the <code>"deploy"</code> stage.</p></li>
+</ol>
+
     </div>
 
-    <pre class="usage"><span class='fu'>step_rcmdcheck</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>check_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'>do_readme_rmd</span>(
+  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ssh_key_name</span> <span class='kw'>=</span> <span class='st'>"id_rsa"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Ignored, used to enforce naming of arguments.</p></td>
-    </tr>
-    <tr>
-      <th>warnings_are_errors, notes_are_errors</th>
+      <th>checkout</th>
       <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
+Check out the current contents of the repository? Defaults to <code>TRUE</code>,
+set to <code>FALSE</code> if the build process relies on existing contents or
+if you deploy to a different branch.</p></td>
     </tr>
     <tr>
-      <th>args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.<br />
-Default for Appveyor:
-<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.<br /></p></td>
+      <th>remote_url</th>
+      <td><p><code>[string]</code><br />
+The URL of the remote Git repository to push to, defaults to the
+current GitHub repository.</p></td>
     </tr>
     <tr>
-      <th>build_args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code>"--force"</code>.<br />
-Default for Appveyor: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
+      <th>commit_message</th>
+      <td><p><code>[string]</code><br />
+Commit message to use, defaults to a useful message linking to the CI build
+and avoiding recursive CI runs.</p></td>
     </tr>
     <tr>
-      <th>error_on</th>
-      <td><p><code>[character]</code><br />
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
-    </tr>
-    <tr>
-      <th>check_dir</th>
-      <td><p><code>[character]</code> <br /> Path specifying the directory for R CMD
-check. Defaults to project root for easy upload of artifacts.</p></td>
+      <th>ssh_key_name</th>
+      <td><p><code>string</code><br />
+The name of the private SSH key which should be used for deployment.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="updating-of-dependency-packages"><a class="anchor" href="#updating-of-dependency-packages"></a>Updating of (dependency) packages</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    
-
-<p>Packages shipped with the R-installation will not be updated as they will be
-overwritten by the Travis R-installer in each build.
-If you want these package to be updated, please add the following
-step to your workflow: <code><a href='dsl.html'>add_code_step(remotes::update_packages("&lt;pkg&gt;"))</a></code>.</p>
+    <div class='dont-index'><p>Other macros: 
+<code><a href='do_bookdown.html'>do_bookdown</a>()</code>,
+<code><a href='do_drat.html'>do_drat</a>()</code>,
+<code><a href='do_package_checks.html'>do_package_checks</a>()</code>,
+<code><a href='do_pkgdown.html'>do_pkgdown</a>()</code>,
+<code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_rcmdcheck</span>(<span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"note"</span>, <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_bioc</a></span>()))
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── script ───────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_rcmdcheck(error_on = "note", repos = repo_bioc())</div></pre>
+<span class='fu'>do_readme_rmd</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh(name = "id_rsa")
+#&gt; ▶ step_setup_push_deploy(path = ".", branch = "master", remote_url = NULL, 
+#&gt;     orphan = FALSE, checkout = TRUE)
+#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_run_code(rmarkdown::render("README.Rmd"))
+#&gt; ▶ step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = "README.md")</div><div class='input'>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── before_deploy ────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_setup_ssh(name = "id_rsa")
+#&gt; ▶ step_setup_push_deploy(path = ".", branch = "master", remote_url = NULL, 
+#&gt;     orphan = FALSE, checkout = TRUE)
+#&gt; ── deploy ───────────────────────────────────────────────────────────── stage ──
+#&gt; ▶ step_run_code(rmarkdown::render("README.Rmd"))
+#&gt; ▶ step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = "README.md")</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#updating-of-dependency-packages">Updating of (dependency) packages</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

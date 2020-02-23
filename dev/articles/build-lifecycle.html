@@ -40,7 +40,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.3.0.9005</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -173,7 +173,7 @@
 <div id="the-before_install-install-stages" class="section level4">
 <h4 class="hasAnchor">
 <a href="#the-before_install-install-stages" class="anchor"></a>The <code>"before_install"</code> &amp; <code>"install"</code> stages</h4>
-<p>An important stage for {tic} is the <code>"before_install"</code> stage. Here, {tic} itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Under the hood the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code> is being called. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://rdrr.io/pkg/remotes/man/install_deps.html">remotes::install_deps()</a></code>.</p>
+<p>An important stage for {tic} is the <code>"before_install"</code> stage. Here, {tic} itself gets installed and runs <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. This function ensures that all subsequent steps can be executed. Under the hood the <code>prepare()</code> method of all steps that were declared in <code>tic.R</code> is being called. For example, the <code>prepare()</code> method of the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step ensures that all dependencies of an R package get installed by calling <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code>.</p>
 <p>All packages that should be stored in the “cache” of the CI service (so that they do not need to be installed again on every CI build) should be installed during preparation.</p>
 </div>
 <div id="the-script-stage" class="section level4">
@@ -239,7 +239,7 @@
 </tr>
 <tr class="even">
 <td><code><a href="../reference/step_install_pkg.html">step_install_github()</a></code></td>
-<td>Installs one or more packages from GitHub via <code><a href="https://rdrr.io/pkg/remotes/man/install_github.html">remotes::install_github()</a></code>
+<td>Installs one or more packages from GitHub via <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code>
 </td>
 </tr>
 </tbody>
