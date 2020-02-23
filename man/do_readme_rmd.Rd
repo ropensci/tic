@@ -8,7 +8,7 @@ do_readme_rmd(
   checkout = TRUE,
   remote_url = NULL,
   commit_message = NULL,
-  ssh_key_name = "id_rsa"
+  private_key_name = "id_rsa"
 )
 }
 \arguments{
@@ -25,7 +25,7 @@ current GitHub repository.}
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
 
-\item{ssh_key_name}{\code{string}\cr
+\item{private_key_name}{\code{string}\cr
 The name of the private SSH key which should be used for deployment.}
 }
 \description{
@@ -44,11 +44,13 @@ the upcoming deployment
 }
 }
 \examples{
+\dontrun{
 dsl_init()
 
 do_readme_rmd()
 
 dsl_get()
+}
 }
 \seealso{
 Other macros: 

@@ -20,27 +20,29 @@ NULL
 #' @inheritParams step_setup_ssh
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param ssh_key_name `string`\cr
+#' @param private_key_name `string`\cr
 #'   The name of the private SSH key which should be used for deployment.
 #'
 #' @family macros
 #' @export
 #' @examples
+#' \dontrun{
 #' dsl_init()
 #'
 #' do_readme_rmd()
 #'
 #' dsl_get()
+#' }
 do_readme_rmd <- function(checkout = TRUE,
                           remote_url = NULL,
                           commit_message = NULL,
-                          ssh_key_name = "id_rsa") {
+                          private_key_name = "id_rsa") {
 
   #' @description
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
   #'    the upcoming deployment
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = !!enquo(ssh_key_name)))
+    add_step(step_setup_ssh(name = !!enquo(private_key_name)))
 
   #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
   get_stage("before_deploy") %>%
