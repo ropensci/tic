@@ -14,7 +14,7 @@ do_package_checks(
   error_on = "warning",
   repos = repo_default(),
   timeout = Inf,
-  type = NULL,
+  type = getOption("pkgType"),
   check_dir = NULL
 )
 }
@@ -34,7 +34,7 @@ Deprecated, use \code{error_on}.}
 \item{args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.\cr
-Default for Appveyor:
+Default for Appveyor and GH Actions (Windows):
 \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
 
 \item{build_args}{\verb{[character]}\cr

@@ -72,13 +72,16 @@ Suggests:
     devtools,
     drat,
     fansi,
+    gh,
     git2r,
     knitr,
     openssl,
     pkgdown,
+    purrr,
     rcmdcheck,
     rmarkdown,
     rprojroot,
+    sodium,
     testthat (>= 2.1.0),
     travis (>= 0.2.11.9001),
     usethis,
@@ -95,6 +98,7 @@ Encoding: UTF-8
 LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
+SystemRequirements: sodium
 Collate: 
     'ci.R'
     'appveyor.R'
@@ -102,6 +106,7 @@ Collate:
     'circleci.R'
     'dsl-storage.R'
     'dsl.R'
+    'gh-actions.R'
     'git2r.R'
     'install.R'
     'local.R'

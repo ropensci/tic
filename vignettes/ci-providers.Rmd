@@ -1,0 +1,79 @@
+---
+title: "Implementation Details of CI Providers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ci-providers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## GitHub Actions
+
+{tic} supports running builds on GitHub Actions on all major platforms (Linux, macOS, Windows).
+The upstream support for the R language was developed by Jim Hester in [r-lib/actions](https://github.com/r-lib/actions).
+This repo also stores some usage [examples](https://github.com/r-lib/actions/tree/master/examples) which differ to the {tic} approach in the following points:
+
+- {tic} makes use of `ccache` for compiler caching enabling faster source installation of packages. 
+  The `ccache` directory is cached and build once a week.
+- {tic} installs packages from source on Linux by default and does not use package binaries.
+- {tic} caches the complete R library and not only the direct packages dependencies (`actions` does this via `remotes::dev_package_deps(dependencies = TRUE)`). 
+  The cache is built once per day.
+
+Making use of binaries can speed up build times substantially.
+This can be especially attractive for packages with many dependencies or dependencies which take a long time to install.
+However, binaries do oft run into problems when the package needs linking against system libraries.
+The most prominent example for this is {rJava}.
+If the binary was built with the same version as the user is running on the system, everything will work.
+However, often enough a different version of the system library is installed and the R packages needs to be installed from source to successfully link against it.
+
+For the case of {rJava}, one needs to 
+
+- add a call to `R CMD javareconf` for **macOS** runners
+- add a call to `sudo R CMD javareconf` for **Linux** runners
+
+### macOS toolchain
+
+macOS is a bit tricky when it comes to source installation of packages.
+By default `clang` is used instead of `gcc` (Linux) because the former is the default for macOS.
+However, the default `clang` of macOS does not come with openMP support.
+Therefore, the R macOS core devs and CRAN currently use a [custom openMP-enabled](https://cran.r-project.org/bin/macosx/tools/) (old) version of `clang` to build the CRAN package binaries.
+In {tic} we reflect this by installing `clang7` and `clang8` for the respective R version during build initialization in the "ccache" stages.
+
+### codecov / covr
+
+Unlike Travis CI, Appveyor CI and Circle CI, uploads of code coverage to [codecov.io](https://codecov.io) on GitHub Actions need a "Repository upload token" to upload the coverage results.
+{tic} already sets the stage by setting an env var `CODECOV_TOKEN` in the builds from a potential "secret" stored in the repo.
+This env var will be picked up behind the scenes by {covr} when running `covr::codecov()`.
+The mentioned "secret" however has to be set by the user.
+Currently there is no other way than doing this via the web interface.
+
+Go to `<https://codecov.io/gh/<owner>/<repo>/settings>` and store the "Repository upload token" as a "secret" in the repository.
+Unfortunately this needs to be done on a per-repo basis.
+
+### Known issues
+
+- [macOS] Installation of {rJava} fails because the default JDK is zulu-13 and not openjdk@11.
+  Reconfiguring via `sudo R CMD javareconf` does not help.
+
+- [Windows] Installing {tinytex} for LaTeX availability does not complete
+
+- [All] Deployment from builds
+
+## Circle CI
+
+WIP
+
+## Travis CI
+
+WIP
+
+## Appveyor CI
+
+WIP

@@ -11,7 +11,7 @@ NULL
 #' Render a R Markdown README and deploy to Github
 #'
 #' @description
-#' \lifecycle{experimental}
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 #'
 #' `do_readme_rmd()` renders an R Markdown README and deploys
 #' the rendered README.md file to Github. It adds default steps to the
@@ -20,8 +20,7 @@ NULL
 #' @inheritParams step_setup_ssh
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param private_key_name `string`\cr
-#'   The name of the private SSH key which should be used for deployment.
+#' @template private_key_name
 #'
 #' @family macros
 #' @export
@@ -36,13 +35,13 @@ NULL
 do_readme_rmd <- function(checkout = TRUE,
                           remote_url = NULL,
                           commit_message = NULL,
-                          private_key_name = "id_rsa") {
+                          private_key_name = "TIC_DEPLOY_KEY") {
 
   #' @description
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
   #'    the upcoming deployment
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = !!enquo(private_key_name)))
+    add_step(step_setup_ssh(private_key_name = !!enquo(private_key_name)))
 
   #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage
   get_stage("before_deploy") %>%

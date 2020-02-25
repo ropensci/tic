@@ -1,5 +1,5 @@
 test_that("print stages", {
-  skip_on_appveyor()
+  skip_on_os("windows")
   dsl_init(quiet = TRUE)
 
   expect_known_output(

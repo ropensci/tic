@@ -1,26 +1,31 @@
+# installDeps ------------------------------------------------------------------
+
 InstallDeps <- R6Class(
   "InstallDeps",
   inherit = TicStep,
 
   public = list(
-    initialize = function(repos = repo_default(), type = type) {
+    initialize = function(repos = repo_default(),
+                          type = getOption("pkgType")) {
       private$repos <- repos
       private$type <- type
     },
 
     prepare = function() {
-      cli_alert_danger("The {.code step_install_deps()} step and the {.code do_package_checks()} macro are only available for packages.")
+      cli_alert_info("{.code step_install_deps()} and
+      {.code do_package_checks()} are only available for packages.",
+        wrap = TRUE
+      )
       verify_install("remotes")
     },
 
     run = function() {
-      # https://github.com/r-lib/remotes/pull/369
-      withr::with_options(
-        c(pkgType = private$type),
-        remotes::install_deps(
-          # https://github.com/r-lib/remotes/pull/386
-          dependencies = TRUE, repos = private$repos, build = FALSE
-        )
+      remotes::install_deps(
+        dependencies = TRUE,
+        repos = private$repos,
+        type = private$type,
+        build = FALSE,
+        INSTALL_OPTS = "--no-multiarch"
       )
     }
   ),
@@ -59,16 +64,12 @@ InstallDeps <- R6Class(
 #'   add_step(step_install_deps())
 #'
 #' dsl_get()
-step_install_deps <- function(repos = repo_default(), type = NULL) {
-  type <- update_type(type)
+step_install_deps <- function(repos = repo_default(),
+                              type = getOption("pkgType")) {
   InstallDeps$new(repos = repos, type = type)
 }
 
-
-
-
-
-
+# installCRAN ------------------------------------------------------------------
 
 InstallCRAN <- R6Class(
   "InstallCRAN",
@@ -82,9 +83,10 @@ InstallCRAN <- R6Class(
     },
     run = function() {
       if (length(find.package(private$package, quiet = TRUE)) == 0) {
-        do.call(
+        rlang::exec(
           install.packages,
-          c(list(pkg = private$package), private$install_args)
+          pkg = private$package,
+          !!!private$install_args
         )
       } else {
         message(paste0("Package ", private$package, " already installed."))
@@ -112,17 +114,13 @@ InstallCRAN <- R6Class(
 #'   add_step(step_install_cran("magick"))
 #'
 #' dsl_get()
-step_install_cran <- function(package = NULL, ..., repos = repo_default(),
-                              type = NULL) {
-  type <- update_type(type)
+step_install_cran <- function(package = NULL, ...,
+                              repos = repo_default(),
+                              type = getOption("pkgType")) {
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
 
-
-
-
-
-
+# installGithub ----------------------------------------------------------------
 
 InstallGitHub <- R6Class(
   "InstallGitHub",
@@ -166,16 +164,7 @@ InstallGitHub <- R6Class(
 #'   add_step(step_install_github("rstudio/gt"))
 #'
 #' dsl_get()
-step_install_github <- function(repo = NULL, ..., type = NULL) {
-  type <- update_type(type)
+step_install_github <- function(repo = NULL, ...,
+                                type = getOption("pkgType")) {
   InstallGitHub$new(repo = repo, ..., type = type)
-}
-
-
-
-update_type <- function(type) {
-  if (is.null(type)) {
-    type <- .Platform$pkgType
-  }
-  type
 }

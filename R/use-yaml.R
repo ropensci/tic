@@ -4,6 +4,8 @@
 #' @param type `[character]`\cr
 #'   Which template to use. The string should be given following the logic
 #'   `<platform>-<action>`. See details for more.
+#' @param deploy `logical(1)`\cr
+#'   Whether to use YAML templates for deployment.
 #'
 #' @section pkgdown:
 #'  If a setting including "deploy" is selected, {tic} by default also adds
@@ -26,34 +28,40 @@
 #'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix`
 #'  are valid.
 #'
+#'  **GitHub Actions** is special in the sense that it support all operating
+#'  systems. Therefore, only the deploy/non/deploy switch is available and it
+#'  does not follow the scheme described above.
+#'
 #'  Here is a list of all available combinations:
 #'
-#'  | Provider | Operating system | Deployment | multiple R versions | Call |
-#'  | -------  | ---------------- | ---------- | ------------------- | ---- |
-#'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
-#'  | Travis   | Linux            | no         | no                  | `use_travis_yml("linux")` |
-#'  |          | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")` |
-#'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")` |
-#'  |          | Linux            | yes        | yes                 | `use_travis_yml("linux-deploy-matrix")` |
-#'  |          | macOS            | no         | no                  | `use_travis_yml("macos")` |
-#'  |          | macOS            | yes        | no                  | `use_travis_yml("macos-deploy")` |
-#'  |          | macOS            | no         | yes                 | `use_travis_yml("macos-matrix")` |
-#'  |          | macOS            | yes        | yes                 | `use_travis_yml("macos-deploy-matrix")` |
-#'  |          | Linux + macOS    | no         | no                  | `use_travis_yml("linux-macos")` |
-#'  |          | Linux + macOS    | yes        | no                  | `use_travis_yml("linux-macos-deploy")` |
-#'  |          | Linux + macOS    | no         | yes                 | `use_travis_yml("linux-macos-matrix")` |
-#'  |          | Linux + macOS    | yes        | yes                 | `use_travis_yml("linux-macos-deploy-matrix")` |
-#'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
-#'  | Circle   | Linux            | no         | no                  | `use_circle_yml("linux")` |
-#'  |          | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")` |
-#'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")` |'
-#'  |          | Linux            | no         | yes                 | `use_travis_yml("linux-deploy-matrix")` |
-#'  |----------|------------------|------------|---------------------|---------------------------------------------------------|
-#'  | Appveyor | Windows          | no         | no                  | `use_appveyor_yml("windows")` |
-#'  |          | Windows          | no         | yes                 | `use_travis_yml("windows-matrix")` |'
-#'
-#' @name yaml-templates
-#' @aliases yaml-templates
+#'  | Provider   | Operating system | Deployment | multiple R versions | Call                                                    |
+#'  | -------    | ---------------- | ---------- | ------------------- | ------------------------------------------------------- |
+#'  |----------  |------------------|------------|---------------------|---------------------------------------------------------|
+#'  | Travis     | Linux            | no         | no                  | `use_travis_yml("linux")`                               |
+#'  |            | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")`                        |
+#'  |            | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")`                        |
+#'  |            | Linux            | yes        | yes                 | `use_travis_yml("linux-deploy-matrix")`                 |
+#'  |            | macOS            | no         | no                  | `use_travis_yml("macos")`                               |
+#'  |            | macOS            | yes        | no                  | `use_travis_yml("macos-deploy")`                        |
+#'  |            | macOS            | no         | yes                 | `use_travis_yml("macos-matrix")`                        |
+#'  |            | macOS            | yes        | yes                 | `use_travis_yml("macos-deploy-matrix")`                 |
+#'  |            | Linux + macOS    | no         | no                  | `use_travis_yml("linux-macos")`                         |
+#'  |            | Linux + macOS    | yes        | no                  | `use_travis_yml("linux-macos-deploy")`                  |
+#'  |            | Linux + macOS    | no         | yes                 | `use_travis_yml("linux-macos-matrix")`                  |
+#'  |            | Linux + macOS    | yes        | yes                 | `use_travis_yml("linux-macos-deploy-matrix")`           |
+#'  |----------  |------------------|------------|---------------------|---------------------------------------------------------|
+#'  | Circle     | Linux            | no         | no                  | `use_circle_yml("linux")`                               |
+#'  |            | Linux            | yes        | no                  | `use_travis_yml("linux-deploy")`                        |
+#'  |            | Linux            | no         | yes                 | `use_travis_yml("linux-matrix")`                        |
+#'  |            | Linux            | no         | yes                 | `use_travis_yml("linux-deploy-matrix")`                 |
+#'  |----------  |------------------|------------|---------------------|---------------------------------------------------------|
+#'  | Appveyor   | Windows          | no         | no                  | `use_appveyor_yml("windows")`                           |
+#'  |            | Windows          | no         | yes                 | `use_travis_yml("windows-matrix")`                      |
+#'  |----------  |------------------|------------|---------------------|---------------------------------------------------------|
+#'  | GH Actions | All              | no         | yes                 | `use_ghactions_yml()`                              |
+#'  |            | All              | no         | yes                 | `use_ghactions_yml(deploy = TRUE)`                       |
+#' @name yaml_templates
+#' @aliases yaml_templates
 #' @export
 use_travis_yml <- function(type) {
   if (type == "linux") {
@@ -223,7 +231,7 @@ use_travis_yml <- function(type) {
   writeLines(template, ".travis.yml")
 }
 
-#' @rdname yaml-templates
+#' @rdname yaml_templates
 #' @export
 use_appveyor_yml <- function(type) {
   if (type == "windows") {
@@ -238,7 +246,7 @@ use_appveyor_yml <- function(type) {
   writeLines(template, "appveyor.yml")
 }
 
-#' @rdname yaml-templates
+#' @rdname yaml_templates
 #' @export
 use_circle_yml <- function(type) {
   if (type == "linux") {
@@ -258,6 +266,42 @@ use_circle_yml <- function(type) {
   }
   dir.create(".circleci", showWarnings = FALSE)
   writeLines(template, con = ".circleci/config.yml")
+}
+
+#' @rdname yaml_templates
+#' @export
+use_ghactions_yml <- function(type = "all", deploy = FALSE) {
+
+  if (deploy == TRUE) {
+    type = "all-deploy"
+  }
+
+  # .ccache dir lives in the package root because we cannot write elsewhere
+  # -> need to ignore it for R CMD check
+  usethis::use_build_ignore(c(".ccache", ".github", "clang-.*"))
+
+  if (type == "linux" | type == "macOS" | type == "linux-macos" |
+    type == "linux-macos-windows" | type == "all") {
+    meta <- readLines(system.file("templates/ghactions-meta.yml", package = "tic"))
+    env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
+    core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
+    template <- c(meta, env, core)
+  } else if (type == "linux-deploy" | type == "macOS-deploy" |
+    type == "linux-macos-deploy" |
+    type == "linux-macos-windows-deploy" |
+    type == "all-deploy") {
+    meta <- readLines(system.file("templates/ghactions-meta.yml", package = "tic"))
+    env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
+    core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
+    deploy <- readLines(system.file("templates/ghactions-deploy.yml", package = "tic"))
+    template <- c(meta, env, core, deploy)
+  }
+  dir.create(".github/workflows", showWarnings = FALSE, recursive = TRUE)
+  cli::cli_alert_info("Please comment in/out the platforms you want to use
+                      in {.file .github/workflows/main.yml}.", wrap = TRUE)
+  cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
+                to open the YAML file.")
+  writeLines(template, con = ".github/workflows/main.yml")
 }
 
 use_tic_template <- function(template, save_as = template, open = FALSE,

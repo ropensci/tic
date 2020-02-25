@@ -153,11 +153,12 @@ step_rcmdcheck <- function(...,
   #' @param args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
   #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
-  #'   Default for Appveyor:
+  #'   Default for Appveyor and GH Actions (Windows):
   #'   `c("--no-manual", "--as-cran", "--no-vignettes",
   #'   "--no-build-vignettes", "--no-multiarch")`.\cr
   if (is.null(args)) {
-    if (isTRUE(ci_on_appveyor())) {
+    if (isTRUE(ci_on_appveyor()) ||
+      isTRUE((ci_on_ghactions() && Sys.info()[["sysname"]] == "Windows"))) {
       args <- c(
         "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"

@@ -15,7 +15,7 @@ do_bookdown(
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
-  travis_private_key_name = "TRAVIS_DEPLOY_KEY"
+  private_key_name = "TIC_DEPLOY_KEY"
 )
 }
 \arguments{
@@ -67,12 +67,11 @@ and avoiding recursive CI runs.}
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
 
-\item{travis_private_key_name}{\code{string}\cr
-Only needed when deploying from builds on Travis CI.
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair in \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} or via \link{use_tic}, you need
-to pass this name here. If not set, \code{"TRAVIS_DEPLOY_KEY"} will be used
-by default.}
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 }
 \description{
 \code{do_bookdown()} adds default steps related to package checks

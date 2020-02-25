@@ -80,6 +80,19 @@ check_circle_pkg <- function() {
   }
 }
 
+check_ghactions_pat <- function() {
+  if (usethis::github_token() == "") {
+    cli::cli_alert_danger("A {.var GITHUB_PAT} needs to be set to create
+                            the SSH key pair required for deployment on GitHub
+                            Actions. Please call
+                            {.fun usethis::browse_github_pat}, follow the
+                            instructions and then call {.fun use_tic} again.",
+      wrap = TRUE
+    )
+    stopc("No GITHUB_PAT was detected.")
+  }
+}
+
 check_usethis_pkg <- function() {
   if (!is_installed("usethis")) {
     cli::cat_rule(col = "red")

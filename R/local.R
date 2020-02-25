@@ -35,7 +35,7 @@ LocalCI <- R6Class(
       # Suppress error that occurs if not in a Git repo
       tryCatch(git2r::revparse_single(revision = "HEAD")$sha, error = "")
     },
-    can_push = function(name = "TRAVIS_DEPLOY_KEY") {
+    can_push = function(name = "TIC_DEPLOY_KEY") {
       TRUE
     },
     get_env = function(env) {

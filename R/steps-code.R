@@ -16,7 +16,7 @@ RunCode <- R6Class(
 
     prepare = function() {
       # allow installation of packages from nonstandard repositories, e.g.
-      # Github packages using a repo slug
+      # GitHub packages using a repo slug
       if (!is.null(private$prepare_call)) {
         private$install_call_dep(private$prepare_call)
         set.seed(private$seed)
