@@ -327,9 +327,12 @@ step_setup_ssh <- function(private_key_name = "TIC_DEPLOY_KEY",
 }
 
 compat_ssh_key <- function(private_key_name) {
-  # for backward comp, if "id_rsa" exists we take this key
+  # for backward comp, if "id_rsa" or "TRAVIS_DEPLOY_KEY" exists we take this
+  # key
   if (ci_has_env("id_rsa") && !ci_has_env(private_key_name)) {
     private_key_name <- "id_rsa"
+  } else if (ci_has_env("TRAVIS_DEPLOY_KEY") && !ci_has_env(private_key_name)) {
+    private_key_name <- "TRAVIS_DEPLOY_KEY"
   }
   private_key_name
 }
