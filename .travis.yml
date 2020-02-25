@@ -62,5 +62,7 @@ jobs:
   fast_finish: true
 
 
-#services
-services:
+addons:
+  apt:
+    packages:
+      - libsodium-dev

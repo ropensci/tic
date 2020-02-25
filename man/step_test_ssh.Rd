@@ -6,8 +6,8 @@
 \usage{
 step_test_ssh(
   url = "git@github.com",
-  verbose = "-v",
-  name = "TRAVIS_DEPLOY_KEY"
+  verbose = "",
+  private_key_name = "TIC_DEPLOY_KEY"
 )
 }
 \arguments{
@@ -15,11 +15,13 @@ step_test_ssh(
 URL to establish SSH connection with, by default \code{git@github.com}}
 
 \item{verbose}{\verb{[string]}\cr
-Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
+Verbosity, by default \code{""}. Use \code{-v} or \code{"-vvv"} for more verbosity.}
 
-\item{name}{\verb{[string]}\cr
-Name of the environment variable and the target file, default:
-\code{"TRAVIS_DEPLOY_KEY"}.}
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 }
 \description{
 Establishes an SSH connection.

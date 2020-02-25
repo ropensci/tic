@@ -17,6 +17,7 @@
 \alias{ci_on_travis}
 \alias{ci_on_appveyor}
 \alias{ci_on_circle}
+\alias{ci_on_ghactions}
 \title{The current CI environment}
 \usage{
 ci_get_branch()
@@ -37,7 +38,7 @@ ci_is_env(env, value)
 
 ci_has_env(env)
 
-ci_can_push(name = "TRAVIS_DEPLOY_KEY")
+ci_can_push(private_key_name = "TIC_DEPLOY_KEY")
 
 ci_is_interactive()
 
@@ -49,6 +50,8 @@ ci_on_appveyor()
 
 ci_on_circle()
 
+ci_on_ghactions()
+
 ci()
 }
 \arguments{
@@ -56,8 +59,11 @@ ci()
 
 \item{value}{Value for the environment variable to compare against.}
 
-\item{name}{Name of the environment variable to check, defaults to
-\code{"TRAVIS_DEPLOY_KEY"}.}
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 
 \item{code}{Code that should be colored.}
 }
@@ -90,7 +96,7 @@ any value.
 
 \code{ci_can_push()}: Checks if push deployment is possible. Always true
 for local environments, CI environments require an environment
-variable (by default \code{TRAVIS_DEPLOY_KEY}).
+variable (by default \code{TIC_DEPLOY_KEY}).
 
 \code{ci_is_interactive()}: Returns whether the current build is run interactively
 or not. Global setup operations shouldn't be run on interactive CIs.
@@ -104,6 +110,8 @@ style will be applied even if it normally wouldn't be.
 \code{ci_on_appveyor()}: Are we running on Appveyor CI?
 
 \code{ci_on_circle()}: Are we running on Circle CI?
+
+\code{ci_on_ghactions()}: Are we running on GitHub Actions?
 
 \code{ci()}: Return the current CI environment
 }

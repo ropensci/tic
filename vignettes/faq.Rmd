@@ -1,0 +1,96 @@
+---
+title: "FAQ"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FAQ}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Authentication
+
+#### Q-Auth-1
+
+I am getting an error when using one of `travis::use_travis_deploy()`, `circle::use_circle_deploy()` or `tic::use_ghactions_deploy()`.
+
+**Answer**
+
+In most cases this is related to API authentication issues.
+Ensure that the following points are met:
+
+1. For Circle CI and Travis CI, install the respective GitHub App from the [GitHub Marketplace](https://github.com/marketplace).
+2. Ensure that you have set the respective API keys for the problematic provider in your `.Renviron` file.
+  Consult the help pages of the respective `use_*_deploy()` function for more help.
+  - GitHub Actions: A `GITHUB_PAT` with "public_repo" scopes.
+  - Travis CI: Env var `R_TRAVIS_ORG` or `R_TRAVIS_COM`, depending on the endpoint you use.
+  - Circle CI: Env var `R_CIRCLE`.
+
+## GitHub Actions
+
+#### Q-GHA-1
+
+How is {tic} different from what [r-lib/actions](https://github.com/r-lib/actions) does?
+
+**Answer**
+
+{tic} uses [r-lib/actions](https://github.com/r-lib/actions) as the base to install R in the first place.
+However in detail, {tic} does the following things differently which aim to enhance the CI experience:
+
+- Caching: {tic} caches the whole R library rather than only the direct dependendencies of a package. 
+  This has the advantage that packages required for side actions ({pkgdown} deployment, README updates) will also be cached.
+  
+- `ccache`: {tic} comes with a compiler cache for source installations of packages by default, speeding up repeated source installation highly.
+  The compiler cache directory (`.ccache`) will also be cached (once a week).
+  Example use case: If you installed {Rcpp} from source as a dependency of your package and have it stored in your cache and {Rcpp} now updates two days later, the reinstallation will make use of the compiler cache and install {Rcpp} instantly rather than recompiling the C code again. 
+  
+- Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as [r-lib/actions](https://github.com/r-lib/actions) does.
+  This speeds up package installation a lot.
+  4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.
+  
+- Use of SSH deployment keys: Once set up via `tic::use_ghactions_deploy()`, this deployment approach makes it possible to push any file of your repository to any branch of your remote.
+  Other deployment approaches often limit you to only push to `gh-pages` branch or similar.
+  
+## Travis CI
+
+#### Q-Travis-1
+
+What is the difference between travis-ci.org and travis-ci.com and which one should I use?
+
+**Answer**
+
+When dealing with Travis CI (or the [{travis}](https://github.com/ropenscilabs/travis) package) the first time, one might be confused what the difference is between https://travis-ci.org and https://travis-ci.com.
+[This devops.stackexchange question](https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com) gives some insights on the history of both services and why both still exist.
+
+- Both https://travis-ci.org and https://travis-ci.com are the same whereas the future belongs to https://travis-ci.com.
+- Due to both being still active, the [{travis}](https://github.com/ropenscilabs/travis) package supports both endpoints for API queries.
+- If you start a new project, we recommend to enable the repo on https://travis-ci.com. 
+  If you are using the {travis] package, the default endpoint is set to `".com"` so that all function call will try to interact with repositories on https://travis-ci.com.
+  This can be changed via env var `R_TRAVIS`.
+
+## Other
+
+#### Q-Other-1
+
+Is it possible to update the CI YAML templates installed by {tic} with upstream changes?
+
+**Answer**
+
+Not yet, you have to run `use_tic()` again and save your custom changes beforehand and reapply those.
+We are planning to add an update mechanism soon though!
+
+---
+
+#### Q-Other-2
+
+Am I the only one using {tic}?
+
+**Answer**
+
+You can see who and how many people use {tic.R} on GitHub via this query: https://github.com/search?p=5&q=filename%3Atic.R&type=Code

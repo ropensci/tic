@@ -41,13 +41,13 @@ knitr::opts_chunk$set(
 On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.
 
 When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "user-key" is created and stored in the Circle CI repo.
-This key makes it possible to deploy from Circle CI builds to your Github repo.
-No extra deploy key need to be stored in the Github repo.
+This key makes it possible to deploy from Circle CI builds to your GitHub repo.
+No extra deploy key need to be stored in the GitHub repo.
 
 ### Appveyor CI
 
 Appveyor follows the same philosophy as Travis CI when it comes to deployment.
-A bunch of [predefined deployment providers](https://www.appveyor.com/docs/deployment/) are available but deploying to the Github repo of the project is not possible.
+A bunch of [predefined deployment providers](https://www.appveyor.com/docs/deployment/) are available but deploying to the GitHub repo of the project is not possible.
 Unfortunately, there is no R client package for Appveyor yet.
 This means one needs to  manually set up an SSH key pair which is used for deployment.
 
@@ -82,17 +82,71 @@ This is due to the fact that we are only allowing binary installs on Appveyor wi
 The requirement is caused by the {cli} >= 2.0.0 requirement of {tic}.
 This package version is not available as a binary on R =< 3.5.
 
-## pkgdown deployment
+### GitHub Actions
 
-[`pkgdown`](https://github.com/r-lib/pkgdown) is an R package which builds a documentation wrapper-site of a R package.
+GitHub Actions offers multiple options related to deployment:
+
+- Deployment related actions on the GitHub marketplace
+- Supplying an `DEPLOY_PAT` secret as [r-lib/actions](https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site) suggests
+- Using an SSH key pair with the private key stored as a "secret" in the repo and the public key as a "Deploy key" ({tic} default)
+
+To reflect a successful deployment in the repo checks, [actions from the GitHub marketplace](https://github.com/chrnorm/deployment-status) help.
+For the actual deployment we recommend to use a SSH key pair.
+A SSH key can be easily created, is safe to use and when browsing at the "Deploy key" section of a repo, one can directly see if deployment was granted to a CI service for the repository.
+
+To simplify the creation of a SSH key pair for deployment and adding the keys to the appropriate places, {tic} comes with a little helper function `use_ghactions_deploy()`.
+To use this function, you need a `GITHUB_PAT` with public repo scope defined in your `.Renviron`.
+`usethis::browse_github_pat()` helps setting one up if you haven't done so already.
+
+#### Updating the deployment status 
+
+To update the deployment status in the "environments" menu (next to "release" and "branches") conditionally on the outcome of the "Deployment" stage, one can use the `chrnorm/deployment-status`.
+
+Add the following before the "Before Deploy" stage:
+
+```yml
+      - uses: chrnorm/deployment-action@v1.1.1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          environment: production
+```yml
+
+and then this part after the "After Deploy" stage:
+
+```yml
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+```
+
+## {pkgdown} deployment
+
+[{pkgdown}](https://github.com/r-lib/pkgdown) is an R package which builds a documentation wrapper-site of an R package.
 It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.
 
 It has become a quasi-standard to provide a {pkgdown} site for an R package.
-However, it is tedious to update the pkgdown site manually on every commit, check whether something has changed and commit the changes.
-{tic} comes with the ability to automate this procedure.
+However, it is tedious to update the {pkgdown} site manually on every commit, check whether something has changed and commit the changes.
+{tic} comes with the ability to automate this process.
 
-The following example shows how {tic} deploys a `pkgdown` site on Travis CI.
-In the `.travis.yml` file the "before_deploy" and "deploy" stages are redirected to {tic}.
+The following example shows how {tic} deploys a {pkgdown} site on Travis CI.
+Remember that you can freely choose your favorite provider for this task.
+In `.travis.yml` file the "before_deploy" and "deploy" stages are redirected to {tic}.
 
 ```{yml eval = FALSE}
 before_deploy: R -q -e 'tic::before_deploy()'
@@ -106,20 +160,18 @@ In the "before_deploy" stage, {tic} will do the following:
 ```{r eval = FALSE}
 if (ci_on_travis()) {
   get_stage("before_deploy") %>%
-    add_step(step_setup_ssh(name = travis_private_key_name))
+    add_step(step_setup_ssh())
 }
 ```
 
-- Call `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis build. 
-  This step sets up SSH key previously added to the Github and Travis via `travis::use_travis_deploy()`.
-  Argument `name = travis_private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
-  If so, then supply it via the `travis_private_key_name` argument in `do_pkgdown()`.
-  By default, `"TRAVIS_DEPLOY_KEY"` is used. 
+- Calls `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis CI build. 
+  This step sets up SSH key previously added to the GitHub and Travis via `travis::use_travis_deploy()`.
+  Argument `private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
+  If so, then supply it via the `private_key_name` argument in `do_pkgdown()`.
   
-  For backward compatibility, the previous default `"id_rsa"` is also supported out of the box.
-  This step is only needed on Travis CI because setting up deployment via SSH keys is somewhat complicated.
+  For backward compatibility, the deprecated default `"id_rsa"` is supported out of the box.
   
-- Call `add_step(step_build_pkgdown())` and `add_step(step_push_deploy())` in the "deploy" stage.
+- Calls `add_step(step_build_pkgdown())` and `add_step(step_push_deploy())` in the "deploy" stage.
 
 ```{r eval = FALSE}
 get_stage("deploy") %>%
@@ -128,11 +180,11 @@ get_stage("deploy") %>%
 ```
 
 `step_build_pkgdown()` will build the {pkgdown} site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
-By default the site will be pushed to the `gh-pages` branch of your repo.
+By default the site will be pushed to the `gh-pages` branch of your repo, keeping the history.
     
-### Deploying to docs/ (master) or gh-pages branch
+### Deploying to `docs/` (master) or `gh-pages` branch
 
-By default the deployment is done to the `gh-pages` branch.
+By default deployment is pushed to the `gh-pages` branch.
 This has the following advantages:
 
 - No cluttering of the commit history in the master branch
@@ -140,16 +192,16 @@ This has the following advantages:
 
 #### master branch deployment
 
-Deploying to the `docs/` directoy of the master branch has the following advantages:
+Deploying to the `docs/` directory of the master branch has the following advantages:
 
-- Per-branch versions of the pkgdown site (if desi)
+- Per-branch versions of the {pkgdown} site (if desired)
 - Per-branch versions enable the possibility to have preview for pull requests via https://www.netlify.com/
 
-The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis that push the changes of the {pkgdown} site to the `master` branch.
+The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis CI that push the changes of the {pkgdown} site to the `master` branch.
 
 #### Orphaning the `gh-pages` branch
 
-By default, changes to the pkgdown site will be added as incremental commits to the `gh-pages` branch.
+By default, changes to the {pkgdown} site will be added as incremental commits to the `gh-pages` branch.
 This is useful to keep a history of past versions and to enable a release and dev version of the site.
 To have this feature, set 
 
@@ -161,7 +213,7 @@ development:
 in your `_pkgdown.yml` file.
 See `?pkgdown::build_site()` for more information.
 
-If you only want to have one version of your pkgdown site and not fill your repo with many commits in the `gh-pages` branch, you can use `do_pkgdown(orphan = TRUE)`.
+If you only want to have one version of your {pkgdown} site and not fill your repo with many commits in the `gh-pages` branch, you can use `do_pkgdown(orphan = TRUE)`.
 This will wipe all commits of this branch on every CI run so that there is only one commit corresponding to the latest version of your pkgdown site.
 
 ## Conditional deployment
@@ -197,7 +249,7 @@ jobs:
 `tic.R`:
 
 ```{r eval = FALSE}
-if (ci_has_env("TRAVIS_DEPLOY_KEY")) {
+if (ci_has_env("TIC_DEPLOY_KEY")) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 }
@@ -211,7 +263,7 @@ if (isTRUE("BUILD_PKGDOWN")) {
 
 ## Committing single files
 
-The `step_push_deploy()` function has the ability to restrict the files that are committed and pushed.
+The `step_push_deploy()` step has the ability to restrict the files that are committed and pushed.
 This can be very useful for conditionally pushing documentation files like `NEWS` or `man/` and `NAMESPACE` if these are automatically created during the CI run.
 
 In the following example, these files are created/updated by calling `devtools::document()`.

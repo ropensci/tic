@@ -14,11 +14,12 @@ The goal of tic is to enhance and simplify working with continuous integration (
 
 The following ones are supported: 
 
-| Provider    | R package  | Platforms | Info |
-| ----        | ------     | ---       | ---  |
-| Travis CI   | [{travis}](https://docs.ropensci.org/travis/)         | Linux, macOS | https://travis-ci.org and https://travis-ci.com                       |
-| Appveyor CI | [{r-appveyor}](https://github.com/krlmlr/r-appveyor)  | Windows      |                                                                       | 
-| Circle CI   | [{circle}](https://docs.ropensci.org/circle/)         | Linux        | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
+| Provider       | R package  | Platforms | Info |
+| ----           | ------     | ---       | ---  |
+| Travis CI      | [{travis}](https://docs.ropensci.org/travis/)         | Linux, macOS          | https://travis-ci.org and https://travis-ci.com                       |
+| Appveyor CI    | [{r-appveyor}](https://github.com/krlmlr/r-appveyor)  | Windows               |                                                                       | 
+| Circle CI      | [{circle}](https://docs.ropensci.org/circle/)         | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
+| Github Actions | -                                                     | Linux, macOS, Windows |                                                                       |
 
 To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
@@ -158,7 +159,7 @@ The badges link to the most recent build of the master branch.
 
 - [Custom Steps](https://docs.ropensci.org/tic/articles/custom-steps.html)
 
-- [Travis CI '.org' vs '.com'](https://docs.ropensci.org/tic/articles/org-vs-com.html)
+- [FAQ](https://docs.ropensci.org/tic/articles/faq.html)
 
 ## Limitations
 

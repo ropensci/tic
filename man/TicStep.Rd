@@ -22,7 +22,7 @@ For \code{add_code_step()}, it autodetects any package calls in the form of
 \code{pkg::fun} and tries to install these packages from CRAN. If a steps
 \code{prepare_call} is not empty, the \verb{$prepare} method is skipped for this
 step. This can be useful if a package should be installed from
-non-standard repositories, e.g. from Github. }
+non-standard repositories, e.g. from GitHub. }
 \item{\code{check}}{
 This method determines if a step is prepared and run.
 Return \code{FALSE} if conditions for running this step are not met.

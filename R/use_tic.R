@@ -3,10 +3,6 @@
 #' @title Initialize CI testing using tic
 #' @description Prepares a repo for building and deploying supported by
 #' \pkg{tic}.
-#' Depending on your choice of CI system, this function requires
-#' properly set up authentication with Travis CI and/or Circle CI.
-#' See `vignette("travis", package = "travis")` and
-#' `vignette("circle", package = "circle")` for details.
 #'
 #' @importFrom utils menu
 #' @details
@@ -20,21 +16,21 @@
 #' @param wizard `[flag]`\cr Interactive operation? If `TRUE`, a menu will be
 #'   shown.
 #' @param linux `[string]`\cr Which CI provider(s) to use to test on Linux.
-#'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#'   Possible options are `"travis"`, `"circle"`, `"ghactions"` `"none"` and
+#'   `"all"`.
 #' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
-#'   Possible options are `"none"` and `"appveyor"`.
+#'   Possible options are `"none"`, `"appveyor"` and `"ghactions"`.
 #' @param mac `[string]`\cr Which CI provider(s) to use to test on macOS
-#'   Possible options are `"none"`, and `"travis"`.
+#'   Possible options are `"none"`, `"travis"` and `"ghactions"`.
 #' @param deploy `[string]`\cr Which CI provider(s) to use to deploy artifacts
 #'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
-#'   `"none"` and `"all"`.
+#'   `"ghactions"`, `"none"` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
 #'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#' @template private_key_name
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See
 #'   [travis::travis_enable()] for more information.
-#' @param travis_key_name_private See [travis::use_travis_deploy()].
-#' @param travis_key_name_public See [travis::use_travis_deploy()].
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
 #' @examples
@@ -58,9 +54,8 @@ use_tic <- function(wizard = interactive(),
                     windows = "appveyor",
                     deploy = "travis",
                     matrix = "none",
+                    private_key_name = "TIC_DEPLOY_KEY",
                     travis_endpoint = ".com",
-                    travis_key_name_private = NULL,
-                    travis_key_name_public = NULL,
                     quiet = FALSE) { # nolint
 
   cli_alert("Welcome to {.pkg tic}!")
@@ -72,9 +67,9 @@ use_tic <- function(wizard = interactive(),
   }
 
   cli_h1("Introduction:")
-  cli_text("{.pkg tic} currently comes with support for three CI providers: ")
+  cli_text("{.pkg tic} currently comes with support for four CI providers: ")
 
-  cli_ul(c("Appveyor", "Circle CI", "Travis CI"))
+  cli_ul(c("Appveyor", "Circle CI", "Travis CI", "GitHub Actions"))
 
   cli_par()
   cli_text(c(
@@ -100,27 +95,27 @@ use_tic <- function(wizard = interactive(),
     cli_par()
     cli_end()
 
-    linux <- ci_menu(c("travis", "circle", "none", "all"),
+    linux <- ci_menu(c("travis", "circle", "ghactions", "none", "all"),
       title = "Which provider do you want to use for Linux builds?"
     )
 
-    mac <- ci_menu(c("travis", "none"),
-      title = "Do you want to build on macOS (= Travis CI)?"
+    mac <- ci_menu(c("travis", "ghactions", "none"),
+      title = "Do you want to build on macOS?"
     )
 
-    windows <- ci_menu(c("appveyor", "none"),
-      title = "Do you want to build on Windows (= Appveyor)?"
+    windows <- ci_menu(c("appveyor", "ghactions", "none"),
+      title = "Do you want to build on Windows?"
     )
 
     deploy <- ci_menu(intersect(
-      c("travis", "circle", "none", "all"),
+      c("travis", "circle", "ghactions", "none", "all"),
       c(linux, mac, windows, "all", "none")
     ),
     title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?" # nolint
     )
 
     matrix <- ci_menu(intersect(
-      c("none", "travis", "circle", "appveyor", "all"),
+      c("none", "travis", "circle", "appveyor", "ghactions", "all"),
       c(linux, mac, windows, "all", "none")
     ),
     title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
@@ -140,25 +135,25 @@ use_tic <- function(wizard = interactive(),
     cli_text("If setup fails, rerun with:")
     cli_text("{.code ", use_tic_call, "}")
   } else {
-    linux <- match.arg(linux, c("travis", "circle", "none", "all"),
+    linux <- match.arg(linux, c("travis", "circle", "ghactions", "none", "all"),
       several.ok = TRUE
     )
-    mac <- match.arg(mac, c("none", "travis"),
+    mac <- match.arg(mac, c("none", "travis", "ghactions"),
       several.ok = TRUE
     )
-    windows <- match.arg(windows, c("none", "appveyor", "all"),
+    windows <- match.arg(windows, c("none", "appveyor", "ghactions", "all"),
       several.ok = TRUE
     )
-    deploy <- match.arg(deploy, c("travis", "circle", "none", "all"),
+    deploy <- match.arg(deploy, c("travis", "circle", "ghactions", "none", "all"),
       several.ok = TRUE
     )
     matrix <- match.arg(matrix,
-      c("none", "travis", "circle", "appveyor", "all"),
+      c("none", "travis", "circle", "appveyor", "ghactions", "all"),
       several.ok = TRUE
     )
   }
 
-  cli_h1("Setting up the CI providers.")
+  cli_h1("Setting up the CI providers")
 
   cli_text(
     "Next we are getting the selected CI providers ready for deployment.",
@@ -181,9 +176,13 @@ use_tic <- function(wizard = interactive(),
     travis::travis_enable(endpoint = travis_endpoint)
     travis::use_travis_deploy(
       endpoint = travis_endpoint,
-      key_name_private = travis_key_name_private,
-      key_name_public = travis_key_name_public
+      key_name_private = private_key_name,
+      key_name_public = "Deploy Key for Travis CI"
     )
+  } else if (ghactions_in(deploy)) {
+    rule(left = "GitHub Actions")
+    check_ghactions_pat()
+    tic::use_ghactions_deploy()
   }
 
   # create YAMLs ---------------------------------------------------------------
@@ -194,7 +193,7 @@ use_tic <- function(wizard = interactive(),
 
   # Travis ---------------------------------------------------------------------
 
-  rule(left = "Travis CI")
+  cli_h2("Travis CI")
 
   if (travis_in(linux) && travis_in(mac)) {
 
@@ -247,9 +246,11 @@ use_tic <- function(wizard = interactive(),
     }
   }
 
+  cli_alert_success("OK")
+
   # Circle ---------------------------------------------------------------------
 
-  rule(left = "Circle CI")
+  cli_h2("Circle CI")
 
   if (circle_in(linux)) {
     # deployment
@@ -270,9 +271,11 @@ use_tic <- function(wizard = interactive(),
     }
   }
 
+  cli_alert_success("OK")
+
   # Appveyor -------------------------------------------------------------------
 
-  rule(left = "Appveyor CI")
+  cli_h2("Appveyor CI")
 
   if (appveyor_in(windows)) {
     if (appveyor_in(matrix)) {
@@ -281,6 +284,24 @@ use_tic <- function(wizard = interactive(),
       use_appveyor_yml("windows")
     }
   }
+
+  cli_alert_success("OK")
+
+  # GH Actions -----------------------------------------------------------------
+
+  cli_h2("GitHub Actions")
+
+  if (ghactions_in(windows) | ghactions_in(linux) | ghactions_in(mac)) {
+    if (ghactions_in(deploy)) {
+      use_ghactions_yml("all-deploy")
+    } else {
+      use_ghactions_yml("all")
+    }
+  }
+
+  cli_par()
+  cli_end()
+  cli_alert_success("OK")
 
   # tic.R ----------------------------------------------------------------------
 
@@ -304,14 +325,16 @@ use_tic <- function(wizard = interactive(),
     stringsAsFactors = FALSE,
     package = c(
       basename(getwd()), ".circleci", "appveyor.yml", ".travis.yml",
-      "config.yml", "tic.R"
+      "config.yml", "tic.R", ".github", "workflows", "main.yml"
     ),
     dependencies = I(list(
-      c(".circleci", "appveyor.yml", ".travis.yml", "tic.R"),
+      c(".circleci", "appveyor.yml", ".travis.yml", ".github", "tic.R"),
       "config.yml",
       character(0),
       character(0),
       character(0),
+      character(0),
+      "workflows", "main.yml",
       character(0)
     ))
   )
@@ -337,6 +360,10 @@ appveyor_in <- function(x) {
   !all(is.na(match(c("appveyor", "all"), x)))
 }
 
+ghactions_in <- function(x) {
+  !all(is.na(match(c("ghactions", "all"), x)))
+}
+
 ci_menu <- function(choices, title) {
   if (length(setdiff(choices, c("all", "none"))) <= 1) {
     choices <- setdiff(choices, "all")
@@ -346,6 +373,7 @@ ci_menu <- function(choices, title) {
     travis = "Travis CI",
     circle = "Circle CI",
     appveyor = "AppVeyor CI",
+    ghactions = "GitHub Actions",
     all = "All",
     none = "None"
   )
@@ -356,6 +384,9 @@ ci_menu <- function(choices, title) {
 }
 
 use_tic_r <- function(repo_type) {
+  cli_par()
+  cli_end()
+  cli_h2("tic.R")
   use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
 }
 

@@ -1,3 +1,9 @@
+# tic 0.4.0.9000
+
+* add macro `do_readme_rmd()` (#223)
+* new function `list_macros()`
+
+
 # tic 0.4.0
 
 * add macro `do_drat()`

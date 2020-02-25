@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library("tic")
 ```
 
 # Prerequisites
@@ -23,7 +24,7 @@ If you are unfamiliar with the term Continuous Integration (CI), we highly recom
 - https://juliasilge.com/blog/beginners-guide-to-travis/
 - http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
 
-See the ["Features" article](features.html) for a comparison with other solutions for Continuous Integration for R.
+See the [Features](features.html) article for a comparison with other solutions for Continuous Integration for R.
 
 
 # Initialization/Setup
@@ -36,9 +37,9 @@ Based on the replies we'll select specific templates.
 
 Besides the question which CI system you want to use, you'll be asked if you want to 
 
-- deploy from builds to Github (e.g. if you are building a pkgdown site)
+- Deploy from builds to GitHub (e.g. if you are building a {pkgdown} site)
 
-- test your package on multiple R versions
+- Test your package on multiple R versions
 
 Last, we'll add a `tic.R` file to the project root.
 
@@ -75,22 +76,29 @@ tic::use_appveyor_yml(<option here>)
 The reason why we suggest Travis CI as the default builds on three points:
 
 - Travis is the most widely used CI provider within the R community
-- has been around for some years
-- supports Linux & macOS.
+- Has been around for some years
+- Supports Linux & macOS.
 
 If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience.
 However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.
 
 The deployment setup functionality comes from the {travis} and {circle} packages.
-See the ["tic & travis" article](tic-travis.html) for more detailed information on how {tic} and {travis} work together.
+See the [CI Client Packages](ci-client-packages.html) article for more detailed information on how {tic} and the CI client packages work together.
 
 # The role of the `tic.R` file
 
-After having called `tic::use_tic()` you will find a `.travis.yml`, `.circleci/config.yml`,  `appveyor.yml` and a `tic.R` file in your repo, depending on your choices.
+After having called `tic::use_tic()` you will find
+
+- `.travis.yml`
+- `.circleci/config.yml`
+- `appveyor.yml`
+- `.github/workflows`
+
+and a `tic.R` file in your repo, depending on the choices you made during `use_tic()`.
 The latter will always be present because it will be the main CI config file for all providers from now on.
 Usually you do not need to touch the YAML files anymore.
 All build customization is done in `tic.R` and applies to all providers.
-For more information about the build lifecycle in general, check the ["Build lifecycle" article](build-lifecycle.html).
+For more information about the build lifecycle in general, check the [Build lifecycle](build-lifecycle.html) article.
 
 The basic `tic.R` template looks as follows:
 
@@ -102,11 +110,11 @@ if (ci_on_travis()) {
 }
 ```
 
-The `tic.R` file has a declarative nature: It should consist of "stages", "steps" and "macro" functions (see below).
+`tic.R` file has a declarative nature: It should consist of "stages", "steps" and "macro" functions (see below).
 These functions will only have an effect when specified in `tic.R` and should **not** be used standalone as they will only run in a (simulated) CI run following a certain order.
 
 To run plain R code within the build, encapsulate it within `add_code_step(<code>)` and add it to a certain build stage. 
-See [the Build Lifecycle vignette](build-lifecycle.html) for detailed info about how to do this.
+See [the Build Lifecycle](build-lifecycle.html) article for detailed info about how to do this.
 
 ## Macros {#macros}
 
@@ -118,7 +126,15 @@ Macros are essentially wrappers of a sequence of steps for often used tasks on t
 - Build and deploy a bookdown project
 
 They can be distinguished from other functions by their `do_` prefix.
+The following ones are currently implemented:
+
+```{r}
+list_macros()
+```
+
 If you have a good use case for a macro, let us know by opening an [issue](https://github.com/ropensci/tic/issues).
+
+### `do_package_checks()`
 
 ```{r eval = FALSE}
 do_package_checks()
@@ -133,10 +149,13 @@ See `?do_package_checks()` for more information.
 ```{r}
 # step_install_deps() in the "install" stage, using the repos argument.
 #
-# step_rcmdcheck() in the "script" stage, using the warnings_are_errors, notes_are_errors, args, and build_args arguments.
+# step_rcmdcheck() in the "script" stage, using the warnings_are_errors, 
+#  notes_are_errors, args, and build_args arguments.
 #
 # A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
 ```
+
+### `do_pkgdown()`
 
 The other macro in the default template is `do_pkgdown()`.
 
@@ -163,9 +182,22 @@ if (ci_on_travis()) {
 By default this currently happens only on Travis CI, because `ci_on_travis()` is used as a condition.
 Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.
 
+`ci_on_travis()` can be replaced by one of its sibling functions like `ci_on_ghactions()`.
+
+### `do_readme_rmd()`
+
+Some projects rely on a dynamic README.Rmd file which contains R code.
+Sometimes the output of such README's will change over time if the code driving it changes due to updates.
+To always stay up-to-date without needing to take manual action, you can use this macro.
+It will render `README.Rmd` and deploy `README.md` to the `master` branch.
+A deployment will only be made if the rendered output differs from the one stored upstream.
+
+This macro requires that you have set up deployment for your selected provider beforehand.
+
 # Example projects
 
-{tic} can be used for various R projects:
+{tic} can be used for various R projects.
+Simply check out the setup for the type of project you are interested in to get a feeling of how {tic} is used in practice.
 
 - [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [{pkgdown}](https://pkgdown.r-lib.org/) documentation
 - [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
@@ -180,7 +212,7 @@ Why do we do this? Building the pkgdown site on multiple CI services has no adde
 
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
-Under the hood, it uses the framework [HUGO](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
+Under the hood, it uses the framework [Hugo](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
 
 ```{r eval = FALSE}
 get_stage("install") %>%
@@ -205,22 +237,10 @@ Also, publishing to https://zenodo.org/ is work in progress.
 ## {tic} projects from the community
 
 The templates we provide with {tic} are minimal working examples.
-In the following we list various R projects with non-standard/tailored {tic}-based workflows.
-You may find inspiration for your own project there.
-(Please contact us if you want to add yours to the list!)
+By querying `tic.R` on GitHub one can see who else uses {tic} for their CI runs: https://github.com/search?p=5&q=filename%3Atic.R&type=Code
 
-- [mlr](https://github.com/mlr-org/mlr)
-- [sf](https://github.com/r-spatial/sf)
-- [dbi](https://github.com/r-dbi/DBI)
+## Still got questions?
 
-# Advanced
+Have a look at the [list of articles](https://docs.ropensci.org/tic/articles/) we wrote to shine more light on all the parts {tic} covers.
 
-The advanced usage of {tic} is described in more detail in the ["Advanced Usage" article](advanced.html):
-
-- [Options for {pkgdown} deployment](advanced.html#pkgdown-deployment) 
-- [Using Travis CI Meta-information](advanced.html#using-travis-ci-meta-information)
-- [Troubleshooting: Running {tic} locally](advanced.html#troubleshooting-running-tic-locally)
-- [Troubleshooting: Enter into the Travis build](advanced.html#troubleshooting-running-tic-locally)
-
-The build lifecycle when using {tic} is explained in the ["Build lifecycle" article](build-lifecycle.html).
-Implementation of custom steps is described in the ["Writing custom steps" article](custom-steps.html).
+If you face issues, make sure to also check out the [FAQ](https://docs.ropensci.org/tic/articles/faq.html) vignette or browse the [issue tracker](https://github.com/ropensci/tic/issues).

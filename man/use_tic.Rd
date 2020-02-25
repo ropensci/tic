@@ -11,9 +11,8 @@ use_tic(
   windows = "appveyor",
   deploy = "travis",
   matrix = "none",
+  private_key_name = "TIC_DEPLOY_KEY",
   travis_endpoint = ".com",
-  travis_key_name_private = NULL,
-  travis_key_name_public = NULL,
   quiet = FALSE
 )
 }
@@ -22,38 +21,37 @@ use_tic(
 shown.}
 
 \item{linux}{\verb{[string]}\cr Which CI provider(s) to use to test on Linux.
-Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
+Possible options are \code{"travis"}, \code{"circle"}, \code{"ghactions"} \code{"none"} and
+\code{"all"}.}
 
 \item{mac}{\verb{[string]}\cr Which CI provider(s) to use to test on macOS
-Possible options are \code{"none"}, and \code{"travis"}.}
+Possible options are \code{"none"}, \code{"travis"} and \code{"ghactions"}.}
 
 \item{windows}{\verb{[string]}\cr Which CI provider(s) to use to test on Windows
-Possible options are \code{"none"} and \code{"appveyor"}.}
+Possible options are \code{"none"}, \code{"appveyor"} and \code{"ghactions"}.}
 
 \item{deploy}{\verb{[string]}\cr Which CI provider(s) to use to deploy artifacts
 such as pkgdown documentation. Possible options are \code{"travis"}, \code{"circle"},
-\code{"none"} and \code{"all"}.}
+\code{"ghactions"}, \code{"none"} and \code{"all"}.}
 
 \item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up matrix builds.
 Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
 
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
+
 \item{travis_endpoint}{\verb{[string]}\cr The Travis CI endpoint to use. Possible
 options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
 \code{\link[travis:travis_enable]{travis::travis_enable()}} for more information.}
-
-\item{travis_key_name_private}{See \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.}
-
-\item{travis_key_name_public}{See \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.}
 
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
 \description{
 Prepares a repo for building and deploying supported by
 \pkg{tic}.
-Depending on your choice of CI system, this function requires
-properly set up authentication with Travis CI and/or Circle CI.
-See \code{vignette("travis", package = "travis")} and
-\code{vignette("circle", package = "circle")} for details.
 }
 \details{
 \enumerate{

@@ -14,3 +14,7 @@
 ^tests/testthat/tic$
 ^\.vscode$
 ^codemeta\.json$
+^\.ccache$
+^man-roxygen$
+^\.github$
+^clang-*$

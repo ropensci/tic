@@ -9,6 +9,8 @@ ci_ <- function() {
     AppVeyorCI$new()
   } else if (Sys.getenv("CIRCLECI") == "true") {
     CircleCI$new()
+  } else if (Sys.getenv("GITHUB_ACTIONS") == "true") {
+    GHActionsCI$new()
   } else {
     LocalCI$new()
   }
@@ -61,7 +63,7 @@ CI <- R6Class( # nolint
     get_commit = function() {
       stop("NYI")
     },
-    #'   \item{`get_commit()`}{Does an env variable named `"TRAVIS_DEPLOY_KEY"` exist?}
+    #'   \item{`get_commit()`}{Does an env variable named `"TIC_DEPLOY_KEY"` exist?}
     can_push = function() {
       stop("NYI")
     },
@@ -78,6 +80,11 @@ CI <- R6Class( # nolint
     #'   \item{`on_circle()`}{
     #'     Returns `TRUE` only on circle, otherwise `FALSE`.}
     on_circle = function() {
+      FALSE
+    },
+    #'   \item{`on_ghactions()`}{
+    #'     Returns `TRUE` only on GitHub Actions, otherwise `FALSE`.}
+    on_ghactions = function() {
       FALSE
     },
     #'   \item{`is_interactive()`}{
@@ -196,13 +203,12 @@ ci_has_env <- function(env) {
 #'
 #' `ci_can_push()`: Checks if push deployment is possible. Always true
 #'   for local environments, CI environments require an environment
-#'   variable (by default `TRAVIS_DEPLOY_KEY`).
+#'   variable (by default `TIC_DEPLOY_KEY`).
 #' @rdname ci
-#' @param name Name of the environment variable to check, defaults to
-#'   `"TRAVIS_DEPLOY_KEY"`.
+#' @template private_key_name
 #' @export
-ci_can_push <- function(name = "TRAVIS_DEPLOY_KEY") {
-  ci()$can_push(name)
+ci_can_push <- function(private_key_name = "TIC_DEPLOY_KEY") {
+  ci()$can_push(private_key_name)
 }
 
 #' CI is_interactive
@@ -248,6 +254,14 @@ ci_on_appveyor <- function() {
 #' @export
 ci_on_circle <- function() {
   ci()$on_circle()
+}
+
+#' CI on_ghactions
+#' @description `ci_on_ghactions()`: Are we running on GitHub Actions?
+#' @rdname ci
+#' @export
+ci_on_ghactions <- function() {
+  ci()$on_ghactions()
 }
 
 #' The current CI environment

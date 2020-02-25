@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-Most important steps running on CI systems are [already implemented](tic.html#steps) in *tic*.
-The following vignette shows how new steps can be created and how *tic* defines them.
+Most important steps running on CI systems are [already implemented](tic.html#steps) in {tic}.
+The following vignette shows how new steps can be created and how {tic} defines them.
 Internally, all steps are defined using the [R6](https://github.com/wch/R6) class system.
 If you are not familiar with object-oriented programming using R6, the [R6 chapter](https://adv-r.hadley.nz/r6.html) in [Advanced R](https://adv-r.hadley.nz/) is a good place to start.
 
@@ -106,8 +106,103 @@ step_hello_world <- function() {
 If you are unfamiliar with `R6` classes, here is a short guidance how the arguments are passed along:
 Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R)):
 
-```{r}
-step_rcmdcheck
+```{r, eval = FALSE}
+RCMDcheck <- R6Class( # nolint
+  "RCMDcheck",
+  inherit = TicStep,
+
+  public = list(
+    initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
+                          args = c("--no-manual", "--as-cran"),
+                          build_args = "--force", error_on = "warning",
+                          repos = repo_default(), timeout = Inf,
+                          check_dir = NULL) {
+      if (!is.null(notes_are_errors)) {
+        warning_once(
+          '`notes_are_errors` is deprecated, please use `error_on = "note"`'
+        )
+        if (notes_are_errors) {
+          error_on <- "note"
+        }
+      }
+      else if (!is.null(warnings_are_errors)) {
+        warning_once(
+          "`warnings_are_errors` is deprecated, ",
+          'please use `error_on = "warning"`'
+        )
+        if (warnings_are_errors) {
+          error_on <- "warning"
+        }
+      }
+      private$args <- args
+      private$build_args <- build_args
+      private$error_on <- error_on
+      private$repos <- repos
+      private$timeout <- timeout
+      private$check_dir <- check_dir
+
+      super$initialize()
+    },
+
+    run = function() {
+      # Don't include vignettes if --no-build-vignettes is included
+      if ("--no-build-vignettes" %in% private$args) {
+        cat("^vignettes$\n", file = ".Rbuildignore", append = TRUE)
+      }
+
+      withr::with_envvar(
+        c(
+          # Avoid large version components
+          "_R_CHECK_CRAN_INCOMING_" = "FALSE",
+          # Don't check system clocks (because the API used there is flaky)
+          "_R_CHECK_SYSTEM_CLOCK_" = "FALSE",
+          # Don't force suggests
+          "_R_CHECK_FORCE_SUGGESTS_" = "FALSE",
+          # Work around missing qpdf executable
+          "R_QPDF" = if (Sys.which("qpdf") == "") "true"
+        ),
+        res <- rcmdcheck::rcmdcheck(
+          args = private$args, build_args = private$build_args,
+          error_on = "never",
+          repos = private$repos,
+          timeout = private$timeout,
+          check_dir = private$check_dir
+        )
+      )
+
+      print(res)
+      if (length(res$errors) > 0) {
+        stopc("Errors found in rcmdcheck::rcmdcheck().")
+      }
+      if (private$error_on %in% c("warning", "note") && length(res$warnings) > 0) {
+        stopc(
+          "Warnings found in rcmdcheck::rcmdcheck(), ",
+          'and `errors_on = "warning"` is set.'
+        )
+      }
+      if (private$error_on == "note" && length(res$notes) > 0) {
+        stopc(
+          "Notes found in rcmdcheck::rcmdcheck(), ",
+          'and `errors_on = "note"` is set.'
+        )
+      }
+    },
+
+    prepare = function() {
+      verify_install("rcmdcheck")
+      super$prepare()
+    }
+  ),
+
+  private = list(
+    args = NULL,
+    build_args = NULL,
+    error_on = NULL,
+    repos = NULL,
+    timeout = NULL,
+    check_dir = NULL
+  )
+)
 ```
 
 Here, a new instance of the defined `R6` class `RCMDcheck` is initiated with `RCMDcheck$new()`.

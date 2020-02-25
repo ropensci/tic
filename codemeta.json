@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/tic",
   "issueTracker": "https://github.com/ropensci/tic/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.4.0",
+  "version": "0.4.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.6.3 RC (2020-02-21 r77853)",
   "author": [
     {
       "@type": "Person",
@@ -174,6 +174,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "gh",
+      "name": "gh",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=gh"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "git2r",
       "name": "git2r",
       "provider": {
@@ -222,6 +234,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "purrr",
+      "name": "purrr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=purrr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "rcmdcheck",
       "name": "rcmdcheck",
       "provider": {
@@ -258,6 +282,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "sodium",
+      "name": "sodium",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sodium"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "version": ">= 2.1.0",
@@ -287,6 +323,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=usethis"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
     }
   ],
   "softwareRequirements": [
@@ -320,6 +361,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=crayon"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lifecycle",
+      "name": "lifecycle",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lifecycle"
     },
     {
       "@type": "SoftwareApplication",
@@ -402,7 +455,6 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tic/blob/master/README.md",
-  "fileSize": "353.548KB",
   "contIntegration": [
     "https://travis-ci.com/ropensci/tic",
     "https://ci.appveyor.com/project/ropensci/tic",
@@ -434,5 +486,6 @@
     "deployment",
     "r-package",
     "rstats"
-  ]
+  ],
+  "fileSize": "363.694KB"
 }

@@ -21,11 +21,7 @@ NULL
 #' @inheritParams step_install_pkg
 #' @param path,branch By default, this macro deploys the `docs` directory
 #'   to the `gh-pages` branch. This is different from [step_push_deploy()].
-#' @param travis_private_key_name `string`\cr
-#'   Only needed when deploying from builds on Travis CI.
-#'   If you have set a custom name for the private key during creation of the
-#'   SSH key pair in [travis::use_travis_deploy()] or via [use_tic], you need
-#'   to pass this name here.
+#' @template private_key_name
 #' @param ... Passed on to [step_build_pkgdown()]
 #' @family macros
 #' @export
@@ -47,9 +43,7 @@ do_pkgdown <- function(...,
                        remote_url = NULL,
                        commit_message = NULL,
                        commit_paths = ".",
-                       travis_private_key_name = "TRAVIS_DEPLOY_KEY") {
-
-  name <- travis_private_key_name
+                       private_key_name = "TIC_DEPLOY_KEY") {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
@@ -62,7 +56,7 @@ do_pkgdown <- function(...,
     #'
     #'   1. The repo can be pushed to (see [ci_can_push()]).'
     # account for old default "id_rsa"
-    deploy <- ci_can_push(name = name)
+    deploy <- ci_can_push(private_key_name = private_key_name)
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
@@ -81,9 +75,9 @@ do_pkgdown <- function(...,
   if (isTRUE(deploy)) {
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup
     #'    the upcoming deployment (if `deploy` is set and only on Travis CI),
-    if (ci_on_travis()) {
+    if (ci_on_travis() || ci_on_ghactions()) {
       get_stage("before_deploy") %>%
-        add_step(step_setup_ssh(name = name))
+        add_step(step_setup_ssh(private_key_name = private_key_name))
     }
 
     #' 1. [step_setup_push_deploy()] in the `"before_deploy"` stage

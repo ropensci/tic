@@ -5,16 +5,18 @@
 \title{Step: Setup SSH}
 \usage{
 step_setup_ssh(
-  name = "TRAVIS_DEPLOY_KEY",
+  private_key_name = "TIC_DEPLOY_KEY",
   host = "github.com",
   url = paste0("git@", host),
-  verbose = "-v"
+  verbose = ""
 )
 }
 \arguments{
-\item{name}{\verb{[string]}\cr
-Name of the environment variable and the target file, default:
-\code{"TRAVIS_DEPLOY_KEY"}.}
+\item{private_key_name}{\code{string}\cr
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 
 \item{host}{\verb{[string]}\cr
 The host name to add to the \code{known_hosts} file, default: \code{github.com}.}
@@ -23,7 +25,7 @@ The host name to add to the \code{known_hosts} file, default: \code{github.com}.
 URL to establish SSH connection with, by default \code{git@github.com}}
 
 \item{verbose}{\verb{[string]}\cr
-Verbosity, by default \code{"-v"}. Use \code{"-vvv"} for more verbosity.}
+Verbosity, by default \code{""}. Use \code{-v} or \code{"-vvv"} for more verbosity.}
 }
 \description{
 Adds to known hosts, installs private key, and tests the connection.

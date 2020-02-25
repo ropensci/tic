@@ -1,0 +1,13 @@
+      - name: "[Stage] Before Deploy"
+        if: runner.os != 'Windows'
+        run: |
+          Rscript -e "tic::before_deploy()"
+
+      - name: "[Stage] Deploy"
+        if: runner.os != 'Windows'
+        run: Rscript -e "tic::deploy()"
+
+      - name: "[Stage] After Deploy"
+        if: runner.os != 'Windows'
+        run: Rscript -e "tic::after_deploy()"
+
