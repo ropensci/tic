@@ -75,7 +75,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0.9000</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.5.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -151,6 +151,45 @@
       <small>Source: <a href='https://github.com/ropensci/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0-5-0-9000" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-5-0-9000" class="anchor"></a>tic 0.5.0.9000</h1>
+<ul>
+<li>Same as previous version.</li>
+</ul>
+</div>
+    <div id="tic-0-5-0" class="section level1">
+<h1 class="page-header">
+<a href="#tic-0-5-0" class="anchor"></a>tic 0.5.0</h1>
+<div id="enhancements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements" class="anchor"></a>Enhancements</h2>
+<ul>
+<li>New function <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code> (status “experimental”) to set up a SSH key for deployment.</li>
+<li>New function <code><a href="../reference/yaml_templates.html">use_ghactions_yml()</a></code> with <code>deploy = TRUE/FALSE</code> (FALSE by default).</li>
+<li>New Vignette “FAQ”.</li>
+<li>Added GH Actions support to <code><a href="../reference/use_tic.html">use_tic()</a></code>
+</li>
+<li>new macro <code><a href="../reference/do_readme_rmd.html">do_readme_rmd()</a></code> (<a href='https://github.com/ropensci/tic/issues/223'>#223</a>)</li>
+<li>new function <code><a href="../reference/list_macros.html">list_macros()</a></code>
+</li>
+</ul>
+</div>
+<div id="maintenance" class="section level2">
+<h2 class="hasAnchor">
+<a href="#maintenance" class="anchor"></a>Maintenance</h2>
+<ul>
+<li>Change for the default of the private SSH deploy key name from <code>TRAVIS_DEPLOY_KEY</code> to <code>TIC_DEPLOY_KEY</code> to have a generic name.</li>
+<li>Change argument <code>travis_private_key_name</code> to <code>private_key_name</code>
+</li>
+<li>Renamed <code>yaml-templates.R</code> to <code>yaml_templates.R</code> because the former caused troubles when previewing the dev version of the docs.</li>
+<li>Beautified the CLI output of <code><a href="../reference/use_tic.html">use_tic()</a></code>
+</li>
+<li>Replaced all instances of <code>_tic_</code> in the docs by <code>{tic}</code>
+</li>
+</ul>
+</div>
+</div>
     <div id="tic-0-4-0-9000" class="section level1">
 <h1 class="page-header">
 <a href="#tic-0-4-0-9000" class="anchor"></a>tic 0.4.0.9000</h1>
@@ -637,6 +676,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tic-0-5-0-9000">0.5.0.9000</a></li>
+        <li><a href="#tic-0-5-0">0.5.0</a></li>
         <li><a href="#tic-0-4-0-9000">0.4.0.9000</a></li>
         <li><a href="#tic-0-4-0">0.4.0</a></li>
         <li><a href="#tic-0-3-0-9005">0.3.0.9005</a></li>
