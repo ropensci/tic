@@ -44,11 +44,10 @@ remotes::install_github("ropensci/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.com, https://appveyor.com and https://circleci.com.
-For more information about the difference between https://travis-ci.org and https://travis-ci.com see the vignette about [Travis CI '.org' vs '.com'](https://docs.ropensci.org/tic/articles/org-vs-com.html).
+The created templates will use the providers https://travis-ci.com (https://travis-ci.org; see [this FAQ](https://docs.ropensci.org/tic/articles/faq.html#q-travis-1) for more info), https://appveyor.com, https://circleci.com and https://github.com/actions.
 
 If only the CI YAML templates from {tic} are desired, the `use_<provider>_yml()` functions can be used.
-Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml-templates.html).
+Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml_templates.html).
 
 For an R package, the following steps will be set up for the CI workflow:
 
@@ -81,6 +80,10 @@ tic::use_circle_yml(<option here>)
 
 ## Appveyor
 tic::use_appveyor_yml(<option here>)
+
+## Github Actions
+tic::use_ghactions_deploy()
+tic::use_ghactions_yml(deploy = TRUE)
 ```
 
 ## Good to know
@@ -150,6 +153,8 @@ The badges link to the most recent build of the master branch.
 - [Feature Overview](https://docs.ropensci.org/tic/articles/features.html)
 
 - [The CI Build Lifecycle](https://docs.ropensci.org/tic/articles/build-lifecycle.html)
+
+- [CI Providers](https://docs.ropensci.org/tic/articles/ci-providers.html)
 
 - [CI Client Packages](https://docs.ropensci.org/tic/articles/ci-client-packages.html)
 
