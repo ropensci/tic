@@ -22,5 +22,5 @@ jobs:
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release" }
           - { os: macOS-latest, r: "devel" }
-          - { os: ubuntu-18.04, r: "release" }
+          - { os: ubuntu-latest, r: "release" }
 
