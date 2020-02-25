@@ -43,11 +43,7 @@
 
 <meta property="og:title" content="Initialize CI testing using tic — use_tic" />
 <meta property="og:description" content="Prepares a repo for building and deploying supported by
-tic.
-Depending on your choice of CI system, this function requires
-properly set up authentication with Travis CI and/or Circle CI.
-See vignette(&quot;travis&quot;, package = &quot;travis&quot;) and
-vignette(&quot;circle&quot;, package = &quot;circle&quot;) for details." />
+tic." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,7 +121,7 @@ vignette(&quot;circle&quot;, package = &quot;circle&quot;) for details." />
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -158,11 +154,7 @@ vignette(&quot;circle&quot;, package = &quot;circle&quot;) for details." />
 
     <div class="ref-description">
     <p>Prepares a repo for building and deploying supported by
-<span class="pkg">tic</span>.
-Depending on your choice of CI system, this function requires
-properly set up authentication with Travis CI and/or Circle CI.
-See <code>vignette("travis", package = "travis")</code> and
-<code><a href='https://cran.rstudio.com/web/packages/circle/vignettes/circle.html'>vignette("circle", package = "circle")</a></code> for details.</p>
+<span class="pkg">tic</span>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>use_tic</span>(
@@ -172,9 +164,8 @@ See <code>vignette("travis", package = "travis")</code> and
   <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
   <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
   <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
   <span class='kw'>travis_endpoint</span> <span class='kw'>=</span> <span class='st'>".com"</span>,
-  <span class='kw'>travis_key_name_private</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>travis_key_name_public</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -189,23 +180,24 @@ shown.</p></td>
     <tr>
       <th>linux</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Linux.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
+Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code> <code>"none"</code> and
+<code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>mac</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on macOS
-Possible options are <code>"none"</code>, and <code>"travis"</code>.</p></td>
+Possible options are <code>"none"</code>, <code>"travis"</code> and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>windows</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Windows
-Possible options are <code>"none"</code> and <code>"appveyor"</code>.</p></td>
+Possible options are <code>"none"</code>, <code>"appveyor"</code> and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>deploy</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to deploy artifacts
 such as pkgdown documentation. Possible options are <code>"travis"</code>, <code>"circle"</code>,
-<code>"none"</code> and <code>"all"</code>.</p></td>
+<code>"ghactions"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>matrix</th>
@@ -213,18 +205,18 @@ such as pkgdown documentation. Possible options are <code>"travis"</code>, <code
 Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
     </tr>
     <tr>
+      <th>private_key_name</th>
+      <td><p><code>string</code><br />
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
+<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code>use_tic()</code>, pass this name here.</p></td>
+    </tr>
+    <tr>
       <th>travis_endpoint</th>
       <td><p><code>[string]</code><br /> The Travis CI endpoint to use. Possible
 options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"</code>. See
 <code><a href='https://rdrr.io/pkg/travis/man/travis_enable.html'>travis::travis_enable()</a></code> for more information.</p></td>
-    </tr>
-    <tr>
-      <th>travis_key_name_private</th>
-      <td><p>See <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>travis_key_name_public</th>
-      <td><p>See <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p></td>
     </tr>
     <tr>
       <th>quiet</th>

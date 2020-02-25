@@ -90,7 +90,7 @@
       <a href="articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -157,6 +157,12 @@
 <td>via Docker images from <a href="https://github.com/rocker-org/rocker">rocker</a>
 </td>
 </tr>
+<tr class="even">
+<td>Github Actions</td>
+<td>-</td>
+<td>Linux, macOS, Windows</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <p>To learn more about CI, read <a href="http://mahugh.com/2016/09/02/travis-ci-for-test-automation/">the “Travis CI for test automation” blog post</a> and our <a href="https://docs.ropensci.org/tic/articles/tic.html#prerequisites">Getting Started</a> vignette.</p>
@@ -197,14 +203,14 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">## Travis CI</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">travis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span>() <span class="co"># (optional for deployment)</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_travis_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml_templates.html">use_travis_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">## Circle CI</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">circle<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_circle_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml_templates.html">use_circle_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">## Appveyor</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml-templates.html">use_appveyor_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-10" data-line-number="10">tic<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/tic/reference/yaml_templates.html">use_appveyor_yml</a></span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="good-to-know" class="section level2">
@@ -265,7 +271,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <li><p><a href="https://docs.ropensci.org/tic/articles/advanced.html">Advanced Usage</a></p></li>
 <li><p><a href="https://docs.ropensci.org/tic/articles/deployment.html">Deployment</a></p></li>
 <li><p><a href="https://docs.ropensci.org/tic/articles/custom-steps.html">Custom Steps</a></p></li>
-<li><p><a href="https://docs.ropensci.org/tic/articles/org-vs-com.html">Travis CI ‘.org’ vs ‘.com’</a></p></li>
+<li><p><a href="https://docs.ropensci.org/tic/articles/faq.html">FAQ</a></p></li>
 </ul>
 </div>
 <div id="limitations" class="section level2">

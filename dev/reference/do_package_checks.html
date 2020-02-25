@@ -132,7 +132,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -189,7 +189,7 @@ stages:</p>
   <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
   <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pkgType"</span>),
   <span class='kw'>check_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
@@ -221,7 +221,7 @@ Deprecated, use <code>error_on</code>.</p></td>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
 Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.<br />
-Default for Appveyor:
+Default for Appveyor and GH Actions (Windows):
 <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.<br /></p></td>
     </tr>
     <tr>
@@ -278,7 +278,7 @@ check. Defaults to project root for easy upload of artifacts.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'>✔ Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'>ℹ See `?tic::dsl_get` for details</span></div><div class='input'>
 <span class='fu'>do_package_checks</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_install_deps(repos = repo_default(), type = NULL)
+#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"))
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
@@ -286,7 +286,7 @@ check. Defaults to project root for easy upload of artifacts.</p></td>
 #&gt; ── after_success ────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div><div class='input'>
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── tic configuration ───────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; ── install ──────────────────────────────────────────────────────────── stage ──
-#&gt; ▶ step_install_deps(repos = repo_default(), type = NULL)
+#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"))
 #&gt; ── script ───────────────────────────────────────────────────────────── stage ──
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 

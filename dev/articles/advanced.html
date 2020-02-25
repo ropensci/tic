@@ -83,7 +83,7 @@
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -125,11 +125,11 @@
 <a href="#running-steps-conditionally" class="anchor"></a>Running steps conditionally</h2>
 <p>Steps and stages can be run conditionally using the control workflow of {tic}. Possible conditionals are</p>
 <ul>
-<li>Environment variables of the build (queried by <code><a href="../reference/ci.html">ci_is_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> or <code><a href="../reference/ci.html">ci_get_env()</a></code>)</li>
-<li>R Version of the current build (<code><a href="https://rdrr.io/r/base/numeric_version.html">getRversion()</a></code>)</li>
-<li>other features of the build (e.g. branch name via <code><a href="../reference/ci.html">ci_get_branch()</a></code>)</li>
+<li>Environment variables of the build (queried by <code><a href="../reference/ci.html">ci_is_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> or <code><a href="../reference/ci.html">ci_get_env()</a></code>).</li>
+<li>R Version of the current build (<code><a href="https://rdrr.io/r/base/numeric_version.html">getRversion()</a></code>).</li>
+<li>Other features of the build (e.g. branch name via <code><a href="../reference/ci.html">ci_get_branch()</a></code>).</li>
 </ul>
-<p>Most common tasks are the testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a {pkgdown} site</a>).</p>
+<p>Common tasks to use this feature are testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a {pkgdown} site</a>).</p>
 <div id="conditional-execution-use-cases" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conditional-execution-use-cases" class="anchor"></a>Conditional execution: Use cases</h3>
@@ -162,7 +162,7 @@
 <div id="installation-of-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation-of-packages" class="anchor"></a>Installation of packages</h2>
-<p>Required packages are installed based on the Depends/Imports/Suggests fields of the DESCRIPTION file. You should only use the following steps in extraordinary circumstances. An example can be the use of a package in the REAMDE.Rmd file which is not listed within the package’s DESCRIPTION file.</p>
+<p>Required packages are installed based on the “Depends”/“Imports”/“Suggests” fields of the <code>DESCRIPTION</code> file. You should only use the following steps in extraordinary circumstances. An example can be the use of a package in the <code>README.Rmd</code> file which is not listed within the package’s <code>DESCRIPTION</code> file.</p>
 <div id="github-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#github-packages" class="anchor"></a>GitHub packages</h3>
@@ -194,7 +194,7 @@
 </div>
 <div id="debugging-running-tic-locally" class="section level2">
 <h2 class="hasAnchor">
-<a href="#debugging-running-tic-locally" class="anchor"></a>Debugging: Running tic locally</h2>
+<a href="#debugging-running-tic-locally" class="anchor"></a>Debugging: Running {tic} locally</h2>
 <div id="checking-for-syntax-errors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#checking-for-syntax-errors" class="anchor"></a>Checking for syntax errors</h3>
@@ -291,7 +291,11 @@ Running install: step_install_deps(repos = repo_default())</code></pre>
 <a href="#whats-not-covered-yet" class="anchor"></a>What’s not covered yet?</h1>
 <ul>
 <li>
-<code>SystemRequirements</code>: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Our plan is to automatically provide suggestions like “Please add <code>addons: apt: &lt;library&gt;</code> to <code>.travis.yml</code>” in case system requirements are missing.</li>
+<p><code>SystemRequirements</code>: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Future plans include to automatically provide suggestions like</p>
+<blockquote>
+<p>“Please add <code>addons: apt: &lt;library&gt;</code> to <code>.travis.yml</code>” in case system requirements are missing.</p>
+</blockquote>
+</li>
 </ul>
 </div>
   </div>
@@ -315,7 +319,7 @@ Running install: step_install_deps(repos = repo_default())</code></pre>
 </li>
       <li><a href="#ci-meta-information">CI Meta-Information</a></li>
       <li>
-<a href="#debugging-running-tic-locally">Debugging: Running tic locally</a><ul class="nav nav-pills nav-stacked">
+<a href="#debugging-running-tic-locally">Debugging: Running {tic} locally</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#checking-for-syntax-errors">Checking for syntax errors</a></li>
       <li><a href="#emulating-a-ci-run-locally">Emulating a CI run locally</a></li>
       </ul>

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Troubleshooting • tic</title>
+<title>FAQ • tic</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
-<meta property="og:title" content="Troubleshooting">
+<meta property="og:title" content="FAQ">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -109,28 +109,87 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Troubleshooting</h1>
-                        <h4 class="author">Patrick Schratz, Kirill Müller</h4>
+      <h1>FAQ</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/troubleshooting.Rmd"><code>vignettes/troubleshooting.Rmd</code></a></small>
-      <div class="hidden name"><code>troubleshooting.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/faq.Rmd"><code>vignettes/faq.Rmd</code></a></small>
+      <div class="hidden name"><code>faq.Rmd</code></div>
 
     </div>
 
     
     
-<p>This vignette lists common errors that one might encounter during all aspects of the CI world.</p>
-<p>The grouping may change overtime depending on the number of issues we receive for certain sub-topics.</p>
-<div id="appveyor" class="section level2">
+<div id="authentication" class="section level2">
 <h2 class="hasAnchor">
-<a href="#appveyor" class="anchor"></a>Appveyor</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">Error <span class="cf">in</span> <span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(expr, <span class="dt">envir =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">`</span><span class="dt">?</span><span class="st">`</span> =<span class="st"> </span><span class="cf">function</span>(...) <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span>()), <span class="dt">enclos =</span> envir) <span class="op">:</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">  </span>object <span class="st">'name'</span> not found</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">Calls<span class="op">:</span><span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>... .transformer -&gt;<span class="st"> </span>glue -&gt;<span class="st"> </span>glue_data -&gt;<span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>-&gt;<span class="st"> </span>.transformer</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">Execution halted</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">Command exited with code <span class="dv">1</span></a></code></pre></div>
-<p>Do you have a private SSH key stored as a secure environment variable in the in <code>appveyor.yml</code>? If yes, it could be that you encrypted while being logged in to a different account than the one the repo is running under in reality. This means if you have access to multiple organizations and your private account on Appveyor, you need to encrypt the environment variable using the account in which repo lives.</p>
+<a href="#authentication" class="anchor"></a>Authentication</h2>
+<div id="q-auth-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-auth-1" class="anchor"></a>Q-Auth-1</h4>
+<p>I am getting an error when using one of <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>, <code><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">circle::use_circle_deploy()</a></code> or <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>.</p>
+<p><strong>Answer</strong></p>
+<p>In most cases this is related to API authentication issues. Ensure that the following points are met:</p>
+<ol style="list-style-type: decimal">
+<li>For Circle CI and Travis CI, install the respective GitHub App from the <a href="https://github.com/marketplace">GitHub Marketplace</a>.</li>
+<li>Ensure that you have set the respective API keys for the problematic provider in your <code>.Renviron</code> file. Consult the help pages of the respective <code>use_*_deploy()</code> function for more help.</li>
+</ol>
+<ul>
+<li>GitHub Actions: A <code>GITHUB_PAT</code> with “public_repo” scopes.</li>
+<li>Travis CI: Env var <code>R_TRAVIS_ORG</code> or <code>R_TRAVIS_COM</code>, depending on the endpoint you use.</li>
+<li>Circle CI: Env var <code>R_CIRCLE</code>.</li>
+</ul>
+</div>
+</div>
+<div id="github-actions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#github-actions" class="anchor"></a>GitHub Actions</h2>
+<div id="q-gha-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-gha-1" class="anchor"></a>Q-GHA-1</h4>
+<p>How is {tic} different from what <a href="https://github.com/r-lib/actions">r-lib/actions</a> does?</p>
+<p><strong>Answer</strong></p>
+<p>{tic} uses <a href="https://github.com/r-lib/actions">r-lib/actions</a> as the base to install R in the first place. However in detail, {tic} does the following things differently which aim to enhance the CI experience:</p>
+<ul>
+<li><p>Caching: {tic} caches the whole R library rather than only the direct dependendencies of a package. This has the advantage that packages required for side actions ({pkgdown} deployment, README updates) will also be cached.</p></li>
+<li><p><code>ccache</code>: {tic} comes with a compiler cache for source installations of packages by default, speeding up repeated source installation highly. The compiler cache directory (<code>.ccache</code>) will also be cached (once a week). Example use case: If you installed {Rcpp} from source as a dependency of your package and have it stored in your cache and {Rcpp} now updates two days later, the reinstallation will make use of the compiler cache and install {Rcpp} instantly rather than recompiling the C code again.</p></li>
+<li><p>Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as <a href="https://github.com/r-lib/actions">r-lib/actions</a> does. This speeds up package installation a lot. 4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.</p></li>
+<li><p>Use of SSH deployment keys: Once set up via <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>, this deployment approach makes it possible to push any file of your repository to any branch of your remote. Other deployment approaches often limit you to only push to <code>gh-pages</code> branch or similar.</p></li>
+</ul>
+</div>
+</div>
+<div id="travis-ci" class="section level2">
+<h2 class="hasAnchor">
+<a href="#travis-ci" class="anchor"></a>Travis CI</h2>
+<div id="q-travis-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-travis-1" class="anchor"></a>Q-Travis-1</h4>
+<p>What is the difference between travis-ci.org and travis-ci.com and which one should I use?</p>
+<p><strong>Answer</strong></p>
+<p>When dealing with Travis CI (or the <a href="https://github.com/ropenscilabs/travis">{travis}</a> package) the first time, one might be confused what the difference is between <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. <a href="https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com">This devops.stackexchange question</a> gives some insights on the history of both services and why both still exist.</p>
+<ul>
+<li>Both <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a> are the same whereas the future belongs to <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>.</li>
+<li>Due to both being still active, the <a href="https://github.com/ropenscilabs/travis">{travis}</a> package supports both endpoints for API queries.</li>
+<li>If you start a new project, we recommend to enable the repo on <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. If you are using the {travis] package, the default endpoint is set to <code>".com"</code> so that all function call will try to interact with repositories on <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. This can be changed via env var <code>R_TRAVIS</code>.</li>
+</ul>
+</div>
+</div>
+<div id="other" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other" class="anchor"></a>Other</h2>
+<div id="q-other-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-other-1" class="anchor"></a>Q-Other-1</h4>
+<p>Is it possible to update the CI YAML templates installed by {tic} with upstream changes?</p>
+<p><strong>Answer</strong></p>
+<p>Not yet, you have to run <code><a href="../reference/use_tic.html">use_tic()</a></code> again and save your custom changes beforehand and reapply those. We are planning to add an update mechanism soon though!</p>
+<hr>
+</div>
+<div id="q-other-2" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-other-2" class="anchor"></a>Q-Other-2</h4>
+<p>Am I the only one using {tic}?</p>
+<p><strong>Answer</strong></p>
+<p>You can see who and how many people use {tic.R} on GitHub via this query: <a href="https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code">https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code</a></p>
+</div>
 </div>
   </div>
 
@@ -140,7 +199,10 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#appveyor">Appveyor</a></li>
+<li><a href="#authentication">Authentication</a></li>
+      <li><a href="#github-actions">GitHub Actions</a></li>
+      <li><a href="#travis-ci">Travis CI</a></li>
+      <li><a href="#other">Other</a></li>
       </ul>
 </div>
       </div>

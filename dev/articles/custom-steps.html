@@ -83,7 +83,7 @@
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -120,7 +120,7 @@
 
     
     
-<p>Most important steps running on CI systems are <a href="tic.html#steps">already implemented</a> in <em>tic</em>. The following vignette shows how new steps can be created and how <em>tic</em> defines them. Internally, all steps are defined using the <a href="https://github.com/wch/R6">R6</a> class system. If you are not familiar with object-oriented programming using R6, the <a href="https://adv-r.hadley.nz/r6.html">R6 chapter</a> in <a href="https://adv-r.hadley.nz/">Advanced R</a> is a good place to start.</p>
+<p>Most important steps running on CI systems are <a href="tic.html#steps">already implemented</a> in {tic}. The following vignette shows how new steps can be created and how {tic} defines them. Internally, all steps are defined using the <a href="https://github.com/wch/R6">R6</a> class system. If you are not familiar with object-oriented programming using R6, the <a href="https://adv-r.hadley.nz/r6.html">R6 chapter</a> in <a href="https://adv-r.hadley.nz/">Advanced R</a> is a good place to start.</p>
 <p>In most cases there should be no need to write steps on your own, because <code><a href="../reference/step_run_code.html">step_run_code()</a></code> can be used to run arbitrary code when preparing and running the step, and custom conditions in <code>tic.R</code> can be used to trigger the step. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/dsl.html">add_code_step()</a></code>, please let us know (by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>) so that we can discuss whether it makes sense to implement it as a custom step.</p>
 <div id="the-ticstep-class" class="section level2">
 <h2 class="hasAnchor">
@@ -179,7 +179,102 @@
 <h2 class="hasAnchor">
 <a href="#further-information-on-the-r6-class-system" class="anchor"></a>Further information on the R6 class system</h2>
 <p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed along: Consider the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R">link to source</a>):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">step_rcmdcheck</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">RCMDcheck &lt;-<span class="st"> </span><span class="kw">R6Class</span>( <span class="co"># nolint</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="st">"RCMDcheck"</span>,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="dt">inherit =</span> TicStep,</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="dt">public =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">initialize =</span> <span class="cf">function</span>(<span class="dt">warnings_are_errors =</span> <span class="ot">NULL</span>, <span class="dt">notes_are_errors =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">                          <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"--no-manual"</span>, <span class="st">"--as-cran"</span>),</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">                          <span class="dt">build_args =</span> <span class="st">"--force"</span>, <span class="dt">error_on =</span> <span class="st">"warning"</span>,</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">                          <span class="dt">repos =</span> <span class="kw"><a href="../reference/repo.html">repo_default</a></span>(), <span class="dt">timeout =</span> <span class="ot">Inf</span>,</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">                          <span class="dt">check_dir =</span> <span class="ot">NULL</span>) {</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">      <span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(notes_are_errors)) {</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">        <span class="kw">warning_once</span>(</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">          <span class="st">'`notes_are_errors` is deprecated, please use `error_on = "note"`'</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">        )</a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">        <span class="cf">if</span> (notes_are_errors) {</a>
+<a class="sourceLine" id="cb5-16" data-line-number="16">          error_on &lt;-<span class="st"> "note"</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">        }</a>
+<a class="sourceLine" id="cb5-18" data-line-number="18">      }</a>
+<a class="sourceLine" id="cb5-19" data-line-number="19">      <span class="cf">else</span> <span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(warnings_are_errors)) {</a>
+<a class="sourceLine" id="cb5-20" data-line-number="20">        <span class="kw">warning_once</span>(</a>
+<a class="sourceLine" id="cb5-21" data-line-number="21">          <span class="st">"`warnings_are_errors` is deprecated, "</span>,</a>
+<a class="sourceLine" id="cb5-22" data-line-number="22">          <span class="st">'please use `error_on = "warning"`'</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23">        )</a>
+<a class="sourceLine" id="cb5-24" data-line-number="24">        <span class="cf">if</span> (warnings_are_errors) {</a>
+<a class="sourceLine" id="cb5-25" data-line-number="25">          error_on &lt;-<span class="st"> "warning"</span></a>
+<a class="sourceLine" id="cb5-26" data-line-number="26">        }</a>
+<a class="sourceLine" id="cb5-27" data-line-number="27">      }</a>
+<a class="sourceLine" id="cb5-28" data-line-number="28">      private<span class="op">$</span>args &lt;-<span class="st"> </span>args</a>
+<a class="sourceLine" id="cb5-29" data-line-number="29">      private<span class="op">$</span>build_args &lt;-<span class="st"> </span>build_args</a>
+<a class="sourceLine" id="cb5-30" data-line-number="30">      private<span class="op">$</span>error_on &lt;-<span class="st"> </span>error_on</a>
+<a class="sourceLine" id="cb5-31" data-line-number="31">      private<span class="op">$</span>repos &lt;-<span class="st"> </span>repos</a>
+<a class="sourceLine" id="cb5-32" data-line-number="32">      private<span class="op">$</span>timeout &lt;-<span class="st"> </span>timeout</a>
+<a class="sourceLine" id="cb5-33" data-line-number="33">      private<span class="op">$</span>check_dir &lt;-<span class="st"> </span>check_dir</a>
+<a class="sourceLine" id="cb5-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb5-35" data-line-number="35">      super<span class="op">$</span><span class="kw">initialize</span>()</a>
+<a class="sourceLine" id="cb5-36" data-line-number="36">    },</a>
+<a class="sourceLine" id="cb5-37" data-line-number="37"></a>
+<a class="sourceLine" id="cb5-38" data-line-number="38">    <span class="dt">run =</span> <span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb5-39" data-line-number="39">      <span class="co"># Don't include vignettes if --no-build-vignettes is included</span></a>
+<a class="sourceLine" id="cb5-40" data-line-number="40">      <span class="cf">if</span> (<span class="st">"--no-build-vignettes"</span> <span class="op">%in%</span><span class="st"> </span>private<span class="op">$</span>args) {</a>
+<a class="sourceLine" id="cb5-41" data-line-number="41">        <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"^vignettes$</span><span class="ch">\n</span><span class="st">"</span>, <span class="dt">file =</span> <span class="st">".Rbuildignore"</span>, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-42" data-line-number="42">      }</a>
+<a class="sourceLine" id="cb5-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb5-44" data-line-number="44">      withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_envvar.html">with_envvar</a></span>(</a>
+<a class="sourceLine" id="cb5-45" data-line-number="45">        <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
+<a class="sourceLine" id="cb5-46" data-line-number="46">          <span class="co"># Avoid large version components</span></a>
+<a class="sourceLine" id="cb5-47" data-line-number="47">          <span class="st">"_R_CHECK_CRAN_INCOMING_"</span> =<span class="st"> "FALSE"</span>,</a>
+<a class="sourceLine" id="cb5-48" data-line-number="48">          <span class="co"># Don't check system clocks (because the API used there is flaky)</span></a>
+<a class="sourceLine" id="cb5-49" data-line-number="49">          <span class="st">"_R_CHECK_SYSTEM_CLOCK_"</span> =<span class="st"> "FALSE"</span>,</a>
+<a class="sourceLine" id="cb5-50" data-line-number="50">          <span class="co"># Don't force suggests</span></a>
+<a class="sourceLine" id="cb5-51" data-line-number="51">          <span class="st">"_R_CHECK_FORCE_SUGGESTS_"</span> =<span class="st"> "FALSE"</span>,</a>
+<a class="sourceLine" id="cb5-52" data-line-number="52">          <span class="co"># Work around missing qpdf executable</span></a>
+<a class="sourceLine" id="cb5-53" data-line-number="53">          <span class="st">"R_QPDF"</span> =<span class="st"> </span><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span>(<span class="st">"qpdf"</span>) <span class="op">==</span><span class="st"> ""</span>) <span class="st">"true"</span></a>
+<a class="sourceLine" id="cb5-54" data-line-number="54">        ),</a>
+<a class="sourceLine" id="cb5-55" data-line-number="55">        res &lt;-<span class="st"> </span>rcmdcheck<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span>(</a>
+<a class="sourceLine" id="cb5-56" data-line-number="56">          <span class="dt">args =</span> private<span class="op">$</span>args, <span class="dt">build_args =</span> private<span class="op">$</span>build_args,</a>
+<a class="sourceLine" id="cb5-57" data-line-number="57">          <span class="dt">error_on =</span> <span class="st">"never"</span>,</a>
+<a class="sourceLine" id="cb5-58" data-line-number="58">          <span class="dt">repos =</span> private<span class="op">$</span>repos,</a>
+<a class="sourceLine" id="cb5-59" data-line-number="59">          <span class="dt">timeout =</span> private<span class="op">$</span>timeout,</a>
+<a class="sourceLine" id="cb5-60" data-line-number="60">          <span class="dt">check_dir =</span> private<span class="op">$</span>check_dir</a>
+<a class="sourceLine" id="cb5-61" data-line-number="61">        )</a>
+<a class="sourceLine" id="cb5-62" data-line-number="62">      )</a>
+<a class="sourceLine" id="cb5-63" data-line-number="63"></a>
+<a class="sourceLine" id="cb5-64" data-line-number="64">      <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(res)</a>
+<a class="sourceLine" id="cb5-65" data-line-number="65">      <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(res<span class="op">$</span>errors) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb5-66" data-line-number="66">        <span class="kw">stopc</span>(<span class="st">"Errors found in rcmdcheck::rcmdcheck()."</span>)</a>
+<a class="sourceLine" id="cb5-67" data-line-number="67">      }</a>
+<a class="sourceLine" id="cb5-68" data-line-number="68">      <span class="cf">if</span> (private<span class="op">$</span>error_on <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"warning"</span>, <span class="st">"note"</span>) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(res<span class="op">$</span>warnings) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb5-69" data-line-number="69">        <span class="kw">stopc</span>(</a>
+<a class="sourceLine" id="cb5-70" data-line-number="70">          <span class="st">"Warnings found in rcmdcheck::rcmdcheck(), "</span>,</a>
+<a class="sourceLine" id="cb5-71" data-line-number="71">          <span class="st">'and `errors_on = "warning"` is set.'</span></a>
+<a class="sourceLine" id="cb5-72" data-line-number="72">        )</a>
+<a class="sourceLine" id="cb5-73" data-line-number="73">      }</a>
+<a class="sourceLine" id="cb5-74" data-line-number="74">      <span class="cf">if</span> (private<span class="op">$</span>error_on <span class="op">==</span><span class="st"> "note"</span> <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(res<span class="op">$</span>notes) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb5-75" data-line-number="75">        <span class="kw">stopc</span>(</a>
+<a class="sourceLine" id="cb5-76" data-line-number="76">          <span class="st">"Notes found in rcmdcheck::rcmdcheck(), "</span>,</a>
+<a class="sourceLine" id="cb5-77" data-line-number="77">          <span class="st">'and `errors_on = "note"` is set.'</span></a>
+<a class="sourceLine" id="cb5-78" data-line-number="78">        )</a>
+<a class="sourceLine" id="cb5-79" data-line-number="79">      }</a>
+<a class="sourceLine" id="cb5-80" data-line-number="80">    },</a>
+<a class="sourceLine" id="cb5-81" data-line-number="81"></a>
+<a class="sourceLine" id="cb5-82" data-line-number="82">    <span class="dt">prepare =</span> <span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb5-83" data-line-number="83">      <span class="kw">verify_install</span>(<span class="st">"rcmdcheck"</span>)</a>
+<a class="sourceLine" id="cb5-84" data-line-number="84">      super<span class="op">$</span><span class="kw">prepare</span>()</a>
+<a class="sourceLine" id="cb5-85" data-line-number="85">    }</a>
+<a class="sourceLine" id="cb5-86" data-line-number="86">  ),</a>
+<a class="sourceLine" id="cb5-87" data-line-number="87"></a>
+<a class="sourceLine" id="cb5-88" data-line-number="88">  <span class="dt">private =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb5-89" data-line-number="89">    <span class="dt">args =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb5-90" data-line-number="90">    <span class="dt">build_args =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb5-91" data-line-number="91">    <span class="dt">error_on =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb5-92" data-line-number="92">    <span class="dt">repos =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb5-93" data-line-number="93">    <span class="dt">timeout =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb5-94" data-line-number="94">    <span class="dt">check_dir =</span> <span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb5-95" data-line-number="95">  )</a>
+<a class="sourceLine" id="cb5-96" data-line-number="96">)</a></code></pre></div>
 <p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” members (e.g. <code>private$args</code>). Next, these private members are used in the <code>run()</code> function which carries out the actual work.</p>
 </div>
   </div>

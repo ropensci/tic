@@ -123,7 +123,7 @@ It is useful for troubleshooting deployment problems." />
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -163,8 +163,8 @@ It is useful for troubleshooting deployment problems.</p>
 
     <pre class="usage"><span class='fu'>step_test_ssh</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"git@github.com"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-v"</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,13 +178,15 @@ URL to establish SSH connection with, by default <code>git@github.com</code></p>
     <tr>
       <th>verbose</th>
       <td><p><code>[string]</code><br />
-Verbosity, by default <code>"-v"</code>. Use <code>"-vvv"</code> for more verbosity.</p></td>
+Verbosity, by default <code>""</code>. Use <code>-v</code> or <code>"-vvv"</code> for more verbosity.</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p><code>[string]</code><br />
-Name of the environment variable and the target file, default:
-<code>"TRAVIS_DEPLOY_KEY"</code>.</p></td>
+      <th>private_key_name</th>
+      <td><p><code>string</code><br />
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
+<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
     </tr>
     </table>
 

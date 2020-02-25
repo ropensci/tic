@@ -60,7 +60,7 @@ ci_has_env(): Checks if an environment or configuration variable is set to
 any value.
 ci_can_push(): Checks if push deployment is possible. Always true
 for local environments, CI environments require an environment
-variable (by default TRAVIS_DEPLOY_KEY).
+variable (by default TIC_DEPLOY_KEY).
 ci_is_interactive(): Returns whether the current build is run interactively
 or not. Global setup operations shouldn't be run on interactive CIs.
 ci_cat_with_color(): Colored output targeted to the CI log.
@@ -69,6 +69,7 @@ style will be applied even if it normally wouldn't be.
 ci_on_travis(): Are we running on Travis CI?
 ci_on_appveyor(): Are we running on Appveyor CI?
 ci_on_circle(): Are we running on Circle CI?
+ci_on_ghactions(): Are we running on GitHub Actions?
 ci(): Return the current CI environment" />
 <meta name="twitter:card" content="summary" />
 
@@ -147,7 +148,7 @@ ci(): Return the current CI environment" />
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -197,7 +198,7 @@ particular value.</p>
 any value.</p>
 <p><code>ci_can_push()</code>: Checks if push deployment is possible. Always true
 for local environments, CI environments require an environment
-variable (by default <code>TRAVIS_DEPLOY_KEY</code>).</p>
+variable (by default <code>TIC_DEPLOY_KEY</code>).</p>
 <p><code>ci_is_interactive()</code>: Returns whether the current build is run interactively
 or not. Global setup operations shouldn't be run on interactive CIs.</p>
 <p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log.
@@ -206,6 +207,7 @@ style will be applied even if it normally wouldn't be.</p>
 <p><code>ci_on_travis()</code>: Are we running on Travis CI?</p>
 <p><code>ci_on_appveyor()</code>: Are we running on Appveyor CI?</p>
 <p><code>ci_on_circle()</code>: Are we running on Circle CI?</p>
+<p><code>ci_on_ghactions()</code>: Are we running on GitHub Actions?</p>
 <p><code>ci()</code>: Return the current CI environment</p>
     </div>
 
@@ -227,7 +229,7 @@ style will be applied even if it normally wouldn't be.</p>
 
 <span class='fu'>ci_has_env</span>(<span class='no'>env</span>)
 
-<span class='fu'>ci_can_push</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>)
+<span class='fu'>ci_can_push</span>(<span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>)
 
 <span class='fu'>ci_is_interactive</span>()
 
@@ -238,6 +240,8 @@ style will be applied even if it normally wouldn't be.</p>
 <span class='fu'>ci_on_appveyor</span>()
 
 <span class='fu'>ci_on_circle</span>()
+
+<span class='fu'>ci_on_ghactions</span>()
 
 <span class='fu'>ci</span>()</pre>
 
@@ -253,9 +257,12 @@ style will be applied even if it normally wouldn't be.</p>
       <td><p>Value for the environment variable to compare against.</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p>Name of the environment variable to check, defaults to
-<code>"TRAVIS_DEPLOY_KEY"</code>.</p></td>
+      <th>private_key_name</th>
+      <td><p><code>string</code><br />
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
+<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
     </tr>
     <tr>
       <th>code</th>

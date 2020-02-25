@@ -5,10 +5,11 @@ articles:
   advanced: advanced.html
   build-lifecycle: build-lifecycle.html
   ci-client-packages: ci-client-packages.html
+  ci-providers: ci-providers.html
   custom-steps: custom-steps.html
   deployment: deployment.html
+  faq: faq.html
   features: features.html
-  org-vs-com: org-vs-com.html
   tic: tic.html
   troubleshooting: troubleshooting.html
 urls:

@@ -46,8 +46,9 @@
 to a file in ~/.ssh.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-The travis::use_travis_deploy() and use_tic() functions encode a private
-key as an environment variable for use with this function." />
+travis::use_travis_deploy() , use_ghactions_deploy() and use_tic()
+functions encode a private key as an environment variable for use with this
+function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,7 +126,7 @@ key as an environment variable for use with this function." />
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -161,26 +162,29 @@ key as an environment variable for use with this function." />
 to a file in <code>~/.ssh</code>.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-The <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private
-key as an environment variable for use with this function.</p>
+<code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> , <code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code>
+functions encode a private key as an environment variable for use with this
+function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"TRAVIS_DEPLOY_KEY"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p><code>[string]</code><br />
-Name of the environment variable and the target file, default:
-<code>"TRAVIS_DEPLOY_KEY"</code>.</p></td>
+      <th>private_key_name</th>
+      <td><p><code>string</code><br />
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
+<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code></p>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code>, <code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code></p>
 <p>Other steps: 
 <code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
 <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,

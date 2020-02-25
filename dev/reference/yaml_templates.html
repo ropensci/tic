@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predefined stages — stages • tic</title>
+<title>Use CI YAML templates — yaml_templates • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,10 +41,8 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Predefined stages — stages" />
-<meta property="og:description" content="Stages available in both Travis CI and AppVeyor, for which shortcuts
-have been defined. All these functions call run_stage() with the
-corresponding stage name." />
+<meta property="og:title" content="Use CI YAML templates — yaml_templates" />
+<meta property="og:description" content="Installs YAML templates for various CI providers." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -148,49 +146,94 @@ corresponding stage name." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predefined stages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/run.R'><code>R/run.R</code></a></small>
-    <div class="hidden name"><code>stages.Rd</code></div>
+    <h1>Use CI YAML templates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/use-yaml.R'><code>R/use-yaml.R</code></a></small>
+    <div class="hidden name"><code>yaml_templates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Stages available in both Travis CI and AppVeyor, for which shortcuts
-have been defined. All these functions call <code><a href='run_stage.html'>run_stage()</a></code> with the
-corresponding stage name.</p>
+    <p>Installs YAML templates for various CI providers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>before_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
+    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='no'>type</span>)
 
-<span class='fu'>install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
+<span class='fu'>use_appveyor_yml</span>(<span class='no'>type</span>)
 
-<span class='fu'>after_install</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
+<span class='fu'>use_circle_yml</span>(<span class='no'>type</span>)
 
-<span class='fu'>before_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>after_success</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>after_failure</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>before_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>after_deploy</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())
-
-<span class='fu'>after_script</span>(<span class='kw'>stages</span> <span class='kw'>=</span> <span class='fu'><a href='dsl_get.html'>dsl_load</a></span>())</pre>
+<span class='fu'>use_ghactions_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>stages</th>
-      <td><p><code>[named list]</code>
-A named list of <code>TicStage</code> objects as returned by <code><a href='dsl_get.html'>dsl_load()</a></code>,
-by default loaded from <code>tic.R</code>.</p></td>
+      <th>type</th>
+      <td><p><code>[character]</code><br />
+Which template to use. The string should be given following the logic
+<code>&lt;platform&gt;-&lt;action&gt;</code>. See details for more.</p></td>
+    </tr>
+    <tr>
+      <th>deploy</th>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code><br />
+Whether to use YAML templates for deployment.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="pkgdown"><a class="anchor" href="#pkgdown"></a>pkgdown</h2>
+
+    
+
+<p>If a setting including "deploy" is selected, tic by default also adds
+the environment var <code>BUILD_PKGDOWN=true</code>. This setting triggers a call
+to <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>pkgdown::build_site()</a></code> via the <code>do_pkgdown</code> macro in <code>tic.R</code>.</p>
+<p>If a setting  includes "matrix" and builds on multiple R versions, the job
+building on R release is chosen to build the pkgdown site.</p>
+    <h2 class="hasAnchor" id="type"><a class="anchor" href="#type"></a>Type</h2>
+
+    
+
+<p><code>tic</code> supports a variety of different YAML templates which follow the
+<code>&lt;platform&gt;-&lt;action&gt;</code> pattern. The first one is mandatory, the
+others are optional.</p><ul>
+<li><p>Possible values for <code>&lt;provider&gt;</code> are <code>travis</code>, and <code>circle</code></p></li>
+<li><p>Possible values for <code>&lt;platform&gt;</code> are <code>linux</code>, and <code>macos</code>, <code>windows</code>.</p></li>
+<li><p>Possible values for <code>&lt;action&gt;</code> are <code>matrix</code> and <code>deploy</code>.</p></li>
+</ul>
+
+<p>Not every combinations is supported on all CI systems.
+For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and <code>windows-matrix</code>
+are valid.</p>
+<p><strong>GitHub Actions</strong> is special in the sense that it support all operating
+systems. Therefore, only the deploy/non/deploy switch is available and it
+does not follow the scheme described above.</p>
+<p>Here is a list of all available combinations:</p><table class='table'>
+<tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>Travis</td><td>Linux</td><td>no</td><td>no</td><td><code>use_travis_yml("linux")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
+<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("macos")</code></td></tr>
+<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("macos-deploy")</code></td></tr>
+<tr><td></td><td>macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("macos-matrix")</code></td></tr>
+<tr><td></td><td>macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("macos-deploy-matrix")</code></td></tr>
+<tr><td></td><td>Linux + macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("linux-macos")</code></td></tr>
+<tr><td></td><td>Linux + macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-macos-deploy")</code></td></tr>
+<tr><td></td><td>Linux + macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-macos-matrix")</code></td></tr>
+<tr><td></td><td>Linux + macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-macos-deploy-matrix")</code></td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>Circle</td><td>Linux</td><td>no</td><td>no</td><td><code>use_circle_yml("linux")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
+<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_travis_yml("windows-matrix")</code></td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>GH Actions</td><td>All</td><td>no</td><td>yes</td><td><code>use_ghactions_yml()</code></td></tr>
+<tr><td></td><td>All</td><td>no</td><td>yes</td><td><code>use_ghactions_yml(deploy = TRUE)</code></td></tr>
+</table>
+
 
 
   </div>
@@ -198,6 +241,8 @@ by default loaded from <code>tic.R</code>.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#pkgdown">pkgdown</a></li>
+      <li><a href="#type">Type</a></li>
     </ul>
 
   </div>
