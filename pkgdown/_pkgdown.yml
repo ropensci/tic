@@ -64,6 +64,8 @@ navbar:
       href: articles/build-lifecycle.html
     - text: CI Client Packages
       href: articles/ci-client-packages.html
+    - text: CI Providers
+      href: articles/ci-providers.html
     - text: Advanced Usage
       href: articles/advanced.html
     - text: Deployment

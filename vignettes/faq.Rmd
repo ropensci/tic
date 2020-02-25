@@ -73,6 +73,28 @@ When dealing with Travis CI (or the [{travis}](https://github.com/ropenscilabs/t
 - If you start a new project, we recommend to enable the repo on https://travis-ci.com. 
   If you are using the {travis] package, the default endpoint is set to `".com"` so that all function call will try to interact with repositories on https://travis-ci.com.
   This can be changed via env var `R_TRAVIS`.
+  
+## Appveyor CI
+
+#### Q-Appveyor-1
+
+## Appveyor
+
+I am facing the following build error:
+
+```{r eval=FALSE}
+Error in eval(expr, envir = list(`?` = function(...) stop()), enclos = envir) : 
+  object 'name' not found
+Calls: <Anonymous> ... .transformer -> glue -> glue_data -> <Anonymous> -> .transformer
+Execution halted
+Command exited with code 1
+```
+
+**Answer**
+
+Do you have a private SSH key stored as a secure environment variable in the in `appveyor.yml`?
+If yes, it could be that you encrypted while being logged in to a different account than the one the repo is running under in reality.
+This means if you have access to multiple organizations and your private account on Appveyor, you need to encrypt the environment variable using the account in which repo lives.
 
 ## Other
 
