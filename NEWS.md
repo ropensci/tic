@@ -1,3 +1,23 @@
+# tic 0.5.0
+
+## Enhancements
+
+- New function `tic::use_ghactions_deploy()` (status "experimental") to set up a SSH key for deployment.
+- New function `use_ghactions_yml()` with `deploy = TRUE/FALSE` (FALSE by default).
+- New Vignette "FAQ".
+- Added GH Actions support to `use_tic()`
+- new macro `do_readme_rmd()` (#223)
+- new function `list_macros()`
+
+## Maintenance
+
+- Change for the default of the private SSH deploy key name from `TRAVIS_DEPLOY_KEY` to `TIC_DEPLOY_KEY` to have a generic name.
+- Change argument `travis_private_key_name` to `private_key_name`
+- Renamed `yaml-templates.R` to `yaml_templates.R` because the former caused troubles when previewing the dev version of the docs.
+- Beautified the CLI output of `use_tic()`
+- Replaced all instances of `_tic_` in the docs by `{tic}`
+
+
 # tic 0.4.0.9000
 
 * add macro `do_readme_rmd()` (#223)
