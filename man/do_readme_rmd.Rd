@@ -8,7 +8,7 @@ do_readme_rmd(
   checkout = TRUE,
   remote_url = NULL,
   commit_message = NULL,
-  private_key_name = "id_rsa"
+  private_key_name = "TIC_DEPLOY_KEY"
 )
 }
 \arguments{
@@ -26,7 +26,10 @@ Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
 
 \item{private_key_name}{\code{string}\cr
-The name of the private SSH key which should be used for deployment.}
+Only needed when deploying from builds on Travis CI or GitHub Actions.
+If you have set a custom name for the private key during creation of the
+SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
+\code{\link[tic:use_ghactions_deploy]{tic::use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
 }
 \description{
 \lifecycle{experimental}
