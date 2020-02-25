@@ -10,5 +10,7 @@
       CCACHE_SLOPPINESS: include_file_ctime
       # make sure to run `tic::use_ghactions_deploy()` to set up deployment
       TIC_DEPLOY_KEY: ${{ secrets.TIC_DEPLOY_KEY }}
+      # codecov API KEY to upload covr results. Query repo-specific token via https://codecov.io/gh/<owner>/<repo>/settings
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       # prevent rgl issues because no X11 display is available
       RGL_USE_NULL: true
