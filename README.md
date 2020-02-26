@@ -29,7 +29,7 @@ The most important improvements over existing solutions are:
 
 1. Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.
 
-1. Support for R packages and other kinds of project (bookdown, blogdown, etc.), with predefined templates. 
+1. Support for R packages and other kinds of projects (bookdown, blogdown, etc.), with predefined templates. 
    Set up your project to deploy rendered versions of your book or blog with a single push to Git.
 
 1. Workflow specification in a single `.R` file, regardless of CI system used.  
