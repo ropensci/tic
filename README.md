@@ -97,9 +97,13 @@ While {tic} will prevent you from dealing/learning every CIs YAML syntax, you wi
 Also, there is no way around familiarizing yourself with the basics of CI systems in general. 
 Without this knowledge, you will also have a hard way understanding {tic}. 
 
-There is not yet an automated way of updating the templates installed by {tic}, hence you need to manually check every once in a while if we made some changes to the templates.
-
 We also recommend to take a look at the projects providing the direct R support for each CI system (which {tic} builds upon) to gain a deeper understanding of the whole concept.
+
+## Updating
+
+There is not yet an automated way of updating the templates installed by {tic}, hence you need to manually check every once in a while if changes were made to the templates.
+Have a look at the [changelog](https://docs.ropensci.org/tic/news/index.html) for possible changes to YAML templates or watch the commit history of the CI templates you are using.
+An update mechanism is on our list (see [issue #194](https://github.com/ropensci/tic/issues/194)) but it may take some time.
 
 ## Examples
 
