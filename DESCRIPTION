@@ -133,6 +133,7 @@ Collate:
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
+    'use-badge.R'
     'use-yaml.R'
     'use_tic.R'
     'utils.R'

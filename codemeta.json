@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/tic",
   "issueTracker": "https://github.com/ropensci/tic/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.4.0",
+  "version": "0.4.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.6.3 RC (2020-02-21 r77853)",
   "author": [
     {
       "@type": "Person",
@@ -487,5 +487,5 @@
     "r-package",
     "rstats"
   ],
-  "fileSize": "362.139KB"
+  "fileSize": "363.694KB"
 }
