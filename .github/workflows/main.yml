@@ -22,7 +22,7 @@ jobs:
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release" }
           - { os: macOS-latest, r: "devel" }
-          - { os: ubuntu-18.04, r: "release" }
+          - { os: ubuntu-latest, r: "release" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -36,6 +36,8 @@ jobs:
       CCACHE_SLOPPINESS: include_file_ctime
       # make sure to run `tic::use_ghactions_deploy()` to set up deployment
       TIC_DEPLOY_KEY: ${{ secrets.TIC_DEPLOY_KEY }}
+      # codecov API KEY to upload covr results. Query repo-specific token via https://codecov.io/gh/<owner>/<repo>/settings
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       # prevent rgl issues because no X11 display is available
       RGL_USE_NULL: true
 
@@ -71,6 +73,7 @@ jobs:
         run: echo "::set-output name=datew::$(date '+%Y-%V')"
 
       - name: "[Cache] Cache R packages"
+        if: runner.os != 'Windows'
         uses: actions/cache@v1.1.0
         with:
           path: ${{ env.R_LIBS_USER }}
@@ -78,6 +81,7 @@ jobs:
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
       - name: "[Cache] Cache ccache"
+        if: runner.os != 'Windows'
         uses: actions/cache@v1.1.0
         with:
           path: ${{ env.CCACHE_DIR}}
@@ -117,7 +121,7 @@ jobs:
       - name: "[Stage] Prepare"
         run: |
           Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
-          Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl')"
+          Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
