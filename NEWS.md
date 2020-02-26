@@ -1,3 +1,8 @@
+# tic 0.5.0.9001
+
+* Add `use_tic_badge()`: Creation of pretty CI status badges
+
+
 # tic 0.5.0.9000
 
 - Same as previous version.
