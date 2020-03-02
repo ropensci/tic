@@ -22,12 +22,10 @@ GHActionsCI <- R6Class( # nolint
       Sys.getenv("GITHUB_REPOSITORY")
     },
     get_build_number = function() {
-      # FIXME: Don't know how to get the build number in the url
-      return("")
+      Sys.getenv("GITHUB_RUN_ID")
     },
     get_build_url = function() {
-      # FIXME: Needs build number
-      return("")
+      paste0("https://github.com/", self$get_slug(), "/runs/", self$get_build_number())
     },
     get_commit = function() {
       Sys.getenv("GITHUB_SHA")
