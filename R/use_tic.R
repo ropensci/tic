@@ -407,7 +407,7 @@ ci_menu <- function(choices, title) {
 #' use_tic_r("package", deploy_on = "ghactions")
 #' use_tic_r("blogdown", deploy_on = "all")
 #' }
-use_tic_r <- function(repo_type, deploy_on = NULL) {
+use_tic_r <- function(repo_type, deploy_on = "none") {
   cli_par()
   cli_end()
   cli_h2("tic.R")
