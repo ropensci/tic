@@ -22,12 +22,10 @@ GHActionsCI <- R6Class( # nolint
       Sys.getenv("GITHUB_REPOSITORY")
     },
     get_build_number = function() {
-      # FIXME: Don't know how to get the build number in the url
-      return("")
+      Sys.getenv("GITHUB_RUN_ID")
     },
     get_build_url = function() {
-      # FIXME: Needs build number
-      return("")
+      paste0("https://github.com/", self$get_slug(), "/runs/", self$get_build_number())
     },
     get_commit = function() {
       Sys.getenv("GITHUB_SHA")
@@ -135,7 +133,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     cli::cli_alert("Deploy keys for GitHub Actions already present.
                    No action required.", wrap = TRUE)
     return(invisible("Deploy keys already present."))
-  } else if (private_key_exists | public_key_exists ||
+  } else if (private_key_exists || public_key_exists ||
     !private_key_exists && !public_key_exists) {
     cli::cli_alert("At least one key part is missing (private or public).
                     Deleting old keys and adding new GitHub Actions deploy keys
