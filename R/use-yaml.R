@@ -280,15 +280,15 @@ use_ghactions_yml <- function(type = "all", deploy = FALSE) {
   # -> need to ignore it for R CMD check
   usethis::use_build_ignore(c(".ccache", ".github", "clang-.*"))
 
-  if (type == "linux" | type == "macOS" | type == "linux-macos" |
-    type == "linux-macos-windows" | type == "all") {
+  if (type == "linux" || type == "macOS" || type == "linux-macos" |
+    type == "linux-macos-windows" || type == "all") {
     meta <- readLines(system.file("templates/ghactions-meta.yml", package = "tic"))
     env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
     core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
     template <- c(meta, env, core)
-  } else if (type == "linux-deploy" | type == "macOS-deploy" |
-    type == "linux-macos-deploy" |
-    type == "linux-macos-windows-deploy" |
+  } else if (type == "linux-deploy" || type == "macOS-deploy" |
+    type == "linux-macos-deploy" ||
+    type == "linux-macos-windows-deploy" ||
     type == "all-deploy") {
     meta <- readLines(system.file("templates/ghactions-meta.yml", package = "tic"))
     env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))

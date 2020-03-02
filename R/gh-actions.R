@@ -135,7 +135,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     cli::cli_alert("Deploy keys for GitHub Actions already present.
                    No action required.", wrap = TRUE)
     return(invisible("Deploy keys already present."))
-  } else if (private_key_exists | public_key_exists ||
+  } else if (private_key_exists || public_key_exists ||
     !private_key_exists && !public_key_exists) {
     cli::cli_alert("At least one key part is missing (private or public).
                     Deleting old keys and adding new GitHub Actions deploy keys

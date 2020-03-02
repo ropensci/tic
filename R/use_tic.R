@@ -291,7 +291,7 @@ use_tic <- function(wizard = interactive(),
 
   cli_h2("GitHub Actions")
 
-  if (ghactions_in(windows) | ghactions_in(linux) | ghactions_in(mac)) {
+  if (ghactions_in(windows) || ghactions_in(linux) || ghactions_in(mac)) {
     if (ghactions_in(deploy)) {
       use_ghactions_yml("all-deploy")
     } else {
