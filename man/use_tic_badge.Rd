@@ -27,12 +27,12 @@ A custom label can be provided via argument \code{label}.
 }
 \examples{
 \dontrun{
- use_tic_badge(provider = "ghactions")
+use_tic_badge(provider = "ghactions")
 
- # no logo, only label
- use_tic_badge(provider = "ghactions", logo = FALSE)
+# no logo, only label
+use_tic_badge(provider = "ghactions", logo = FALSE)
 
- # no label, only logo
- use_tic_badge(provider = "ghactions", label = NULL)
+# no label, only logo
+use_tic_badge(provider = "ghactions", label = NULL)
 }
 }

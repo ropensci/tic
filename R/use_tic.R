@@ -383,6 +383,24 @@ ci_menu <- function(choices, title) {
   choices[reply]
 }
 
+#' Add a tic.R file to the repo
+#'
+#' @description
+#' Adds a `tic.R` file to containing the macros/steps/stages to be run during
+#' CI runs.
+#'
+#' The content depends on the repo type (detected automatically when used within
+#' [use_tic()]).
+#'
+#' @param repo_type (`character(1)`\cr
+#'   Which type of template should be used. Possible values are `"package"`,
+#'   `"site"`, `"blogdown"`, `"bookdown"` or `"unknown"`.
+#' @seealso [yaml_templates], [use_tic_badge()]
+#' @export
+#' @examples
+#' \dontrun{
+#'   use_tic_r("package")
+#' }
 use_tic_r <- function(repo_type) {
   cli_par()
   cli_end()
