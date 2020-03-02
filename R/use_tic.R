@@ -16,7 +16,7 @@
 #' @param wizard `[flag]`\cr Interactive operation? If `TRUE`, a menu will be
 #'   shown.
 #' @param linux `[string]`\cr Which CI provider(s) to use to test on Linux.
-#'   Possible options are `"travis"`, `"circle"`, `"ghactions"` `"none"` and
+#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"` and
 #'   `"all"`.
 #' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
 #'   Possible options are `"none"`, `"appveyor"` and `"ghactions"`.
@@ -26,7 +26,7 @@
 #'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
 #'   `"ghactions"`, `"none"` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
-#'   Possible options are `"travis"`, `"circle"`, `"none"` and `"all"`.
+#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"` and `"all"`.
 #' @template private_key_name
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See

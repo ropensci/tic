@@ -21,7 +21,7 @@ use_tic(
 shown.}
 
 \item{linux}{\verb{[string]}\cr Which CI provider(s) to use to test on Linux.
-Possible options are \code{"travis"}, \code{"circle"}, \code{"ghactions"} \code{"none"} and
+Possible options are \code{"travis"}, \code{"circle"}, \code{"ghactions"}, \code{"none"} and
 \code{"all"}.}
 
 \item{mac}{\verb{[string]}\cr Which CI provider(s) to use to test on macOS
@@ -35,7 +35,7 @@ such as pkgdown documentation. Possible options are \code{"travis"}, \code{"circ
 \code{"ghactions"}, \code{"none"} and \code{"all"}.}
 
 \item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up matrix builds.
-Possible options are \code{"travis"}, \code{"circle"}, \code{"none"} and \code{"all"}.}
+Possible options are \code{"travis"}, \code{"circle"}, \code{"ghactions"}, \code{"none"} and \code{"all"}.}
 
 \item{private_key_name}{\code{string}\cr
 Only needed when deploying from builds on Travis CI or GitHub Actions.
