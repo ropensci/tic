@@ -307,7 +307,7 @@ use_tic <- function(wizard = interactive(),
 
   rule(left = "tic")
 
-  use_tic_r(repo_type = detect_repo_type(), deploy_on = )
+  use_tic_r(repo_type = detect_repo_type(), deploy_on = deploy)
 
   rule("Finished")
   cat_bullet(
