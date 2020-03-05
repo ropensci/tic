@@ -278,7 +278,8 @@ use_ghactions_yml <- function(type = "all", deploy = FALSE) {
 
   # .ccache dir lives in the package root because we cannot write elsewhere
   # -> need to ignore it for R CMD check
-  usethis::use_build_ignore(c(".ccache", ".github", "clang-.*"))
+  usethis::use_build_ignore(c(".ccache", ".github"))
+  usethis::use_build_ignore("^clang-.*", escape = FALSE)
 
   if (type == "linux" || type == "macOS" || type == "linux-macos" |
     type == "linux-macos-windows" || type == "all") {
