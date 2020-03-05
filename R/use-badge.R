@@ -42,6 +42,8 @@ use_tic_badge <- function(provider,
 
     if (!is.null(label)) {
       label_badge <- paste0("label=", label)
+      # whitespaces do not render in README.md files
+      label_badge = gsub(" ", "%20", label_badge)
     } else {
       label_badge <- NULL
     }
