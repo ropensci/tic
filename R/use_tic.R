@@ -307,7 +307,7 @@ use_tic <- function(wizard = interactive(),
 
   rule(left = "tic")
 
-  use_tic_r(repo_type = detect_repo_type())
+  use_tic_r(repo_type = detect_repo_type(), deploy_on = )
 
   rule("Finished")
   cat_bullet(
@@ -392,20 +392,56 @@ ci_menu <- function(choices, title) {
 #' The content depends on the repo type (detected automatically when used within
 #' [use_tic()]).
 #'
-#' @param repo_type (`character(1)`\cr
+#' @param repo_type (`character(1)`)\cr
 #'   Which type of template should be used. Possible values are `"package"`,
 #'   `"site"`, `"blogdown"`, `"bookdown"` or `"unknown"`.
+#' @param deploy_on (`character(1)`)\cr
+#'   Which CI provider should perform deployment? Defaults to `NULL` which means
+#'   no deployment will be done. Possible values are `"ghactions"`, `"travis"`,
+#'   or `"circle"`.
 #' @seealso [yaml_templates], [use_tic_badge()]
 #' @export
 #' @examples
 #' \dontrun{
-#'   use_tic_r("package")
+#' use_tic_r("package")
+#' use_tic_r("package", deploy_on = "ghactions")
+#' use_tic_r("blogdown", deploy_on = "all")
 #' }
-use_tic_r <- function(repo_type) {
+use_tic_r <- function(repo_type, deploy_on = "none") {
   cli_par()
   cli_end()
   cli_h2("tic.R")
-  use_tic_template(file.path(repo_type, "tic.R"), "tic.R")
+
+  if (repo_type == "unknown") {
+    use_tic_template(file.path(
+      repo_type,
+      "tic.R"
+    ), "tic.R")
+  } else {
+    switch(deploy_on,
+      "ghactions" = use_tic_template(file.path(
+        repo_type,
+        paste0(deploy_on, "-tic.R")
+      ), "tic.R"),
+      "travis" = use_tic_template(file.path(
+        repo_type,
+        paste0(deploy_on, "-tic.R")
+      ), "tic.R"),
+      "circle" = use_tic_template(file.path(
+        repo_type,
+        paste0(deploy_on, "-tic.R")
+      ), "tic.R"),
+      "all" = use_tic_template(file.path(
+        repo_type,
+        paste0(deploy_on, "-tic.R")
+      ), "tic.R"),
+      "none" = use_tic_template(file.path(
+        repo_type,
+        paste0(deploy_on, "-tic.R")
+      ), "tic.R")
+    )
+  }
+
 }
 
 # This code can only run interactively
