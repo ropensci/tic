@@ -1,3 +1,11 @@
+# tic 0.5.0.9002
+
+- Github Actions: {covr} now supports automatic upload of codecov results via their own CODECOV_TOKEN
+* `use_tic_r()`: Add support for conditional tic.R templates via argument `deploy_on`.
+- export `use_tic_r()` so that a manual workflow is possible (besides `use_tic()`)
+- GitHub Actions: use actions "pat-s/always-upload-cache" instead of "actions/cache"
+
+
 # tic 0.5.0.9001
 
 * Add `use_tic_badge()`: Creation of pretty CI status badges
