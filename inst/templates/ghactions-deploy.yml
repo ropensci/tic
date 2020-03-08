@@ -1,13 +1,13 @@
       - name: "[Stage] Before Deploy"
-        if: runner.os != 'Windows'
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
         run: |
           Rscript -e "tic::before_deploy()"
 
       - name: "[Stage] Deploy"
-        if: runner.os != 'Windows'
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
         run: Rscript -e "tic::deploy()"
 
       - name: "[Stage] After Deploy"
-        if: runner.os != 'Windows'
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
         run: Rscript -e "tic::after_deploy()"
 
