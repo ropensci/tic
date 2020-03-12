@@ -70,8 +70,20 @@ If Java support is required, add the following for macOS runners:
 ```
 
 For Linux, add `sudo R CMD javareconf` to stage "[Linux] Prepare".
+We currently do not support Java on Windows.
 
-Currently we do not yet support Java on Windows.
+### Spatial libraries (gdal, proj, geos)
+
+For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:
+
+```yaml
+brew install gdal
+brew unlink proj
+brew install osgeo-proj@5
+brew link --force osgeo-proj@5
+```
+
+On Linux, add `libgdal-dev libproj-dev libgeos-dev` to the `apt install` call in the "[Linux] Prepare" stage.
 
 ### Known issues
 
