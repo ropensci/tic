@@ -46,17 +46,6 @@ However, the default `clang` of macOS does not come with openMP support.
 Therefore, the R macOS core devs and CRAN currently use a [custom openMP-enabled](https://cran.r-project.org/bin/macosx/tools/) (old) version of `clang` to build the CRAN package binaries.
 In {tic} we reflect this by installing `clang7` and `clang8` for the respective R version during build initialization in the "ccache" stages.
 
-### codecov / covr
-
-Unlike Travis CI, Appveyor CI and Circle CI, uploads of code coverage to [codecov.io](https://codecov.io) on GitHub Actions need a "Repository upload token" to upload the coverage results.
-{tic} already sets the stage by setting an env var `CODECOV_TOKEN` in the builds from a potential "secret" stored in the repo.
-This env var will be picked up behind the scenes by {covr} when running `covr::codecov()`.
-The mentioned "secret" however has to be set by the user.
-Currently there is no other way than doing this via the web interface.
-
-Go to `<https://codecov.io/gh/<owner>/<repo>/settings>` and store the "Repository upload token" as a "secret" in the repository.
-Unfortunately this needs to be done on a per-repo basis.
-
 ### rJava
 
 If Java support is required, add the following for macOS runners:
@@ -87,12 +76,7 @@ On Linux, add `libgdal-dev libproj-dev libgeos-dev` to the `apt install` call in
 
 ### Known issues
 
-- [macOS] Installation of {rJava} fails because the default JDK is zulu-13 and not openjdk@11.
-  Reconfiguring via `sudo R CMD javareconf` does not help.
-
 - [Windows] Installing {tinytex} for LaTeX availability does not complete
-
-- [All] Deployment from builds
 
 ## Circle CI
 
