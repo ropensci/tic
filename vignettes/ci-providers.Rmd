@@ -57,6 +57,22 @@ Currently there is no other way than doing this via the web interface.
 Go to `<https://codecov.io/gh/<owner>/<repo>/settings>` and store the "Repository upload token" as a "secret" in the repository.
 Unfortunately this needs to be done on a per-repo basis.
 
+### rJava
+
+If Java support is required, add the following for macOS runners:
+
+```yaml
+      - name: "[macOS] rJava"
+        if: runner.os == 'macOS'
+        run: |
+          R CMD javareconf
+          Rscript -e "install.packages('rJava', type = 'source')"
+```
+
+For Linux, add `sudo R CMD javareconf` to stage "[Linux] Prepare".
+
+Currently we do not yet support Java on Windows.
+
 ### Known issues
 
 - [macOS] Installation of {rJava} fails because the default JDK is zulu-13 and not openjdk@11.
