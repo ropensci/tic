@@ -75,17 +75,20 @@ If you already use {tic} and want to configure a new CI provider, do
 ## Travis CI
 travis::use_travis_deploy() # (optional for deployment)
 tic::use_travis_yml(<option here>)
+tic::use_tic_r("package", deploy_on = "travis")
 
 ## Circle CI
 circle::use_circle_deploy() # (optional for deployment)
 tic::use_circle_yml(<option here>)
+tic::use_tic_r("package", deploy_on = "circle")
 
 ## Appveyor
 tic::use_appveyor_yml(<option here>)
 
 ## Github Actions
-tic::use_ghactions_deploy()
+tic::use_ghactions_deploy(deploy = TRUE)
 tic::use_ghactions_yml(deploy = TRUE)
+tic::use_tic_r("package", deploy_on = "ghactions")
 tic::use_tic_badge("ghactions")
 ```
 
