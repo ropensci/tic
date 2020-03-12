@@ -38,7 +38,7 @@ do_package_checks <- function(...,
                               repos = repo_default(),
                               timeout = Inf,
                               type = getOption("pkgType"),
-                              check_dir = NULL) {
+                              check_dir = "check") {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.

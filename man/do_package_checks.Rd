@@ -15,7 +15,7 @@ do_package_checks(
   repos = repo_default(),
   timeout = Inf,
   type = getOption("pkgType"),
-  check_dir = NULL
+  check_dir = "check"
 )
 }
 \arguments{
@@ -63,7 +63,7 @@ installation from source on Windows and macOS by passing
 \code{\link{.Platform}$pkgType}.}
 
 \item{check_dir}{\verb{[character]} \cr Path specifying the directory for R CMD
-check. Defaults to project root for easy upload of artifacts.}
+check. Defaults to \code{"check"} for easy upload of artifacts.}
 }
 \description{
 \code{do_package_checks()} adds default steps related to package checks

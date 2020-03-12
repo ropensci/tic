@@ -123,7 +123,7 @@ RCMDcheck <- R6Class( # nolint
 #'   Passed to `rcmdcheck::rcmdcheck()`, default:
 #'   `Inf`.
 #' @param check_dir `[character]` \cr Path specifying the directory for R CMD
-#'   check. Defaults to project root for easy upload of artifacts.
+#'   check. Defaults to `"check"` for easy upload of artifacts.
 #' @export
 #' @examples
 #' dsl_init()
@@ -136,7 +136,7 @@ step_rcmdcheck <- function(...,
                            warnings_are_errors = NULL, notes_are_errors = NULL,
                            args = NULL, build_args = NULL, error_on = "warning",
                            repos = repo_default(), timeout = Inf,
-                           check_dir = NULL) {
+                           check_dir = "check") {
 
   #' @param build_args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
