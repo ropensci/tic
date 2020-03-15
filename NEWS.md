@@ -1,7 +1,21 @@
+# tic 0.5.0.9003
+
+- Files specified for deployment via `step_push_deploy(commit_paths = )` are now force added to the index by `git`. 
+  This enables to add directories like `docs/` (e.g. created by a local pkgdown build) to `.gitignore` and still deploy it during CI (#237).
+- `step_rcmdcheck()`: Test in dir "check" to simplify upload of artifacts
+  
+## Github Actions
+
+- Set cron job to 4am to avoid potential download issues with R-devel on macOS
+- Github Actions: Use actions/checkout v2
+- Github Actions: Only deploy on R-release on macOS by default. 
+  This avoids git race conditions between runners.
+
+
 # tic 0.5.0.9002
 
 - Github Actions: {covr} now supports automatic upload of codecov results via their own CODECOV_TOKEN
-* `use_tic_r()`: Add support for conditional tic.R templates via argument `deploy_on`.
+- `use_tic_r()`: Add support for conditional tic.R templates via argument `deploy_on`.
 - export `use_tic_r()` so that a manual workflow is possible (besides `use_tic()`)
 - GitHub Actions: use actions "pat-s/always-upload-cache" instead of "actions/cache"
 
