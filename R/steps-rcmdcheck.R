@@ -133,9 +133,13 @@ RCMDcheck <- R6Class( # nolint
 #'
 #' dsl_get()
 step_rcmdcheck <- function(...,
-                           warnings_are_errors = NULL, notes_are_errors = NULL,
-                           args = NULL, build_args = NULL, error_on = "warning",
-                           repos = repo_default(), timeout = Inf,
+                           warnings_are_errors = NULL,
+                           notes_are_errors = NULL,
+                           args = NULL,
+                           build_args = NULL,
+                           error_on = "warning",
+                           repos = repo_default(),
+                           timeout = Inf,
                            check_dir = "check") {
 
   #' @param build_args `[character]`\cr
@@ -152,19 +156,34 @@ step_rcmdcheck <- function(...,
 
   #' @param args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
-  #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.\cr
-  #'   Default for Appveyor and GH Actions (Windows):
+  #'
+  #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.
+  #'
+  #'   Default for Appveyor and GitHub Actions (Windows):
   #'   `c("--no-manual", "--as-cran", "--no-vignettes",
-  #'   "--no-build-vignettes", "--no-multiarch")`.\cr
+  #'   "--no-build-vignettes", "--no-multiarch")`.
+  #'
+  #'   On GitHub Actions option "--no-manual" is always used (appended to custom
+  #'   user inpust) because LaTeX is not available and installation is time
+  #'   consuming and error prone.\cr
   if (is.null(args)) {
     if (isTRUE(ci_on_appveyor()) ||
-      isTRUE((ci_on_ghactions() && Sys.info()[["sysname"]] == "Windows"))) {
+      isTRUE((ci_on_ghactions() &&
+        Sys.info()[["sysname"]] == "Windows"))) {
       args <- c(
         "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"
       )
     } else {
       args <- c("--no-manual", "--as-cran")
+    }
+  } else {
+    if (isTRUE((ci_on_ghactions() &&
+      Sys.info()[["sysname"]] == "Windows"))) {
+      args <- append(args, "--no-manual")
+      cli_alert_info("{.fun step_rcmdcheck}: {.pkg tic} always uses option
+                     '--no-manual' during R CMD Check on Windows because LaTeX
+                     is not available.", wrap = TRUE)
     }
   }
 

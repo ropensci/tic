@@ -17,6 +17,7 @@ Override this class to create a new step.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a \code{TicStep} object.
 \subsection{Usage}{
@@ -26,6 +27,7 @@ Create a \code{TicStep} object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-run"></a>}}
+\if{latex}{\out{\hypertarget{method-run}{}}}
 \subsection{Method \code{run()}}{
 This method must be overridden, it is called when running the stage
 to which a step has been added.
@@ -36,6 +38,7 @@ to which a step has been added.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-prepare"></a>}}
+\if{latex}{\out{\hypertarget{method-prepare}{}}}
 \subsection{Method \code{prepare()}}{
 This is just a placeholder.
 This method is called when preparing the stage to
@@ -55,6 +58,7 @@ non-standard repositories, e.g. from GitHub.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check"></a>}}
+\if{latex}{\out{\hypertarget{method-check}{}}}
 \subsection{Method \code{check()}}{
 This method determines if a step is prepared and run.
 Return \code{FALSE} if conditions for running this step are not met.

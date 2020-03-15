@@ -33,9 +33,15 @@ Deprecated, use \code{error_on}.}
 
 \item{args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
-Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.\cr
-Default for Appveyor and GH Actions (Windows):
-\code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.\cr}
+
+Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.
+
+Default for Appveyor and GitHub Actions (Windows):
+\code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.
+
+On GitHub Actions option "--no-manual" is always used (appended to custom
+user inpust) because LaTeX is not available and installation is time
+consuming and error prone.\cr}
 
 \item{build_args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
