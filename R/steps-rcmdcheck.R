@@ -176,13 +176,13 @@ step_rcmdcheck <- function(...,
       )
     } else {
       if (isTRUE((ci_on_ghactions() &&
-                  Sys.info()[["sysname"]] == "Windows"))) {
+        Sys.info()[["sysname"]] == "Windows"))) {
         args <- append(args, "--no-manual")
         cli_alert_info("{.fun step_rcmdcheck}: {.pkg tic} always appends option
                      '--no-manual' during R CMD Check on Windows because LaTeX
                      is not available.", wrap = TRUE)
       } else {
-      args <- c("--no-manual", "--as-cran")
+        args <- c("--no-manual", "--as-cran")
       }
     }
   } else {
