@@ -40,7 +40,7 @@ Default for Appveyor and GitHub Actions (Windows):
 \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.
 
 On GitHub Actions option "--no-manual" is always used (appended to custom
-user inpust) because LaTeX is not available and installation is time
+user input) because LaTeX is not available and installation is time
 consuming and error prone.\cr}
 
 \item{build_args}{\verb{[character]}\cr

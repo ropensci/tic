@@ -164,7 +164,7 @@ step_rcmdcheck <- function(...,
   #'   "--no-build-vignettes", "--no-multiarch")`.
   #'
   #'   On GitHub Actions option "--no-manual" is always used (appended to custom
-  #'   user inpust) because LaTeX is not available and installation is time
+  #'   user input) because LaTeX is not available and installation is time
   #'   consuming and error prone.\cr
   if (is.null(args)) {
     if (isTRUE(ci_on_appveyor()) ||
@@ -175,7 +175,15 @@ step_rcmdcheck <- function(...,
         "--no-build-vignettes", "--no-multiarch"
       )
     } else {
+      if (isTRUE((ci_on_ghactions() &&
+                  Sys.info()[["sysname"]] == "Windows"))) {
+        args <- append(args, "--no-manual")
+        cli_alert_info("{.fun step_rcmdcheck}: {.pkg tic} always appends option
+                     '--no-manual' during R CMD Check on Windows because LaTeX
+                     is not available.", wrap = TRUE)
+      } else {
       args <- c("--no-manual", "--as-cran")
+      }
     }
   } else {
     if (isTRUE((ci_on_ghactions() &&
