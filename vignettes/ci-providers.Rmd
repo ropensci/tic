@@ -66,6 +66,7 @@ We currently do not support Java on Windows.
 For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:
 
 ```yaml
+brew tap osgeo/osgeo4mac
 brew install gdal
 brew unlink proj
 brew install osgeo-proj@5
