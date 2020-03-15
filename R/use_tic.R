@@ -412,6 +412,10 @@ use_tic_r <- function(repo_type, deploy_on = "none") {
   cli_end()
   cli_h2("tic.R")
 
+  # if deploy is requested, we most likely build a pkgdown site and should
+  # ignore "docs/" here
+  usethis::use_git_ignore("docs/")
+
   if (repo_type == "unknown") {
     use_tic_template(file.path(
       repo_type,

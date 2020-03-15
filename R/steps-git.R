@@ -258,13 +258,15 @@ DoPushDeploy <- R6Class(
 
     commit = function() {
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
-      git2r::add(private$git$get_repo(), private$commit_paths)
+      git2r::add(private$git$get_repo(), private$commit_paths, force = TRUE)
 
       message("Checking changed files")
       status <- git2r::status(
         private$git$get_repo(),
         staged = TRUE,
-        unstaged = FALSE, untracked = FALSE, ignored = FALSE
+        unstaged = FALSE,
+        untracked = FALSE,
+        ignored = FALSE
       )
       if (length(status$staged) == 0) {
         message("Nothing to commit!")
