@@ -182,6 +182,7 @@ TestSSH <- R6Class(
     initialize = function(url = "git@github.com",
                           verbose = "",
                           private_key_name = "TIC_DEPLOY_KEY") {
+      private_key_name <- compat_ssh_key(private_key_name = private_key_name)
       private$url <- url
       private$verbose <- verbose
       private$private_key_name <- private_key_name
