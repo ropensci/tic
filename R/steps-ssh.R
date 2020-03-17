@@ -99,18 +99,22 @@ InstallSSHKeys <- R6Class(
 
       Sys.chmod(file.path("~", ".ssh", private_key_name), "600")
 
-      # set the ssh command which which git should use including the key name
-      git2r::config(
-        core.sshCommand = sprintf(
-          paste0(
-            "ssh ",
-            "-i ~/.ssh/%s -F /dev/null ",
-            "-o LogLevel=error"
+      # FIXME: This command freezes Windows builds on GHA during deployment.
+
+      if (Sys.info()[["sysname"]] != "Windows") {
+        # set the ssh command which which git should use including the key name
+        git2r::config(
+          core.sshCommand = sprintf(
+            paste0(
+              "ssh ",
+              "-i ~/.ssh/%s -F /dev/null ",
+              "-o LogLevel=error"
+            ),
+            private_key_name
           ),
-          private_key_name
-        ),
-        global = TRUE
-      )
+          global = TRUE
+        )
+      }
     },
 
     prepare = function() {
