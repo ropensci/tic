@@ -4,9 +4,3 @@ get_stage("install") %>%
 
 get_stage("deploy") %>%
   add_code_step(blogdown::build_site())
-
-get_stage("before_deploy") %>%
-  add_step(step_setup_ssh())
-
-get_stage("deploy") %>%
-  add_step(step_push_deploy())
