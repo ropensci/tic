@@ -99,22 +99,18 @@ InstallSSHKeys <- R6Class(
 
       Sys.chmod(file.path("~", ".ssh", private_key_name), "600")
 
-      # FIXME: This command freezes Windows builds on GHA during deployment.
-
-      if (Sys.info()[["sysname"]] != "Windows") {
-        # set the ssh command which which git should use including the key name
-        git2r::config(
-          core.sshCommand = sprintf(
-            paste0(
-              "ssh ",
-              "-i ~/.ssh/%s -F /dev/null ",
-              "-o LogLevel=error"
-            ),
-            private_key_name
+      # set the ssh command which which git should use including the key name
+      git2r::config(
+        core.sshCommand = sprintf(
+          paste0(
+            "ssh ",
+            "-i ~/.ssh/%s -F /dev/null ",
+            "-o LogLevel=error"
           ),
-          global = TRUE
-        )
-      }
+          private_key_name
+        ),
+        global = TRUE
+      )
     },
 
     prepare = function() {
@@ -200,11 +196,15 @@ TestSSH <- R6Class(
                -o LogLevel=error
                {private$url} {private$verbose}}", wrap = TRUE)
       # suppress the warning about adding the IP to .ssh/known_hosts
-      system2("ssh", c(
-        "-o", "LogLevel=error",
-        "-i", file.path("~", ".ssh", private$private_key_name),
-        private$url, private$verbose
-      ))
+
+      # FIXME: This command freezes Windows builds on GHA during deployment.
+      if (Sys.info()[["sysname"]] != "Windows") {
+        system2("ssh", c(
+          "-o", "LogLevel=error",
+          "-i", file.path("~", ".ssh", private$private_key_name),
+          private$url, private$verbose
+        ))
+      }
     }
   ),
 
