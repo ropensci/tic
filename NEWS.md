@@ -1,3 +1,11 @@
+# tic 0.5.0.9004
+
+- `faq.Rmd`: Add info how to avoid git race conditions during pkgdown deployment (#238)
+- `step_install_ssh_keys()`: Do not use `git2r::config()` when deploying on Windows to prevent build freezes
+- update blogdown templates
+- GitHub Actions: Always use option '--no-manual' on Windows because LaTeX is not available
+
+
 # tic 0.5.0.9003
 
 - Files specified for deployment via `step_push_deploy(commit_paths = )` are now force added to the index by `git`. 
