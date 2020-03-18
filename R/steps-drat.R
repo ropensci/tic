@@ -24,7 +24,7 @@ AddToDrat <- R6Class(
       if (length(unlist(ver)) > 3 && private$deploy_dev == FALSE) {
         cli_alert_info("Detected dev version of current package. Not building
                       package binaries because {.code deploy_dev = FALSE} is
-                      set.", wrap = FALSE)
+                      set.", wrap = TRUE)
         return(invisible())
       }
       else {
