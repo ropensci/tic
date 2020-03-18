@@ -74,6 +74,47 @@ When dealing with Travis CI (or the [{travis}](https://github.com/ropenscilabs/t
   If you are using the {travis] package, the default endpoint is set to `".com"` so that all function call will try to interact with repositories on https://travis-ci.com.
   This can be changed via env var `R_TRAVIS`.
   
+#### Q-Travis-2
+
+I am seeing conflicts when deploying a pkgdown site during deployment - it looks like multiple runners are facing a git race condition.
+I am getting errors like
+
+```sh
+HEAD is now at ada17f3 Deploy from Travis build 13 [ci skip]
+git cherry-pick --no-commit 8f4e52da03a6ccdb66a140c3ca08be22d57d7288
+error: could not apply 8f4e52d... Deploy from Travis build 13 [ci skip]
+hint: after resolving the conflicts, mark the corrected paths
+hint: with 'git add <paths>' or 'git rm <paths>'
+```
+
+**Answer**
+
+Correct. 
+This is because multiple runners building and deploying the pkgdown site nearly at the same time.
+To prevent this from happening (doing this for one runner is enough) condition the pkgdown step to one runner by setting an env var.
+
+In `tic.R`:
+
+```r
+if (ci_on_travis() && ci_has_env("PKGDOWN") {
+  # creates pkgdown site and pushes to gh-pages branch
+  do_pkgdown()
+}
+```
+
+and then set this env var for one of the runners in `.travis.yml`:
+
+```yml
+matrix:
+  include:
+    - os: osx
+      r: release
+    - os: linux
+      r: release
+      env:
+      - PKGDOWN=true
+```
+  
 ## Appveyor CI
 
 #### Q-Appveyor-1
