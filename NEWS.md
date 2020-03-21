@@ -1,3 +1,8 @@
+# tic 0.5.0.9005
+
+- `use_tic()` fails with descriptive error message if the badges start/end sections are missing in README
+
+
 # tic 0.5.0.9004
 
 - `faq.Rmd`: Add info how to avoid git race conditions during pkgdown deployment (#238)
