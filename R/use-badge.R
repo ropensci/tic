@@ -43,7 +43,7 @@ use_tic_badge <- function(provider,
     if (!is.null(label)) {
       label_badge <- paste0("label=", label)
       # whitespaces do not render in README.md files
-      label_badge = gsub(" ", "%20", label_badge)
+      label_badge <- gsub(" ", "%20", label_badge)
     } else {
       label_badge <- NULL
     }
@@ -69,7 +69,24 @@ use_tic_badge <- function(provider,
       label <- "build status"
     }
   }
-  # suppressing "Multiple github remotes found. Using origin."
-  # the git remote cannot be set anyways
-  suppressWarnings(usethis::use_badge(label, url, img))
+  catch <- tryCatch(
+    # suppressing "Multiple github remotes found. Using origin."
+    # the git remote cannot be set anyways
+    suppressWarnings(usethis::use_badge(label, url, img)),
+    error = function(cond) {
+      if ("object 'tic' not found" %in% cond) {
+        cli_alert_danger("{.fun use_tic_badge}: Could not find anchors in
+          README.\nYou need to add `<!-- badges: start -->` and
+          `<!-- badges: end -->` to README.md/README.Rmd denoting the start and
+          end of the badges to make {.fun use_tic_badge} work.",
+          wrap = TRUE
+        )
+      } else {
+        # return error message if the error is different
+        message(cond)
+      }
+      return(NA)
+    }
+  )
+  return(invisible(catch))
 }
