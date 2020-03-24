@@ -59,6 +59,7 @@ Imports:
     memoise,
     methods,
     R6,
+    Rcpp,
     remotes,
     rlang (>= 0.4.1.9000),
     withr
@@ -92,6 +93,7 @@ RdMacros:
     lifecycle
 Remotes: 
     ropenscilabs/circle,
+    RcppCore/Rcpp
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
