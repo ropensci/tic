@@ -93,7 +93,7 @@ RdMacros:
     lifecycle
 Remotes: 
     ropenscilabs/circle,
-    RcppCore/Rcpp
+    RcppCore/Rcpp,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8
