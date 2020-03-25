@@ -1,7 +1,33 @@
+# tic 0.6.0
+
+## General
+
+- `use_badge`: Refactor to use default badges from the respective providers rather than from shields.io (too slow and sometimes badges did not render at all) (#240)
+- Condition deployment templates on a single runner for deployment. This avoids race conditions during deployment. This applies to all CI providers and templates (blogdown, bookdown, package) (#241)
+- Files specified for deployment via `step_push_deploy(commit_paths = )` are now force added to the index by `git`.
+  This enables to add directories like `docs/` (e.g. created by a local pkgdown build) to `.gitignore` and still deploy it during CI (#237).
+
+## CI Provider specific
+
+### GitHub Actions
+
+- GitHub Actions: Always use option '--no-manual' on Windows because LaTeX is not available (because it takes ages to install)
+- `step_rcmdcheck()`: Test in directory "check" to simplify upload of artifacts
+- Set cron job to 4am to avoid potential download issues with R-devel on macOS
+- Github Actions: Only deploy on R-release on macOS by default.
+
+## Bugfixes
+
+- `use_tic()` fails with descriptive error message if the badges start/end sections are missing in README
+- `step_install_ssh_keys()`: Do not use `git2r::config()` when deploying on Windows to prevent build freezes
+
+## Documentation
+
+- `faq.Rmd`: Add info how to avoid git race conditions during pkgdown deployment (#238)
+
 # tic 0.5.0.9005
 
 - `use_tic()` fails with descriptive error message if the badges start/end sections are missing in README
-
 
 # tic 0.5.0.9004
 
@@ -10,20 +36,18 @@
 - update blogdown templates
 - GitHub Actions: Always use option '--no-manual' on Windows because LaTeX is not available
 
-
 # tic 0.5.0.9003
 
-- Files specified for deployment via `step_push_deploy(commit_paths = )` are now force added to the index by `git`. 
+- Files specified for deployment via `step_push_deploy(commit_paths = )` are now force added to the index by `git`.
   This enables to add directories like `docs/` (e.g. created by a local pkgdown build) to `.gitignore` and still deploy it during CI (#237).
 - `step_rcmdcheck()`: Test in dir "check" to simplify upload of artifacts
-  
+
 ## Github Actions
 
 - Set cron job to 4am to avoid potential download issues with R-devel on macOS
 - Github Actions: Use actions/checkout v2
-- Github Actions: Only deploy on R-release on macOS by default. 
+- Github Actions: Only deploy on R-release on macOS by default.
   This avoids git race conditions between runners.
-
 
 # tic 0.5.0.9002
 
@@ -32,16 +56,13 @@
 - export `use_tic_r()` so that a manual workflow is possible (besides `use_tic()`)
 - GitHub Actions: use actions "pat-s/always-upload-cache" instead of "actions/cache"
 
-
 # tic 0.5.0.9001
 
-* Add `use_tic_badge()`: Creation of pretty CI status badges
-
+- Add `use_tic_badge()`: Creation of pretty CI status badges
 
 # tic 0.5.0.9000
 
 - Same as previous version.
-
 
 # tic 0.5.0
 
@@ -62,43 +83,38 @@
 - Beautified the CLI output of `use_tic()`
 - Replaced all instances of `_tic_` in the docs by `{tic}`
 
-
 # tic 0.4.0.9000
 
-* add macro `do_readme_rmd()` (#223)
-* new function `list_macros()`
-
+- add macro `do_readme_rmd()` (#223)
+- new function `list_macros()`
 
 # tic 0.4.0
 
-* add macro `do_drat()`
-* start vignette "troubleshooting"
-* add {desc} to suggests
-* `ci_can_push()` never fails.
-* templates: always upgrade dep packages during {tic} installation
-
+- add macro `do_drat()`
+- start vignette "troubleshooting"
+- add {desc} to suggests
+- `ci_can_push()` never fails.
+- templates: always upgrade dep packages during {tic} installation
 
 # tic 0.3.0.9005
 
-* Make it possible to pass the endpoint arg from {travis} funs to `use_tic()`
-* mention the difference between .com and .org -> new vignette "org-vs-com"
-* move package to ropensci org
-- `error_on = "note"` also fails on warnings.
+- Make it possible to pass the endpoint arg from {travis} funs to `use_tic()`
+- mention the difference between .com and .org -> new vignette "org-vs-com"
+- move package to ropensci org
 
+* `error_on = "note"` also fails on warnings.
 
 # tic 0.3.0.9004
 
-* `ci_can_Push()`: Error with descriptive error message if deployment is not possible
-* `ci_can_push()`: Fix for Travis CI
-* optimize templates (especially matrix builds) by specifying which job is used for the pkgdown build
-
+- `ci_can_Push()`: Error with descriptive error message if deployment is not possible
+- `ci_can_push()`: Fix for Travis CI
+- optimize templates (especially matrix builds) by specifying which job is used for the pkgdown build
 
 # tic 0.3.0.9003
 
-* `use_tic()`: add key_name_private and key_name_public args from `travis::use_travis_deploy()`
-* `ci_can_push()`: Change default from `"id_rsa""` to `"TRAVIS_DEPLOY_KEY"` and also support backward comp
-* `use_tic()`: Travis as default for Linux and macOS
-
+- `use_tic()`: add key_name_private and key_name_public args from `travis::use_travis_deploy()`
+- `ci_can_push()`: Change default from `"id_rsa""` to `"TRAVIS_DEPLOY_KEY"` and also support backward comp
+- `use_tic()`: Travis as default for Linux and macOS
 
 # tic 0.3.0.9002
 
@@ -108,11 +124,9 @@
 - `use_tic()` gains arguments that allow non-interactive use and re-running with the same settings if setup fails (#203).
 - Removed artificial sleeps with interactive setup.
 
-
 # tic 0.3.0.9001
 
 - Move `use_travis_deploy()` back to {travis}.
-
 
 # tic 0.3.0
 
@@ -125,24 +139,20 @@
 - Tweak documentation.
 - export `use_travis_yml()`, `use_circle_yml()` and `use_appveyor_yml()` and add overview table of available options
 
-
 # tic 0.2.13.9020
 
 - Avoid building packages when installing dependencies.
 - Remove vignettes from package if checking with `--no-build-vignettes` to avoid warning from `R CMD check`.
 - Fix `R CMD build` and `R CMD check` switches on AppVeyor.
 
-
 # tic 0.2.13.9019
 
 - Building pkgdown site succeeds if `docs/` directory is missing (#173, r-lib/pkgdown#1050).
-
 
 # tic 0.2.13.9018
 
 - Move `use_travis_deploy()` from the travis package to here.
 - Unexport `get_public_key()` and `encode_private_key()`.
-
 
 # tic 0.2.13.9017
 
@@ -155,7 +165,6 @@
 - Update wordlist.
 - Fix typos.
 - Condition example on presence of Git repository.
-
 
 # tic 0.2.13.9016
 
@@ -170,7 +179,6 @@
 - Package template for `tic.R` runs pkgdown only on Travis (#167).
 - Update vignettes (#156).
 
-
 # tic 0.2.13.9015
 
 - `detect_repo_type()` now prompts the user for unknown repository types (#161).
@@ -178,14 +186,12 @@
 - `step_rcmdcheck()` and `do_package_checks()` now avoid building the vignette by default on AppVeyor (#150).
 - `use_tic()` now uses boxes from {cli} for better structured output (#153).
 
-
 # tic 0.2.13.9014
 
 - Configuration storage modeled after `usethis::proj_get()`.
 - New `dsl_load()`, renamed from `load_from_file()`.
 - New `dsl_get()` and `dsl_init()`.
 - Added examples to help for `get_stage()` and macros (#77).
-
 
 # tic 0.2.13.9013
 
@@ -201,20 +207,18 @@
 - Implement `print()` methods for DSL and stages (#77).
 - New `do_bookdown()` (#137).
 
-
 # tic 0.2.13.9012
 
 - New `repo_*()` functions to simplify specification of the `repos` argument to installer functions (#101).
 - Add Appveyor checks (#147, @pat-s).
 - New pkgdown macro via `do_pkgdown()` (#126, @pat-s)
-- New example: covrpage, cc @yonicd 
+- New example: covrpage, cc @yonicd
 - `step_rcmdcheck(error_on = "note")` works again (#119).
 - New `do_package_checks()` with `codecov = TRUE` argument (#146), replaces `add_package_checks()` which stays around for compatibility (#128).
 - `add_step()` now evaluates the `step` argument in a `tryCatch()` block and gives a bit of context if this fails (#73).
 - New `run_all_stages()`, previously `tic()` (#66).
 - New `ci_get_env()`, `ci_has_env()` and `ci_is_env()` functions to avoid verbose `Sys.getenv()` calls in `tic.R` (#124, @pat-s).
 - New `ci_*()` functions to avoid R6 notation in `tic.R` (#125, @pat-s).
-
 
 # tic 0.2.13.9011
 
@@ -223,7 +227,6 @@
 - Fix two links in README (#115, @Rekyt).
 - Vignette update (#80, @pat-s).
 - Support `build_args` argument in `step_rcmdcheck()` (#64, @pat-s).
-
 
 # tic 0.2.13.9011
 
@@ -237,7 +240,7 @@
 # tic 0.2.13.9010
 
 - No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (#86, #88).
-- Packages coming with the R-installation are not updated anymore when preparing `step_rcmdcheck()`. 
+- Packages coming with the R-installation are not updated anymore when preparing `step_rcmdcheck()`.
   See `?step_rcmdcheck()` for detailed info. (#103)
 
 # tic 0.2.13.9009
@@ -246,41 +249,34 @@
 - Using the development version of _rcmdcheck_ to work around problems finding the vignette builder (#84).
 - Draft for new "Get started" vignette (#63, @pat-s).
 
-
 # tic 0.2.13.9008
 
 - The `step_rcmdcheck()` step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The `add_package_checks()` macro no longer includes an `update.packages()` call (#35).
 - The `step_rcmdcheck()` step now installs all dependencies during preparation. The `add_package_checks()` macro no longer adds the code step that installs dependencies.
 
-
 # tic 0.2.13.9007
 
 - The `step_do_push_deploy()` and `step_push_deploy()` steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (#27).
-
 
 # tic 0.2.13.9006
 
 - Support creating variables in `tic.R` by sourcing `tic.R` in a modifiable environment (#33).
 - Replaced `private` arguments with an environment that keeps track of internal state, now the code from `add_package_checks()` can be copied to a `tic.R` file (#74).
 
-
 # tic 0.2.13.9005
 
 - A failing step immediately fails the entire stage, subsequent steps are not run (#59).
-
 
 # tic 0.2.13.9004
 
 - New `get_public_key()` and `encode_private_key()` moved from _travis_ (#71, @pat-s).
 - Add `step_install_cran()` and `step_install_github()` (#65, @pat-s).
 
-
 # tic 0.2.13.9003
 
 - Added integration tests for package checks and deployment, covering various common cases (#62).
 - Add integration test for deploying from a subdirectory.
 - Remove `orphan` argument from `step_push_deploy()`, because there's no easy way to implement it reliably. If only a subdirectory is deployed to a separate branch (i.e., the `path` argument is set), `orphan = TRUE` is required.
-
 
 # tic 0.2.13.9002
 
@@ -292,16 +288,13 @@
 - Document purpose of testing steps (#49).
 - Allow only predefined stage names (#48).
 
-
 # tic 0.2.13.9001
 
 - The _pkgdown_ package is installed from CRAN.
 
-
 # tic 0.2.13.9000
 
 - New `subdir` argument to `step_push_deploy()` and `step_do_push_deploy()`, allows restricting the set of files to be committed to Git (#42).
-
 
 # tic 0.2-13 (2018-02-01)
 
@@ -310,11 +303,9 @@
 - `step_rcmdcheck()` now prints a summary, which also shows e.g. details on installation failures.
 - New `prepare_call` argument to `step_run_code()` and `add_code_step()`.
 
-
 # tic 0.2-12 (2017-06-29)
 
 - Fix `add_package_checks()`.
-
 
 # tic 0.2-11 (2017-06-29)
 
@@ -324,12 +315,10 @@
 - New `tic()` to run all steps locally (#23).
 - New `add_package_checks()` (#25).
 
-
 # tic 0.2-10 (2017-06-29)
 
 - Document all exported functions and many classes (#8).
 - `step_add_to_drat()` will also update the overview page if it exists.
-
 
 # tic 0.2-9 (2017-06-28)
 
@@ -342,11 +331,9 @@
 - New `step_rcmdcheck()`.
 - The deparsed code is used as step name (#5).
 
-
 # tic 0.2-8 (2017-06-17)
 
 - An error occurring when running a step is printed in red (#5).
-
 
 # tic 0.2-7 (2017-06-13)
 
@@ -362,40 +349,34 @@
 - New `step_add_to_known_hosts()` to work around configuration problems on OS X (#16).
 - Export runner methods for all stages defined in Travis CI and AppVeyor (#17).
 
-
 # tic 0.2-6 (2017-06-04)
 
 - Technical release to synch master and production branches.
-
 
 # tic 0.2-5 (2016-11-27)
 
 - Fix `after_success()` and `deploy()`.
 - Step names are now printed again.
 
-
 # tic 0.2-4 (2016-11-27)
 
 - Use new DSL with the notion of stages with arbitrary names.
-    - New `load_from_file()` replaces `get_xxx_steps()`
-    - `task_...()` has been renamed to `step_...()`
-    - A task is now something like an ad-hoc step
-    - `before_script()` is now `prepare_all_stages()`
-    - `TravisTask` is now `TicStep`
-    - `ci()` is now exported
+  - New `load_from_file()` replaces `get_xxx_steps()`
+  - `task_...()` has been renamed to `step_...()`
+  - A task is now something like an ad-hoc step
+  - `before_script()` is now `prepare_all_stages()`
+  - `TravisTask` is now `TicStep`
+  - `ci()` is now exported
 - If environment variable `CI` is undefined, use `LocalCI` with sensible inference of repository and branch.
 - Stop if `git` exits with nonzero status.
-
 
 # tic 0.2-3 (2016-11-06)
 
 - Install package for `task_build_pkgdown` task.
 
-
 # tic 0.2-2 (2016-11-05)
 
 - DSL to define steps via `step()`, which are tasks with a branch and/or env var filter (#6).
-
 
 # tic 0.2-1 (2016-11-05)
 
@@ -403,7 +384,6 @@
 - Add tests.
 - Rudimentary support for multiple CI systems.
 - Clean up dependencies.
-
 
 # tic 0.2 (2016-11-05)
 
