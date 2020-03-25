@@ -9,7 +9,6 @@
 [![codecov](https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tic)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
-[![](https://github.com/user/repo/workflows//badge.svg?branch=master)](https://github.com/user/repo/actions)
 <!-- badges: end -->
 
 The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
