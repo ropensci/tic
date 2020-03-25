@@ -4,4 +4,3 @@ get_stage("install") %>%
 
 get_stage("deploy") %>%
   add_code_step(blogdown::build_site())
-
