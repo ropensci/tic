@@ -2,7 +2,7 @@
 % Please edit documentation in R/use-badge.R
 \name{use_tic_badge}
 \alias{use_tic_badge}
-\title{Add a CI Status Badge to README}
+\title{Add a CI Status Badge to README files}
 \usage{
 use_tic_badge(provider, branch = "master", label = "R CMD Check via {tic}")
 }
@@ -18,8 +18,8 @@ Which branch should the badge represent?}
 Text to use for the badge.}
 }
 \description{
-Adds a CI status badge \code{README.Rmd} or \code{README.md}. By default the label is
-`"R CMD Check via {tic}".
+Adds a CI status badge to \code{README.Rmd} or \code{README.md}. By default the label
+is `"R CMD Check via {tic}".
 
 A custom branch can be specified via argument \code{branch}.
 }

@@ -1,8 +1,8 @@
-#' Add a CI Status Badge to README
+#' Add a CI Status Badge to README files
 #'
 #' @description
-#'  Adds a CI status badge `README.Rmd` or `README.md`. By default the label is
-#'  `"R CMD Check via {tic}".
+#'  Adds a CI status badge to `README.Rmd` or `README.md`. By default the label
+#'  is `"R CMD Check via {tic}".
 #'
 #'  A custom branch can be specified via argument `branch`.
 #'
