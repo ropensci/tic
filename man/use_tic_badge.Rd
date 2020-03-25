@@ -4,35 +4,30 @@
 \alias{use_tic_badge}
 \title{Add a CI Status Badge to README}
 \usage{
-use_tic_badge(provider, logo = TRUE, label = "R CMD Check via {tic}")
+use_tic_badge(provider, branch = "master", label = "R CMD Check via {tic}")
 }
 \arguments{
 \item{provider}{\code{character(1)}\cr
 The CI provider to generate a badge for. Only \code{ghactions} is currently
 supported}
 
-\item{logo}{\code{logical(1)}\cr
-Should a logo of the respective CI provider be used?}
+\item{branch}{\code{character(1)}\cr
+Which branch should the badge represent?}
 
 \item{label}{\code{character(1)}\cr
-Text to use for the badge. To use no label, set \code{label = NULL}.}
+Text to use for the badge.}
 }
 \description{
-Adds a CI status badge generated via \url{https://shields.io/} to
-\code{README.Rmd} or \code{README.md}. By default the label \code{"R CMD Check via {tic}"}
-will be used. By setting \verb{type = "logo}, a logo of the respective CI
-provider will be used instead.
+Adds a CI status badge \code{README.Rmd} or \code{README.md}. By default the label is
+`"R CMD Check via {tic}".
 
-A custom label can be provided via argument \code{label}.
+A custom branch can be specified via argument \code{branch}.
 }
 \examples{
 \dontrun{
 use_tic_badge(provider = "ghactions")
 
-# no logo, only label
-use_tic_badge(provider = "ghactions", logo = FALSE)
-
-# no label, only logo
-use_tic_badge(provider = "ghactions", label = NULL)
+# use a different branch
+use_tic_badge(provider = "ghactions", branch = "develop")
 }
 }

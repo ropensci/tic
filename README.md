@@ -1,9 +1,7 @@
 # tic
 
 <!-- badges: start -->
-
-[![R CMD Check via
-{tic}](https://img.shields.io/github/workflow/status/ropensci/tic/R%20CMD%20Check%20via%20%7Btic%7D?logo=github&label=R%20CMD%20Check%20via%20%7Btic%7D&style=flat-square)](https://github.com/ropensci/tic/actions)
+[![R CMD Check via {tic}](https://github.com/ropensci/tic/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
 [![Travis build status](https://img.shields.io/travis/ropensci/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.com/ropensci/tic)
 [![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
@@ -11,7 +9,7 @@
 [![codecov](https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tic)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
-
+[![](https://github.com/user/repo/workflows//badge.svg?branch=master)](https://github.com/user/repo/actions)
 <!-- badges: end -->
 
 The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
