@@ -8,4 +8,6 @@ matrix:
     - os: linux
       r: release
       env:
+      # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
+      # capitalized term. This also might need to be done in tic.R
       - BUILD_PKGDOWN=true
