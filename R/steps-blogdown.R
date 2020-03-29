@@ -19,7 +19,7 @@ BuildBlogdown <- R6Class(
   ),
 
   private = list(
-    Blogdown_args = NULL
+    blogdown_args = NULL
   )
 )
 
