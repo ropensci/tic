@@ -14,6 +14,7 @@ Lists available macro functions of the \code{tic} package.
 }
 \seealso{
 Other macros: 
+\code{\link{do_blogdown}()},
 \code{\link{do_bookdown}()},
 \code{\link{do_drat}()},
 \code{\link{do_package_checks}()},
