@@ -18,13 +18,78 @@ library("tic")
 
 # Prerequisites
 
-If you are unfamiliar with the term Continuous Integration (CI), we highly recommend to read the following resources:
+Continuous Integration (CI) is a huge field in software development.
+There are a lot of resources out there that try to explain what it can do and why you need it (and usually why their particular company/service does it best).
+If you are just getting started with software development or `git` based project work you might think: 
 
-- https://ropensci.github.io/dev_guide/ci.html
-- https://juliasilge.com/blog/beginners-guide-to-travis/
-- http://mahugh.com/2016/09/02/travis-ci-for-test-automation/
+> "Ah I don't need all of this overhead, I am fine doing X and Y manually for this project. 
+> The overhead learning this next additional "tool" is not worth it.
 
-See the [Features](features.html) article for a comparison with other solutions for Continuous Integration for R.
+Reading [all vignettes of this package](https://docs.ropensci.org/tic/articles/) will help you understand what {tic} does to simplify all of that specifically for the R language.
+
+However, there is a lot of advanced information in these vignettes which might be a bit overwhelming at first if you are just getting started.
+Therefore we will explain a few of the most important terms first to give you a kickstart:
+
+<details>
+<summary>Runner</summary>
+
+One build job (possibly among many others) on any operating system that executes certain commands specified in the YAML config file.
+
+</details>
+
+<details>
+<summary>YAML config file</summary>
+
+A file written in the YAML language telling the runner what to do after a push to the repository.
+
+</details>
+
+<details>
+<summary>Build matrix</summary>
+
+Specification how many runners are started and their specification (operating system, custom environment variables, etc.)
+
+</details>
+
+<details>
+<summary>CI Provider</summary>
+
+A company that offers ready-to-use virtual images for runners which are started after a certain action.
+Such (third-party) companies are Travis, AppVeyor or Circle CI.
+However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.
+
+</details>
+
+<details>
+<summary>Deployment</summary>
+
+CI builds cannot just perform specific checks on a package/project, they can also be used to (re-)build certain files in every run.
+With the appropriate permissions these files can then be pushed to a repository via `git` without the need to take manual actions by the user.
+This can save a lot of time and is commonly used to ensure that documentation is always up-to-date.
+
+</details>
+
+<details>
+<summary>CI Client packages</summary>
+
+R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.).
+Examples are [{travis}](https://github.com/ropenscilabs/travis) or [{circle}](https://github.com/ropenscilabs/circle).
+
+</details>
+
+<details>
+<summary>CI Badges</summary>
+
+Badges in the README of a repository showing the current build status of the project: Did the last build fail or finish successfully?
+
+</details>
+
+<details>
+<summary>DSL</summary>
+
+"DSL" stands for "[domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language)" and essentially means the implementation of a general concept for a specific programming language.
+
+</details>
 
 # Initialization/Setup
 
