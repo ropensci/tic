@@ -52,7 +52,7 @@ Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/
 
 For an R package, the following steps will be set up for the CI workflow:
 
-- Installation of required dependencies for the project (by checking the mandatory(!) DESCRIPTION file)
+- Installation of required dependencies for the project (dependencies are scraped from the DESCRIPTION file*)
 - Satisfying build-time dependencies of steps to be run in all CI stages (by scraping `pkg::fun` calls in `tic.R`)
 - Checking of package via `rcmdcheck::rcmdcheck()`
 - Creation of a `pkgdown` site including Github deployment
@@ -73,16 +73,16 @@ If you already use {tic} and want to configure a new CI provider, do
 ```r
 ## Travis CI
 travis::use_travis_deploy() # (optional for deployment)
-tic::use_travis_yml(<option here>)
+tic::use_travis_yml(type = )
 tic::use_tic_r("package", deploy_on = "travis")
 
-## Circle CI
+## Circle CI  
 circle::use_circle_deploy() # (optional for deployment)
-tic::use_circle_yml(<option here>)
+tic::use_circle_yml(type =  )
 tic::use_tic_r("package", deploy_on = "circle")
 
 ## Appveyor
-tic::use_appveyor_yml(<option here>)
+tic::use_appveyor_yml(type = )
 
 ## Github Actions
 tic::use_ghactions_deploy(deploy = TRUE)
@@ -109,7 +109,7 @@ An update mechanism is on our list (see [issue #194](https://github.com/ropensci
 
 ## Examples
 
-All examples listed here work with Travis, some work with AppVeyor too.
+All examples listed here should work on all CI providers listed above.
 The badges link to the most recent build of the master branch.
 
 - [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
@@ -169,6 +169,11 @@ The badges link to the most recent build of the master branch.
 The setup functions in this package assume Git as version control system, and GitHub as platform.
 Automated setup works best if the project under test is located in the root of the Git repository.
 Multi-project repositories are not supported, see [the comment by @jwijffels](https://github.com/ropensci/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
+
+## Footnotes
+
+* The DESCRIPTION files needs to live in the project root.
+  To simplify its creation have a look at [usethis::use_package()](https://usethis.r-lib.org/reference/use_package.html) or [usethis::use_description()](https://usethis.r-lib.org/reference/use_description.html).
 
 ---
 
