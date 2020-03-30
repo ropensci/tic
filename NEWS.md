@@ -1,3 +1,8 @@
+# tic 0.6.0.9001
+
+* Add `do_blogdown()` macro (#242) 
+
+
 # tic 0.6.0.9000
 
 - Same as previous version.
