@@ -92,6 +92,7 @@ dsl_get()
 }
 \seealso{
 Other macros: 
+\code{\link{do_blogdown}()},
 \code{\link{do_bookdown}()},
 \code{\link{do_package_checks}()},
 \code{\link{do_pkgdown}()},
