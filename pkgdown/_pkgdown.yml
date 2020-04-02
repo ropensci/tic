@@ -21,27 +21,39 @@ reference:
   contents:
   - macro
   - starts_with("do_")
+  - contains("macro")
 - title: Steps
   contents:
   - starts_with("step_")
-  - ci
   - TicStep
-- title: Running
+- title: Stages
+  contents:
+  - stages
+- title: CI Metadata
+  contents:
+  - ci
+- title: Executing locally
   contents:
   - run_all_stages
-  - stages
   - prepare_all_stages
   - run_stage
 - title: Setup
   contents:
   - use_tic
-  - use_travis_deploy
+  - use_tic_r
+  - use_tic_badge
+- title: Deployment
+  contents:
+  - use_ghactions_deploy
 - title: Serialization
   contents:
   - starts_with("base64")
-- title: R Repo functions
+- title: CRAN repository functions
   contents:
   - starts_with("repo")
+- title: Deprecated
+  contents:
+  - Deprecated
 
 toc:
   depth: 3
