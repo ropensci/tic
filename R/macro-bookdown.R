@@ -101,7 +101,7 @@ do_bookdown <- function(...,
 
   if (!is.null(cname)) {
     get_stage("deploy") %>%
-      add_code_step(writeLines(!!enquo(cname), paste0(!!enquo(path), "/CNAME")))
+      add_code_step(writeLines(!!cname, paste0(!!path, "/CNAME")))
   }
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
