@@ -21,6 +21,7 @@ NULL
 #' @inheritParams step_install_pkg
 #' @param ... Passed on to [step_build_blogdown()]
 #' @template private_key_name
+#' @template cname
 #' @family macros
 #' @export
 #' @examples
@@ -41,7 +42,8 @@ do_blogdown <- function(...,
                         remote_url = NULL,
                         commit_message = NULL,
                         commit_paths = ".",
-                        private_key_name = "TIC_DEPLOY_KEY") {
+                        private_key_name = "TIC_DEPLOY_KEY",
+                        cname = NULL) {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
@@ -71,7 +73,7 @@ do_blogdown <- function(...,
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
-  #' 1. `blogdown::install_hugo()` in the `"install"` stage to install the 
+  #' 1. `blogdown::install_hugo()` in the `"install"` stage to install the
   #'    latest version of HUGO.
   get_stage("install") %>%
     add_step(step_install_deps(repos = !!enquo(repos))) %>%
@@ -100,6 +102,11 @@ do_blogdown <- function(...,
   get_stage("deploy") %>%
     add_step(step_build_blogdown(!!!enquos(...)))
 
+  if (!is.null(cname)) {
+    get_stage("deploy") %>%
+      add_code_step(writeLines(cname, paste0(path, "/CNAME")))
+  }
+
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
   if (isTRUE(deploy)) {
     get_stage("deploy") %>%
@@ -111,8 +118,8 @@ do_blogdown <- function(...,
   }
 
   #' @description
-  #' By default, the `public/` directory is deployed to the `gh-pages` branch, 
-  #' keeping the history. If the output directory of your blog/theme is not 
+  #' By default, the `public/` directory is deployed to the `gh-pages` branch,
+  #' keeping the history. If the output directory of your blog/theme is not
   #' `"public"` you need to change the `"path"` argument.
 
   dsl_get()

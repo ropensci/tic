@@ -21,6 +21,7 @@ NULL
 #' @inheritParams step_install_pkg
 #' @param ... Passed on to [step_build_bookdown()]
 #' @template private_key_name
+#' @template cname
 #' @family macros
 #' @export
 #' @examples
@@ -41,7 +42,8 @@ do_bookdown <- function(...,
                         remote_url = NULL,
                         commit_message = NULL,
                         commit_paths = ".",
-                        private_key_name = "TIC_DEPLOY_KEY") {
+                        private_key_name = "TIC_DEPLOY_KEY",
+                        cname = NULL) {
 
   #' @param deploy `[flag]`\cr
   #'   If `TRUE`, deployment setup is performed
@@ -96,6 +98,11 @@ do_bookdown <- function(...,
   #'    forwarding all `...` arguments.
   get_stage("deploy") %>%
     add_step(step_build_bookdown(!!!enquos(...)))
+
+  if (!is.null(cname)) {
+    get_stage("deploy") %>%
+      add_code_step(writeLines(cname, paste0(path, "/CNAME")))
+  }
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
   if (isTRUE(deploy)) {
