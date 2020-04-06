@@ -65,6 +65,7 @@ Imports:
     withr
 Suggests: 
     base64enc,
+    blogdown,
     bookdown,
     callr,
     circle,
@@ -92,8 +93,8 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes: 
-    ropenscilabs/circle,
     RcppCore/Rcpp,
+    ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
 Encoding: UTF-8

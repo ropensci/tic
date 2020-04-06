@@ -25,7 +25,7 @@ BuildBlogdown <- R6Class(
 
 #' Step: Build a Blogdown Site
 #'
-#' Build a Blogdown site using [blogdown::render_book()].
+#' Build a Blogdown site using [blogdown::build_site()].
 #'
 #' @inheritDotParams blogdown::build_site
 #'

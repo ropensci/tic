@@ -20,7 +20,7 @@ compiled.}
   }}
 }
 \description{
-Build a Blogdown site using \code{\link[blogdown:render_book]{blogdown::render_book()}}.
+Build a Blogdown site using \code{\link[blogdown:build_site]{blogdown::build_site()}}.
 }
 \examples{
 dsl_init()
