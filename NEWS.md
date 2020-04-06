@@ -1,3 +1,9 @@
+# tic 0.6.0.9002
+
+- `do_blogdown()` and `do_bookdown()` gain argument `cname`, making it possible to pass a CNAME URL for deployments. This is useful when setting one sets `orphan = TRUE` and relies on a custom URL of the published content (otherwise the redirect would not work)
+- Add a better general intro about CI and explain some general CI terms (fixes #234)
+
+
 # tic 0.6.0.9001
 
 * Add `do_blogdown()` macro (#242) 
