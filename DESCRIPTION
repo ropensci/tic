@@ -93,7 +93,6 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes: 
-    RcppCore/Rcpp,
     ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
