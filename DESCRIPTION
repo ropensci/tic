@@ -59,10 +59,10 @@ Imports:
     memoise,
     methods,
     R6,
-    Rcpp,
     remotes,
     rlang (>= 0.4.1.9000),
-    withr
+    withr,
+    xml2
 Suggests: 
     base64enc,
     blogdown,
