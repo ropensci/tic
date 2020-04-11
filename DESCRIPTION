@@ -93,6 +93,7 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes: 
+    r-lib/xml2,
     ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
