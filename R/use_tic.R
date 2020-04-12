@@ -291,7 +291,86 @@ use_tic <- function(wizard = interactive(),
 
   cli_h2("GitHub Actions")
 
-  if (ghactions_in(windows) || ghactions_in(linux) || ghactions_in(mac)) {
+  if (ghactions_in(linux) && ghactions_in(mac)) {
+
+    if (ghactions_in(matrix)) {
+      if (ghactions_in(deploy)) {
+        use_ghactions_yml("linux-macos-deploy-matrix")
+      } else {
+        use_ghactions_yml("linux-macos-matrix")
+      }
+    } else {
+      if (ghactions_in(deploy)) {
+        use_ghactions_yml("linux-macos-deploy")
+      } else {
+        use_ghactions_yml("linux-macos")
+      }
+    }
+  } else if (ghactions_in(linux) && ghactions_in(windows)) {
+
+    if (ghactions_in(matrix)) {
+      if (ghactions_in(deploy)) {
+        use_ghactions_yml("linux-windows-deploy-matrix")
+      } else {
+        use_ghactions_yml("linux-windows-matrix")
+      }
+    } else {
+      if (ghactions_in(deploy)) {
+        use_ghactions_yml("linux-windows-deploy")
+      } else {
+        use_ghactions_yml("linux-windows")
+      }
+    }
+  } else if (ghactions_in(mac) && ghactions_in(windows)) {
+
+    if (ghactions_in(matrix)) {
+      if (ghactions_in(deploy)) {
+        use_ghactions_yml("macos-windows-deploy-matrix")
+      } else {
+        use_ghactions_yml("macos-windows-matrix")
+      }
+    } else {
+      if (ghactions_in(deploy)) {
+        use_ghactions_yml("macos-windows-deploy")
+      } else {
+        use_ghactions_yml("macos-windows")
+      }
+    }
+  } else if (ghactions_in(mac)) {
+
+    if (ghactions_in(deploy)) {
+      # build matrix
+      if (ghactions_in(matrix)) {
+        use_ghactions_yml("macos-deploy-matrix")
+      } else {
+        use_ghactions_yml("macos-deploy")
+      }
+    } else {
+      # build matrix
+      if (ghactions_in(matrix)) {
+        use_ghactions_yml("macos-matrix")
+      } else {
+        use_ghactions_yml("macos")
+      }
+    }
+  } else if (ghactions_in(linux)) {
+    # deployment
+    if (ghactions_in(deploy)) {
+      # build matrix
+      if (ghactions_in(matrix)) {
+        use_ghactions_yml("linux-deploy-matrix")
+      } else {
+        use_ghactions_yml("linux-deploy")
+      }
+    } else {
+      # build matrix
+      if (ghactions_in(matrix)) {
+        use_ghactions_yml("linux-matrix")
+      } else {
+        use_ghactions_yml("linux")
+      }
+    }
+  } else if (ghactions_in(windows) && ghactions_in(linux) && ghactions_in(mac)) {
     if (ghactions_in(deploy)) {
       use_ghactions_yml("all-deploy")
     } else {
@@ -408,6 +487,7 @@ ci_menu <- function(choices, title) {
 #' use_tic_r("blogdown", deploy_on = "all")
 #' }
 use_tic_r <- function(repo_type, deploy_on = "none") {
+
   cli_par()
   cli_end()
   cli_h2("tic.R")
