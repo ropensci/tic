@@ -20,9 +20,6 @@ use_ghactions_yml(type = "all")
 \item{type}{\verb{[character]}\cr
 Which template to use. The string should be given following the logic
 \verb{<platform>-<action>}. See details for more.}
-
-\item{deploy}{\code{logical(1)}\cr
-Whether to use YAML templates for deployment.}
 }
 \description{
 Installs YAML templates for various CI providers. These function

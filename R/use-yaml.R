@@ -5,8 +5,6 @@
 #' @param type `[character]`\cr
 #'   Which template to use. The string should be given following the logic
 #'   `<platform>-<action>`. See details for more.
-#' @param deploy `logical(1)`\cr
-#'   Whether to use YAML templates for deployment.
 #'
 #' @section pkgdown:
 #'  If `type` contains "deploy", {tic} by default also sets the environment
