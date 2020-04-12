@@ -18,3 +18,4 @@
 ^man-roxygen$
 ^\.github$
 ^clang-.*
+^gfortran.*
