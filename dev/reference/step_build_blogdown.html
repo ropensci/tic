@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tic's domain-specific language — dsl • tic</title>
+<title>Step: Build a Blogdown Site — step_build_blogdown • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,18 +44,8 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="tic's domain-specific language — dsl" />
-<meta property="og:description" content="Functions to define stages and their constituent steps.
-The macros combine several steps and assign them to relevant
-stages.
-See dsl_get() for functions to access the storage for the stages
-and their steps.
-get_stage() returns a TicStage object for a stage given by name.
-This function can be called directly in the tic.R configuration file,
-which is processed by dsl_load().
-add_step() adds a step to a stage, see step_hello_world()
-and the links therein for available steps.
-add_code_step() is a shortcut for add_step(step_run_code(...))." />
+<meta property="og:title" content="Step: Build a Blogdown Site — step_build_blogdown" />
+<meta property="og:description" content="Build a Blogdown site using blogdown::build_site()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -162,80 +152,43 @@ add_code_step() is a shortcut for add_step(step_run_code(...))." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tic's domain-specific language</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/dsl.R'><code>R/dsl.R</code></a></small>
-    <div class="hidden name"><code>dsl.Rd</code></div>
+    <h1>Step: Build a Blogdown Site</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-blogdown.R'><code>R/steps-blogdown.R</code></a></small>
+    <div class="hidden name"><code>step_build_blogdown.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions to define stages and their constituent steps.
-The <a href='macro.html'>macro</a>s combine several steps and assign them to relevant
-stages.
-See <code><a href='dsl_get.html'>dsl_get()</a></code> for functions to access the storage for the stages
-and their steps.</p>
-<p><code>get_stage()</code> returns a <code>TicStage</code> object for a stage given by name.
-This function can be called directly in the <code>tic.R</code> configuration file,
-which is processed by <code><a href='dsl_get.html'>dsl_load()</a></code>.</p>
-<p><code>add_step()</code> adds a step to a stage, see <code><a href='step_hello_world.html'>step_hello_world()</a></code>
-and the links therein for available steps.</p>
-<p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
+    <p>Build a Blogdown site using <code><a href='https://rdrr.io/pkg/blogdown/man/build_site.html'>blogdown::build_site()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>)
-
-<span class='fu'>add_step</span>(<span class='no'>stage</span>, <span class='no'>step</span>)
-
-<span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>step_build_blogdown</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p><code>[string]</code><br />
-The name for the stage.</p></td>
-    </tr>
-    <tr>
-      <th>stage</th>
-      <td><p><code>[TicStage]</code><br />
-A <code>TicStage</code> object as returned by <code>get_stage()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>step</th>
-      <td><p><code>[function]</code><br />
-An object of class <a href='TicStep.html'>TicStep</a>, usually created by functions
-with the <code>step_</code> prefix like <code><a href='step_hello_world.html'>step_hello_world()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>call</th>
-      <td><p><code>[call]</code><br />
-An arbitrary R expression executed during the stage to which this step is
-added.
-The default is useful if you only pass <code>prepare_call</code>.</p></td>
-    </tr>
-    <tr>
-      <th>prepare_call</th>
-      <td><p><code>[call]</code><br />
-An optional arbitrary R expression executed during preparation.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/blogdown/man/build_site.html'>blogdown::build_site</a></code></p><dl'>
+    <dt><code>local</code></dt><dd><p>Whether to build the website locally to be served via
+<code><a href='https://rdrr.io/pkg/blogdown/man/serve_site.html'>serve_site</a>()</code>.</p></dd>
+    <dt><code>method</code></dt><dd><p>Different methods to build a website (each with pros and cons).
+See Details. The value of this argument will be obtained from the global
+option <code><a href='https://rdrr.io/r/base/options.html'>getOption('blogdown.method')</a></code> when it is set.</p></dd>
+    <dt><code>run_hugo</code></dt><dd><p>Whether to run <code>hugo_build()</code> after R Markdown files are
+compiled.</p></dd>
+  
+</dl></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ℹ No steps defined</div><div class='input'>
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_step</span>(<span class='fu'><a href='step_hello_world.html'>step_hello_world</a></span>())
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_build_blogdown</span>(<span class='st'>"."</span>))
 
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_hello_world()</div><div class='input'>
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_code_step</span>(<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"Hi!"</span>))
-
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_hello_world()
-#&gt; ▶ step_run_code(print("Hi!"))</div></span></pre>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_build_blogdown(".")</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

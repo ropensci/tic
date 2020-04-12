@@ -146,9 +146,6 @@ a:focus, a:hover {
 
 /* Everything below here is used for the footer */
 
-:root {
-  font-size: 18px;
-}
 
 /* Position hack to get full width footer even though pkgdown puts it inside a container
  * See: https://css-tricks.com/full-width-containers-limited-width-parents/
@@ -156,7 +153,7 @@ a:focus, a:hover {
 
 footer {
   background-color: #4b8add;
-  font-size: .875rem;
+  font-size: 15.75px;
   color: #ccdef6;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 22px;
@@ -174,14 +171,14 @@ footer img {
 
 footer .icon {
   width: 20%;
-  font-size: 1.2rem;
+  font-size: 21.6px;
   margin-top: 9px;
 }
 
 footer h5 {
   text-transform: uppercase;
   font-weight: 600;
-  font-size: .75rem;
+  font-size: 13.5px;
   margin-bottom: 10px;
 }
 
@@ -194,7 +191,7 @@ footer ul {
 }
 
 footer ul li {
-  line-height: 1.4rem;
+  line-height: 25.2px;
 }
 
 footer ul li a {
@@ -213,7 +210,7 @@ footer a {
 
 footer p {
   font-size: inherit;
-  line-height: 1.6rem;
+  line-height: 28.8px;
 }
 
 .top-4 {

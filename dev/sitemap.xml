@@ -16,6 +16,9 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/ci.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/do_blogdown.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/do_bookdown.html</loc>
   </url>
   <url>
@@ -65,6 +68,9 @@
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/step_add_to_known_hosts.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/step_build_blogdown.html</loc>
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/step_build_bookdown.html</loc>

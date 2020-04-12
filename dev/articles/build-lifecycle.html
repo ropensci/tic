@@ -9,13 +9,14 @@
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
 <meta property="og:title" content="Build lifecycle">
-<meta property="og:description" content="">
+<meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
@@ -26,7 +27,7 @@
   gtag('config', 'UA-462421-8');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.5.0.9001</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -94,7 +95,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropensci/tic">
+  <a href="https://github.com/ropensci/tic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,7 +113,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Build lifecycle</h1>
+      <h1 data-toc-skip>Build lifecycle</h1>
                         <h4 class="author">Patrick Schratz, Kirill Müller</h4>
             
       
@@ -135,26 +136,26 @@
 </ul>
 <p><em>tic</em> also relies on a “stage” based approach. All action that should be run in a certain stage are defined in <code>tic.R</code>. The steps are specified in an CI-agnostic way using R syntax.</p>
 <p>The majority of <code>.travis.yml</code> consists of glue code and is not meant to be edited anymore.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># DO NOT CHANGE THE CODE BELOW</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">before_install:</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> R -q -e <span class="st">'if (getRversion() &lt; "3.2" &amp;&amp; !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'remotes:</span><span class="at">:install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></span> <span class="fu">R -q -e 'tic:</span><span class="at">:before_install()'</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="fu">install:</span><span class="at"> R -q -e 'tic::install()'</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="fu">before_script:</span><span class="at"> R -q -e 'tic::before_script()'</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="fu">script:</span><span class="at"> R -q -e 'tic::script()'</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="fu">after_success:</span><span class="at"> R -q -e 'tic::after_success()'</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="fu">after_failure:</span><span class="at"> R -q -e 'tic::after_failure()'</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="fu">before_deploy:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="fu">deploy:</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="fu">provider:</span><span class="at"> script</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="fu">script:</span><span class="at"> R -q -e 'tic::deploy()'</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="fu">on:</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">    <span class="fu">all_branches:</span><span class="at"> true</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="fu">after_deploy:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="fu">after_script:</span><span class="at"> R -q -e 'tic::after_script()'</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># DO NOT CHANGE THE CODE BELOW</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">before_install</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'if (getRversion() &lt; "3.2" &amp;&amp; !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'remotes::install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'tic::before_install()'</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">install</span><span class="kw">:</span><span class="at"> R -q -e 'tic::install()'</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">before_script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::before_script()'</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::script()'</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">after_success</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_success()'</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">after_failure</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_failure()'</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">before_deploy</span><span class="kw">:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="at">  </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> script</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::deploy()'</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="at">  </span><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="at">    </span><span class="fu">all_branches</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">after_deploy</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="fu">after_script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_script()'</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></span></code></pre></div>
 <p>In a nutshell, the workflow is as follows:</p>
 <p>CI YAML -&gt; <code>tic.R</code> -&gt; commands/steps to execute</p>
 <p>Some important points:</p>
@@ -167,7 +168,7 @@
 <h3 class="hasAnchor">
 <a href="#accessing-a-single-stage" class="anchor"></a>Accessing a single stage</h3>
 <p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This is what happens in the CI YAML templates if you take a closer look at them.</p>
-<p>These functions then source <code>tic.R</code> and collect all steps which belong to their stage by executing <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code> (e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage").</p>
+<p>These functions then source <code>tic.R</code> and collect all steps which belong to their stage by executing <code><a href="../reference/dsl.html">get_stage("&lt;stage name&gt;")</a></code> (e.g. <code><a href="../reference/dsl.html">get_stage("deploy")</a></code> for the “deploy” stage").</p>
 <p>Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stages”</a> section), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
 </div>
 <div id="details-of-stages" class="section level3">
@@ -195,8 +196,8 @@
 <h2 class="hasAnchor">
 <a href="#steps" class="anchor"></a>Steps</h2>
 <p>Steps are the commands that are executed in each stage. <em>tic</em> uses the <a href="https://magrittr.tidyverse.org/">pipe operator</a> and the <code><a href="../reference/dsl.html">add_step()</a></code> function to chain steps in <code>tic.R</code>, for example</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/dsl.html">add_step</a></span>(<span class="kw"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</pre></body></html></div>
 <p>In the code example above <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> is added to the <code>"deploy"</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code>. In summary, steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
 <p>Here is a list that shows a rough grouping of the steps into their default stages:</p>
 <div id="basic" class="section level4">
@@ -312,22 +313,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#stages">Stages</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#accessing-a-single-stage">Accessing a single stage</a></li>
-      <li><a href="#details-of-stages">Details of stages</a></li>
-      </ul>
-</li>
-      <li><a href="#steps">Steps</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

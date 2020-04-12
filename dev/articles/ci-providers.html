@@ -9,13 +9,14 @@
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
 <meta property="og:title" content="Implementation Details of CI Providers">
-<meta property="og:description" content="">
+<meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
@@ -26,7 +27,7 @@
   gtag('config', 'UA-462421-8');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.5.0.9001</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -94,7 +95,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropensci/tic">
+  <a href="https://github.com/ropensci/tic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,7 +113,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Implementation Details of CI Providers</h1>
+      <h1 data-toc-skip>Implementation Details of CI Providers</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/ci-providers.Rmd"><code>vignettes/ci-providers.Rmd</code></a></small>
@@ -142,19 +143,33 @@
 <a href="#macos-toolchain" class="anchor"></a>macOS toolchain</h3>
 <p>macOS is a bit tricky when it comes to source installation of packages. By default <code>clang</code> is used instead of <code>gcc</code> (Linux) because the former is the default for macOS. However, the default <code>clang</code> of macOS does not come with openMP support. Therefore, the R macOS core devs and CRAN currently use a <a href="https://cran.r-project.org/bin/macosx/tools/">custom openMP-enabled</a> (old) version of <code>clang</code> to build the CRAN package binaries. In {tic} we reflect this by installing <code>clang7</code> and <code>clang8</code> for the respective R version during build initialization in the “ccache” stages.</p>
 </div>
-<div id="codecov-covr" class="section level3">
+<div id="rjava" class="section level3">
 <h3 class="hasAnchor">
-<a href="#codecov-covr" class="anchor"></a>codecov / covr</h3>
-<p>Unlike Travis CI, Appveyor CI and Circle CI, uploads of code coverage to <a href="https://codecov.io">codecov.io</a> on GitHub Actions need a “Repository upload token” to upload the coverage results. {tic} already sets the stage by setting an env var <code>CODECOV_TOKEN</code> in the builds from a potential “secret” stored in the repo. This env var will be picked up behind the scenes by {covr} when running <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. The mentioned “secret” however has to be set by the user. Currently there is no other way than doing this via the web interface.</p>
-<p>Go to <code>&lt;https://codecov.io/gh/&lt;owner&gt;/&lt;repo&gt;/settings&gt;</code> and store the “Repository upload token” as a “secret” in the repository. Unfortunately this needs to be done on a per-repo basis.</p>
+<a href="#rjava" class="anchor"></a>rJava</h3>
+<p>If Java support is required, add the following for macOS runners:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[macOS] rJava"</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>          R CMD javareconf</span>
+<span id="cb1-5"><a href="#cb1-5"></a>          Rscript -e "install.packages('rJava', type = 'source')"</span></code></pre></div>
+<p>For Linux, add <code>sudo R CMD javareconf</code> to stage “[Linux] Prepare”. We currently do not support Java on Windows.</p>
+</div>
+<div id="spatial-libraries-gdal-proj-geos" class="section level3">
+<h3 class="hasAnchor">
+<a href="#spatial-libraries-gdal-proj-geos" class="anchor"></a>Spatial libraries (gdal, proj, geos)</h3>
+<p>For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">brew tap osgeo/osgeo4mac</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">brew install gdal</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">brew unlink proj</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">brew install osgeo-proj@5</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">brew link --force osgeo-proj@5</span></span></code></pre></div>
+<p>On Linux, add <code>libgdal-dev libproj-dev libgeos-dev</code> to the <code>apt install</code> call in the “[Linux] Prepare” stage.</p>
 </div>
 <div id="known-issues" class="section level3">
 <h3 class="hasAnchor">
 <a href="#known-issues" class="anchor"></a>Known issues</h3>
 <ul>
-<li><p>[macOS] Installation of {rJava} fails because the default JDK is zulu-13 and not <a href="mailto:openjdk@11">openjdk@11</a>. Reconfiguring via <code>sudo R CMD javareconf</code> does not help.</p></li>
-<li><p>[Windows] Installing {tinytex} for LaTeX availability does not complete</p></li>
-<li><p>[All] Deployment from builds</p></li>
+<li>[Windows] Installing {tinytex} for LaTeX availability does not complete</li>
 </ul>
 </div>
 </div>
@@ -175,25 +190,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#github-actions">GitHub Actions</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#macos-toolchain">macOS toolchain</a></li>
-      <li><a href="#codecov-covr">codecov / covr</a></li>
-      <li><a href="#known-issues">Known issues</a></li>
-      </ul>
-</li>
-      <li><a href="#circle-ci">Circle CI</a></li>
-      <li><a href="#travis-ci">Travis CI</a></li>
-      <li><a href="#appveyor-ci">Appveyor CI</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

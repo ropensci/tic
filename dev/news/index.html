@@ -14,14 +14,17 @@
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
@@ -60,7 +63,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +78,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.5.0.9001</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -129,7 +132,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropensci/tic">
+  <a href="https://github.com/ropensci/tic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -147,27 +150,146 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/ropensci/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tic-0-5-0-9001" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-5-0-9001" class="anchor"></a>tic 0.5.0.9001</h1>
+    <div id="tic-0609002" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.0.9002">
+<a href="#tic-0609002" class="anchor"></a>tic 0.6.0.9002</h1>
 <ul>
-<li>Add <code><a href="../reference/use_tic_badge.html">use_tic_badge()</a></code>: Creation of pretty CI status badges</li>
+<li>
+<code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> and <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code> gain argument <code>cname</code>, making it possible to pass a CNAME URL for deployments. This is useful when setting one sets <code>orphan = TRUE</code> and relies on a custom URL of the published content (otherwise the redirect would not work)</li>
+<li>Add a better general intro about CI and explain some general CI terms (fixes <a href='https://github.com/ropensci/tic/issues/234'>#234</a>)</li>
 </ul>
 </div>
-    <div id="tic-0-5-0-9000" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-5-0-9000" class="anchor"></a>tic 0.5.0.9000</h1>
+    <div id="tic-0609001" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.0.9001">
+<a href="#tic-0609001" class="anchor"></a>tic 0.6.0.9001</h1>
+<ul>
+<li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href='https://github.com/ropensci/tic/issues/242'>#242</a>)</li>
+</ul>
+</div>
+    <div id="tic-0609000" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.0.9000">
+<a href="#tic-0609000" class="anchor"></a>tic 0.6.0.9000</h1>
 <ul>
 <li>Same as previous version.</li>
 </ul>
 </div>
-    <div id="tic-0-5-0" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-5-0" class="anchor"></a>tic 0.5.0</h1>
+    <div id="tic-060" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.0">
+<a href="#tic-060" class="anchor"></a>tic 0.6.0</h1>
+<div id="general" class="section level2">
+<h2 class="hasAnchor">
+<a href="#general" class="anchor"></a>General</h2>
+<ul>
+<li>
+<code>use_badge</code>: Refactor to use default badges from the respective providers rather than from shields.io (too slow and sometimes badges did not render at all) (<a href='https://github.com/ropensci/tic/issues/240'>#240</a>)</li>
+<li>Condition deployment templates on a single runner for deployment. This avoids race conditions during deployment. This applies to all CI providers and templates (blogdown, bookdown, package) (<a href='https://github.com/ropensci/tic/issues/241'>#241</a>)</li>
+<li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
+</ul>
+</div>
+<div id="ci-provider-specific" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
+<ul>
+<li>GitHub Actions: Always use option ‘–no-manual’ on Windows because LaTeX is not available (because it takes ages to install)</li>
+<li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: Test in directory “check” to simplify upload of artifacts</li>
+<li>Set cron job to 4am to avoid potential download issues with R-devel on macOS</li>
+<li>Github Actions: Only deploy on R-release on macOS by default.</li>
+</ul>
+</div>
+</div>
+<div id="bugfixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<ul>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> fails with descriptive error message if the badges start/end sections are missing in README</li>
+<li>
+<code><a href="../reference/step_install_ssh_keys.html">step_install_ssh_keys()</a></code>: Do not use <code><a href="https://docs.ropensci.org/git2r/reference/config.html">git2r::config()</a></code> when deploying on Windows to prevent build freezes</li>
+</ul>
+</div>
+<div id="documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>Documentation</h2>
+<ul>
+<li>
+<code>faq.Rmd</code>: Add info how to avoid git race conditions during pkgdown deployment (<a href='https://github.com/ropensci/tic/issues/238'>#238</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="tic-0509005" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0.9005">
+<a href="#tic-0509005" class="anchor"></a>tic 0.5.0.9005</h1>
+<ul>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> fails with descriptive error message if the badges start/end sections are missing in README</li>
+</ul>
+</div>
+    <div id="tic-0509004" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0.9004">
+<a href="#tic-0509004" class="anchor"></a>tic 0.5.0.9004</h1>
+<ul>
+<li>
+<code>faq.Rmd</code>: Add info how to avoid git race conditions during pkgdown deployment (<a href='https://github.com/ropensci/tic/issues/238'>#238</a>)</li>
+<li>
+<code><a href="../reference/step_install_ssh_keys.html">step_install_ssh_keys()</a></code>: Do not use <code><a href="https://docs.ropensci.org/git2r/reference/config.html">git2r::config()</a></code> when deploying on Windows to prevent build freezes</li>
+<li>update blogdown templates</li>
+<li>GitHub Actions: Always use option ‘–no-manual’ on Windows because LaTeX is not available</li>
+</ul>
+</div>
+    <div id="tic-0509003" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0.9003">
+<a href="#tic-0509003" class="anchor"></a>tic 0.5.0.9003</h1>
+<ul>
+<li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
+<li>
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: Test in dir “check” to simplify upload of artifacts</li>
+</ul>
+<div id="github-actions-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#github-actions-1" class="anchor"></a>Github Actions</h2>
+<ul>
+<li>Set cron job to 4am to avoid potential download issues with R-devel on macOS</li>
+<li>Github Actions: Use actions/checkout v2</li>
+<li>Github Actions: Only deploy on R-release on macOS by default. This avoids git race conditions between runners.</li>
+</ul>
+</div>
+</div>
+    <div id="tic-0509002" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0.9002">
+<a href="#tic-0509002" class="anchor"></a>tic 0.5.0.9002</h1>
+<ul>
+<li>Github Actions: {covr} now supports automatic upload of codecov results via their own CODECOV_TOKEN</li>
+<li>
+<code><a href="../reference/use_tic_r.html">use_tic_r()</a></code>: Add support for conditional tic.R templates via argument <code>deploy_on</code>.</li>
+<li>export <code><a href="../reference/use_tic_r.html">use_tic_r()</a></code> so that a manual workflow is possible (besides <code><a href="../reference/use_tic.html">use_tic()</a></code>)</li>
+<li>GitHub Actions: use actions “pat-s/always-upload-cache” instead of “actions/cache”</li>
+</ul>
+</div>
+    <div id="tic-0509001" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0.9001">
+<a href="#tic-0509001" class="anchor"></a>tic 0.5.0.9001</h1>
+<ul>
+<li>Add <code><a href="../reference/use_tic_badge.html">use_tic_badge()</a></code>: Creation of pretty CI status badges</li>
+</ul>
+</div>
+    <div id="tic-0509000" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0.9000">
+<a href="#tic-0509000" class="anchor"></a>tic 0.5.0.9000</h1>
+<ul>
+<li>Same as previous version.</li>
+</ul>
+</div>
+    <div id="tic-050" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0">
+<a href="#tic-050" class="anchor"></a>tic 0.5.0</h1>
 <div id="enhancements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhancements" class="anchor"></a>Enhancements</h2>
@@ -197,18 +319,18 @@
 </ul>
 </div>
 </div>
-    <div id="tic-0-4-0-9000" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-4-0-9000" class="anchor"></a>tic 0.4.0.9000</h1>
+    <div id="tic-0409000" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0.9000">
+<a href="#tic-0409000" class="anchor"></a>tic 0.4.0.9000</h1>
 <ul>
 <li>add macro <code><a href="../reference/do_readme_rmd.html">do_readme_rmd()</a></code> (<a href='https://github.com/ropensci/tic/issues/223'>#223</a>)</li>
 <li>new function <code><a href="../reference/list_macros.html">list_macros()</a></code>
 </li>
 </ul>
 </div>
-    <div id="tic-0-4-0" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-4-0" class="anchor"></a>tic 0.4.0</h1>
+    <div id="tic-040" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#tic-040" class="anchor"></a>tic 0.4.0</h1>
 <ul>
 <li>add macro <code><a href="../reference/do_drat.html">do_drat()</a></code>
 </li>
@@ -219,21 +341,19 @@
 <li>templates: always upgrade dep packages during {tic} installation</li>
 </ul>
 </div>
-    <div id="tic-0-3-0-9005" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-3-0-9005" class="anchor"></a>tic 0.3.0.9005</h1>
+    <div id="tic-0309005" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0.9005">
+<a href="#tic-0309005" class="anchor"></a>tic 0.3.0.9005</h1>
 <ul>
-<li>Make it possible to pass the endpoint arg from {travis} funs to <code><a href="../reference/use_tic.html">use_tic()</a></code>
-</li>
-<li>mention the difference between .com and .org -&gt; new vignette “org-vs-com”</li>
-<li>move package to ropensci org</li>
-<li>
-<code>error_on = "note"</code> also fails on warnings.</li>
+<li><p>Make it possible to pass the endpoint arg from {travis} funs to <code><a href="../reference/use_tic.html">use_tic()</a></code></p></li>
+<li><p>mention the difference between .com and .org -&gt; new vignette “org-vs-com”</p></li>
+<li><p>move package to ropensci org</p></li>
+<li><p><code>error_on = "note"</code> also fails on warnings.</p></li>
 </ul>
 </div>
-    <div id="tic-0-3-0-9004" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-3-0-9004" class="anchor"></a>tic 0.3.0.9004</h1>
+    <div id="tic-0309004" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0.9004">
+<a href="#tic-0309004" class="anchor"></a>tic 0.3.0.9004</h1>
 <ul>
 <li>
 <code>ci_can_Push()</code>: Error with descriptive error message if deployment is not possible</li>
@@ -242,9 +362,9 @@
 <li>optimize templates (especially matrix builds) by specifying which job is used for the pkgdown build</li>
 </ul>
 </div>
-    <div id="tic-0-3-0-9003" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-3-0-9003" class="anchor"></a>tic 0.3.0.9003</h1>
+    <div id="tic-0309003" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0.9003">
+<a href="#tic-0309003" class="anchor"></a>tic 0.3.0.9003</h1>
 <ul>
 <li>
 <code><a href="../reference/use_tic.html">use_tic()</a></code>: add key_name_private and key_name_public args from <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>
@@ -255,9 +375,9 @@
 <code><a href="../reference/use_tic.html">use_tic()</a></code>: Travis as default for Linux and macOS</li>
 </ul>
 </div>
-    <div id="tic-0-3-0-9002" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-3-0-9002" class="anchor"></a>tic 0.3.0.9002</h1>
+    <div id="tic-0309002" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0.9002">
+<a href="#tic-0309002" class="anchor"></a>tic 0.3.0.9002</h1>
 <ul>
 <li>
 <code><a href="../reference/use_tic.html">use_tic()</a></code> supports running both Linux and macOS on Travis (<a href='https://github.com/ropensci/tic/issues/202'>#202</a>).</li>
@@ -268,16 +388,16 @@
 <li>Removed artificial sleeps with interactive setup.</li>
 </ul>
 </div>
-    <div id="tic-0-3-0-9001" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-3-0-9001" class="anchor"></a>tic 0.3.0.9001</h1>
+    <div id="tic-0309001" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0.9001">
+<a href="#tic-0309001" class="anchor"></a>tic 0.3.0.9001</h1>
 <ul>
 <li>Move <code>use_travis_deploy()</code> back to {travis}.</li>
 </ul>
 </div>
-    <div id="tic-0-3-0" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-3-0" class="anchor"></a>tic 0.3.0</h1>
+    <div id="tic-030" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#tic-030" class="anchor"></a>tic 0.3.0</h1>
 <ul>
 <li>add argument “check_dir” to step_rcmdcheck (<a href='https://github.com/ropensci/tic/issues/179'>#179</a>)</li>
 <li>use <code><a href="https://remotes.r-lib.org/reference/install_cran.html">remotes::install_cran(upgrade = TRUE)</a></code> to install packages (<a href='https://github.com/ropensci/tic/issues/186'>#186</a>)</li>
@@ -290,33 +410,33 @@
 <li>export <code><a href="../reference/yaml_templates.html">use_travis_yml()</a></code>, <code><a href="../reference/yaml_templates.html">use_circle_yml()</a></code> and <code><a href="../reference/yaml_templates.html">use_appveyor_yml()</a></code> and add overview table of available options</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9020" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9020" class="anchor"></a>tic 0.2.13.9020</h1>
+    <div id="tic-02139020" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9020">
+<a href="#tic-02139020" class="anchor"></a>tic 0.2.13.9020</h1>
 <ul>
 <li>Avoid building packages when installing dependencies.</li>
 <li>Remove vignettes from package if checking with <code>--no-build-vignettes</code> to avoid warning from <code>R CMD check</code>.</li>
 <li>Fix <code>R CMD build</code> and <code>R CMD check</code> switches on AppVeyor.</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9019" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9019" class="anchor"></a>tic 0.2.13.9019</h1>
+    <div id="tic-02139019" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9019">
+<a href="#tic-02139019" class="anchor"></a>tic 0.2.13.9019</h1>
 <ul>
 <li>Building pkgdown site succeeds if <code>docs/</code> directory is missing (<a href='https://github.com/ropensci/tic/issues/173'>#173</a>, r-lib/pkgdown<a href='https://github.com/ropensci/tic/issues/1050'>#1050</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9018" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9018" class="anchor"></a>tic 0.2.13.9018</h1>
+    <div id="tic-02139018" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9018">
+<a href="#tic-02139018" class="anchor"></a>tic 0.2.13.9018</h1>
 <ul>
 <li>Move <code>use_travis_deploy()</code> from the travis package to here.</li>
 <li>Unexport <code>get_public_key()</code> and <code>encode_private_key()</code>.</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9017" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9017" class="anchor"></a>tic 0.2.13.9017</h1>
+    <div id="tic-02139017" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9017">
+<a href="#tic-02139017" class="anchor"></a>tic 0.2.13.9017</h1>
 <ul>
 <li>Test utils and printing.</li>
 <li>Exclude code that can only run interactively or in a CI from coverage.</li>
@@ -329,9 +449,9 @@
 <li>Condition example on presence of Git repository.</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9016" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9016" class="anchor"></a>tic 0.2.13.9016</h1>
+    <div id="tic-02139016" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9016">
+<a href="#tic-02139016" class="anchor"></a>tic 0.2.13.9016</h1>
 <ul>
 <li>Fix compatibility with git 2.21 and above for race conditions (<a href='https://github.com/ropensci/tic/issues/160'>#160</a>).</li>
 <li>
@@ -346,9 +466,9 @@
 <li>Update vignettes (<a href='https://github.com/ropensci/tic/issues/156'>#156</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9015" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9015" class="anchor"></a>tic 0.2.13.9015</h1>
+    <div id="tic-02139015" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9015">
+<a href="#tic-02139015" class="anchor"></a>tic 0.2.13.9015</h1>
 <ul>
 <li>
 <code>detect_repo_type()</code> now prompts the user for unknown repository types (<a href='https://github.com/ropensci/tic/issues/161'>#161</a>).</li>
@@ -360,9 +480,9 @@
 <code><a href="../reference/use_tic.html">use_tic()</a></code> now uses boxes from {cli} for better structured output (<a href='https://github.com/ropensci/tic/issues/153'>#153</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9014" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9014" class="anchor"></a>tic 0.2.13.9014</h1>
+    <div id="tic-02139014" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9014">
+<a href="#tic-02139014" class="anchor"></a>tic 0.2.13.9014</h1>
 <ul>
 <li>Configuration storage modeled after <code><a href="https://usethis.r-lib.org/reference/proj_utils.html">usethis::proj_get()</a></code>.</li>
 <li>New <code><a href="../reference/dsl_get.html">dsl_load()</a></code>, renamed from <code>load_from_file()</code>.</li>
@@ -370,9 +490,9 @@
 <li>Added examples to help for <code><a href="../reference/dsl.html">get_stage()</a></code> and macros (<a href='https://github.com/ropensci/tic/issues/77'>#77</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9013" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9013" class="anchor"></a>tic 0.2.13.9013</h1>
+    <div id="tic-02139013" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9013">
+<a href="#tic-02139013" class="anchor"></a>tic 0.2.13.9013</h1>
 <ul>
 <li>Using tidy evaluation for simpler code, more control and better printing of steps (<a href='https://github.com/ropensci/tic/issues/77'>#77</a>).</li>
 <li>Fix AppVeyor builds.</li>
@@ -388,9 +508,9 @@
 <li>New <code><a href="../reference/do_bookdown.html">do_bookdown()</a></code> (<a href='https://github.com/ropensci/tic/issues/137'>#137</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9012" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9012" class="anchor"></a>tic 0.2.13.9012</h1>
+    <div id="tic-02139012" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9012">
+<a href="#tic-02139012" class="anchor"></a>tic 0.2.13.9012</h1>
 <ul>
 <li>New <code>repo_*()</code> functions to simplify specification of the <code>repos</code> argument to installer functions (<a href='https://github.com/ropensci/tic/issues/101'>#101</a>).</li>
 <li>Add Appveyor checks (<a href='https://github.com/ropensci/tic/issues/147'>#147</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
@@ -406,9 +526,9 @@
 <li>New <code>ci_*()</code> functions to avoid R6 notation in <code>tic.R</code> (<a href='https://github.com/ropensci/tic/issues/125'>#125</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9011" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9011" class="anchor"></a>tic 0.2.13.9011</h1>
+    <div id="tic-02139011" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9011">
+<a href="#tic-02139011" class="anchor"></a>tic 0.2.13.9011</h1>
 <ul>
 <li>New <code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code>, reorganizing help pages so that installer steps are on the same page.</li>
 <li>
@@ -418,9 +538,9 @@
 <li>Support <code>build_args</code> argument in <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> (<a href='https://github.com/ropensci/tic/issues/64'>#64</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9011-1" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9011-1" class="anchor"></a>tic 0.2.13.9011</h1>
+    <div id="tic-02139011-1" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9011">
+<a href="#tic-02139011-1" class="anchor"></a>tic 0.2.13.9011</h1>
 <div id="step_rcmdcheck" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step_rcmdcheck" class="anchor"></a>step_rcmdcheck()</h2>
@@ -433,73 +553,73 @@
 </ul>
 </div>
 </div>
-    <div id="tic-0-2-13-9010" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9010" class="anchor"></a>tic 0.2.13.9010</h1>
+    <div id="tic-02139010" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9010">
+<a href="#tic-02139010" class="anchor"></a>tic 0.2.13.9010</h1>
 <ul>
 <li>No longer using a separate library for package checks, because it causes a lot of problems with various steps which are not aware of this (<a href='https://github.com/ropensci/tic/issues/86'>#86</a>, <a href='https://github.com/ropensci/tic/issues/88'>#88</a>).</li>
 <li>Packages coming with the R-installation are not updated anymore when preparing <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>. See <code>?step_rcmdcheck()</code> for detailed info. (<a href='https://github.com/ropensci/tic/issues/103'>#103</a>)</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9009" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9009" class="anchor"></a>tic 0.2.13.9009</h1>
+    <div id="tic-02139009" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9009">
+<a href="#tic-02139009" class="anchor"></a>tic 0.2.13.9009</h1>
 <ul>
 <li>The <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> step now uses the same dedicated library as <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
 <li>Using the development version of <em>rcmdcheck</em> to work around problems finding the vignette builder (<a href='https://github.com/ropensci/tic/issues/84'>#84</a>).</li>
 <li>Draft for new “Get started” vignette (<a href='https://github.com/ropensci/tic/issues/63'>#63</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9008" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9008" class="anchor"></a>tic 0.2.13.9008</h1>
+    <div id="tic-02139008" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9008">
+<a href="#tic-02139008" class="anchor"></a>tic 0.2.13.9008</h1>
 <ul>
 <li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now uses a dedicated library for installing the packages and checking, it also updates the packages after installing dependencies. The <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> macro no longer includes an <code><a href="https://rdrr.io/r/utils/update.packages.html">update.packages()</a></code> call (<a href='https://github.com/ropensci/tic/issues/35'>#35</a>).</li>
 <li>The <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> step now installs all dependencies during preparation. The <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> macro no longer adds the code step that installs dependencies.</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9007" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9007" class="anchor"></a>tic 0.2.13.9007</h1>
+    <div id="tic-02139007" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9007">
+<a href="#tic-02139007" class="anchor"></a>tic 0.2.13.9007</h1>
 <ul>
 <li>The <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> and <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (<a href='https://github.com/ropensci/tic/issues/27'>#27</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9006" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9006" class="anchor"></a>tic 0.2.13.9006</h1>
+    <div id="tic-02139006" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9006">
+<a href="#tic-02139006" class="anchor"></a>tic 0.2.13.9006</h1>
 <ul>
 <li>Support creating variables in <code>tic.R</code> by sourcing <code>tic.R</code> in a modifiable environment (<a href='https://github.com/ropensci/tic/issues/33'>#33</a>).</li>
 <li>Replaced <code>private</code> arguments with an environment that keeps track of internal state, now the code from <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> can be copied to a <code>tic.R</code> file (<a href='https://github.com/ropensci/tic/issues/74'>#74</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9005" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9005" class="anchor"></a>tic 0.2.13.9005</h1>
+    <div id="tic-02139005" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9005">
+<a href="#tic-02139005" class="anchor"></a>tic 0.2.13.9005</h1>
 <ul>
 <li>A failing step immediately fails the entire stage, subsequent steps are not run (<a href='https://github.com/ropensci/tic/issues/59'>#59</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9004" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9004" class="anchor"></a>tic 0.2.13.9004</h1>
+    <div id="tic-02139004" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9004">
+<a href="#tic-02139004" class="anchor"></a>tic 0.2.13.9004</h1>
 <ul>
 <li>New <code>get_public_key()</code> and <code>encode_private_key()</code> moved from <em>travis</em> (<a href='https://github.com/ropensci/tic/issues/71'>#71</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 <li>Add <code><a href="../reference/step_install_pkg.html">step_install_cran()</a></code> and <code><a href="../reference/step_install_pkg.html">step_install_github()</a></code> (<a href='https://github.com/ropensci/tic/issues/65'>#65</a>, <a href='https://github.com/pat-s'>@pat-s</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9003" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9003" class="anchor"></a>tic 0.2.13.9003</h1>
+    <div id="tic-02139003" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9003">
+<a href="#tic-02139003" class="anchor"></a>tic 0.2.13.9003</h1>
 <ul>
 <li>Added integration tests for package checks and deployment, covering various common cases (<a href='https://github.com/ropensci/tic/issues/62'>#62</a>).</li>
 <li>Add integration test for deploying from a subdirectory.</li>
 <li>Remove <code>orphan</code> argument from <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code>, because there’s no easy way to implement it reliably. If only a subdirectory is deployed to a separate branch (i.e., the <code>path</code> argument is set), <code>orphan = TRUE</code> is required.</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9002" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9002" class="anchor"></a>tic 0.2.13.9002</h1>
+    <div id="tic-02139002" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9002">
+<a href="#tic-02139002" class="anchor"></a>tic 0.2.13.9002</h1>
 <ul>
 <li>Better strategy for handling race conditions during deployment, new changes are no longer silently overwritten with <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> (<a href='https://github.com/ropensci/tic/issues/45'>#45</a>).</li>
 <li>Add integration test for package checks and race conditions (<a href='https://github.com/ropensci/tic/issues/62'>#62</a>).</li>
@@ -511,23 +631,23 @@
 <li>Allow only predefined stage names (<a href='https://github.com/ropensci/tic/issues/48'>#48</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9001" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9001" class="anchor"></a>tic 0.2.13.9001</h1>
+    <div id="tic-02139001" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9001">
+<a href="#tic-02139001" class="anchor"></a>tic 0.2.13.9001</h1>
 <ul>
 <li>The <em>pkgdown</em> package is installed from CRAN.</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-9000" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-9000" class="anchor"></a>tic 0.2.13.9000</h1>
+    <div id="tic-02139000" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.13.9000">
+<a href="#tic-02139000" class="anchor"></a>tic 0.2.13.9000</h1>
 <ul>
 <li>New <code>subdir</code> argument to <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>, allows restricting the set of files to be committed to Git (<a href='https://github.com/ropensci/tic/issues/42'>#42</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-13-2018-02-01" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-13-2018-02-01" class="anchor"></a>tic 0.2-13 (2018-02-01)</h1>
+    <div id="tic-02-13-2018-02-01" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-13">
+<a href="#tic-02-13-2018-02-01" class="anchor"></a>tic 0.2-13 (2018-02-01)</h1>
 <ul>
 <li>New <code><a href="../reference/base64serialize.html">base64serialize()</a></code> and <code><a href="../reference/base64serialize.html">base64unserialize()</a></code> (<a href='https://github.com/ropensci/tic/issues/37'>#37</a>).</li>
 <li>
@@ -537,16 +657,16 @@
 <li>New <code>prepare_call</code> argument to <code><a href="../reference/step_run_code.html">step_run_code()</a></code> and <code><a href="../reference/dsl.html">add_code_step()</a></code>.</li>
 </ul>
 </div>
-    <div id="tic-0-2-12-2017-06-29" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-12-2017-06-29" class="anchor"></a>tic 0.2-12 (2017-06-29)</h1>
+    <div id="tic-02-12-2017-06-29" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-12">
+<a href="#tic-02-12-2017-06-29" class="anchor"></a>tic 0.2-12 (2017-06-29)</h1>
 <ul>
 <li>Fix <code><a href="../reference/Deprecated.html">add_package_checks()</a></code>.</li>
 </ul>
 </div>
-    <div id="tic-0-2-11-2017-06-29" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-11-2017-06-29" class="anchor"></a>tic 0.2-11 (2017-06-29)</h1>
+    <div id="tic-02-11-2017-06-29" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-11">
+<a href="#tic-02-11-2017-06-29" class="anchor"></a>tic 0.2-11 (2017-06-29)</h1>
 <ul>
 <li>
 <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> gains arguments that are passed to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
@@ -556,18 +676,18 @@
 <li>New <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> (<a href='https://github.com/ropensci/tic/issues/25'>#25</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-10-2017-06-29" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-10-2017-06-29" class="anchor"></a>tic 0.2-10 (2017-06-29)</h1>
+    <div id="tic-02-10-2017-06-29" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-10">
+<a href="#tic-02-10-2017-06-29" class="anchor"></a>tic 0.2-10 (2017-06-29)</h1>
 <ul>
 <li>Document all exported functions and many classes (<a href='https://github.com/ropensci/tic/issues/8'>#8</a>).</li>
 <li>
 <code><a href="../reference/step_add_to_drat.html">step_add_to_drat()</a></code> will also update the overview page if it exists.</li>
 </ul>
 </div>
-    <div id="tic-0-2-9-2017-06-28" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-9-2017-06-28" class="anchor"></a>tic 0.2-9 (2017-06-28)</h1>
+    <div id="tic-02-9-2017-06-28" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-9">
+<a href="#tic-02-9-2017-06-28" class="anchor"></a>tic 0.2-9 (2017-06-28)</h1>
 <ul>
 <li>Fix <code>get_slug()</code> on AppVeyor to use <code>APPVEYOR_REPO_NAME</code>.</li>
 <li>New <code><a href="../reference/step_add_to_drat.html">step_add_to_drat()</a></code>.</li>
@@ -579,16 +699,16 @@
 <li>The deparsed code is used as step name (<a href='https://github.com/ropensci/tic/issues/5'>#5</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-8-2017-06-17" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-8-2017-06-17" class="anchor"></a>tic 0.2-8 (2017-06-17)</h1>
+    <div id="tic-02-8-2017-06-17" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-8">
+<a href="#tic-02-8-2017-06-17" class="anchor"></a>tic 0.2-8 (2017-06-17)</h1>
 <ul>
 <li>An error occurring when running a step is printed in red (<a href='https://github.com/ropensci/tic/issues/5'>#5</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-7-2017-06-13" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-7-2017-06-13" class="anchor"></a>tic 0.2-7 (2017-06-13)</h1>
+    <div id="tic-02-7-2017-06-13" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-7">
+<a href="#tic-02-7-2017-06-13" class="anchor"></a>tic 0.2-7 (2017-06-13)</h1>
 <ul>
 <li>New <code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code> for creating arbitrary text files, including <code>~/.R/Makevars</code> (<a href='https://github.com/ropensci/tic/issues/14'>#14</a>).</li>
 <li>pkgdown documentation is now built for tags by default (<a href='https://github.com/ropensci/tic/issues/13'>#13</a>).</li>
@@ -604,24 +724,24 @@
 <li>Export runner methods for all stages defined in Travis CI and AppVeyor (<a href='https://github.com/ropensci/tic/issues/17'>#17</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-6-2017-06-04" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-6-2017-06-04" class="anchor"></a>tic 0.2-6 (2017-06-04)</h1>
+    <div id="tic-02-6-2017-06-04" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-6">
+<a href="#tic-02-6-2017-06-04" class="anchor"></a>tic 0.2-6 (2017-06-04)</h1>
 <ul>
 <li>Technical release to synch master and production branches.</li>
 </ul>
 </div>
-    <div id="tic-0-2-5-2016-11-27" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-5-2016-11-27" class="anchor"></a>tic 0.2-5 (2016-11-27)</h1>
+    <div id="tic-02-5-2016-11-27" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-5">
+<a href="#tic-02-5-2016-11-27" class="anchor"></a>tic 0.2-5 (2016-11-27)</h1>
 <ul>
 <li>Fix <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code>.</li>
 <li>Step names are now printed again.</li>
 </ul>
 </div>
-    <div id="tic-0-2-4-2016-11-27" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-4-2016-11-27" class="anchor"></a>tic 0.2-4 (2016-11-27)</h1>
+    <div id="tic-02-4-2016-11-27" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-4">
+<a href="#tic-02-4-2016-11-27" class="anchor"></a>tic 0.2-4 (2016-11-27)</h1>
 <ul>
 <li>Use new DSL with the notion of stages with arbitrary names.
 <ul>
@@ -645,23 +765,23 @@
 <li>Stop if <code>git</code> exits with nonzero status.</li>
 </ul>
 </div>
-    <div id="tic-0-2-3-2016-11-06" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-3-2016-11-06" class="anchor"></a>tic 0.2-3 (2016-11-06)</h1>
+    <div id="tic-02-3-2016-11-06" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-3">
+<a href="#tic-02-3-2016-11-06" class="anchor"></a>tic 0.2-3 (2016-11-06)</h1>
 <ul>
 <li>Install package for <code>task_build_pkgdown</code> task.</li>
 </ul>
 </div>
-    <div id="tic-0-2-2-2016-11-05" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-2-2016-11-05" class="anchor"></a>tic 0.2-2 (2016-11-05)</h1>
+    <div id="tic-02-2-2016-11-05" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-2">
+<a href="#tic-02-2-2016-11-05" class="anchor"></a>tic 0.2-2 (2016-11-05)</h1>
 <ul>
 <li>DSL to define steps via <code><a href="https://rdrr.io/r/stats/step.html">step()</a></code>, which are tasks with a branch and/or env var filter (<a href='https://github.com/ropensci/tic/issues/6'>#6</a>).</li>
 </ul>
 </div>
-    <div id="tic-0-2-1-2016-11-05" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-1-2016-11-05" class="anchor"></a>tic 0.2-1 (2016-11-05)</h1>
+    <div id="tic-02-1-2016-11-05" class="section level1">
+<h1 class="page-header" data-toc-text="0.2-1">
+<a href="#tic-02-1-2016-11-05" class="anchor"></a>tic 0.2-1 (2016-11-05)</h1>
 <ul>
 <li>Support environment variables from both Travis and AppVeyor (<a href='https://github.com/ropensci/tic/issues/6'>#6</a>).</li>
 <li>Add tests.</li>
@@ -669,9 +789,9 @@
 <li>Clean up dependencies.</li>
 </ul>
 </div>
-    <div id="tic-0-2-2016-11-05" class="section level1">
-<h1 class="page-header">
-<a href="#tic-0-2-2016-11-05" class="anchor"></a>tic 0.2 (2016-11-05)</h1>
+    <div id="tic-02-2016-11-05" class="section level1">
+<h1 class="page-header" data-toc-text="0.2">
+<a href="#tic-02-2016-11-05" class="anchor"></a>tic 0.2 (2016-11-05)</h1>
 <p>Initial release.</p>
 <ul>
 <li>Rudimentary configuration based on task objects. A task object is a list/environment which contains at least the members <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code>, <code>prepare()</code> and <code>run()</code> – functions without arguments, only <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> needs to return a <code>logical</code> scalar. These can be subclasses of the new <code>TravisTask</code> R6 class, the package now contains six subclasses: <code>HelloWorld</code>, <code>RunCovr</code>, <code>BuildPkgdown</code>, <code>InstallSSHKeys</code>, <code>TestSSH</code>, and <code>PushDeploy</code>. The <code>new</code> methods of theses subclasses are exported as <code>task_hello_world()</code>, <code>task_run_covr()</code>, <code>task_build_pkgdown()</code> <code>task_install_ssh_keys()</code>, <code>task_test_ssh()</code>, and <code>task_push_deploy()</code>, respectively. The three functions <code><a href="../reference/stages.html">before_script()</a></code>, <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code> accept a semicolon-separated list of task objects, which is by default taken from the <code>TIC_AFTER_SUCCESS_TASKS</code> and <code>TIC_DEPLOY_TASKS</code> environment variables. These functions call the <code>prepare()</code> and <code>run()</code> methods of the task objects if and only if the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method returns <code>TRUE</code> (<a href='https://github.com/ropensci/tic/issues/42'>#42</a>).</li>
@@ -679,59 +799,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tic-0-5-0-9001">0.5.0.9001</a></li>
-        <li><a href="#tic-0-5-0-9000">0.5.0.9000</a></li>
-        <li><a href="#tic-0-5-0">0.5.0</a></li>
-        <li><a href="#tic-0-4-0-9000">0.4.0.9000</a></li>
-        <li><a href="#tic-0-4-0">0.4.0</a></li>
-        <li><a href="#tic-0-3-0-9005">0.3.0.9005</a></li>
-        <li><a href="#tic-0-3-0-9004">0.3.0.9004</a></li>
-        <li><a href="#tic-0-3-0-9003">0.3.0.9003</a></li>
-        <li><a href="#tic-0-3-0-9002">0.3.0.9002</a></li>
-        <li><a href="#tic-0-3-0-9001">0.3.0.9001</a></li>
-        <li><a href="#tic-0-3-0">0.3.0</a></li>
-        <li><a href="#tic-0-2-13-9020">0.2.13.9020</a></li>
-        <li><a href="#tic-0-2-13-9019">0.2.13.9019</a></li>
-        <li><a href="#tic-0-2-13-9018">0.2.13.9018</a></li>
-        <li><a href="#tic-0-2-13-9017">0.2.13.9017</a></li>
-        <li><a href="#tic-0-2-13-9016">0.2.13.9016</a></li>
-        <li><a href="#tic-0-2-13-9015">0.2.13.9015</a></li>
-        <li><a href="#tic-0-2-13-9014">0.2.13.9014</a></li>
-        <li><a href="#tic-0-2-13-9013">0.2.13.9013</a></li>
-        <li><a href="#tic-0-2-13-9012">0.2.13.9012</a></li>
-        <li><a href="#tic-0-2-13-9011">0.2.13.9011</a></li>
-        <li><a href="#tic-0-2-13-9011-1">0.2.13.9011</a></li>
-        <li><a href="#tic-0-2-13-9010">0.2.13.9010</a></li>
-        <li><a href="#tic-0-2-13-9009">0.2.13.9009</a></li>
-        <li><a href="#tic-0-2-13-9008">0.2.13.9008</a></li>
-        <li><a href="#tic-0-2-13-9007">0.2.13.9007</a></li>
-        <li><a href="#tic-0-2-13-9006">0.2.13.9006</a></li>
-        <li><a href="#tic-0-2-13-9005">0.2.13.9005</a></li>
-        <li><a href="#tic-0-2-13-9004">0.2.13.9004</a></li>
-        <li><a href="#tic-0-2-13-9003">0.2.13.9003</a></li>
-        <li><a href="#tic-0-2-13-9002">0.2.13.9002</a></li>
-        <li><a href="#tic-0-2-13-9001">0.2.13.9001</a></li>
-        <li><a href="#tic-0-2-13-9000">0.2.13.9000</a></li>
-        <li><a href="#tic-0-2-13-2018-02-01">0.2-13</a></li>
-        <li><a href="#tic-0-2-12-2017-06-29">0.2-12</a></li>
-        <li><a href="#tic-0-2-11-2017-06-29">0.2-11</a></li>
-        <li><a href="#tic-0-2-10-2017-06-29">0.2-10</a></li>
-        <li><a href="#tic-0-2-9-2017-06-28">0.2-9</a></li>
-        <li><a href="#tic-0-2-8-2017-06-17">0.2-8</a></li>
-        <li><a href="#tic-0-2-7-2017-06-13">0.2-7</a></li>
-        <li><a href="#tic-0-2-6-2017-06-04">0.2-6</a></li>
-        <li><a href="#tic-0-2-5-2016-11-27">0.2-5</a></li>
-        <li><a href="#tic-0-2-4-2016-11-27">0.2-4</a></li>
-        <li><a href="#tic-0-2-3-2016-11-06">0.2-3</a></li>
-        <li><a href="#tic-0-2-2-2016-11-05">0.2-2</a></li>
-        <li><a href="#tic-0-2-1-2016-11-05">0.2-1</a></li>
-        <li><a href="#tic-0-2-2016-11-05">0.2</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>

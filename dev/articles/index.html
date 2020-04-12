@@ -14,14 +14,17 @@
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
@@ -60,7 +63,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +78,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.5.0.9001</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -129,7 +132,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropensci/tic">
+  <a href="https://github.com/ropensci/tic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -154,17 +157,26 @@
       <h3>All vignettes</h3>
       <p class="section-desc"></p>
 
-      <ul>
-        <li><a href="advanced.html">Advanced usage</a></li>
-        <li><a href="build-lifecycle.html">Build lifecycle</a></li>
-        <li><a href="ci-client-packages.html">tic &amp; CI Client Packages - An Overview</a></li>
-        <li><a href="ci-providers.html">Implementation Details of CI Providers</a></li>
-        <li><a href="custom-steps.html">Developer info: Writing custom steps</a></li>
-        <li><a href="deployment.html">Deployment</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="features.html">The features of tic</a></li>
-        <li><a href="tic.html">Getting started with CI for R</a></li>
-      </ul>
+      <dl>
+        <dt><a href="advanced.html">Advanced usage</a></dt>
+        <dd></dt>
+        <dt><a href="build-lifecycle.html">Build lifecycle</a></dt>
+        <dd></dt>
+        <dt><a href="ci-client-packages.html">tic &amp; CI Client Packages - An Overview</a></dt>
+        <dd></dt>
+        <dt><a href="ci-providers.html">Implementation Details of CI Providers</a></dt>
+        <dd></dt>
+        <dt><a href="custom-steps.html">Developer info: Writing custom steps</a></dt>
+        <dd></dt>
+        <dt><a href="deployment.html">Deployment</a></dt>
+        <dd></dt>
+        <dt><a href="faq.html">FAQ</a></dt>
+        <dd></dt>
+        <dt><a href="features.html">The features of tic</a></dt>
+        <dd></dt>
+        <dt><a href="tic.html">Getting started with CI for R</a></dt>
+        <dd></dt>
+      </dl>
     </div>
   </div>
 </div>
