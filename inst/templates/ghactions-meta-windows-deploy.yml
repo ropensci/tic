@@ -1,0 +1,22 @@
+on:
+  push:
+  pull_request:
+  # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "0 4 * * *"
+
+name: R CMD Check via {tic}
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # comment out lines if you do not want to build on certain platforms
+          - { os: windows-latest, r: "release", pkgdown: "true" }

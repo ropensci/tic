@@ -14,7 +14,7 @@ use_appveyor_yml(type)
 
 use_circle_yml(type)
 
-use_ghactions_yml(type = "all", deploy = FALSE)
+use_ghactions_yml(type = "all")
 }
 \arguments{
 \item{type}{\verb{[character]}\cr
@@ -25,25 +25,26 @@ Which template to use. The string should be given following the logic
 Whether to use YAML templates for deployment.}
 }
 \description{
-Installs YAML templates for various CI providers.
+Installs YAML templates for various CI providers. These function
+are also used within \code{\link[=use_tic]{use_tic()}}.
 }
 \section{pkgdown}{
 
-If a setting including "deploy" is selected, {tic} by default also adds
-the environment var \code{BUILD_PKGDOWN=true}. This setting triggers a call
-to \code{pkgdown::build_site()} via the \code{do_pkgdown} macro in \code{tic.R}.
+If \code{type} contains "deploy", {tic} by default also sets the environment
+variable \code{BUILD_PKGDOWN=true}. This triggers a call to
+\code{pkgdown::build_site()} via the \code{do_pkgdown} macro in \code{tic.R} for the
+respective runners.
 
 If a setting  includes "matrix" and builds on multiple R versions, the job
 building on R release is chosen to build the pkgdown site.
 }
 
-\section{Type}{
+\section{YAML Type}{
 
 \code{tic} supports a variety of different YAML templates which follow the
 \verb{<platform>-<action>} pattern. The first one is mandatory, the
 others are optional.
 \itemize{
-\item Possible values for \verb{<provider>} are \code{travis}, and \code{circle}
 \item Possible values for \verb{<platform>} are \code{linux}, and \code{macos}, \code{windows}.
 \item Possible values for \verb{<action>} are \code{matrix} and \code{deploy}.
 }
@@ -52,9 +53,8 @@ Not every combinations is supported on all CI systems.
 For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix}
 are valid.
 
-\strong{GitHub Actions} is special in the sense that it support all operating
-systems. Therefore, only the deploy/non/deploy switch is available and it
-does not follow the scheme described above.
+For backward compatibility \code{use_ghactions_yml()} will be default build and
+deploy on all platforms.
 
 Here is a list of all available combinations:\tabular{lllll}{
    Provider \tab Operating system \tab Deployment \tab multiple R versions \tab Call \cr
@@ -80,8 +80,20 @@ Here is a list of all available combinations:\tabular{lllll}{
    Appveyor \tab Windows \tab no \tab no \tab \code{use_appveyor_yml("windows")} \cr
     \tab Windows \tab no \tab yes \tab \code{use_travis_yml("windows-matrix")} \cr
    ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
-   GH Actions \tab All \tab no \tab yes \tab \code{use_ghactions_yml()} \cr
-    \tab All \tab no \tab yes \tab \code{use_ghactions_yml(deploy = TRUE)} \cr
+   GH Actions \tab Linux \tab no \tab no \tab \code{use_ghactions_yml("linux")}                           - \cr
+    \tab Linux \tab yes \tab no \tab \verb{use_ghactions_yml("linux-deploy)} \cr
+    \tab macOS \tab no \tab no \tab \verb{use_ghactions_yml("macos)} \cr
+    \tab macOS \tab yes \tab no \tab \verb{use_ghactions_yml("macos-deploy)} \cr
+    \tab Windows \tab no \tab no \tab \verb{use_ghactions_yml("windows)} \cr
+    \tab Windows \tab yes \tab no \tab \verb{use_ghactions_yml("windows-deploy)} \cr
+    \tab Linux + macOS \tab no \tab no \tab \code{use_ghactions_yml("linux-macos")} \cr
+    \tab Linux + macOS \tab yes \tab no \tab \code{use_ghactions_yml("linux-macos-deploy")} \cr
+    \tab Linux + Windows \tab no \tab no \tab \code{use_ghactions_yml("linux-windows")} \cr
+    \tab Linux + Windows \tab yes \tab no \tab \code{use_ghactions_yml("linux-windows-deploy")} \cr
+    \tab macOS + Windows \tab no \tab no \tab \code{use_ghactions_yml("macos-windows")} \cr
+    \tab macOS + Windows \tab yes \tab no \tab \code{use_ghactions_yml("macos-windows-deploy")} \cr
+    \tab Linux + macOS + Windows \tab no \tab no \tab \code{use_ghactions_yml("linux-macos-windows")} \cr
+    \tab Linux + macOS + Windows \tab yes \tab no \tab \code{use_ghactions_yml("linux-macos-windows-deploy")} \cr
 }
 }
 
