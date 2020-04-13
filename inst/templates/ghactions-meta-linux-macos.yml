@@ -20,6 +20,6 @@ jobs:
         config:
           # comment out lines if you do not want to build on certain platforms
           - { os: ubuntu-latest, r: "release" }
-          - { os: macos-latest, r: "release", pkgdown: "true" }
-          - { os: macos-latest, r: "devel" }
+          - { os: macOS-latest, r: "release", pkgdown: "true" }
+          - { os: macOS-latest, r: "devel" }
 

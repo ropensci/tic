@@ -19,7 +19,7 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
-          - { os: macos-latest, r: "release" }
-          - { os: macos-latest, r: "devel", pkgdown: "true"}
+          - { os: macOS-latest, r: "release" }
+          - { os: macOS-latest, r: "devel", pkgdown: "true"}
           - { os: windows-latest, r: "release" }
 
