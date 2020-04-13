@@ -71,23 +71,33 @@ tic::use_tic()
 If you already use {tic} and want to configure a new CI provider, do
 
 ```r
-## Travis CI
+### Travis CI ------------------------------------------------------------------
 travis::use_travis_deploy() # (optional for deployment)
-tic::use_travis_yml(type = )
+tic::use_travis_yml() # optional: Change `type` arg to your liking
 tic::use_tic_r("package", deploy_on = "travis")
+# (all of the above in one call)
+# tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",
+#              matrix = "travis", deploy = "travis")
 
-## Circle CI  
+### Circle CI ------------------------------------------------------------------
 circle::use_circle_deploy() # (optional for deployment)
-tic::use_circle_yml(type =  )
+tic::use_circle_yml() # optional: Change `type` arg to your liking
 tic::use_tic_r("package", deploy_on = "circle")
+# (all of the above in one call)
+# tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",
+#              matrix = "circle", deploy = "circle")
 
-## Appveyor
-tic::use_appveyor_yml(type = )
+### Appveyor -------------------------------------------------------------------
+tic::use_appveyor_yml()
 
-## Github Actions
-tic::use_ghactions_deploy(deploy = TRUE)
-tic::use_ghactions_yml(deploy = TRUE)
+### GitHub Actions -------------------------------------------------------------
+tic::use_ghactions_deploy() # (optional for deployment)
+tic::use_ghactions_yml() # optional: Change `type` arg to your liking
 tic::use_tic_r("package", deploy_on = "ghactions")
+# (all of the above in one call)
+# tic::use_tic(wizard = FALSE, linux = "ghactions", mac = "ghactions",
+#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")
+
 tic::use_tic_badge("ghactions")
 ```
 
