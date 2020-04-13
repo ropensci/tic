@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Use CI YAML templates — yaml-templates • tic</title>
+<title>Use CI YAML templates — yaml_templates • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -14,14 +14,17 @@
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
@@ -41,8 +44,9 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Use CI YAML templates — yaml-templates" />
-<meta property="og:description" content="Installs YAML templates for various CI providers." />
+<meta property="og:title" content="Use CI YAML templates — yaml_templates" />
+<meta property="og:description" content="Installs YAML templates for various CI providers. These function
+are also used within use_tic()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -62,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -77,7 +81,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -111,6 +115,9 @@
       <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
+      <a href="../articles/ci-providers.html">CI Providers</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
     </li>
     <li>
@@ -120,7 +127,7 @@
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -128,7 +135,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropensci/tic">
+  <a href="https://github.com/ropensci/tic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -148,18 +155,21 @@
     <div class="page-header">
     <h1>Use CI YAML templates</h1>
     <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/use-yaml.R'><code>R/use-yaml.R</code></a></small>
-    <div class="hidden name"><code>yaml-templates.Rd</code></div>
+    <div class="hidden name"><code>yaml_templates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Installs YAML templates for various CI providers.</p>
+    <p>Installs YAML templates for various CI providers. These function
+are also used within <code><a href='use_tic.html'>use_tic()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='no'>type</span>)
+    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-deploy-matrix"</span>)
 
-<span class='fu'>use_appveyor_yml</span>(<span class='no'>type</span>)
+<span class='fu'>use_appveyor_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"windows"</span>)
 
-<span class='fu'>use_circle_yml</span>(<span class='no'>type</span>)</pre>
+<span class='fu'>use_circle_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-matrix-deploy"</span>)
+
+<span class='fu'>use_ghactions_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-windows-deploy"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,19 +186,19 @@ Which template to use. The string should be given following the logic
 
     
 
-<p>If a setting including "deploy" is selected, tic by default also adds
-the environment var <code>BUILD_PKGDOWN=true</code>. This setting triggers a call
-to <code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>pkgdown::build_site()</a></code> via the <code>do_pkgdown</code> macro in <code>tic.R</code>.</p>
+<p>If <code>type</code> contains "deploy", tic by default also sets the environment
+variable <code>BUILD_PKGDOWN=true</code>. This triggers a call to
+<code><a href='https://pkgdown.r-lib.org/reference/build_site.html'>pkgdown::build_site()</a></code> via the <code>do_pkgdown</code> macro in <code>tic.R</code> for the
+respective runners.</p>
 <p>If a setting  includes "matrix" and builds on multiple R versions, the job
 building on R release is chosen to build the pkgdown site.</p>
-    <h2 class="hasAnchor" id="type"><a class="anchor" href="#type"></a>Type</h2>
+    <h2 class="hasAnchor" id="yaml-type"><a class="anchor" href="#yaml-type"></a>YAML Type</h2>
 
     
 
 <p><code>tic</code> supports a variety of different YAML templates which follow the
 <code>&lt;platform&gt;-&lt;action&gt;</code> pattern. The first one is mandatory, the
 others are optional.</p><ul>
-<li><p>Possible values for <code>&lt;provider&gt;</code> are <code>travis</code>, and <code>circle</code></p></li>
 <li><p>Possible values for <code>&lt;platform&gt;</code> are <code>linux</code>, and <code>macos</code>, <code>windows</code>.</p></li>
 <li><p>Possible values for <code>&lt;action&gt;</code> are <code>matrix</code> and <code>deploy</code>.</p></li>
 </ul>
@@ -196,6 +206,8 @@ others are optional.</p><ul>
 <p>Not every combinations is supported on all CI systems.
 For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and <code>windows-matrix</code>
 are valid.</p>
+<p>For backward compatibility <code>use_ghactions_yml()</code> will be default build and
+deploy on all platforms.</p>
 <p>Here is a list of all available combinations:</p><table class='table'>
 <tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
 <tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
@@ -219,19 +231,30 @@ are valid.</p>
 <tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
 <tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
 <tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_travis_yml("windows-matrix")</code></td></tr>
+<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
+<tr><td>GH Actions</td><td>Linux</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux")</code>                           -</td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-deploy)</code></td></tr>
+<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_ghactions_yml("macos)</code></td></tr>
+<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("macos-deploy)</code></td></tr>
+<tr><td></td><td>Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("windows)</code></td></tr>
+<tr><td></td><td>Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("windows-deploy)</code></td></tr>
+<tr><td></td><td>Linux + macOS</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-macos")</code></td></tr>
+<tr><td></td><td>Linux + macOS</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-macos-deploy")</code></td></tr>
+<tr><td></td><td>Linux + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-windows")</code></td></tr>
+<tr><td></td><td>Linux + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-windows-deploy")</code></td></tr>
+<tr><td></td><td>macOS + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("macos-windows")</code></td></tr>
+<tr><td></td><td>macOS + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("macos-windows-deploy")</code></td></tr>
+<tr><td></td><td>Linux + macOS + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-macos-windows")</code></td></tr>
+<tr><td></td><td>Linux + macOS + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-macos-windows-deploy")</code></td></tr>
 </table>
 
 
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#pkgdown">pkgdown</a></li>
-      <li><a href="#type">Type</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions — Deprecated • tic</title>
+<title>Add a CI Status Badge to README files — use_tic_badge • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,8 +44,10 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Deprecated functions — Deprecated" />
-<meta property="og:description" content="add_package_checks() has been replaced by do_package_checks()." />
+<meta property="og:title" content="Add a CI Status Badge to README files — use_tic_badge" />
+<meta property="og:description" content="Adds a CI status badge to README.Rmd or README.md. By default the label
+is `&quot;R CMD Check via tic&quot;.
+A custom branch can be specified via argument branch." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -152,86 +154,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-package-checks.R'><code>R/macro-package-checks.R</code></a></small>
-    <div class="hidden name"><code>Deprecated.Rd</code></div>
+    <h1>Add a CI Status Badge to README files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/use-badge.R'><code>R/use-badge.R</code></a></small>
+    <div class="hidden name"><code>use_tic_badge.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>add_package_checks()</code> has been replaced by <code><a href='do_package_checks.html'>do_package_checks()</a></code>.</p>
+    <p>Adds a CI status badge to <code>README.Rmd</code> or <code>README.md</code>. By default the label
+is `"R CMD Check via tic".</p>
+<p>A custom branch can be specified via argument <code>branch</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_package_checks</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>,
-  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
-)</pre>
+    <pre class="usage"><span class='fu'>use_tic_badge</span>(<span class='no'>provider</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"R CMD Check via {tic}"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Ignored, used to enforce naming of arguments.</p></td>
+      <th>provider</th>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code><br />
+The CI provider to generate a badge for. Only <code>ghactions</code> is currently
+supported</p></td>
     </tr>
     <tr>
-      <th>warnings_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
+      <th>branch</th>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code><br />
+Which branch should the badge represent?</p></td>
     </tr>
     <tr>
-      <th>notes_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br /></p>
-<p>Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
-<p>Default for Appveyor and GitHub Actions (Windows):
-<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.</p>
-<p>On GitHub Actions option "--no-manual" is always used (appended to custom
-user input) because LaTeX is not available and installation is time
-consuming and error prone.<br /></p></td>
-    </tr>
-    <tr>
-      <th>build_args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code>"--force"</code>.<br />
-Default for Appveyor: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
-    </tr>
-    <tr>
-      <th>error_on</th>
-      <td><p><code>[character]</code><br />
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
+      <th>label</th>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code><br />
+Text to use for the badge.</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>use_tic_badge</span>(<span class='kw'>provider</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>)
+
+<span class='co'># use a different branch</span>
+<span class='fu'>use_tic_badge</span>(<span class='kw'>provider</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"develop"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

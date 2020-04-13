@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions — Deprecated • tic</title>
+<title>Step: Build a Blogdown Site — step_build_blogdown • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,8 +44,8 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Deprecated functions — Deprecated" />
-<meta property="og:description" content="add_package_checks() has been replaced by do_package_checks()." />
+<meta property="og:title" content="Step: Build a Blogdown Site — step_build_blogdown" />
+<meta property="og:description" content="Build a Blogdown site using blogdown::build_site()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -152,86 +152,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-package-checks.R'><code>R/macro-package-checks.R</code></a></small>
-    <div class="hidden name"><code>Deprecated.Rd</code></div>
+    <h1>Step: Build a Blogdown Site</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-blogdown.R'><code>R/steps-blogdown.R</code></a></small>
+    <div class="hidden name"><code>step_build_blogdown.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>add_package_checks()</code> has been replaced by <code><a href='do_package_checks.html'>do_package_checks()</a></code>.</p>
+    <p>Build a Blogdown site using <code><a href='https://rdrr.io/pkg/blogdown/man/build_site.html'>blogdown::build_site()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_package_checks</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>,
-  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
-)</pre>
+    <pre class="usage"><span class='fu'>step_build_blogdown</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Ignored, used to enforce naming of arguments.</p></td>
-    </tr>
-    <tr>
-      <th>warnings_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>notes_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br /></p>
-<p>Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
-<p>Default for Appveyor and GitHub Actions (Windows):
-<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.</p>
-<p>On GitHub Actions option "--no-manual" is always used (appended to custom
-user input) because LaTeX is not available and installation is time
-consuming and error prone.<br /></p></td>
-    </tr>
-    <tr>
-      <th>build_args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code>"--force"</code>.<br />
-Default for Appveyor: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
-    </tr>
-    <tr>
-      <th>error_on</th>
-      <td><p><code>[character]</code><br />
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
+      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/blogdown/man/build_site.html'>blogdown::build_site</a></code></p><dl'>
+    <dt><code>local</code></dt><dd><p>Whether to build the website locally to be served via
+<code><a href='https://rdrr.io/pkg/blogdown/man/serve_site.html'>serve_site</a>()</code>.</p></dd>
+    <dt><code>method</code></dt><dd><p>Different methods to build a website (each with pros and cons).
+See Details. The value of this argument will be obtained from the global
+option <code><a href='https://rdrr.io/r/base/options.html'>getOption('blogdown.method')</a></code> when it is set.</p></dd>
+    <dt><code>run_hugo</code></dt><dd><p>Whether to run <code>hugo_build()</code> after R Markdown files are
+compiled.</p></dd>
+  
+</dl></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_build_blogdown</span>(<span class='st'>"."</span>))
+
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_build_blogdown(".")</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

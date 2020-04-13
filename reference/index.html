@@ -14,14 +14,17 @@
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
@@ -60,7 +63,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +78,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.4.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -109,6 +112,9 @@
       <a href="../articles/ci-client-packages.html">CI Client Packages</a>
     </li>
     <li>
+      <a href="../articles/ci-providers.html">CI Providers</a>
+    </li>
+    <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
     </li>
     <li>
@@ -118,7 +124,7 @@
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/org-vs-com.html">Travis CI .org vs .com</a>
+      <a href="../articles/faq.html">FAQ</a>
     </li>
   </ul>
 </li>
@@ -126,7 +132,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/ropensci/tic">
+  <a href="https://github.com/ropensci/tic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -162,6 +168,11 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -189,10 +200,15 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
-          <p><code><a href="yaml-templates.html">use_travis_yml()</a></code> <code><a href="yaml-templates.html">use_appveyor_yml()</a></code> <code><a href="yaml-templates.html">use_circle_yml()</a></code> </p>
+          <p><code><a href="yaml_templates.html">use_travis_yml()</a></code> <code><a href="yaml_templates.html">use_appveyor_yml()</a></code> <code><a href="yaml_templates.html">use_circle_yml()</a></code> <code><a href="yaml_templates.html">use_ghactions_yml()</a></code> </p>
         </td>
         <td><p>Use CI YAML templates</p></td>
       </tr>
@@ -203,12 +219,23 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
           <p><code><a href="macro.html">macro</a></code> </p>
         </td>
         <td><p>Macros</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="do_blogdown.html">do_blogdown()</a></code> </p>
+        </td>
+        <td><p>Build a blogdown site</p></td>
       </tr><tr>
         
         <td>
@@ -239,6 +266,12 @@
           <p><code><a href="do_readme_rmd.html">do_readme_rmd()</a></code> </p>
         </td>
         <td><p>Render a R Markdown README and deploy to Github</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="list_macros.html">list_macros()</a></code> </p>
+        </td>
+        <td><p>List available macros</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -247,6 +280,11 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -259,6 +297,12 @@
           <p><code><a href="step_add_to_known_hosts.html">step_add_to_known_hosts()</a></code> </p>
         </td>
         <td><p>Step: Add to known hosts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_build_blogdown.html">step_build_blogdown()</a></code> </p>
+        </td>
+        <td><p>Step: Build a Blogdown Site</p></td>
       </tr><tr>
         
         <td>
@@ -340,12 +384,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="ci.html">ci_get_branch()</a></code> <code><a href="ci.html">ci_is_tag()</a></code> <code><a href="ci.html">ci_get_slug()</a></code> <code><a href="ci.html">ci_get_build_number()</a></code> <code><a href="ci.html">ci_get_build_url()</a></code> <code><a href="ci.html">ci_get_commit()</a></code> <code><a href="ci.html">ci_get_env()</a></code> <code><a href="ci.html">ci_is_env()</a></code> <code><a href="ci.html">ci_has_env()</a></code> <code><a href="ci.html">ci_can_push()</a></code> <code><a href="ci.html">ci_is_interactive()</a></code> <code><a href="ci.html">ci_cat_with_color()</a></code> <code><a href="ci.html">ci_on_travis()</a></code> <code><a href="ci.html">ci_on_appveyor()</a></code> <code><a href="ci.html">ci_on_circle()</a></code> <code><a href="ci.html">ci()</a></code> </p>
-        </td>
-        <td><p>The current CI environment</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="TicStep.html">TicStep</a></code> </p>
         </td>
         <td><p>The base class for all steps</p></td>
@@ -353,22 +391,59 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-running" class="hasAnchor"><a href="#section-running" class="anchor"></a>Running</h2>
+          <h2 id="section-stages" class="hasAnchor"><a href="#section-stages" class="anchor"></a>Stages</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="stages.html">before_install()</a></code> <code><a href="stages.html">install()</a></code> <code><a href="stages.html">after_install()</a></code> <code><a href="stages.html">before_script()</a></code> <code><a href="stages.html">script()</a></code> <code><a href="stages.html">after_success()</a></code> <code><a href="stages.html">after_failure()</a></code> <code><a href="stages.html">before_deploy()</a></code> <code><a href="stages.html">deploy()</a></code> <code><a href="stages.html">after_deploy()</a></code> <code><a href="stages.html">after_script()</a></code> </p>
+        </td>
+        <td><p>Predefined stages</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-ci-metadata" class="hasAnchor"><a href="#section-ci-metadata" class="anchor"></a>CI Metadata</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="ci.html">ci_get_branch()</a></code> <code><a href="ci.html">ci_is_tag()</a></code> <code><a href="ci.html">ci_get_slug()</a></code> <code><a href="ci.html">ci_get_build_number()</a></code> <code><a href="ci.html">ci_get_build_url()</a></code> <code><a href="ci.html">ci_get_commit()</a></code> <code><a href="ci.html">ci_get_env()</a></code> <code><a href="ci.html">ci_is_env()</a></code> <code><a href="ci.html">ci_has_env()</a></code> <code><a href="ci.html">ci_can_push()</a></code> <code><a href="ci.html">ci_is_interactive()</a></code> <code><a href="ci.html">ci_cat_with_color()</a></code> <code><a href="ci.html">ci_on_travis()</a></code> <code><a href="ci.html">ci_on_appveyor()</a></code> <code><a href="ci.html">ci_on_circle()</a></code> <code><a href="ci.html">ci_on_ghactions()</a></code> <code><a href="ci.html">ci()</a></code> </p>
+        </td>
+        <td><p>The current CI environment</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-executing-locally" class="hasAnchor"><a href="#section-executing-locally" class="anchor"></a>Executing locally</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
           <p><code><a href="run_all_stages.html">run_all_stages()</a></code> </p>
         </td>
         <td><p>Emulate a CI run locally</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stages.html">before_install()</a></code> <code><a href="stages.html">install()</a></code> <code><a href="stages.html">after_install()</a></code> <code><a href="stages.html">before_script()</a></code> <code><a href="stages.html">script()</a></code> <code><a href="stages.html">after_success()</a></code> <code><a href="stages.html">after_failure()</a></code> <code><a href="stages.html">before_deploy()</a></code> <code><a href="stages.html">deploy()</a></code> <code><a href="stages.html">after_deploy()</a></code> <code><a href="stages.html">after_script()</a></code> </p>
-        </td>
-        <td><p>Predefined stages</p></td>
       </tr><tr>
         
         <td>
@@ -389,12 +464,48 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
           <p><code><a href="use_tic.html">use_tic()</a></code> </p>
         </td>
         <td><p>Initialize CI testing using tic</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="use_tic_r.html">use_tic_r()</a></code> </p>
+        </td>
+        <td><p>Add a tic.R file to the repo</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="use_tic_badge.html">use_tic_badge()</a></code> </p>
+        </td>
+        <td><p>Add a CI Status Badge to README files</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-deployment" class="hasAnchor"><a href="#section-deployment" class="anchor"></a>Deployment</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="use_ghactions_deploy.html">use_ghactions_deploy()</a></code> </p>
+        </td>
+        <td><p>Setup deployment for GitHub Actions</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -403,6 +514,11 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -413,10 +529,15 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-r-repo-functions" class="hasAnchor"><a href="#section-r-repo-functions" class="anchor"></a>R Repo functions</h2>
+          <h2 id="section-cran-repository-functions" class="hasAnchor"><a href="#section-cran-repository-functions" class="anchor"></a>CRAN repository functions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -424,22 +545,33 @@
         </td>
         <td><p>Shortcuts for accessing CRAN-like repositories</p></td>
       </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-deprecated" class="hasAnchor"><a href="#section-deprecated" class="anchor"></a>Deprecated</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="Deprecated.html">add_package_checks()</a></code> </p>
+        </td>
+        <td><p>Deprecated functions</p></td>
+      </tr>
     </tbody>
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-dsl">DSL</a></li>
-      <li><a href="#section-yaml-templates">YAML templates</a></li>
-      <li><a href="#section-macros">Macros</a></li>
-      <li><a href="#section-steps">Steps</a></li>
-      <li><a href="#section-running">Running</a></li>
-      <li><a href="#section-setup">Setup</a></li>
-      <li><a href="#section-serialization">Serialization</a></li>
-      <li><a href="#section-r-repo-functions">R Repo functions</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

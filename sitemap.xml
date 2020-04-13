@@ -16,6 +16,9 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/ci.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/do_blogdown.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/do_bookdown.html</loc>
   </url>
   <url>
@@ -67,6 +70,9 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/step_add_to_known_hosts.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/step_build_blogdown.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/step_build_bookdown.html</loc>
   </url>
   <url>
@@ -109,10 +115,19 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/tic-package.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/use_tic.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/yaml-templates.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/reference/use_tic_badge.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/use_tic_r.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/yaml_templates.html</loc>
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/advanced.html</loc>
@@ -124,21 +139,21 @@
     <loc>https://docs.ropensci.org/tic/dev/articles/ci-client-packages.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/articles/ci-providers.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/custom-steps.html</loc>
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/deployment.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/articles/faq.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/features.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/org-vs-com.html</loc>
-  </url>
-  <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/tic.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/troubleshooting.html</loc>
   </url>
 </urlset>
