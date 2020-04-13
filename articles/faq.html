@@ -250,7 +250,7 @@ Command exited with code 1</pre></body></html></div>
 </ul>
 <p><strong>Answer</strong></p>
 <p>The first one is usually caused by a missing installation of <code>XQuartz</code> on macOS. Add <code>brew cask install xquartz</code> to the runner.</p>
-<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed.</p>
+<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed. If the warning message during loading of {rgl} should be suppressed, either env var <code>RGL_USE_NULL = TRUE</code> can be set or R option <code><a href="https://rdrr.io/r/base/options.html">options(rgl.use.null = TRUE)</a></code>.</p>
 </div>
 </div>
   </div>
