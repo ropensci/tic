@@ -291,7 +291,16 @@ use_tic <- function(wizard = interactive(),
 
   cli_h2("GitHub Actions")
 
-  if (ghactions_in(linux) && ghactions_in(mac)) {
+  # this has to come first as otherwise the conditions jumps into partial matches
+  # first
+  if (ghactions_in(windows) && ghactions_in(linux) &&
+    ghactions_in(mac)) {
+    if (ghactions_in(deploy)) {
+      use_ghactions_yml("linux-macos-windows-deploy")
+    } else {
+      use_ghactions_yml("linux-macos-windows")
+    }
+  } else if (ghactions_in(linux) && ghactions_in(mac)) {
 
     if (ghactions_in(matrix)) {
       if (ghactions_in(deploy)) {
@@ -370,12 +379,6 @@ use_tic <- function(wizard = interactive(),
         use_ghactions_yml("linux")
       }
     }
-  } else if (ghactions_in(windows) && ghactions_in(linux) && ghactions_in(mac)) {
-    if (ghactions_in(deploy)) {
-      use_ghactions_yml("all-deploy")
-    } else {
-      use_ghactions_yml("all")
-    }
   }
 
   cli_par()
@@ -393,32 +396,6 @@ use_tic <- function(wizard = interactive(),
     "Done! Thanks for using ", crayon::blue("tic"), ".",
     bullet = "star", bullet_col = "yellow"
   )
-
-  cat_bullet(
-    "Below is the file structure of the newly added files (in case you selected
-    all providers):",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".circleci", "appveyor.yml", ".travis.yml",
-      "config.yml", "tic.R", ".github", "workflows", "main.yml"
-    ),
-    dependencies = I(list(
-      c(".circleci", "appveyor.yml", ".travis.yml", ".github", "tic.R"),
-      "config.yml",
-      character(0),
-      character(0),
-      character(0),
-      character(0),
-      "workflows", "main.yml",
-      character(0)
-    ))
-  )
-  tree(data, root = basename(getwd()))
-
 }
 
 arg_desc <- function(arg, last = FALSE) {
