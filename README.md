@@ -2,8 +2,7 @@
 
 <!-- badges: start -->
 [![R CMD Check via {tic}](https://github.com/ropensci/tic/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
-[![Travis build status](https://img.shields.io/travis/ropensci/tic/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.com/ropensci/tic)
-[![AppVeyor build status](https://img.shields.io/appveyor/ci/ropensci/tic?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/ropensci/tic)
+[![Travis build status](https://travis-ci.org/ropensci/tic.svg?branch=master)](https://travis-ci.org/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
 [![codecov](https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tic)
@@ -124,35 +123,35 @@ The badges link to the most recent build of the master branch.
 
 - [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.blogdown/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.blogdown)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.blogdown.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.blogdown)
 
 - [tic.bookdown](https://github.com/ropenscilabs/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.bookdown/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.bookdown)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.bookdown.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.bookdown)
 
 - [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.covrpage/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.covrpage)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.covrpage.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.covrpage)
 
 - [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.drat/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.drat)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.drat.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.drat)
 
 - [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.figshare/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.figshare)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.figshare.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.figshare)
 
 - [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.package/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.package)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.package.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.package)
 
 - [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.packagedocs/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.packagedocs)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.packagedocs.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.packagedocs)
 
 - [tic.website](https://github.com/ropenscilabs/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
 
-  [![Travis build status](https://img.shields.io/travis/ropenscilabs/tic.website/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/ropenscilabs/tic.website)
+  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.website.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.website)
 
 ## Vignettes
 
