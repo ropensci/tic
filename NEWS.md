@@ -1,3 +1,13 @@
+# tic 0.6.1
+
+- `use_tic()`: Move `cli::tree()` calls to `use_*_yml()` functions to avoid printing false-positive trees and correct order of ghactions template logic
+- `use_*_yml()`: Set defaults for argument `type`
+- Fix GHA build URL and prettify deploy message (#247)
+* Adjust GH Actions templates to general `use_*_yml()` logic (#246)
+* Packages on R-devel macOS are now installed in parallel again.
+* R 4.0 macOS toolchain adjustments
+
+
 # tic 0.6.0.9002
 
 - `do_blogdown()` and `do_bookdown()` gain argument `cname`, making it possible to pass a CNAME URL for deployments. This is useful when setting one sets `orphan = TRUE` and relies on a custom URL of the published content (otherwise the redirect would not work)
