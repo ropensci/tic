@@ -1,28 +1,37 @@
-# tic 0.6.1
+# tic 0.7
 
-- `use_tic()`: Move `cli::tree()` calls to `use_*_yml()` functions to avoid printing false-positive trees and correct order of ghactions template logic
-- `use_*_yml()`: Set defaults for argument `type`
+## Macros
+
+- Add `do_blogdown()` macro (#242)
+
+## CI Provider specific
+
+### GitHub Actions
+
+- `use_tic()`: Move `cli::tree()` calls to `use_*_yml()` functions to avoid printing of false-positive trees.
+- `use_*_yml()`: Set defaults for argument `type`.
 - Fix GHA build URL and prettify deploy message (#247)
-* Adjust GH Actions templates to general `use_*_yml()` logic (#246)
-* Packages on R-devel macOS are now installed in parallel again.
-* R 4.0 macOS toolchain adjustments
+- Adjust GH Actions templates to use the `use_*_yml()` logic (#246)
+- Bugfix: Packages on R-devel macOS are being installed in parallel again.
 
+**R 4.0 toolchain**
+
+- GitHub Actions: R-devel on macOS now uses Apples default clang compiler and the 10.13 SDK (High Sierra) to mimic the CRAN toolchain behavior.
+  (The 10.15 SKD causes various issues when installing packages from source.)
+- Env var `SDKROOT` is now set to `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk` to prevent linking issues on macOS >= 10.15.4
 
 # tic 0.6.0.9002
 
 - `do_blogdown()` and `do_bookdown()` gain argument `cname`, making it possible to pass a CNAME URL for deployments. This is useful when setting one sets `orphan = TRUE` and relies on a custom URL of the published content (otherwise the redirect would not work)
 - Add a better general intro about CI and explain some general CI terms (fixes #234)
 
-
 # tic 0.6.0.9001
 
-* Add `do_blogdown()` macro (#242) 
-
+- Add `do_blogdown()` macro (#242)
 
 # tic 0.6.0.9000
 
 - Same as previous version.
-
 
 # tic 0.6.0
 
