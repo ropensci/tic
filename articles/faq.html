@@ -238,6 +238,19 @@ Command exited with code 1</pre></body></html></div>
 <p>Am I the only one using {tic}?</p>
 <p><strong>Answer</strong></p>
 <p>You can see who and how many people use {tic.R} on GitHub via this query: <a href="https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code" class="uri">https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code</a></p>
+<hr>
+</div>
+<div id="q-other-3" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-other-3" class="anchor"></a>Q-Other-3</h4>
+<p>Package {rgl} fails to install because of either</p>
+<ul>
+<li>“configure: error: X11 not found but required, configure aborted.”</li>
+<li>“error: X11 not found; XQuartz (from www.xquartz.org) is required to run rgl.”</li>
+</ul>
+<p><strong>Answer</strong></p>
+<p>The first one is usually caused by a missing installation of <code>XQuartz</code> on macOS. Add <code>brew cask install xquartz</code> to the runner.</p>
+<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed.</p>
 </div>
 </div>
   </div>
