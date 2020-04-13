@@ -8,13 +8,13 @@
 \alias{use_ghactions_yml}
 \title{Use CI YAML templates}
 \usage{
-use_travis_yml(type)
+use_travis_yml(type = "linux-macos-deploy-matrix")
 
-use_appveyor_yml(type)
+use_appveyor_yml(type = "windows")
 
-use_circle_yml(type)
+use_circle_yml(type = "linux-matrix-deploy")
 
-use_ghactions_yml(type = "all")
+use_ghactions_yml(type = "linux-macos-windows-deploy")
 }
 \arguments{
 \item{type}{\verb{[character]}\cr

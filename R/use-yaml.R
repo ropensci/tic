@@ -73,7 +73,7 @@
 #' @name yaml_templates
 #' @aliases yaml_templates
 #' @export
-use_travis_yml <- function(type) {
+use_travis_yml <- function(type = "linux-macos-deploy-matrix") {
   if (type == "linux") {
     os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-linux.yml",
@@ -239,11 +239,26 @@ use_travis_yml <- function(type) {
     template <- c(os, meta, matrix, env, stages)
   }
   writeLines(template, ".travis.yml")
+
+  cat_bullet(
+    "Below is the file structure of the new/changed files:",
+    bullet = "arrow_down", bullet_col = "blue"
+  )
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(
+      basename(getwd()), ".travis.yml"
+    ),
+    dependencies = I(list(
+      ".travis.yml", character(0)
+    ))
+  )
+  print(tree(data, root = basename(getwd())))
 }
 
 #' @rdname yaml_templates
 #' @export
-use_appveyor_yml <- function(type) {
+use_appveyor_yml <- function(type = "windows") {
   if (type == "windows") {
     template <- readLines(system.file("templates/appveyor.yml",
       package = "tic"
@@ -254,11 +269,26 @@ use_appveyor_yml <- function(type) {
     ))
   }
   writeLines(template, "appveyor.yml")
+
+  cat_bullet(
+    "Below is the file structure of the new/changed files:",
+    bullet = "arrow_down", bullet_col = "blue"
+  )
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(
+      basename(getwd()), "appveyor.yml"
+    ),
+    dependencies = I(list(
+      "appveyor.yml", character(0)
+    ))
+  )
+  print(tree(data, root = basename(getwd())))
 }
 
 #' @rdname yaml_templates
 #' @export
-use_circle_yml <- function(type) {
+use_circle_yml <- function(type = "linux-matrix-deploy") {
   if (type == "linux") {
     template <- readLines(system.file("templates/circle.yml", package = "tic"))
   } else if (type == "linux-matrix") {
@@ -276,11 +306,26 @@ use_circle_yml <- function(type) {
   }
   dir.create(".circleci", showWarnings = FALSE)
   writeLines(template, con = ".circleci/config.yml")
+
+  cat_bullet(
+    "Below is the file structure of the new/changed files:",
+    bullet = "arrow_down", bullet_col = "blue"
+  )
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(
+      basename(getwd()), ".circleci", "config.yml"
+    ),
+    dependencies = I(list(
+      ".circleci", "config.yml", character(0)
+    ))
+  )
+  print(tree(data, root = basename(getwd())))
 }
 
 #' @rdname yaml_templates
 #' @export
-use_ghactions_yml <- function(type = "all") {
+use_ghactions_yml <- function(type = "linux-macos-windows-deploy") {
 
   # .ccache dir lives in the package root because we cannot write elsewhere
   # -> need to ignore it for R CMD check
@@ -372,6 +417,21 @@ use_ghactions_yml <- function(type = "all") {
   cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
                 to open the YAML file.")
   writeLines(template, con = ".github/workflows/main.yml")
+
+  cat_bullet(
+    "Below is the file structure of the new/changed files:",
+    bullet = "arrow_down", bullet_col = "blue"
+  )
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(
+      basename(getwd()), ".github", "workflows", "main.yml"
+    ),
+    dependencies = I(list(
+     ".github", "workflows", "main.yml", character(0)
+    ))
+  )
+  print(tree(data, root = basename(getwd())))
 }
 
 use_tic_template <- function(template, save_as = template, open = FALSE,
