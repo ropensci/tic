@@ -221,7 +221,8 @@ and the site is deployed after building it.
 Set to <code>FALSE</code> to skip deployment.
 By default (if <code>deploy</code> is <code>NULL</code>), deployment happens
 if the following conditions are met:</p><ol>
-<li><p>The repo can be pushed to (see <code><a href='ci.html'>ci_can_push()</a></code>).'</p></li>
+<li><p>The repo can be pushed to (see <code><a href='ci.html'>ci_can_push()</a></code>).
+account for old default "id_rsa"</p></li>
 <li><p>The <code>branch</code> argument is <code>NULL</code>
 (i.e., if the deployment happens to the active branch),
 or the current branch is <code>master</code> (see <code><a href='ci.html'>ci_get_branch()</a></code>).</p></li>

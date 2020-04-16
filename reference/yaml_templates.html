@@ -208,7 +208,7 @@ For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and 
 are valid.</p>
 <p>For backward compatibility <code>use_ghactions_yml()</code> will be default build and
 deploy on all platforms.</p>
-<p>Here is a list of all available combinations:</p><table class='table'>
+<p>Here is a list of all available combinations:nolint start</p><table class='table'>
 <tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
 <tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
 <tr><td>Travis</td><td>Linux</td><td>no</td><td>no</td><td><code>use_travis_yml("linux")</code></td></tr>
@@ -247,8 +247,7 @@ deploy on all platforms.</p>
 <tr><td></td><td>Linux + macOS + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-macos-windows")</code></td></tr>
 <tr><td></td><td>Linux + macOS + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-macos-windows-deploy")</code></td></tr>
 </table>
-
-
+<p>nolint end</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
