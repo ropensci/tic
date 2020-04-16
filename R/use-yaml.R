@@ -31,7 +31,6 @@
 #'  deploy on all platforms.
 #'
 #'  Here is a list of all available combinations:
-#'
 #'  | Provider   | Operating system         | Deployment | multiple R versions | Call                                                    |
 #'  | -------    | ----------------         | ---------- | ------------------- | ------------------------------------------------------- |
 #'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
@@ -428,7 +427,7 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy") {
       basename(getwd()), ".github", "workflows", "main.yml"
     ),
     dependencies = I(list(
-     ".github", "workflows", "main.yml", character(0)
+      ".github", "workflows", "main.yml", character(0)
     ))
   )
   print(tree(data, root = basename(getwd())))

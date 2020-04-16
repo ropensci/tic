@@ -5,7 +5,9 @@ LocalCI <- R6Class(
   public = list(
     get_branch = function() {
       # Suppress warnings that occur if not in a Git repo
-      suppressWarnings(system2("git", "rev-parse --abbrev-ref HEAD", stdout = TRUE))
+      suppressWarnings(system2("git", "rev-parse --abbrev-ref HEAD",
+        stdout = TRUE
+      ))
     },
     get_tag = function() {
       # Suppress warnings that occur if not in a Git repo
@@ -13,7 +15,9 @@ LocalCI <- R6Class(
     },
     is_tag = function() {
       # Suppress warnings that occur if not in a Git repo
-      suppressWarnings(length(system2("git", c("tag", "--points-at", "HEAD"), stdout = TRUE)) > 0)
+      suppressWarnings(length(system2("git", c("tag", "--points-at", "HEAD"),
+        stdout = TRUE
+      )) > 0)
     },
     get_slug = function() {
       # Suppress error that occurs if not in a Git repo

@@ -53,7 +53,7 @@ are valid.
 For backward compatibility \code{use_ghactions_yml()} will be default build and
 deploy on all platforms.
 
-Here is a list of all available combinations:\tabular{lllll}{
+Here is a list of all available combinations:nolint start\tabular{lllll}{
    Provider \tab Operating system \tab Deployment \tab multiple R versions \tab Call \cr
    ---------- \tab ------------------ \tab ------------ \tab --------------------- \tab --------------------------------------------------------- \cr
    Travis \tab Linux \tab no \tab no \tab \code{use_travis_yml("linux")} \cr
@@ -92,5 +92,6 @@ Here is a list of all available combinations:\tabular{lllll}{
     \tab Linux + macOS + Windows \tab no \tab no \tab \code{use_ghactions_yml("linux-macos-windows")} \cr
     \tab Linux + macOS + Windows \tab yes \tab no \tab \code{use_ghactions_yml("linux-macos-windows-deploy")} \cr
 }
+nolint end
 }
 

@@ -26,7 +26,8 @@
 #'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
 #'   `"ghactions"`, `"none"` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
-#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"` and `"all"`.
+#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"` and
+#'   `"all"`.
 #' @template private_key_name
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See
@@ -144,7 +145,7 @@ use_tic <- function(wizard = interactive(),
     windows <- match.arg(windows, c("none", "appveyor", "ghactions", "all"),
       several.ok = TRUE
     )
-    deploy <- match.arg(deploy, c("travis", "circle", "ghactions", "none", "all"),
+    deploy <- match.arg(deploy, c("travis", "circle", "ghactions", "none", "all"), # nolint
       several.ok = TRUE
     )
     matrix <- match.arg(matrix,
@@ -291,8 +292,8 @@ use_tic <- function(wizard = interactive(),
 
   cli_h2("GitHub Actions")
 
-  # this has to come first as otherwise the conditions jumps into partial matches
-  # first
+  # this has to come first as otherwise the conditions jumps into partial
+  # matches first
   if (ghactions_in(windows) && ghactions_in(linux) &&
     ghactions_in(mac)) {
     if (ghactions_in(deploy)) {

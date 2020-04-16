@@ -29,7 +29,8 @@ Set to \code{FALSE} to skip deployment.
 By default (if \code{deploy} is \code{NULL}), deployment happens
 if the following conditions are met:
 \enumerate{
-\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).'
+\item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).
+account for old default "id_rsa"
 \item The \code{branch} argument is \code{NULL}
 (i.e., if the deployment happens to the active branch),
 or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).

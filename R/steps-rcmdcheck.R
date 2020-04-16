@@ -65,7 +65,8 @@ RCMDcheck <- R6Class( # nolint
       if (length(res$errors) > 0) {
         stopc("Errors found in rcmdcheck::rcmdcheck().")
       }
-      if (private$error_on %in% c("warning", "note") && length(res$warnings) > 0) {
+      if (private$error_on %in% c("warning", "note") &&
+        length(res$warnings) > 0) {
         stopc(
           "Warnings found in rcmdcheck::rcmdcheck(), ",
           'and `errors_on = "warning"` is set.'

@@ -14,8 +14,7 @@ NULL
 #' @return [character]
 #' @family macros
 #' @export
-list_macros = function() {
+list_macros <- function() {
   requireNamespace("utils", quietly = TRUE)
   as.character(utils::lsf.str("package:tic", pattern = "^do_"))
 }
-

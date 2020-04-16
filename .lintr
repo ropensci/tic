@@ -1,4 +1,5 @@
 linters: with_defaults(object_name_linter(style = c("snake_case", "CamelCase")),
   open_curly_linter = NULL, cyclocomp_linter = NULL)
-exclusions: list("R/use-yaml.R" = 20:45, "inst/templates/unknown/tic.R",
-  "R/tic-package.R" = 16)
+exclusions: list("inst/templates/unknown/tic.R", "R/tic-package.R" = 16,
+                 "inst/templates/bookdown/none-tic.R",
+                 "R/use-yaml.R")

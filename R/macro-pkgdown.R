@@ -54,13 +54,13 @@ do_pkgdown <- function(...,
     #'   By default (if `deploy` is `NULL`), deployment happens
     #'   if the following conditions are met:
     #'
-    #'   1. The repo can be pushed to (see [ci_can_push()]).'
-    # account for old default "id_rsa"
+    #'   1. The repo can be pushed to (see [ci_can_push()]).
+    #'      account for old default "id_rsa"
     deploy <- ci_can_push(private_key_name = private_key_name)
 
     #'   2. The `branch` argument is `NULL`
-    #'   (i.e., if the deployment happens to the active branch),
-    #'   or the current branch is `master` (see [ci_get_branch()]).
+    #'      (i.e., if the deployment happens to the active branch),
+    #'      or the current branch is `master` (see [ci_get_branch()]).
     if (deploy && !is.null(branch)) {
       deploy <- (ci_get_branch() == "master")
     }

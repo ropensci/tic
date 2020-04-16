@@ -63,7 +63,8 @@ CI <- R6Class( # nolint
     get_commit = function() {
       stop("NYI")
     },
-    #'   \item{`get_commit()`}{Does an env variable named `"TIC_DEPLOY_KEY"` exist?}
+    #'   \item{`get_commit()`}{Does an env variable named `"TIC_DEPLOY_KEY"`
+    #'   exist?}
     can_push = function() {
       stop("NYI")
     },

@@ -118,7 +118,8 @@ dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
 
     env <- asNamespace(packageName())
     source_env <- new.env(parent = env)
-    dsl <- dslobj_init(envir = env)
+    # FIXME: Is dsl actually used?
+    dsl <- dslobj_init(envir = env) # nolint
     source(path, local = source_env)
 
     # All good, don't need to restore anything
@@ -139,7 +140,8 @@ dsl_init <- function(quiet = FALSE) {
   }
 
   env <- asNamespace(packageName())
-  dsl <- dslobj_init(envir = env)
+  # FIXME: Is dsl actually used?
+  dsl <- dslobj_init(envir = env) # nolint
 
   invisible(dsl_get())
 }

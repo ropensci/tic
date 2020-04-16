@@ -73,7 +73,7 @@ InstallSSHKeys <- R6Class(
   public = list(
     initialize = function(private_key_name = "TIC_DEPLOY_KEY") {
       # for backward comp, if "id_rsa" exists we take this key
-      private$private_key_name <- compat_ssh_key(private_key_name = private_key_name)
+      private$private_key_name <- compat_ssh_key(private_key_name = private_key_name) # nolint
     },
 
     run = function() {
@@ -254,7 +254,7 @@ SetupSSH <- R6Class(
                           url = paste0("git@", host),
                           verbose = "") {
 
-      private$install_ssh_keys <- step_install_ssh_keys(private_key_name = private_key_name)
+      private$install_ssh_keys <- step_install_ssh_keys(private_key_name = private_key_name) # nolint
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
       private$test_ssh <- step_test_ssh(
         url = url, verbose = verbose,

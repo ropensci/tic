@@ -45,7 +45,8 @@ TicStage <- R6Class( # nolint
       for (step in private$steps) {
         if (!private$run_one(step)) {
           stopc(
-            'A step failed in stage "', private$stage_name, '": ', private$stage_name, "."
+            'A step failed in stage "', private$stage_name, '": ',
+            private$stage_name, "."
           )
         }
       }
@@ -93,7 +94,10 @@ TicStage <- R6Class( # nolint
     run_one = function(step) {
       if (!isTRUE(step$check())) {
         ci_cat_with_color(
-          crayon::magenta(paste0("Skipping ", private$stage_name, ": ", step$stage_name))
+          crayon::magenta(paste0(
+            "Skipping ", private$stage_name, ": ",
+            step$stage_name
+          ))
         )
         print(step$check)
         return(TRUE)

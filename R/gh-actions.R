@@ -12,7 +12,7 @@ GHActionsCI <- R6Class( # nolint
     },
     get_tag = function() {
       # FIXME: No way to get a tag? Merged with env var GITHUB_REF
-      # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables
+      # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables # nolint
       return("")
     },
     is_tag = function() {
@@ -25,7 +25,10 @@ GHActionsCI <- R6Class( # nolint
       paste0("Github Actions build ", self$get_env("GITHUB_RUN_ID"))
     },
     get_build_url = function() {
-      paste0("https://github.com/", self$get_slug(), "/actions/runs/", self$get_env("GITHUB_RUN_ID"))
+      paste0(
+        "https://github.com/", self$get_slug(), "/actions/runs/",
+        self$get_env("GITHUB_RUN_ID")
+      )
     },
     get_commit = function() {
       Sys.getenv("GITHUB_SHA")
@@ -78,7 +81,7 @@ GHActionsCI <- R6Class( # nolint
 use_ghactions_deploy <- function(path = usethis::proj_get(),
                                  repo = travis::get_repo_slug(remote),
                                  key_name_private = "TIC_DEPLOY_KEY",
-                                 key_name_public = "Deploy key for GitHub Actions",
+                                 key_name_public = "Deploy key for GitHub Actions", # nolint
                                  remote = "origin") {
 
   requireNamespace("sodium", quietly = TRUE)
