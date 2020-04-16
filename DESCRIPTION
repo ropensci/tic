@@ -61,8 +61,7 @@ Imports:
     R6,
     remotes,
     rlang (>= 0.4.1.9000),
-    withr,
-    xml2
+    withr
 Suggests: 
     base64enc,
     blogdown,
@@ -93,7 +92,6 @@ VignetteBuilder:
 RdMacros: 
     lifecycle
 Remotes: 
-    r-lib/xml2,
     ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
