@@ -25,7 +25,7 @@ GHActionsCI <- R6Class( # nolint
       paste0("Github Actions build ", self$get_env("GITHUB_RUN_ID"))
     },
     get_build_url = function() {
-      paste0("https://github.com/", self$get_slug(), "/actions/runs/", self$get_build_number())
+      paste0("https://github.com/", self$get_slug(), "/actions/runs/", self$get_env("GITHUB_RUN_ID"))
     },
     get_commit = function() {
       Sys.getenv("GITHUB_SHA")
