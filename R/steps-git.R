@@ -40,9 +40,11 @@ Git <- R6Class(
 )
 
 # SetupPushDeploy --------------------------------------------------------------
+
 SetupPushDeploy <- R6Class( # nolint
   "SetupPushDeploy",
   inherit = TicStep,
+
 
   public = list(
     initialize = function(path = ".",
@@ -216,6 +218,7 @@ step_setup_push_deploy <- function(path = ".",
                                    orphan = FALSE,
                                    remote_url = NULL,
                                    checkout = TRUE) {
+
   SetupPushDeploy$new(
     path = path,
     branch = branch,
@@ -276,7 +279,8 @@ DoPushDeploy <- R6Class(
 
     commit = function() {
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
-      git2r::add(private$git$get_repo(), private$commit_paths,
+      git2r::add(private$git$get_repo(),
+        private$commit_paths,
         force = private$force
       )
 
