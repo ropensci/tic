@@ -1,4 +1,10 @@
-# tic 0.7
+# tic 0.7.0.9000
+
+- GHA: added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror CRAN
+- Add solutions to installation issues for package {rgl} to FAQ
+- Add argument `force` to `step_do_push_deploy()` for adding the `--force` flag to git calls
+
+# tic 0.7.0
 
 ## Macros
 
