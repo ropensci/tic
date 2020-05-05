@@ -5,7 +5,10 @@
 #' @param type `[character]`\cr
 #'   Which template to use. The string should be given following the logic
 #'   `<platform>-<action>`. See details for more.
-#'
+#' @param write `[logical]`\cr
+#'   Whether to write the template to disk (`TRUE`) or just return it (`FALSE`).
+#' @param quiet `[logical]`\cr
+#'   Whether to print informative messages.
 #' @section pkgdown:
 #'  If `type` contains "deploy", {tic} by default also sets the environment
 #'  variable `BUILD_PKGDOWN=true`. This triggers a call to
@@ -324,7 +327,9 @@ use_circle_yml <- function(type = "linux-matrix-deploy") {
 
 #' @rdname yaml_templates
 #' @export
-use_ghactions_yml <- function(type = "linux-macos-windows-deploy") {
+use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
+                              write = TRUE,
+                              quiet = FALSE) {
 
   # .ccache dir lives in the package root because we cannot write elsewhere
   # -> need to ignore it for R CMD check
@@ -411,26 +416,35 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy") {
     template <- c(meta, env, core, deploy)
   }
   dir.create(".github/workflows", showWarnings = FALSE, recursive = TRUE)
-  cli::cli_alert_info("Please comment in/out the platforms you want to use
+
+  if (!quiet) {
+    cli::cli_alert_info("Please comment in/out the platforms you want to use
                       in {.file .github/workflows/main.yml}.", wrap = TRUE)
-  cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
+    cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
                 to open the YAML file.")
+  }
+
+  if (!write) {
+    return(template)
+  }
   writeLines(template, con = ".github/workflows/main.yml")
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".github", "workflows", "main.yml"
-    ),
-    dependencies = I(list(
-      ".github", "workflows", "main.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), ".github", "workflows", "main.yml"
+      ),
+      dependencies = I(list(
+        ".github", "workflows", "main.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 use_tic_template <- function(template, save_as = template, open = FALSE,
