@@ -9,7 +9,8 @@ step_push_deploy(
   branch = NULL,
   remote_url = NULL,
   commit_message = NULL,
-  commit_paths = "."
+  commit_paths = ".",
+  force = FALSE
 )
 }
 \arguments{
@@ -31,9 +32,12 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{force}{\verb{[logical]}\cr
+Add \code{--force} flag to git commands?}
 }
 \description{
-Clones a repo, inits author information, sets up remotes,
+Clones a repo, initializes author information, sets up remotes,
 commits, and pushes.
 Combines \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} with \code{checkout = FALSE} and
 a suitable \code{orphan} argument,
