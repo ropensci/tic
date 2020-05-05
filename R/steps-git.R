@@ -456,7 +456,7 @@ PushDeploy <- R6Class(
 #'
 #' For more control, create two separate steps with
 #' `step_setup_push_deploy()` and `step_do_push_deploy()`,
-#' and create the files to be deployed inbetween these steps.
+#' and create the files to be deployed in between these steps.
 #'
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
