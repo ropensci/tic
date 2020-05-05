@@ -42,8 +42,11 @@ SetupPushDeploy <- R6Class( # nolint
   inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", branch = NULL, orphan = FALSE,
-                          remote_url = NULL, checkout = TRUE) {
+    initialize = function(path = ".",
+                          branch = NULL,
+                          orphan = FALSE,
+                          remote_url = NULL,
+                          checkout = TRUE) {
       if (is.null(branch) && orphan) {
         stopc("Cannot orphan the branch that has been used for the CI run.")
       }
@@ -71,6 +74,7 @@ SetupPushDeploy <- R6Class( # nolint
       private$orphan <- orphan
       private$remote_url <- remote_url
       private$checkout <- checkout
+      private$force <- force
     },
 
     prepare = function() {
@@ -205,11 +209,17 @@ SetupPushDeploy <- R6Class( # nolint
 #'
 #' dsl_get()
 #' }
-step_setup_push_deploy <- function(path = ".", branch = NULL, orphan = FALSE,
-                                   remote_url = NULL, checkout = TRUE) {
+step_setup_push_deploy <- function(path = ".",
+                                   branch = NULL,
+                                   orphan = FALSE,
+                                   remote_url = NULL,
+                                   checkout = TRUE) {
   SetupPushDeploy$new(
-    path = path, branch = branch, orphan = orphan,
-    remote_url = remote_url, checkout = checkout
+    path = path,
+    branch = branch,
+    orphan = orphan,
+    remote_url = remote_url,
+    checkout = checkout,
   )
 }
 
@@ -218,8 +228,10 @@ DoPushDeploy <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", commit_message = NULL,
-                          commit_paths = ".") {
+    initialize = function(path = ".",
+                          commit_message = NULL,
+                          commit_paths = ".",
+                          force = FALSE) {
       private$git <- Git$new(path)
 
       if (is.null(commit_message)) {
@@ -227,6 +239,7 @@ DoPushDeploy <- R6Class(
       }
       private$commit_message <- commit_message
       private$commit_paths <- commit_paths
+      private$force <- force
     },
 
     check = function() {
@@ -255,10 +268,13 @@ DoPushDeploy <- R6Class(
 
     repo = NULL,
     remote_name = "tic-remote", # HACK
+    force = FALSE,
 
     commit = function() {
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
-      git2r::add(private$git$get_repo(), private$commit_paths)
+      git2r::add(private$git$get_repo(), private$commit_paths,
+        force = private$force
+      )
 
       message("Checking changed files")
       status <- git2r::status(
@@ -363,6 +379,8 @@ DoPushDeploy <- R6Class(
 #' @param commit_paths `[character]`\cr
 #'   Restrict the set of directories and/or files added to Git before deploying.
 #'   Default: deploy all files.
+#' @param force `[logical]`\cr
+#'   Add `--force` flag to git commands?
 #'
 #' @family deploy steps
 #' @family steps
@@ -384,10 +402,13 @@ DoPushDeploy <- R6Class(
 #'
 #' dsl_get()
 #' }
-step_do_push_deploy <- function(path = ".", commit_message = NULL,
-                                commit_paths = ".") {
+step_do_push_deploy <- function(path = ".",
+                                commit_message = NULL,
+                                commit_paths = ".",
+                                force = FALSE) {
   DoPushDeploy$new(
-    path = path, commit_message = commit_message, commit_paths = commit_paths
+    path = path, commit_message = commit_message, commit_paths = commit_paths,
+    force = FALSE
   )
 }
 
@@ -396,10 +417,13 @@ PushDeploy <- R6Class(
   inherit = TicStep,
 
   public = list(
-    initialize = function(path = ".", branch = ci_get_branch(),
+    initialize = function(path = ".",
+                          branch = ci_get_branch(),
                           remote_url =
                             paste0("git@github.com:", ci_get_slug(), ".git"),
-                          commit_message = NULL, commit_paths = ".") {
+                          commit_message = NULL,
+                          commit_paths = ".",
+                          force = FALSE) {
 
       orphan <- (path != ".")
 
@@ -410,7 +434,8 @@ PushDeploy <- R6Class(
 
       private$do <- step_do_push_deploy(
         path = path,
-        commit_message = commit_message, commit_paths = commit_paths
+        commit_message = commit_message, commit_paths = commit_paths,
+        force = force
       )
     },
 
@@ -438,7 +463,7 @@ PushDeploy <- R6Class(
 #' Step: Setup and perform push deploy
 #'
 #' @description
-#' Clones a repo, inits author information, sets up remotes,
+#' Clones a repo, initializes author information, sets up remotes,
 #' commits, and pushes.
 #' Combines [step_setup_push_deploy()] with `checkout = FALSE` and
 #' a suitable `orphan` argument,
@@ -474,13 +499,18 @@ PushDeploy <- R6Class(
 #'
 #' dsl_get()
 #' }
-step_push_deploy <- function(path = ".", branch = NULL,
+step_push_deploy <- function(path = ".",
+                             branch = NULL,
                              remote_url = NULL,
-                             commit_message = NULL, commit_paths = ".") {
+                             commit_message = NULL,
+                             commit_paths = ".",
+                             force = FALSE) {
   PushDeploy$new(
-    path = path, branch = branch,
+    path = path,
+    branch = branch,
     remote_url = remote_url,
     commit_message = commit_message,
-    commit_paths = commit_paths
+    commit_paths = commit_paths,
+    force = force
   )
 }
