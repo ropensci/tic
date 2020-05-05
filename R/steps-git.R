@@ -414,11 +414,12 @@ step_do_push_deploy <- function(path = ".",
     path = path,
     commit_message = commit_message,
     commit_paths = commit_paths,
-    force = FALSE
+    force = force
   )
 }
 
 # PushDeploy -------------------------------------------------------------------
+
 PushDeploy <- R6Class(
   "PushDeploy",
   inherit = TicStep,
@@ -435,13 +436,17 @@ PushDeploy <- R6Class(
       orphan <- (path != ".")
 
       private$setup <- step_setup_push_deploy(
-        path = path, branch = branch, orphan = orphan, remote_url = remote_url,
+        path = path,
+        branch = branch,
+        orphan = orphan,
+        remote_url = remote_url,
         checkout = FALSE
       )
 
       private$do <- step_do_push_deploy(
         path = path,
-        commit_message = commit_message, commit_paths = commit_paths,
+        commit_message = commit_message,
+        commit_paths = commit_paths,
         force = force
       )
     },
@@ -467,6 +472,8 @@ PushDeploy <- R6Class(
   )
 )
 
+# step_push_deploy -------------------------------------------------------------
+
 #' Step: Setup and perform push deploy
 #'
 #' @description
@@ -488,7 +495,7 @@ PushDeploy <- R6Class(
 #'
 #' For more control, create two separate steps with
 #' `step_setup_push_deploy()` and `step_do_push_deploy()`,
-#' and create the files to be deployed inbetween these steps.
+#' and create the files to be deployed in between these steps.
 #'
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
