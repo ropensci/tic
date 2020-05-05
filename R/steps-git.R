@@ -1,3 +1,5 @@
+# Git --------------------------------------------------------------------------
+
 Git <- R6Class(
   "Git",
   public = list(
@@ -37,6 +39,7 @@ Git <- R6Class(
   )
 )
 
+# SetupPushDeploy --------------------------------------------------------------
 SetupPushDeploy <- R6Class( # nolint
   "SetupPushDeploy",
   inherit = TicStep,
@@ -74,7 +77,6 @@ SetupPushDeploy <- R6Class( # nolint
       private$orphan <- orphan
       private$remote_url <- remote_url
       private$checkout <- checkout
-      private$force <- force
     },
 
     prepare = function() {
@@ -132,7 +134,7 @@ SetupPushDeploy <- R6Class( # nolint
       if (!private$orphan) {
         message("Fetching from remote ", remote_name)
         tryCatch(
-          { # nolint
+          {
             remote_branch <- private$try_fetch()
             if (!is.null(remote_branch)) {
               message("Remote branch is ", remote_branch$name)
@@ -222,6 +224,8 @@ step_setup_push_deploy <- function(path = ".",
     checkout = checkout,
   )
 }
+
+# DoPushDeploy -----------------------------------------------------------------
 
 DoPushDeploy <- R6Class(
   "DoPushDeploy",
@@ -407,11 +411,14 @@ step_do_push_deploy <- function(path = ".",
                                 commit_paths = ".",
                                 force = FALSE) {
   DoPushDeploy$new(
-    path = path, commit_message = commit_message, commit_paths = commit_paths,
+    path = path,
+    commit_message = commit_message,
+    commit_paths = commit_paths,
     force = FALSE
   )
 }
 
+# PushDeploy -------------------------------------------------------------------
 PushDeploy <- R6Class(
   "PushDeploy",
   inherit = TicStep,
