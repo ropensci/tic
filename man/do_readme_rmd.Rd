@@ -8,6 +8,7 @@ do_readme_rmd(
   checkout = TRUE,
   remote_url = NULL,
   commit_message = NULL,
+  force = FALSE,
   private_key_name = "TIC_DEPLOY_KEY"
 )
 }
@@ -24,6 +25,9 @@ current GitHub repository.}
 \item{commit_message}{\verb{[string]}\cr
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.}
+
+\item{force}{\verb{[logical]}\cr
+Add \code{--force} flag to git commands?}
 
 \item{private_key_name}{\code{string}\cr
 Only needed when deploying from builds on Travis CI or GitHub Actions.
