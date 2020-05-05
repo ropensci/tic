@@ -81,7 +81,7 @@ are also used within use_tic()." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -208,47 +208,45 @@ For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and 
 are valid.</p>
 <p>For backward compatibility <code>use_ghactions_yml()</code> will be default build and
 deploy on all platforms.</p>
-<p>Here is a list of all available combinations:</p><table class='table'>
-<tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
-<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
-<tr><td>Travis</td><td>Linux</td><td>no</td><td>no</td><td><code>use_travis_yml("linux")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("macos")</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("macos-deploy")</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("macos-matrix")</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("macos-deploy-matrix")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("linux-macos")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-macos-deploy")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-macos-matrix")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-macos-deploy-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
-<tr><td>Circle</td><td>Linux</td><td>no</td><td>no</td><td><code>use_circle_yml("linux")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
-<tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
-<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_travis_yml("windows-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------</td><td>------------</td><td>---------------------</td><td>---------------------------------------------------------</td></tr>
-<tr><td>GH Actions</td><td>Linux</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux")</code>                           -</td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-deploy)</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_ghactions_yml("macos)</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("macos-deploy)</code></td></tr>
-<tr><td></td><td>Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("windows)</code></td></tr>
-<tr><td></td><td>Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("windows-deploy)</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-macos")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-macos-deploy")</code></td></tr>
-<tr><td></td><td>Linux + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-windows")</code></td></tr>
-<tr><td></td><td>Linux + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-windows-deploy")</code></td></tr>
-<tr><td></td><td>macOS + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("macos-windows")</code></td></tr>
-<tr><td></td><td>macOS + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("macos-windows-deploy")</code></td></tr>
-<tr><td></td><td>Linux + macOS + Windows</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux-macos-windows")</code></td></tr>
-<tr><td></td><td>Linux + macOS + Windows</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-macos-windows-deploy")</code></td></tr>
-</table>
-
-
+<p>Here is a list of all available combinations:
+| Provider   | Operating system         | Deployment | multiple R versions | Call                                                    |
+| -------    | ----------------         | ---------- | ------------------- | ------------------------------------------------------- |
+|----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+| Travis     | Linux                    | no         | no                  | <code>use_travis_yml("linux")</code>                               |
+|            | Linux                    | yes        | no                  | <code>use_travis_yml("linux-deploy")</code>                        |
+|            | Linux                    | no         | yes                 | <code>use_travis_yml("linux-matrix")</code>                        |
+|            | Linux                    | yes        | yes                 | <code>use_travis_yml("linux-deploy-matrix")</code>                 |
+|            | macOS                    | no         | no                  | <code>use_travis_yml("macos")</code>                               |
+|            | macOS                    | yes        | no                  | <code>use_travis_yml("macos-deploy")</code>                        |
+|            | macOS                    | no         | yes                 | <code>use_travis_yml("macos-matrix")</code>                        |
+|            | macOS                    | yes        | yes                 | <code>use_travis_yml("macos-deploy-matrix")</code>                 |
+|            | Linux + macOS            | no         | no                  | <code>use_travis_yml("linux-macos")</code>                         |
+|            | Linux + macOS            | yes        | no                  | <code>use_travis_yml("linux-macos-deploy")</code>                  |
+|            | Linux + macOS            | no         | yes                 | <code>use_travis_yml("linux-macos-matrix")</code>                  |
+|            | Linux + macOS            | yes        | yes                 | <code>use_travis_yml("linux-macos-deploy-matrix")</code>           |
+|----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+| Circle     | Linux                    | no         | no                  | <code>use_circle_yml("linux")</code>                               |
+|            | Linux                    | yes        | no                  | <code>use_travis_yml("linux-deploy")</code>                        |
+|            | Linux                    | no         | yes                 | <code>use_travis_yml("linux-matrix")</code>                        |
+|            | Linux                    | no         | yes                 | <code>use_travis_yml("linux-deploy-matrix")</code>                 |
+|----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+| Appveyor   | Windows                  | no         | no                  | <code>use_appveyor_yml("windows")</code>                           |
+|            | Windows                  | no         | yes                 | <code>use_travis_yml("windows-matrix")</code>                      |
+|----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+| GH Actions | Linux                    | no         | no                  | <code>use_ghactions_yml("linux")</code>                           -|
+|            | Linux                    | yes        | no                  | <code>use_ghactions_yml("linux-deploy)</code>                      |
+|            | macOS                    | no         | no                  | <code>use_ghactions_yml("macos)</code>                             |
+|            | macOS                    | yes        | no                  | <code>use_ghactions_yml("macos-deploy)</code>                      |
+|            | Windows                  | no         | no                  | <code>use_ghactions_yml("windows)</code>                           |
+|            | Windows                  | yes        | no                  | <code>use_ghactions_yml("windows-deploy)</code>                    |
+|            | Linux + macOS            | no         | no                  | <code>use_ghactions_yml("linux-macos")</code>                      |
+|            | Linux + macOS            | yes        | no                  | <code>use_ghactions_yml("linux-macos-deploy")</code>               |
+|            | Linux + Windows          | no         | no                  | <code>use_ghactions_yml("linux-windows")</code>                    |
+|            | Linux + Windows          | yes        | no                  | <code>use_ghactions_yml("linux-windows-deploy")</code>             |
+|            | macOS + Windows          | no         | no                  | <code>use_ghactions_yml("macos-windows")</code>                    |
+|            | macOS + Windows          | yes        | no                  | <code>use_ghactions_yml("macos-windows-deploy")</code>             |
+|            | Linux + macOS + Windows  | no         | no                  | <code>use_ghactions_yml("linux-macos-windows")</code>              |
+|            | Linux + macOS + Windows  | yes        | no                  | <code>use_ghactions_yml("linux-macos-windows-deploy")</code>       |</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

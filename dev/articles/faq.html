@@ -41,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -239,6 +239,19 @@ Command exited with code 1</pre></body></html></div>
 <p>Am I the only one using {tic}?</p>
 <p><strong>Answer</strong></p>
 <p>You can see who and how many people use {tic.R} on GitHub via this query: <a href="https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code" class="uri">https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code</a></p>
+<hr>
+</div>
+<div id="q-other-3" class="section level4">
+<h4 class="hasAnchor">
+<a href="#q-other-3" class="anchor"></a>Q-Other-3</h4>
+<p>Package {rgl} fails to install because of either</p>
+<ul>
+<li>“configure: error: X11 not found but required, configure aborted.”</li>
+<li>“error: X11 not found; XQuartz (from www.xquartz.org) is required to run rgl.”</li>
+</ul>
+<p><strong>Answer</strong></p>
+<p>The first one is usually caused by a missing installation of <code>XQuartz</code> on macOS. Add <code>brew cask install xquartz</code> to the runner.</p>
+<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed. If the warning message during loading of {rgl} should be suppressed, either env var <code>RGL_USE_NULL = TRUE</code> can be set or R option <code><a href="https://rdrr.io/r/base/options.html">options(rgl.use.null = TRUE)</a></code>.</p>
 </div>
 </div>
   </div>

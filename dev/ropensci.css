@@ -226,3 +226,7 @@ footer p {
     display: none;
   }
 }
+
+html{
+  overflow-x: hidden;
+}

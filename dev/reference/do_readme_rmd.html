@@ -91,7 +91,7 @@ step_do_push_deploy() in the &quot;deploy&quot; stage.
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -187,6 +187,7 @@ the upcoming deployment</p></li>
   <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>
 )</pre>
 
@@ -211,6 +212,11 @@ current GitHub repository.</p></td>
       <td><p><code>[string]</code><br />
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p><code>[logical]</code><br />
+Add <code>--force</code> flag to git commands?</p></td>
     </tr>
     <tr>
       <th>private_key_name</th>

@@ -78,7 +78,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.6.0.9002</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -154,6 +154,48 @@
       <small>Source: <a href='https://github.com/ropensci/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0709000" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.0.9000">
+<a href="#tic-0709000" class="anchor"></a>tic 0.7.0.9000</h1>
+<ul>
+<li>GHA: added <code>-I/usr/local/include</code> to CPPFLAGS for macOS runners to mirror CRAN</li>
+<li>Add solutions to installation issues for package {rgl} to FAQ</li>
+<li>Add argument <code>force</code> to <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> for adding the <code>--force</code> flag to git calls</li>
+</ul>
+</div>
+    <div id="tic-070" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.0">
+<a href="#tic-070" class="anchor"></a>tic 0.7.0</h1>
+<div id="macros" class="section level2">
+<h2 class="hasAnchor">
+<a href="#macros" class="anchor"></a>Macros</h2>
+<ul>
+<li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href='https://github.com/ropensci/tic/issues/242'>#242</a>)</li>
+</ul>
+</div>
+<div id="ci-provider-specific" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
+<ul>
+<li>
+<code><a href="../reference/use_tic.html">use_tic()</a></code>: Move <code><a href="https://rdrr.io/pkg/cli/man/tree.html">cli::tree()</a></code> calls to <code>use_*_yml()</code> functions to avoid printing of false-positive trees.</li>
+<li>
+<code>use_*_yml()</code>: Set defaults for argument <code>type</code>.</li>
+<li>Fix GHA build URL and prettify deploy message (<a href='https://github.com/ropensci/tic/issues/247'>#247</a>)</li>
+<li>Adjust GH Actions templates to use the <code>use_*_yml()</code> logic (<a href='https://github.com/ropensci/tic/issues/246'>#246</a>)</li>
+<li>Bugfix: Packages on R-devel macOS are being installed in parallel again.</li>
+</ul>
+<p><strong>R 4.0 toolchain</strong></p>
+<ul>
+<li>GitHub Actions: R-devel on macOS now uses Apples default clang compiler and the 10.13 SDK (High Sierra) to mimic the CRAN toolchain behavior. (The 10.15 SKD causes various issues when installing packages from source.)</li>
+<li>Env var <code>SDKROOT</code> is now set to <code>/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk</code> to prevent linking issues on macOS &gt;= 10.15.4</li>
+</ul>
+</div>
+</div>
+</div>
     <div id="tic-0609002" class="section level1">
 <h1 class="page-header" data-toc-text="0.6.0.9002">
 <a href="#tic-0609002" class="anchor"></a>tic 0.6.0.9002</h1>
@@ -190,12 +232,12 @@
 <li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
 </ul>
 </div>
-<div id="ci-provider-specific" class="section level2">
+<div id="ci-provider-specific-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
-<div id="github-actions" class="section level3">
+<a href="#ci-provider-specific-1" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
+<a href="#github-actions-1" class="anchor"></a>GitHub Actions</h3>
 <ul>
 <li>GitHub Actions: Always use option ‘–no-manual’ on Windows because LaTeX is not available (because it takes ages to install)</li>
 <li>
@@ -252,9 +294,9 @@
 <li>
 <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: Test in dir “check” to simplify upload of artifacts</li>
 </ul>
-<div id="github-actions-1" class="section level2">
+<div id="github-actions-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#github-actions-1" class="anchor"></a>Github Actions</h2>
+<a href="#github-actions-2" class="anchor"></a>Github Actions</h2>
 <ul>
 <li>Set cron job to 4am to avoid potential download issues with R-devel on macOS</li>
 <li>Github Actions: Use actions/checkout v2</li>
