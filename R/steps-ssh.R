@@ -85,8 +85,7 @@ InstallSSHKeys <- R6Class(
         recursive = TRUE, showWarnings = FALSE
       )
       cli_text("{.fun step_install_ssh_keys}:
-               Writing deploy key to {.file {deploy_key_path}}.",
-        wrap = TRUE
+               Writing deploy key to {.file {deploy_key_path}}."
       )
       if (file.exists(deploy_key_path)) {
         cli_text("Not overwriting existing SSH key.")
