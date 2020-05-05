@@ -224,7 +224,7 @@ step_setup_push_deploy <- function(path = ".",
     branch = branch,
     orphan = orphan,
     remote_url = remote_url,
-    checkout = checkout,
+    checkout = checkout
   )
 }
 
