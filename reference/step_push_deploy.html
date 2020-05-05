@@ -45,7 +45,7 @@
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Step: Setup and perform push deploy — step_push_deploy" />
-<meta property="og:description" content="Clones a repo, inits author information, sets up remotes,
+<meta property="og:description" content="Clones a repo, initializes author information, sets up remotes,
 commits, and pushes.
 Combines step_setup_push_deploy() with checkout = FALSE and
 a suitable orphan argument,
@@ -164,7 +164,7 @@ use_tic() or travis::use_travis_deploy()." />
     </div>
 
     <div class="ref-description">
-    <p>Clones a repo, inits author information, sets up remotes,
+    <p>Clones a repo, initializes author information, sets up remotes,
 commits, and pushes.
 Combines <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> with <code>checkout = FALSE</code> and
 a suitable <code>orphan</code> argument,
@@ -178,7 +178,8 @@ and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</
   <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>
+  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -212,6 +213,11 @@ and avoiding recursive CI runs.</p></td>
       <td><p><code>[character]</code><br />
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p><code>[logical]</code><br />
+Add <code>--force</code> flag to git commands?</p></td>
     </tr>
     </table>
 
