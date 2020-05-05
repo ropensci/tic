@@ -258,7 +258,7 @@ DoPushDeploy <- R6Class(
 
     commit = function() {
       message("Staging: ", paste(private$commit_paths, collapse = ", "))
-      git2r::add(private$git$get_repo(), private$commit_paths, force = TRUE)
+      git2r::add(private$git$get_repo(), private$commit_paths)
 
       message("Checking changed files")
       status <- git2r::status(
