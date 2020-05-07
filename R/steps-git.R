@@ -330,6 +330,7 @@ DoPushDeploy <- R6Class(
       # ab <- git2r::ahead_behind(c_local, c_upstream)
       # message("Ahead: ", ab[[1]], ", behind: ", ab[[2]])
       # ab[[1]] > 0
+      TRUE
     },
 
     push = function(force) {
