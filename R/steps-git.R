@@ -326,9 +326,10 @@ DoPushDeploy <- R6Class(
       c_upstream <-
         git2r::lookup(private$git$get_repo(), git2r::branch_target(upstream))
 
-      ab <- git2r::ahead_behind(c_local, c_upstream)
-      message("Ahead: ", ab[[1]], ", behind: ", ab[[2]])
-      ab[[1]] > 0
+      # FIMXE: Why does this error in https://github.com/mlr-org/mlr3gallery/runs/652401257?check_suite_focus=true#step:20:268
+      # ab <- git2r::ahead_behind(c_local, c_upstream)
+      # message("Ahead: ", ab[[1]], ", behind: ", ab[[2]])
+      # ab[[1]] > 0
     },
 
     push = function(force) {
