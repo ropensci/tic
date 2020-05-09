@@ -32,8 +32,10 @@ Whether to write the template to disk (\code{TRUE}) or just return it (\code{FAL
 Whether to print informative messages.}
 }
 \description{
-Installs YAML templates for various CI providers. These function
+Installs YAML templates for various CI providers. These functions
 are also used within \code{\link[=use_tic]{use_tic()}}.
+
+If you want to update an existing template use \code{\link[=update_yml]{update_yml()}}.
 }
 \section{pkgdown}{
 
@@ -104,3 +106,6 @@ Here is a list of all available combinations:
 |            | Linux + macOS + Windows  | yes        | no                  | \code{use_ghactions_yml("linux-macos-windows-deploy")}       |
 }
 
+\seealso{
+update_yml
+}

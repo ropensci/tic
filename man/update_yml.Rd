@@ -41,3 +41,6 @@ update_yml("custom-name.yml")
 update_yml("~/path/to/repo/.github/workflows/main.yml")
 }
 }
+\seealso{
+yaml_templates
+}

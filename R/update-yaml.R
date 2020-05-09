@@ -26,6 +26,7 @@
 #' # full paths
 #' update_yml("~/path/to/repo/.github/workflows/main.yml")
 #' }
+#' @seealso yaml_templates
 #' @export
 update_yml <- function(template_in = "main.yml",
                        template_out = NULL) {

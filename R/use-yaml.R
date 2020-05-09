@@ -1,6 +1,8 @@
 #' @title Use CI YAML templates
-#' @description Installs YAML templates for various CI providers. These function
+#' @description Installs YAML templates for various CI providers. These functions
 #'   are also used within [use_tic()].
+#'
+#'   If you want to update an existing template use [update_yml()].
 #'
 #' @param type `[character]`\cr
 #'   Which template to use. The string should be given following the logic
@@ -74,6 +76,7 @@
 #'  |            | Linux + macOS + Windows  | yes        | no                  | `use_ghactions_yml("linux-macos-windows-deploy")`       |
 #' @name yaml_templates
 #' @aliases yaml_templates
+#' @seealso update_yml
 #' @export
 use_travis_yml <- function(type = "linux-macos-deploy-matrix",
                            write = TRUE,
