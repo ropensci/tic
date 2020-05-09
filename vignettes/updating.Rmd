@@ -41,3 +41,20 @@ In any case, it is recommended to review the changes to avoid unexpected CI fail
 The feature is still in a beta state and issues are expected, especially for edge cases.
 Please file an issue in the repo if you experience problems.
 Right now it is unclear if Travis CI and Circle CI will ever be supported by `update_yml()` since the R community is shifting towards GitHub Actions and adding support for Travis CI and Circle CI would be more complicated than for GitHub Actions.
+
+## Examples
+
+Here are some examples for custom user blocks and custom env vars:
+
+```yml
+env:
+  # [Custom] Set max dll number higher
+  R_MAX_NUM_DLLS: 999
+```
+
+```yml
+- name: "[Custom] [macOS] xquartz"
+  if: runner.os == 'macOS'
+  run: |
+    brew cask install xquartz
+```
