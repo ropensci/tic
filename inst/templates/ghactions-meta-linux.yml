@@ -1,3 +1,5 @@
+## tic GitHub Actions template: linux
+## revision date: 09/05/2020
 on:
   push:
   pull_request:

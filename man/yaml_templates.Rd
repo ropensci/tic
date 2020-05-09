@@ -8,11 +8,11 @@
 \alias{use_ghactions_yml}
 \title{Use CI YAML templates}
 \usage{
-use_travis_yml(type = "linux-macos-deploy-matrix")
+use_travis_yml(type = "linux-macos-deploy-matrix", write = TRUE, quiet = FALSE)
 
-use_appveyor_yml(type = "windows")
+use_appveyor_yml(type = "windows", write = TRUE, quiet = FALSE)
 
-use_circle_yml(type = "linux-matrix-deploy")
+use_circle_yml(type = "linux-matrix-deploy", write = TRUE, quiet = FALSE)
 
 use_ghactions_yml(
   type = "linux-macos-windows-deploy",

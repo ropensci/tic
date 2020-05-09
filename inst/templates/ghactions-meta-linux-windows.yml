@@ -1,3 +1,5 @@
+## tic GitHub Actions template: linux-windows
+## revision date: 09/05/2020
 on:
   push:
   pull_request:
@@ -19,6 +21,6 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
-          - { os: ubuntu-latest, r: "release", pkgdown: "true" }
+          - { os: ubuntu-latest, r: "release" }
           - { os: windows-latest, r: "release" }
 

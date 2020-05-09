@@ -1,4 +1,5 @@
-# tic documentation: https://docs.ropensci.org/tic/dev/
+## tic Travis CI template: linux
+## revision date: 09/05/2020
 
 # OS ---------------------------------------------------------------------------
 os: linux

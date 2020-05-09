@@ -1,5 +1,5 @@
-# tic documentation: https://docs.ropensci.org/tic/dev/
-
+## tic Circle CI template: linux-matrix
+## revision date: 09/05/2020
 version: 2.1
 jobs:
   r-release:

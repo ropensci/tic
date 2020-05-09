@@ -1,4 +1,5 @@
-# tic documentation: https://docs.ropensci.org/tic/dev/
+## tic Appveyor CI template: windows
+## revision date: 09/05/2020
 
 # Download script file from GitHub
 init:

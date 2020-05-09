@@ -4,16 +4,40 @@
 \alias{update_yml}
 \title{Update tic YAML Templates}
 \usage{
-update_yml(
-  template_in = "inst/test-helpers/test-update-yaml.yml",
-  template_out = "inst/test-helpers/test-update-yaml-updated.yml"
-)
+update_yml(template_in = "main.yml", template_out = NULL)
 }
 \arguments{
-\item{`[character]`\cr}{Where the updated template should be written to. This is mainly used for
+\item{template_in}{\verb{[character]}\cr
+Path to template which should be updated. Basenames of GitHub Action YAML
+files are supported. Full paths and URLs are accepted too.}
+
+\item{template_out}{\verb{[character]}\cr
+Where the updated template should be written to. This is mainly used for
 internal testing purposes and should not be set by the user.}
 }
 \description{
-Updates the YAML tmps (GitHub Actions, Travis, Circle) to their
-latest versions. (For GHA user changes are preserved)
+Updates YAML templates to their
+latest versions. Currently only GitHub Actions templates are supported.
+}
+\section{Formatting requirements of tic YAML templates}{
+ To ensure that
+updating of {tic} templates works, ensure the following points:
+\itemize{
+\item Your template contains the type (e.g. linux-matrix-deploy) and the revision
+date in its first two lines.
+\item When inserting comments into custom code blocks, only one-line comments are
+allowed. Otherwise the update heuristic gets in trouble.
+}
+}
+
+\examples{
+\dontrun{
+update_yml("main.yml")
+
+# custom named templates
+update_yml("custom-name.yml")
+
+# full paths
+update_yml("~/path/to/repo/.github/workflows/main.yml")
+}
 }

@@ -1,5 +1,5 @@
-## tic template: linux-macos-windows-deploy
-## revision date: 19/04/2020
+## tic GitHub Actions template: linux-macos-windows-deploy
+## revision date: 09/05/2020
 on:
   push:
   pull_request:
@@ -173,4 +173,3 @@ jobs:
 
       - name: "[Stage] After Deploy"
         run: Rscript -e "tic::after_deploy()"
-

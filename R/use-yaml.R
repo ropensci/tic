@@ -75,7 +75,9 @@
 #' @name yaml_templates
 #' @aliases yaml_templates
 #' @export
-use_travis_yml <- function(type = "linux-macos-deploy-matrix") {
+use_travis_yml <- function(type = "linux-macos-deploy-matrix",
+                           write = TRUE,
+                           quiet = FALSE) {
   if (type == "linux") {
     os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-linux.yml",
@@ -240,27 +242,35 @@ use_travis_yml <- function(type = "linux-macos-deploy-matrix") {
     ))
     template <- c(os, meta, matrix, env, stages)
   }
-  writeLines(template, ".travis.yml")
+  if (!write) {
+    return(template)
+  } else {
+    writeLines(template, ".travis.yml")
+  }
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".travis.yml"
-    ),
-    dependencies = I(list(
-      ".travis.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), ".travis.yml"
+      ),
+      dependencies = I(list(
+        ".travis.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 #' @rdname yaml_templates
 #' @export
-use_appveyor_yml <- function(type = "windows") {
+use_appveyor_yml <- function(type = "windows",
+                             write = TRUE,
+                             quiet = FALSE) {
   if (type == "windows") {
     template <- readLines(system.file("templates/appveyor.yml",
       package = "tic"
@@ -270,27 +280,35 @@ use_appveyor_yml <- function(type = "windows") {
       package = "tic"
     ))
   }
-  writeLines(template, "appveyor.yml")
+  if (!write) {
+    return(template)
+  } else {
+    writeLines(template, "appveyor.yml")
+  }
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), "appveyor.yml"
-    ),
-    dependencies = I(list(
-      "appveyor.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), "appveyor.yml"
+      ),
+      dependencies = I(list(
+        "appveyor.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 #' @rdname yaml_templates
 #' @export
-use_circle_yml <- function(type = "linux-matrix-deploy") {
+use_circle_yml <- function(type = "linux-matrix-deploy",
+                           write = TRUE,
+                           quiet = FALSE) {
   if (type == "linux") {
     template <- readLines(system.file("templates/circle.yml", package = "tic"))
   } else if (type == "linux-matrix") {
@@ -307,22 +325,28 @@ use_circle_yml <- function(type = "linux-matrix-deploy") {
     ))
   }
   dir.create(".circleci", showWarnings = FALSE)
-  writeLines(template, con = ".circleci/config.yml")
+  if (!write) {
+    return(template)
+  } else {
+    writeLines(template, ".circleci/config.yml")
+  }
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".circleci", "config.yml"
-    ),
-    dependencies = I(list(
-      ".circleci", "config.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), ".circleci", "config.yml"
+      ),
+      dependencies = I(list(
+        ".circleci", "config.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 #' @rdname yaml_templates
