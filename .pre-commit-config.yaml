@@ -42,10 +42,12 @@ repos:
     hooks:
     -   id: check-added-large-files
         args: ['--maxkb=200']
-    #-   id: end-of-file-fixer
-    #    exclude: >
-    #    '\.Rd'
-    #    '\.yml'
+    -   id: end-of-file-fixer
+        exclude: >
+          (?x)^(
+          .*\.Rd|
+          .*\.yml|
+          )$
 
 -   repo: local
     hooks:
