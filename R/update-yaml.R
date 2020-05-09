@@ -84,12 +84,17 @@ update_yml <- function(template_in = "main.yml",
     stopc("No revision date found in current template.")
   }
 
+  # find template type
+  tmpl_type <- stringr::str_split(tmpl_local[1], "template: ",
+    simplify = TRUE
+  )[, 2]
   # get revision date from upstream template
   tmpl_latest <- use_ghactions_yml(tmpl_type, write = FALSE, quiet = TRUE)
   rev_date_latest <- as.Date(gsub(
     ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
     tmpl_latest[2]
   ), quiet = TRUE)
+
 
   if (!rev_date_latest > rev_date_local) {
     rlang::abort(sprintf(
@@ -100,12 +105,6 @@ update_yml <- function(template_in = "main.yml",
     cli::cli_alert("Updating template from version '{rev_date_local} to
                    version '{rev_date_latest}'.", wrap = TRUE)
   }
-
-  # find template type
-  tmpl_type <- stringr::str_split(tmpl_local[1], "template: ",
-    simplify = TRUE
-  )[, 2]
-  # read the newest template
 
   # update env vars ------------------------------------------------------------
 
