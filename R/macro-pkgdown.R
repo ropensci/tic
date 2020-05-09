@@ -43,6 +43,7 @@ do_pkgdown <- function(...,
                        remote_url = NULL,
                        commit_message = NULL,
                        commit_paths = ".",
+                       force = FALSE,
                        private_key_name = "TIC_DEPLOY_KEY") {
 
   #' @param deploy `[flag]`\cr
@@ -103,7 +104,8 @@ do_pkgdown <- function(...,
       add_step(step_do_push_deploy(
         path = !!enquo(path),
         commit_message = !!enquo(commit_message),
-        commit_paths = !!enquo(commit_paths)
+        commit_paths = !!enquo(commit_paths),
+        force = !!enquo(force)
       ))
   }
 

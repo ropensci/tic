@@ -49,6 +49,7 @@ do_drat <- function(repo_slug = NULL,
                     remote_url = NULL,
                     commit_message = NULL,
                     commit_paths = ".",
+                    force = FALSE,
                     private_key_name = "TIC_DEPLOY_KEY",
                     deploy_dev = FALSE) {
 
@@ -80,7 +81,8 @@ do_drat <- function(repo_slug = NULL,
     add_step(step_do_push_deploy(
       path = !!enquo(path),
       commit_message = !!enquo(commit_message),
-      commit_paths = !!enquo(commit_paths)
+      commit_paths = !!enquo(commit_paths),
+      force = !!enquo(force)
     ))
 
   dsl_get()

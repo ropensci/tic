@@ -35,6 +35,7 @@ NULL
 do_readme_rmd <- function(checkout = TRUE,
                           remote_url = NULL,
                           commit_message = NULL,
+                          force = FALSE,
                           private_key_name = "TIC_DEPLOY_KEY") {
 
   #' @description
@@ -62,7 +63,8 @@ do_readme_rmd <- function(checkout = TRUE,
     add_step(step_do_push_deploy(
       path = ".",
       commit_message = !!enquo(commit_message),
-      commit_paths = "README.md"
+      commit_paths = "README.md",
+      force = !!enquo(force)
     ))
 
   dsl_get()

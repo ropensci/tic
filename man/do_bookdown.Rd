@@ -15,6 +15,7 @@ do_bookdown(
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
+  force = FALSE,
   private_key_name = "TIC_DEPLOY_KEY",
   cname = NULL
 )
@@ -67,6 +68,9 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{force}{\verb{[logical]}\cr
+Add \code{--force} flag to git commands?}
 
 \item{private_key_name}{\code{string}\cr
 Only needed when deploying from builds on Travis CI or GitHub Actions.

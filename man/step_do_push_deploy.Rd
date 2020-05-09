@@ -4,7 +4,12 @@
 \alias{step_do_push_deploy}
 \title{Step: Perform push deploy}
 \usage{
-step_do_push_deploy(path = ".", commit_message = NULL, commit_paths = ".")
+step_do_push_deploy(
+  path = ".",
+  commit_message = NULL,
+  commit_paths = ".",
+  force = FALSE
+)
 }
 \arguments{
 \item{path}{\verb{[string]}\cr
@@ -18,6 +23,9 @@ and avoiding recursive CI runs.}
 \item{commit_paths}{\verb{[character]}\cr
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.}
+
+\item{force}{\verb{[logical]}\cr
+Add \code{--force} flag to git commands?}
 }
 \description{
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
