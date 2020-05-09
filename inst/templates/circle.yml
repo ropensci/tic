@@ -21,8 +21,8 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y ccache
             echo -e 'options(Ncpus = 8, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            mkdir -p $HOME/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nCXX11=ccache g++ -std=gnu99\nCXX14=ccache g++ -std=gnu99\nCXX17=ccache g++ -std=gnu99\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
             mkdir -p $HOME/.ccache && echo -e 'max_size = 5.0G\nsloppiness = include_file_ctime\nhash_dir=false' > $HOME/.ccache/ccache.conf
+            mkdir -p ~/.R && echo -e 'CC=ccache gcc\nCPP=ccache gcc\nCXX=ccache gcc++\nCXX11=ccache gcc++\nCXX14=ccache gcc++\nCXX17=ccache gcc++\nF77=ccache gfortran\nFC=ccache gfortran' > $HOME/.R/Makevars
             R -q -e 'install.packages("remotes")'
             R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
             R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
@@ -46,12 +46,12 @@ workflows:
     jobs:
       - r-release
 
-# CRON job daily at 3 am in the morning
+# CRON job daily at 4 am in the morning
 # - runs the "build" job on the master branch and builds package cache
   nightly:
     triggers:
       - schedule:
-          cron: "0 3 * * *"
+          cron: "0 4 * * *"
           filters:
             branches:
               only:
