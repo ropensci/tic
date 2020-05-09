@@ -31,17 +31,14 @@
 update_yml <- function(template_in = "main.yml",
                        template_out = NULL) {
 
-  # only exec checks if a paths is supplied, skip if a full template is supplied
+  # only exec checks if a path is supplied, skip if a full template is supplied
   if (length(template_in) == 1) {
 
     # try to find a template in .github/workflows first with the supplied value
     # of template_in. If that fails try the full path. This somewhat complex
     # heuristic is needed to combine user convenience and allow supplying a full
     # path (for internal testing)
-    if (file.exists(paste0(
-      usethis::proj_get(),
-      sprintf("/.github/workflows/%s", template_in)
-    ))) {
+    if (file.exists(usethis::proj_path(".github/workflows", template_in))) {
       template_in <- paste0(
         usethis::proj_get(),
         sprintf("/.github/workflows/%s", template_in)
