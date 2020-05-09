@@ -15,7 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 {tic} comes with the convenience of providing YAML templates for various CI providers which remove the need of diving deep into the internals of certain CI providers.
-While these templates work for most packages that use plain R code and do not rely on system libraries (such as GDAL, xml2) or link to other languages (such as Java), R packages which do so often need manual additions in their YAML file.
+These templates work for most packages that use plain R code.
+Packages that rely on system libraries (such as GDAL, xml2) or link to other languages (such as Java) often need manual additions in their YAML file.
 
 However, making manual changes to such prohibits users from simply updating to the latest upstream template via `tic::use_*_yaml()` (where `*` is replaced with `ghactions`, `travis`, `circle`, or `appveyor`) as user defined changes would be overwritten.
 
