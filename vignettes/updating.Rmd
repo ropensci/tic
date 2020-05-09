@@ -1,0 +1,42 @@
+---
+title: "Updating"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{updating}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+{tic} comes with the convenience of providing YAML templates for various CI providers which remove the need of diving deep into the internals of certain CI providers.
+While these templates work for most packages that use plain R code and do not rely on system libraries (such as GDAL, xml2) or link to other languages (such as Java), R packages which do so often need manual additions in their YAML file.
+
+However, making manual changes to such prohibits users from simply updating to the latest upstream template via `tic::use_*_yaml()` (where `*` is replaced with `ghactions`, `travis`, `circle`, or `appveyor`) as user defined changes would be overwritten.
+
+This often prevents users from updating to the most recent templates provided by {tic} since a manual comparison between the current template and the latest version is needed.
+Starting with {tic} 0.8.0 this issue is now partly addressed: The new `update_yml()` enables updating of templates to the latest version with **user changes preserved**.
+
+Currently this only works for GitHub Actions as this provider enables the inclusion of arbitrary custom blocks.
+{tic} extracts these blocks, updates the template and then inserts the custom blocks at the correct position back into the updated template.
+
+To make this semi-complicated approach work in a robust way, the user needs to follow some rules when updating the template:
+
+- All *custom blocks* need to include `[Custom]` in their name.
+- All *custom env vars* need to have a comment (above the actual env var) which includes the term `[Custom]`.
+  These comments may only span one line.
+- All templates need to have an *identifier* and a *revision date* in their first two lines.
+
+All of this information is used by {tic} to preserve user changes and choose the right upstream template.
+During the process `update_yml()` also tells how many custom blocks and env vars were found.
+If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template.
+In any case, it is recommended to review the changes to avoid unexpected CI failures.
+
+The feature is still in a beta state and issues are expected, especially for edge cases.
+Please file an issue in the repo if you experience problems.
+Right now it is unclear if Travis CI and Circle CI will ever be supported by `update_yml()` since the R community is shifting towards GitHub Actions and adding support for Travis CI and Circle CI would be more complicated than for GitHub Actions.
