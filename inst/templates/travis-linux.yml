@@ -1,5 +1,5 @@
 ## tic Travis CI template: linux
-## revision date: 09/05/2020
+## revision date: 2020-05-09
 
 # OS ---------------------------------------------------------------------------
 os: linux

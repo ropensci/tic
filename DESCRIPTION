@@ -76,7 +76,6 @@ Suggests:
     gh,
     git2r,
     knitr,
-    lubridate,
     openssl,
     pkgdown,
     purrr,

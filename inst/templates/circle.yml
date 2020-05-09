@@ -1,5 +1,5 @@
 ## tic Circle CI template: linux
-## revision date: 09/05/2020
+## revision date: 2020-05-09
 version: 2.1
 jobs:
   r-release:

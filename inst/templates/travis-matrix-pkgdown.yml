@@ -1,5 +1,5 @@
 ## tic Travis CI template: linux-matrix-deploy
-## revision date: 09/05/2020
+## revision date: 2020-05-09
 
 # multiple R versions ----------------------------------------------------------
 matrix:

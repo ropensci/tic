@@ -75,8 +75,8 @@ update_yml <- function(template_in = "main.yml",
   }
 
   # read date of local template to compare against upstream template date
-  rev_date_local <- lubridate::dmy(gsub(
-    ".*(\\d{2}/\\d{2}/\\d{4}).*", "\\1",
+  rev_date_local <- as.Date(gsub(
+    ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
     tmpl_local[2]
   ), quiet = TRUE)
   if (is.na(rev_date_local)) {
@@ -86,7 +86,13 @@ update_yml <- function(template_in = "main.yml",
      line of your template.", wrap = TRUE)
     stopc("No revision date found in current template.")
   }
-  rev_date_latest <- lubridate::dmy("12/04/2020")
+
+  # get revision date from upstream template
+  tmpl_latest <- use_ghactions_yml(tmpl_type, write = FALSE, quiet = TRUE)
+  rev_date_latest <- as.Date(gsub(
+    ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
+    tmpl_latest[2]
+  ), quiet = TRUE)
 
   if (!rev_date_latest > rev_date_local) {
     rlang::abort(sprintf(
@@ -103,7 +109,6 @@ update_yml <- function(template_in = "main.yml",
     simplify = TRUE
   )[, 2]
   # read the newest template
-  tmpl_latest <- use_ghactions_yml(tmpl_type, write = FALSE, quiet = TRUE)
 
   # update env vars ------------------------------------------------------------
 
