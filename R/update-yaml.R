@@ -96,7 +96,7 @@ update_yml <- function(template_in = "main.yml",
 
   if (!rev_date_latest > rev_date_local) {
     rlang::abort(sprintf(
-      "You already have the latest version of the tmp (%s).",
+      "You already have the latest version of the template (%s).",
       rev_date_latest
     ))
   } else {
