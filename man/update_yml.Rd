@@ -4,20 +4,24 @@
 \alias{update_yml}
 \title{Update tic YAML Templates}
 \usage{
-update_yml(template_in = "main.yml", template_out = NULL)
+update_yml(template_in = NULL, template_out = NULL)
 }
 \arguments{
 \item{template_in}{\verb{[character]}\cr
-Path to template which should be updated. Basenames of GitHub Action YAML
-files are supported. Full paths and URLs are accepted too.}
+Path to template which should be updated. By default all standard template
+paths of GitHub Actions, Travis CI and Circle CI will be searched and
+updated if they exist. Alternatively a full path to a single template can
+be passed.}
 
 \item{template_out}{\verb{[character]}\cr
 Where the updated template should be written to. This is mainly used for
-internal testing purposes and should not be set by the user.}
+internal testing purposes and should not be set by the user.
+Can only be set}
 }
 \description{
 Updates YAML templates to their
-latest versions. Currently only GitHub Actions templates are supported.
+latest versions. Currently only GitHub Actions and Circle CI templates are
+supported.
 }
 \section{Formatting requirements of tic YAML templates}{
  To ensure that

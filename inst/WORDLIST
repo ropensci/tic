@@ -53,6 +53,7 @@ edu
 env
 ErrorActionPreference
 fansi
+fi
 figshare
 FII
 filetype
@@ -72,6 +73,7 @@ GitHubs
 GitLab
 gmail
 hdiutil
+Homebrew
 http
 https
 inbetween
@@ -89,6 +91,7 @@ krlmlr
 Krystalli
 LazyData
 libcurl
+libexec
 LIBS
 lifecycle
 Lifecycle
@@ -100,6 +103,7 @@ macOS
 macosx
 MacOSX
 magrittr
+MAKEFLAGS
 Makevars
 memoise
 mika
@@ -197,6 +201,7 @@ ucla
 unevaluated
 usethis
 usr
+utest
 vectorized
 VignetteBuilder
 VM

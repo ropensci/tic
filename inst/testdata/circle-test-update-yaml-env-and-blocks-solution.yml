@@ -5,6 +5,10 @@ jobs:
   r-release:
     # r-release-env
     environment:
+      # [Custom] env var 2
+      utest2: "u2"
+      # [Custom] env var 1
+      test: "true"
     docker:
       - image: rocker/verse
     steps:
@@ -30,6 +34,12 @@ jobs:
             R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
+
+      - run:
+          name: "[Custom] test1"
+          no_output_timeout: 60m
+          command: |
+            echo 'test'
 
       - run:
           name: "[r-release] R CMD Check"
@@ -76,6 +86,8 @@ jobs:
   r-oldrelease:
     # r-oldrelease-env
     environment:
+      # [Custom] env var 2
+      test2: "true"
     docker:
       - image: rocker/verse:3.6.3
     steps:
@@ -108,6 +120,11 @@ jobs:
           command: |
             R -q -e 'tic::before_script()'
             R -q -e 'tic::script()'
+
+      - run:
+          name: "[Custom] test2"
+          command: |
+            echo 'test2'
 
       # save R pkg cache -------------------------------------------------------
       - save_cache:

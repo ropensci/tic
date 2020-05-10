@@ -3,6 +3,7 @@
 version: 2.1
 jobs:
   r-release:
+    environment:
     docker:
       - image: rocker/verse
     steps:
@@ -12,12 +13,13 @@ jobs:
       # are not picked up by the cache, therefore this workaround is needed.
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
       - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+
       - restore_cache:
           key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
       # install deps and check pkg ---------------------------------------------
       - run:
-          name: Install dependencies
+          name: "[r-release] Install dependencies"
           command: |
             sudo apt update && sudo apt install -y ccache
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
@@ -28,8 +30,9 @@ jobs:
             R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
+
       - run:
-          name: R CMD Check
+          name: "[r-release] R CMD Check"
           no_output_timeout: 60m
           command: |
             R -q -e 'tic::before_script()'
