@@ -44,8 +44,8 @@ update_yml <- function(template_in = NULL,
     if (file.exists(usethis::proj_path(".circleci/", "config.yml"))) {
       circle <- usethis::proj_path(".circleci", "config.yml")
     }
-    if (file.exists(usethis::proj_path("travis.yml"))) {
-      travis <- usethis::proj_path("travis.yml")
+    if (file.exists(usethis::proj_path(".travis.yml"))) {
+      travis <- usethis::proj_path(".travis.yml")
     }
     providers <- c(ghactions, circle, travis)
   } else {
@@ -60,16 +60,9 @@ update_yml <- function(template_in = NULL,
       next
     }
 
-    instance <- readLines(instance)
+    instance_txt <- readLines(instance)
 
-    # some assertions
-    if (!any(stringr::str_detect(instance, "(GitHub Actions)|(Circle CI|Travis CI)"))) {
-      cli_alert_danger("No supported YAML file was found. If you are sure
-      that you supplied one, make sure it contains `{.code GitHub Actions}
-      {.code or Circle CI} in the first line as shown in the latest {.pkg tic}
-      template versions.", wrap = TRUE)
-      stop("No valid YAML file found.")
-    }
+    browser()
 
     # by default overwrite the current template.
     if (is.null(template_out)) {
@@ -88,22 +81,25 @@ update_yml <- function(template_in = NULL,
       instance[2]
     ), quiet = TRUE)
     if (is.na(rev_date_local)) {
-      cli::cli_alert_danger("It looks like your current {.pkg tic} template does
-     not yet have a revision date. Please update the template manually one last
-     time or add a revision date and the template type manually as the  first
-     line of your template.", wrap = TRUE)
-      stopc("No revision date found in current template.")
+      cli::cli_alert_warning("It looks like that
+      {.file {basename(instance)}} does not (yet) contain a {.pkg tic} revision
+      date.
+      Please update the template manually one last time or add a revision date
+      into the template type manually as the first line of your template.
+      Skipping {.file {basename(instance)}}.",
+        wrap = TRUE
+      )
+      # reset template_out
+      template_out = NULL
+      # skip to next iteration
+      next
     }
 
     # find template type
-    tmpl_type <- stringr::str_split(instance[1], "template: ",
+    tmpl_type <- stringr::str_split(instance_txt[1], "template: ",
       simplify = TRUE
     )[, 2]
-    # get ci provider information
-    ci_provider <- stringr::str_extract_all(instance[1],
-      "(?<=tic ).+(?= template)",
-      simplify = TRUE
-    )[1, 1]
+
     tmpl_latest <- switch(ci_provider,
       "GitHub Actions" = use_ghactions_yml(tmpl_type,
         write = FALSE,
@@ -130,16 +126,19 @@ update_yml <- function(template_in = NULL,
 
     # call internal update function for each provider
     tmpl_latest <- switch(ci_provider,
-      "GitHub Actions" = update_ghactions_yml(instance, tmpl_latest),
-      "Circle CI"      = update_circle_yml(instance, tmpl_latest),
-      "Travis CI"      = update_travis_yml(instance, tmpl_latest)
+      "GitHub Actions" = update_ghactions_yml(instance_txt, tmpl_latest),
+      "Circle CI"      = update_circle_yml(instance_txt, tmpl_latest),
+      "Travis CI"      = update_travis_yml(instance_txt, tmpl_latest)
     )
 
     writeLines(tmpl_latest, template_out)
+
+    # reset template_out
+    template_out = NULL
   }
 
   cli::cli_alert_info("Please carefully review the changes.
-                      {.fun update_yml} is still in beta.", wrap = TRUE)
+                      {.fun update_yml} is in beta.", wrap = TRUE)
 }
 
 update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
@@ -170,7 +169,10 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
   # update user blocks ---------------------------------------------------------
 
   # find the line IDs of all custom user blocks
-  custom_blocks_start <- stringr::str_which(tmpl_local, 'name: "\\[Custom block')
+  custom_blocks_start <- stringr::str_which(
+    tmpl_local,
+    'name: "\\[Custom block'
+  )
 
   if (length(custom_blocks_start > 0)) {
 
@@ -299,7 +301,10 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
   # update user blocks ---------------------------------------------------------
 
   # find the line IDs of all custom user blocks
-  custom_blocks_start <- stringr::str_which(tmpl_local, 'name: "\\[Custom block') - 1
+  custom_blocks_start <- stringr::str_which(
+    tmpl_local,
+    'name: "\\[Custom block'
+  ) - 1
 
   if (length(custom_blocks_start > 0)) {
 
@@ -400,10 +405,13 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
 
       # see https://stackoverflow.com/a/61749686/4185785
       # +1 is added to add it after the 'r:' tag
-      env_var_index_latest <- which(rowSums(!sapply(seq(env_var_tags_local), function(i) {
-        env_var_tags_local[i] ==
-          tmpl_latest[i:(length(tmpl_latest) - length(env_var_tags_local) + i)]
-      })) == 0) + 1
+      env_var_index_latest <- which(rowSums(!sapply(
+        seq(env_var_tags_local),
+        function(i) {
+          env_var_tags_local[i] ==
+            tmpl_latest[i:(length(tmpl_latest) - length(env_var_tags_local) + i)]
+        }
+      )) == 0) + 1
 
       custom_env_var <- tmpl_local[env_var:(env_var + 1)]
       # if the env var contains 'env:', we need to query one more line
@@ -427,8 +435,8 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
 
   if (length(custom_blocks_start > 0)) {
 
-    cli::cli_alert_info("{.file .travis.yml}: Found {length(custom_blocks_start)} custom user
-                        block.", wrap = TRUE)
+    cli::cli_alert_info("{.file .travis.yml}:
+    Found {length(custom_blocks_start)} custom user block.", wrap = TRUE)
 
     # Create list storing all custom user blocks
     # User blocks need to start with "[Custom]"
