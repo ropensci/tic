@@ -63,7 +63,7 @@ update_yml <- function(template_in = NULL,
     instance <- readLines(instance)
 
     # some assertions
-    if (!any(stringr::str_detect(instance, "(GitHub Actions)|(Circle CI)"))) {
+    if (!any(stringr::str_detect(instance, "(GitHub Actions)|(Circle CI|Travis CI)"))) {
       cli_alert_danger("No supported YAML file was found. If you are sure
       that you supplied one, make sure it contains `{.code GitHub Actions}
       {.code or Circle CI} in the first line as shown in the latest {.pkg tic}
@@ -131,8 +131,8 @@ update_yml <- function(template_in = NULL,
     # call internal update function for each provider
     tmpl_latest <- switch(ci_provider,
       "GitHub Actions" = update_ghactions_yml(instance, tmpl_latest),
-      "Circle CI"      = update_circle_yml(instance, tmpl_latest) # ,
-      # "Travis CI"      = update_travis_yml(instance, tmpl_latest),
+      "Circle CI"      = update_circle_yml(instance, tmpl_latest),
+      "Travis CI"      = update_travis_yml(instance, tmpl_latest)
     )
 
     writeLines(tmpl_latest, template_out)
@@ -147,7 +147,7 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
 
   # find the line IDs of all custom env vars
   # env vars need to be prefixed with a comment including [Custom]
-  custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom")
+  custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
     cli::cli_alert_info("Found {length(custom_env_vars)} custom env var.")
@@ -170,7 +170,7 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
   # update user blocks ---------------------------------------------------------
 
   # find the line IDs of all custom user blocks
-  custom_blocks_start <- stringr::str_which(tmpl_local, 'name: "\\[Custom')
+  custom_blocks_start <- stringr::str_which(tmpl_local, 'name: "\\[Custom block')
 
   if (length(custom_blocks_start > 0)) {
 
@@ -252,7 +252,7 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
 
   # find the line IDs of all custom env vars
   # env vars need to be prefixed with a comment including [Custom]
-  custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom")
+  custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
     cli::cli_alert_info("Found {length(custom_env_vars)} custom env var.")
@@ -299,7 +299,7 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
   # update user blocks ---------------------------------------------------------
 
   # find the line IDs of all custom user blocks
-  custom_blocks_start <- stringr::str_which(tmpl_local, 'name: "\\[Custom') - 1
+  custom_blocks_start <- stringr::str_which(tmpl_local, 'name: "\\[Custom block') - 1
 
   if (length(custom_blocks_start > 0)) {
 
@@ -368,6 +368,126 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
 
       tmpl_latest <- append(tmpl_latest, custom_blocks_list[[i]],
         after = tmpl_latest_insert_index
+      )
+    }
+  }
+  return(tmpl_latest)
+}
+
+update_travis_yml <- function(tmpl_local, tmpl_latest) {
+  # update env vars ------------------------------------------------------------
+
+  # find the line IDs of all custom env vars
+  # env vars need to be prefixed with a comment including [Custom]
+  custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
+
+  if (length(custom_env_vars) > 0) {
+    cli::cli_alert_info("Found {length(custom_env_vars)} custom env var.")
+
+    for (env_var in custom_env_vars) {
+
+      # find overarching platform & R-version combination
+      start_os_tag <- purrr::map_int(env_var, ~ {
+        row_inds_prev_temp_block <- tail(purrr::keep(
+          # row IDs of all blocks starting with "- os"
+          stringr::str_which(tmpl_local, ".- os"),
+          function(y) y < .x
+        ), n = 1)
+      })
+
+      end_so_tag <- start_os_tag + 1
+      env_var_tags_local <- tmpl_local[start_os_tag:end_so_tag]
+
+      # see https://stackoverflow.com/a/61749686/4185785
+      # +1 is added to add it after the 'r:' tag
+      env_var_index_latest <- which(rowSums(!sapply(seq(env_var_tags_local), function(i) {
+        env_var_tags_local[i] ==
+          tmpl_latest[i:(length(tmpl_latest) - length(env_var_tags_local) + i)]
+      })) == 0) + 1
+
+      custom_env_var <- tmpl_local[env_var:(env_var + 1)]
+      # if the env var contains 'env:', we need to query one more line
+      if (any(grepl("env:", custom_env_var))) {
+        custom_env_var <- tmpl_local[env_var:(env_var + 2)]
+      } else {
+        # otherwise 'env:' already exists and we need to append one line later
+        env_var_index_latest <- env_var_index_latest + 1
+      }
+
+      tmpl_latest <- append(tmpl_latest,
+        custom_env_var,
+        after = env_var_index_latest
+      )
+    }
+  }
+  # update user blocks ---------------------------------------------------------
+
+  # find the line IDs of all custom user blocks
+  custom_blocks_start <- stringr::str_which(tmpl_local, "\\[Custom block")
+
+  if (length(custom_blocks_start > 0)) {
+
+    cli::cli_alert_info("{.file .travis.yml}: Found {length(custom_blocks_start)} custom user
+                        block.", wrap = TRUE)
+
+    # Create list storing all custom user blocks
+    # User blocks need to start with "[Custom]"
+    custom_blocks_list <- purrr::map(custom_blocks_start, ~ {
+      # find the line number of the respective block
+      block_end <- purrr::keep(
+        # find all blank lines so we know when blocks end and subtract one from
+        # the ID
+        stringr::str_which(tmpl_local, "^\\s*$"),
+        function(y) y > .x
+      )[1] - 1
+      # append an empty newline here for spacing between blocks when writing to
+      # disk later
+      append(tmpl_local[.x:block_end], "")
+    })
+
+    # find all block names of previous blocks to have an anchor for later when
+    # inserting
+
+    # List of blocks after which the custom user blocks appear
+    tmpl_blocks_names <- purrr::map_chr(custom_blocks_start, ~ {
+      # find the line number of the respective block
+      row_inds_prev_temp_block <- tail(purrr::keep(
+        # row IDs which contain no whitespace but are also not blank
+        setdiff(
+          stringr::str_which(tmpl_local, "\\s", negate = TRUE),
+          stringr::str_which(tmpl_local, "^\\s*$")
+        ),
+        function(y) y < .x
+      ), n = 1)
+      # get the "name" of the previous block
+      purrr::map_chr(row_inds_prev_temp_block, ~
+      stringr::str_extract(tmpl_local[.x], ".*"))
+    })
+
+    # iterate along the "previous blocks" of the latest template and insert the
+    # custom user blocks
+    # this needs to happen iterative because after the first block insertion the
+    # row IDs of the subsequent blocks change
+    for (i in seq_along(tmpl_blocks_names)) {
+
+      # get the row IDs of the "previous blocks" in the latest template
+      tmpl_latest_index <- purrr::map_int(
+        tmpl_blocks_names[i],
+        function(index) {
+          stringr::str_which(tmpl_latest, paste0("^", index))
+        }
+      )
+
+      # if the block is "apt" we have to treat it differently. Otherwise it will
+      # be inserted at the previous top-level tag and break this one (e.g.
+      # "cache")
+      if ("apt:" %in% custom_blocks_list[[i]]) {
+        tmpl_latest_index <- stringr::str_which(tmpl_latest, "# meta")
+        custom_blocks_list[[i]] <- paste0(custom_blocks_list[[i]], "")
+      }
+
+      tmpl_latest <- append(tmpl_latest, custom_blocks_list[[i]],
+        after = tmpl_latest_index
       )
     }
   }

@@ -5,9 +5,9 @@ jobs:
   r-release:
     # r-release-env
     environment:
-      # [Custom] env var 2
+      # [Custom env] env var 2
       utest2: "u2"
-      # [Custom] env var 1
+      # [Custom env] env var 1
       test: "true"
     docker:
       - image: rocker/verse
@@ -36,7 +36,7 @@ jobs:
             R -q -e 'tic::install()'
 
       - run:
-          name: "[Custom] test1"
+          name: "[Custom block] test1"
           no_output_timeout: 60m
           command: |
             echo 'test'
@@ -86,7 +86,7 @@ jobs:
   r-oldrelease:
     # r-oldrelease-env
     environment:
-      # [Custom] env var 2
+      # [Custom env] env var 2
       test2: "true"
     docker:
       - image: rocker/verse:3.6.3
@@ -122,7 +122,7 @@ jobs:
             R -q -e 'tic::script()'
 
       - run:
-          name: "[Custom] test2"
+          name: "[Custom block] test2"
           command: |
             echo 'test2'
 

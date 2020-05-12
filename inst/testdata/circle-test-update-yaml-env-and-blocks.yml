@@ -5,9 +5,9 @@ jobs:
   r-release:
     # r-release-env
     environment:
-      # [Custom] env var 1
+      # [Custom env] env var 1
       test: "true"
-      # [Custom] env var 2
+      # [Custom env] env var 2
       utest2: "u2"
     docker:
       - image: rocker/verse
@@ -32,7 +32,7 @@ jobs:
             R -q -e 'install.packages("remotes")'
 
       - run:
-          name: "[Custom] test1"
+          name: "[Custom block] test1"
           no_output_timeout: 60m
           command: |
             echo 'test'
@@ -83,7 +83,7 @@ jobs:
             R -q -e 'tic::script()'
 
       - run:
-          name: "[Custom] test2"
+          name: "[Custom block] test2"
           command: |
             echo 'test2'
 
@@ -138,4 +138,3 @@ workflows:
     jobs:
       - r-release
       - r-oldrelease
-

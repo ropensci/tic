@@ -39,13 +39,13 @@ jobs:
       # make sure to run `tic::use_ghactions_deploy()` to set up deployment
       TIC_DEPLOY_KEY: ${{ secrets.TIC_DEPLOY_KEY }}
       # prevent rgl issues because no X11 display is available
-      # [Custom] env var 1
+      # [Custom env] env var 1
       FII: "false"
       # prevent rgl issues because no X11 display is available
       RGL_USE_NULL: true
       # macOS >= 10.15.4 linking
       SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
-      # [Custom] env var
+      # [Custom env] env var
       FOO: "true"
 
     steps:
@@ -112,7 +112,7 @@ jobs:
           sudo installer -package clang-7.0.0.pkg -target /
           mkdir -p ~/.R && echo -e 'CC=ccache /usr/local/clang7/bin/clang\nCXX=ccache /usr/local/clang7/bin/clang++\nF77=ccache gfortran/nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk' > $HOME/.R/Makevars
 
-      - name: "[Custom] Test custom user block"
+      - name: "[Custom block] Test custom user block"
         run: |
           echo 'test'
 
@@ -156,7 +156,7 @@ jobs:
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'
 
-      - name: "[Custom] Test custom user block2"
+      - name: "[Custom block] Test custom user block2"
         run: |
           echo 'test2'
 

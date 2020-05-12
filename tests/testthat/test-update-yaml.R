@@ -24,6 +24,19 @@ test_that("update_yml() preserves custom env vars AND blocks", {
   expect_equal(updated, solution)
 })
 
+# Travis CI --------------------------------------------------------------------
+
+test_that("update_yml() preserves custom env vars AND blocks", {
+  update_yml(
+    system.file("testdata/travis-test-update-yaml-env-and-blocks.yml", package = "tic"), # nolint
+    paste0(tempdir(), "travis-test-update-yaml-env-and-blocks-updated.yml")
+  )
+
+  updated <- readLines(paste0(tempdir(), "travis-test-update-yaml-env-and-blocks-updated.yml")) # nolint
+  solution <- readLines(system.file("testdata/travis-test-update-yaml-env-and-blocks-solution.yml", package = "tic")) # nolint
+  expect_equal(updated, solution)
+})
+
 # Other ------------------------------------------------------------------------
 
 test_that("only GHA templates are accepted", {

@@ -27,9 +27,9 @@ jobs:
           - { os: ubuntu-latest, r: "release" }
 
     env:
-      # [Custom] env var
+      # [Custom env] env var
       FOO: "true"
-      # [Custom] env var 1
+      # [Custom env] env var 1
       FII: "false"
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -114,7 +114,7 @@ jobs:
           sudo installer -package clang-7.0.0.pkg -target /
           mkdir -p ~/.R && echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' > $HOME/.R/Makevars
 
-      - name: "[Custom] Test custom user block"
+      - name: "[Custom block] Test custom user block"
         run: |
           echo 'test'
 
@@ -158,7 +158,7 @@ jobs:
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'
 
-      - name: "[Custom] Test custom user block2"
+      - name: "[Custom block] Test custom user block2"
         run: |
           echo 'test2'
 

@@ -175,7 +175,7 @@ use_travis_yml <- function(type = "linux-macos-deploy-matrix",
       package = "tic"
     ))
     template <- c(os, meta, env, stages)
-  } else if (type == "linux-macos-deploy-matrix") {
+  } else if (type == "linux-macos-deploy-matrix" || type == "linux-macos-matrix-deploy") {
     os <- readLines(system.file("templates/travis-matrix-linux-macos-pkgdown.yml",
       package = "tic"
     ))
