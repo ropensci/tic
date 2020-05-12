@@ -62,8 +62,6 @@ update_yml <- function(template_in = NULL,
 
     instance_txt <- readLines(instance)
 
-    browser()
-
     # by default overwrite the current template.
     if (is.null(template_out)) {
       template_out <- instance
