@@ -47,7 +47,7 @@ jobs:
   r-oldrelease:
     # r-oldrelease-env
     environment:
-      # [Custom] env var 2
+      # [Custom env] env var 2
       test2: "true"
     docker:
       - image: rocker/verse:3.5.3

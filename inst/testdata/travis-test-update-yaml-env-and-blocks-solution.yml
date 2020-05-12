@@ -28,8 +28,8 @@ matrix:
 
 # meta -------------------------------------------------------------------------
 # [Custom block]
-apt:
-  addons:
+addons:
+  apt:
     - libpq-dev
 
 language: r
@@ -61,7 +61,7 @@ before_install:
   - R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
   - R -q -e 'tic::before_install()'
 install:
-    # [Custom block] block 2
+  # [Custom block] block 2
   - echo 'test2'
 
   - R -q -e 'tic::install()'

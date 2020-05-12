@@ -36,15 +36,3 @@ test_that("update_yml() preserves custom env vars AND blocks", {
   solution <- readLines(system.file("testdata/travis-test-update-yaml-env-and-blocks-solution.yml", package = "tic")) # nolint
   expect_equal(updated, solution)
 })
-
-# Other ------------------------------------------------------------------------
-
-test_that("only GHA templates are accepted", {
-  expect_error(
-    update_yml(
-      system.file("testdata/error-invalid-yaml.yml", package = "tic"),
-      "inst/testdata/circle-test-update-yaml-env-and-blocks.yml"
-    ),
-    "No valid YAML file found."
-  )
-})
