@@ -74,10 +74,16 @@ update_yml <- function(template_in = NULL,
     }
 
     # read date of local template to compare against upstream template date
-    rev_date_local <- as.Date(gsub(
+
+    # need a tryCatch() to protect against errors from as.Date()
+    rev_date_local <- tryCatch(as.Date(gsub(
       ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
-      instance[2]
-    ), quiet = TRUE)
+      instance_txt[2]
+    )),
+    error = function(cond) {
+      return(NA)
+    }
+    )
     if (is.na(rev_date_local)) {
       cli::cli_alert_warning("It looks like that
       {.file {basename(instance)}} does not (yet) contain a {.pkg tic} revision
@@ -88,7 +94,7 @@ update_yml <- function(template_in = NULL,
         wrap = TRUE
       )
       # reset template_out
-      template_out = NULL
+      template_out <- NULL
       # skip to next iteration
       next
     }
@@ -97,6 +103,11 @@ update_yml <- function(template_in = NULL,
     tmpl_type <- stringr::str_split(instance_txt[1], "template: ",
       simplify = TRUE
     )[, 2]
+    # get ci provider information
+    ci_provider <- stringr::str_extract_all(instance_txt[1],
+      "(?<=tic ).+(?= template)",
+      simplify = TRUE
+    )[1, 1]
 
     tmpl_latest <- switch(ci_provider,
       "GitHub Actions" = use_ghactions_yml(tmpl_type,
@@ -132,7 +143,7 @@ update_yml <- function(template_in = NULL,
     writeLines(tmpl_latest, template_out)
 
     # reset template_out
-    template_out = NULL
+    template_out <- NULL
   }
 
   cli::cli_alert_info("Please carefully review the changes.
@@ -407,7 +418,8 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
         seq(env_var_tags_local),
         function(i) {
           env_var_tags_local[i] ==
-            tmpl_latest[i:(length(tmpl_latest) - length(env_var_tags_local) + i)]
+            tmpl_latest[i:(length(tmpl_latest) -
+              length(env_var_tags_local) + i)]
         }
       )) == 0) + 1
 
@@ -487,7 +499,7 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
       # if the block is "apt" we have to treat it differently. Otherwise it will
       # be inserted at the previous top-level tag and break this one (e.g.
       # "cache")
-      if ("apt:" %in% custom_blocks_list[[i]]) {
+      if ("addons:" %in% custom_blocks_list[[i]]) {
         tmpl_latest_index <- stringr::str_which(tmpl_latest, "# meta")
         custom_blocks_list[[i]] <- paste0(custom_blocks_list[[i]], "")
       }
