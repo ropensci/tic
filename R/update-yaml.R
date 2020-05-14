@@ -41,24 +41,25 @@ update_yml <- function(template_in = NULL,
     if (file.exists(usethis::proj_path(".github/workflows", "main.yml"))) {
       ghactions <- usethis::proj_path(".github/workflows", "main.yml")
     }
+    else {
+      ghactions <- NULL
+    }
     if (file.exists(usethis::proj_path(".circleci/", "config.yml"))) {
       circle <- usethis::proj_path(".circleci", "config.yml")
+    } else {
+      circle <- NULL
     }
     if (file.exists(usethis::proj_path(".travis.yml"))) {
       travis <- usethis::proj_path(".travis.yml")
+    } else {
+      travis <- NULL
     }
     providers <- c(ghactions, circle, travis)
   } else {
     providers <- template_in
   }
 
-
   for (instance in providers) {
-
-    # skip if one does not exist
-    if (instance == FALSE) {
-      next
-    }
 
     instance_txt <- readLines(instance)
 
