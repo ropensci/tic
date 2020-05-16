@@ -125,11 +125,12 @@ update_yml <- function(template_in = NULL,
     ), quiet = TRUE)
 
     if (!rev_date_latest > rev_date_local) {
-      rlang::abort(sprintf(
+      rlang::inform(sprintf(
         "You already have the latest version of the %s template (%s).",
         ci_provider,
         rev_date_latest
       ))
+      next
     } else {
       cli::cli_alert("Updating {ci_provider} template from version
       '{rev_date_local} to version '{rev_date_latest}'.", wrap = TRUE)
