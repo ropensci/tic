@@ -66,12 +66,6 @@ update_yml <- function(template_in = NULL,
     # by default overwrite the current template.
     if (is.null(template_out)) {
       template_out <- instance
-    } else {
-      if (is.null(template_in)) {
-        cli_alert_danger("{.code template_in} must be set if
-                         {.code template_out} is supplied.", wrap = TRUE)
-        stopc("Please provide a template.")
-      }
     }
 
     # read date of local template to compare against upstream template date
@@ -86,14 +80,15 @@ update_yml <- function(template_in = NULL,
     }
     )
     if (is.na(rev_date_local)) {
-      cli::cli_alert_warning("It looks like that
-      {.file {basename(instance)}} does not (yet) contain a {.pkg tic} revision
-      date.
-      Please update the template manually one last time or add a revision date
-      into the template type manually as the first line of your template.
-      Skipping {.file {basename(instance)}}.",
+      cli::cli_alert_warning("{.file {basename(instance)}} does not (yet)
+      contain a (valid) {.pkg tic} revision date (format: YYYY-MM-DD).
+      If {.file {basename(instance)}} is managed by {.pkg tic}, please update
+      the template manually one last time or manually add a revision date
+      into the template as the first line of your template.
+      Otherwise ignore this message.",
         wrap = TRUE
       )
+      cli::cli_alert("Skipping {.file {basename(instance)}}")
       # reset template_out
       template_out <- NULL
       # skip to next iteration
