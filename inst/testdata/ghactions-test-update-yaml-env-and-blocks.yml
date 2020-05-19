@@ -20,9 +20,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # comment out lines if you do not want to build on certain platforms
+          # use a different tic template type if you do not want to build on all listed platforms
           - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true" }
+          # [Custom matrix env var] test
+          - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
           - { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 

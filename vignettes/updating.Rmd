@@ -31,12 +31,13 @@ While `update_yml()` supports GitHub Actions, Travis CI and Circle CI right now 
 **Shared Rules**
 
 - All templates need to have an *identifier* and a *revision date* in their first two lines.
-- Comments of custom env vars may only span one line
+- Comments of custom env vars may only span one line.
 - All *custom env vars* need to have a comment (above the actual env var) which includes the term `[Custom env]`.
 
 **GitHub Actions & Circle CI**
 
-- All *custom blocks* need to include `[Custom block]` in their name tag, e.g. `- name: "[Custom block] Test custom user block2"`
+- All *custom blocks* need to include `[Custom block]` in their name tag, e.g. `- name: "[Custom block] Test custom user block2"`.
+- Custom env vars unique to a runner need to include `[Custom matrix env var]` in their tag, e.g. `# [Custom matrix env] test`.
 
 **Travis CI**
 
@@ -64,6 +65,19 @@ Please file an issue in the repo if you experience problems.
 Here are some examples for custom user blocks and custom env vars:
 
 **GitHub Actions**
+
+*Runner specific environment variable*
+
+```yml
+matrix:
+  config:
+    # use a different tic template type if you do not want to build on all listed platforms
+    - { os: windows-latest, r: "release" }
+    # [Custom matrix env var] test
+    - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
+    - { os: macOS-latest, r: "devel" }
+    - { os: ubuntu-latest, r: "release" }
+```
 
 *Environment variable*
 

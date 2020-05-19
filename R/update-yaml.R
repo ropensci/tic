@@ -149,6 +149,31 @@ update_yml <- function(template_in = NULL,
 }
 
 update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
+
+  # update matrix env vars -----------------------------------------------------
+
+  custom_matrix_env_vars <- stringr::str_which(
+    tmpl_local,
+    "#.\\[Custom matrix env var"
+  )
+  if (length(custom_matrix_env_vars) > 0) {
+    cli::cli_alert_info("Found {.val {length(custom_matrix_env_vars)}} custom matrix env variable{?s}.") # nolint
+    # find env var section in latest template (adding +1 to skip the comment)
+    matrix_env_var_index_latest <- stringr::str_which(tmpl_latest, "config:") + 1
+
+    custom_matrix_env_var_list <- purrr::map(custom_matrix_env_vars, ~ {
+      tmpl_local[.x:(.x + 1)]
+    })
+
+    for (i in seq_along(custom_matrix_env_var_list)) {
+
+      tmpl_latest <- append(tmpl_latest,
+        custom_matrix_env_var_list[[i]],
+        after = matrix_env_var_index_latest
+      )
+    }
+  }
+
   # update env vars ------------------------------------------------------------
 
   # find the line IDs of all custom env vars
@@ -156,7 +181,7 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
   custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
-    cli::cli_alert_info("Found {length(custom_env_vars)} custom env var.")
+    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env variable{?s}.") # nolint
     # find env var section in latest template
     env_var_index_latest <- stringr::str_which(tmpl_latest, "env:")
 
@@ -183,8 +208,8 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
 
   if (length(custom_blocks_start > 0)) {
 
-    cli::cli_alert_info("Found {length(custom_blocks_start)} custom user
-                        block.", wrap = TRUE)
+    cli::cli_alert_info("Found {.val {length(custom_blocks_start)}} custom user
+                        block{?s}.", wrap = TRUE)
 
     # find all blank lines so we know when blocks end
     stringr::str_which(tmpl_local, "^\\s*$")
@@ -264,7 +289,7 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
   custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
-    cli::cli_alert_info("Found {length(custom_env_vars)} custom env var.")
+    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env variable{?s}.") # nolint
 
     for (release in c(
       "# r-release-env", "# r-oldrelease-env",
@@ -315,8 +340,8 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
 
   if (length(custom_blocks_start > 0)) {
 
-    cli::cli_alert_info("Found {length(custom_blocks_start)} custom user
-                        block.", wrap = TRUE)
+    cli::cli_alert_info("Found {.val {length(custom_blocks_start)}} custom user
+                        block{?s}.", wrap = TRUE)
 
     # find all blank lines so we know when blocks end
     stringr::str_which(tmpl_local, "^\\s*$")
@@ -394,7 +419,7 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
   custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
-    cli::cli_alert_info("Found {length(custom_env_vars)} custom env var.")
+    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env variable{?s}.") # nolint
 
     for (env_var in custom_env_vars) {
 
@@ -444,7 +469,9 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
   if (length(custom_blocks_start > 0)) {
 
     cli::cli_alert_info("{.file .travis.yml}:
-    Found {length(custom_blocks_start)} custom user block.", wrap = TRUE)
+    Found {.val {length(custom_blocks_start)}} custom user block{?s}.",
+      wrap = TRUE
+    )
 
     # Create list storing all custom user blocks
     # User blocks need to start with "[Custom]"
