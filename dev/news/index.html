@@ -78,7 +78,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.7.0.9000</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -166,6 +166,47 @@
       <small>Source: <a href='https://github.com/ropensci/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0809000" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.0.9000">
+<a href="#tic-0809000" class="anchor"></a>tic 0.8.0.9000</h1>
+<ul>
+<li>Same as previous version.</li>
+</ul>
+</div>
+    <div id="tic-080" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.0">
+<a href="#tic-080" class="anchor"></a>tic 0.8.0</h1>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
+<ul>
+<li>New <code><a href="../reference/update_yml.html">update_yml()</a></code>: Update your {tic} yaml templates to the latest upstream version in {tic}. User changes are preserved if these are marked correctly. See vignette <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for instructions. This process can also be fully automated via a <a href="https://docs.ropensci.org/tic/articles/updating.html#automating-the-update-process">custom CI job</a>.</li>
+<li>Add argument <code>force</code> to <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> for adding the <code>--force</code> flag to git calls</li>
+<li>Add solutions to {rgl} installation issues to FAQ</li>
+<li>Update <code>.R/Makevars</code>
+</li>
+</ul>
+</div>
+<div id="ci-provider-specific" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
+<div id="github-action" class="section level3">
+<h3 class="hasAnchor">
+<a href="#github-action" class="anchor"></a>GitHub Action</h3>
+<ul>
+<li>Set CRON time to 4 am to avoid download issues with mirror updates</li>
+<li>Added <code>-I/usr/local/include</code> to CPPFLAGS for macOS runners to mirror CRAN setup</li>
+</ul>
+</div>
+<div id="circle-ci" class="section level3">
+<h3 class="hasAnchor">
+<a href="#circle-ci" class="anchor"></a>Circle CI</h3>
+<ul>
+<li>Update r-oldrelease to R 3.6.3</li>
+</ul>
+</div>
+</div>
+</div>
     <div id="tic-0709000" class="section level1">
 <h1 class="page-header" data-toc-text="0.7.0.9000">
 <a href="#tic-0709000" class="anchor"></a>tic 0.7.0.9000</h1>
@@ -185,9 +226,9 @@
 <li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href='https://github.com/ropensci/tic/issues/242'>#242</a>)</li>
 </ul>
 </div>
-<div id="ci-provider-specific" class="section level2">
+<div id="ci-provider-specific-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
+<a href="#ci-provider-specific-1" class="anchor"></a>CI Provider specific</h2>
 <div id="github-actions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
@@ -244,9 +285,9 @@
 <li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
 </ul>
 </div>
-<div id="ci-provider-specific-1" class="section level2">
+<div id="ci-provider-specific-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ci-provider-specific-1" class="anchor"></a>CI Provider specific</h2>
+<a href="#ci-provider-specific-2" class="anchor"></a>CI Provider specific</h2>
 <div id="github-actions-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#github-actions-1" class="anchor"></a>GitHub Actions</h3>
