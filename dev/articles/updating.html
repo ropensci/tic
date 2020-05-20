@@ -41,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9000</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9001</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -148,7 +148,7 @@
 <p><strong>GitHub Actions &amp; Circle CI</strong></p>
 <ul>
 <li>All <em>custom blocks</em> need to include <code>[Custom block]</code> in their name tag, e.g. <code>- name: "[Custom block] Test custom user block2"</code>.</li>
-<li>Custom env vars unique to a runner need to include <code>[Custom matrix env var]</code> in their tag, e.g. <code># [Custom matrix env] test</code>.</li>
+<li>Custom env vars unique to a runner need to include <code>[Custom matrix env var]</code> in their tag, e.g. <code># [Custom matrix env var] test</code>.</li>
 </ul>
 <p><strong>Travis CI</strong></p>
 <ul>
@@ -162,7 +162,7 @@
 </li>
 </ul>
 <p>All of these tags are used by {tic} to preserve user changes and choose the right upstream template. During the process <code><a href="../reference/update_yml.html">update_yml()</a></code> also prints how many custom blocks and env vars were found. If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template. In any case, it is recommended to review the changes to avoid unexpected CI failures.</p>
-<p>The feature is beta state and issues are expected, especially for edge cases. The internal approach is quite unrobust and highly tailored to the specific CI provider. Please file an issue in the repo if you experience problems.</p>
+<p>The feature is beta state and issues are expected, especially for edge cases. The internal approach is quite unstable and highly tailored to the specific CI provider. Please file an issue in the repo if you experience problems.</p>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
@@ -200,12 +200,11 @@
 <span id="cb5-10"><a href="#cb5-10"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> linux</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="at">      </span><span class="fu">r</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre></div>
 <p><em>Block</em></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'tic::before_install()'</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">install</span><span class="kw">:</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'tic::install()'</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">  # [Custom block] block 2</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo 'test2'</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">install</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'tic::install()'</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">  # [Custom block] block 2</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo 'test2'</span></span></code></pre></div>
 <p><strong>Circle CI</strong></p>
 <p><em>Environment variable</em></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">environment</span><span class="kw">:</span></span>
