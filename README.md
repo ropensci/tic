@@ -112,8 +112,8 @@ We also recommend to take a look at the projects providing the direct R support 
 
 ## Updating
 
-Updating of YAML templates is supported via `update_yml()` (only for GitHub Actions).
-See vignette ["Updating Templates"](https://docs.ropensci.org/articles/updating.html) for more information.
+Updating of YAML templates is supported via [`update_yml()`](https://docs.ropensci.org/tic/reference/update_yml.html).
+See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for more information.
 
 ## Examples
 
