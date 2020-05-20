@@ -172,8 +172,11 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
 
       tmpl_latest <- replace(
         tmpl_latest,
-        c(matrix_name_index_latest:(matrix_name_index_latest + 2)),
-        append(custom_matrix_matrix_name_list[[i]], "")
+        c(matrix_name_index_latest:(matrix_name_index_latest + 1)),
+        custom_matrix_matrix_name_list[[i]]
+      )
+      tmpl_latest <- append(tmpl_latest, "",
+        after = matrix_name_index_latest + 1
       )
     }
   }
