@@ -1,3 +1,9 @@
+# tic 0.8.0.9002
+
+- New `gha_add_secret()` to automate the process of adding a GitHub PAT to a repo as a secret.
+  This function will probably be move to {ghactions} in the future.
+
+
 # tic 0.8.0.9001
 
 ### GitHub Actions
