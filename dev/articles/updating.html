@@ -41,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9001</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9002</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -219,9 +219,9 @@
 <div id="automating-the-update-process" class="section level2">
 <h2 class="hasAnchor">
 <a href="#automating-the-update-process" class="anchor"></a>Automating the update process</h2>
-<p>Updating {tic} YAML files can be automated further. We provide a GitHub Actions workflow which can be used together with <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> to update the templates whenever there are newer upstream versions available. The workflow will create a branch, update the files and commit them and even open a pull request.</p>
+<p>Updating {tic} YAML files can be automated further. We provide a <a href="https://github.com/ropenscilabs/tic.package/blob/ba72e7fb57c094b1e704ebe5ee8ed157e2b5fbb5/.github/workflows/update-tic.yml">GitHub Actions workflow</a> which can be used together with <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> to update the templates whenever there are newer upstream versions available. The workflow will create a branch, update the files and commit them and even open a pull request.</p>
 <p>Just put this workflow next to <code>.github/workflows/main.yml</code> and it will silently do its job. By default it will run over night as a CRON job. It only runs once a day and is not being executed on push or pull request events.</p>
-<p>Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches. To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with “workflow” scopes. This PAT need to be added as a “secret” to the repo so that it can be used within the build. There is no way of avoiding this manual action for each repo currently. The linked workflow searches by default for a PAT named <code>TIC_UPDATE</code>. So if you name your secret like this, the workflow should succeed. If you rename it differently, make sure to also change the name of the secret in the workflow. It makes sense to memorize the PAT hash and reuse it in other repos.</p>
+<p>Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches. To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with “workflow” scopes. This PAT need to be added as a “secret” to the repo so that it can be used within the build. <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> helps to automate this process. The linked workflow searches by default for a PAT secret named <code>TIC_UPDATE</code> when updating <code>main.yml</code>.</p>
 </div>
   </div>
 
