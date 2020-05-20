@@ -55,7 +55,7 @@
 
       # install ccache and write config file
       # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
-      - name: "[macOS-devel] ccache"
+      - name: "[macOS] ccache"
         if: runner.os == 'macOS' && matrix.config.r == 'devel'
         run: |
           brew install ccache
