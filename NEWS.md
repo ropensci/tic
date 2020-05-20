@@ -1,3 +1,9 @@
+# tic 0.8.0.9003
+
+- Support fully custom runner matrices on GitHub Actions via template types `"custom"` and ´"custom-deploy"`
+- bugfix: Pass arg `remote` to all printing instances. Previously using a different remote than "origin" errored.
+
+
 # tic 0.8.0.9002
 
 - New `gha_add_secret()` to automate the process of adding a GitHub PAT to a repo as a secret.
