@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: linux-deploy
-## revision date: 2020-05-09
+## revision date: 2020-05-20
 on:
   push:
   pull_request:
