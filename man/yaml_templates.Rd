@@ -62,6 +62,10 @@ Not every combinations is supported on all CI systems.
 For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix}
 are valid.
 
+Special types are \code{custom} and \code{custom-deploy}. These should be used if the
+runner matrix is completely user-defined. This is mainly useful in
+\code{\link[=update_yml]{update_yml()}}.
+
 For backward compatibility \code{use_ghactions_yml()} will be default build and
 deploy on all platforms.
 
@@ -92,6 +96,8 @@ Here is a list of all available combinations:
 |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
 | GH Actions | Linux                    | no         | no                  | \code{use_ghactions_yml("linux")}                           -|
 |            | Linux                    | yes        | no                  | \verb{use_ghactions_yml("linux-deploy)}                      |
+|            | custom                   | no         | no                  | \verb{use_ghactions_yml("custom)}                            |
+|            | custom-deploy            | yes        | no                  | \verb{use_ghactions_yml("custom-deploy)}                     |
 |            | macOS                    | no         | no                  | \verb{use_ghactions_yml("macos)}                             |
 |            | macOS                    | yes        | no                  | \verb{use_ghactions_yml("macos-deploy)}                      |
 |            | Windows                  | no         | no                  | \verb{use_ghactions_yml("windows)}                           |

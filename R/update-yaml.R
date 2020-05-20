@@ -150,6 +150,34 @@ update_yml <- function(template_in = NULL,
 
 update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
 
+  # update matrix names -------------------------------------------------------
+
+  custom_matrix_matrix_name <- stringr::str_which(
+    tmpl_local,
+    "#.\\[Custom matrix name"
+  )
+  if (length(custom_matrix_matrix_name) > 0) {
+    cli::cli_alert_info("Found {.val {length(custom_matrix_matrix_name)}} custom matrix name variable{?s}.") # nolint
+    # find env var section in latest template (adding +1 to skip the comment)
+    matrix_name_index_latest <- stringr::str_which(
+      tmpl_latest,
+      "name: \\$\\{\\{ matrix"
+    )
+
+    custom_matrix_matrix_name_list <- purrr::map(custom_matrix_matrix_name, ~ {
+      tmpl_local[.x:(.x + 1)]
+    })
+
+    for (i in seq_along(custom_matrix_matrix_name_list)) {
+
+      tmpl_latest <- replace(
+        tmpl_latest,
+        c(matrix_name_index_latest:(matrix_name_index_latest + 2)),
+        append(custom_matrix_matrix_name_list[[i]], "")
+      )
+    }
+  }
+
   # update matrix env vars -----------------------------------------------------
 
   custom_matrix_env_vars <- stringr::str_which(
@@ -159,7 +187,10 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
   if (length(custom_matrix_env_vars) > 0) {
     cli::cli_alert_info("Found {.val {length(custom_matrix_env_vars)}} custom matrix env variable{?s}.") # nolint
     # find env var section in latest template (adding +1 to skip the comment)
-    matrix_env_var_index_latest <- stringr::str_which(tmpl_latest, "config:") + 1
+    matrix_env_var_index_latest <- stringr::str_which(
+      tmpl_latest,
+      "config:"
+    ) + 1
 
     custom_matrix_env_var_list <- purrr::map(custom_matrix_env_vars, ~ {
       tmpl_local[.x:(.x + 1)]

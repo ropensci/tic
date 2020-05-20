@@ -32,6 +32,10 @@
 #'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix`
 #'  are valid.
 #'
+#'  Special types are `custom` and `custom-deploy`. These should be used if the
+#'  runner matrix is completely user-defined. This is mainly useful in
+#'  [update_yml()].
+#'
 #'  For backward compatibility `use_ghactions_yml()` will be default build and
 #'  deploy on all platforms.
 #'
@@ -62,6 +66,8 @@
 #'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
 #'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                           -|
 #'  |            | Linux                    | yes        | no                  | `use_ghactions_yml("linux-deploy)`                      |
+#'  |            | custom                   | no         | no                  | `use_ghactions_yml("custom)`                            |
+#'  |            | custom-deploy            | yes        | no                  | `use_ghactions_yml("custom-deploy)`                     |
 #'  |            | macOS                    | no         | no                  | `use_ghactions_yml("macos)`                             |
 #'  |            | macOS                    | yes        | no                  | `use_ghactions_yml("macos-deploy)`                      |
 #'  |            | Windows                  | no         | no                  | `use_ghactions_yml("windows)`                           |
@@ -175,8 +181,9 @@ use_travis_yml <- function(type = "linux-macos-deploy-matrix",
       package = "tic"
     ))
     template <- c(os, meta, env, stages)
-  } else if (type == "linux-macos-deploy-matrix" || type == "linux-macos-matrix-deploy") {
-    os <- readLines(system.file("templates/travis-matrix-linux-macos-pkgdown.yml",
+  } else if (type == "linux-macos-deploy-matrix" ||
+    type == "linux-macos-matrix-deploy") {
+    os <- readLines(system.file("templates/travis-matrix-linux-macos-pkgdown.yml", # nolint
       package = "tic"
     ))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
@@ -435,6 +442,17 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
     template <- c(meta, env, core)
   } else if (type == "linux-macos-windows-deploy" || type == "all") {
     meta <- readLines(system.file("templates/ghactions-meta.yml", package = "tic"))
+    env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
+    core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
+    deploy <- readLines(system.file("templates/ghactions-deploy.yml", package = "tic"))
+    template <- c(meta, env, core, deploy)
+  } else if (type == "custom") {
+    meta <- readLines(system.file("templates/ghactions-meta-custom.yml", package = "tic"))
+    env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
+    core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
+    template <- c(meta, env, core)
+  } else if (type == "custom-deploy") {
+    meta <- readLines(system.file("templates/ghactions-meta-custom-deploy.yml", package = "tic"))
     env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
     core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
     deploy <- readLines(system.file("templates/ghactions-deploy.yml", package = "tic"))

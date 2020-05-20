@@ -14,7 +14,8 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    # [Custom matrix name] test
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.test }})
 
     strategy:
       fail-fast: false
