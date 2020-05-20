@@ -45,8 +45,9 @@
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
 <meta property="og:title" content="Use CI YAML templates — yaml_templates" />
-<meta property="og:description" content="Installs YAML templates for various CI providers. These function
-are also used within use_tic()." />
+<meta property="og:description" content="Installs YAML templates for various CI providers. These functions
+are also used within use_tic().
+If you want to update an existing template use update_yml()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -100,7 +101,7 @@ are also used within use_tic()." />
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Introduction
      
     <span class="caret"></span>
   </a>
@@ -118,6 +119,18 @@ are also used within use_tic()." />
       <a href="../articles/ci-providers.html">CI Providers</a>
     </li>
     <li>
+      <a href="../articles/faq.html">FAQ</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Advanced
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
       <a href="../articles/advanced.html">Advanced Usage</a>
     </li>
     <li>
@@ -127,7 +140,7 @@ are also used within use_tic()." />
       <a href="../articles/custom-steps.html">Custom Steps</a>
     </li>
     <li>
-      <a href="../articles/faq.html">FAQ</a>
+      <a href="../articles/updating.html">Updating Templates</a>
     </li>
   </ul>
 </li>
@@ -159,17 +172,22 @@ are also used within use_tic()." />
     </div>
 
     <div class="ref-description">
-    <p>Installs YAML templates for various CI providers. These function
+    <p>Installs YAML templates for various CI providers. These functions
 are also used within <code><a href='use_tic.html'>use_tic()</a></code>.</p>
+<p>If you want to update an existing template use <code><a href='update_yml.html'>update_yml()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-deploy-matrix"</span>)
+    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-deploy-matrix"</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>use_appveyor_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"windows"</span>)
+<span class='fu'>use_appveyor_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"windows"</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>use_circle_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-matrix-deploy"</span>)
+<span class='fu'>use_circle_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-matrix-deploy"</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>use_ghactions_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-windows-deploy"</span>)</pre>
+<span class='fu'>use_ghactions_yml</span>(
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-windows-deploy"</span>,
+  <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,6 +197,16 @@ are also used within <code><a href='use_tic.html'>use_tic()</a></code>.</p>
       <td><p><code>[character]</code><br />
 Which template to use. The string should be given following the logic
 <code>&lt;platform&gt;-&lt;action&gt;</code>. See details for more.</p></td>
+    </tr>
+    <tr>
+      <th>write</th>
+      <td><p><code>[logical]</code><br />
+Whether to write the template to disk (<code>TRUE</code>) or just return it (<code>FALSE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p><code>[logical]</code><br />
+Whether to print informative messages.</p></td>
     </tr>
     </table>
 
@@ -247,6 +275,9 @@ deploy on all platforms.</p>
 |            | macOS + Windows          | yes        | no                  | <code>use_ghactions_yml("macos-windows-deploy")</code>             |
 |            | Linux + macOS + Windows  | no         | no                  | <code>use_ghactions_yml("linux-macos-windows")</code>              |
 |            | Linux + macOS + Windows  | yes        | no                  | <code>use_ghactions_yml("linux-macos-windows-deploy")</code>       |</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>update_yml</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

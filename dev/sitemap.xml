@@ -40,6 +40,9 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/dsl_get.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/gha_add_secret.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/list_macros.html</loc>
   </url>
   <url>
@@ -115,6 +118,9 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/tic-package.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/update_yml.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.html</loc>
   </url>
   <url>
@@ -155,5 +161,8 @@
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/articles/tic.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/articles/updating.html</loc>
   </url>
 </urlset>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Test SSH connection — step_test_ssh • tic</title>
+<title>Update tic YAML Templates — update_yml • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,11 +44,10 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Step: Test SSH connection — step_test_ssh" />
-<meta property="og:description" content="Establishes an SSH connection.
-This step doesn't fail if the connection cannot be established,
-but prints verbose output by default.
-It is useful for troubleshooting deployment problems." />
+<meta property="og:title" content="Update tic YAML Templates — update_yml" />
+<meta property="og:description" content="Updates YAML templates to their
+latest versions. Currently only GitHub Actions and Circle CI templates are
+supported." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -167,70 +166,63 @@ It is useful for troubleshooting deployment problems." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Test SSH connection</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-ssh.R'><code>R/steps-ssh.R</code></a></small>
-    <div class="hidden name"><code>step_test_ssh.Rd</code></div>
+    <h1>Update tic YAML Templates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/update-yaml.R'><code>R/update-yaml.R</code></a></small>
+    <div class="hidden name"><code>update_yml.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Establishes an SSH connection.
-This step doesn't fail if the connection cannot be established,
-but prints verbose output by default.
-It is useful for troubleshooting deployment problems.</p>
+    <p>Updates YAML templates to their
+latest versions. Currently only GitHub Actions and Circle CI templates are
+supported.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_test_ssh</span>(
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"git@github.com"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>update_yml</span>(<span class='kw'>template_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>template_out</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>url</th>
-      <td><p><code>[string]</code><br />
-URL to establish SSH connection with, by default <code>git@github.com</code></p></td>
+      <th>template_in</th>
+      <td><p><code>[character]</code><br />
+Path to template which should be updated. By default all standard template
+paths of GitHub Actions, Travis CI and Circle CI will be searched and
+updated if they exist. Alternatively a full path to a single template can
+be passed.</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p><code>[string]</code><br />
-Verbosity, by default <code>""</code>. Use <code>-v</code> or <code>"-vvv"</code> for more verbosity.</p></td>
-    </tr>
-    <tr>
-      <th>private_key_name</th>
-      <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
-If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
+      <th>template_out</th>
+      <td><p><code>[character]</code><br />
+Where the updated template should be written to. This is mainly used for
+internal testing purposes and should not be set by the user.
+Can only be set</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="formatting-requirements-of-tic-yaml-templates"><a class="anchor" href="#formatting-requirements-of-tic-yaml-templates"></a>Formatting requirements of tic YAML templates</h2>
+
+    <p>To ensure that
+updating of tic templates works, ensure the following points:</p><ul>
+<li><p>Your template contains the type (e.g. linux-matrix-deploy) and the revision
+date in its first two lines.</p></li>
+<li><p>When inserting comments into custom code blocks, only one-line comments are
+allowed. Otherwise the update heuristic gets in trouble.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other steps: 
-<code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
-<code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
-<code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
-<code><a href='step_do_push_deploy.html'>step_do_push_deploy</a>()</code>,
-<code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
-<code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
-<code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
-<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
-<code><a href='step_run_code.html'>step_run_code</a>()</code>,
-<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
-<code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
-<code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
+    <div class='dont-index'><p>yaml_templates</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_test_ssh</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='st'>"-vvv"</span>))
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>update_yml</span>(<span class='st'>"main.yml"</span>)
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_test_ssh(verbose = "-vvv")</div></span></pre>
+<span class='co'># custom named templates</span>
+<span class='fu'>update_yml</span>(<span class='st'>"custom-name.yml"</span>)
+
+<span class='co'># full paths</span>
+<span class='fu'>update_yml</span>(<span class='st'>"~/path/to/repo/.github/workflows/main.yml"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
