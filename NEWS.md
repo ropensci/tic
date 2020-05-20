@@ -1,3 +1,26 @@
+# tic 0.8.0
+
+## Features
+
+- New `update_yml()`: Update your {tic} yaml templates to the latest upstream version in {tic}.
+  User changes are preserved if these are marked correctly. 
+  See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for instructions.
+  This process can also be fully automated via a [custom CI job](https://docs.ropensci.org/tic/articles/updating.html#automating-the-update-process).
+- Add argument `force` to `step_do_push_deploy()` for adding the `--force` flag to git calls
+- Add solutions to {rgl} installation issues to FAQ
+- Update `.R/Makevars`
+
+## CI Provider specific
+
+### GitHub Action
+
+- Set CRON time to 4 am to avoid download issues with mirror updates
+- Added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror CRAN setup
+
+### Circle CI
+
+- Update r-oldrelease to R 3.6.3
+
 # tic 0.7.0.9000
 
 - GHA: added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror CRAN
