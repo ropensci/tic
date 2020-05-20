@@ -217,14 +217,14 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   } else if (private_key_exists || public_key_exists ||
     !private_key_exists && !public_key_exists) {
     cli::cli_alert("At least one key part is missing (private or public).
-                    Deleting old keys and adding new GitHub Actions deploy keys
-                    for repo {travis::get_owner(remote)}/{travis::get_repo()}",
+      Deleting old keys and adding new GitHub Actions deploy keys
+      for repo {travis::get_owner(remote)}/{travis::get_repo(remote)}",
       wrap = TRUE
     )
     cli::rule()
   } else if (!private_key_exists && !public_key_exists) {
     cli::cli_alert("Adding Deploy keys for repo
-                   {travis::get_owner(remote)}/{travis::get_repo()}",
+                   {travis::get_owner(remote)}/{travis::get_repo(remote)}",
       wrap = TRUE
     )
     cli::rule()
@@ -250,7 +250,8 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     pubkey = pub_key,
     user = travis::get_user(),
     repo = travis::get_repo(remote),
-    title = key_name_public
+    title = key_name_public,
+    remote = remote
   )
 
   # delete private key if it exists
@@ -296,12 +297,12 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   cli::cat_rule()
   cli::cli_alert_success(
     "Added the private SSH key as secret {.var {key_name_private}} to repository
-    {.code {travis::get_owner(remote)}/{travis::get_repo()}}.",
+    {.code {travis::get_owner(remote)}/{travis::get_repo(remote)}}.",
     wrap = TRUE
   )
   cli::cli_alert_success(
     "Added the public SSH key as a deploy key to project
-    {.code {travis::get_owner(remote)}/{travis::get_repo()}} on GitHub.",
+    {.code {travis::get_owner(remote)}/{travis::get_repo(remote)}} on GitHub.",
     wrap = TRUE
   )
 }
