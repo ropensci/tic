@@ -361,8 +361,6 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
   # .ccache dir lives in the package root because we cannot write elsewhere
   # -> need to ignore it for R CMD check
   usethis::use_build_ignore(c(".ccache", ".github"))
-  usethis::use_build_ignore("^clang-.*", escape = FALSE)
-  usethis::use_build_ignore("^gfortran.*", escape = FALSE)
 
   if (type == "linux-matrix" || type == "linux") {
     meta <- readLines(system.file("templates/ghactions-meta-linux.yml", package = "tic"))

@@ -1,3 +1,12 @@
+# tic 0.8.0.9001
+
+### GitHub Actions
+
+- Update actions/checkout to v2.1.1
+- Update pat-s/always-upload-cache to v1.2.0
+- Remove old clang7 compiler setup for R <= 3.6.3
+
+
 # tic 0.8.0.9000
 
 - Same as previous version.
@@ -17,7 +26,7 @@
 
 ## CI Provider specific
 
-### GitHub Action
+### GitHub Actions
 
 - Set CRON time to 4 am to avoid download issues with mirror updates
 - Added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror CRAN setup
