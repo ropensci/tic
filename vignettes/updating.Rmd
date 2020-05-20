@@ -37,7 +37,7 @@ While `update_yml()` supports GitHub Actions, Travis CI and Circle CI right now 
 **GitHub Actions & Circle CI**
 
 - All *custom blocks* need to include `[Custom block]` in their name tag, e.g. `- name: "[Custom block] Test custom user block2"`.
-- Custom env vars unique to a runner need to include `[Custom matrix env var]` in their tag, e.g. `# [Custom matrix env] test`.
+- Custom env vars unique to a runner need to include `[Custom matrix env var]` in their tag, e.g. `# [Custom matrix env var] test`.
 
 **Travis CI**
 
@@ -57,7 +57,7 @@ If you have some in your template and nothing is printed when updating, somethin
 In any case, it is recommended to review the changes to avoid unexpected CI failures.
 
 The feature is beta state and issues are expected, especially for edge cases.
-The internal approach is quite unrobust and highly tailored to the specific CI provider.
+The internal approach is quite unstable and highly tailored to the specific CI provider.
 Please file an issue in the repo if you experience problems.
 
 ## Examples
@@ -117,7 +117,6 @@ matrix:
 *Block*
 
 ```yml
-  - R -q -e 'tic::before_install()'
 install:
   - R -q -e 'tic::install()'
 
@@ -162,4 +161,3 @@ The linked workflow searches by default for a PAT named `TIC_UPDATE`.
 So if you name your secret like this, the workflow should succeed.
 If you rename it differently, make sure to also change the name of the secret in the workflow.
 It makes sense to memorize the PAT hash and reuse it in other repos.
-
