@@ -1,4 +1,5 @@
-# tic documentation: https://docs.ropensci.org/tic/dev/
+## tic Appveyor CI template: windows-matrix
+## revision date: 2020-05-09
 
 # Download script file from GitHub
 init:

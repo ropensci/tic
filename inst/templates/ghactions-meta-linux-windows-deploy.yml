@@ -1,4 +1,4 @@
-## tic GitHub Actions template: linux-deploy
+## tic GitHub Actions template: linux-macos-windows-deploy
 ## revision date: 2020-05-09
 on:
   push:
@@ -22,4 +22,5 @@ jobs:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
           - { os: ubuntu-latest, r: "release", pkgdown: "true" }
+          - { os: windows-latest, r: "release" }
 

@@ -1,6 +1,5 @@
-# OS: Linux + macOS ------------------------------------------------------------
-# tic documentation: https://docs.ropensci.org/tic/dev/
-
+## tic Travis CI template: linux-macos-deploy
+## revision date: 2020-05-09
 matrix:
   include:
     - os: osx

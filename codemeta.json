@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/tic",
   "issueTracker": "https://github.com/ropensci/tic/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.4.0.9000",
+  "version": "0.7.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.3",
+    "version": "4.0.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.3 RC (2020-02-21 r77853)",
+  "runtimePlatform": "R version 4.0.0 Patched (2020-04-30 r78337)",
   "author": [
     {
       "@type": "Person",
@@ -81,6 +81,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=base64enc"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "blogdown",
+      "name": "blogdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=blogdown"
     },
     {
       "@type": "SoftwareApplication",
@@ -210,6 +222,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "lubridate",
+      "name": "lubridate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lubridate"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "openssl",
       "name": "openssl",
       "provider": {
@@ -291,6 +315,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=sodium"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stringr",
+      "name": "stringr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
     {
       "@type": "SoftwareApplication",
@@ -485,7 +521,8 @@
     "continuous-integration",
     "deployment",
     "r-package",
-    "rstats"
+    "rstats",
+    "githubactions"
   ],
-  "fileSize": "363.694KB"
+  "fileSize": "379.067KB"
 }

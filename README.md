@@ -112,9 +112,8 @@ We also recommend to take a look at the projects providing the direct R support 
 
 ## Updating
 
-There is not yet an automated way of updating the templates installed by {tic}, hence you need to manually check every once in a while if changes were made to the templates.
-Have a look at the [changelog](https://docs.ropensci.org/tic/news/index.html) for possible changes to YAML templates or watch the commit history of the CI templates you are using.
-An update mechanism is on our list (see [issue #194](https://github.com/ropensci/tic/issues/194)) but it may take some time.
+Updating of YAML templates is supported via `update_yml()` (only for GitHub Actions).
+See vignette ["Updating Templates"](https://docs.ropensci.org/articles/updating.html) for more information.
 
 ## Examples
 

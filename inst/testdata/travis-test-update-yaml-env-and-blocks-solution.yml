@@ -1,7 +1,56 @@
+## tic Travis CI template: linux-macos-matrix-deploy
+## revision date: 2020-05-09
+
+# OS: Linux + macOS ------------------------------------------------------------
+# tic documentation: https://docs.ropensci.org/tic/dev/
+
+matrix:
+  include:
+    - os: osx
+      r: release
+    - os: osx
+      r: oldrel
+      # [Custom env]
+      env:
+      - foo="test"
+    - os: linux
+      r: devel
+    - os: linux
+      r: release
+      env:
+      # [Custom env] named
+      - foo2="test2"
+      # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
+      # capitalized term. This also might need to be done in tic.R
+      - BUILD_PKGDOWN=true
+    - os: linux
+      r: oldrel
+
+# meta -------------------------------------------------------------------------
+# [Custom block]
+addons:
+  apt:
+    - libpq-dev
+
+language: r
+cache:
+  - packages
+  - $HOME/.ccache
+  - $HOME/Library/Caches/Homebrew
+latex: false
+
+# environment variables --------------------------------------------------------
+
+env:
+  global:
+    - MAKEFLAGS="-j 2"
 
 # Stages -----------------------------------------------------------------------
 
 before_install:
+  # [Custom block]
+  - echo 'test'
+
   - if [ "${TRAVIS_OS_NAME}" == "osx" ]; then brew install ccache; fi
   - if [ "${TRAVIS_OS_NAME}" == "osx" ]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - echo -e "options(Ncpus = 8, repos = structure(c(CRAN = 'https://cloud.r-project.org/')))" > $HOME/.Rprofile
@@ -12,6 +61,9 @@ before_install:
   - R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
   - R -q -e 'tic::before_install()'
 install:
+  # [Custom block] block 2
+  - echo 'test2'
+
   - R -q -e 'tic::install()'
 before_script:
   - R -q -e 'tic::before_script()'

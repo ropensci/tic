@@ -68,7 +68,7 @@ navbar:
     href: articles/tic.html
   - text: Reference
     href: reference/index.html
-  - text: Articles
+  - text: Introduction
     menu:
     - text: Feature Overview
       href: articles/features.html
@@ -78,14 +78,18 @@ navbar:
       href: articles/ci-client-packages.html
     - text: CI Providers
       href: articles/ci-providers.html
+    - text: FAQ
+      href: articles/faq.html
+  - text: Advanced
+    menu:
     - text: Advanced Usage
       href: articles/advanced.html
     - text: Deployment
       href: articles/deployment.html
     - text: Custom Steps
       href: articles/custom-steps.html
-    - text: FAQ
-      href: articles/faq.html
+    - text: Updating Templates
+      href: articles/updating.html
   - text: Changelog
     href: news/index.html
 

@@ -83,6 +83,7 @@ Suggests:
     rmarkdown,
     rprojroot,
     sodium,
+    stringr,
     testthat (>= 2.1.0),
     travis (>= 0.2.11.9001),
     usethis,
@@ -136,6 +137,7 @@ Collate:
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
+    'update-yaml.R'
     'use-badge.R'
     'use-yaml.R'
     'use_tic.R'

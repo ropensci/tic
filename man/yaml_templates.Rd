@@ -8,22 +8,34 @@
 \alias{use_ghactions_yml}
 \title{Use CI YAML templates}
 \usage{
-use_travis_yml(type = "linux-macos-deploy-matrix")
+use_travis_yml(type = "linux-macos-deploy-matrix", write = TRUE, quiet = FALSE)
 
-use_appveyor_yml(type = "windows")
+use_appveyor_yml(type = "windows", write = TRUE, quiet = FALSE)
 
-use_circle_yml(type = "linux-matrix-deploy")
+use_circle_yml(type = "linux-matrix-deploy", write = TRUE, quiet = FALSE)
 
-use_ghactions_yml(type = "linux-macos-windows-deploy")
+use_ghactions_yml(
+  type = "linux-macos-windows-deploy",
+  write = TRUE,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{type}{\verb{[character]}\cr
 Which template to use. The string should be given following the logic
 \verb{<platform>-<action>}. See details for more.}
+
+\item{write}{\verb{[logical]}\cr
+Whether to write the template to disk (\code{TRUE}) or just return it (\code{FALSE}).}
+
+\item{quiet}{\verb{[logical]}\cr
+Whether to print informative messages.}
 }
 \description{
-Installs YAML templates for various CI providers. These function
+Installs YAML templates for various CI providers. These functions
 are also used within \code{\link[=use_tic]{use_tic()}}.
+
+If you want to update an existing template use \code{\link[=update_yml]{update_yml()}}.
 }
 \section{pkgdown}{
 
@@ -94,3 +106,6 @@ Here is a list of all available combinations:
 |            | Linux + macOS + Windows  | yes        | no                  | \code{use_ghactions_yml("linux-macos-windows-deploy")}       |
 }
 
+\seealso{
+update_yml
+}

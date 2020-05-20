@@ -1,3 +1,5 @@
+## tic GitHub Actions template: windows
+## revision date: 2020-05-09
 on:
   push:
   pull_request:
@@ -18,7 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # comment out lines if you do not want to build on certain platforms
+          # use a different tic template type if you do not want to build on all listed platforms
           - { os: windows-latest, r: "release" }
-
 
