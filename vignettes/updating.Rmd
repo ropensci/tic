@@ -146,7 +146,7 @@ environment:
 ## Automating the update process
 
 Updating {tic} YAML files can be automated further.
-We provide a GitHub Actions workflow which can be used together with `tic::update_yml()` to update the templates whenever there are newer upstream versions available.
+We provide a [GitHub Actions workflow](https://github.com/ropenscilabs/tic.package/blob/ba72e7fb57c094b1e704ebe5ee8ed157e2b5fbb5/.github/workflows/update-tic.yml) which can be used together with `tic::update_yml()` to update the templates whenever there are newer upstream versions available.
 The workflow will create a branch, update the files and commit them and even open a pull request.
 
 Just put this workflow next to `.github/workflows/main.yml` and it will silently do its job.
@@ -156,8 +156,5 @@ It only runs once a day and is not being executed on push or pull request events
 Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches.
 To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with "workflow" scopes.
 This PAT need to be added as a "secret" to the repo so that it can be used within the build.
-There is no way of avoiding this manual action for each repo currently.
-The linked workflow searches by default for a PAT named `TIC_UPDATE`.
-So if you name your secret like this, the workflow should succeed.
-If you rename it differently, make sure to also change the name of the secret in the workflow.
-It makes sense to memorize the PAT hash and reuse it in other repos.
+`gha_add_secret()` helps to automate this process.
+The linked workflow searches by default for a PAT secret named `TIC_UPDATE` when updating `main.yml`.
