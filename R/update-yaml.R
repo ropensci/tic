@@ -570,3 +570,34 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
   }
   return(tmpl_latest)
 }
+
+#' Update tic Templates
+#' @description
+#' Adds a GitHub Actions workflow (`update-tic.yml`) to check for tic template
+#' updates once a day.
+#'
+#' Internally, [update_yml()] is called. A Pull Request will be opened if
+#' a newer upstream version of the local tic template is found.
+#' @examples
+#' \dontrun{
+#' use_update_tic()
+#' }
+#' @export
+use_update_tic <- function() {
+
+  tmpl <- readLines(system.file("templates/update-tic.yml", package = "tic"))
+  writeLines(tmpl, con = ".github/workflows/update-tic.yml")
+
+  cli::cli_alert("Added new file:")
+
+  data <- data.frame(
+    stringsAsFactors = FALSE,
+    package = c(
+      basename(getwd()), ".github", "workflows", "update-tic.yml"
+    ),
+    dependencies = I(list(
+      ".github", "workflows", "update-tic.yml", character(0)
+    ))
+  )
+  print(tree(data, root = basename(getwd())))
+}
