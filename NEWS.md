@@ -1,3 +1,8 @@
+# tic 0.8.0.9004
+
+- New `use_update_tic()`: Adds GitHub Actions workflow `update-tic.yml` to automatically update tic YAML templates
+
+
 # tic 0.8.0.9003
 
 - Support fully custom runner matrices on GitHub Actions via template types `"custom"` and ´"custom-deploy"`
