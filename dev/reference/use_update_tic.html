@@ -48,7 +48,11 @@
 <meta property="og:description" content="Adds a GitHub Actions workflow (update-tic.yml) to check for tic template
 updates once a day.
 Internally, update_yml() is called. A Pull Request will be opened if
-a newer upstream version of the local tic template is found." />
+a newer upstream version of the local tic template is found.
+This workflow relies on a GITHUB_PAT with &quot;workflow&quot; scopes if GitHub Actions
+templates should be updated.
+Generate a GITHUB PAT and add it as a secret to your repo with
+gha_add_secret()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -177,6 +181,10 @@ a newer upstream version of the local tic template is found." />
 updates once a day.</p>
 <p>Internally, <code><a href='update_yml.html'>update_yml()</a></code> is called. A Pull Request will be opened if
 a newer upstream version of the local tic template is found.</p>
+<p>This workflow relies on a GITHUB_PAT with "workflow" scopes if GitHub Actions
+templates should be updated.
+Generate a GITHUB PAT and add it as a secret to your repo with
+<code><a href='gha_add_secret.html'>gha_add_secret()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>use_update_tic</span>()</pre>
