@@ -12,7 +12,7 @@ articles:
   features: features.html
   tic: tic.html
   updating: updating.html
-last_built: 2020-05-21T04:12Z
+last_built: 2020-05-21T06:59Z
 urls:
   reference: https://docs.ropensci.org/tic/dev/reference
   article: https://docs.ropensci.org/tic/dev/articles
