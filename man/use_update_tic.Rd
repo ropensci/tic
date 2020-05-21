@@ -12,6 +12,11 @@ updates once a day.
 
 Internally, \code{\link[=update_yml]{update_yml()}} is called. A Pull Request will be opened if
 a newer upstream version of the local tic template is found.
+
+This workflow relies on a GITHUB_PAT with "workflow" scopes if GitHub Actions
+templates should be updated.
+Generate a GITHUB PAT and add it as a secret to your repo with
+\code{\link[=gha_add_secret]{gha_add_secret()}}.
 }
 \examples{
 \dontrun{

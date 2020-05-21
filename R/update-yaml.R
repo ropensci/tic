@@ -578,6 +578,12 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
 #'
 #' Internally, [update_yml()] is called. A Pull Request will be opened if
 #' a newer upstream version of the local tic template is found.
+#'
+#' This workflow relies on a GITHUB_PAT with "workflow" scopes if GitHub Actions
+#' templates should be updated.
+#' Generate a GITHUB PAT and add it as a secret to your repo with
+#' [gha_add_secret()].
+#'
 #' @examples
 #' \dontrun{
 #' use_update_tic()

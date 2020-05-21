@@ -69,6 +69,7 @@ getOption
 getRversion
 gfortran
 gh
+gha
 GHA
 ghactions
 github
