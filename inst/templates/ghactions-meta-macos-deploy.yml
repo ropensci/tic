@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: macos-deploy
-## revision date: 2020-05-20
+## revision date: 2020-05-21
 on:
   push:
   pull_request:
