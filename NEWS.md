@@ -1,3 +1,8 @@
+# tic 0.8.0.9005
+
+- GHA: Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}
+
+
 # tic 0.8.0.9004
 
 - New `use_update_tic()`: Adds GitHub Actions workflow `update-tic.yml` to automatically update tic YAML templates
