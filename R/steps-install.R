@@ -6,9 +6,11 @@ InstallDeps <- R6Class(
 
   public = list(
     initialize = function(repos = repo_default(),
-                          type = getOption("pkgType")) {
+                          type = getOption("pkgType"),
+                          dependencies = TRUE) {
       private$repos <- repos
       private$type <- type
+      private$dependencies <- dependencies
     },
 
     prepare = function() {
@@ -21,7 +23,7 @@ InstallDeps <- R6Class(
 
     run = function() {
       remotes::install_deps(
-        dependencies = TRUE,
+        dependencies = private$dependencies,
         repos = private$repos,
         type = private$type,
         build = FALSE,
@@ -32,7 +34,8 @@ InstallDeps <- R6Class(
 
   private = list(
     repos = NULL,
-    type = NULL
+    type = NULL,
+    dependencies = NULL
   )
 )
 
@@ -54,6 +57,7 @@ InstallDeps <- R6Class(
 #' @param type Passed on to [install.packages()]. The default avoids
 #'   installation from source on Windows and macOS by passing
 #'   \code{\link{.Platform}$pkgType}.
+#' @inheritParams remotes::install_deps
 #' @family steps
 #' @export
 #' @name step_install_pkg
@@ -65,8 +69,9 @@ InstallDeps <- R6Class(
 #'
 #' dsl_get()
 step_install_deps <- function(repos = repo_default(),
-                              type = getOption("pkgType")) {
-  InstallDeps$new(repos = repos, type = type)
+                              type = getOption("pkgType"),
+                              dependencies = TRUE) {
+  InstallDeps$new(repos = repos, type = type, dependencies = dependencies)
 }
 
 # installCRAN ------------------------------------------------------------------

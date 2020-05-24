@@ -7,7 +7,11 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(repos = repo_default(), type = getOption("pkgType"))
+step_install_deps(
+  repos = repo_default(),
+  type = getOption("pkgType"),
+  dependencies = TRUE
+)
 
 step_install_cran(
   package = NULL,
@@ -25,6 +29,15 @@ step_install_github(repo = NULL, ..., type = getOption("pkgType"))
 \item{type}{Passed on to \code{\link[=install.packages]{install.packages()}}. The default avoids
 installation from source on Windows and macOS by passing
 \code{\link{.Platform}$pkgType}.}
+
+\item{dependencies}{Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.
+
+\code{TRUE} is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". \code{NA} is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. \code{FALSE} is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).}
 
 \item{package}{Package(s) to install}
 

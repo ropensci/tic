@@ -36,15 +36,18 @@ do_package_checks <- function(...,
                               build_args = NULL,
                               error_on = "warning",
                               repos = repo_default(),
-                              timeout = Inf,
                               type = getOption("pkgType"),
+                              dependencies = TRUE,
+                              timeout = Inf,
                               check_dir = "check") {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
   get_stage("install") %>%
     add_step(
-      step_install_deps(repos = !!enquo(repos), type = !!enquo(type))
+      step_install_deps(
+        repos = {{ repos }}, type = {{ type }},
+        dependencies = {{ dependencies }})
     )
 
   #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
