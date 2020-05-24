@@ -92,7 +92,7 @@ GitHub version is different from the locally installed version." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9005</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9006</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -197,7 +197,11 @@ via <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remo
 GitHub version is different from the locally installed version.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pkgType"</span>))
+    <pre class="usage"><span class='fu'>step_install_deps</span>(
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pkgType"</span>),
+  <span class='kw'>dependencies</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='fu'>step_install_cran</span>(
   <span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -221,6 +225,16 @@ GitHub version is different from the locally installed version.</p>
       <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>. The default avoids
 installation from source on Windows and macOS by passing
 <code><a href='https://rdrr.io/r/base/Platform.html'>.Platform</a>$pkgType</code>.</p></td>
+    </tr>
+    <tr>
+      <th>dependencies</th>
+      <td><p>Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.</p>
+<p><code>TRUE</code> is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". <code>NA</code> is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. <code>FALSE</code> is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).</p></td>
     </tr>
     <tr>
       <th>package</th>
