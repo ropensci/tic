@@ -1,3 +1,8 @@
+# tic 0.8.0.9006
+
+- `step_install_deps()` and `do_package_checks()` gain `dependencies = TRUE` argument.
+
+
 # tic 0.8.0.9005
 
 - GHA: Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}
