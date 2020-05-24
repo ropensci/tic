@@ -45,7 +45,7 @@ jobs:
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.TIC_UPDATE }}
-          title: "Update tic templates"
+          title: "Update tic templates [ci-skip]"
           commit-message: "update tic templates"
           body: "{tic} templates can be updated :rocket: :robot:"
           branch: update-tic
