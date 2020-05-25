@@ -145,8 +145,7 @@ Is it possible to update the CI YAML templates installed by {tic} with upstream 
 
 **Answer**
 
-Not yet, you have to run `use_tic()` again and save your custom changes beforehand and reapply those.
-We are planning to add an update mechanism soon though!
+Yes! Have a look at ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for more information.
 
 ---
 
