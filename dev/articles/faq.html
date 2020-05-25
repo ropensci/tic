@@ -242,7 +242,7 @@ Command exited with code 1</pre></body></html></div>
 <a href="#q-other-1" class="anchor"></a>Q-Other-1</h4>
 <p>Is it possible to update the CI YAML templates installed by {tic} with upstream changes?</p>
 <p><strong>Answer</strong></p>
-<p>Not yet, you have to run <code><a href="../reference/use_tic.html">use_tic()</a></code> again and save your custom changes beforehand and reapply those. We are planning to add an update mechanism soon though!</p>
+<p>Yes! Have a look at <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for more information.</p>
 <hr>
 </div>
 <div id="q-other-2" class="section level4">
@@ -263,7 +263,7 @@ Command exited with code 1</pre></body></html></div>
 </ul>
 <p><strong>Answer</strong></p>
 <p>The first one is usually caused by a missing installation of <code>XQuartz</code> on macOS. Add <code>brew cask install xquartz</code> to the runner.</p>
-<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed. If the warning message during loading of {rgl} should be suppressed, either env var <code>RGL_USE_NULL = TRUE</code> can be set or R option <code><a href="https://rdrr.io/r/base/options.html">options(rgl.use.null = TRUE)</a></code>.</p>
+<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed. If the warning message during loading of {rgl} should be suppressed, either env var <code>RGL_USE_NULL = TRUE</code> can be set or R option <code><a href="https://rdrr.io/r/base/options.html">options(rgl.useNull = TRUE)</a></code>.</p>
 </div>
 </div>
   </div>
