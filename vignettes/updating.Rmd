@@ -57,7 +57,7 @@ If you have some in your template and nothing is printed when updating, somethin
 In any case, it is recommended to review the changes to avoid unexpected CI failures.
 
 The feature is in beta state and issues are expected, especially for edge cases.
-The internal approach is quite unstable and highly tailored to the specific CI provider.
+The internal heuristic is somewhat hacky and highly tailored to the specific CI provider.
 Please file an issue in the repo if you experience problems.
 
 ## Examples
