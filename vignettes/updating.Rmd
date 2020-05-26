@@ -130,7 +130,7 @@ install:
 
 ```yml
 environment:
-  # [Custom] env var 2
+  # [Custom env] env var 2
   test2: "true"
 ```
 
