@@ -40,9 +40,9 @@
 #'  deploy on all platforms.
 #'
 #'  Here is a list of all available combinations:
+#'
 #'  | Provider   | Operating system         | Deployment | multiple R versions | Call                                                    |
-#'  | -------    | ----------------         | ---------- | ------------------- | ------------------------------------------------------- |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | Travis     | Linux                    | no         | no                  | `use_travis_yml("linux")`                               |
 #'  |            | Linux                    | yes        | no                  | `use_travis_yml("linux-deploy")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_travis_yml("linux-matrix")`                        |
@@ -55,16 +55,16 @@
 #'  |            | Linux + macOS            | yes        | no                  | `use_travis_yml("linux-macos-deploy")`                  |
 #'  |            | Linux + macOS            | no         | yes                 | `use_travis_yml("linux-macos-matrix")`                  |
 #'  |            | Linux + macOS            | yes        | yes                 | `use_travis_yml("linux-macos-deploy-matrix")`           |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | Circle     | Linux                    | no         | no                  | `use_circle_yml("linux")`                               |
 #'  |            | Linux                    | yes        | no                  | `use_travis_yml("linux-deploy")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_travis_yml("linux-matrix")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_travis_yml("linux-deploy-matrix")`                 |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | Appveyor   | Windows                  | no         | no                  | `use_appveyor_yml("windows")`                           |
 #'  |            | Windows                  | no         | yes                 | `use_travis_yml("windows-matrix")`                      |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
-#'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                           -|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
+#'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                            |
 #'  |            | Linux                    | yes        | no                  | `use_ghactions_yml("linux-deploy)`                      |
 #'  |            | custom                   | no         | no                  | `use_ghactions_yml("custom)`                            |
 #'  |            | custom-deploy            | yes        | no                  | `use_ghactions_yml("custom-deploy)`                     |
@@ -80,6 +80,7 @@
 #'  |            | macOS + Windows          | yes        | no                  | `use_ghactions_yml("macos-windows-deploy")`             |
 #'  |            | Linux + macOS + Windows  | no         | no                  | `use_ghactions_yml("linux-macos-windows")`              |
 #'  |            | Linux + macOS + Windows  | yes        | no                  | `use_ghactions_yml("linux-macos-windows-deploy")`       |
+#'
 #' @name yaml_templates
 #' @aliases yaml_templates
 #' @seealso update_yml

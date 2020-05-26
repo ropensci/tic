@@ -17,6 +17,7 @@ reference:
 - title: YAML templates
   contents:
   - ends_with("yml")
+  - use_update_tic
 - title: Macros
   contents:
   - macro
@@ -45,6 +46,7 @@ reference:
 - title: Deployment
   contents:
   - use_ghactions_deploy
+  - gha_add_secret
 - title: Serialization
   contents:
   - starts_with("base64")
