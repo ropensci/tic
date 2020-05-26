@@ -44,7 +44,7 @@ remotes::install_github("ropensci/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.com (https://travis-ci.org; see [this FAQ](https://docs.ropensci.org/tic/articles/faq.html#q-travis-1) for more info), https://appveyor.com, https://circleci.com and https://github.com/actions.
+The created templates will use the providers https://travis-ci.com (https://travis-ci.org; see [this FAQ](https://docs.ropensci.org/tic/articles/faq.html#q-travis-1) for more info), https://appveyor.com, https://circleci.com and [Github Actions](https://github.com/actions).
 
 If only the CI YAML templates from {tic} are desired, the `use_<provider>_yml()` functions can be used.
 Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml_templates.html).
@@ -77,6 +77,7 @@ tic::use_tic_r("package", deploy_on = "travis")
 # (all of the above in one call)
 # tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",
 #              matrix = "travis", deploy = "travis")
+tic::use_update_tic()
 
 ### Circle CI ------------------------------------------------------------------
 circle::use_circle_deploy() # (optional for deployment)
@@ -85,6 +86,7 @@ tic::use_tic_r("package", deploy_on = "circle")
 # (all of the above in one call)
 # tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",
 #              matrix = "circle", deploy = "circle")
+tic::use_update_tic()
 
 ### Appveyor -------------------------------------------------------------------
 tic::use_appveyor_yml()
@@ -98,6 +100,7 @@ tic::use_tic_r("package", deploy_on = "ghactions")
 #              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")
 
 tic::use_tic_badge("ghactions")
+tic::use_update_tic()
 ```
 
 ## Good to know
