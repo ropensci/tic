@@ -36,10 +36,6 @@ RCMDcheck <- R6Class( # nolint
     },
 
     run = function() {
-      # Don't include vignettes if --no-build-vignettes is included
-      if ("--no-build-vignettes" %in% private$args) {
-        cat("^vignettes$\n", file = ".Rbuildignore", append = TRUE)
-      }
 
       withr::with_envvar(
         c(
