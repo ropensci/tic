@@ -22,6 +22,6 @@ jobs:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
           - { os: ubuntu-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true" }
+          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           - { os: macOS-latest, r: "devel" }
 

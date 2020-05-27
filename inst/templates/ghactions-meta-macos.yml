@@ -21,6 +21,6 @@ jobs:
       matrix:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
-          - { os: macOS-latest, r: "release" }
+          - { os: macOS-latest, r: "release", latex: "true" }
           - { os: macOS-latest, r: "devel" }
 
