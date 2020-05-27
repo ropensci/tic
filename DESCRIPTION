@@ -133,6 +133,7 @@ Collate:
     'steps-install.R'
     'steps-rcmdcheck.R'
     'steps-pkgdown.R'
+    'steps-session-info.R'
     'steps-ssh.R'
     'steps-write-text-file.R'
     'tic-package.R'

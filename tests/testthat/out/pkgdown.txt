@@ -1,6 +1,7 @@
 ── install ──────────────────────────────────────────────────────────── stage ──
 ▶ step_install_deps()
 ▶ step_install_deps(repos = repo_default())
+▶ step_session_info()
 ── script ───────────────────────────────────────────────────────────── stage ──
 ▶ step_rcmdcheck()
 ── deploy ───────────────────────────────────────────────────────────── stage ──

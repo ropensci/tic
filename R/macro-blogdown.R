@@ -76,9 +76,11 @@ do_blogdown <- function(...,
   #'    `repos` argument.
   #' 1. `blogdown::install_hugo()` in the `"install"` stage to install the
   #'    latest version of HUGO.
+  #' 1. [step_session_info()] in the `"install"` stage.
   get_stage("install") %>%
     add_step(step_install_deps(repos = !!enquo(repos))) %>%
-    add_code_step(blogdown::install_hugo())
+    add_code_step(blogdown::install_hugo())  %>%
+    add_step(step_session_info())
 
   if (isTRUE(deploy)) {
     #' 1. [step_setup_ssh()] in the `"before_deploy"`

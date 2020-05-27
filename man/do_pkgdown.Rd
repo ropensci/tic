@@ -81,6 +81,7 @@ steps to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
+\item \code{\link[=step_session_info]{step_session_info()}} in the \code{"install"} stage.
 \item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup
 the upcoming deployment (if \code{deploy} is set and only on Travis CI),
 \item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage
