@@ -37,12 +37,17 @@ update_yml <- function(template_in = NULL,
 
   # by default all templates will be updated that can be found
   if (is.null(template_in)) {
-    # check for existences of .travis.yml, circle-ci/config.yml and main.yml
-    if (file.exists(usethis::proj_path(".github/workflows", "main.yml"))) {
-      ghactions <- usethis::proj_path(".github/workflows", "main.yml")
+    # check for existences of .travis.yml, circle-ci/config.yml and tic.yml
+    if (file.exists(usethis::proj_path(".github/workflows", "tic.yml"))) {
+      ghactions <- usethis::proj_path(".github/workflows", "tic.yml")
     }
     else {
-      ghactions <- NULL
+      # account for old main.yml default
+      if (file.exists(usethis::proj_path(".github/workflows", "main.yml"))) {
+        ghactions <- usethis::proj_path(".github/workflows", "main.yml")
+      } else {
+        ghactions <- NULL
+      }
     }
     if (file.exists(usethis::proj_path(".circleci/", "config.yml"))) {
       circle <- usethis::proj_path(".circleci", "config.yml")
