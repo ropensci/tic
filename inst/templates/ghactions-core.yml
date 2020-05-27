@@ -12,7 +12,7 @@
       # macOS: ~ 1 min 30s
       # Windows: never finishes
       - uses: r-lib/actions/setup-tinytex@v1
-        if: matrix.config.latex == "true"
+        if: matrix.config.latex == 'true'
 
       - uses: r-lib/actions/setup-pandoc@master
 

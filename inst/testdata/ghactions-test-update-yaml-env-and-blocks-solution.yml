@@ -25,7 +25,7 @@ jobs:
           # [Custom matrix env var] test
           - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
           - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true" }
+          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           - { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
@@ -68,7 +68,7 @@ jobs:
       # macOS: ~ 1 min 30s
       # Windows: never finishes
       - uses: r-lib/actions/setup-tinytex@v1
-        if: runner.os != 'Windows'
+        if: matrix.config.latex == 'true'
 
       - uses: r-lib/actions/setup-pandoc@master
 
