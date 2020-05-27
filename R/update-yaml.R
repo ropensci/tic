@@ -22,13 +22,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' update_yml("main.yml")
+#' update_yml("tic.yml")
 #'
 #' # custom named templates
 #' update_yml("custom-name.yml")
 #'
 #' # full paths
-#' update_yml("~/path/to/repo/.github/workflows/main.yml")
+#' update_yml("~/path/to/repo/.github/workflows/tic.yml")
 #' }
 #' @seealso yaml_templates
 #' @export
