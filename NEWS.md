@@ -1,3 +1,10 @@
+# tic 0.8.0.9007
+
+- Add `step_session_info()` (#259)
+- GHA: Install LaTeX on only one runner (#257)
+- GHA: Switch from main.yml to tic.yml (#260)
+
+
 # tic 0.8.0.9006
 
 - `step_install_deps()` and `do_package_checks()` gain `dependencies = TRUE` argument.
