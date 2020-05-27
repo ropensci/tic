@@ -13,7 +13,8 @@ SessionInfo <- R6Class(
     },
 
     run = function() {
-      print(sessioninfo::session_info())
+      pkgs <- installed.packages()[, "Package"]
+      print(sessioninfo::session_info(pkgs))
     },
 
     check = function() {
