@@ -36,13 +36,13 @@ allowed. Otherwise the update heuristic gets in trouble.
 
 \examples{
 \dontrun{
-update_yml("main.yml")
+update_yml("tic.yml")
 
 # custom named templates
 update_yml("custom-name.yml")
 
 # full paths
-update_yml("~/path/to/repo/.github/workflows/main.yml")
+update_yml("~/path/to/repo/.github/workflows/tic.yml")
 }
 }
 \seealso{

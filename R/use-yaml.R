@@ -463,15 +463,15 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
 
   if (!quiet) {
     cli::cli_alert_info("Please comment in/out the platforms you want to use
-                      in {.file .github/workflows/main.yml}.", wrap = TRUE)
-    cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
+                      in {.file .github/workflows/tic.yml}.", wrap = TRUE)
+    cli::cli_text("Call {.code usethis::edit_file('.github/workflows/tic.yml')}
                 to open the YAML file.")
   }
 
   if (!write) {
     return(template)
   }
-  writeLines(template, con = ".github/workflows/main.yml")
+  writeLines(template, con = ".github/workflows/tic.yml")
 
   if (!quiet) {
     cat_bullet(
@@ -481,10 +481,10 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
     data <- data.frame(
       stringsAsFactors = FALSE,
       package = c(
-        basename(getwd()), ".github", "workflows", "main.yml"
+        basename(getwd()), ".github", "workflows", "tic.yml"
       ),
       dependencies = I(list(
-        ".github", "workflows", "main.yml", character(0)
+        ".github", "workflows", "tic.yml", character(0)
       ))
     )
     print(tree(data, root = basename(getwd())))
