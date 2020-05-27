@@ -70,8 +70,10 @@ do_pkgdown <- function(...,
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
+  #' 1. [step_session_info()] in the `"install"` stage.
   get_stage("install") %>%
-    add_step(step_install_deps(repos = !!enquo(repos)))
+    add_step(step_install_deps(repos = !!enquo(repos))) %>%
+    add_step(step_session_info())
 
   if (isTRUE(deploy)) {
     #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup

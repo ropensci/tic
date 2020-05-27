@@ -89,6 +89,7 @@ stages:
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
+\item \code{\link[=step_session_info]{step_session_info()}} in the \code{"install"} stage.
 \item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.
