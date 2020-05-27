@@ -51,6 +51,7 @@ stages:
 
 step_install_deps() in the &quot;install&quot; stage, using the
 repos argument.
+step_session_info() in the &quot;install&quot; stage.
 step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
@@ -188,6 +189,7 @@ stages:</p>
 <ol>
 <li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
 <code>repos</code> argument.</p></li>
+<li><p><code><a href='step_session_info.html'>step_session_info()</a></code> in the <code>"install"</code> stage.</p></li>
 <li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>
@@ -313,6 +315,7 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
 <span class='fu'>do_package_checks</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
 #&gt;     dependencies = TRUE)
+#&gt; ▶ step_session_info()
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
@@ -322,6 +325,7 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
 #&gt;     dependencies = TRUE)
+#&gt; ▶ step_session_info()
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 

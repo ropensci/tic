@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Setup and perform push deploy — step_push_deploy • tic</title>
+<title>Step: Print the current Session Info — step_session_info • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,14 +44,9 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Step: Setup and perform push deploy — step_push_deploy" />
-<meta property="og:description" content="Clones a repo, initializes author information, sets up remotes,
-commits, and pushes.
-Combines step_setup_push_deploy() with checkout = FALSE and
-a suitable orphan argument,
-and step_do_push_deploy().
-Deployment usually requires setting up SSH keys with
-use_tic() or travis::use_travis_deploy()." />
+<meta property="og:title" content="Step: Print the current Session Info — step_session_info" />
+<meta property="og:description" content="Prints out the package information of the current session via
+sessioninfo::session_info()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -170,85 +165,22 @@ use_tic() or travis::use_travis_deploy()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Setup and perform push deploy</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-git.R'><code>R/steps-git.R</code></a></small>
-    <div class="hidden name"><code>step_push_deploy.Rd</code></div>
+    <h1>Step: Print the current Session Info</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-session-info.R'><code>R/steps-session-info.R</code></a></small>
+    <div class="hidden name"><code>step_session_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Clones a repo, initializes author information, sets up remotes,
-commits, and pushes.
-Combines <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> with <code>checkout = FALSE</code> and
-a suitable <code>orphan</code> argument,
-and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</p>
-<p>Deployment usually requires setting up SSH keys with
-<code><a href='use_tic.html'>use_tic()</a></code> or <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>.</p>
+    <p>Prints out the package information of the current session via
+<code><a href='https://rdrr.io/pkg/sessioninfo/man/session_info.html'>sessioninfo::session_info()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_push_deploy</span>(
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>step_session_info</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>path</th>
-      <td><p><code>[string]</code><br />
-Path to the repository, default <code>"."</code> which means setting up the current
-repository.</p></td>
-    </tr>
-    <tr>
-      <th>branch</th>
-      <td><p><code>[string]</code><br />
-Target branch, default: current branch.</p></td>
-    </tr>
-    <tr>
-      <th>remote_url</th>
-      <td><p><code>[string]</code><br />
-The URL of the remote Git repository to push to, defaults to the
-current GitHub repository.</p></td>
-    </tr>
-    <tr>
-      <th>commit_message</th>
-      <td><p><code>[string]</code><br />
-Commit message to use, defaults to a useful message linking to the CI build
-and avoiding recursive CI runs.</p></td>
-    </tr>
-    <tr>
-      <th>commit_paths</th>
-      <td><p><code>[character]</code><br />
-Restrict the set of directories and/or files added to Git before deploying.
-Default: deploy all files.</p></td>
-    </tr>
-    <tr>
-      <th>force</th>
-      <td><p><code>[logical]</code><br />
-Add <code>--force</code> flag to git commands?</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Setup and deployment are combined in one step,
-the files to be deployed must be prepared in a previous step.
-This poses some restrictions on how the repository can be initialized,
-in particular for a nonstandard <code>path</code> argument only <code>orphan = TRUE</code>
-can be supported (and will be used).</p>
-<p>For more control, create two separate steps with
-<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>,
-and create the files to be deployed in between these steps.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other deploy steps: 
-<code><a href='step_do_push_deploy.html'>step_do_push_deploy</a>()</code>,
-<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code></p>
-<p>Other steps: 
+    <div class='dont-index'><p>Other steps: 
 <code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
 <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
 <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
@@ -256,22 +188,20 @@ and create the files to be deployed in between these steps.</p>
 <code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
 <code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
 <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
+<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
 <code><a href='step_run_code.html'>step_run_code</a>()</code>,
-<code><a href='step_session_info.html'>step_session_info</a>()</code>,
 <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
 <code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
 <code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,
 <code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"install"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_session_info</span>())
 
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_push_deploy</span>(<span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NAMESPACE"</span>, <span class='st'>"man"</span>)))
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-}</div></pre>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_session_info()</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
