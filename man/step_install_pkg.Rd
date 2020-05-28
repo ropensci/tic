@@ -56,6 +56,9 @@ A \code{step_install_deps()} step installs all package dependencies declared in
 \code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
 This includes upgrading outdated packages.
 
+This step can only be used if a DESCRIPTION file is present in the repository
+root.
+
 A \code{step_install_cran()} step installs one package from CRAN via
 \code{\link[=install.packages]{install.packages()}}, but only if it's not already installed.
 
