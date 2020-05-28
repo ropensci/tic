@@ -1,4 +1,4 @@
-# installDeps ------------------------------------------------------------------
+# InstallDeps ------------------------------------------------------------------
 
 InstallDeps <- R6Class(
   "InstallDeps",
@@ -14,10 +14,6 @@ InstallDeps <- R6Class(
     },
 
     prepare = function() {
-      cli_alert_info("{.code step_install_deps()} and
-      {.code do_package_checks()} are only available for packages.",
-        wrap = TRUE
-      )
       verify_install("remotes")
     },
 
@@ -52,6 +48,9 @@ InstallDeps <- R6Class(
 #' `DESCRIPTION`, using [remotes::install_deps()].
 #' This includes upgrading outdated packages.
 #'
+#' This step can only be used if a DESCRIPTION file is present in the repository
+#' root.
+#'
 #' @param repos CRAN-like repositories to install from, defaults to
 #'   [repo_default()].
 #' @param type Passed on to [install.packages()]. The default avoids
@@ -74,7 +73,7 @@ step_install_deps <- function(repos = repo_default(),
   InstallDeps$new(repos = repos, type = type, dependencies = dependencies)
 }
 
-# installCRAN ------------------------------------------------------------------
+# InstallCRAN ------------------------------------------------------------------
 
 InstallCRAN <- R6Class(
   "InstallCRAN",
@@ -125,7 +124,7 @@ step_install_cran <- function(package = NULL, ...,
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
 
-# installGithub ----------------------------------------------------------------
+# InstallGithub ----------------------------------------------------------------
 
 InstallGitHub <- R6Class(
   "InstallGitHub",

@@ -86,6 +86,8 @@ check. Defaults to \code{"check"} for easy upload of artifacts.}
 to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
 stages:
 
+This macro is only available for R packages.
+
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
