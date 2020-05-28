@@ -45,6 +45,7 @@ deserialize
 dev
 devtools
 dir
+dll
 dmg
 dontrun
 dsl
@@ -64,6 +65,7 @@ fxcoudert
 fxz
 Gabor
 gcc
+gdal
 GDAL
 getOption
 getRversion
@@ -85,6 +87,7 @@ init
 inits
 io
 isysroot
+javareconf
 jeroen
 Jeroen
 karthik
@@ -96,8 +99,16 @@ Krystalli
 LazyData
 libcurl
 libexec
+libgdal
+libgeos
+libglu
+libgmp
+libgs
+libproj
+libs
 LIBS
 libsodium
+libudunits
 lifecycle
 Lifecycle
 lifecyle
@@ -128,8 +139,10 @@ nCXXFLAGS
 nF
 nFC
 nhash
+nlopt
 NOHASHDIR
 nsloppiness
+NUM
 nv
 OAuth
 oldrel
@@ -139,6 +152,7 @@ Ooms
 openssl
 ORCID
 os
+osgeo
 osx
 OutFile
 packagedocs
@@ -161,6 +175,7 @@ requireNamespace
 rf
 rgl
 RGL
+rJava
 rlang
 rmacoslib
 rmarkdown
@@ -203,6 +218,8 @@ tracebacks
 travis
 ubuntu
 ucla
+udunits
+UDUNITS
 unevaluated
 usethis
 usr
@@ -214,6 +231,7 @@ WebRequest
 wget
 withr
 writeLines
+xquartz
 xz
 yaml
 YAML
