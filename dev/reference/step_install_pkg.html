@@ -53,6 +53,8 @@ even if the CRAN version is ahead.
 A step_install_deps() step installs all package dependencies declared in
 DESCRIPTION, using remotes::install_deps().
 This includes upgrading outdated packages.
+This step can only be used if a DESCRIPTION file is present in the repository
+root.
 A step_install_cran() step installs one package from CRAN via
 install.packages(), but only if it's not already installed.
 A step_install_github() step installs one or more packages from GitHub
@@ -190,6 +192,8 @@ even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
 <code>DESCRIPTION</code>, using <code><a href='https://remotes.r-lib.org/reference/install_deps.html'>remotes::install_deps()</a></code>.
 This includes upgrading outdated packages.</p>
+<p>This step can only be used if a DESCRIPTION file is present in the repository
+root.</p>
 <p>A <code>step_install_cran()</code> step installs one package from CRAN via
 <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>, but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
