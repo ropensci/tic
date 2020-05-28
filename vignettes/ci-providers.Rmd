@@ -61,6 +61,64 @@ If Java support is required, add the following for macOS runners:
 For Linux, add `sudo R CMD javareconf` to stage "[Linux] Prepare".
 We currently do not support Java on Windows.
 
+### ccache
+
+If you have a huge dependency chain and compiling many packages from source (especially on R-devel), `ccache` can help to speed up installation time.
+It is recommended once your dependency installation time is higher than 30 minutes.
+
+Once the `ccache` cache is build, compiled code will almost run instantly.
+Due to a default cache invalidation interval of one month, this custom action can save a lot of installation time.
+
+The downside is that `ccache` needs to be installed and configured on every run, even if it is not used (i.e. when the package cache already exists).
+This can take up to 1 min of build time.
+`ccache` won't be used on Windows since only binaries are used on this platform.
+
+You can take the following blocks and add/replace them to your `tic.yml` as needed.
+The essential part is to prefix the compiler settings in `~/.R/Makevars` with `ccache`.
+
+```yml
+      - name: "[Cache] Prepare weekly timestamp for cache"
+        if: runner.os != 'Windows'
+        id: datew
+        run: echo "::set-output name=datew::$(date '+%Y-%V')"
+        
+        
+      - name: "[Cache] Cache ccache"
+        if: runner.os != 'Windows'
+        uses: pat-s/always-upload-cache@v2.0.0
+        with:
+          path: ${{ env.CCACHE_DIR}}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          
+      # install ccache and write config file
+      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
+      - name: "[macOS] ccache"
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: |
+          brew install ccache
+          # install SDK 10.13 (High Sierra, used by CRAN)
+          wget -nv https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.13.sdk.tar.xz
+          tar fxz MacOSX10.13.sdk.tar.xz
+          sudo mv MacOSX10.13.sdk /Library/Developer/CommandLineTools/SDKs/
+          rm -rf MacOSX10.13*
+          # install gfortran 8.2 (used by CRAN)
+          wget -nv https://github.com/fxcoudert/gfortran-for-macOS/releases/download/8.2/gfortran-8.2-Mojave.dmg
+          sudo hdiutil attach gfortran*.dmg
+          sudo installer -package /Volumes/gfortran*/gfortran*/gfortran*.pkg -target /
+          sudo hdiutil detach /Volumes/gfortran-8.2-Mojave
+          rm gfortran-8*
+          # set compiler flags
+          mkdir -p ~/.R && echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -I/usr/local/include\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' > $HOME/.R/Makevars
+
+      # install ccache and write config file
+      - name: "[Linux] ccache"
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install ccache libcurl4-openssl-dev
+          mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+```
+
 ### Spatial libraries (gdal, proj, geos)
 
 For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:
