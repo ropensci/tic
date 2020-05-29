@@ -164,6 +164,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
 
   requireNamespace("sodium", quietly = TRUE)
   requireNamespace("gh", quietly = TRUE)
+  requireNamespace("purrr", quietly = TRUE)
 
   travis::auth_github()
 
@@ -204,7 +205,9 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     repo = travis::get_repo(remote)
   )
 
-  if (secrets$total_count >= 1) {
+  secret_names <- purrr::map_chr(secrets$secrets, "name")
+
+  if (key_name_private %in% secret_names) {
     private_key_exists <- TRUE
   } else {
     private_key_exists <- FALSE
