@@ -11,7 +11,7 @@
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
       # Windows: never finishes
-      - uses: r-lib/actions/setup-tinytex@v1
+      - uses: r-lib/actions/setup-tinytex@master
         if: matrix.config.latex == 'true'
 
       - uses: r-lib/actions/setup-pandoc@master
@@ -26,7 +26,7 @@
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v1.2.0
+        uses: pat-s/always-upload-cache@v2.0.0
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
