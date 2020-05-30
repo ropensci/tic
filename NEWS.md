@@ -1,3 +1,9 @@
+# tic 0.8.0.9008
+
+- Make ccache optional (and more) (#264)
+- Remove alert in steps-install.R (#263)
+
+
 # tic 0.8.0.9007
 
 - Add `step_session_info()` (#259)
