@@ -166,15 +166,52 @@
 <span id="cb1-5"><a href="#cb1-5"></a>          Rscript -e "install.packages('rJava', type = 'source')"</span></code></pre></div>
 <p>For Linux, add <code>sudo R CMD javareconf</code> to stage “[Linux] Prepare”. We currently do not support Java on Windows.</p>
 </div>
+<div id="ccache" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ccache" class="anchor"></a>ccache</h3>
+<p>If you have a huge dependency chain and compiling many packages from source (especially on R-devel), <code>ccache</code> can help to speed up package installation. It is recommended once your dependency installation time is higher than 30 minutes.</p>
+<p>Once the <code>ccache</code> cache is build, compilation will complete much faster. The <code>ccache</code> cache itself is only invalidated once a month. This means package installation can make use of the cache in 29/30 days in a month.</p>
+<p>The downside is that <code>ccache</code> needs to be installed and configured. This happens in every run, i.e. also in runs in which <code>ccache</code> is not used because a package cache already exists. Installation can take up to 1 min, depending on the platform. Note that <code>ccache</code> won’t be used on Windows since only binaries are used on this platform.</p>
+<p>You can take the following blocks and add/replace them to your <code>tic.yml</code> as needed. The essential part is to prefix the compiler settings in <code>~/.R/Makevars</code> with <code>ccache</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Prepare weekly timestamp for cache"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> datew</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> echo "::set-output name=datew::$(date '+%Y-%V')"</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">        </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="at">        </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Cache ccache"</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> pat-s/always-upload-cache@v2.0.0</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> ${{ env.CCACHE_DIR}}</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="at">          </span><span class="fu">restore-keys</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="at">          </span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">      # install ccache and write config file</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [macOS] ccache"</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS' &amp;&amp; matrix.config.r == 'devel'</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>          brew install ccache</span>
+<span id="cb2-21"><a href="#cb2-21"></a>          # set compiler flags</span>
+<span id="cb2-22"><a href="#cb2-22"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' &gt; $HOME/.R/Makevars</span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co">      # install ccache and write config file</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Linux] ccache"</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'Linux'</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>          sudo apt install ccache libcurl4-openssl-dev</span>
+<span id="cb2-29"><a href="#cb2-29"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' &gt; $HOME/.R/Makevars</span></code></pre></div>
+</div>
 <div id="spatial-libraries-gdal-proj-geos" class="section level3">
 <h3 class="hasAnchor">
 <a href="#spatial-libraries-gdal-proj-geos" class="anchor"></a>Spatial libraries (gdal, proj, geos)</h3>
 <p>For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">brew tap osgeo/osgeo4mac</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">brew install gdal</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">brew unlink proj</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">brew install osgeo-proj@5</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">brew link --force osgeo-proj@5</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="at">brew tap osgeo/osgeo4mac</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="at">brew install gdal</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="at">brew unlink proj</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="at">brew install osgeo-proj@5</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="at">brew link --force osgeo-proj@5</span></span></code></pre></div>
 <p>On Linux, add <code>libgdal-dev libproj-dev libgeos-dev</code> to the <code>apt install</code> call in the “[Linux] Prepare” stage.</p>
 </div>
 <div id="known-issues" class="section level3">
