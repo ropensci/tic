@@ -13,8 +13,9 @@ do_package_checks(
   build_args = NULL,
   error_on = "warning",
   repos = repo_default(),
-  timeout = Inf,
   type = getOption("pkgType"),
+  dependencies = TRUE,
+  timeout = Inf,
   check_dir = "check"
 )
 }
@@ -60,13 +61,22 @@ error.}
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{\link[=repo_default]{repo_default()}}.}
 
-\item{timeout}{\verb{[numeric]}\cr
-Passed to \code{rcmdcheck::rcmdcheck()}, default:
-\code{Inf}.}
-
 \item{type}{Passed on to \code{\link[=install.packages]{install.packages()}}. The default avoids
 installation from source on Windows and macOS by passing
 \code{\link{.Platform}$pkgType}.}
+
+\item{dependencies}{Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.
+
+\code{TRUE} is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". \code{NA} is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. \code{FALSE} is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).}
+
+\item{timeout}{\verb{[numeric]}\cr
+Passed to \code{rcmdcheck::rcmdcheck()}, default:
+\code{Inf}.}
 
 \item{check_dir}{\verb{[character]} \cr Path specifying the directory for R CMD
 check. Defaults to \code{"check"} for easy upload of artifacts.}
@@ -76,9 +86,12 @@ check. Defaults to \code{"check"} for easy upload of artifacts.}
 to the \code{"before_install"}, \code{"install"}, \code{"script"} and \code{"after_success"}
 stages:
 
+This macro is only available for R packages.
+
 \enumerate{
 \item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
 \code{repos} argument.
+\item \code{\link[=step_session_info]{step_session_info()}} in the \code{"install"} stage.
 \item \code{\link[=step_rcmdcheck]{step_rcmdcheck()}} in the \code{"script"} stage, using the
 \code{warnings_are_errors}, \code{notes_are_errors}, \code{args}, and
 \code{build_args} arguments.

@@ -1,7 +1,7 @@
 # tic
 
 <!-- badges: start -->
-[![R CMD Check via {tic}](https://github.com/ropensci/tic/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
+[![tic](https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
 [![Travis build status](https://travis-ci.org/ropensci/tic.svg?branch=master)](https://travis-ci.org/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
@@ -44,7 +44,7 @@ remotes::install_github("ropensci/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.com (https://travis-ci.org; see [this FAQ](https://docs.ropensci.org/tic/articles/faq.html#q-travis-1) for more info), https://appveyor.com, https://circleci.com and https://github.com/actions.
+The created templates will use the providers https://travis-ci.com (https://travis-ci.org; see [this FAQ](https://docs.ropensci.org/tic/articles/faq.html#q-travis-1) for more info), https://appveyor.com, https://circleci.com and [Github Actions](https://github.com/actions).
 
 If only the CI YAML templates from {tic} are desired, the `use_<provider>_yml()` functions can be used.
 Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml_templates.html).
@@ -77,6 +77,7 @@ tic::use_tic_r("package", deploy_on = "travis")
 # (all of the above in one call)
 # tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",
 #              matrix = "travis", deploy = "travis")
+tic::use_update_tic()
 
 ### Circle CI ------------------------------------------------------------------
 circle::use_circle_deploy() # (optional for deployment)
@@ -85,6 +86,7 @@ tic::use_tic_r("package", deploy_on = "circle")
 # (all of the above in one call)
 # tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",
 #              matrix = "circle", deploy = "circle")
+tic::use_update_tic()
 
 ### Appveyor -------------------------------------------------------------------
 tic::use_appveyor_yml()
@@ -98,6 +100,7 @@ tic::use_tic_r("package", deploy_on = "ghactions")
 #              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")
 
 tic::use_tic_badge("ghactions")
+tic::use_update_tic()
 ```
 
 ## Good to know
@@ -112,9 +115,8 @@ We also recommend to take a look at the projects providing the direct R support 
 
 ## Updating
 
-There is not yet an automated way of updating the templates installed by {tic}, hence you need to manually check every once in a while if changes were made to the templates.
-Have a look at the [changelog](https://docs.ropensci.org/tic/news/index.html) for possible changes to YAML templates or watch the commit history of the CI templates you are using.
-An update mechanism is on our list (see [issue #194](https://github.com/ropensci/tic/issues/194)) but it may take some time.
+Updating of YAML templates is supported via [`update_yml()`](https://docs.ropensci.org/tic/reference/update_yml.html).
+See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for more information.
 
 ## Examples
 

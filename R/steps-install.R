@@ -1,4 +1,4 @@
-# installDeps ------------------------------------------------------------------
+# InstallDeps ------------------------------------------------------------------
 
 InstallDeps <- R6Class(
   "InstallDeps",
@@ -6,22 +6,20 @@ InstallDeps <- R6Class(
 
   public = list(
     initialize = function(repos = repo_default(),
-                          type = getOption("pkgType")) {
+                          type = getOption("pkgType"),
+                          dependencies = TRUE) {
       private$repos <- repos
       private$type <- type
+      private$dependencies <- dependencies
     },
 
     prepare = function() {
-      cli_alert_info("{.code step_install_deps()} and
-      {.code do_package_checks()} are only available for packages.",
-        wrap = TRUE
-      )
       verify_install("remotes")
     },
 
     run = function() {
       remotes::install_deps(
-        dependencies = TRUE,
+        dependencies = private$dependencies,
         repos = private$repos,
         type = private$type,
         build = FALSE,
@@ -32,7 +30,8 @@ InstallDeps <- R6Class(
 
   private = list(
     repos = NULL,
-    type = NULL
+    type = NULL,
+    dependencies = NULL
   )
 )
 
@@ -49,11 +48,15 @@ InstallDeps <- R6Class(
 #' `DESCRIPTION`, using [remotes::install_deps()].
 #' This includes upgrading outdated packages.
 #'
+#' This step can only be used if a DESCRIPTION file is present in the repository
+#' root.
+#'
 #' @param repos CRAN-like repositories to install from, defaults to
 #'   [repo_default()].
 #' @param type Passed on to [install.packages()]. The default avoids
 #'   installation from source on Windows and macOS by passing
 #'   \code{\link{.Platform}$pkgType}.
+#' @inheritParams remotes::install_deps
 #' @family steps
 #' @export
 #' @name step_install_pkg
@@ -65,11 +68,12 @@ InstallDeps <- R6Class(
 #'
 #' dsl_get()
 step_install_deps <- function(repos = repo_default(),
-                              type = getOption("pkgType")) {
-  InstallDeps$new(repos = repos, type = type)
+                              type = getOption("pkgType"),
+                              dependencies = TRUE) {
+  InstallDeps$new(repos = repos, type = type, dependencies = dependencies)
 }
 
-# installCRAN ------------------------------------------------------------------
+# InstallCRAN ------------------------------------------------------------------
 
 InstallCRAN <- R6Class(
   "InstallCRAN",
@@ -120,7 +124,7 @@ step_install_cran <- function(package = NULL, ...,
   InstallCRAN$new(package = package, repos = repos, ..., type = type)
 }
 
-# installGithub ----------------------------------------------------------------
+# InstallGithub ----------------------------------------------------------------
 
 InstallGitHub <- R6Class(
   "InstallGitHub",

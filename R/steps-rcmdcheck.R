@@ -143,12 +143,14 @@ step_rcmdcheck <- function(...,
                            timeout = Inf,
                            check_dir = "check") {
 
+  is_windows <- (Sys.info()[["sysname"]] == "Windows")
+
   #' @param build_args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
   #'   Default for Travis and local runs: `"--force"`.\cr
   #'   Default for Appveyor: `c("--no-build-vignettes", "--force")`.\cr
   if (is.null(build_args)) {
-    if (isTRUE(ci_on_appveyor())) {
+    if (is_windows) {
       build_args <- c("--no-build-vignettes", "--force")
     } else {
       build_args <- "--force"
@@ -168,16 +170,13 @@ step_rcmdcheck <- function(...,
   #'   user input) because LaTeX is not available and installation is time
   #'   consuming and error prone.\cr
   if (is.null(args)) {
-    if (isTRUE(ci_on_appveyor()) ||
-      isTRUE((ci_on_ghactions() &&
-        Sys.info()[["sysname"]] == "Windows"))) {
+    if (is_windows) {
       args <- c(
         "--no-manual", "--as-cran", "--no-vignettes",
         "--no-build-vignettes", "--no-multiarch"
       )
     } else {
-      if (isTRUE((ci_on_ghactions() &&
-        Sys.info()[["sysname"]] == "Windows"))) {
+      if (is_windows) {
         args <- append(args, "--no-manual")
         cli_alert_info("{.fun step_rcmdcheck}: {.pkg tic} always appends option
                      '--no-manual' during R CMD Check on Windows because LaTeX
@@ -187,8 +186,7 @@ step_rcmdcheck <- function(...,
       }
     }
   } else {
-    if (isTRUE((ci_on_ghactions() &&
-      Sys.info()[["sysname"]] == "Windows"))) {
+    if (is_windows) {
       args <- append(args, "--no-manual")
       cli_alert_info("{.fun step_rcmdcheck}: {.pkg tic} always uses option
                      '--no-manual' during R CMD Check on Windows because LaTeX

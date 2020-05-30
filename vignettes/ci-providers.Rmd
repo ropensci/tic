@@ -61,6 +61,55 @@ If Java support is required, add the following for macOS runners:
 For Linux, add `sudo R CMD javareconf` to stage "[Linux] Prepare".
 We currently do not support Java on Windows.
 
+### ccache
+
+If you have a huge dependency chain and compiling many packages from source (especially on R-devel), `ccache` can help to speed up package installation.
+It is recommended once your dependency installation time is higher than 30 minutes.
+
+Once the `ccache` cache is build, compilation will complete much faster.
+The `ccache` cache itself is only invalidated once a month.
+This means package installation can make use of the cache in 29/30 days in a month.
+
+The downside is that `ccache` needs to be installed and configured.
+This happens in every run, i.e. also in runs in which `ccache` is not used because a package cache already exists.
+Installation can take up to 1 min, depending on the platform.
+Note that `ccache` won't be used on Windows since only binaries are used on this platform.
+
+You can take the following blocks and add/replace them to your `tic.yml` as needed.
+The essential part is to prefix the compiler settings in `~/.R/Makevars` with `ccache`.
+
+```yml
+      - name: "[Custom] [Cache] Prepare weekly timestamp for cache"
+        if: runner.os != 'Windows'
+        id: datew
+        run: echo "::set-output name=datew::$(date '+%Y-%V')"
+        
+        
+      - name: "[Custom] [Cache] Cache ccache"
+        if: runner.os != 'Windows'
+        uses: pat-s/always-upload-cache@v2.0.0
+        with:
+          path: ${{ env.CCACHE_DIR}}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          
+      # install ccache and write config file
+      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
+      - name: "[Custom] [macOS] ccache"
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: |
+          brew install ccache
+          # set compiler flags
+          mkdir -p ~/.R && echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' > $HOME/.R/Makevars
+
+      # install ccache and write config file
+      - name: "[Custom] [Linux] ccache"
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install ccache libcurl4-openssl-dev
+          mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+```
+
 ### Spatial libraries (gdal, proj, geos)
 
 For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:

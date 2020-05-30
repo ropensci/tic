@@ -145,8 +145,7 @@ Is it possible to update the CI YAML templates installed by {tic} with upstream 
 
 **Answer**
 
-Not yet, you have to run `use_tic()` again and save your custom changes beforehand and reapply those.
-We are planning to add an update mechanism soon though!
+Yes! Have a look at ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for more information.
 
 ---
 
@@ -174,4 +173,4 @@ Add `brew cask install xquartz` to the runner.
 
 The second error requires to set the `DISPLAY` env var to mimic a non-headless state.
 Add `export DISPLAY=:99` to the stage in which {rgl} should be installed.
-If the warning message during loading of {rgl} should be suppressed, either env var `RGL_USE_NULL = TRUE` can be set or R option `options(rgl.use.null = TRUE)`. 
+If the warning message during loading of {rgl} should be suppressed, either env var `RGL_USE_NULL = TRUE` can be set or R option `options(rgl.useNull = TRUE)`. 

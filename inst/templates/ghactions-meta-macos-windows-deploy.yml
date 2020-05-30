@@ -1,0 +1,27 @@
+## tic GitHub Actions template: macos-windows-deploy
+## revision date: 2020-05-21
+on:
+  push:
+  pull_request:
+  # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "0 4 * * *"
+
+name: tic
+
+jobs:
+  all:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # use a different tic template type if you do not want to build on all listed platforms
+          - { os: macOS-latest, r: "devel" }
+          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
+          - { os: windows-latest, r: "release" }
+

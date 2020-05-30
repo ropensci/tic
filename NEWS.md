@@ -1,3 +1,80 @@
+# tic 0.8.0.9008
+
+- Make ccache optional (and more) (#264)
+- Remove alert in steps-install.R (#263)
+
+
+# tic 0.8.0.9007
+
+- Add `step_session_info()` (#259)
+- GHA: Install LaTeX on only one runner (#257)
+- GHA: Switch from main.yml to tic.yml (#260)
+
+
+# tic 0.8.0.9006
+
+- `step_install_deps()` and `do_package_checks()` gain `dependencies = TRUE` argument.
+
+
+# tic 0.8.0.9005
+
+- GHA: Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}
+
+
+# tic 0.8.0.9004
+
+- New `use_update_tic()`: Adds GitHub Actions workflow `update-tic.yml` to automatically update tic YAML templates
+
+
+# tic 0.8.0.9003
+
+- Support fully custom runner matrices on GitHub Actions via template types `"custom"` and ´"custom-deploy"`
+- bugfix: Pass arg `remote` to all printing instances. Previously using a different remote than "origin" errored.
+
+
+# tic 0.8.0.9002
+
+- New `gha_add_secret()` to automate the process of adding a GitHub PAT to a repo as a secret.
+  This function will probably be move to {ghactions} in the future.
+
+
+# tic 0.8.0.9001
+
+### GitHub Actions
+
+- Update actions/checkout to v2.1.1
+- Update pat-s/always-upload-cache to v1.2.0
+- Remove old clang7 compiler setup for R <= 3.6.3
+
+
+# tic 0.8.0.9000
+
+- Same as previous version.
+
+
+# tic 0.8.0
+
+## Features
+
+- New `update_yml()`: Update your {tic} yaml templates to the latest upstream version in {tic}.
+  User changes are preserved if these are marked correctly. 
+  See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for instructions.
+  This process can also be fully automated via a [custom CI job](https://docs.ropensci.org/tic/articles/updating.html#automating-the-update-process).
+- Add argument `force` to `step_do_push_deploy()` for adding the `--force` flag to git calls
+- Add solutions to {rgl} installation issues to FAQ
+- Update `.R/Makevars`
+
+## CI Provider specific
+
+### GitHub Actions
+
+- Set CRON time to 4 am to avoid download issues with mirror updates
+- Added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror CRAN setup
+
+### Circle CI
+
+- Update r-oldrelease to R 3.6.3
+
 # tic 0.7.0.9000
 
 - GHA: added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror CRAN

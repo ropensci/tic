@@ -1,0 +1,160 @@
+---
+title: "Updating"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{updating}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+{tic} comes with the convenience of providing YAML templates for various CI providers which remove the need of studying YAML notations of CI providers.
+The provided templates aim to work for most packages that use plain R code.
+Packages that rely on system libraries (such as GDAL, xml2) or link to other languages (such as Java) often need manual additions within the YAML file.
+
+However, making manual changes to such prohibits users from simply updating to the latest upstream template that {tic} provides via `yaml_templates()` because custom user changes would be overwritten.
+
+This often prevents users from updating to the most recent templates provided by {tic} since a manual comparison between the current template and the latest version is needed.
+{tic} 0.8.0 tackles this issue: The new `update_yml()` enables updating of templates to the latest version with **user changes preserved**.
+
+Currently this only works for GitHub Actions as this provider enables the inclusion of arbitrary custom blocks.
+{tic} extracts these blocks, updates the template and then inserts the custom blocks at the correct position back into the updated template.
+What may sound easy at first is in fact a very complicated task behind the scenes: indentation needs to preserved, some providers care about order and some do not accept duplicate keys.
+While `update_yml()` supports GitHub Actions, Travis CI and Circle CI right now for custom environment variables and user blocks, the following rules need to be followed to ensure a smooth experience.
+
+**Shared Rules**
+
+- All templates need to have an *identifier* and a *revision date* in their first two lines.
+- Comments of custom env vars may only span one line.
+- All *custom env vars* need to have a comment (above the actual env var) which includes the term `[Custom env]`.
+
+**GitHub Actions & Circle CI**
+
+- All *custom blocks* need to include `[Custom block]` in their name tag, e.g. `- name: "[Custom block] Test custom user block2"`.
+- Custom env vars unique to a runner need to include `[Custom matrix env var]` in their tag, e.g. `# [Custom matrix env var] test`.
+
+**Travis CI**
+
+- There needs to be an empty line after all custom user blocks, for example:
+
+  ```yaml
+  before_install:
+  # [Custom block]
+  - echo 'test'
+
+  - if [ "${TRAVIS_OS_NAME}" == "osx" ]; then brew install ccache; fi
+  ```
+
+All of these tags are used by {tic} to preserve user changes and choose the right upstream template.
+During the process `update_yml()` also prints how many custom blocks and env vars were found.
+If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template.
+In any case, it is recommended to review the changes to avoid unexpected CI failures.
+
+The feature is in beta state and issues are expected, especially for edge cases.
+The internal heuristic is somewhat hacky and highly tailored to the specific CI provider.
+Please file an issue in the repo if you experience problems.
+
+## Examples
+
+Here are some examples for custom user blocks and custom env vars:
+
+**GitHub Actions**
+
+*Runner specific environment variable*
+
+```yml
+matrix:
+  config:
+    # use a different tic template type if you do not want to build on all listed platforms
+    - { os: windows-latest, r: "release" }
+    # [Custom matrix env var] test
+    - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
+    - { os: macOS-latest, r: "devel" }
+    - { os: ubuntu-latest, r: "release" }
+```
+
+*Environment variable*
+
+```yml
+env:
+  # [Custom env]
+  R_MAX_NUM_DLLS: 999
+```
+
+*Block*
+
+```yml
+- name: "[Custom block] [macOS] xquartz"
+  if: runner.os == 'macOS'
+  run: |
+    brew cask install xquartz
+```
+
+**Travis CI**
+
+*Environment variable*
+
+```yml
+matrix:
+  include:
+    - os: osx
+      r: release
+    - os: osx
+      r: oldrel
+      # [Custom env]
+      env:
+      - foo="test"
+    - os: linux
+      r: devel
+```
+
+*Block*
+
+```yml
+install:
+  - R -q -e 'tic::install()'
+
+  # [Custom block] block 2
+  - echo 'test2'
+```
+
+**Circle CI**
+
+*Environment variable*
+
+```yml
+environment:
+  # [Custom env] env var 2
+  test2: "true"
+```
+
+*Block*
+
+```yml
+- run:
+    name: "[Custom block] test2"
+    command: |
+      echo 'test2'
+```
+
+## Automating the update process
+
+Updating {tic} YAML files can be automated further.
+We provide a [GitHub Actions workflow](https://github.com/ropenscilabs/tic.package/blob/ba72e7fb57c094b1e704ebe5ee8ed157e2b5fbb5/.github/workflows/update-tic.yml) which can be used together with `tic::update_yml()` to update the templates whenever there are newer upstream versions available.
+The workflow will create a branch, update the files and commit them and even open a pull request.
+
+Just put this workflow next to `.github/workflows/tic.yml` and it will silently do its job.
+By default it will run over night as a CRON job.
+It only runs once a day and is not being executed on push or pull request events.
+
+Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches.
+To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with "workflow" scopes.
+This PAT need to be added as a "secret" to the repo so that it can be used within the build.
+`gha_add_secret()` helps to automate this process.
+The linked workflow searches by default for a PAT secret named `TIC_UPDATE` when updating `tic.yml`.

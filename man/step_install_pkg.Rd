@@ -7,7 +7,11 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(repos = repo_default(), type = getOption("pkgType"))
+step_install_deps(
+  repos = repo_default(),
+  type = getOption("pkgType"),
+  dependencies = TRUE
+)
 
 step_install_cran(
   package = NULL,
@@ -26,6 +30,15 @@ step_install_github(repo = NULL, ..., type = getOption("pkgType"))
 installation from source on Windows and macOS by passing
 \code{\link{.Platform}$pkgType}.}
 
+\item{dependencies}{Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.
+
+\code{TRUE} is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". \code{NA} is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. \code{FALSE} is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).}
+
 \item{package}{Package(s) to install}
 
 \item{...}{Passed on to \code{install.packages()} or \code{remotes::install_github()}.}
@@ -42,6 +55,9 @@ even if the CRAN version is ahead.
 A \code{step_install_deps()} step installs all package dependencies declared in
 \code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
 This includes upgrading outdated packages.
+
+This step can only be used if a DESCRIPTION file is present in the repository
+root.
 
 A \code{step_install_cran()} step installs one package from CRAN via
 \code{\link[=install.packages]{install.packages()}}, but only if it's not already installed.
@@ -80,6 +96,7 @@ Other steps:
 \code{\link{step_install_ssh_keys}()},
 \code{\link{step_push_deploy}()},
 \code{\link{step_run_code}()},
+\code{\link{step_session_info}()},
 \code{\link{step_setup_push_deploy}()},
 \code{\link{step_setup_ssh}()},
 \code{\link{step_test_ssh}()},

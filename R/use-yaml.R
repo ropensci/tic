@@ -1,11 +1,16 @@
 #' @title Use CI YAML templates
-#' @description Installs YAML templates for various CI providers. These function
+#' @description Installs YAML templates for various CI providers. These functions
 #'   are also used within [use_tic()].
+#'
+#'   If you want to update an existing template use [update_yml()].
 #'
 #' @param type `[character]`\cr
 #'   Which template to use. The string should be given following the logic
 #'   `<platform>-<action>`. See details for more.
-#'
+#' @param write `[logical]`\cr
+#'   Whether to write the template to disk (`TRUE`) or just return it (`FALSE`).
+#' @param quiet `[logical]`\cr
+#'   Whether to print informative messages.
 #' @section pkgdown:
 #'  If `type` contains "deploy", {tic} by default also sets the environment
 #'  variable `BUILD_PKGDOWN=true`. This triggers a call to
@@ -27,13 +32,17 @@
 #'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix`
 #'  are valid.
 #'
+#'  Special types are `custom` and `custom-deploy`. These should be used if the
+#'  runner matrix is completely user-defined. This is mainly useful in
+#'  [update_yml()].
+#'
 #'  For backward compatibility `use_ghactions_yml()` will be default build and
 #'  deploy on all platforms.
 #'
 #'  Here is a list of all available combinations:
+#'
 #'  | Provider   | Operating system         | Deployment | multiple R versions | Call                                                    |
-#'  | -------    | ----------------         | ---------- | ------------------- | ------------------------------------------------------- |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | Travis     | Linux                    | no         | no                  | `use_travis_yml("linux")`                               |
 #'  |            | Linux                    | yes        | no                  | `use_travis_yml("linux-deploy")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_travis_yml("linux-matrix")`                        |
@@ -46,17 +55,19 @@
 #'  |            | Linux + macOS            | yes        | no                  | `use_travis_yml("linux-macos-deploy")`                  |
 #'  |            | Linux + macOS            | no         | yes                 | `use_travis_yml("linux-macos-matrix")`                  |
 #'  |            | Linux + macOS            | yes        | yes                 | `use_travis_yml("linux-macos-deploy-matrix")`           |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | Circle     | Linux                    | no         | no                  | `use_circle_yml("linux")`                               |
 #'  |            | Linux                    | yes        | no                  | `use_travis_yml("linux-deploy")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_travis_yml("linux-matrix")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_travis_yml("linux-deploy-matrix")`                 |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | Appveyor   | Windows                  | no         | no                  | `use_appveyor_yml("windows")`                           |
 #'  |            | Windows                  | no         | yes                 | `use_travis_yml("windows-matrix")`                      |
-#'  |----------  |------------------        |------------|---------------------|---------------------------------------------------------|
-#'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                           -|
+#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
+#'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                            |
 #'  |            | Linux                    | yes        | no                  | `use_ghactions_yml("linux-deploy)`                      |
+#'  |            | custom                   | no         | no                  | `use_ghactions_yml("custom)`                            |
+#'  |            | custom-deploy            | yes        | no                  | `use_ghactions_yml("custom-deploy)`                     |
 #'  |            | macOS                    | no         | no                  | `use_ghactions_yml("macos)`                             |
 #'  |            | macOS                    | yes        | no                  | `use_ghactions_yml("macos-deploy)`                      |
 #'  |            | Windows                  | no         | no                  | `use_ghactions_yml("windows)`                           |
@@ -69,10 +80,14 @@
 #'  |            | macOS + Windows          | yes        | no                  | `use_ghactions_yml("macos-windows-deploy")`             |
 #'  |            | Linux + macOS + Windows  | no         | no                  | `use_ghactions_yml("linux-macos-windows")`              |
 #'  |            | Linux + macOS + Windows  | yes        | no                  | `use_ghactions_yml("linux-macos-windows-deploy")`       |
+#'
 #' @name yaml_templates
 #' @aliases yaml_templates
+#' @seealso update_yml
 #' @export
-use_travis_yml <- function(type = "linux-macos-deploy-matrix") {
+use_travis_yml <- function(type = "linux-macos-deploy-matrix",
+                           write = TRUE,
+                           quiet = FALSE) {
   if (type == "linux") {
     os <- readLines(system.file("templates/travis-linux.yml", package = "tic"))
     meta <- readLines(system.file("templates/travis-meta-linux.yml",
@@ -167,8 +182,9 @@ use_travis_yml <- function(type = "linux-macos-deploy-matrix") {
       package = "tic"
     ))
     template <- c(os, meta, env, stages)
-  } else if (type == "linux-macos-deploy-matrix") {
-    os <- readLines(system.file("templates/travis-matrix-linux-macos-pkgdown.yml",
+  } else if (type == "linux-macos-deploy-matrix" ||
+    type == "linux-macos-matrix-deploy") {
+    os <- readLines(system.file("templates/travis-matrix-linux-macos-pkgdown.yml", # nolint
       package = "tic"
     ))
     meta <- readLines(system.file("templates/travis-meta-macos.yml",
@@ -237,27 +253,35 @@ use_travis_yml <- function(type = "linux-macos-deploy-matrix") {
     ))
     template <- c(os, meta, matrix, env, stages)
   }
-  writeLines(template, ".travis.yml")
+  if (!write) {
+    return(template)
+  } else {
+    writeLines(template, ".travis.yml")
+  }
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".travis.yml"
-    ),
-    dependencies = I(list(
-      ".travis.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), ".travis.yml"
+      ),
+      dependencies = I(list(
+        ".travis.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 #' @rdname yaml_templates
 #' @export
-use_appveyor_yml <- function(type = "windows") {
+use_appveyor_yml <- function(type = "windows",
+                             write = TRUE,
+                             quiet = FALSE) {
   if (type == "windows") {
     template <- readLines(system.file("templates/appveyor.yml",
       package = "tic"
@@ -267,27 +291,35 @@ use_appveyor_yml <- function(type = "windows") {
       package = "tic"
     ))
   }
-  writeLines(template, "appveyor.yml")
+  if (!write) {
+    return(template)
+  } else {
+    writeLines(template, "appveyor.yml")
+  }
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), "appveyor.yml"
-    ),
-    dependencies = I(list(
-      "appveyor.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), "appveyor.yml"
+      ),
+      dependencies = I(list(
+        "appveyor.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 #' @rdname yaml_templates
 #' @export
-use_circle_yml <- function(type = "linux-matrix-deploy") {
+use_circle_yml <- function(type = "linux-matrix-deploy",
+                           write = TRUE,
+                           quiet = FALSE) {
   if (type == "linux") {
     template <- readLines(system.file("templates/circle.yml", package = "tic"))
   } else if (type == "linux-matrix") {
@@ -304,33 +336,39 @@ use_circle_yml <- function(type = "linux-matrix-deploy") {
     ))
   }
   dir.create(".circleci", showWarnings = FALSE)
-  writeLines(template, con = ".circleci/config.yml")
+  if (!write) {
+    return(template)
+  } else {
+    writeLines(template, ".circleci/config.yml")
+  }
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".circleci", "config.yml"
-    ),
-    dependencies = I(list(
-      ".circleci", "config.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), ".circleci", "config.yml"
+      ),
+      dependencies = I(list(
+        ".circleci", "config.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 #' @rdname yaml_templates
 #' @export
-use_ghactions_yml <- function(type = "linux-macos-windows-deploy") {
+use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
+                              write = TRUE,
+                              quiet = FALSE) {
 
   # .ccache dir lives in the package root because we cannot write elsewhere
   # -> need to ignore it for R CMD check
   usethis::use_build_ignore(c(".ccache", ".github"))
-  usethis::use_build_ignore("^clang-.*", escape = FALSE)
-  usethis::use_build_ignore("^gfortran.*", escape = FALSE)
 
   if (type == "linux-matrix" || type == "linux") {
     meta <- readLines(system.file("templates/ghactions-meta-linux.yml", package = "tic"))
@@ -409,28 +447,48 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy") {
     core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
     deploy <- readLines(system.file("templates/ghactions-deploy.yml", package = "tic"))
     template <- c(meta, env, core, deploy)
+  } else if (type == "custom") {
+    meta <- readLines(system.file("templates/ghactions-meta-custom.yml", package = "tic"))
+    env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
+    core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
+    template <- c(meta, env, core)
+  } else if (type == "custom-deploy") {
+    meta <- readLines(system.file("templates/ghactions-meta-custom-deploy.yml", package = "tic"))
+    env <- readLines(system.file("templates/ghactions-env.yml", package = "tic"))
+    core <- readLines(system.file("templates/ghactions-core.yml", package = "tic"))
+    deploy <- readLines(system.file("templates/ghactions-deploy.yml", package = "tic"))
+    template <- c(meta, env, core, deploy)
   }
   dir.create(".github/workflows", showWarnings = FALSE, recursive = TRUE)
-  cli::cli_alert_info("Please comment in/out the platforms you want to use
-                      in {.file .github/workflows/main.yml}.", wrap = TRUE)
-  cli::cli_text("Call {.code usethis::edit_file('.github/workflows/main.yml')}
-                to open the YAML file.")
-  writeLines(template, con = ".github/workflows/main.yml")
 
-  cat_bullet(
-    "Below is the file structure of the new/changed files:",
-    bullet = "arrow_down", bullet_col = "blue"
-  )
-  data <- data.frame(
-    stringsAsFactors = FALSE,
-    package = c(
-      basename(getwd()), ".github", "workflows", "main.yml"
-    ),
-    dependencies = I(list(
-      ".github", "workflows", "main.yml", character(0)
-    ))
-  )
-  print(tree(data, root = basename(getwd())))
+  if (!quiet) {
+    cli::cli_alert_info("Please comment in/out the platforms you want to use
+                      in {.file .github/workflows/tic.yml}.", wrap = TRUE)
+    cli::cli_text("Call {.code usethis::edit_file('.github/workflows/tic.yml')}
+                to open the YAML file.")
+  }
+
+  if (!write) {
+    return(template)
+  }
+  writeLines(template, con = ".github/workflows/tic.yml")
+
+  if (!quiet) {
+    cat_bullet(
+      "Below is the file structure of the new/changed files:",
+      bullet = "arrow_down", bullet_col = "blue"
+    )
+    data <- data.frame(
+      stringsAsFactors = FALSE,
+      package = c(
+        basename(getwd()), ".github", "workflows", "tic.yml"
+      ),
+      dependencies = I(list(
+        ".github", "workflows", "tic.yml", character(0)
+      ))
+    )
+    print(tree(data, root = basename(getwd())))
+  }
 }
 
 use_tic_template <- function(template, save_as = template, open = FALSE,

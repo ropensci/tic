@@ -2,7 +2,7 @@ Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions
-Version: 0.7.0.9000
+Version: 0.8.0.9008
 Authors@R: 
     c(person(given = "Kirill",
              family = "Müller",
@@ -83,6 +83,7 @@ Suggests:
     rmarkdown,
     rprojroot,
     sodium,
+    stringr,
     testthat (>= 2.1.0),
     travis (>= 0.2.11.9001),
     usethis,
@@ -132,10 +133,12 @@ Collate:
     'steps-install.R'
     'steps-rcmdcheck.R'
     'steps-pkgdown.R'
+    'steps-session-info.R'
     'steps-ssh.R'
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
+    'update-yaml.R'
     'use-badge.R'
     'use-yaml.R'
     'use_tic.R'

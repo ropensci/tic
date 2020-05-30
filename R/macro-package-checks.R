@@ -15,6 +15,8 @@ NULL
 #' to the `"before_install"`, `"install"`, `"script"` and `"after_success"`
 #' stages:
 #'
+#' This macro is only available for R packages.
+#'
 #' @inheritParams step_rcmdcheck
 #' @inheritParams step_install_pkg
 #' @param codecov `[flag]`\cr Whether to include a step running
@@ -36,15 +38,22 @@ do_package_checks <- function(...,
                               build_args = NULL,
                               error_on = "warning",
                               repos = repo_default(),
-                              timeout = Inf,
                               type = getOption("pkgType"),
+                              dependencies = TRUE,
+                              timeout = Inf,
                               check_dir = "check") {
   #' @description
   #' 1. [step_install_deps()] in the `"install"` stage, using the
   #'    `repos` argument.
+  #' 1. [step_session_info()] in the `"install"` stage.
   get_stage("install") %>%
     add_step(
-      step_install_deps(repos = !!enquo(repos), type = !!enquo(type))
+      step_install_deps(
+        repos = {{ repos }}, type = {{ type }},
+        dependencies = {{ dependencies }})
+    )  %>%
+    add_step(
+      step_session_info()
     )
 
   #' 1. [step_rcmdcheck()] in the `"script"` stage, using the
