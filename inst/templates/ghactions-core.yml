@@ -19,16 +19,10 @@
       # set date/week for use in cache creation
       # https://github.community/t5/GitHub-Actions/How-to-set-and-access-a-Workflow-variable/m-p/42970
       # - cache R packages daily
-      # - cache ccache weekly -> 'ccache' helps rebuilding the package cache faster
       - name: "[Cache] Prepare daily timestamp for cache"
         if: runner.os != 'Windows'
         id: date
         run: echo "::set-output name=date::$(date '+%d-%m')"
-
-      - name: "[Cache] Prepare weekly timestamp for cache"
-        if: runner.os != 'Windows'
-        id: datew
-        run: echo "::set-output name=datew::$(date '+%Y-%V')"
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
@@ -37,41 +31,6 @@
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
-
-      - name: "[Cache] Cache ccache"
-        if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v1.2.0
-        with:
-          path: ${{ env.CCACHE_DIR}}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
-
-      # install ccache and write config file
-      - name: "[Linux] ccache"
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt install ccache libcurl4-openssl-dev
-          mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
-
-      # install ccache and write config file
-      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
-      - name: "[macOS] ccache"
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: |
-          brew install ccache
-          # install SDK 10.13 (High Sierra, used by CRAN)
-          wget -nv https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.13.sdk.tar.xz
-          tar fxz MacOSX10.13.sdk.tar.xz
-          sudo mv MacOSX10.13.sdk /Library/Developer/CommandLineTools/SDKs/
-          rm -rf MacOSX10.13*
-          # install gfortran 8.2 (used by CRAN)
-          wget -nv https://github.com/fxcoudert/gfortran-for-macOS/releases/download/8.2/gfortran-8.2-Mojave.dmg
-          sudo hdiutil attach gfortran*.dmg
-          sudo installer -package /Volumes/gfortran*/gfortran*/gfortran*.pkg -target /
-          sudo hdiutil detach /Volumes/gfortran-8.2-Mojave
-          rm gfortran-8*
-          # set compiler flags
-          mkdir -p ~/.R && echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -I/usr/local/include\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' > $HOME/.R/Makevars
 
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Prepare"

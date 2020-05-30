@@ -11,6 +11,16 @@ test_that("update_yml() preserves custom env vars AND blocks", {
   expect_equal(updated, solution)
 })
 
+test_that("update_yml() fails with descriptive error message if diffs between
+          local and upstream template are too large", {
+  expect_error(
+    update_yml(
+      system.file("testdata/ghactions-check-update-fail.yml", package = "tic"), # nolint
+    ),
+    "Not enough valid anchors points found between local and upstream template."
+  )
+})
+
 # Circle CI --------------------------------------------------------------------
 
 test_that("update_yml() preserves custom env vars AND blocks", {

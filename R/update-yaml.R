@@ -284,11 +284,68 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
       stringr::str_extract(tmpl_local[.x], "-.*"))
     })
 
-    # iterate along the "previous blocks" of the latest template and insert the
-    # custom user blocks
-    # this needs to happen iterative because after the first block insertion the
-    # row IDs of the subsequent blocks change
-    for (i in seq_along(tmpl_blocks_names)) {
+    tmpl_blocks_names <- purrr::map_chr(custom_blocks_start, ~ {
+      # find the line number of the respective block
+      row_inds_prev_temp_block <- tail(purrr::keep(
+        # row IDs of all blocks starting with "- name" but not followed by
+        # [Custom ] (regex: negative lookahead)
+        stringr::str_which(tmpl_local, "- name: (?!\"\\[Custom)"),
+        function(y) y < .x
+      ), n = 1)
+      # get the "name" of the previous block
+      purrr::map_chr(row_inds_prev_temp_block, ~
+      stringr::str_extract(tmpl_local[.x], "-.*"))
+    })
+
+    # 2nd previous block
+    # fallback in case the previous block name does not exist anymore in the
+    # template
+    tmpl_blocks_names_fallback <- purrr::map_chr(custom_blocks_start, ~ {
+      # find the line number of the respective block
+      row_inds_prev_temp_block <- tail(purrr::keep(
+        # row IDs of all blocks starting with "- name" but not followed by
+        # [Custom ] (regex: negative lookahead)
+        stringr::str_which(tmpl_local, "- name: (?!\"\\[Custom)"),
+        function(y) y < .x
+      ), n = 2)[1]
+      # get the "name" of the previous block
+      purrr::map_chr(row_inds_prev_temp_block, ~
+      stringr::str_extract(tmpl_local[.x], "-.*"))
+    })
+
+    # - iterate along the "previous blocks" of the latest template and insert
+    # the custom user blocks
+    # - this needs to happen iterative because after the first block insertion
+    # the row IDs of the subsequent blocks change
+    # - Also: Execute in reverse order so that final order is ordered correctly
+    for (i in rev(seq_along(tmpl_blocks_names))) {
+
+      # - test if the new block exists in the latest template.
+      # - if not, take the 2nd previous block and try if that one exists
+      # - if that also does not exist, throw error -> manual update needed
+      in_tmpl_latest <- purrr::map_lgl(tmpl_blocks_names[i], function(index) {
+        any(stringr::str_detect(tmpl_latest, stringr::fixed(index)))
+      })
+      if (!in_tmpl_latest) {
+        tmpl_blocks_names[i] <- tmpl_blocks_names_fallback[i]
+      }
+      # 2nd try
+      in_tmpl_latest <- purrr::map_lgl(tmpl_blocks_names[i], function(index) {
+        any(stringr::str_detect(tmpl_latest, stringr::fixed(index)))
+      })
+      if (!in_tmpl_latest) {
+        cli::cli_par()
+        cli::cli_end()
+        cli::cli_alert_danger("Not enough unique anchor points between your
+        local {.pkg tic} template and the newest upstream version could be
+        found.
+        Please update manually and try again next time.
+        If this error persists, your local {.pkg tic} template is too different
+        compared to the upstream template {.pkg tic} to support automatic
+        updating.", wrap = TRUE)
+        stopc("Not enough valid anchors points found between local and upstream template.") # nolint
+      }
+
 
       # get the row IDs of the "previous blocks" in the latest template
       tmpl_latest_index <- purrr::map_int(

@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: linux-macos-windows-deploy
-## revision date: 2020-05-21
+## revision date: 2020-05-19
 on:
   push:
   pull_request:
@@ -14,26 +14,25 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    # [Custom matrix name] test
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.test }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
       matrix:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
-          # [Custom matrix env var] test
-          - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
           - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
+          - { os: macOS-latest, r: "release", pkgdown: "true" }
           - { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
     env:
-      # [Custom env] env var
-      FOO: "true"
-      # [Custom env] env var 1
-      FII: "false"
+      # [Custom env] DISPLAY env var for rgl package
+      DISPLAY: ":99"
+      # [Custom env] Account for udunits2 linking
+      UDUNITS2_LIBS: /usr/local/lib
+      # [Custom env] Set max dll number higher
+      R_MAX_NUM_DLLS: 999
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
@@ -68,17 +67,23 @@ jobs:
       # macOS: ~ 1 min 30s
       # Windows: never finishes
       - uses: r-lib/actions/setup-tinytex@v1
-        if: matrix.config.latex == 'true'
+        if: runner.os != 'Windows'
 
       - uses: r-lib/actions/setup-pandoc@master
 
       # set date/week for use in cache creation
       # https://github.community/t5/GitHub-Actions/How-to-set-and-access-a-Workflow-variable/m-p/42970
       # - cache R packages daily
+      # - cache ccache weekly -> 'ccache' helps rebuilding the package cache faster
       - name: "[Cache] Prepare daily timestamp for cache"
         if: runner.os != 'Windows'
         id: date
         run: echo "::set-output name=date::$(date '+%d-%m')"
+
+      - name: "[Cache] Prepare weekly timestamp for cache"
+        if: runner.os != 'Windows'
+        id: datew
+        run: echo "::set-output name=datew::$(date '+%Y-%V')"
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
@@ -88,15 +93,51 @@ jobs:
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
-      - name: "[Custom block] Test custom user block"
+      - name: "[Cache] Cache ccache"
+        if: runner.os != 'Windows'
+        uses: pat-s/always-upload-cache@v1.2.0
+        with:
+          path: ${{ env.CCACHE_DIR}}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+
+      - name: "[Custom block] [Linux] Spatial libs and rJava"
+        if: runner.os == 'Linux'
         run: |
-          echo 'test'
+          sudo R CMD javareconf
+          sudo apt install -y ccache libglu1-mesa-dev libgmp-dev libgs-dev libgdal-dev libproj-dev libgeos-dev libudunits2-dev jags
+
+      # install ccache and write config file
+      - name: "[Linux] ccache"
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install ccache libcurl4-openssl-dev
+          mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+
+      - name: "[Custom block] [macOS] Install additional system libs via brew"
+        if: runner.os == 'macOS'
+        run: |
+          rm '/usr/local/bin/gfortran'
+          brew tap osgeo/osgeo4mac
+          brew install udunits gdal nlopt
+          brew cask reinstall gfortran
+
+      - name: "[Custom block] [macOS] xquartz"
+        if: runner.os == 'macOS'
+        run: |
+          brew cask install xquartz
 
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Prepare"
         run: |
           Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
           Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
+
+      - name: "[Custom block] [macOS] rJava"
+        if: runner.os == 'macOS'
+        run: |
+          R CMD javareconf
+          Rscript -e "install.packages('rJava', type = 'source')"
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
@@ -111,10 +152,6 @@ jobs:
 
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'
-
-      - name: "[Custom block] Test custom user block2"
-        run: |
-          echo 'test2'
 
       - name: "[Stage] After Success"
         if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
