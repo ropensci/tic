@@ -2,7 +2,7 @@
 #'
 #' @description
 #'  Adds a CI status badge to `README.Rmd` or `README.md`. By default the label
-#'  is `"R CMD Check via {tic}".
+#'  is `"tic"`.
 #'
 #'  A custom branch can be specified via argument `branch`.
 #'
@@ -24,7 +24,7 @@
 #' @export
 use_tic_badge <- function(provider,
                           branch = "master",
-                          label = "R CMD Check via {tic}") {
+                          label = "tic") {
 
   requireNamespace("usethis", quietly = TRUE)
 
