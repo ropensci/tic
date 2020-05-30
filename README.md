@@ -1,7 +1,7 @@
 # tic
 
 <!-- badges: start -->
-[![R CMD Check via {tic}](https://github.com/ropensci/tic/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
+[![tic](https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
 [![Travis build status](https://travis-ci.org/ropensci/tic.svg?branch=master)](https://travis-ci.org/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
