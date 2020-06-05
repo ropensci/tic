@@ -50,8 +50,9 @@ do_package_checks <- function(...,
     add_step(
       step_install_deps(
         repos = {{ repos }}, type = {{ type }},
-        dependencies = {{ dependencies }})
-    )  %>%
+        dependencies = {{ dependencies }}
+      )
+    ) %>%
     add_step(
       step_session_info()
     )
@@ -77,6 +78,8 @@ do_package_checks <- function(...,
     #' 1. A call to [covr::codecov()] in the `"after_success"` stage
     #'    (only if the `codecov` flag is set)
     get_stage("after_success") %>%
+      # FIXME: Temporarily enforcing covr dev, see https://github.com/r-lib/covr/issues/435 # nolint
+      add_step(step_install_github("r-lib/covr")) %>%
       add_code_step(covr::codecov(quiet = FALSE))
   }
 
