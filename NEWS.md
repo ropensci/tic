@@ -1,3 +1,10 @@
+# tic 0.8.0.9009
+
+- Temporarily enforce {covr} dev version to account for timeouts on GHA, see https://github.com/r-lib/covr/issues/435
+- `use_tic_badge()`: Update tic badge and default action name (#269)
+- GHA: Update versions of "tinytex" and "always-upload-cache" actions (#267)
+
+
 # tic 0.8.0.9008
 
 - Make ccache optional (and more) (#264)
