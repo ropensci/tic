@@ -94,7 +94,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9008</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9009</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -323,6 +323,7 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
 #&gt;     timeout = Inf, check_dir = "check")
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>after_success</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_install_github("r-lib/covr")
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div><div class='input'>
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
@@ -333,6 +334,7 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
 #&gt;     timeout = Inf, check_dir = "check")
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>after_success</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_install_github("r-lib/covr")
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
