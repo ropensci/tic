@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: linux-macos-windows-deploy
-## revision date: 2020-05-21
+## revision date: 2020-06-14
 on:
   push:
   pull_request:
@@ -37,12 +37,6 @@ jobs:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
-      # we are not allowed to write to ~/.ccache on GH Actions
-      # setting some ccache options
-      CCACHE_BASEDIR: ${{ GITHUB.WORKSPACE }}
-      CCACHE_DIR: ${{ GITHUB.WORKSPACE }}/.ccache
-      CCACHE_NOHASHDIR: true
-      CCACHE_SLOPPINESS: include_file_ctime
       # make sure to run `tic::use_ghactions_deploy()` to set up deployment
       TIC_DEPLOY_KEY: ${{ secrets.TIC_DEPLOY_KEY }}
       # prevent rgl issues because no X11 display is available
