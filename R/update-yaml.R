@@ -556,17 +556,17 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
         }
       )) == 0) + 1
 
-      custom_env_var <- tmpl_local[env_var:(env_var + 1)]
+      custom_env_var_list <- tmpl_local[env_var:(env_var + 1)]
       # if the env var contains 'env:', we need to query one more line
-      if (any(grepl("env:", custom_env_var))) {
-        custom_env_var <- tmpl_local[env_var:(env_var + 2)]
+      if (any(grepl("env:", custom_env_var_list))) {
+        custom_env_var_list <- tmpl_local[env_var:(env_var + 2)]
       } else {
         # otherwise 'env:' already exists and we need to append one line later
         env_var_index_latest <- env_var_index_latest + 1
       }
 
       tmpl_latest <- append(tmpl_latest,
-        custom_env_var,
+        custom_env_var_list,
         after = env_var_index_latest
       )
     }
