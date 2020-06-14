@@ -236,6 +236,12 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
         after = env_var_index_latest
       )
     }
+    # see update-yaml-helpers.R
+    tmpl_latest <- account_for_dup_env_vars(
+      custom_env_var_list,
+      env_var_index_latest,
+      tmpl_latest
+    )
   }
 
   # update user blocks ---------------------------------------------------------
@@ -425,6 +431,13 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
         }
       }
     }
+
+    # see update-yaml-helpers.R
+    tmpl_latest <- account_for_dup_env_vars(
+      custom_env_var_list,
+      env_var_index_latest,
+      tmpl_latest
+    )
   }
 
   # update user blocks ---------------------------------------------------------
@@ -557,7 +570,15 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
         after = env_var_index_latest
       )
     }
+
+    # see update-yaml-helpers.R
+    tmpl_latest <- account_for_dup_env_vars(
+      custom_env_var_list,
+      env_var_index_latest,
+      tmpl_latest
+    )
   }
+
   # update user blocks ---------------------------------------------------------
 
   # find the line IDs of all custom user blocks

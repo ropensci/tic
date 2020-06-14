@@ -138,6 +138,7 @@ Collate:
     'steps-write-text-file.R'
     'tic-package.R'
     'travis.R'
+    'update-yaml-helpers.R'
     'update-yaml.R'
     'use-badge.R'
     'use-yaml.R'

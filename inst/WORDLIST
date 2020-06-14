@@ -22,10 +22,15 @@ cli
 cmd
 CMD
 codecov
+codemeta
+codeRepository
 CommandLineTools
 compendia
+ComputerLanguage
 conf
 config
+contIntegration
+copyrightHolder
 covr
 covrpage
 cr
@@ -43,10 +48,12 @@ deps
 desc
 deserialize
 dev
+developmentStatus
 devtools
 dir
 dll
 dmg
+doi
 dontrun
 dsl
 DSL
@@ -54,10 +61,12 @@ edu
 env
 ErrorActionPreference
 evans
+familyName
 fansi
 fi
 figshare
 FII
+fileSize
 filetype
 fnd
 funder
@@ -75,8 +84,10 @@ gha
 GHA
 ghactions
 github
+githubactions
 GitHubs
 GitLab
+givenName
 gmail
 hdiutil
 Homebrew
@@ -86,6 +97,7 @@ inbetween
 init
 inits
 io
+issueTracker
 isysroot
 javareconf
 jeroen
@@ -121,6 +133,7 @@ MacOSX
 magrittr
 MAKEFLAGS
 Makevars
+md
 memoise
 mika
 Mika
@@ -150,6 +163,7 @@ oldrelease
 ooms
 Ooms
 openssl
+orcid
 ORCID
 os
 osgeo
@@ -161,6 +175,7 @@ patrick
 phracker
 pkgdown
 pkgType
+programmingLanguage
 ps
 purrr
 rb
@@ -168,6 +183,7 @@ rcmdcheck
 RdMacros
 readme
 README
+releaseNotes
 repo
 repos
 reproducibility
@@ -192,8 +208,11 @@ Rprofile
 rprojroot
 RSA
 Rscript
+rstats
 RStudio's
 rtools
+runtimePlatform
+sameAs
 schratz
 Schratz
 sdk
@@ -202,6 +221,11 @@ SDKROOT
 SDKs
 seealso
 SHA
+SoftwareApplication
+softwareRequirements
+SoftwareSourceCode
+softwareSuggestions
+spdx
 specfic
 stringr
 subclasses
@@ -211,6 +235,7 @@ synch
 SystemRequirements
 testthat
 TicStep
+tidyverse
 tinytex
 tmp
 traceback
@@ -231,6 +256,7 @@ WebRequest
 wget
 withr
 writeLines
+www
 xquartz
 xz
 yaml

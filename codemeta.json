@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/tic",
   "issueTracker": "https://github.com/ropensci/tic/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.7.0",
+  "version": "0.8.0.9009",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.0 Patched (2020-04-30 r78337)",
+  "runtimePlatform": "R version 4.0.1 Patched (2020-06-08 r78666)",
   "author": [
     {
       "@type": "Person",
@@ -219,18 +219,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "lubridate",
-      "name": "lubridate",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
     {
       "@type": "SoftwareApplication",
@@ -524,5 +512,5 @@
     "rstats",
     "githubactions"
   ],
-  "fileSize": "379.067KB"
+  "fileSize": "388.243KB"
 }
