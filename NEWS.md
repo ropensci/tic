@@ -1,3 +1,38 @@
+# tic 0.9.0
+
+## Features
+
+- `update_yaml()`: Account for duplicated env vars when a custom env var masks a template env var
+- `use_tic_badge()`: Update tic badge and default action name (#269)
+- Installing and using `ccache` for faster source package installation is now optional.
+  While using `ccache` can help a lot for installing large dependency chains of certain packages, it also adds substantial overhead to builds for small packages.
+  It is now optional and needs to be added as a custom block to builds. (#264)
+- Add `step_session_info()`.
+  This step prints the session info after having installed all dependencies in the "install" stage. (#259)
+- `step_install_deps()` and `do_package_checks()` gain `dependencies = TRUE` argument.
+- New `use_update_tic()`: Adds GitHub Actions workflow `update-tic.yml` to automatically update tic YAML templates
+- Support fully custom runner matrices on GitHub Actions via template types `"custom"` and ´"custom-deploy"`
+- New `gha_add_secret()` to automate the process of adding a GitHub PAT to a repo as a secret.
+  This function will probably be move to {ghactions} in the future.
+
+## Bugfixes
+
+- Temporarily enforce {covr} dev version to account for timeouts on GHA, see https://github.com/r-lib/covr/issues/435
+- Remove alert in steps-install.R (#263)
+- Pass arg `remote` to all printing instances. Previously using a different remote than "origin" caused an error..
+
+## CI Provider specific
+
+### GitHub Actions
+
+- Update versions of "tinytex" and "always-upload-cache" actions (#267)
+- Install LaTeX on only one runner (#257)
+- Switch from `main.yml` to `tic.yml` (#260)
+- Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}
+- Update `actions/checkout` to v2.1.1
+- Update `pat-s/always-upload-cache` to v2.0.0
+- Remove old clang7 compiler setup for R <= 3.6.3
+
 # tic 0.8.0.9009
 
 - Temporarily enforce {covr} dev version to account for timeouts on GHA, see https://github.com/r-lib/covr/issues/435
