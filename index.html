@@ -47,7 +47,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="index.html"><i>tic <small>v0.8.0</small></i></a>
+        <a class="navbar-brand" href="index.html"><i>tic <small>v0.9.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -197,7 +197,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
-<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a> (<a href="https://travis-ci.org" class="uri">https://travis-ci.org</a>; see <a href="https://docs.ropensci.org/tic/articles/faq.html#q-travis-1">this FAQ</a> for more info), <a href="https://appveyor.com" class="uri">https://appveyor.com</a>, <a href="https://circleci.com" class="uri">https://circleci.com</a> and <a href="https://github.com/actions" class="uri">https://github.com/actions</a>.</p>
+<p>By calling <code><a href="reference/use_tic.html">tic::use_tic()</a></code> a production ready CI setup is initialized, tailored to your specific R project. The created templates will use the providers <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a> (<a href="https://travis-ci.org" class="uri">https://travis-ci.org</a>; see <a href="https://docs.ropensci.org/tic/articles/faq.html#q-travis-1">this FAQ</a> for more info), <a href="https://appveyor.com" class="uri">https://appveyor.com</a>, <a href="https://circleci.com" class="uri">https://circleci.com</a> and <a href="https://github.com/actions">Github Actions</a>.</p>
 <p>If only the CI YAML templates from {tic} are desired, the <code>use_&lt;provider&gt;_yml()</code> functions can be used. Refer to <a href="https://docs.ropensci.org/tic/reference/yaml_templates.html">the complete list of options</a>.</p>
 <p>For an R package, the following steps will be set up for the CI workflow:</p>
 <ul>
@@ -223,6 +223,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",</span>
 <span class="co">#              matrix = "travis", deploy = "travis")</span>
+<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
 
 <span class="co">### Circle CI ------------------------------------------------------------------</span>
 <span class="kw pkg">circle</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span>
@@ -231,6 +232,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",</span>
 <span class="co">#              matrix = "circle", deploy = "circle")</span>
+<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
 
 <span class="co">### Appveyor -------------------------------------------------------------------</span>
 <span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/yaml_templates.html">use_appveyor_yml</a></span>()
@@ -243,7 +245,8 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "ghactions", mac = "ghactions",</span>
 <span class="co">#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")</span>
 
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span>(<span class="st">"ghactions"</span>)</pre></div>
+<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span>(<span class="st">"ghactions"</span>)
+<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()</pre></div>
 </div>
 </div>
 <div id="good-to-know" class="section level2">
@@ -256,7 +259,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="updating" class="section level2">
 <h2 class="hasAnchor">
 <a href="#updating" class="anchor"></a>Updating</h2>
-<p>Updating of YAML templates is supported via <code><a href="reference/update_yml.html">update_yml()</a></code> (only for GitHub Actions). See vignette <a href="https://docs.ropensci.org/articles/updating.html">“Updating Templates”</a> for more information.</p>
+<p>Updating of YAML templates is supported via <a href="https://docs.ropensci.org/tic/reference/update_yml.html"><code><a href="reference/update_yml.html">update_yml()</a></code></a>. See vignette <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for more information.</p>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
@@ -363,7 +366,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ropensci/tic/actions"><img src="https://github.com/ropensci/tic/workflows/R%20CMD%20Check%20via%20%7Btic%7D/badge.svg?branch=master" alt="R CMD Check via {tic}"></a></li>
+<li><a href="https://github.com/ropensci/tic/actions"><img src="https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master" alt="tic"></a></li>
 <li><a href="https://travis-ci.org/ropensci/tic"><img src="https://travis-ci.org/ropensci/tic.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://circleci.com/gh/ropensci/tic"><img src="https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&amp;logo=circle&amp;logoColor=green&amp;style=flat-square" alt="CircleCI"></a></li>
 <li><a href="https://cran.r-project.org/package=tic"><img src="https://www.r-pkg.org/badges/version/tic" alt="CRAN status"></a></li>

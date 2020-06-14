@@ -50,6 +50,7 @@ steps to the &quot;install&quot;, &quot;before_deploy&quot; and &quot;deploy&quo
 
 step_install_deps() in the &quot;install&quot; stage, using the
 repos argument.
+step_session_info() in the &quot;install&quot; stage.
 step_setup_ssh() in the &quot;before_deploy&quot; to setup
 the upcoming deployment (if deploy is set and only on Travis CI),
 step_setup_push_deploy() in the &quot;before_deploy&quot; stage
@@ -95,7 +96,7 @@ keeping the history." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -190,6 +191,7 @@ steps to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"dep
 <ol>
 <li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
 <code>repos</code> argument.</p></li>
+<li><p><code><a href='step_session_info.html'>step_session_info()</a></code> in the <code>"install"</code> stage.</p></li>
 <li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
 the upcoming deployment (if <code>deploy</code> is set and only on Travis CI),</p></li>
 <li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage

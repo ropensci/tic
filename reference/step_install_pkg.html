@@ -53,6 +53,8 @@ even if the CRAN version is ahead.
 A step_install_deps() step installs all package dependencies declared in
 DESCRIPTION, using remotes::install_deps().
 This includes upgrading outdated packages.
+This step can only be used if a DESCRIPTION file is present in the repository
+root.
 A step_install_cran() step installs one package from CRAN via
 install.packages(), but only if it's not already installed.
 A step_install_github() step installs one or more packages from GitHub
@@ -92,7 +94,7 @@ GitHub version is different from the locally installed version." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -190,6 +192,8 @@ even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
 <code>DESCRIPTION</code>, using <code><a href='https://remotes.r-lib.org/reference/install_deps.html'>remotes::install_deps()</a></code>.
 This includes upgrading outdated packages.</p>
+<p>This step can only be used if a DESCRIPTION file is present in the repository
+root.</p>
 <p>A <code>step_install_cran()</code> step installs one package from CRAN via
 <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>, but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
@@ -197,7 +201,11 @@ via <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remo
 GitHub version is different from the locally installed version.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_deps</span>(<span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pkgType"</span>))
+    <pre class="usage"><span class='fu'>step_install_deps</span>(
+  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pkgType"</span>),
+  <span class='kw'>dependencies</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
 <span class='fu'>step_install_cran</span>(
   <span class='kw'>package</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -221,6 +229,16 @@ GitHub version is different from the locally installed version.</p>
       <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>. The default avoids
 installation from source on Windows and macOS by passing
 <code><a href='https://rdrr.io/r/base/Platform.html'>.Platform</a>$pkgType</code>.</p></td>
+    </tr>
+    <tr>
+      <th>dependencies</th>
+      <td><p>Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.</p>
+<p><code>TRUE</code> is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". <code>NA</code> is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. <code>FALSE</code> is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -247,6 +265,7 @@ installation from source on Windows and macOS by passing
 <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
 <code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
 <code><a href='step_run_code.html'>step_run_code</a>()</code>,
+<code><a href='step_session_info.html'>step_session_info</a>()</code>,
 <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
 <code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
 <code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,

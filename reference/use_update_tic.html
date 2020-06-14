@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Add to known hosts — step_add_to_known_hosts • tic</title>
+<title>Update tic Templates — use_update_tic • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,10 +44,15 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Step: Add to known hosts — step_add_to_known_hosts" />
-<meta property="og:description" content="Adds a host name to the ~/.ssh/known_hosts file to allow subsequent
-SSH access.
-Requires ssh-keyscan on the system PATH." />
+<meta property="og:title" content="Update tic Templates — use_update_tic" />
+<meta property="og:description" content="Adds a GitHub Actions workflow (update-tic.yml) to check for tic template
+updates once a day.
+Internally, update_yml() is called. A Pull Request will be opened if
+a newer upstream version of the local tic template is found.
+This workflow relies on a GITHUB_PAT with &quot;workflow&quot; scopes if GitHub Actions
+templates should be updated.
+Generate a GITHUB PAT and add it as a secret to your repo with
+gha_add_secret()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -166,53 +171,30 @@ Requires ssh-keyscan on the system PATH." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Add to known hosts</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-ssh.R'><code>R/steps-ssh.R</code></a></small>
-    <div class="hidden name"><code>step_add_to_known_hosts.Rd</code></div>
+    <h1>Update tic Templates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/update-yaml.R'><code>R/update-yaml.R</code></a></small>
+    <div class="hidden name"><code>use_update_tic.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Adds a host name to the <code>~/.ssh/known_hosts</code> file to allow subsequent
-SSH access.
-Requires <code>ssh-keyscan</code> on the system <code>PATH</code>.</p>
+    <p>Adds a GitHub Actions workflow (<code>update-tic.yml</code>) to check for tic template
+updates once a day.</p>
+<p>Internally, <code><a href='update_yml.html'>update_yml()</a></code> is called. A Pull Request will be opened if
+a newer upstream version of the local tic template is found.</p>
+<p>This workflow relies on a GITHUB_PAT with "workflow" scopes if GitHub Actions
+templates should be updated.
+Generate a GITHUB PAT and add it as a secret to your repo with
+<code><a href='gha_add_secret.html'>gha_add_secret()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_add_to_known_hosts</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>)</pre>
+    <pre class="usage"><span class='fu'>use_update_tic</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>host</th>
-      <td><p><code>[string]</code><br />
-The host name to add to the <code>known_hosts</code> file, default: <code>github.com</code>.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other steps: 
-<code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
-<code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
-<code><a href='step_do_push_deploy.html'>step_do_push_deploy</a>()</code>,
-<code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
-<code><a href='step_install_pkg.html'>step_install_pkg</a></code>,
-<code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
-<code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
-<code><a href='step_run_code.html'>step_run_code</a>()</code>,
-<code><a href='step_session_info.html'>step_session_info</a>()</code>,
-<code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
-<code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
-<code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,
-<code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"before_deploy"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_add_to_known_hosts</span>(<span class='st'>"gitlab.com"</span>))
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_add_to_known_hosts("gitlab.com")</div></span></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>use_update_tic</span>()
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

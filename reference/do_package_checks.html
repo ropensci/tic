@@ -48,9 +48,11 @@
 <meta property="og:description" content="do_package_checks() adds default steps related to package checks
 to the &quot;before_install&quot;, &quot;install&quot;, &quot;script&quot; and &quot;after_success&quot;
 stages:
+This macro is only available for R packages.
 
 step_install_deps() in the &quot;install&quot; stage, using the
 repos argument.
+step_session_info() in the &quot;install&quot; stage.
 step_rcmdcheck() in the &quot;script&quot; stage, using the
 warnings_are_errors, notes_are_errors, args, and
 build_args arguments.
@@ -92,7 +94,7 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -185,9 +187,11 @@ A call to covr::codecov() in the &quot;after_success&quot; stage
     <p><code>do_package_checks()</code> adds default steps related to package checks
 to the <code>"before_install"</code>, <code>"install"</code>, <code>"script"</code> and <code>"after_success"</code>
 stages:</p>
+<p>This macro is only available for R packages.</p>
 <ol>
 <li><p><code><a href='step_install_pkg.html'>step_install_deps()</a></code> in the <code>"install"</code> stage, using the
 <code>repos</code> argument.</p></li>
+<li><p><code><a href='step_session_info.html'>step_session_info()</a></code> in the <code>"install"</code> stage.</p></li>
 <li><p><code><a href='step_rcmdcheck.html'>step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>
@@ -206,8 +210,9 @@ stages:</p>
   <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
   <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"pkgType"</span>),
+  <span class='kw'>dependencies</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
   <span class='kw'>check_dir</span> <span class='kw'>=</span> <span class='st'>"check"</span>
 )</pre>
 
@@ -269,16 +274,26 @@ Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdc
 <code><a href='repo.html'>repo_default()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
-    </tr>
-    <tr>
       <th>type</th>
       <td><p>Passed on to <code><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages()</a></code>. The default avoids
 installation from source on Windows and macOS by passing
 <code><a href='https://rdrr.io/r/base/Platform.html'>.Platform</a>$pkgType</code>.</p></td>
+    </tr>
+    <tr>
+      <th>dependencies</th>
+      <td><p>Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.</p>
+<p><code>TRUE</code> is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". <code>NA</code> is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. <code>FALSE</code> is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).</p></td>
+    </tr>
+    <tr>
+      <th>timeout</th>
+      <td><p><code>[numeric]</code><br />
+Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
+<code>Inf</code>.</p></td>
     </tr>
     <tr>
       <th>check_dir</th>
@@ -300,20 +315,26 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
 <span class='fu'>do_package_checks</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"))
+#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
+#&gt;     dependencies = TRUE)
+#&gt; ▶ step_session_info()
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
 #&gt;     timeout = Inf, check_dir = "check")
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>after_success</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_install_github("r-lib/covr")
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div><div class='input'>
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"))
+#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
+#&gt;     dependencies = TRUE)
+#&gt; ▶ step_session_info()
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
 #&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
 #&gt;     timeout = Inf, check_dir = "check")
 #&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>after_success</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_install_github("r-lib/covr")
 #&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

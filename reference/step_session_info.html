@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Step: Add to known hosts — step_add_to_known_hosts • tic</title>
+<title>Step: Print the current Session Info — step_session_info • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,10 +44,9 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Step: Add to known hosts — step_add_to_known_hosts" />
-<meta property="og:description" content="Adds a host name to the ~/.ssh/known_hosts file to allow subsequent
-SSH access.
-Requires ssh-keyscan on the system PATH." />
+<meta property="og:title" content="Step: Print the current Session Info — step_session_info" />
+<meta property="og:description" content="Prints out the package information of the current session via
+sessioninfo::session_info()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -166,33 +165,24 @@ Requires ssh-keyscan on the system PATH." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Step: Add to known hosts</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-ssh.R'><code>R/steps-ssh.R</code></a></small>
-    <div class="hidden name"><code>step_add_to_known_hosts.Rd</code></div>
+    <h1>Step: Print the current Session Info</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/steps-session-info.R'><code>R/steps-session-info.R</code></a></small>
+    <div class="hidden name"><code>step_session_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Adds a host name to the <code>~/.ssh/known_hosts</code> file to allow subsequent
-SSH access.
-Requires <code>ssh-keyscan</code> on the system <code>PATH</code>.</p>
+    <p>Prints out the package information of the current session via
+<code><a href='https://rdrr.io/pkg/sessioninfo/man/session_info.html'>sessioninfo::session_info()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_add_to_known_hosts</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github.com"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_session_info</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>host</th>
-      <td><p><code>[string]</code><br />
-The host name to add to the <code>known_hosts</code> file, default: <code>github.com</code>.</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other steps: 
 <code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
+<code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,
 <code><a href='step_build_pkgdown.html'>step_build_pkgdown</a>()</code>,
 <code><a href='step_do_push_deploy.html'>step_do_push_deploy</a>()</code>,
 <code><a href='step_hello_world.html'>step_hello_world</a>()</code>,
@@ -200,7 +190,6 @@ The host name to add to the <code>known_hosts</code> file, default: <code>github
 <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys</a>()</code>,
 <code><a href='step_push_deploy.html'>step_push_deploy</a>()</code>,
 <code><a href='step_run_code.html'>step_run_code</a>()</code>,
-<code><a href='step_session_info.html'>step_session_info</a>()</code>,
 <code><a href='step_setup_push_deploy.html'>step_setup_push_deploy</a>()</code>,
 <code><a href='step_setup_ssh.html'>step_setup_ssh</a>()</code>,
 <code><a href='step_test_ssh.html'>step_test_ssh</a>()</code>,
@@ -208,11 +197,11 @@ The host name to add to the <code>known_hosts</code> file, default: <code>github
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"before_deploy"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_add_to_known_hosts</span>(<span class='st'>"gitlab.com"</span>))
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"install"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_session_info</span>())
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_add_to_known_hosts("gitlab.com")</div></span></pre>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+#&gt; ▶ step_session_info()</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
