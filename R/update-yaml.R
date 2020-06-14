@@ -143,6 +143,7 @@ update_yml <- function(template_in = NULL,
       "Travis CI"      = update_travis_yml(instance_txt, tmpl_latest)
     )
 
+    cli::cli_alert_info("Writing {.file {template_out}}.")
     writeLines(tmpl_latest, template_out)
 
     # reset template_out

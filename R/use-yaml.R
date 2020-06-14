@@ -471,6 +471,7 @@ use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
   if (!write) {
     return(template)
   }
+  cli::cli_alert_info("Writing {.file .github/workflows/tic.yml}.")
   writeLines(template, con = ".github/workflows/tic.yml")
 
   if (!quiet) {
