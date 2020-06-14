@@ -78,7 +78,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.8.0.9009</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -166,6 +166,61 @@
       <small>Source: <a href='https://github.com/ropensci/tic/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tic-0909000" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.0.9000">
+<a href="#tic-0909000" class="anchor"></a>tic 0.9.0.9000</h1>
+<ul>
+<li>Same as previous version.</li>
+</ul>
+</div>
+    <div id="tic-090" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.0">
+<a href="#tic-090" class="anchor"></a>tic 0.9.0</h1>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
+<ul>
+<li>
+<code>update_yaml()</code>: Account for duplicated env vars when a custom env var masks a template env var</li>
+<li>
+<code><a href="../reference/use_tic_badge.html">use_tic_badge()</a></code>: Update tic badge and default action name (<a href='https://github.com/ropensci/tic/issues/269'>#269</a>)</li>
+<li>Installing and using <code>ccache</code> for faster source package installation is now optional. While using <code>ccache</code> can help a lot for installing large dependency chains of certain packages, it also adds substantial overhead to builds for small packages. It is now optional and needs to be added as a custom block to builds. (<a href='https://github.com/ropensci/tic/issues/264'>#264</a>)</li>
+<li>Add <code><a href="../reference/step_session_info.html">step_session_info()</a></code>. This step prints the session info after having installed all dependencies in the “install” stage. (<a href='https://github.com/ropensci/tic/issues/259'>#259</a>)</li>
+<li>
+<code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> and <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> gain <code>dependencies = TRUE</code> argument.</li>
+<li>New <code><a href="../reference/use_update_tic.html">use_update_tic()</a></code>: Adds GitHub Actions workflow <code>update-tic.yml</code> to automatically update tic YAML templates</li>
+<li>Support fully custom runner matrices on GitHub Actions via template types <code>"custom"</code> and ´“custom-deploy”`</li>
+<li>New <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> to automate the process of adding a GitHub PAT to a repo as a secret. This function will probably be move to {ghactions} in the future.</li>
+</ul>
+</div>
+<div id="bugfixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<ul>
+<li>Temporarily enforce {covr} dev version to account for timeouts on GHA, see <a href="https://github.com/r-lib/covr/issues/435" class="uri">https://github.com/r-lib/covr/issues/435</a>
+</li>
+<li>Remove alert in steps-install.R (<a href='https://github.com/ropensci/tic/issues/263'>#263</a>)</li>
+<li>Pass arg <code>remote</code> to all printing instances. Previously using a different remote than “origin” caused an error..</li>
+</ul>
+</div>
+<div id="ci-provider-specific" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
+<ul>
+<li>Update versions of “tinytex” and “always-upload-cache” actions (<a href='https://github.com/ropensci/tic/issues/267'>#267</a>)</li>
+<li>Install LaTeX on only one runner (<a href='https://github.com/ropensci/tic/issues/257'>#257</a>)</li>
+<li>Switch from <code>main.yml</code> to <code>tic.yml</code> (<a href='https://github.com/ropensci/tic/issues/260'>#260</a>)</li>
+<li>Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}</li>
+<li>Update <code>actions/checkout</code> to v2.1.1</li>
+<li>Update <code>pat-s/always-upload-cache</code> to v2.0.0</li>
+<li>Remove old clang7 compiler setup for R &lt;= 3.6.3</li>
+</ul>
+</div>
+</div>
+</div>
     <div id="tic-0809009" class="section level1">
 <h1 class="page-header" data-toc-text="0.8.0.9009">
 <a href="#tic-0809009" class="anchor"></a>tic 0.8.0.9009</h1>
@@ -234,9 +289,9 @@
     <div id="tic-0809001" class="section level1">
 <h1 class="page-header" data-toc-text="0.8.0.9001">
 <a href="#tic-0809001" class="anchor"></a>tic 0.8.0.9001</h1>
-<div id="github-actions" class="section level3">
+<div id="github-actions-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
+<a href="#github-actions-1" class="anchor"></a>GitHub Actions</h3>
 <ul>
 <li>Update actions/checkout to v2.1.1</li>
 <li>Update pat-s/always-upload-cache to v1.2.0</li>
@@ -254,9 +309,9 @@
     <div id="tic-080" class="section level1">
 <h1 class="page-header" data-toc-text="0.8.0">
 <a href="#tic-080" class="anchor"></a>tic 0.8.0</h1>
-<div id="features" class="section level2">
+<div id="features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h2>
+<a href="#features-1" class="anchor"></a>Features</h2>
 <ul>
 <li>New <code><a href="../reference/update_yml.html">update_yml()</a></code>: Update your {tic} yaml templates to the latest upstream version in {tic}. User changes are preserved if these are marked correctly. See vignette <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for instructions. This process can also be fully automated via a <a href="https://docs.ropensci.org/tic/articles/updating.html#automating-the-update-process">custom CI job</a>.</li>
 <li>Add argument <code>force</code> to <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> for adding the <code>--force</code> flag to git calls</li>
@@ -265,12 +320,12 @@
 </li>
 </ul>
 </div>
-<div id="ci-provider-specific" class="section level2">
+<div id="ci-provider-specific-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ci-provider-specific" class="anchor"></a>CI Provider specific</h2>
-<div id="github-actions-1" class="section level3">
+<a href="#ci-provider-specific-1" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#github-actions-1" class="anchor"></a>GitHub Actions</h3>
+<a href="#github-actions-2" class="anchor"></a>GitHub Actions</h3>
 <ul>
 <li>Set CRON time to 4 am to avoid download issues with mirror updates</li>
 <li>Added <code>-I/usr/local/include</code> to CPPFLAGS for macOS runners to mirror CRAN setup</li>
@@ -304,12 +359,12 @@
 <li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href='https://github.com/ropensci/tic/issues/242'>#242</a>)</li>
 </ul>
 </div>
-<div id="ci-provider-specific-1" class="section level2">
+<div id="ci-provider-specific-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ci-provider-specific-1" class="anchor"></a>CI Provider specific</h2>
-<div id="github-actions-2" class="section level3">
+<a href="#ci-provider-specific-2" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#github-actions-2" class="anchor"></a>GitHub Actions</h3>
+<a href="#github-actions-3" class="anchor"></a>GitHub Actions</h3>
 <ul>
 <li>
 <code><a href="../reference/use_tic.html">use_tic()</a></code>: Move <code><a href="https://rdrr.io/pkg/cli/man/tree.html">cli::tree()</a></code> calls to <code>use_*_yml()</code> functions to avoid printing of false-positive trees.</li>
@@ -363,12 +418,12 @@
 <li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
 </ul>
 </div>
-<div id="ci-provider-specific-2" class="section level2">
+<div id="ci-provider-specific-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ci-provider-specific-2" class="anchor"></a>CI Provider specific</h2>
-<div id="github-actions-3" class="section level3">
+<a href="#ci-provider-specific-3" class="anchor"></a>CI Provider specific</h2>
+<div id="github-actions-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#github-actions-3" class="anchor"></a>GitHub Actions</h3>
+<a href="#github-actions-4" class="anchor"></a>GitHub Actions</h3>
 <ul>
 <li>GitHub Actions: Always use option ‘–no-manual’ on Windows because LaTeX is not available (because it takes ages to install)</li>
 <li>
@@ -378,9 +433,9 @@
 </ul>
 </div>
 </div>
-<div id="bugfixes" class="section level2">
+<div id="bugfixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<a href="#bugfixes-1" class="anchor"></a>Bugfixes</h2>
 <ul>
 <li>
 <code><a href="../reference/use_tic.html">use_tic()</a></code> fails with descriptive error message if the badges start/end sections are missing in README</li>
@@ -425,9 +480,9 @@
 <li>
 <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: Test in dir “check” to simplify upload of artifacts</li>
 </ul>
-<div id="github-actions-4" class="section level2">
+<div id="github-actions-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#github-actions-4" class="anchor"></a>Github Actions</h2>
+<a href="#github-actions-5" class="anchor"></a>Github Actions</h2>
 <ul>
 <li>Set cron job to 4am to avoid potential download issues with R-devel on macOS</li>
 <li>Github Actions: Use actions/checkout v2</li>
