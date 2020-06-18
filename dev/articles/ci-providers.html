@@ -202,16 +202,22 @@
 <span id="cb2-27"><a href="#cb2-27"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb2-28"><a href="#cb2-28"></a>          sudo apt install ccache libcurl4-openssl-dev</span>
 <span id="cb2-29"><a href="#cb2-29"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' &gt; $HOME/.R/Makevars</span></code></pre></div>
+<p>In addition you also need to set the following env variables:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># setting some ccache options</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">CCACHE_BASEDIR</span><span class="kw">:</span><span class="at"> ${{ GITHUB.WORKSPACE }}</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">CCACHE_DIR</span><span class="kw">:</span><span class="at"> ${{ GITHUB.WORKSPACE }}/.ccache</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">CCACHE_NOHASHDIR</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">CCACHE_SLOPPINESS</span><span class="kw">:</span><span class="at"> include_file_ctime</span></span></code></pre></div>
 </div>
 <div id="spatial-libraries-gdal-proj-geos" class="section level3">
 <h3 class="hasAnchor">
 <a href="#spatial-libraries-gdal-proj-geos" class="anchor"></a>Spatial libraries (gdal, proj, geos)</h3>
 <p>For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="at">brew tap osgeo/osgeo4mac</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="at">brew install gdal</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">brew unlink proj</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="at">brew install osgeo-proj@5</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="at">brew link --force osgeo-proj@5</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="at">brew tap osgeo/osgeo4mac</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">brew install gdal</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">brew unlink proj</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="at">brew install osgeo-proj@5</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">brew link --force osgeo-proj@5</span></span></code></pre></div>
 <p>On Linux, add <code>libgdal-dev libproj-dev libgeos-dev</code> to the <code>apt install</code> call in the “[Linux] Prepare” stage.</p>
 </div>
 <div id="known-issues" class="section level3">
