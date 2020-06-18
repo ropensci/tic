@@ -110,6 +110,16 @@ The essential part is to prefix the compiler settings in `~/.R/Makevars` with `c
           mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
 ```
 
+In addition you also need to set the following env variables:
+
+```yml
+# setting some ccache options
+CCACHE_BASEDIR: ${{ GITHUB.WORKSPACE }}
+CCACHE_DIR: ${{ GITHUB.WORKSPACE }}/.ccache
+CCACHE_NOHASHDIR: true
+CCACHE_SLOPPINESS: include_file_ctime
+```
+
 ### Spatial libraries (gdal, proj, geos)
 
 For spatial packages on macOS, we currently recommend building against the latest GDAL and PROJ v5:
