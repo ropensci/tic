@@ -1,3 +1,8 @@
+# tic 0.9.0.9001
+
+- gha_add_secret(): Add new upstream parameters and fix endpoint
+
+
 # tic 0.9.0.9000
 
 - Same as previous version.
