@@ -65,6 +65,14 @@ GHActionsCI <- R6Class( # nolint
 #' @param name `[character]`\cr
 #'   The name of the secret as it will be listed in the repository.
 #'
+#' @param visibility `[character]`\cr
+#'   The level of visibility for the secret. One of `"all"`, `"private"`, or
+#'   `"selected"`.
+#'   See https://developer.github.com/v3/actions/secrets/#create-or-update-an-organization-secret
+#'   for more information.
+#' @param selected_repositories `[character]`\cr
+#'   Vector of repository ids for which the secret is accessible.
+#'   Only applies if `visibility = "selected"` was set.
 #' @param repo_slug `[character]`\cr
 #'   Repository slug of the repository to which the secret should be added.
 #'   Must follow the form `owner/repo`.
@@ -80,7 +88,9 @@ GHActionsCI <- R6Class( # nolint
 gha_add_secret <- function(secret,
                            name,
                            repo_slug = NULL,
-                           remote = "origin") {
+                           remote = "origin",
+                           visibility = "all",
+                           selected_repositories = NULL) {
 
   requireNamespace("sodium", quietly = TRUE)
   requireNamespace("gh", quietly = TRUE)
@@ -122,12 +132,14 @@ gha_add_secret <- function(secret,
   secret_raw_encr <- base64enc::base64encode(secret_raw_encr)
 
   # add private key
-  gh::gh("PUT /repos/:owner/:repo/actions/secrets/:name",
+  gh::gh("PUT /repos/:owner/:repo/actions/secrets/:secret_name",
     owner = owner,
     repo = repo,
-    name = name,
+    secret_name = name,
     key_id = key_id,
-    encrypted_value = secret_raw_encr
+    encrypted_value = secret_raw_encr,
+    visibility = visibility,
+    selected_repository_ids = selected_repositories
   )
 
   cli::cli_alert_success("Successfully added secret {.env {name}} to repo

@@ -4,7 +4,14 @@
 \alias{gha_add_secret}
 \title{Add a GitHub Actions secret to a repository}
 \usage{
-gha_add_secret(secret, name, repo_slug = NULL, remote = "origin")
+gha_add_secret(
+  secret,
+  name,
+  repo_slug = NULL,
+  remote = "origin",
+  visibility = "all",
+  selected_repositories = NULL
+)
 }
 \arguments{
 \item{secret}{\verb{[character]}\cr
@@ -20,6 +27,16 @@ Must follow the form \code{owner/repo}.}
 \item{remote}{\verb{[character]}\cr
 If \code{repo_slug = NULL}, the \code{repo_slug} is determined by the respective git
 remote.}
+
+\item{visibility}{\verb{[character]}\cr
+The level of visibility for the secret. One of \code{"all"}, \code{"private"}, or
+\code{"selected"}.
+See https://developer.github.com/v3/actions/secrets/#create-or-update-an-organization-secret
+for more information.}
+
+\item{selected_repositories}{\verb{[character]}\cr
+Vector of repository ids for which the secret is accessible.
+Only applies if \code{visibility = "selected"} was set.}
 }
 \description{
 Encrypts a value and adds it as a secret to a GitHub repository

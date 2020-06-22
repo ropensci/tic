@@ -13,6 +13,7 @@ Braginsky
 BugReports
 ByteCompile
 callr
+CamelCase
 ccache
 CCACHE
 cheatsheet
@@ -41,6 +42,7 @@ CRON
 Csardi
 ctime
 customizations
+cyclocomp
 datew
 dbi
 DeCicco
@@ -125,6 +127,8 @@ libudunits
 lifecycle
 Lifecycle
 lifecyle
+linter
+linters
 linux
 lubridate
 macos
@@ -232,6 +236,7 @@ stringr
 subclasses
 subsequential
 sudo
+supersecret
 synch
 SystemRequirements
 testthat
