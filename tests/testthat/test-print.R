@@ -48,4 +48,12 @@ test_that("print stages", {
     print(dsl_get()),
     testthat::test_path("out/bookdown.txt")
   )
+
+  get_stage("install") %>%
+    add_step(step_session_info())
+
+  expect_known_output(
+    print(dsl_get()),
+    testthat::test_path("out/no-duplicated-steps.txt")
+  )
 })

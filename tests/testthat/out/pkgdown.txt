@@ -4,5 +4,10 @@
 ▶ step_session_info()
 ── script ───────────────────────────────────────────────────────────── stage ──
 ▶ step_rcmdcheck()
+── before_deploy ────────────────────────────────────────────────────── stage ──
+▶ step_setup_push_deploy(path = "docs", branch = "gh-pages", remote_url = NULL, 
+    orphan = FALSE, checkout = TRUE)
 ── deploy ───────────────────────────────────────────────────────────── stage ──
 ▶ step_build_pkgdown()
+▶ step_do_push_deploy(path = "docs", commit_message = NULL, commit_paths = ".", 
+    force = FALSE)
