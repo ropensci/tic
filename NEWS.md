@@ -1,3 +1,8 @@
+# tic 0.9.0.9002
+
+- DSL: Don't add steps twice, if present in a previous macro (#272)
+
+
 # tic 0.9.0.9001
 
 - gha_add_secret(): Add new upstream parameters and fix endpoint
