@@ -5,14 +5,12 @@ TicStage <- R6Class( # nolint
       private$stage_name <- stage_name
       private$steps <- list()
     },
-
     add_step = function(step, code) {
       self$add_task(
         run = step$run, check = step$check, prepare = step$prepare,
         name = code
       )
     },
-
     add_task = function(run, check = NULL, prepare = NULL, name = NULL) {
       step <- list(
         run = run,
@@ -20,7 +18,9 @@ TicStage <- R6Class( # nolint
         prepare = prepare %||% function() {}, # nolint
         name = name %||% "<unknown task>"
       )
-      existing_steps <- purrr::map_chr(private$steps, ~ .x$name)
+      existing_steps <- vapply(private$steps, function(.x) .x$name,
+        FUN.VALUE = character(1)
+      )
       if (name %in% existing_steps) {
         invisible(self)
       } else {
@@ -28,15 +28,12 @@ TicStage <- R6Class( # nolint
         invisible(self)
       }
     },
-
     is_empty = function() {
       is_empty(private$steps)
     },
-
     reset = function() {
       private$steps <- list()
     },
-
     prepare_all = function() {
       # We don't necessarily require a DESCRIPTION file.
       # Steps that need one can check beforehand and warn the user with a
@@ -44,7 +41,6 @@ TicStage <- R6Class( # nolint
       lapply(private$steps, private$prepare_one)
       invisible()
     },
-
     run_all = function() {
       success <- TRUE
       for (step in private$steps) {
@@ -56,7 +52,6 @@ TicStage <- R6Class( # nolint
         }
       }
     },
-
     print = function(..., omit_if_empty = FALSE) {
       if (omit_if_empty && length(private$steps) == 0) {
         return()
@@ -70,11 +65,9 @@ TicStage <- R6Class( # nolint
       }
     }
   ),
-
   private = list(
     stage_name = NULL,
     steps = NULL,
-
     prepare_one = function(step) {
       if (identical(body(step$prepare), body(TicStep$public_methods$prepare))) {
         return()
@@ -95,7 +88,6 @@ TicStage <- R6Class( # nolint
 
       invisible()
     },
-
     run_one = function(step) {
       if (!isTRUE(step$check())) {
         ci_cat_with_color(
