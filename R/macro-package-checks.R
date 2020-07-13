@@ -61,8 +61,6 @@ do_package_checks <- function(...,
   #'    `warnings_are_errors`, `notes_are_errors`, `args`, and
   #'    `build_args` arguments.
   get_stage("script") %>%
-    # FIXME: Temporarily enforce roxygen dev, see https://github.com/r-lib/roxygen2/pull/1109
-    add_step(step_install_github("r-lib/roxygen2")) %>%
     add_step(
       step_rcmdcheck(
         warnings_are_errors = !!enquo(warnings_are_errors),
