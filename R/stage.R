@@ -20,8 +20,13 @@ TicStage <- R6Class( # nolint
         prepare = prepare %||% function() {}, # nolint
         name = name %||% "<unknown task>"
       )
-      private$steps <- c(private$steps, list(step))
-      invisible(self)
+      existing_steps <- purrr::map_chr(private$steps, ~ .x$name)
+      if (name %in% existing_steps) {
+        invisible(self)
+      } else {
+        private$steps <- c(private$steps, list(step))
+        invisible(self)
+      }
     },
 
     is_empty = function() {
