@@ -1,5 +1,6 @@
 ── install ──────────────────────────────────────────────────────────── stage ──
 ▶ step_install_deps(repos = repo_default())
 ▶ step_session_info()
+▶ step_install_deps(repos = "test")
 ── deploy ───────────────────────────────────────────────────────────── stage ──
 ▶ step_build_bookdown()

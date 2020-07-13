@@ -50,7 +50,12 @@ test_that("print stages", {
   )
 
   get_stage("install") %>%
-    add_step(step_session_info())
+    # exact duplicate with no arguments (should only appear once)
+    add_step(step_session_info()) %>%
+    # step with different argument (should appear)
+    add_step(step_install_deps(repos = "test")) %>%
+    # exact duplicate including arguments ((should only appear once))
+    add_step(step_install_deps(repos = repo_default()))
 
   expect_known_output(
     print(dsl_get()),
