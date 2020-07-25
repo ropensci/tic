@@ -2,6 +2,12 @@
     steps:
       - uses: actions/checkout@v2.1.1
 
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "$GITHUB_WORKFLOW"
+          git config --global user.email "${GITHUB_EVENT_NAME}@ghactions.local"
+        shell: bash
+
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
