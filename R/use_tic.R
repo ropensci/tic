@@ -397,6 +397,12 @@ use_tic <- function(wizard = interactive(),
     "Done! Thanks for using ", crayon::blue("tic"), ".",
     bullet = "star", bullet_col = "yellow"
   )
+
+  cli::cli_alert_info("Consider also to take a look at
+    {.fun tic::use_update_tic} to update your GHA YAML file via GHA. This way,
+    your template always gets updated automatically with new template changes.",
+    wrap = TRUE
+  )
 }
 
 arg_desc <- function(arg, last = FALSE) {
