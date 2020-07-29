@@ -62,7 +62,7 @@
 
       - name: "[Stage] Upload R CMD check artifacts"
         if: failure()
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2.1.1
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
