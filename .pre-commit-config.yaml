@@ -3,17 +3,17 @@
 repos:
 -   repo: https://github.com/lorenzwalthert/precommit
     rev: v0.1.2
-    hooks:
+    hooks: 
     -   id: style-files
-        args: [--style_pkg=styler, --style_fun=tidyverse_style]
+        args: [--style_pkg=styler, --style_fun=tidyverse_style]    
     -   id: roxygenize
     # codemeta must be above use-tidy-description when both are used
-    #-   id: codemeta-description-updated
-    #-   id: use-tidy-description
+    # -   id: codemeta-description-updated
+    -   id: use-tidy-description
     -   id: spell-check
         exclude: >
           (?x)^(
-          data/.*|
+          data/.*| 
           (.*/|)\.Rprofile|
           (.*/|)\.Renviron|
           (.*/|)\.gitignore|
@@ -39,16 +39,11 @@ repos:
     -   id: deps-in-desc
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.1.0
-    hooks:
+    hooks: 
     -   id: check-added-large-files
         args: ['--maxkb=200']
     -   id: end-of-file-fixer
-        exclude: >
-          (?x)^(
-          .*\.Rd|
-          .*\.yml|
-          )$
-
+        exclude: '\.Rd'
 -   repo: local
     hooks:
     -   id: forbid-to-commit

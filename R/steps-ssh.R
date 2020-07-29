@@ -6,12 +6,10 @@
 AddToKnownHosts <- R6Class(
   "AddToKnownHosts",
   inherit = TicStep,
-
   public = list(
     initialize = function(host = "github.com") {
       private$host <- host
     },
-
     run = function() {
       cli_text("{.fun step_add_to_known_hosts}: Running ssh-keyscan for
                {private$host}.")
@@ -30,13 +28,11 @@ AddToKnownHosts <- R6Class(
       cli_text("Adding to {known_hosts_path}.")
       write(keyscan_result, known_hosts_path, append = TRUE)
     },
-
     check = function() {
       # only if non-interactive and ssh-keyscan is available
       (!ci_is_interactive()) && (Sys.which("ssh-keyscan") != "")
     }
   ),
-
   private = list(
     host = NULL
   )
@@ -69,13 +65,11 @@ step_add_to_known_hosts <- function(host = "github.com") {
 InstallSSHKeys <- R6Class(
   "InstallSSHKeys",
   inherit = TicStep,
-
   public = list(
     initialize = function(private_key_name = "TIC_DEPLOY_KEY") {
       # for backward comp, if "id_rsa" exists we take this key
       private$private_key_name <- compat_ssh_key(private_key_name = private_key_name) # nolint
     },
-
     run = function() {
       private_key_name <- private$private_key_name
 
@@ -85,8 +79,7 @@ InstallSSHKeys <- R6Class(
         recursive = TRUE, showWarnings = FALSE
       )
       cli_text("{.fun step_install_ssh_keys}:
-               Writing deploy key to {.file {deploy_key_path}}."
-      )
+               Writing deploy key to {.file {deploy_key_path}}.")
       if (file.exists(deploy_key_path)) {
         cli_text("Not overwriting existing SSH key.")
         return()
@@ -111,11 +104,9 @@ InstallSSHKeys <- R6Class(
         global = TRUE
       )
     },
-
     prepare = function() {
       verify_install("openssl")
     },
-
     check = function() {
 
       # only if non-interactive and TIC_DEPLOY_KEY env var is available
@@ -138,7 +129,6 @@ InstallSSHKeys <- R6Class(
       }
     }
   ),
-
   private = list(
     private_key_name = NULL
   )
@@ -176,7 +166,6 @@ step_install_ssh_keys <- function(private_key_name = "TIC_DEPLOY_KEY") {
 TestSSH <- R6Class(
   "TestSSH",
   inherit = TicStep,
-
   public = list(
     initialize = function(url = "git@github.com",
                           verbose = "",
@@ -186,7 +175,6 @@ TestSSH <- R6Class(
       private$verbose <- verbose
       private$private_key_name <- private_key_name
     },
-
     run = function() {
 
       cli_text("{.fun step_test_ssh}: Trying to ssh into {private$url}")
@@ -206,7 +194,6 @@ TestSSH <- R6Class(
       }
     }
   ),
-
   private = list(
     url = NULL,
     verbose = NULL,
@@ -246,7 +233,6 @@ step_test_ssh <- function(url = "git@github.com",
 SetupSSH <- R6Class(
   "SetupSSH",
   inherit = TicStep,
-
   public = list(
     initialize = function(private_key_name = "TIC_DEPLOY_KEY",
                           host = "github.com",
@@ -260,19 +246,17 @@ SetupSSH <- R6Class(
         private_key_name = private_key_name
       )
     },
-
     prepare = function() {
+      verify_install("git2r")
       private$install_ssh_keys$prepare()
       private$add_to_known_hosts$prepare()
       private$test_ssh$prepare()
     },
-
     run = function() {
       private$install_ssh_keys$run()
       private$add_to_known_hosts$run()
       private$test_ssh$run()
     },
-
     check = function() {
       if (!private$install_ssh_keys$check()) {
         cli_alert_info("{.fun SetupSSH$check}: {.fun install_ssh_keys} failed.")
@@ -290,7 +274,6 @@ SetupSSH <- R6Class(
       return(TRUE)
     }
   ),
-
   private = list(
     add_to_known_hosts = NULL,
     install_ssh_keys = NULL,
