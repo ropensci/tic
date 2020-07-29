@@ -690,4 +690,9 @@ use_update_tic <- function() {
     ))
   )
   print(tree(data, root = basename(getwd())))
+
+  cli::cli_alert_info("Note that you need to add a secret with 'workflow' scopes
+    named {.var TIC_UPDATE} to your repo to make this automation work.
+    You can use {.code tic::gha_add_secret(<secret>, 'TIC_UPDATE')} for this.",
+    wrap = TRUE)
 }
