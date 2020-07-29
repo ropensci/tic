@@ -21,7 +21,7 @@ jobs:
           # comment out lines if you do not want to build on certain platforms
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release", pkgdown: "true" }
-          - { os: macOS-latest, r: "devel" }
+          - { os: ubuntu-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
     env:
@@ -167,4 +167,3 @@ jobs:
 
       - name: "[Stage] After Deploy"
         run: Rscript -e "tic::after_deploy()"
-

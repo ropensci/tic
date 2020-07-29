@@ -75,7 +75,7 @@ matrix:
     - { os: windows-latest, r: "release" }
     # [Custom matrix env var] test
     - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
-    - { os: macOS-latest, r: "devel" }
+    - { os: ubuntu-latest, r: "devel" }
     - { os: ubuntu-latest, r: "release" }
 ```
 
