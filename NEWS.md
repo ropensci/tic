@@ -1,15 +1,12 @@
-# tic 0.9.0.9003 (2020-07-29)
+# tic 0.9.0.9002
 
+- DSL: Don't add steps twice, if present in a previous macro (#272)
+- `update-tic.yml`: use peter-evans/create-pull-request@v3 and actions/checkout v2.3.1. Run on ubuntu instead of macOS
 - run r-devel on ubuntu instead of macOS
 - pin actions/upload-artifact to v2.1.1
 - update actions/checkout to v2.3.1
 - update pat-s/always-upload-cache to v2.1.0
 - `step_setup_ssh()` now verifies that {git2r} is installed. This prevents build failures for {rsconnect} deployments
-
-
-# tic 0.9.0.9002
-
-- DSL: Don't add steps twice, if present in a previous macro (#272)
 
 
 # tic 0.9.0.9001
