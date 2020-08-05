@@ -162,7 +162,12 @@
 </li>
 </ul>
 <p>All of these tags are used by {tic} to preserve user changes and choose the right upstream template. During the process <code><a href="../reference/update_yml.html">update_yml()</a></code> also prints how many custom blocks and env vars were found. If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template. In any case, it is recommended to review the changes to avoid unexpected CI failures.</p>
-<p>The feature is in beta state and issues are expected, especially for edge cases. The internal heuristic is somewhat hacky and highly tailored to the specific CI provider. Please file an issue in the repo if you experience problems.</p>
+<div id="special-case-custom-and-custom-deploy-templates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#special-case-custom-and-custom-deploy-templates" class="anchor"></a>Special case: <code>custom</code> and <code>custom-deploy</code> templates</h2>
+<p>If you are using the <code>custom</code> or <code>custom-deploy</code> deploy template (e.g. via <code><a href="../reference/yaml_templates.html">tic::use_ghactions_yml("custom")</a></code>), <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> will ignore the header part until the <code>env:</code> key completely. This enables you to can change the build trigger settings like <code>push:</code>, <code>pull_request:</code> without having to worry that these get be overwritten during template updates. This also includes the runner configs. Hence, these template types can be used for more specialized GHA setups which can still profit from automatic updates to its core blocks and their respective action versions.</p>
+<p>Note that the feature is in beta state and issues are expected, especially for edge cases. The internal heuristic is somewhat hacky and highly tailored to the specific CI provider. Please file an issue in the repo if you experience problems.</p>
+</div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
