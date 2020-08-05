@@ -56,7 +56,14 @@ During the process `update_yml()` also prints how many custom blocks and env var
 If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template.
 In any case, it is recommended to review the changes to avoid unexpected CI failures.
 
-The feature is in beta state and issues are expected, especially for edge cases.
+## Special case: `custom` and `custom-deploy` templates
+
+If you are using the `custom` or `custom-deploy` deploy template (e.g. via `tic::use_ghactions_yml("custom")`), `tic::update_yml()` will ignore the header part until the `env:` key completely.
+This enables you to can change the build trigger settings like `push:`, `pull_request:` without having to worry that these get be overwritten during template updates.
+This also includes the runner configs.
+Hence, these template types can be used for more specialized GHA setups which can still profit from automatic updates to its core blocks and their respective action versions.
+
+Note that the feature is in beta state and issues are expected, especially for edge cases.
 The internal heuristic is somewhat hacky and highly tailored to the specific CI provider.
 Please file an issue in the repo if you experience problems.
 

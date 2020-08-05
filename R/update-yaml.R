@@ -379,6 +379,42 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
       )
     }
   }
+
+  # update header -------------------------------------------------------
+
+  custom_header <- stringr::str_which(
+    tmpl_local,
+    "#.\\[Custom header"
+  )
+  if (length(custom_header) > 0) {
+    cli::cli_alert_info("Found a custom header entry. Will use this instead of the template part..") # nolint
+    # find 'jobs:' tags
+    custom_header_local <- stringr::str_which(
+      tmpl_local,
+      "env:"
+    )
+    custom_header_latest <- stringr::str_which(
+      tmpl_latest,
+      "env:"
+    )
+
+    # get latest revision date
+    rev_date_latest <- as.Date(gsub(
+      ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
+      tmpl_latest[2]
+    ), quiet = TRUE)
+
+    # extract the local header
+    header_local <- tmpl_local[1:custom_header_local]
+
+    # replace the latest header with the local header
+    tmpl_latest <- tmpl_latest[-(1:custom_header_latest)]
+    tmpl_latest <- append(tmpl_latest, header_local, after = 0)
+
+    # update latest revision date
+    tmpl_latest[2] <- sprintf("## revision date: %s", rev_date_latest)
+  }
+
   return(tmpl_latest)
 }
 
@@ -694,5 +730,6 @@ use_update_tic <- function() {
   cli::cli_alert_info("Note that you need to add a secret with 'workflow' scopes
     named {.var TIC_UPDATE} to your repo to make this automation work.
     You can use {.code tic::gha_add_secret(<secret>, 'TIC_UPDATE')} for this.",
-    wrap = TRUE)
+    wrap = TRUE
+  )
 }

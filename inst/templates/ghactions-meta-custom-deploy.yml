@@ -1,5 +1,6 @@
 ## tic GitHub Actions template: custom-deploy
 ## revision date: 2020-07-29
+# [Custom header]
 on:
   push:
   pull_request:
@@ -20,5 +21,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # Custom configs
+          ### Custom configs (specify your own runners here)
+          # [Custom matrix env var]
+          # - { os: windows-latest, r: "release" }
+          # [Custom matrix env var]
+          # - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
+          # [Custom matrix env var]
+          # - { os: ubuntu-latest, r: "release" }
+          # [Custom matrix env var]
+          # - { os: ubuntu-latest, r: "devel" }
 
