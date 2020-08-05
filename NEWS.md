@@ -7,6 +7,7 @@
 - update actions/checkout to v2.3.1
 - update pat-s/always-upload-cache to v2.1.0
 - `step_setup_ssh()` now verifies that {git2r} is installed. This prevents build failures for {rsconnect} deployments
+- `update-tic.yml`: install libs via `apt` on Linux instead of `brew`
 
 
 # tic 0.9.0.9001
