@@ -163,7 +163,8 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
     "#.\\[Custom matrix name"
   )
   if (length(custom_matrix_matrix_name) > 0) {
-    cli::cli_alert_info("Found {.val {length(custom_matrix_matrix_name)}} custom matrix name variable{?s}.") # nolint
+    cli::cli_alert_info("Found {.val {length(custom_matrix_matrix_name)}}
+      custom matrix name variable{?s}.", wrap = TRUE)
     # find env var section in latest template (adding +1 to skip the comment)
     matrix_name_index_latest <- stringr::str_which(
       tmpl_latest,
@@ -194,7 +195,8 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
     "#.\\[Custom matrix env var"
   )
   if (length(custom_matrix_env_vars) > 0) {
-    cli::cli_alert_info("Found {.val {length(custom_matrix_env_vars)}} custom matrix env variable{?s}.") # nolint
+    cli::cli_alert_info("Found {.val {length(custom_matrix_env_vars)}} custom
+      matrix env variable{?s}.", wrap = TRUE)
     # find env var section in latest template (adding +1 to skip the comment)
     matrix_env_var_index_latest <- stringr::str_which(
       tmpl_latest,
@@ -221,7 +223,8 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
   custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
-    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env variable{?s}.") # nolint
+    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env
+      variable{?s}.", wrap = TRUE)
     # find env var section in latest template
     env_var_index_latest <- stringr::str_which(tmpl_latest, "env:")
 
@@ -387,7 +390,9 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
     "#.\\[Custom header"
   )
   if (length(custom_header) > 0) {
-    cli::cli_alert_info("Found a custom header entry. Will use this instead of the template part..") # nolint
+    cli::cli_alert_info("Found a custom header entry. Will use it
+      instead of the header in the {.pkg tic} upstream template.",
+      wrap = TRUE)
     # find 'jobs:' tags
     custom_header_local <- stringr::str_which(
       tmpl_local,
@@ -428,7 +433,8 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
   custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
-    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env variable{?s}.") # nolint
+    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env
+      variable{?s}.", wrap = TRUE)
 
     for (release in c(
       "# r-release-env", "# r-oldrelease-env",
@@ -565,7 +571,8 @@ update_travis_yml <- function(tmpl_local, tmpl_latest) {
   custom_env_vars <- stringr::str_which(tmpl_local, "#.\\[Custom env")
 
   if (length(custom_env_vars) > 0) {
-    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env variable{?s}.") # nolint
+    cli::cli_alert_info("Found {.val {length(custom_env_vars)}} custom env
+      variable{?s}.", wrap = TRUE)
 
     for (env_var in custom_env_vars) {
 
