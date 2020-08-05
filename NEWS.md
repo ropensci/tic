@@ -1,3 +1,8 @@
+# tic 0.9.0.9003 (2020-08-05)
+
+- improve heuristic for updating header parts of "custom" and "custom-deploy" templates
+
+
 # tic 0.9.0.9002
 
 - DSL: Don't add steps twice, if present in a previous macro (#272)
