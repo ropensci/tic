@@ -216,7 +216,10 @@
 <h4 class="hasAnchor">
 <a href="#macos" class="anchor"></a>macOS</h4>
 <p>homebrew-core has formulas for <code>gdal</code>, <code>geos</code> and <code>proj</code>. If you need more spatial formulas, have a look at the <a href="https://github.com/OSGeo/homebrew-osgeo4mac">osgeo4mac</a> tap. Note however, that when installing formulas from the latter, these will conflict with the ones from homebrew-core. Either install all formulas from <code>osgeo4mac</code> or none.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="at">brew install gdal proj geos</span></span></code></pre></div>
+<p>Also one needs to remove the <code>gfortran</code> build that is installed with <code>actions/setup-r</code>. This is due to <code>brew</code> installing <code>gcc</code> during the installation of <code>gdal</code>. <code>gcc</code> comes with <code>gfortran</code> included and when <code>brew</code> tries to link <code>gfortran</code> it will fail since there is already a local instance of <code>gfortran</code>. Hence, this instance needs to be removed so that the <code>brew link</code> step does not error and stop the build.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># conflicts with gfortran from r-lib/actions when linking gcc</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">rm '/usr/local/bin/gfortran'</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">brew install gdal proj geos</span></span></code></pre></div>
 </div>
 <div id="linux" class="section level4">
 <h4 class="hasAnchor">
