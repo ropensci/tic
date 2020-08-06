@@ -1,7 +1,8 @@
 ## tic GitHub Actions template: custom-deploy
-## revision date: 2020-07-29
+## revision date: 2020-08-06
 # [Custom header]
 on:
+  workflow_dispatch:
   push:
   pull_request:
   # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
