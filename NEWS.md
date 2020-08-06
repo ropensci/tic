@@ -1,5 +1,7 @@
-# tic 0.9.0.9003 (2020-08-05)
+# tic 0.9.0.9003 (2020-08-06)
 
+- GHA: add `workflow_dispatch` event trigger to templates
+- update instructions for spatial libs on macOS for GHA
 - improve heuristic for updating header parts of "custom" and "custom-deploy" templates
 
 
