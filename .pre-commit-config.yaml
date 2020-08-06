@@ -43,7 +43,11 @@ repos:
     -   id: check-added-large-files
         args: ['--maxkb=200']
     -   id: end-of-file-fixer
-        exclude: '\.Rd'
+        exclude: >
+          (?x)^(
+          '\.Rd' |
+          .*\.yml
+          )$
 -   repo: local
     hooks:
     -   id: forbid-to-commit
