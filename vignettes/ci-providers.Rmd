@@ -129,7 +129,14 @@ If you need more spatial formulas, have a look at the [osgeo4mac](https://github
 Note however, that when installing formulas from the latter, these will conflict with the ones from homebrew-core.
 Either install all formulas from `osgeo4mac` or none.
 
+Also one needs to remove the `gfortran` build that is installed with `actions/setup-r`.
+This is due to `brew` installing `gcc` during the installation of `gdal`.
+`gcc` comes with `gfortran` included and when `brew` tries to link `gfortran` it will fail since there is already a local instance of `gfortran`.
+Hence, this instance needs to be removed so that the `brew link` step does not error and stop the build.
+
 ```yaml
+# conflicts with gfortran from r-lib/actions when linking gcc
+rm '/usr/local/bin/gfortran'
 brew install gdal proj geos
 ```
 
