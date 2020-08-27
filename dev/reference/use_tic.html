@@ -177,10 +177,10 @@ tic." />
 
     <pre class="usage"><span class='fu'>use_tic</span>(
   <span class='kw'>wizard</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(),
-  <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-  <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-  <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
-  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
+  <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>,
+  <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>,
+  <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>,
+  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>,
   <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
   <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
   <span class='kw'>travis_endpoint</span> <span class='kw'>=</span> <span class='st'>".com"</span>,
@@ -198,30 +198,30 @@ shown.</p></td>
     <tr>
       <th>linux</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Linux.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code> and
-<code>"all"</code>.</p></td>
+Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
+and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>mac</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on macOS
-Possible options are <code>"none"</code>, <code>"travis"</code> and <code>"ghactions"</code>.</p></td>
+Possible options are <code>"none"</code>/<code>NULL</code>, <code>"travis"</code> and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>windows</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Windows
-Possible options are <code>"none"</code>, <code>"appveyor"</code> and <code>"ghactions"</code>.</p></td>
+Possible options are <code>"none"</code>/<code>NULL</code>, <code>"appveyor"</code> and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>deploy</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to deploy artifacts
 such as pkgdown documentation. Possible options are <code>"travis"</code>, <code>"circle"</code>,
-<code>"ghactions"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
+<code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code> and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>matrix</th>
       <td><p><code>[string]</code><br /> For which CI provider(s) to set up matrix builds.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code> and
-<code>"all"</code>.</p></td>
+Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
+and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>private_key_name</th>
