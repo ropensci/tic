@@ -16,18 +16,18 @@
 #' @param wizard `[flag]`\cr Interactive operation? If `TRUE`, a menu will be
 #'   shown.
 #' @param linux `[string]`\cr Which CI provider(s) to use to test on Linux.
-#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"` and
-#'   `"all"`.
+#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"`/`NULL`
+#'   and `"all"`.
 #' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
-#'   Possible options are `"none"`, `"appveyor"` and `"ghactions"`.
+#'   Possible options are `"none"`/`NULL`, `"appveyor"` and `"ghactions"`.
 #' @param mac `[string]`\cr Which CI provider(s) to use to test on macOS
-#'   Possible options are `"none"`, `"travis"` and `"ghactions"`.
+#'   Possible options are `"none"`/`NULL`, `"travis"` and `"ghactions"`.
 #' @param deploy `[string]`\cr Which CI provider(s) to use to deploy artifacts
 #'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
-#'   `"ghactions"`, `"none"` and `"all"`.
+#'   `"ghactions"`, `"none"`/`NULL` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
-#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"` and
-#'   `"all"`.
+#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"`/`NULL`
+#'   and `"all"`.
 #' @template private_key_name
 #' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
 #'   options are `".org"` and `".com"`. Default is `".com"`. See
@@ -50,10 +50,10 @@
 #'   )
 #' }
 use_tic <- function(wizard = interactive(),
-                    linux = "travis",
-                    mac = "travis",
-                    windows = "appveyor",
-                    deploy = "travis",
+                    linux = "ghactions",
+                    mac = "ghactions",
+                    windows = "ghactions",
+                    deploy = "ghactions",
                     matrix = "none",
                     private_key_name = "TIC_DEPLOY_KEY",
                     travis_endpoint = ".com",
