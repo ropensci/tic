@@ -3,6 +3,10 @@
 #'   latest versions. Currently only GitHub Actions and Circle CI templates are
 #'   supported.
 #'
+#' @details By default all workflow files starting with `tic` are matched. This
+#'   means that you can have multiple YAML files with update support, e.g.
+#'   `"tic.yml"` and `"tic-db.yml"`.
+#'
 #' @section Formatting requirements of tic YAML templates: To ensure that
 #'   updating of {tic} templates works, ensure the following points:
 #' - Your template contains the type (e.g. linux-matrix-deploy) and the revision
@@ -18,10 +22,12 @@
 #' @param template_out `[character]`\cr
 #'   Where the updated template should be written to. This is mainly used for
 #'   internal testing purposes and should not be set by the user.
-#'   Can only be set
 #'
 #' @examples
 #' \dontrun{
+#' # auto-search
+#' update_yml()
+#'
 #' update_yml("tic.yml")
 #'
 #' # custom named templates
@@ -38,8 +44,11 @@ update_yml <- function(template_in = NULL,
   # by default all templates will be updated that can be found
   if (is.null(template_in)) {
     # check for existences of .travis.yml, circle-ci/config.yml and tic.yml
-    if (file.exists(usethis::proj_path(".github/workflows", "tic.yml"))) {
-      ghactions <- usethis::proj_path(".github/workflows", "tic.yml")
+    tic_ymls <- list.files(usethis::proj_path(".github/workflows"),
+      pattern = "^tic*", full.names = TRUE
+    )
+    if (length(tic_ymls) > 0) {
+      ghactions <- tic_ymls
     }
     else {
       # account for old main.yml default
@@ -125,15 +134,16 @@ update_yml <- function(template_in = NULL,
     ), quiet = TRUE)
 
     if (!rev_date_latest > rev_date_local) {
-      rlang::inform(sprintf(
-        "You already have the latest version of the %s template (%s).",
-        ci_provider,
-        rev_date_latest
-      ))
+      cli::cli_alert_info(
+        "{.file {basename(instance)}}: You already have the latest version of
+        the {ci_provider} template (rev_date_latest).",
+        wrap = TRUE
+      )
       next
     } else {
-      cli::cli_alert("Updating {ci_provider} template from version
-      '{rev_date_local} to version '{rev_date_latest}'.", wrap = TRUE)
+      cli::cli_alert("Updating {ci_provider} template
+        {.file {basename(instance)}} from version
+        '{rev_date_local} to version '{rev_date_latest}'.", wrap = TRUE)
     }
 
     # call internal update function for each provider
@@ -144,6 +154,8 @@ update_yml <- function(template_in = NULL,
     )
 
     cli::cli_alert_info("Writing {.file {template_out}}.")
+    cli::cli_par()
+    cli::cli_end()
     writeLines(tmpl_latest, template_out)
 
     # reset template_out
@@ -392,7 +404,8 @@ update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
   if (length(custom_header) > 0) {
     cli::cli_alert_info("Found a custom header entry. Will use it
       instead of the header in the {.pkg tic} upstream template.",
-      wrap = TRUE)
+      wrap = TRUE
+    )
     # find 'jobs:' tags
     custom_header_local <- stringr::str_which(
       tmpl_local,

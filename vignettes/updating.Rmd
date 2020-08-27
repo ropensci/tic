@@ -156,9 +156,11 @@ Updating {tic} YAML files can be automated further.
 We provide a [GitHub Actions workflow](https://github.com/ropenscilabs/tic.package/blob/ba72e7fb57c094b1e704ebe5ee8ed157e2b5fbb5/.github/workflows/update-tic.yml) which can be used together with `tic::update_yml()` to update the templates whenever there are newer upstream versions available.
 The workflow will create a branch, update the files and commit them and even open a pull request.
 
-Just put this workflow next to `.github/workflows/tic.yml` and it will silently do its job.
+Just put this workflow next to any `tic.yml` file within `.github/workflows/` and it will silently do its job.
 By default it will run over night as a CRON job.
 It only runs once a day and is not being executed on push or pull request events.
+The underlying `update_yml()` will match all files starting with `"tic"`.
+Hence you can add multiple YAML files with {tic} support, e.g. `"tic.yml"` and `"tic-db.yml"`.
 
 Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches.
 To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with "workflow" scopes.
