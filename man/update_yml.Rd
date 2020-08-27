@@ -15,13 +15,17 @@ be passed.}
 
 \item{template_out}{\verb{[character]}\cr
 Where the updated template should be written to. This is mainly used for
-internal testing purposes and should not be set by the user.
-Can only be set}
+internal testing purposes and should not be set by the user.}
 }
 \description{
 Updates YAML templates to their
 latest versions. Currently only GitHub Actions and Circle CI templates are
 supported.
+}
+\details{
+By default all workflow files starting with \code{tic} are matched. This
+means that you can have multiple YAML files with update support, e.g.
+\code{"tic.yml"} and \code{"tic-db.yml"}.
 }
 \section{Formatting requirements of tic YAML templates}{
  To ensure that
@@ -36,6 +40,9 @@ allowed. Otherwise the update heuristic gets in trouble.
 
 \examples{
 \dontrun{
+# auto-search
+update_yml()
+
 update_yml("tic.yml")
 
 # custom named templates

@@ -14,14 +14,14 @@ step_build_bookdown(...)
 TRUE}, only files specified in this argument are rendered, otherwise all R
 Markdown files specified by the book are rendered.}
     \item{\code{output_format}}{Arguments to be passed to
-\code{rmarkdown::\link[rmarkdown]{render}()}. For \code{preview_chapter()},
-\code{...} is passed to \code{render_book()}.}
+\code{rmarkdown::\link{render}()}. For \code{preview_chapter()}, \code{...}
+is passed to \code{render_book()}.}
     \item{\code{clean}}{Arguments to be passed to
-\code{rmarkdown::\link[rmarkdown]{render}()}. For \code{preview_chapter()},
-\code{...} is passed to \code{render_book()}.}
+\code{rmarkdown::\link{render}()}. For \code{preview_chapter()}, \code{...}
+is passed to \code{render_book()}.}
     \item{\code{envir}}{Arguments to be passed to
-\code{rmarkdown::\link[rmarkdown]{render}()}. For \code{preview_chapter()},
-\code{...} is passed to \code{render_book()}.}
+\code{rmarkdown::\link{render}()}. For \code{preview_chapter()}, \code{...}
+is passed to \code{render_book()}.}
     \item{\code{clean_envir}}{Whether to clean up the environment \code{envir} before
 rendering the book. By default, the environment is cleaned when rendering
 the book in a non-interactive R session.}
@@ -37,8 +37,6 @@ files (if not provided, the value of the \code{new_session} option in
 \code{input} argument. Previewing a certain chapter may save compilation
 time as you actively work on this chapter, but the output may not be
 accurate (e.g. cross-references to other chapters will not work).}
-    \item{\code{encoding}}{Ignored. The character encoding of all input files is
-supposed to be UTF-8.}
     \item{\code{config_file}}{The book configuration file.}
   }}
 }
