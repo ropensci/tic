@@ -143,7 +143,7 @@ gha_add_secret <- function(secret,
   )
 
   cli::cli_alert_success("Successfully added secret {.env {name}} to repo
-   '{travis::get_owner(remote)}/{travis::get_repo(remote)}'.", wrap = TRUE)
+   {.field {travis::get_owner(remote)}/{travis::get_repo(remote)}}.", wrap = TRUE)
 }
 
 #' Setup deployment for GitHub Actions
