@@ -5,6 +5,9 @@
 \alias{github_add_key}
 \alias{check_admin_repo}
 \alias{get_role_in_repo}
+\alias{get_public_key}
+\alias{encode_private_key}
+\alias{check_private_key_name}
 \title{SSH key helpers}
 \usage{
 github_add_key(
@@ -19,6 +22,12 @@ github_add_key(
 check_admin_repo(owner, user, repo)
 
 get_role_in_repo(owner, user, repo)
+
+get_public_key(key)
+
+encode_private_key(key)
+
+check_private_key_name(string)
 }
 \arguments{
 \item{pubkey}{The public key of the SSH key pair}
@@ -38,6 +47,10 @@ add a key to the repo. Setting this to \code{FALSE} makes it possible to add key
 to other repos than just the one from which the function is called.}
 
 \item{owner}{The owner of the repository}
+
+\item{key}{The SSH key pair object}
+
+\item{string}{String to check}
 }
 \description{
 SSH key helpers

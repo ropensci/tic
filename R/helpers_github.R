@@ -39,8 +39,8 @@ github_add_key <- function(pubkey,
 
   # add public key to repo deploy keys on GitHub
   ret <- add_key(key_data,
-                 owner = get_owner(remote = remote),
-                 project = repo
+    owner = get_owner(remote = remote),
+    project = repo
   )
 
   cli::cat_rule()
@@ -69,9 +69,9 @@ check_admin_repo <- function(owner, user, repo) {
 add_key <- function(key_data, owner, project) {
 
   resp <- gh::gh("POST /repos/:owner/:repo/keys",
-                 owner = owner, repo = project,
-                 title = key_data$title,
-                 key = key_data$key, read_only = key_data$read_only
+    owner = owner, repo = project,
+    title = key_data$title,
+    key = key_data$key, read_only = key_data$read_only
   )
 
   invisible(resp)
@@ -86,7 +86,7 @@ add_key <- function(key_data, owner, project) {
 get_role_in_repo <- function(owner, user, repo) {
 
   req <- gh::gh("/repos/:owner/:repo/collaborators/:username/permission",
-                owner = owner, repo = repo, username = user
+    owner = owner, repo = repo, username = user
   )
   req$permission
 }
@@ -190,6 +190,39 @@ extract_repo <- function(url) {
   paste0(match[2], "/", match[3])
 }
 
+#' @param key The SSH key pair object
+#' @keywords internal
+#' @name ssh_key_helpers
+#' @export
+get_public_key <- function(key) {
+  as.list(key)$pubkey
+}
+
+#' @param key The SSH key pair object
+#' @keywords internal
+#' @rdname ssh_key_helpers
+#' @export
+encode_private_key <- function(key) {
+  conn <- textConnection(NULL, "w")
+  openssl::write_pem(key, conn, password = NULL)
+  private_key <- textConnectionValue(conn)
+  close(conn)
+
+  private_key <- paste(private_key, collapse = "\n")
+
+  openssl::base64_encode(charToRaw(private_key))
+}
+
+#' @param string String to check
+#' @keywords internal
+#' @rdname ssh_key_helpers
+#' @export
+check_private_key_name <- function(string) {
+  if (grepl("[ ]", string)) {
+    stopc("Name contains whitespaces. Please supply a name without whitespaces.") # nolint
+  }
+  return(invisible(TRUE))
+}
 
 # GH auth helpers --------------------------------------------------------------
 
