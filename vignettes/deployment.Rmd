@@ -61,8 +61,8 @@ Follow these steps to add deployment capabilities via {tic} to Appveyor builds:
    ```{r, eval=FALSE}
    key <- openssl::rsa_keygen()
    
-   pub_key <- travis:::get_public_key(key)$ssh
-   private_key <- travis:::encode_private_key(key)
+   pub_key <- tic:::get_public_key(key)$ssh
+   private_key <- tic:::encode_private_key(key)
    ```
 
 1. Copy the public key and add it as an deploy key to `Settings -> Deploy Key` of the _drat repo you want to deploy to_ (**not** the one of the package which should be deployed).

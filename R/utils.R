@@ -152,7 +152,7 @@ use_github_interactive <- function() {
   if (!interactive()) {
     return()
   }
-  if (travis::uses_github()) {
+  if (uses_github()) {
     return()
   }
 
