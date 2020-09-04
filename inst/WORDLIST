@@ -3,6 +3,7 @@ Appveyor
 AppVeyor
 args
 aut
+auth
 BASEDIR
 blogdown
 Blogdown
@@ -184,7 +185,9 @@ pkgdown
 pkgType
 Pre
 programmingLanguage
+proj
 ps
+pubkey
 purrr
 rb
 rcmdcheck
@@ -192,6 +195,7 @@ RdMacros
 readme
 README
 releaseNotes
+Renviron
 repo
 repos
 reproducibility
@@ -228,6 +232,7 @@ SDK
 SDKROOT
 SDKs
 seealso
+Sexpr
 SHA
 SoftwareApplication
 softwareRequirements

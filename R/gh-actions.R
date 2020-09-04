@@ -96,16 +96,16 @@ gha_add_secret <- function(secret,
   requireNamespace("gh", quietly = TRUE)
 
   if (is.null(repo_slug)) {
-    owner <- travis::get_owner(remote)
-    repo <- travis::get_repo(remote)
-    repo_slug <- paste(travis::get_owner(remote), "/", travis::get_repo(remote))
+    owner <- get_owner(remote)
+    repo <- get_repo(remote)
+    repo_slug <- paste(get_owner(remote), "/", get_repo(remote))
   } else {
     slug <- strsplit(repo_slug, "/")[[1]]
     owner <- slug[1]
     repo <- slug[2]
   }
 
-  travis::auth_github()
+  auth_github()()
 
   key_id <- gh::gh("GET /repos/:owner/:repo/actions/secrets/public-key",
     owner = owner,
@@ -143,7 +143,7 @@ gha_add_secret <- function(secret,
   )
 
   cli::cli_alert_success("Successfully added secret {.env {name}} to repo
-   {.field {travis::get_owner(remote)}/{travis::get_repo(remote)}}.", wrap = TRUE)
+   {.field {get_owner(remote)}/{get_repo(remote)}}.", wrap = TRUE)
 }
 
 #' Setup deployment for GitHub Actions
@@ -169,7 +169,7 @@ gha_add_secret <- function(secret,
 #'   The GitHub remote which should be used. Defaults to "origin".
 #' @export
 use_ghactions_deploy <- function(path = usethis::proj_get(),
-                                 repo = travis::get_repo_slug(remote),
+                                 repo = get_repo_slug(remote),
                                  key_name_private = "TIC_DEPLOY_KEY",
                                  key_name_public = "Deploy key for GitHub Actions", # nolint
                                  remote = "origin") {
@@ -178,24 +178,24 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   requireNamespace("gh", quietly = TRUE)
   requireNamespace("purrr", quietly = TRUE)
 
-  travis::auth_github()
+  auth_github()()
 
   # generate deploy key pair
   key <- openssl::rsa_keygen() # TOOD: num bits?
 
   # encrypt private key using tempkey and iv
-  pub_key <- travis::get_public_key(key)
-  private_key <- travis::encode_private_key(key)
+  pub_key <- get_public_key(key)
+  private_key <- encode_private_key(key)
 
-  travis::check_private_key_name(key_name_private)
+  check_private_key_name(key_name_private)
 
   # Clear old keys on GitHub deploy key ----------------------------------------
 
   # query deploy key
   cli::cli_alert_info("Querying GitHub deploy keys from repo.")
   gh_keys <- gh::gh("/repos/:owner/:repo/keys",
-    owner = travis::get_owner(remote),
-    repo = travis::get_repo(remote)
+    owner = get_owner(remote),
+    repo = get_repo(remote)
   )
 
   if (!gh_keys[1] == "") {
@@ -213,8 +213,8 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   }
 
   secrets <- gh::gh("/repos/:owner/:repo/actions/secrets",
-    owner = travis::get_owner(remote),
-    repo = travis::get_repo(remote)
+    owner = get_owner(remote),
+    repo = get_repo(remote)
   )
 
   secret_names <- purrr::map_chr(secrets$secrets, "name")
@@ -233,13 +233,13 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     !private_key_exists && !public_key_exists) {
     cli::cli_alert("At least one key part is missing (private or public).
       Deleting old keys and adding new GitHub Actions deploy keys
-      for repo {travis::get_owner(remote)}/{travis::get_repo(remote)}",
+      for repo {get_owner(remote)}/{get_repo(remote)}",
       wrap = TRUE
     )
     cli::rule()
   } else if (!private_key_exists && !public_key_exists) {
     cli::cli_alert("Adding Deploy keys for repo
-                   {travis::get_owner(remote)}/{travis::get_repo(remote)}",
+                   {get_owner(remote)}/{get_repo(remote)}",
       wrap = TRUE
     )
     cli::rule()
@@ -254,17 +254,17 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
     key_id <- which(gh_keys_names %>%
       purrr::map_lgl(~ .x == key_name_public))
     gh::gh("DELETE /repos/:owner/:repo/keys/:key_id",
-      owner = travis::get_owner(remote),
-      repo = travis::get_repo(remote),
+      owner = get_owner(remote),
+      repo = get_repo(remote),
       key_id = gh_keys[[key_id]]$id
     )
   }
 
   # add public key
-  travis::github_add_key(
+  github_add_key(
     pubkey = pub_key,
-    user = travis::get_user(),
-    repo = travis::get_repo(remote),
+    user = get_user(),
+    repo = get_repo(remote),
     title = key_name_public,
     remote = remote
   )
@@ -272,8 +272,8 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   # delete private key if it exists
   if (private_key_exists) {
     gh::gh("DELETE /repos/:owner/:repo/actions/secrets/:name",
-      owner = travis::get_owner(remote),
-      repo = travis::get_repo(remote),
+      owner = get_owner(remote),
+      repo = get_repo(remote),
       name = key_name_private
     )
   }
@@ -281,14 +281,14 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   # we need to get the key_id of the users PAT
   # https://developer.github.com/v3/actions/secrets/#get-your-public-key
   key_id <- gh::gh("GET /repos/:owner/:repo/actions/secrets/public-key",
-    owner = travis::get_owner(remote),
-    repo = travis::get_repo(remote)
+    owner = get_owner(remote),
+    repo = get_repo(remote)
   )$key_id
 
 
   pub_key_gh <- gh::gh("GET /repos/:owner/:repo/actions/secrets/public-key",
-    owner = travis::get_owner(remote),
-    repo = travis::get_repo(remote)
+    owner = get_owner(remote),
+    repo = get_repo(remote)
   )$key
 
   # convert to raw for sodium
@@ -302,8 +302,8 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
 
   # add private key
   gh::gh("PUT /repos/:owner/:repo/actions/secrets/:name",
-    owner = travis::get_owner(remote),
-    repo = travis::get_repo(remote),
+    owner = get_owner(remote),
+    repo = get_repo(remote),
     name = key_name_private,
     key_id = key_id,
     encrypted_value = private_key_encr
@@ -312,12 +312,12 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   cli::cat_rule()
   cli::cli_alert_success(
     "Added the private SSH key as secret {.var {key_name_private}} to repository
-    {.code {travis::get_owner(remote)}/{travis::get_repo(remote)}}.",
+    {.code {get_owner(remote)}/{get_repo(remote)}}.",
     wrap = TRUE
   )
   cli::cli_alert_success(
     "Added the public SSH key as a deploy key to project
-    {.code {travis::get_owner(remote)}/{travis::get_repo(remote)}} on GitHub.",
+    {.code {get_owner(remote)}/{get_repo(remote)}} on GitHub.",
     wrap = TRUE
   )
 }

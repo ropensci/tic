@@ -111,6 +111,7 @@ Collate:
     'dsl.R'
     'gh-actions.R'
     'git2r.R'
+    'helpers_github.R'
     'install.R'
     'local.R'
     'macro.R'
