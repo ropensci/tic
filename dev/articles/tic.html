@@ -41,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9004</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9005</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -310,7 +310,7 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">blogdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/install_hugo.html">install_hugo</a></span>())</pre></body></html></div>
-<p>Next the website is built and deployed. The <code><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">blogdown::build_site()</a></code> function for websites is the equivalent to <code><a href="https://rdrr.io/pkg/pkgdown/man/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
+<p>Next the website is built and deployed. The <code><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">blogdown::build_site()</a></code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">blogdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">build_site</a></span>()) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</pre></body></html></div>

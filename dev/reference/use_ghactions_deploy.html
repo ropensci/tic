@@ -83,7 +83,7 @@ in the GitHub repo." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9004</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9005</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -175,13 +175,13 @@ in the GitHub repo." />
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
 <p>Creates a public-private key pair, adds the public key to the GitHub
-repository via <code>github_add_key()</code>, and stores the private key as a "secret"
+repository via <code><a href='ssh_key_helpers.html'>github_add_key()</a></code>, and stores the private key as a "secret"
 in the GitHub repo.</p>
     </div>
 
     <pre class="usage"><span class='fu'>use_ghactions_deploy</span>(
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw pkg'>usethis</span><span class='kw ns'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span>(),
-  <span class='kw'>repo</span> <span class='kw'>=</span> <span class='kw pkg'>travis</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/travis/man/github_helpers.html'>get_repo_slug</a></span>(<span class='no'>remote</span>),
+  <span class='kw'>repo</span> <span class='kw'>=</span> <span class='fu'><a href='github_helpers.html'>get_repo_slug</a></span>(<span class='no'>remote</span>),
   <span class='kw'>key_name_private</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
   <span class='kw'>key_name_public</span> <span class='kw'>=</span> <span class='st'>"Deploy key for GitHub Actions"</span>,
   <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>

@@ -41,7 +41,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9004</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9005</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -172,8 +172,8 @@
 <p>Generate a SSH key pair</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">key</span> <span class="kw">&lt;-</span> <span class="kw pkg">openssl</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span>()
 
-<span class="no">pub_key</span> <span class="kw">&lt;-</span> <span class="kw pkg">travis</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/ssh_key_helpers.html">get_public_key</a></span>(<span class="no">key</span>)$<span class="no">ssh</span>
-<span class="no">private_key</span> <span class="kw">&lt;-</span> <span class="kw pkg">travis</span><span class="kw ns">:::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/ssh_key_helpers.html">encode_private_key</a></span>(<span class="no">key</span>)</pre></body></html></div>
+<span class="no">pub_key</span> <span class="kw">&lt;-</span> <span class="kw pkg">tic</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">get_public_key</a></span>(<span class="no">key</span>)$<span class="no">ssh</span>
+<span class="no">private_key</span> <span class="kw">&lt;-</span> <span class="kw pkg">tic</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">encode_private_key</a></span>(<span class="no">key</span>)</pre></body></html></div>
 </li>
 <li><p>Copy the public key and add it as an deploy key to <code>Settings -&gt; Deploy Key</code> of the <em>drat repo you want to deploy to</em> (<strong>not</strong> the one of the package which should be deployed).</p></li>
 <li><p>Copy the private key and log into to your Appveyor account. Go to <code>Account -&gt; Encrypt YAML</code> and encrypt the private key.</p></li>

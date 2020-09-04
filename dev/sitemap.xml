@@ -43,6 +43,12 @@
     <loc>https://docs.ropensci.org/tic/dev/reference/gha_add_secret.html</loc>
   </url>
   <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/github_helpers.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/github_info.html</loc>
+  </url>
+  <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/list_macros.html</loc>
   </url>
   <url>
@@ -62,6 +68,9 @@
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/run_stage.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/reference/ssh_key_helpers.html</loc>
   </url>
   <url>
     <loc>https://docs.ropensci.org/tic/dev/reference/stages.html</loc>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions — Deprecated • tic</title>
+<title>Github information — github_repo • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,8 +44,10 @@
 <!-- ropensci -->
 <link href="../ropensci.css?nocache=123" rel="stylesheet">
 
-<meta property="og:title" content="Deprecated functions — Deprecated" />
-<meta property="og:description" content="add_package_checks() has been replaced by do_package_checks()." />
+<meta property="og:title" content="Github information — github_repo" />
+<meta property="og:description" content="github_repo() returns the true repository name as string.
+Retrieves metadata about a Git repository from GitHub.
+github_info() returns a list as obtained from the GET &quot;/repos/:repo&quot; API." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -164,82 +166,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/macro-package-checks.R'><code>R/macro-package-checks.R</code></a></small>
-    <div class="hidden name"><code>Deprecated.Rd</code></div>
+    <h1>Github information</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/helpers_github.R'><code>R/helpers_github.R</code></a></small>
+    <div class="hidden name"><code>github_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>add_package_checks()</code> has been replaced by <code><a href='do_package_checks.html'>do_package_checks()</a></code>.</p>
+    <p><code>github_repo()</code> returns the true repository name as string.</p>
+<p>Retrieves metadata about a Git repository from GitHub.</p>
+<p><code>github_info()</code> returns a list as obtained from the GET "/repos/:repo" API.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_package_checks</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>warnings_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notes_are_errors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"--no-manual"</span>, <span class='st'>"--as-cran"</span>),
-  <span class='kw'>build_args</span> <span class='kw'>=</span> <span class='st'>"--force"</span>,
-  <span class='kw'>error_on</span> <span class='kw'>=</span> <span class='st'>"warning"</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>timeout</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
-)</pre>
+    <pre class="usage"><span class='fu'>github_repo</span>(
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw pkg'>usethis</span><span class='kw ns'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span>(),
+  <span class='kw'>info</span> <span class='kw'>=</span> <span class='fu'>github_info</span>(<span class='no'>path</span>, <span class='kw'>remote</span> <span class='kw'>=</span> <span class='no'>remote</span>),
+  <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>
+)
+
+<span class='fu'>github_info</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw pkg'>usethis</span><span class='kw ns'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span>(), <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>)
+
+<span class='fu'>uses_github</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw pkg'>usethis</span><span class='kw ns'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Ignored, used to enforce naming of arguments.</p></td>
+      <th>path</th>
+      <td><p><code>[string]</code><br />
+The path to a GitHub-enabled Git repository (or a subdirectory thereof).</p></td>
     </tr>
     <tr>
-      <th>warnings_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
+      <th>info</th>
+      <td><p><code>[list]</code><br />
+GitHub information for the repository, by default obtained through
+<code>github_info()</code>.</p></td>
     </tr>
     <tr>
-      <th>notes_are_errors</th>
-      <td><p><code>[flag]</code><br />
-Deprecated, use <code>error_on</code>.</p></td>
-    </tr>
-    <tr>
-      <th>args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br /></p>
-<p>Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
-<p>Default for Appveyor and GitHub Actions (Windows):
-<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.</p>
-<p>On GitHub Actions option "--no-manual" is always used (appended to custom
-user input) because LaTeX is not available and installation is time
-consuming and error prone.<br /></p></td>
-    </tr>
-    <tr>
-      <th>build_args</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code>"--force"</code>.<br />
-Default for Appveyor: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
-    </tr>
-    <tr>
-      <th>error_on</th>
-      <td><p><code>[character]</code><br />
-Whether to throw an error on R CMD check failures. Note that the check is
-always completed (unless a timeout happens), and the error is only thrown
-after completion. If "never", then no errors are thrown. If "error", then
-only ERROR failures generate errors. If "warning", then WARNING failures
-generate errors as well. If "note", then any check failure generated an
-error.</p></td>
-    </tr>
-    <tr>
-      <th>repos</th>
-      <td><p><code>[character]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code><a href='repo.html'>repo_default()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>timeout</th>
-      <td><p><code>[numeric]</code><br />
-Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>, default:
-<code>Inf</code>.</p></td>
+      <th>remote</th>
+      <td><p><code>[string]</code><br />
+The Github remote which should be used. Defaults to "origin".</p></td>
     </tr>
     </table>
 
