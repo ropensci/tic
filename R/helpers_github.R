@@ -10,9 +10,7 @@
 #' add a key to the repo. Setting this to `FALSE` makes it possible to add keys
 #' to other repos than just the one from which the function is called.
 #' @template remote
-#' @keywords internal
 #' @name ssh_key_helpers
-#' @export
 github_add_key <- function(pubkey,
                            repo = get_repo(remote),
                            user = get_user(),
@@ -53,9 +51,7 @@ github_add_key <- function(pubkey,
 #' @param owner The owner of the repository
 #' @param user The name of the user account
 #' @template repo
-#' @keywords internal
 #' @rdname ssh_key_helpers
-#' @export
 check_admin_repo <- function(owner, user, repo) {
   role_in_repo <- get_role_in_repo(owner, user, repo)
   if (role_in_repo != "admin") {
@@ -80,9 +76,7 @@ add_key <- function(key_data, owner, project) {
 #' @param owner The owner of the repository
 #' @param user The name of the user account
 #' @template repo
-#' @keywords internal
 #' @rdname ssh_key_helpers
-#' @export
 get_role_in_repo <- function(owner, user, repo) {
 
   req <- gh::gh("/repos/:owner/:repo/collaborators/:username/permission",
@@ -112,8 +106,6 @@ create_key_data <- function(pubkey, title) {
 #'   [github_info()].
 #' @template remote
 #'
-#' @export
-#' @keywords internal
 #' @rdname github_info
 github_repo <- function(path = usethis::proj_get(),
                         info = github_info(path, remote = remote),
@@ -132,8 +124,6 @@ github_repo <- function(path = usethis::proj_get(),
 #'   The path to a GitHub-enabled Git repository (or a subdirectory thereof).
 #' @template remote
 #' @family GitHub functions
-#' @export
-#' @keywords internal
 github_info <- function(path = usethis::proj_get(),
                         remote = "origin") {
   remote_url <- get_remote_url(path, remote)
@@ -142,8 +132,8 @@ github_info <- function(path = usethis::proj_get(),
 }
 
 #' @rdname github_info
-#' @keywords internal
-#' @export
+
+
 uses_github <- function(path = usethis::proj_get()) {
   tryCatch(
     {
@@ -191,17 +181,13 @@ extract_repo <- function(url) {
 }
 
 #' @param key The SSH key pair object
-#' @keywords internal
 #' @name ssh_key_helpers
-#' @export
 get_public_key <- function(key) {
   as.list(key)$pubkey
 }
 
 #' @param key The SSH key pair object
-#' @keywords internal
 #' @rdname ssh_key_helpers
-#' @export
 encode_private_key <- function(key) {
   conn <- textConnection(NULL, "w")
   openssl::write_pem(key, conn, password = NULL)
@@ -214,9 +200,7 @@ encode_private_key <- function(key) {
 }
 
 #' @param string String to check
-#' @keywords internal
 #' @rdname ssh_key_helpers
-#' @export
 check_private_key_name <- function(string) {
   if (grepl("[ ]", string)) {
     stopc("Name contains whitespaces. Please supply a name without whitespaces.") # nolint
@@ -231,8 +215,8 @@ check_private_key_name <- function(string) {
 #' - `auth_github()`: Creates a `GITHUB_TOKEN` and asks to store it in your
 #' `.Renviron` file.
 #'
-#' @export
-#' @keywords internal
+
+
 #' @name github_helpers
 auth_github <- function() {
   # authenticate on github
@@ -249,9 +233,7 @@ auth_github <- function() {
 #' - `get_owner()`: Returns the owner of a Github repo.
 #'
 #' @template remote
-#' @keywords internal
 #' @rdname github_helpers
-#' @export
 get_owner <- function(remote = "origin") {
   github_info(path = usethis::proj_get(), remote = remote)$owner$login
 }
@@ -259,9 +241,7 @@ get_owner <- function(remote = "origin") {
 #' #' @description
 #' - `get_user()`: Get the personal Github user name of a user
 #'
-#' @keywords internal
 #' @rdname github_helpers
-#' @export
 get_user <- function() {
   github_user()$login
 }
@@ -270,9 +250,7 @@ get_user <- function() {
 #' - `get_repo()`: Returns the repo name of a Github repo for a given remote.
 #'
 #' @template remote
-#' @keywords internal
 #' @rdname github_helpers
-#' @export
 get_repo <- function(remote = "origin") {
   github_info(
     path = usethis::proj_get(),
@@ -285,9 +263,7 @@ get_repo <- function(remote = "origin") {
 #' (`<owner>/<repo>`).
 #'
 #' @template remote
-#' @keywords internal
 #' @rdname github_helpers
-#' @export
 get_repo_slug <- function(remote = "origin") {
   github_info(
     path = usethis::proj_get(),

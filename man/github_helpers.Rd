@@ -42,4 +42,3 @@ The Github remote which should be used. Defaults to "origin".}
 (\verb{<owner>/<repo>}).
 }
 }
-\keyword{internal}

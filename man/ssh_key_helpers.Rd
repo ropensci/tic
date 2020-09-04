@@ -55,4 +55,3 @@ to other repos than just the one from which the function is called.}
 \description{
 SSH key helpers
 }
-\keyword{internal}
