@@ -1,3 +1,9 @@
+# tic 0.9.0.9005 (2020-09-04)
+
+- `use_tic()`: use GitHub Actions as the default provider for all platforms
+- Copy over GitHub authentication and SSH helpers from {travis}
+
+
 # tic 0.9.0.9004 (2020-08-27)
 
 - `update_yml()`: Support updating multiple YAML files
