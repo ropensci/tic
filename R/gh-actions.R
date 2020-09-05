@@ -178,7 +178,7 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
   requireNamespace("gh", quietly = TRUE)
   requireNamespace("purrr", quietly = TRUE)
 
-  auth_github()()
+  auth_github()
 
   # generate deploy key pair
   key <- openssl::rsa_keygen() # TOOD: num bits?
