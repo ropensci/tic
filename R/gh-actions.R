@@ -105,7 +105,7 @@ gha_add_secret <- function(secret,
     repo <- slug[2]
   }
 
-  auth_github()()
+  auth_github()
 
   key_id <- gh::gh("GET /repos/:owner/:repo/actions/secrets/public-key",
     owner = owner,
