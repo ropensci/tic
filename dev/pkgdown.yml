@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.0
 pkgdown_sha: ~
 articles: []
-last_built: 2020-09-08T04:21Z
+last_built: 2020-09-08T19:58Z
 urls:
   reference: https://docs.ropensci.org/tic/dev/reference
   article: https://docs.ropensci.org/tic/dev/articles
