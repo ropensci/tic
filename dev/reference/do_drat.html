@@ -194,17 +194,17 @@ the upcoming deployment</p></li>
     </div>
 
     <pre class="usage"><span class='fu'>do_drat</span>(
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"~/git/drat"</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
-  <span class='kw'>deploy_dev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  repo_slug = <span class='kw'>NULL</span>,
+  orphan = <span class='fl'>FALSE</span>,
+  checkout = <span class='fl'>TRUE</span>,
+  path = <span class='st'>"~/git/drat"</span>,
+  branch = <span class='st'>"master"</span>,
+  remote_url = <span class='kw'>NULL</span>,
+  commit_message = <span class='kw'>NULL</span>,
+  commit_paths = <span class='st'>"."</span>,
+  force = <span class='fl'>FALSE</span>,
+  private_key_name = <span class='st'>"TIC_DEPLOY_KEY"</span>,
+  deploy_dev = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -296,8 +296,10 @@ more information and instructions.</p>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'>do_drat</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'>do_drat</span>()
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_setup_ssh(private_key_name = private_key_name)
 #&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
 #&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
@@ -306,7 +308,8 @@ more information and instructions.</p>
 #&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
 #&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
 #&gt;     commit_paths = ".", force = FALSE)</div><div class='input'>
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_setup_ssh(private_key_name = private_key_name)
 #&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
 #&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 

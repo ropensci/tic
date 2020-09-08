@@ -179,18 +179,20 @@
 <h4 class="hasAnchor">
 <a href="#quickstart" class="anchor"></a>Quickstart</h4>
 <p>If you are a new user, run</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">tic</span>::<span class="fu"><a href="../reference/use_tic.html">use_tic</a></span>()
+</pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">## Travis CI
-travis::use_travis_deploy() # (optional for deployment)
-tic::use_travis_yml(&lt;option here&gt;)
-
-## Circle CI
-circle::use_circle_deploy() # (optional for deployment)
-tic::use_circle_yml(&lt;option here&gt;)
-
-## Appveyor
-tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Travis CI</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>travis<span class="op">::</span><span class="kw">use_travis_deploy</span>() <span class="co"># (optional for deployment)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>tic<span class="op">::</span><span class="kw">use_travis_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">## Circle CI</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>circle<span class="op">::</span><span class="kw">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>tic<span class="op">::</span><span class="kw">use_circle_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">## Appveyor</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>tic<span class="op">::</span><span class="kw">use_appveyor_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span></code></pre></div>
 <hr>
 <p>The reason why we suggest Travis CI as the default builds on three points:</p>
 <ul>
@@ -214,11 +216,13 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
 </ul>
 <p>and a <code>tic.R</code> file in your repo, depending on the choices you made during <code><a href="../reference/use_tic.html">use_tic()</a></code>. The latter will always be present because it will be the main CI config file for all providers from now on. Usually you do not need to touch the YAML files anymore. All build customization is done in <code>tic.R</code> and applies to all providers. For more information about the build lifecycle in general, check the <a href="build-lifecycle.html">Build lifecycle</a> article.</p>
 <p>The basic <code>tic.R</code> template looks as follows:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()
 
-<span class="kw">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
+<span class="co">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
   <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()
-}</pre></body></html></div>
+}
+</pre></div>
 <p><code>tic.R</code> file has a declarative nature: It should consist of “stages”, “steps” and “macro” functions (see below). These functions will only have an effect when specified in <code>tic.R</code> and should <strong>not</strong> be used standalone as they will only run in a (simulated) CI run following a certain order.</p>
 <p>To run plain R code within the build, encapsulate it within <code>add_code_step(&lt;code&gt;)</code> and add it to a certain build stage. See <a href="build-lifecycle.html">the Build Lifecycle</a> article for detailed info about how to do this.</p>
 <div id="macros" class="section level2">
@@ -231,31 +235,39 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
 <li>Build and deploy a bookdown project</li>
 </ul>
 <p>They can be distinguished from other functions by their <code>do_</code> prefix. The following ones are currently implemented:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/list_macros.html">list_macros</a></span>()
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/list_macros.html">list_macros</a></span>()
 <span class="co">#&gt; [1] "do_blogdown"       "do_bookdown"       "do_drat"          </span>
-<span class="co">#&gt; [4] "do_package_checks" "do_pkgdown"        "do_readme_rmd"</span></pre></body></html></div>
+<span class="co">#&gt; [4] "do_package_checks" "do_pkgdown"        "do_readme_rmd"</span>
+</pre></div>
 <p>If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
 <div id="do_package_checks" class="section level3">
 <h3 class="hasAnchor">
 <a href="#do_package_checks" class="anchor"></a><code>do_package_checks()</code>
 </h3>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()
+</pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"># step_install_deps() in the "install" stage, using the repos argument.
-#
-# step_rcmdcheck() in the "script" stage, using the warnings_are_errors, 
-#  notes_are_errors, args, and build_args arguments.
-#
-# A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span>
+<span class="co">#</span>
+<span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors, </span>
+<span class="co">#  notes_are_errors, args, and build_args arguments.</span>
+<span class="co">#</span>
+<span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span>
+</pre></div>
 </div>
 <div id="do_pkgdown" class="section level3">
 <h3 class="hasAnchor">
 <a href="#do_pkgdown" class="anchor"></a><code>do_pkgdown()</code>
 </h3>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="co">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
   <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()
-}</pre></body></html></div>
+}
+</pre></div>
 <p><code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> adds five steps to the build process:</p>
 <pre class="reval"><code># step_install_deps() in the "install" stage, using the repos argument.
 # 
@@ -308,12 +320,16 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
 <h3 class="hasAnchor">
 <a href="#blogdown" class="anchor"></a>Blogdown</h3>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">blogdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/install_hugo.html">install_hugo</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw">blogdown</span>::<span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/install_hugo.html">install_hugo</a></span>())
+</pre></div>
 <p>Next the website is built and deployed. The <code><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">blogdown::build_site()</a></code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">blogdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">build_site</a></span>()) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw">blogdown</span>::<span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">build_site</a></span>()) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
+</pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). {tic} is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
 </div>

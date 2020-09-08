@@ -170,10 +170,12 @@
 <ol style="list-style-type: decimal">
 <li>
 <p>Generate a SSH key pair</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">key</span> <span class="kw">&lt;-</span> <span class="kw pkg">openssl</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span>()
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">key</span> <span class="op">&lt;-</span> <span class="kw">openssl</span>::<span class="fu"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span>()
 
-<span class="no">pub_key</span> <span class="kw">&lt;-</span> <span class="kw pkg">tic</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">get_public_key</a></span>(<span class="no">key</span>)$<span class="no">ssh</span>
-<span class="no">private_key</span> <span class="kw">&lt;-</span> <span class="kw pkg">tic</span><span class="kw ns">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">encode_private_key</a></span>(<span class="no">key</span>)</pre></body></html></div>
+<span class="kw">pub_key</span> <span class="op">&lt;-</span> <span class="kw">tic</span>:::<span class="fu"><a href="../reference/ssh_key_helpers.html">get_public_key</a></span>(<span class="kw">key</span>)<span class="op">$</span><span class="kw">ssh</span>
+<span class="kw">private_key</span> <span class="op">&lt;-</span> <span class="kw">tic</span>:::<span class="fu"><a href="../reference/ssh_key_helpers.html">encode_private_key</a></span>(<span class="kw">key</span>)
+</pre></div>
 </li>
 <li><p>Copy the public key and add it as an deploy key to <code>Settings -&gt; Deploy Key</code> of the <em>drat repo you want to deploy to</em> (<strong>not</strong> the one of the package which should be deployed).</p></li>
 <li><p>Copy the private key and log into to your Appveyor account. Go to <code>Account -&gt; Encrypt YAML</code> and encrypt the private key.</p></li>
@@ -240,10 +242,12 @@
 <span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> script</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::deploy()'</span></span></code></pre></div>
 <p>In the “before_deploy” stage, {tic} will do the following:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="co">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
-}</pre></body></html></div>
+}
+</pre></div>
 <ul>
 <li>
 <p>Calls <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis CI build. This step sets up SSH key previously added to the GitHub and Travis via <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. Argument <code>private_key_name</code> can be ignored as long as no custom private key name was used during <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. If so, then supply it via the <code>private_key_name</code> argument in <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
@@ -251,9 +255,11 @@
 </li>
 <li><p>Calls <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</p></li>
 </ul>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
+</pre></div>
 <p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the {pkgdown} site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo, keeping the history.</p>
 <div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
 <h3 class="hasAnchor">
@@ -307,28 +313,32 @@
 <span id="cb7-13"><a href="#cb7-13"></a><span class="at">        </span><span class="fu">on</span><span class="kw">:</span></span>
 <span id="cb7-14"><a href="#cb7-14"></a><span class="at">          </span><span class="fu">all_branches</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p><code>tic.R</code>:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"TIC_DEPLOY_KEY"</span>)) {
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="co">if</span> (<span class="fu"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"TIC_DEPLOY_KEY"</span>)) {
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
 }
 
-<span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="kw">%&gt;%</span>
+<span class="co">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
-}</pre></body></html></div>
+}
+</pre></div>
 </div>
 <div id="committing-single-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
 <p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created during the CI run.</p>
 <p>In the following example, these files are created/updated by calling <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
 
-<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/document.html">document</a></span>(<span class="kw">roclets</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(<span class="kw">commit_paths</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))</pre></body></html></div>
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/document.html">document</a></span>(roclets = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(commit_paths = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))
+</pre></div>
 <p>Applying this idea depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NAMESPACE</code> directly or let them be created during the CI run?</p>
 </div>
   </div>

@@ -186,12 +186,12 @@ and <code><a href='step_do_push_deploy.html'>step_do_push_deploy()</a></code>.</
     </div>
 
     <pre class="usage"><span class='fu'>step_push_deploy</span>(
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  path = <span class='st'>"."</span>,
+  branch = <span class='kw'>NULL</span>,
+  remote_url = <span class='kw'>NULL</span>,
+  commit_message = <span class='kw'>NULL</span>,
+  commit_paths = <span class='st'>"."</span>,
+  force = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -264,14 +264,15 @@ and create the files to be deployed in between these steps.</p>
 <code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
 
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_push_deploy</span>(<span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NAMESPACE"</span>, <span class='st'>"man"</span>)))
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_push_deploy</span>(commit_paths = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NAMESPACE"</span>, <span class='st'>"man"</span>)))
 
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

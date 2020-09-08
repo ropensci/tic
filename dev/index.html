@@ -193,7 +193,9 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>{tic} can be installed from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ropensci/tic"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ropensci/tic"</span>)
+</pre></div>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
@@ -215,39 +217,43 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <h4 class="hasAnchor">
 <a href="#quickstart" class="anchor"></a>Quickstart</h4>
 <p>If you are a new user, run</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic.html">use_tic</a></span>()</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic.html">use_tic</a></span>()
+</pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co">### Travis CI ------------------------------------------------------------------</span>
-<span class="kw pkg">travis</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span>() <span class="co"># (optional for deployment)</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/yaml_templates.html">use_travis_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, <span class="kw">deploy_on</span> <span class="kw">=</span> <span class="st">"travis"</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co">### Travis CI ------------------------------------------------------------------</span>
+<span class="kw">travis</span>::<span class="fu"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span>() <span class="co"># (optional for deployment)</span>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_travis_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, deploy_on = <span class="st">"travis"</span>)
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",</span>
 <span class="co">#              matrix = "travis", deploy = "travis")</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
 
 <span class="co">### Circle CI ------------------------------------------------------------------</span>
-<span class="kw pkg">circle</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, <span class="kw">deploy_on</span> <span class="kw">=</span> <span class="st">"circle"</span>)
+<span class="kw">circle</span>::<span class="fu"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, deploy_on = <span class="st">"circle"</span>)
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",</span>
 <span class="co">#              matrix = "circle", deploy = "circle")</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
 
 <span class="co">### Appveyor -------------------------------------------------------------------</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/yaml_templates.html">use_appveyor_yml</a></span>()
+<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_appveyor_yml</a></span>()
 
 <span class="co">### GitHub Actions -------------------------------------------------------------</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span>() <span class="co"># (optional for deployment)</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, <span class="kw">deploy_on</span> <span class="kw">=</span> <span class="st">"ghactions"</span>)
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span>() <span class="co"># (optional for deployment)</span>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, deploy_on = <span class="st">"ghactions"</span>)
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "ghactions", mac = "ghactions",</span>
 <span class="co">#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")</span>
 
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span>(<span class="st">"ghactions"</span>)
-<span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()</pre></div>
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span>(<span class="st">"ghactions"</span>)
+<span class="kw">tic</span>::<span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
+</pre></div>
 </div>
 </div>
 <div id="good-to-know" class="section level2">
@@ -260,7 +266,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <div id="updating" class="section level2">
 <h2 class="hasAnchor">
 <a href="#updating" class="anchor"></a>Updating</h2>
-<p>Updating of YAML templates is supported via <a href="https://docs.ropensci.org/tic/reference/update_yml.html"><code><a href="reference/update_yml.html">update_yml()</a></code></a>. See vignette <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for more information.</p>
+<p>Updating of YAML templates is supported via <a href="https://docs.ropensci.org/tic/reference/update_yml.html"><code>update_yml()</code></a>. See vignette <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for more information.</p>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">

@@ -199,10 +199,10 @@
 <p><strong>Answer</strong></p>
 <p>Correct. This is because multiple runners building and deploying the pkgdown site nearly at the same time. To prevent this from happening (doing this for one runner is enough) condition the pkgdown step to one runner by setting an env var.</p>
 <p>In <code>tic.R</code>:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">if (ci_on_travis() &amp;&amp; ci_has_env("PKGDOWN") {
-  # creates pkgdown site and pushes to gh-pages branch
-  do_pkgdown()
-}</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="kw">ci_on_travis</span>() <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">ci_has_env</span>(<span class="st">"PKGDOWN"</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="co"># creates pkgdown site and pushes to gh-pages branch</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="kw">do_pkgdown</span>()</span>
+<span id="cb2-4"><a href="#cb2-4"></a>}</span></code></pre></div>
 <p>and then set this env var for one of the runners in <code>.travis.yml</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">matrix</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">include</span><span class="kw">:</span></span>
@@ -226,11 +226,11 @@
 <h2 class="hasAnchor">
 <a href="#appveyor" class="anchor"></a>Appveyor</h2>
 <p>I am facing the following build error:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r">Error in eval(expr, envir = list(`?` = function(...) stop()), enclos = envir) : 
-  object 'name' not found
-Calls: &lt;Anonymous&gt; ... .transformer -&gt; glue -&gt; glue_data -&gt; &lt;Anonymous&gt; -&gt; .transformer
-Execution halted
-Command exited with code 1</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>Error <span class="cf">in</span> <span class="kw">eval</span>(expr, <span class="dt">envir =</span> <span class="kw">list</span>(<span class="st">`</span><span class="dt">?</span><span class="st">`</span> =<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">stop</span>()), <span class="dt">enclos =</span> envir) <span class="op">:</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span>object <span class="st">'name'</span> not found</span>
+<span id="cb4-3"><a href="#cb4-3"></a>Calls<span class="op">:</span><span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>... .transformer -&gt;<span class="st"> </span>glue -&gt;<span class="st"> </span>glue_data -&gt;<span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>-&gt;<span class="st"> </span>.transformer</span>
+<span id="cb4-4"><a href="#cb4-4"></a>Execution halted</span>
+<span id="cb4-5"><a href="#cb4-5"></a>Command exited with code <span class="dv">1</span></span></code></pre></div>
 <p><strong>Answer</strong></p>
 <p>Do you have a private SSH key stored as a secure environment variable in the in <code>appveyor.yml</code>? If yes, it could be that you encrypted while being logged in to a different account than the one the repo is running under in reality. This means if you have access to multiple organizations and your private account on Appveyor, you need to encrypt the environment variable using the account in which repo lives.</p>
 </div>

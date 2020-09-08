@@ -174,23 +174,23 @@
     </div>
 
     <pre class="usage"><span class='fu'>github_add_key</span>(
-  <span class='no'>pubkey</span>,
-  <span class='kw'>repo</span> <span class='kw'>=</span> <span class='fu'><a href='github_helpers.html'>get_repo</a></span>(<span class='no'>remote</span>),
-  <span class='kw'>user</span> <span class='kw'>=</span> <span class='fu'><a href='github_helpers.html'>get_user</a></span>(),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-  <span class='kw'>remote</span> <span class='kw'>=</span> <span class='st'>"origin"</span>,
-  <span class='kw'>check_role</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>pubkey</span>,
+  repo = <span class='fu'><a href='github_helpers.html'>get_repo</a></span>(<span class='kw'>remote</span>),
+  user = <span class='fu'><a href='github_helpers.html'>get_user</a></span>(),
+  title = <span class='st'>"travis"</span>,
+  remote = <span class='st'>"origin"</span>,
+  check_role = <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>check_admin_repo</span>(<span class='no'>owner</span>, <span class='no'>user</span>, <span class='no'>repo</span>)
+<span class='fu'>check_admin_repo</span>(<span class='kw'>owner</span>, <span class='kw'>user</span>, <span class='kw'>repo</span>)
 
-<span class='fu'>get_role_in_repo</span>(<span class='no'>owner</span>, <span class='no'>user</span>, <span class='no'>repo</span>)
+<span class='fu'>get_role_in_repo</span>(<span class='kw'>owner</span>, <span class='kw'>user</span>, <span class='kw'>repo</span>)
 
-<span class='fu'>get_public_key</span>(<span class='no'>key</span>)
+<span class='fu'>get_public_key</span>(<span class='kw'>key</span>)
 
-<span class='fu'>encode_private_key</span>(<span class='no'>key</span>)
+<span class='fu'>encode_private_key</span>(<span class='kw'>key</span>)
 
-<span class='fu'>check_private_key_name</span>(<span class='no'>string</span>)</pre>
+<span class='fu'>check_private_key_name</span>(<span class='kw'>string</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

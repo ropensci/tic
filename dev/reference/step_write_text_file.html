@@ -173,7 +173,7 @@
     <p>Creates a text file with arbitrary contents</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_write_text_file</span>(<span class='no'>...</span>, <span class='no'>path</span>)</pre>
+    <pre class="usage"><span class='fu'>step_write_text_file</span>(<span class='kw'>...</span>, <span class='kw'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -208,11 +208,13 @@ Path to the new text file.</p></td>
 <code><a href='step_test_ssh.html'>step_test_ssh</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_write_text_file</span>(<span class='st'>"Hi!"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"hello.txt"</span>))
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"script"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_write_text_file</span>(<span class='st'>"Hi!"</span>, path = <span class='st'>"hello.txt"</span>))
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_write_text_file("Hi!", path = "hello.txt")</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

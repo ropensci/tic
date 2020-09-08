@@ -185,7 +185,7 @@ functions encode a private key as an environment variable for use with this
 function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(<span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>)</pre>
+    <pre class="usage"><span class='fu'>step_install_ssh_keys</span>(private_key_name = <span class='st'>"TIC_DEPLOY_KEY"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,11 +219,13 @@ SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy
 <code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"before_deploy"</span>) <span class='kw'>%&gt;%</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"before_deploy"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_install_ssh_keys</span>())
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_install_ssh_keys()</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -178,7 +178,7 @@
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-new'><code>TicStep$new()</code></a></p></li>
@@ -187,18 +187,18 @@
 <li><p><a href='#method-check'><code>TicStep$check()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
-<p>Create a <code>TicStep</code> object.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>TicStep</span>$<span class='fu'>new</span>()</pre><p></div></p>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
+<p>Create a <code>TicStep</code> object.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='kw'>TicStep</span><span class='op'>$</span><span class='fu'>new</span>()</pre><p></div></p>
 
 <p><hr>
-<a id="method-run"></a></p><h3>Method <code>run()</code></h3>
+<a id="method-run"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>run()</code></h3>
 <p>This method must be overridden, it is called when running the stage
-to which a step has been added.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>TicStep</span>$<span class='fu'>run</span>()</pre><p></div></p>
+to which a step has been added.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='kw'>TicStep</span><span class='op'>$</span><span class='fu'>run</span>()</pre><p></div></p>
 
 <p><hr>
-<a id="method-prepare"></a></p><h3>Method <code>prepare()</code></h3>
+<a id="method-prepare"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>prepare()</code></h3>
 <p>This is just a placeholder.
 This method is called when preparing the stage to
 which a step has been added. It auto-install all packages which are
@@ -208,14 +208,14 @@ the <em>pkgdown</em> package.</p>
 <code>pkg::fun</code> and tries to install these packages from CRAN. If a steps
 <code>prepare_call</code> is not empty, the <code>$prepare</code> method is skipped for this
 step. This can be useful if a package should be installed from
-non-standard repositories, e.g. from GitHub.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>TicStep</span>$<span class='fu'>prepare</span>()</pre><p></div></p>
+non-standard repositories, e.g. from GitHub.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='kw'>TicStep</span><span class='op'>$</span><span class='fu'>prepare</span>()</pre><p></div></p>
 
 <p><hr>
-<a id="method-check"></a></p><h3>Method <code><a href='https://rdrr.io/r/utils/PkgUtils.html'>check()</a></code></h3>
+<a id="method-check"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/utils/PkgUtils.html'>check()</a></code></h3>
 <p>This method determines if a step is prepared and run.
-Return <code>FALSE</code> if conditions for running this step are not met.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>TicStep</span>$<span class='fu'><a href='https://rdrr.io/r/utils/PkgUtils.html'>check</a></span>()</pre><p></div></p>
+Return <code>FALSE</code> if conditions for running this step are not met.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='kw'>TicStep</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/utils/PkgUtils.html'>check</a></span>()</pre><p></div></p>
 
 
 

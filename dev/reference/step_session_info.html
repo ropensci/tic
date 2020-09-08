@@ -196,11 +196,13 @@ sessioninfo::session_info()." />
 <code><a href='step_write_text_file.html'>step_write_text_file</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"install"</span>) <span class='kw'>%&gt;%</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'><a href='dsl.html'>get_stage</a></span>(<span class='st'>"install"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='dsl.html'>add_step</a></span>(<span class='fu'>step_session_info</span>())
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>install</span><span> </span><span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_session_info()</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

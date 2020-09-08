@@ -193,11 +193,11 @@ and the links therein for available steps.</p>
 <p><code>add_code_step()</code> is a shortcut for <code>add_step(step_run_code(...))</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_stage</span>(<span class='no'>name</span>)
+    <pre class="usage"><span class='fu'>get_stage</span>(<span class='kw'>name</span>)
 
-<span class='fu'>add_step</span>(<span class='no'>stage</span>, <span class='no'>step</span>)
+<span class='fu'>add_step</span>(<span class='kw'>stage</span>, <span class='kw'>step</span>)
 
-<span class='fu'>add_code_step</span>(<span class='no'>stage</span>, <span class='kw'>call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prepare_call</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>add_code_step</span>(<span class='kw'>stage</span>, call = <span class='kw'>NULL</span>, prepare_call = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,18 +234,22 @@ An optional arbitrary R expression executed during preparation.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ℹ No steps defined</div><div class='input'>
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
+<span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'>add_step</span>(<span class='fu'><a href='step_hello_world.html'>step_hello_world</a></span>())
 
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_hello_world()</div><div class='input'>
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='kw'>%&gt;%</span>
+<span class='fu'>get_stage</span>(<span class='st'>"script"</span>) <span class='op'>%&gt;%</span>
   <span class='fu'>add_code_step</span>(<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"Hi!"</span>))
 
-<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
+<span class='fu'>get_stage</span>(<span class='st'>"script"</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>script</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
 #&gt; ▶ step_hello_world()
 #&gt; ▶ step_run_code(print("Hi!"))</div></span></pre>
   </div>

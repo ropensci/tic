@@ -179,7 +179,7 @@ CI runs.</p>
 <code><a href='use_tic.html'>use_tic()</a></code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_tic_r</span>(<span class='no'>repo_type</span>, <span class='kw'>deploy_on</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</pre>
+    <pre class="usage"><span class='fu'>use_tic_r</span>(<span class='kw'>repo_type</span>, deploy_on = <span class='st'>"none"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,11 +204,12 @@ or <code>"circle"</code>.</p></td>
     <div class='dont-index'><p><a href='yaml_templates.html'>yaml_templates</a>, <code><a href='use_tic_badge.html'>use_tic_badge()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>use_tic_r</span>(<span class='st'>"package"</span>)
-<span class='fu'>use_tic_r</span>(<span class='st'>"package"</span>, <span class='kw'>deploy_on</span> <span class='kw'>=</span> <span class='st'>"ghactions"</span>)
-<span class='fu'>use_tic_r</span>(<span class='st'>"blogdown"</span>, <span class='kw'>deploy_on</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-}</div></pre>
+<span class='fu'>use_tic_r</span>(<span class='st'>"package"</span>, deploy_on = <span class='st'>"ghactions"</span>)
+<span class='fu'>use_tic_r</span>(<span class='st'>"blogdown"</span>, deploy_on = <span class='st'>"all"</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -212,19 +212,19 @@ keeping the history. If the output directory of your blog/theme is not
     </div>
 
     <pre class="usage"><span class='fu'>do_blogdown</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"public"</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
-  <span class='kw'>cname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>...</span>,
+  deploy = <span class='kw'>NULL</span>,
+  orphan = <span class='fl'>FALSE</span>,
+  checkout = <span class='fl'>TRUE</span>,
+  repos = <span class='fu'><a href='repo.html'>repo_default</a></span>(),
+  path = <span class='st'>"public"</span>,
+  branch = <span class='st'>"gh-pages"</span>,
+  remote_url = <span class='kw'>NULL</span>,
+  commit_message = <span class='kw'>NULL</span>,
+  commit_paths = <span class='st'>"."</span>,
+  force = <span class='fl'>FALSE</span>,
+  private_key_name = <span class='st'>"TIC_DEPLOY_KEY"</span>,
+  cname = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -329,13 +329,14 @@ of the directory specified in argument <code>path</code>.</p></td>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
 
 <span class='fu'>do_blogdown</span>()
 
 <span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
