@@ -10,7 +10,8 @@
 #'   The CI provider to generate a badge for. Only `ghactions` is currently
 #'   supported
 #' @param branch `character(1)`\cr
-#'   Which branch should the badge represent?
+#'   Which branch should the badge represent? Defaults to the default repo
+#'   branch.
 #' @param label `character(1)`\cr
 #'   Text to use for the badge.
 #'
@@ -23,10 +24,14 @@
 #' }
 #' @export
 use_tic_badge <- function(provider,
-                          branch = "master",
+                          branch = NULL,
                           label = "tic") {
 
   requireNamespace("usethis", quietly = TRUE)
+
+  if (is.null(branch)) {
+    branch <- github_info()$default_branch
+  }
 
   label_badge <- label
   # whitespaces do not render in README.md files

@@ -4,7 +4,7 @@
 \alias{use_tic_badge}
 \title{Add a CI Status Badge to README files}
 \usage{
-use_tic_badge(provider, branch = "master", label = "tic")
+use_tic_badge(provider, branch = NULL, label = "tic")
 }
 \arguments{
 \item{provider}{\code{character(1)}\cr
@@ -12,7 +12,8 @@ The CI provider to generate a badge for. Only \code{ghactions} is currently
 supported}
 
 \item{branch}{\code{character(1)}\cr
-Which branch should the badge represent?}
+Which branch should the badge represent? Defaults to the default repo
+branch.}
 
 \item{label}{\code{character(1)}\cr
 Text to use for the badge.}

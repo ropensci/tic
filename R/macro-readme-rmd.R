@@ -48,7 +48,7 @@ do_readme_rmd <- function(checkout = TRUE,
   get_stage("before_deploy") %>%
     add_step(step_setup_push_deploy(
       path = ".",
-      branch = "master",
+      branch = github_info()$default_branch,
       remote_url = !!enquo(remote_url),
       orphan = FALSE,
       checkout = !!enquo(checkout)

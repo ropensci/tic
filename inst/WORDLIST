@@ -1,6 +1,7 @@
 appveyor
 Appveyor
 AppVeyor
+arg
 args
 aut
 auth
@@ -11,6 +12,9 @@ bookdown
 Bookdown
 br
 Braginsky
+bugfix
+Bugfix
+Bugfixes
 BugReports
 ByteCompile
 callr
@@ -23,6 +27,8 @@ circleci
 cli
 cmd
 CMD
+cname
+CNAME
 codecov
 codemeta
 codeRepository
@@ -35,6 +41,7 @@ contIntegration
 copyrightHolder
 covr
 covrpage
+CPPFLAGS
 cr
 cran
 cre
@@ -47,6 +54,7 @@ cyclocomp
 datew
 dbi
 DeCicco
+dep
 deps
 desc
 deserialize
@@ -59,11 +67,14 @@ dmg
 docType
 doi
 dontrun
+dropdown
 dsl
 DSL
+easiern
 edu
 env
 ErrorActionPreference
+errored
 evans
 familyName
 fansi
@@ -74,6 +85,7 @@ fileSize
 filetype
 fnd
 funder
+funs
 fxcoudert
 fxz
 Gabor
@@ -98,6 +110,8 @@ hdiutil
 Homebrew
 http
 https
+hugo
+img
 inbetween
 init
 inits
@@ -109,6 +123,8 @@ jeroen
 Jeroen
 karthik
 Karthik
+keygen
+kickstart
 Kirill
 knitr
 krlmlr
@@ -183,17 +199,20 @@ patrick
 phracker
 pkgdown
 pkgType
+png
 Pre
 programmingLanguage
 proj
 ps
 pubkey
 purrr
+Quickstart
 rb
 rcmdcheck
 RdMacros
 readme
 README
+README's
 releaseNotes
 Renviron
 repo
@@ -218,7 +237,9 @@ Roxygen
 RoxygenNote
 Rprofile
 rprojroot
+rsa
 RSA
+rsconnect
 Rscript
 rstats
 RStudio's
@@ -234,6 +255,7 @@ SDKs
 seealso
 Sexpr
 SHA
+SKD
 SoftwareApplication
 softwareRequirements
 SoftwareSourceCode
@@ -248,10 +270,12 @@ supersecret
 synch
 SystemRequirements
 testthat
+thge
 TicStep
 tidyverse
 tinytex
 tmp
+toolchain
 traceback
 tracebacks
 travis
@@ -260,6 +284,7 @@ ucla
 udunits
 UDUNITS
 unevaluated
+Unexport
 usethis
 usr
 utest
@@ -269,6 +294,7 @@ VM
 WebRequest
 wget
 withr
+wordlist
 writeLines
 www
 xquartz

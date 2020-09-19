@@ -213,7 +213,7 @@ See `?do_package_checks()` for more information.
 ```{r}
 # step_install_deps() in the "install" stage, using the repos argument.
 #
-# step_rcmdcheck() in the "script" stage, using the warnings_are_errors, 
+# step_rcmdcheck() in the "script" stage, using the warnings_are_errors,
 #  notes_are_errors, args, and build_args arguments.
 #
 # A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
@@ -253,7 +253,7 @@ Why do we do this? Building the pkgdown site on multiple CI services has no adde
 Some projects rely on a dynamic README.Rmd file which contains R code.
 Sometimes the output of such README's will change over time if the code driving it changes due to updates.
 To always stay up-to-date without needing to take manual action, you can use this macro.
-It will render `README.Rmd` and deploy `README.md` to the `master` branch.
+It will render `README.Rmd` and deploy `README.md` to the default repo branch.
 A deployment will only be made if the rendered output differs from the one stored upstream.
 
 This macro requires that you have set up deployment for your selected provider beforehand.

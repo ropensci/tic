@@ -34,7 +34,8 @@ if the following conditions are met:
 \item The repo can be pushed to (see \code{\link[=ci_can_push]{ci_can_push()}}).
 \item The \code{branch} argument is \code{NULL}
 (i.e., if the deployment happens to the active branch),
-or the current branch is \code{master} (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
+or the current branch is the default repo branch
+(see \code{\link[=ci_get_branch]{ci_get_branch()}}).
 }}
 
 \item{orphan}{\verb{[flag]}\cr

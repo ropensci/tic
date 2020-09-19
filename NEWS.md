@@ -551,7 +551,7 @@
 
 # tic 0.2-6 (2017-06-04)
 
-- Technical release to synch master and production branches.
+- Technical release to sync default and production branches.
 
 # tic 0.2-5 (2016-11-27)
 

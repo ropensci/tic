@@ -18,11 +18,13 @@ NULL
 #' @inheritParams step_setup_ssh
 #' @inheritParams step_setup_push_deploy
 #' @inheritParams step_do_push_deploy
-#' @param path,branch By default, this macro deploys the `"master"` branch
-#'   of the drat repository. An alternative option is `"gh-pages"`.
+#' @param path,branch By default, this macro deploys the default repo branch
+#'   (usually "master") of the drat repository.
+#'   An alternative option is `"gh-pages"`.
 #' @template private_key_name
 #'
-#' @section Deployment: Deployment can only happen to the `master` or
+#' @section Deployment:
+#'   Deployment can only happen to the default repo branch (usually "master") or
 #'   `gh-pages` branch because the GitHub Pages functionality from GitHub is
 #'   used to access the drat repository later on. You need to enable this
 #'   functionality when creating the drat repository on GitHub via `Settings ->
@@ -45,13 +47,17 @@ do_drat <- function(repo_slug = NULL,
                     orphan = FALSE,
                     checkout = TRUE,
                     path = "~/git/drat",
-                    branch = "master",
+                    branch = NULL,
                     remote_url = NULL,
                     commit_message = NULL,
                     commit_paths = ".",
                     force = FALSE,
                     private_key_name = "TIC_DEPLOY_KEY",
                     deploy_dev = FALSE) {
+
+  if (is.null(branch)) {
+    branch <- github_info()$default_branch
+  }
 
   #' @description
   #' 1. [step_setup_ssh()] in the `"before_deploy"` to setup

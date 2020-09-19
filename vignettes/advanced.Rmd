@@ -54,7 +54,7 @@ if (ci_on_travis()) {
 - a specific branch
 
 ```{r eval = FALSE}
-if (ci_get_branch() == "master") {
+if (ci_get_branch() == "main") {
   get_stage("<stage>") %>%
     add_step(step_...())
 }
