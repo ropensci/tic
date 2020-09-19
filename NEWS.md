@@ -1,3 +1,8 @@
+# tic 0.9.0.9006 (2020-09-19)
+
+- Replace hardcoded references to "master" by a dynamic query of the default repo branch
+
+
 # tic 0.9.0.9005 (2020-09-04)
 
 - `use_tic()`: use GitHub Actions as the default provider for all platforms
