@@ -14,7 +14,7 @@ if (ci_has_env("BUILD_BLOGDOWN")) {
       orphan = TRUE
     ))
 
-  if (ci_get_branch() == "master") {
+  if (ci_get_branch() == "main") {
     get_stage("deploy") %>%
       add_step(step_do_push_deploy(path = "public"))
   }

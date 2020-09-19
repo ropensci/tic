@@ -65,9 +65,10 @@ do_blogdown <- function(...,
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
-    #'   or the current branch is `master` (see [ci_get_branch()]).
+    #'   or the current branch is the default repo branch
+    #'   (see [ci_get_branch()]).
     if (deploy && !is.null(branch)) {
-      deploy <- (ci_get_branch() == "master")
+      deploy <- (ci_get_branch() == github_info()$default_branch)
     }
   }
 
@@ -79,7 +80,7 @@ do_blogdown <- function(...,
   #' 1. [step_session_info()] in the `"install"` stage.
   get_stage("install") %>%
     add_step(step_install_deps(repos = !!enquo(repos))) %>%
-    add_code_step(blogdown::install_hugo())  %>%
+    add_code_step(blogdown::install_hugo()) %>%
     add_step(step_session_info())
 
   if (isTRUE(deploy)) {

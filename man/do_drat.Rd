@@ -9,7 +9,7 @@ do_drat(
   orphan = FALSE,
   checkout = TRUE,
   path = "~/git/drat",
-  branch = "master",
+  branch = NULL,
   remote_url = NULL,
   commit_message = NULL,
   commit_paths = ".",
@@ -32,8 +32,9 @@ Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
 
-\item{path, branch}{By default, this macro deploys the \code{"master"} branch
-of the drat repository. An alternative option is \code{"gh-pages"}.}
+\item{path, branch}{By default, this macro deploys the default repo branch
+(usually "master") of the drat repository.
+An alternative option is \code{"gh-pages"}.}
 
 \item{remote_url}{\verb{[string]}\cr
 The URL of the remote Git repository to push to, defaults to the
@@ -75,7 +76,8 @@ the upcoming deployment
 }
 }
 \section{Deployment}{
- Deployment can only happen to the \code{master} or
+
+Deployment can only happen to the default repo branch (usually "master") or
 \code{gh-pages} branch because the GitHub Pages functionality from GitHub is
 used to access the drat repository later on. You need to enable this
 functionality when creating the drat repository on GitHub via \verb{Settings -> GitHub pages} and set it to the chosen setting here.

@@ -65,9 +65,10 @@ do_bookdown <- function(...,
 
     #'   2. The `branch` argument is `NULL`
     #'   (i.e., if the deployment happens to the active branch),
-    #'   or the current branch is `master` (see [ci_get_branch()]).
+    #'   or the current branch is the default repo branch (usually "master")
+    #'   (see [ci_get_branch()]).
     if (deploy && !is.null(branch)) {
-      deploy <- (ci_get_branch() == "master")
+      deploy <- (ci_get_branch() == github_info()$default_branch)
     }
   }
 
