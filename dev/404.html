@@ -42,7 +42,7 @@
 <script src="https://docs.ropensci.org/tic/dev/pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="https://docs.ropensci.org/tic/dev/ropensci.css?nocache=123" rel="stylesheet">
+<link href="https://docs.ropensci.org/tic/dev/ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Page not found (404)" />
 
@@ -51,15 +51,13 @@
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Matomo -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script src="https://ropensci.org/scripts/matomo.js"></script>
+<noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- End Matomo Code -->
 
   </head>
 
@@ -78,7 +76,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="https://docs.ropensci.org/tic/dev/index.html"><i>tic <small>v0.9.0.9005</small></i></a>
+        <a class="navbar-brand" href="https://docs.ropensci.org/tic/dev/index.html"><i>tic <small>v0.9.0.9006</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -197,34 +195,33 @@ Content not found. Please use links in the navbar.
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-                            <h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                            <h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks & Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-xs-12">

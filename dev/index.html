@@ -15,7 +15,7 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><!-- ropensci --><link href="ropensci.css?nocache=123" rel="stylesheet">
+<script src="pkgdown.js"></script><!-- ropensci --><link href="ropensci.css" rel="stylesheet">
 <meta property="og:title" content="Tasks Integrating Continuously: CI-Agnostic Workflow
     Definitions">
 <meta property="og:description" content="Provides a way to describe common build and
@@ -26,13 +26,9 @@
     This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
@@ -48,7 +44,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="index.html"><i>tic <small>v0.9.0.9005</small></i></a>
+        <a class="navbar-brand" href="index.html"><i>tic <small>v0.9.0.9006</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -135,7 +131,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tic" class="anchor"></a>tic</h1></div>
 <!-- badges: start -->
-
+<p><a href="https://github.com/ropensci/tic/actions"><img src="https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master" alt="tic"></a> <a href="https://travis-ci.org/ropensci/tic"><img src="https://travis-ci.org/ropensci/tic.svg?branch=master" alt="Travis build status"></a> <a href="https://circleci.com/gh/ropensci/tic"><img src="https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&amp;logo=circle&amp;logoColor=green&amp;style=flat-square" alt="CircleCI"></a> <a href="https://cran.r-project.org/package=tic"><img src="https://www.r-pkg.org/badges/version/tic" alt="CRAN status"></a> <a href="https://codecov.io/gh/ropensci/tic"><img src="https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <a href="https://github.com/ropensci/software-review/issues/305"><img src="https://badges.ropensci.org/305_status.svg"></a> <!-- badges: end --></p>
 <p>The goal of tic is to enhance and simplify working with continuous integration (CI) systems.</p>
 <p>The following ones are supported:</p>
 <table class="table">
@@ -194,8 +190,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>{tic} can be installed from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ropensci/tic"</span>)
-</pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ropensci/tic"</span><span class="op">)</span></pre></div>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
@@ -218,42 +213,40 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <a href="#quickstart" class="anchor"></a>Quickstart</h4>
 <p>If you are a new user, run</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic.html">use_tic</a></span>()
-</pre></div>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co">### Travis CI ------------------------------------------------------------------</span>
-<span class="kw">travis</span>::<span class="fu"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span>() <span class="co"># (optional for deployment)</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_travis_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, deploy_on = <span class="st">"travis"</span>)
+<span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_travis_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"travis"</span><span class="op">)</span>
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",</span>
 <span class="co">#              matrix = "travis", deploy = "travis")</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">### Circle CI ------------------------------------------------------------------</span>
-<span class="kw">circle</span>::<span class="fu"><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">use_circle_deploy</a></span>() <span class="co"># (optional for deployment)</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, deploy_on = <span class="st">"circle"</span>)
+<span class="fu">circle</span><span class="fu">::</span><span class="fu"><a href="https://ropenscilabs.github.io/circle/reference/use_circle_deploy.html">use_circle_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span>
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",</span>
 <span class="co">#              matrix = "circle", deploy = "circle")</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">### Appveyor -------------------------------------------------------------------</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_appveyor_yml</a></span>()
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_appveyor_yml</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">### GitHub Actions -------------------------------------------------------------</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span>() <span class="co"># (optional for deployment)</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span>() <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span>(<span class="st">"package"</span>, deploy_on = <span class="st">"ghactions"</span>)
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"ghactions"</span><span class="op">)</span>
 <span class="co"># (all of the above in one call)</span>
 <span class="co"># tic::use_tic(wizard = FALSE, linux = "ghactions", mac = "ghactions",</span>
 <span class="co">#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")</span>
 
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span>(<span class="st">"ghactions"</span>)
-<span class="kw">tic</span>::<span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span>()
-</pre></div>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span><span class="op">(</span><span class="st">"ghactions"</span><span class="op">)</span>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 </div>
 </div>
 <div id="good-to-know" class="section level2">
@@ -370,19 +363,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/ropensci/tic/actions"><img src="https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master" alt="tic"></a></li>
-<li><a href="https://travis-ci.org/ropensci/tic"><img src="https://travis-ci.org/ropensci/tic.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://circleci.com/gh/ropensci/tic"><img src="https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&amp;logo=circle&amp;logoColor=green&amp;style=flat-square" alt="CircleCI"></a></li>
-<li><a href="https://cran.r-project.org/package=tic"><img src="https://www.r-pkg.org/badges/version/tic" alt="CRAN status"></a></li>
-<li><a href="https://codecov.io/gh/ropensci/tic"><img src="https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="https://github.com/ropensci/software-review/issues/305"><img src="https://badges.ropensci.org/305_status.svg"></a></li>
-</ul>
-</div>
-</div>
+  </div>
 </div>
 
 
@@ -403,34 +384,33 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">

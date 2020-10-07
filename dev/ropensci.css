@@ -18,20 +18,20 @@ a:focus, a:hover {
 }
 
 .btn-primary {
-    color: #ccdef6;
-    background-color: #4b8add;
-    border-color: #4b8add;
+    color: #fff;
+    background-color: #427fd4;
+    border-color: #427fd4;
 }
 
 .btn-primary:active, .btn-primary:hover, .btn-primary:focus{
 
     color: #fff;
-    background-color: #4b8add;
-    border-color: #4b8add;
+    background-color: #427fd4;
+    border-color: #427fd4;
 }
 
 .navbar {
-  background-color: #4b8add;
+  background: url(https://ropensci.org/images/svg/footer-cube.svg) bottom/contain no-repeat,linear-gradient(94.45deg,#427fd4 1.55%,#64a4ef 98.46%);
   transition: all 0.3s ease;
   box-shadow: 0 0 15px 5px rgba(0,0,0,.15);
   border: none;
@@ -39,13 +39,13 @@ a:focus, a:hover {
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
-    color: #1b6ada;
+    color: #23549A;
     background-color: #fff;
 }
 
 .dropdown-menu > li > a:hover {
     text-decoration: none;
-    color: #1b6ada;
+    color: #23549A;
     background-color: #fff;
 }
 
@@ -58,7 +58,7 @@ a:focus, a:hover {
 }
 
 .navbar .navbar-brand {
-  color: #ccdef6;
+  color: #fff;
   font-size: 24px;
   line-height: 26px;
   margin-right: -100px;
@@ -72,7 +72,7 @@ a:focus, a:hover {
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-    background-color: #ccdef6;
+    background-color: #fff;
 }
 
 .navbar .navbar-brand:hover {
@@ -82,16 +82,16 @@ a:focus, a:hover {
 .navbar .info {
   width: 140px;
   margin-left: 5px;
-  background-color: #4b8add;
+  background-color: #427fd4;
 }
 
 .navbar-default .navbar-nav > li > a{
-  color: #ccdef6;
+  color: #fff;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover{
-  background-color: #dfe3eb;
-  color: #5c677e;
+  background-color: #fff;
+  color: #23549A;
 }
 
 .navbar-default .navbar-nav > li > a:hover{
@@ -107,7 +107,8 @@ a:focus, a:hover {
 /* reference navbar ----------------------------------------------- */
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
   color: #fff;
-  background-color: #4b8add;
+  background-color: #427fd4;
+
 }
 
 #sidebar .nav > li {
@@ -152,9 +153,9 @@ a:focus, a:hover {
  */
 
 footer {
-  background-color: #4b8add;
+  background: url(https://ropensci.org/images/svg/footer-cube.svg) bottom/contain no-repeat,linear-gradient(94.45deg,#427fd4 1.55%,#64a4ef 98.46%);
   font-size: 15.75px;
-  color: #ccdef6;
+  color: #fff;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 22px;
   width: 100vw;
@@ -191,12 +192,12 @@ footer ul {
 }
 
 footer ul li {
-  line-height: 25.2px;
+  line-height: 32px;
 }
 
 footer ul li a {
   text-decoration: none;
-  color: #aac9f3;
+  color: #fff;
 }
 
 footer a:hover {
@@ -205,7 +206,7 @@ footer a:hover {
 }
 
 footer a {
-  color: #ccdef6;
+  color: #fff;
 }
 
 footer p {
@@ -229,4 +230,8 @@ footer p {
 
 html{
   overflow-x: hidden;
+}
+
+.cc-revoke {
+  display: none !important;
 }

@@ -14,18 +14,14 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
 <meta property="og:title" content="Deployment">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -41,7 +37,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9005</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9006</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -159,7 +155,7 @@
 <h3 class="hasAnchor">
 <a href="#circle-ci" class="anchor"></a>Circle CI</h3>
 <p>On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.</p>
-<p>When calling <code><a href="https://rdrr.io/pkg/circle/man/use_circle_deploy.html">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your GitHub repo. No extra deploy key need to be stored in the GitHub repo.</p>
+<p>When calling <code><a href="https://ropenscilabs.github.io/circle/reference/use_circle_deploy.html">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your GitHub repo. No extra deploy key need to be stored in the GitHub repo.</p>
 </div>
 <div id="appveyor-ci" class="section level3">
 <h3 class="hasAnchor">
@@ -171,11 +167,10 @@
 <li>
 <p>Generate a SSH key pair</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">key</span> <span class="op">&lt;-</span> <span class="kw">openssl</span>::<span class="fu"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span>()
+<span class="va">key</span> <span class="op">&lt;-</span> <span class="fu">openssl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw">pub_key</span> <span class="op">&lt;-</span> <span class="kw">tic</span>:::<span class="fu"><a href="../reference/ssh_key_helpers.html">get_public_key</a></span>(<span class="kw">key</span>)<span class="op">$</span><span class="kw">ssh</span>
-<span class="kw">private_key</span> <span class="op">&lt;-</span> <span class="kw">tic</span>:::<span class="fu"><a href="../reference/ssh_key_helpers.html">encode_private_key</a></span>(<span class="kw">key</span>)
-</pre></div>
+<span class="va">pub_key</span> <span class="op">&lt;-</span> <span class="fu">tic</span><span class="fu">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">get_public_key</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span><span class="op">$</span><span class="va">ssh</span>
+<span class="va">private_key</span> <span class="op">&lt;-</span> <span class="fu">tic</span><span class="fu">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">encode_private_key</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span></pre></div>
 </li>
 <li><p>Copy the public key and add it as an deploy key to <code>Settings -&gt; Deploy Key</code> of the <em>drat repo you want to deploy to</em> (<strong>not</strong> the one of the package which should be deployed).</p></li>
 <li><p>Copy the private key and log into to your Appveyor account. Go to <code>Account -&gt; Encrypt YAML</code> and encrypt the private key.</p></li>
@@ -243,11 +238,10 @@
 <span id="cb3-4"><a href="#cb3-4"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::deploy()'</span></span></code></pre></div>
 <p>In the “before_deploy” stage, {tic} will do the following:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
-}
-</pre></div>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></pre></div>
 <ul>
 <li>
 <p>Calls <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the Travis CI build. This step sets up SSH key previously added to the GitHub and Travis via <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. Argument <code>private_key_name</code> can be ignored as long as no custom private key name was used during <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>. If so, then supply it via the <code>private_key_name</code> argument in <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
@@ -256,29 +250,28 @@
 <li><p>Calls <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</p></li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
-</pre></div>
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the {pkgdown} site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo, keeping the history.</p>
-<div id="deploying-to-docs-master-or-gh-pages-branch" class="section level3">
+<div id="deploying-to-docs-default-branch-or-gh-pages-branch" class="section level3">
 <h3 class="hasAnchor">
-<a href="#deploying-to-docs-master-or-gh-pages-branch" class="anchor"></a>Deploying to <code>docs/</code> (master) or <code>gh-pages</code> branch</h3>
+<a href="#deploying-to-docs-default-branch-or-gh-pages-branch" class="anchor"></a>Deploying to <code>docs/</code> (default branch) or <code>gh-pages</code> branch</h3>
 <p>By default deployment is pushed to the <code>gh-pages</code> branch. This has the following advantages:</p>
 <ul>
-<li>No cluttering of the commit history in the master branch</li>
+<li>No cluttering of the commit history in the default branch</li>
 <li>Everything “just works” silently in the background</li>
 </ul>
-<div id="master-branch-deployment" class="section level4">
+<div id="default-branch-deployment" class="section level4">
 <h4 class="hasAnchor">
-<a href="#master-branch-deployment" class="anchor"></a>master branch deployment</h4>
-<p>Deploying to the <code>docs/</code> directory of the master branch has the following advantages:</p>
+<a href="#default-branch-deployment" class="anchor"></a>Default branch deployment</h4>
+<p>Deploying to the <code>docs/</code> directory of the default branch has the following advantages:</p>
 <ul>
 <li>Per-branch versions of the {pkgdown} site (if desired)</li>
 <li>Per-branch versions enable the possibility to have preview for pull requests via <a href="https://www.netlify.com/" class="uri">https://www.netlify.com/</a>
 </li>
 </ul>
-<p>The disadvantage is that the master branch will be cluttered by automatic commits triggered by Travis CI that push the changes of the {pkgdown} site to the <code>master</code> branch.</p>
+<p>The disadvantage is that the default branch will be cluttered by automatic commits triggered by Travis CI that push the changes of the {pkgdown} site to the default branch.</p>
 </div>
 <div id="orphaning-the-gh-pages-branch" class="section level4">
 <h4 class="hasAnchor">
@@ -314,17 +307,16 @@
 <span id="cb7-14"><a href="#cb7-14"></a><span class="at">          </span><span class="fu">all_branches</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p><code>tic.R</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co">if</span> (<span class="fu"><a href="../reference/ci.html">ci_has_env</a></span>(<span class="st">"TIC_DEPLOY_KEY"</span>)) {
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
-}
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_has_env</a></span><span class="op">(</span><span class="st">"TIC_DEPLOY_KEY"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="co">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span>(<span class="st">"BUILD_PKGDOWN"</span>)) {
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>()) <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())
-}
-</pre></div>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="st">"BUILD_PKGDOWN"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></pre></div>
 </div>
 <div id="committing-single-files" class="section level2">
 <h2 class="hasAnchor">
@@ -332,13 +324,12 @@
 <p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created during the CI run.</p>
 <p>In the following example, these files are created/updated by calling <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"before_deploy"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span>())
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/document.html">document</a></span>(roclets = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span>))) <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>(commit_paths = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span>)))
-</pre></div>
+<span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span><span class="op">(</span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/document.html">document</a></span><span class="op">(</span>roclets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span>commit_paths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p>Applying this idea depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NAMESPACE</code> directly or let them be created during the CI run?</p>
 </div>
   </div>
@@ -370,34 +361,33 @@
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">
