@@ -1,4 +1,4 @@
-do_package_checks()
+do_package_checks(codecov = FALSE)
 
 if (ci_on_ghactions() && ci_is_env("BUILD_PKGDOWN", "true")) {
   get_stage("before_deploy") %>%
