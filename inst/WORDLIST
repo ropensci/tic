@@ -132,11 +132,13 @@ Krystalli
 LazyData
 libcurl
 libexec
+libfribidi
 libgdal
 libgeos
 libglu
 libgmp
 libgs
+libharfbuzz
 libproj
 libs
 LIBS
