@@ -220,7 +220,7 @@ check_private_key_name <- function(string) {
 #' @name github_helpers
 auth_github <- function() {
   # authenticate on github
-  token <- usethis::github_token()
+  token <- gh::gh_token()
   if (token == "") {
     cli::cli_alert_danger("{.pkg travis}: Call
       {.code usethis::browse_github_token()} and follow the instructions.
