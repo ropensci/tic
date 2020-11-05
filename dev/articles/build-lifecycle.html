@@ -205,9 +205,9 @@
 <h2 class="hasAnchor">
 <a href="#steps" class="anchor"></a>Steps</h2>
 <p>Steps are the commands that are executed in each stage. <em>tic</em> uses the <a href="https://magrittr.tidyverse.org/">pipe operator</a> and the <code><a href="../reference/dsl.html">add_step()</a></code> function to chain steps in <code>tic.R</code>, for example</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>In the code example above <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> is added to the <code>"deploy"</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code>. In summary, steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
 <p>Here is a list that shows a rough grouping of the steps into their default stages:</p>
 <div id="basic" class="section level4">

@@ -189,8 +189,8 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>{tic} can be installed from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ropensci/tic"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ropensci/tic"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
@@ -212,11 +212,11 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <h4 class="hasAnchor">
 <a href="#quickstart" class="anchor"></a>Quickstart</h4>
 <p>If you are a new user, run</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co">### Travis CI ------------------------------------------------------------------</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">### Travis CI ------------------------------------------------------------------</span>
 <span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">use_travis_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_travis_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"travis"</span><span class="op">)</span>
@@ -246,7 +246,7 @@ Forget about <code>.yml</code> files or web browser configurations.</p></li>
 <span class="co">#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")</span>
 
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span><span class="op">(</span><span class="st">"ghactions"</span><span class="op">)</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="good-to-know" class="section level2">
