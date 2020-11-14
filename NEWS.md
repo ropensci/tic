@@ -1,3 +1,11 @@
+# tic 0.9.0.9007 (2020-11-14)
+
+- update GitHub Actions templates
+  - update actions/checkout to v2.3.4
+  - update actions/upload-artifacts to v2.2.1
+  - update pat-s/always-upload-cache to v2.1.3
+- conditionally install pkgdown required system libs on both Linux and macOS
+
 # tic 0.9.0.9006 (2020-09-19)
 
 - Replace hardcoded references to "master" by a dynamic query of the default repo branch
@@ -144,7 +152,7 @@
 ## Features
 
 - New `update_yml()`: Update your {tic} yaml templates to the latest upstream version in {tic}.
-  User changes are preserved if these are marked correctly. 
+  User changes are preserved if these are marked correctly.
   See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for instructions.
   This process can also be fully automated via a [custom CI job](https://docs.ropensci.org/tic/articles/updating.html#automating-the-update-process).
 - Add argument `force` to `step_do_push_deploy()` for adding the `--force` flag to git calls
