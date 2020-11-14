@@ -143,7 +143,7 @@ update_yml <- function(template_in = NULL,
     } else {
       cli::cli_alert("Updating {ci_provider} template
         {.file {basename(instance)}} from version
-        '{rev_date_local} to version '{rev_date_latest}'.", wrap = TRUE)
+        {.field {rev_date_local}} to version {.field {rev_date_latest}}.", wrap = TRUE)
     }
 
     # call internal update function for each provider
