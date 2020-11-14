@@ -87,11 +87,11 @@ jobs:
         run: sudo apt install libcurl4-openssl-dev
 
       - name: "[Stage] [macOS] Install system libs for pkgdown"
-        if: runner.os == 'macOS' && matrix.config.pkgdown != ""
+        if: runner.os == 'macOS' && matrix.config.pkgdown != ''
         run: brew install harfbuzz fribidi
 
       - name: "[Stage] [Linux] Install system libs for pkgdown"
-        if: runner.os == 'Linux' && matrix.config.pkgdown != ""
+        if: runner.os == 'Linux' && matrix.config.pkgdown != ''
         run: sudo apt install libharfbuzz-dev libfribidi-dev
 
       - name: "[Stage] Install"
