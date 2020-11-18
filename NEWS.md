@@ -1,3 +1,8 @@
+# tic 0.9.0.9008 (2020-11-18)
+
+- update peter-evans/create-pull-request action in `update-tic.yml` template to v3.5.0
+
+
 # tic 0.9.0.9007 (2020-11-14)
 
 - update GitHub Actions templates
