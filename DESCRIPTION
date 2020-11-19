@@ -1,9 +1,8 @@
 Type: Package
 Package: tic
-Title: Tasks Integrating Continuously: CI-Agnostic Workflow
-    Definitions
+Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.9.0.9008
-Authors@R: 
+Authors@R:
     c(person(given = "Kirill",
              family = "Müller",
              role = c("aut", "cre"),
@@ -40,18 +39,18 @@ Authors@R:
              comment = "Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
       person(given = "rOpenSci",
              role = "fnd"))
-Description: Provides a way to describe common build and
-    deployment workflows for R-based projects: packages, websites (e.g.
-    blogdown, pkgdown), or data processing (e.g. research compendia).  The
-    recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
-    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).
+Description: Provides a way to describe common build and deployment
+    workflows for R-based projects: packages, websites (e.g.  blogdown,
+    pkgdown), or data processing (e.g. research compendia).  The recipe is
+    described independent of the continuous integration tool used for
+    processing the workflow (e.g.  'Travis CI' or 'AppVeyor').  This
+    package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).
 License: GPL (>= 2)
 URL: https://github.com/ropensci/tic
 BugReports: https://github.com/ropensci/tic/issues
-Depends: 
+Depends:
     R (>= 3.2.0)
-Imports: 
+Imports:
     cli (>= 2.0.0),
     crayon,
     git2r,
@@ -64,7 +63,7 @@ Imports:
     rlang (>= 0.4.1.9000),
     usethis,
     withr
-Suggests: 
+Suggests:
     base64enc,
     blogdown,
     bookdown,
@@ -75,7 +74,7 @@ Suggests:
     devtools,
     drat,
     fansi,
-    gh,
+    gh (>= 1.1.0),
     knitr,
     openssl,
     pkgdown,
@@ -91,9 +90,9 @@ Suggests:
     utils
 VignetteBuilder:
     knitr
-RdMacros: 
+RdMacros:
     lifecycle
-Remotes: 
+Remotes:
     ropenscilabs/circle,
     ropenscilabs/travis
 ByteCompile: No
@@ -102,7 +101,7 @@ LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: sodium
-Collate: 
+Collate:
     'ci.R'
     'appveyor.R'
     'base64.R'
