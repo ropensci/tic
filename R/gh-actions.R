@@ -3,7 +3,6 @@
 GHActionsCI <- R6Class( # nolint
   "GHActionsCI",
   inherit = CI,
-
   public = list(
     get_branch = function() {
       ref <- Sys.getenv("GITHUB_REF")
@@ -57,13 +56,20 @@ GHActionsCI <- R6Class( # nolint
 # nocov end
 
 #' @title Add a GitHub Actions secret to a repository
-#' @description Encrypts a value and adds it as a secret to a GitHub repository
+#' @description Encrypts the supplied value using `libsodium` and adds it as a
+#' secret to the given GitHub repository. Secrets can be be used in GitHub
+#' Action runs as environment variables.
+#' A common use case is to encrypt Personal Access Tokens (PAT) or API keys.
+#'
+#' This is the same as adding a secret manually in GitHub via
+#' `"Settings" -> "Secrets" -> "New repository secret"`
 #'
 #' @param secret `[character]`\cr
-#'   The secret which should be added.
+#'   The value which should be encrypted (e.g. a Personal Access Token).
 #'
 #' @param name `[character]`\cr
-#'   The name of the secret as it will be listed in the repository.
+#'   The name of the secret as which it will appear in the "Secrets" overview of
+#'   the repository.
 #'
 #' @param visibility `[character]`\cr
 #'   The level of visibility for the secret. One of `"all"`, `"private"`, or

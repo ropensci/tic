@@ -15,10 +15,11 @@ gha_add_secret(
 }
 \arguments{
 \item{secret}{\verb{[character]}\cr
-The secret which should be added.}
+The value which should be encrypted (e.g. a Personal Access Token).}
 
 \item{name}{\verb{[character]}\cr
-The name of the secret as it will be listed in the repository.}
+The name of the secret as which it will appear in the "Secrets" overview of
+the repository.}
 
 \item{repo_slug}{\verb{[character]}\cr
 Repository slug of the repository to which the secret should be added.
@@ -39,7 +40,13 @@ Vector of repository ids for which the secret is accessible.
 Only applies if \code{visibility = "selected"} was set.}
 }
 \description{
-Encrypts a value and adds it as a secret to a GitHub repository
+Encrypts the supplied value using \code{libsodium} and adds it as a
+secret to the given GitHub repository. Such secrets can be be used in GitHub
+Action runs as environment variables.
+A common use case is to encrypt Personal Access Tokens (PAT) or API keys.
+
+This is the same as adding a secret manually in GitHub via
+\code{"Settings" -> "Secrets" -> "New repository secret"}
 }
 \examples{
 \dontrun{
