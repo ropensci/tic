@@ -263,7 +263,7 @@ Simply check out the setup for the type of project you are interested in to get 
 
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
-Under the hood, it uses the framework [Hugo](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
+Under the hood, it uses the framework [Hugo](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R) in the "install" section:
 
 ```{r eval = FALSE}
 get_stage("install") %>%

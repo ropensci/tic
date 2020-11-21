@@ -68,7 +68,7 @@
 #'  |            | Linux + macOS + Windows  | no         | no                  | `use_ghactions_yml("linux-macos-windows")`              |
 #'  |            | Linux + macOS + Windows  | yes        | no                  | `use_ghactions_yml("linux-macos-windows-deploy")`       |
 #'
-#' @rdname yaml_templates
+#' @name yaml_templates
 #' @export
 use_appveyor_yml <- function(type = "windows",
                              write = TRUE,

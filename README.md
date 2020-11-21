@@ -20,19 +20,19 @@ The following ones are supported:
 | -------------- | ---------------------------------------------------- | --------------------- | --------------------------------------------------------------------- |
 | Appveyor CI    | [{r-appveyor}](https://github.com/krlmlr/r-appveyor) | Windows               |                                                                       |
 | Circle CI      | [{circle}](https://docs.ropensci.org/circle/)        | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
-| Github Actions | [{ghactions}](https://maxheld83.github.io/ghactions) | Linux, macOS, Windows |                                                                       |
+| Github Actions | [{ghactions}](https://maxheld.de/ghactions)          | Linux, macOS, Windows |                                                                       |
 | Travis CI      | [{travis}](https://docs.ropensci.org/travis/)        | Linux, macOS          | https://travis-ci.org and https://travis-ci.com                       |
 
-To learn more about CI, read [the "Travis CI for test automation" blog post](http://mahugh.com/2016/09/02/travis-ci-for-test-automation/) and our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
+To learn more about CI, read our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
 The most important improvements over existing solutions are:
 
 1. Deployment to a Git repository is greatly simplified. Update your repository with results from the CI build.
 
-1. Support for R packages and other kinds of projects (bookdown, blogdown, etc.), with predefined templates.
+2. Support for R packages and other kinds of projects (bookdown, blogdown, etc.), with predefined templates.
    Set up your project to deploy rendered versions of your book or blog with a single push to Git.
 
-1. Workflow specification in a single `.R` file, regardless of CI system used.
+3. Workflow specification in a single `.R` file, regardless of CI system used.
    Forget about `.yml` files or web browser configurations.
 
 ## Installation

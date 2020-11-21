@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as [{circle}](https://pat-s.github.io/circle/).
+Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as [{circle}](https://docs.ropensci/circle/).
 These enable the repo on the CI system and ensure that deployment permissions are granted.
 
 After everything has been set up, the rest of the work goes to {tic}.
