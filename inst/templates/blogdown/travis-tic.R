@@ -6,7 +6,7 @@ get_stage("deploy") %>%
   add_code_step(blogdown::build_site())
 
 # deploys site to gh-pages branch, wiping all previous commits
-if (ci_on_travis() && ci_has_env("BUILD_BLOGDOWN")) {
+if (ci_on_ghactions() && ci_has_env("BUILD_BLOGDOWN")) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh()) %>%
     add_step(step_setup_push_deploy(

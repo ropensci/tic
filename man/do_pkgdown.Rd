@@ -70,10 +70,10 @@ Default: deploy all files.}
 Add \code{--force} flag to git commands?}
 
 \item{private_key_name}{\code{string}\cr
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
-\code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
+SSH key pair via tic::use_ghactions_deploy()] or \code{\link[=use_tic]{use_tic()}}, pass this
+name here.}
 }
 \description{
 \code{do_pkgdown()} builds and optionally deploys a pkgdown site and adds default
@@ -84,7 +84,8 @@ steps to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages
 \code{repos} argument.
 \item \code{\link[=step_session_info]{step_session_info()}} in the \code{"install"} stage.
 \item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup
-the upcoming deployment (if \code{deploy} is set and only on Travis CI),
+the upcoming deployment (if \code{deploy} is set and only on
+GitHub Actions),
 \item \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}} in the \code{"before_deploy"} stage
 (if \code{deploy} is set),
 \item \code{\link[=step_build_pkgdown]{step_build_pkgdown()}} in the \code{"deploy"} stage,

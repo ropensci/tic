@@ -1,9 +1,0 @@
-## tic Travis CI template: linux-matrix
-## revision date: 2020-05-09
-
-# multiple R versions ----------------------------------------------------------
-matrix:
-  include:
-  - r: devel
-  - r: oldrel
-  - r: release

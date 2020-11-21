@@ -41,7 +41,7 @@ Only applies if \code{visibility = "selected"} was set.}
 }
 \description{
 Encrypts the supplied value using \code{libsodium} and adds it as a
-secret to the given GitHub repository. Such secrets can be be used in GitHub
+secret to the given GitHub repository. Secrets can be be used in GitHub
 Action runs as environment variables.
 A common use case is to encrypt Personal Access Tokens (PAT) or API keys.
 

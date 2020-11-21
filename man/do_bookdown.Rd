@@ -74,10 +74,10 @@ Default: deploy all files.}
 Add \code{--force} flag to git commands?}
 
 \item{private_key_name}{\code{string}\cr
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
-\code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
+SSH key pair via tic::use_ghactions_deploy()] or \code{\link[=use_tic]{use_tic()}}, pass this
+name here.}
 
 \item{cname}{(\code{character(1)}\cr An optional URL for redirecting the created
 website A \code{CNAME} file containing the given URL will be added to the root

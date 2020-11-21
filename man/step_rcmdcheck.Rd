@@ -25,9 +25,9 @@ Deprecated, use \code{error_on}.}
 \item{args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
 
-Default for Travis and local runs: \code{c("--no-manual", "--as-cran")}.
+Default for local runs: \code{c("--no-manual", "--as-cran")}.
 
-Default for Appveyor and GitHub Actions (Windows):
+Default for Windows:
 \code{c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")}.
 
 On GitHub Actions option "--no-manual" is always used (appended to custom
@@ -36,8 +36,8 @@ consuming and error prone.\cr}
 
 \item{build_args}{\verb{[character]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}.\cr
-Default for Travis and local runs: \code{"--force"}.\cr
-Default for Appveyor: \code{c("--no-build-vignettes", "--force")}.\cr}
+Default for local runs: \code{"--force"}.\cr
+Default for Windows: \code{c("--no-build-vignettes", "--force")}.\cr}
 
 \item{error_on}{\verb{[character]}\cr
 Whether to throw an error on R CMD check failures. Note that the check is
@@ -65,7 +65,7 @@ which ultimately calls \verb{R CMD check}.
 \section{Updating of (dependency) packages}{
 
 Packages shipped with the R-installation will not be updated as they will be
-overwritten by the Travis R-installer in each build.
+overwritten by the R-installer in each build.
 If you want these package to be updated, please add the following
 step to your workflow: \code{add_code_step(remotes::update_packages("<pkg>"))}.
 }

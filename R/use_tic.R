@@ -16,22 +16,19 @@
 #' @param wizard `[flag]`\cr Interactive operation? If `TRUE`, a menu will be
 #'   shown.
 #' @param linux `[string]`\cr Which CI provider(s) to use to test on Linux.
-#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"`/`NULL`
+#'   Possible options are `"circle"`, `"ghactions"`, `"none"`/`NULL`
 #'   and `"all"`.
 #' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
 #'   Possible options are `"none"`/`NULL`, `"appveyor"` and `"ghactions"`.
 #' @param mac `[string]`\cr Which CI provider(s) to use to test on macOS
-#'   Possible options are `"none"`/`NULL`, `"travis"` and `"ghactions"`.
+#'   Possible options are `"none"`/`NULL` and `"ghactions"`.
 #' @param deploy `[string]`\cr Which CI provider(s) to use to deploy artifacts
-#'   such as pkgdown documentation. Possible options are `"travis"`, `"circle"`,
+#'   such as pkgdown documentation. Possible options are "circle"`,
 #'   `"ghactions"`, `"none"`/`NULL` and `"all"`.
 #' @param matrix `[string]`\cr For which CI provider(s) to set up matrix builds.
-#'   Possible options are `"travis"`, `"circle"`, `"ghactions"`, `"none"`/`NULL`
+#'   Possible options are  `"circle"`, `"ghactions"`, `"none"`/`NULL`
 #'   and `"all"`.
 #' @template private_key_name
-#' @param travis_endpoint `[string]`\cr The Travis CI endpoint to use. Possible
-#'   options are `".org"` and `".com"`. Default is `".com"`. See
-#'   [travis::travis_enable()] for more information.
 #' @param quiet `[flag]`\cr Less verbose output? Default: `FALSE`.
 #' @export
 #' @examples
@@ -43,7 +40,7 @@
 #'   use_tic(
 #'     wizard = FALSE,
 #'     linux = "circle",
-#'     mac = "travis",
+#'     mac = "ghactions",
 #'     windows = "appveyor",
 #'     deploy = "circle",
 #'     matrix = "all"
@@ -56,7 +53,6 @@ use_tic <- function(wizard = interactive(),
                     deploy = "ghactions",
                     matrix = "none",
                     private_key_name = "TIC_DEPLOY_KEY",
-                    travis_endpoint = ".com",
                     quiet = FALSE) { # nolint
 
   cli_alert("Welcome to {.pkg tic}!")
@@ -70,7 +66,7 @@ use_tic <- function(wizard = interactive(),
   cli_h1("Introduction:")
   cli_text("{.pkg tic} currently comes with support for four CI providers: ")
 
-  cli_ul(c("Appveyor", "Circle CI", "Travis CI", "GitHub Actions"))
+  cli_ul(c("Appveyor", "Circle CI", "GitHub Actions"))
 
   cli_par()
   cli_text(c(
@@ -82,7 +78,7 @@ use_tic <- function(wizard = interactive(),
   cli_end()
 
   cli_text("We recommend the following setup:")
-  cli_ul(c("Travis CI: Linux", "Travis CI: macOS", "Appveyor: Windows"))
+  cli_ul(c("GitHub Actions: Linux", "GitHub Actions: macOS", "GitHub Actions: Windows"))
   cli_par()
   cli_end()
 
@@ -96,11 +92,11 @@ use_tic <- function(wizard = interactive(),
     cli_par()
     cli_end()
 
-    linux <- ci_menu(c("travis", "circle", "ghactions", "none", "all"),
+    linux <- ci_menu(c("circle", "ghactions", "none", "all"),
       title = "Which provider do you want to use for Linux builds?"
     )
 
-    mac <- ci_menu(c("travis", "ghactions", "none"),
+    mac <- ci_menu(c("ghactions", "none"),
       title = "Do you want to build on macOS?"
     )
 
@@ -109,14 +105,14 @@ use_tic <- function(wizard = interactive(),
     )
 
     deploy <- ci_menu(intersect(
-      c("travis", "circle", "ghactions", "none", "all"),
+      c("circle", "ghactions", "none", "all"),
       c(linux, mac, windows, "all", "none")
     ),
     title = "Do you want to deploy (i.e. push from the CI build to your repo) on certain providers? If yes, which ones?" # nolint
     )
 
     matrix <- ci_menu(intersect(
-      c("none", "travis", "circle", "appveyor", "ghactions", "all"),
+      c("none", "circle", "appveyor", "ghactions", "all"),
       c(linux, mac, windows, "all", "none")
     ),
     title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
@@ -136,20 +132,20 @@ use_tic <- function(wizard = interactive(),
     cli_text("If setup fails, rerun with:")
     cli_text("{.code ", use_tic_call, "}")
   } else {
-    linux <- match.arg(linux, c("travis", "circle", "ghactions", "none", "all"),
+    linux <- match.arg(linux, c("circle", "ghactions", "none", "all"),
       several.ok = TRUE
     )
-    mac <- match.arg(mac, c("none", "travis", "ghactions"),
+    mac <- match.arg(mac, c("none", "ghactions"),
       several.ok = TRUE
     )
     windows <- match.arg(windows, c("none", "appveyor", "ghactions", "all"),
       several.ok = TRUE
     )
-    deploy <- match.arg(deploy, c("travis", "circle", "ghactions", "none", "all"), # nolint
+    deploy <- match.arg(deploy, c("circle", "ghactions", "none", "all"), # nolint
       several.ok = TRUE
     )
     matrix <- match.arg(matrix,
-      c("none", "travis", "circle", "appveyor", "ghactions", "all"),
+      c("none", "circle", "appveyor", "ghactions", "all"),
       several.ok = TRUE
     )
   }
@@ -171,15 +167,6 @@ use_tic <- function(wizard = interactive(),
     check_circle_pkg()
     circle::enable_repo()
     circle::use_circle_deploy()
-  } else if (travis_in(deploy)) {
-    rule(left = "Travis CI")
-    check_travis_pkg()
-    travis::travis_enable(endpoint = travis_endpoint)
-    travis::use_travis_deploy(
-      endpoint = travis_endpoint,
-      key_name_private = private_key_name,
-      key_name_public = "Deploy Key for Travis CI"
-    )
   } else if (ghactions_in(deploy)) {
     rule(left = "GitHub Actions")
     check_ghactions_pat()
@@ -191,63 +178,6 @@ use_tic <- function(wizard = interactive(),
   cli_par()
   cli_end()
   cli_h1("Creating YAML files...")
-
-  # Travis ---------------------------------------------------------------------
-
-  cli_h2("Travis CI")
-
-  if (travis_in(linux) && travis_in(mac)) {
-
-    if (travis_in(matrix)) {
-      if (travis_in(deploy)) {
-        use_travis_yml("linux-macos-deploy-matrix")
-      } else {
-        use_travis_yml("linux-macos-matrix")
-      }
-    } else {
-      if (travis_in(deploy)) {
-        use_travis_yml("linux-macos-deploy")
-      } else {
-        use_travis_yml("linux-macos")
-      }
-    }
-  } else if (travis_in(mac)) {
-
-    if (travis_in(deploy)) {
-      # build matrix
-      if (travis_in(matrix)) {
-        use_travis_yml("macos-deploy-matrix")
-      } else {
-        use_travis_yml("macos-deploy")
-      }
-    } else {
-      # build matrix
-      if (travis_in(matrix)) {
-        use_travis_yml("macos-matrix")
-      } else {
-        use_travis_yml("macos")
-      }
-    }
-  } else if (travis_in(linux)) {
-    # deployment
-    if (travis_in(deploy)) {
-      # build matrix
-      if (travis_in(matrix)) {
-        use_travis_yml("linux-deploy-matrix")
-      } else {
-        use_travis_yml("linux-deploy")
-      }
-    } else {
-      # build matrix
-      if (travis_in(matrix)) {
-        use_travis_yml("linux-matrix")
-      } else {
-        use_travis_yml("linux")
-      }
-    }
-  }
-
-  cli_alert_success("OK")
 
   # Circle ---------------------------------------------------------------------
 
@@ -302,7 +232,6 @@ use_tic <- function(wizard = interactive(),
       use_ghactions_yml("linux-macos-windows")
     }
   } else if (ghactions_in(linux) && ghactions_in(mac)) {
-
     if (ghactions_in(matrix)) {
       if (ghactions_in(deploy)) {
         use_ghactions_yml("linux-macos-deploy-matrix")
@@ -317,7 +246,6 @@ use_tic <- function(wizard = interactive(),
       }
     }
   } else if (ghactions_in(linux) && ghactions_in(windows)) {
-
     if (ghactions_in(matrix)) {
       if (ghactions_in(deploy)) {
         use_ghactions_yml("linux-windows-deploy-matrix")
@@ -332,7 +260,6 @@ use_tic <- function(wizard = interactive(),
       }
     }
   } else if (ghactions_in(mac) && ghactions_in(windows)) {
-
     if (ghactions_in(matrix)) {
       if (ghactions_in(deploy)) {
         use_ghactions_yml("macos-windows-deploy-matrix")
@@ -347,7 +274,6 @@ use_tic <- function(wizard = interactive(),
       }
     }
   } else if (ghactions_in(mac)) {
-
     if (ghactions_in(deploy)) {
       # build matrix
       if (ghactions_in(matrix)) {
@@ -411,10 +337,6 @@ arg_desc <- function(arg, last = FALSE) {
   paste0(arg_name, " = ", arg_value, if (!last) ", ")
 }
 
-travis_in <- function(x) {
-  !all(is.na(match(c("travis", "all"), x)))
-}
-
 circle_in <- function(x) {
   !all(is.na(match(c("circle", "all"), x)))
 }
@@ -433,7 +355,6 @@ ci_menu <- function(choices, title) {
   }
 
   choice_map <- c(
-    travis = "Travis CI",
     circle = "Circle CI",
     appveyor = "AppVeyor CI",
     ghactions = "GitHub Actions",
@@ -460,8 +381,7 @@ ci_menu <- function(choices, title) {
 #'   `"site"`, `"blogdown"`, `"bookdown"` or `"unknown"`.
 #' @param deploy_on (`character(1)`)\cr
 #'   Which CI provider should perform deployment? Defaults to `NULL` which means
-#'   no deployment will be done. Possible values are `"ghactions"`, `"travis"`,
-#'   or `"circle"`.
+#'   no deployment will be done. Possible values are `"ghactions"` or `"circle"`.
 #' @seealso [yaml_templates], [use_tic_badge()]
 #' @export
 #' @examples
@@ -471,7 +391,6 @@ ci_menu <- function(choices, title) {
 #' use_tic_r("blogdown", deploy_on = "all")
 #' }
 use_tic_r <- function(repo_type, deploy_on = "none") {
-
   cli_par()
   cli_end()
   cli_h2("tic.R")
@@ -491,10 +410,6 @@ use_tic_r <- function(repo_type, deploy_on = "none") {
         repo_type,
         paste0(deploy_on, "-tic.R")
       ), "tic.R"),
-      "travis" = use_tic_template(file.path(
-        repo_type,
-        paste0(deploy_on, "-tic.R")
-      ), "tic.R"),
       "circle" = use_tic_template(file.path(
         repo_type,
         paste0(deploy_on, "-tic.R")
@@ -509,7 +424,6 @@ use_tic_r <- function(repo_type, deploy_on = "none") {
       ), "tic.R")
     )
   }
-
 }
 
 # This code can only run interactively

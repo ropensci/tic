@@ -18,7 +18,7 @@ base64unserialize(x, compression = "gzip")
 \description{
 \code{base64serialize()} converts an R object into a string suitable for storing
 in an environment variable. Use this function for encoding entire R objects
-(such as OAuth tokens) so that they can be used in Travis builds.
+(such as OAuth tokens).
 
 \code{base64unserialize()} is the inverse operation to \code{base64serialize()}.
 Use this function in your \code{tic.R} to access the R object previously encoded

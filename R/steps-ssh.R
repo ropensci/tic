@@ -117,8 +117,7 @@ InstallSSHKeys <- R6Class(
           We checked for env var {.var {private$private_key_name}}
           but could not find it as an env var in the current build.
           Double-check if it exists.
-          Calling {.fun travis::use_travis_deploy} or
-          {.fun tic::use_ghactions_deploy} may help resolving issues.",
+          Calling {.fun tic::use_ghactions_deploy} may help resolving issues.",
             wrap = TRUE
           )
           stopc("This build cannot deploy to GitHub.")
@@ -140,14 +139,13 @@ InstallSSHKeys <- R6Class(
 #' to a file in `~/.ssh`.
 #' Only run in non-interactive settings and if the environment variable
 #' exists and is non-empty.
-#' [travis::use_travis_deploy()] , [use_ghactions_deploy()] and [use_tic()]
-#' functions encode a private key as an environment variable for use with this
-#' function.
+#' [use_ghactions_deploy()] and [use_tic()] functions encode a private key as an
+#' environment variable for use with this function.
 #'
 #' @template private_key_name
 #'
 #' @family steps
-#' @seealso [travis::use_travis_deploy()], [use_tic()], [use_ghactions_deploy()]
+#' @seealso [use_tic()], [use_ghactions_deploy()]
 #' @export
 #' @examples
 #' dsl_init()
@@ -176,7 +174,6 @@ TestSSH <- R6Class(
       private$private_key_name <- private_key_name
     },
     run = function() {
-
       cli_text("{.fun step_test_ssh}: Trying to ssh into {private$url}")
       cli_text("{.fun step_test_ssh}: Using command:
                {.code ssh -i ~/.ssh/{private$private_key_name}
@@ -238,7 +235,6 @@ SetupSSH <- R6Class(
                           host = "github.com",
                           url = paste0("git@", host),
                           verbose = "") {
-
       private$install_ssh_keys <- step_install_ssh_keys(private_key_name = private_key_name) # nolint
       private$add_to_known_hosts <- step_add_to_known_hosts(host = host)
       private$test_ssh <- step_test_ssh(
@@ -286,8 +282,8 @@ SetupSSH <- R6Class(
 #' Adds to known hosts, installs private key, and tests the connection.
 #' Chaining [step_install_ssh_keys()], [step_add_to_known_hosts()]
 #' and [step_test_ssh()].
-#' The [travis::use_travis_deploy()] and [use_tic()] functions encode a private
-#' key as an environment variable for use with this function.
+#' [use_tic()] encodes a private key as an environment variable for use with
+#' this function.
 #'
 #' @inheritParams step_install_ssh_keys
 #' @inheritParams step_add_to_known_hosts
@@ -314,12 +310,9 @@ step_setup_ssh <- function(private_key_name = "TIC_DEPLOY_KEY",
 }
 
 compat_ssh_key <- function(private_key_name) {
-  # for backward comp, if "id_rsa" or "TRAVIS_DEPLOY_KEY" exists we take this
-  # key
+  # for backward comp, if "id_rsa" exists we take this key
   if (ci_has_env("id_rsa") && !ci_has_env(private_key_name)) {
     private_key_name <- "id_rsa"
-  } else if (ci_has_env("TRAVIS_DEPLOY_KEY") && !ci_has_env(private_key_name)) {
-    private_key_name <- "TRAVIS_DEPLOY_KEY"
   }
   private_key_name
 }

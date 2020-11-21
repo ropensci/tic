@@ -43,7 +43,7 @@ A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{ds
 by default loaded from \code{tic.R}.}
 }
 \description{
-Stages available in both Travis CI and AppVeyor, for which shortcuts
+Stages available in the CI provider, for which shortcuts
 have been defined. All these functions call \code{\link[=run_stage]{run_stage()}} with the
 corresponding stage name.
 }

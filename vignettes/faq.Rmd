@@ -18,18 +18,17 @@ knitr::opts_chunk$set(
 
 #### Q-Auth-1
 
-I am getting an error when using one of `travis::use_travis_deploy()`, `circle::use_circle_deploy()` or `tic::use_ghactions_deploy()`.
+I am getting an error when using `circle::use_circle_deploy()` or `tic::use_ghactions_deploy()`.
 
 **Answer**
 
 In most cases this is related to API authentication issues.
 Ensure that the following points are met:
 
-1. For Circle CI and Travis CI, install the respective GitHub App from the [GitHub Marketplace](https://github.com/marketplace).
+1. For Circle CI, install the respective GitHub App from the [GitHub Marketplace](https://github.com/marketplace).
 2. Ensure that you have set the respective API keys for the problematic provider in your `.Renviron` file.
   Consult the help pages of the respective `use_*_deploy()` function for more help.
   - GitHub Actions: A `GITHUB_PAT` with "public_repo" scopes.
-  - Travis CI: Env var `R_TRAVIS_ORG` or `R_TRAVIS_COM`, depending on the endpoint you use.
   - Circle CI: Env var `R_CIRCLE`.
 
 ## GitHub Actions
@@ -43,78 +42,20 @@ How is {tic} different from what [r-lib/actions](https://github.com/r-lib/action
 {tic} uses [r-lib/actions](https://github.com/r-lib/actions) as the base to install R in the first place.
 However in detail, {tic} does the following things differently which aim to enhance the CI experience:
 
-- Caching: {tic} caches the whole R library rather than only the direct dependendencies of a package. 
+- Caching: {tic} caches the whole R library rather than only the direct dependencies of a package.
   This has the advantage that packages required for side actions ({pkgdown} deployment, README updates) will also be cached.
-  
+
 - `ccache`: {tic} comes with a compiler cache for source installations of packages by default, speeding up repeated source installation highly.
   The compiler cache directory (`.ccache`) will also be cached (once a week).
-  Example use case: If you installed {Rcpp} from source as a dependency of your package and have it stored in your cache and {Rcpp} now updates two days later, the reinstallation will make use of the compiler cache and install {Rcpp} instantly rather than recompiling the C code again. 
-  
+  Example use case: If you installed {Rcpp} from source as a dependency of your package and have it stored in your cache and {Rcpp} now updates two days later, the reinstallation will make use of the compiler cache and install {Rcpp} instantly rather than recompiling the C code again.
+
 - Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as [r-lib/actions](https://github.com/r-lib/actions) does.
   This speeds up package installation a lot.
   4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.
-  
+
 - Use of SSH deployment keys: Once set up via `tic::use_ghactions_deploy()`, this deployment approach makes it possible to push any file of your repository to any branch of your remote.
   Other deployment approaches often limit you to only push to `gh-pages` branch or similar.
-  
-## Travis CI
 
-#### Q-Travis-1
-
-What is the difference between travis-ci.org and travis-ci.com and which one should I use?
-
-**Answer**
-
-When dealing with Travis CI (or the [{travis}](https://github.com/ropenscilabs/travis) package) the first time, one might be confused what the difference is between https://travis-ci.org and https://travis-ci.com.
-[This devops.stackexchange question](https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com) gives some insights on the history of both services and why both still exist.
-
-- Both https://travis-ci.org and https://travis-ci.com are the same whereas the future belongs to https://travis-ci.com.
-- Due to both being still active, the [{travis}](https://github.com/ropenscilabs/travis) package supports both endpoints for API queries.
-- If you start a new project, we recommend to enable the repo on https://travis-ci.com. 
-  If you are using the {travis] package, the default endpoint is set to `".com"` so that all function call will try to interact with repositories on https://travis-ci.com.
-  This can be changed via env var `R_TRAVIS`.
-  
-#### Q-Travis-2
-
-I am seeing conflicts when deploying a pkgdown site during deployment - it looks like multiple runners are facing a git race condition.
-I am getting errors like
-
-```sh
-HEAD is now at ada17f3 Deploy from Travis build 13 [ci skip]
-git cherry-pick --no-commit 8f4e52da03a6ccdb66a140c3ca08be22d57d7288
-error: could not apply 8f4e52d... Deploy from Travis build 13 [ci skip]
-hint: after resolving the conflicts, mark the corrected paths
-hint: with 'git add <paths>' or 'git rm <paths>'
-```
-
-**Answer**
-
-Correct. 
-This is because multiple runners building and deploying the pkgdown site nearly at the same time.
-To prevent this from happening (doing this for one runner is enough) condition the pkgdown step to one runner by setting an env var.
-
-In `tic.R`:
-
-```r
-if (ci_on_travis() && ci_has_env("PKGDOWN") {
-  # creates pkgdown site and pushes to gh-pages branch
-  do_pkgdown()
-}
-```
-
-and then set this env var for one of the runners in `.travis.yml`:
-
-```yml
-matrix:
-  include:
-    - os: osx
-      r: release
-    - os: linux
-      r: release
-      env:
-      - PKGDOWN=true
-```
-  
 ## Appveyor CI
 
 #### Q-Appveyor-1
@@ -124,7 +65,7 @@ matrix:
 I am facing the following build error:
 
 ```{r eval=FALSE}
-Error in eval(expr, envir = list(`?` = function(...) stop()), enclos = envir) : 
+Error in eval(expr, envir = list(`?` = function(...) stop()), enclos = envir) :
   object 'name' not found
 Calls: <Anonymous> ... .transformer -> glue -> glue_data -> <Anonymous> -> .transformer
 Execution halted
@@ -173,4 +114,4 @@ Add `brew cask install xquartz` to the runner.
 
 The second error requires to set the `DISPLAY` env var to mimic a non-headless state.
 Add `export DISPLAY=:99` to the stage in which {rgl} should be installed.
-If the warning message during loading of {rgl} should be suppressed, either env var `RGL_USE_NULL = TRUE` can be set or R option `options(rgl.useNull = TRUE)`. 
+If the warning message during loading of {rgl} should be suppressed, either env var `RGL_USE_NULL = TRUE` can be set or R option `options(rgl.useNull = TRUE)`.

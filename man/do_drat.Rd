@@ -52,10 +52,10 @@ Default: deploy all files.}
 Add \code{--force} flag to git commands?}
 
 \item{private_key_name}{\code{string}\cr
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
-\code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
+SSH key pair via tic::use_ghactions_deploy()] or \code{\link[=use_tic]{use_tic()}}, pass this
+name here.}
 
 \item{deploy_dev}{\verb{[logical]}\cr
 Should development versions of packages also be deployed to the drat repo?
@@ -82,10 +82,10 @@ Deployment can only happen to the default repo branch (usually "master") or
 used to access the drat repository later on. You need to enable this
 functionality when creating the drat repository on GitHub via \verb{Settings -> GitHub pages} and set it to the chosen setting here.
 
-To build and deploy Windows binaries, builds on Travis CI with deployment
-permissions need to be triggered. To build and deploy macOS binaries,
-builds on Travis CI with deployment permissions need to be triggered. Have
-a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for
+To build and deploy Windows and macOS binaries, builds with deployment
+permissions need to be triggered.
+Have a look at
+\url{https://docs.ropensci.org/tic/articles/deployment.html} for
 more information and instructions.
 }
 

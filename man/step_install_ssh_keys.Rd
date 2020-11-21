@@ -8,19 +8,18 @@ step_install_ssh_keys(private_key_name = "TIC_DEPLOY_KEY")
 }
 \arguments{
 \item{private_key_name}{\code{string}\cr
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
-\code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
+SSH key pair via tic::use_ghactions_deploy()] or \code{\link[=use_tic]{use_tic()}}, pass this
+name here.}
 }
 \description{
 Writes a private SSH key encoded in an environment variable
 to a file in \verb{~/.ssh}.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-\code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}} , \code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} and \code{\link[=use_tic]{use_tic()}}
-functions encode a private key as an environment variable for use with this
-function.
+\code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} and \code{\link[=use_tic]{use_tic()}} functions encode a private key as an
+environment variable for use with this function.
 }
 \examples{
 dsl_init()
@@ -31,7 +30,7 @@ get_stage("before_deploy") \%>\%
 dsl_get()
 }
 \seealso{
-\code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}, \code{\link[=use_tic]{use_tic()}}, \code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}}
+\code{\link[=use_tic]{use_tic()}}, \code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}}
 
 Other steps: 
 \code{\link{step_add_to_drat}()},

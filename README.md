@@ -1,6 +1,7 @@
 # tic
 
 <!-- badges: start -->
+
 [![tic](https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
 [![Travis build status](https://travis-ci.org/ropensci/tic.svg?branch=master)](https://travis-ci.org/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
@@ -8,6 +9,7 @@
 [![codecov](https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tic)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
+
 <!-- badges: end -->
 
 The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
@@ -30,7 +32,7 @@ The most important improvements over existing solutions are:
 1. Support for R packages and other kinds of projects (bookdown, blogdown, etc.), with predefined templates.
    Set up your project to deploy rendered versions of your book or blog with a single push to Git.
 
-1. Workflow specification in a single `.R` file, regardless of CI system used.  
+1. Workflow specification in a single `.R` file, regardless of CI system used.
    Forget about `.yml` files or web browser configurations.
 
 ## Installation
@@ -51,7 +53,7 @@ Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/
 
 For an R package, the following steps will be set up for the CI workflow:
 
-- Installation of required dependencies for the project (dependencies are scraped from the DESCRIPTION file*)
+- Installation of required dependencies for the project (dependencies are scraped from the DESCRIPTION file\*)
 - Satisfying build-time dependencies of steps to be run in all CI stages (by scraping `pkg::fun` calls in `tic.R`)
 - Checking of package via `rcmdcheck::rcmdcheck()`
 - Creation of a `pkgdown` site including Github deployment
@@ -70,15 +72,6 @@ tic::use_tic()
 If you already use {tic} and want to configure a new CI provider, do
 
 ```r
-### Travis CI ------------------------------------------------------------------
-travis::use_travis_deploy() # (optional for deployment)
-tic::use_travis_yml() # optional: Change `type` arg to your liking
-tic::use_tic_r("package", deploy_on = "travis")
-# (all of the above in one call)
-# tic::use_tic(wizard = FALSE, linux = "travis", mac = "travis", windows = "none",
-#              matrix = "travis", deploy = "travis")
-tic::use_update_tic()
-
 ### Circle CI ------------------------------------------------------------------
 circle::use_circle_deploy() # (optional for deployment)
 tic::use_circle_yml() # optional: Change `type` arg to your liking
@@ -183,9 +176,18 @@ Multi-project repositories are not supported, see [the comment by @jwijffels](ht
 
 ## Footnotes
 
-* The DESCRIPTION files needs to live in the project root.
+- The DESCRIPTION files needs to live in the project root.
   To simplify its creation have a look at [usethis::use_package()](https://usethis.r-lib.org/reference/use_package.html) or [usethis::use_description()](https://usethis.r-lib.org/reference/use_description.html).
 
 ---
 
 [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
+
+| Step                       | Description                                                                                                                                               |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `step_install_ssh_key()`   | Make available a private SSH key (which has been added before to your project by `use_tic()` or `tic::use_ghactions_deploy()`).                           |
+| `step_test_ssh()`          | Test the SSH connection to GitHub, helps troubleshooting deploy problems.                                                                                 |
+| `step_setup_ssh()`         | Adds to known hosts, installs private key, and tests the connection. Only needed on Travis CI.                                                            |
+| `step_setup_push_deploy()` | Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`.                                                |
+| `step_do_push_deploy()`    | Deploy to GitHub.                                                                                                                                         |
+| `step_push_deploy()`       | Combines `step_setup_push_deploy()` and `step_do_push_deploy()`.                                                                                          |

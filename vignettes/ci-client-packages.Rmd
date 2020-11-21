@@ -3,7 +3,7 @@ title: "tic & CI Client Packages - An Overview"
 author: "Patrick Schratz, Kirill Müller"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tic and travis - an overview}
+  %\VignetteIndexEntry{tic & CI Client Packages - An Overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as [{travis}](https://docs.ropensci.org/travis/) or [{circle}](https://pat-s.github.io/circle/).
+Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as [{circle}](https://pat-s.github.io/circle/).
 These enable the repo on the CI system and ensure that deployment permissions are granted.
 
 After everything has been set up, the rest of the work goes to {tic}.
@@ -32,8 +32,9 @@ In essence, `tic::use_tic()` is a wrapper for creating CI YAML templates and set
 
 Currently, the following CI client packages exist:
 
-- [{travis}](https://docs.ropensci.org/travis/)
 - [{circle}]((https://docs.ropensci.org/circle/))
+
+The client package for _travis_ was archived in November 2020.
 
 For _Appveyor_ there is [r-appveyor](https://github.com/krlmlr/r-appveyor) from Kirill Müller.
 This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the _Appveyor_ API and is not used by {tic} currently.

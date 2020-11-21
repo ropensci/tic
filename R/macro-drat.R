@@ -30,10 +30,10 @@ NULL
 #'   functionality when creating the drat repository on GitHub via `Settings ->
 #'   GitHub pages` and set it to the chosen setting here.
 #'
-#'   To build and deploy Windows binaries, builds on Travis CI with deployment
-#'   permissions need to be triggered. To build and deploy macOS binaries,
-#'   builds on Travis CI with deployment permissions need to be triggered. Have
-#'   a look at \url{https://docs.ropensci.org/tic/articles/deployment.html} for
+#'   To build and deploy Windows and macOS binaries, builds with deployment
+#'   permissions need to be triggered.
+#'   Have a look at
+#'   \url{https://docs.ropensci.org/tic/articles/deployment.html} for
 #'   more information and instructions.
 #' @family macros
 #' @export
@@ -54,7 +54,6 @@ do_drat <- function(repo_slug = NULL,
                     force = FALSE,
                     private_key_name = "TIC_DEPLOY_KEY",
                     deploy_dev = FALSE) {
-
   if (is.null(branch)) {
     branch <- github_info()$default_branch
   }

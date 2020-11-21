@@ -31,7 +31,7 @@ Add \code{--force} flag to git commands?}
 Commits and pushes to a repo prepared by \code{\link[=step_setup_push_deploy]{step_setup_push_deploy()}}.
 
 Deployment usually requires setting up SSH keys with
-\code{\link[=use_tic]{use_tic()}} or \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}}.
+\code{\link[=use_tic]{use_tic()}}.
 }
 \details{
 It is highly recommended to restrict the set of files

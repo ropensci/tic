@@ -103,7 +103,7 @@ RCMDcheck <- R6Class( # nolint
 #'
 #' @section Updating of (dependency) packages:
 #' Packages shipped with the R-installation will not be updated as they will be
-#' overwritten by the Travis R-installer in each build.
+#' overwritten by the R-installer in each build.
 #' If you want these package to be updated, please add the following
 #' step to your workflow: `add_code_step(remotes::update_packages("<pkg>"))`.
 #'
@@ -142,13 +142,12 @@ step_rcmdcheck <- function(...,
                            repos = repo_default(),
                            timeout = Inf,
                            check_dir = "check") {
-
   is_windows <- (Sys.info()[["sysname"]] == "Windows")
 
   #' @param build_args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
-  #'   Default for Travis and local runs: `"--force"`.\cr
-  #'   Default for Appveyor: `c("--no-build-vignettes", "--force")`.\cr
+  #'   Default for local runs: `"--force"`.\cr
+  #'   Default for Windows: `c("--no-build-vignettes", "--force")`.\cr
   if (is.null(build_args)) {
     if (is_windows) {
       build_args <- c("--no-build-vignettes", "--force")
@@ -160,9 +159,9 @@ step_rcmdcheck <- function(...,
   #' @param args `[character]`\cr
   #'   Passed to `rcmdcheck::rcmdcheck()`.\cr
   #'
-  #'   Default for Travis and local runs: `c("--no-manual", "--as-cran")`.
+  #'   Default for local runs: `c("--no-manual", "--as-cran")`.
   #'
-  #'   Default for Appveyor and GitHub Actions (Windows):
+  #'   Default for Windows:
   #'   `c("--no-manual", "--as-cran", "--no-vignettes",
   #'   "--no-build-vignettes", "--no-multiarch")`.
   #'

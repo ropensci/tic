@@ -27,11 +27,11 @@ AppVeyorCI <- R6Class( # nolint
       )
     },
     get_commit = function() {
-      Sys.getenv("TRAVIS_COMMIT")
+      Sys.getenv("APPVEYOR_COMMIT")
     },
     can_push = function(private_key_name = "TIC_DEPLOY_KEY") {
-      # id_rsa is the "old" name which was previously hard coded in the {travis}
-      # package. New default name: "TIC_DEPLOY_KEY"
+      # id_rsa is the "old" name which was previously hardcoded.
+      # New default name: "TIC_DEPLOY_KEY"
       # for backward comp we check for the old one too
       private_key_name <- compat_ssh_key(private_key_name)
       self$has_env(private_key_name)

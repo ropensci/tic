@@ -3,8 +3,6 @@ ci_ <- function() {
     LocalCI$new()
   } else if (Sys.getenv("TIC_MOCK") == "true") {
     MockCI$new()
-  } else if (Sys.getenv("TRAVIS") == "true") {
-    TravisCI$new()
   } else if (Sys.getenv("APPVEYOR") == "True") {
     AppVeyorCI$new()
   } else if (Sys.getenv("CIRCLECI") == "true") {
@@ -67,11 +65,6 @@ CI <- R6Class( # nolint
     #'   exist?}
     can_push = function() {
       stop("NYI")
-    },
-    #'   \item{`on_travis()`}{
-    #'     Returns `TRUE` only on Travis CI, otherwise `FALSE`.}
-    on_travis = function() {
-      FALSE
     },
     #'   \item{`on_appveyor()`}{
     #'     Returns `TRUE` only on Appveyor, otherwise `FALSE`.}
@@ -231,14 +224,6 @@ ci_is_interactive <- function() {
 #' @export
 ci_cat_with_color <- function(code) {
   ci()$cat_with_color(code)
-}
-
-#' CI on_travis
-#' @description `ci_on_travis()`: Are we running on Travis CI?
-#' @rdname ci
-#' @export
-ci_on_travis <- function() {
-  ci()$on_travis()
 }
 
 #' CI on_appveyor

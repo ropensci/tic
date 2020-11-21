@@ -12,7 +12,6 @@ use_tic(
   deploy = "ghactions",
   matrix = "none",
   private_key_name = "TIC_DEPLOY_KEY",
-  travis_endpoint = ".com",
   quiet = FALSE
 )
 }
@@ -21,32 +20,27 @@ use_tic(
 shown.}
 
 \item{linux}{\verb{[string]}\cr Which CI provider(s) to use to test on Linux.
-Possible options are \code{"travis"}, \code{"circle"}, \code{"ghactions"}, \code{"none"}/\code{NULL}
+Possible options are \code{"circle"}, \code{"ghactions"}, \code{"none"}/\code{NULL}
 and \code{"all"}.}
 
 \item{mac}{\verb{[string]}\cr Which CI provider(s) to use to test on macOS
-Possible options are \code{"none"}/\code{NULL}, \code{"travis"} and \code{"ghactions"}.}
+Possible options are \code{"none"}/\code{NULL} and \code{"ghactions"}.}
 
 \item{windows}{\verb{[string]}\cr Which CI provider(s) to use to test on Windows
 Possible options are \code{"none"}/\code{NULL}, \code{"appveyor"} and \code{"ghactions"}.}
 
 \item{deploy}{\verb{[string]}\cr Which CI provider(s) to use to deploy artifacts
-such as pkgdown documentation. Possible options are \code{"travis"}, \code{"circle"},
-\code{"ghactions"}, \code{"none"}/\code{NULL} and \code{"all"}.}
+such as pkgdown documentation. Possible options are "circle"\verb{, }"ghactions"\verb{, }"none"\code{/}NULL\code{and}"all"`.}
 
 \item{matrix}{\verb{[string]}\cr For which CI provider(s) to set up matrix builds.
-Possible options are \code{"travis"}, \code{"circle"}, \code{"ghactions"}, \code{"none"}/\code{NULL}
+Possible options are  \code{"circle"}, \code{"ghactions"}, \code{"none"}/\code{NULL}
 and \code{"all"}.}
 
 \item{private_key_name}{\code{string}\cr
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via \code{\link[travis:use_travis_deploy]{travis::use_travis_deploy()}},
-\code{\link[=use_ghactions_deploy]{use_ghactions_deploy()}} or \code{\link[=use_tic]{use_tic()}}, pass this name here.}
-
-\item{travis_endpoint}{\verb{[string]}\cr The Travis CI endpoint to use. Possible
-options are \code{".org"} and \code{".com"}. Default is \code{".com"}. See
-\code{\link[travis:travis_enable]{travis::travis_enable()}} for more information.}
+SSH key pair via tic::use_ghactions_deploy()] or \code{\link[=use_tic]{use_tic()}}, pass this
+name here.}
 
 \item{quiet}{\verb{[flag]}\cr Less verbose output? Default: \code{FALSE}.}
 }
@@ -72,7 +66,7 @@ if (FALSE) {
   use_tic(
     wizard = FALSE,
     linux = "circle",
-    mac = "travis",
+    mac = "ghactions",
     windows = "appveyor",
     deploy = "circle",
     matrix = "all"

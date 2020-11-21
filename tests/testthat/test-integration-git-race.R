@@ -8,8 +8,6 @@ test_that("integration test: git race condition", {
   # - Updates repo (creates a file `clone.txt`)
   # - Clones repo again in third location
   # - Updates repo (updates that file `clone.txt`)
-  # - Deployment is run in all three clones,
-  #   emulating a race condition on Travis
   #
   # Deployment consists of listing all `.txt` files and writing the results
   # to `dir.txt` .

@@ -26,7 +26,7 @@ This often prevents users from updating to the most recent templates provided by
 Currently this only works for GitHub Actions as this provider enables the inclusion of arbitrary custom blocks.
 {tic} extracts these blocks, updates the template and then inserts the custom blocks at the correct position back into the updated template.
 What may sound easy at first is in fact a very complicated task behind the scenes: indentation needs to preserved, some providers care about order and some do not accept duplicate keys.
-While `update_yml()` supports GitHub Actions, Travis CI and Circle CI right now for custom environment variables and user blocks, the following rules need to be followed to ensure a smooth experience.
+While `update_yml()` supports GitHub Actions and Circle CI right now for custom environment variables and user blocks, the following rules need to be followed to ensure a smooth experience.
 
 **Shared Rules**
 
@@ -38,18 +38,6 @@ While `update_yml()` supports GitHub Actions, Travis CI and Circle CI right now 
 
 - All *custom blocks* need to include `[Custom block]` in their name tag, e.g. `- name: "[Custom block] Test custom user block2"`.
 - Custom env vars unique to a runner need to include `[Custom matrix env var]` in their tag, e.g. `# [Custom matrix env var] test`.
-
-**Travis CI**
-
-- There needs to be an empty line after all custom user blocks, for example:
-
-  ```yaml
-  before_install:
-  # [Custom block]
-  - echo 'test'
-
-  - if [ "${TRAVIS_OS_NAME}" == "osx" ]; then brew install ccache; fi
-  ```
 
 All of these tags are used by {tic} to preserve user changes and choose the right upstream template.
 During the process `update_yml()` also prints how many custom blocks and env vars were found.
@@ -115,34 +103,6 @@ env:
   if: runner.os == 'macOS'
   run: |
     brew cask install xquartz
-```
-
-**Travis CI**
-
-*Environment variable*
-
-```yml
-matrix:
-  include:
-    - os: osx
-      r: release
-    - os: osx
-      r: oldrel
-      # [Custom env]
-      env:
-      - foo="test"
-    - os: linux
-      r: devel
-```
-
-*Block*
-
-```yml
-install:
-  - R -q -e 'tic::install()'
-
-  # [Custom block] block 2
-  - echo 'test2'
 ```
 
 **Circle CI**

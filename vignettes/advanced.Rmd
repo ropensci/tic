@@ -29,23 +29,12 @@ Common tasks to use this feature are testing on multiple R versions and the rest
 
 ### Conditional execution: Use cases
 
-The following shows some example code blocks to condition certain stages and their respective steps on 
-
-- the R Version (using an environment variable)
-
-```{r eval = FALSE}
-# this env var already exists by default on Travis
-# for other systems you need to set a custom env var in the CI YAML
-if (ci_is_env("TRAVIS_R_VERSION_STRING", "release")) {
-  get_stage("after_success") %>%
-    add_step(step_...())
-}
-```
+The following shows some example code blocks to condition certain stages and their respective steps on
 
 - the CI service
 
 ```{r eval = FALSE}
-if (ci_on_travis()) {
+if (ci_on_ghactions()) {
   get_stage("<stage>") %>%
     add_step(step_...())
 }
@@ -88,13 +77,13 @@ get_stage("install") %>%
 
 ## CI Meta-Information
 
-The `ci()` function and its friends (`ci_*`) hold valuable information about the CI system. 
+The `ci()` function and its friends (`ci_*`) hold valuable information about the CI system.
 They can be used to query information that can be again be utilized for conditioning stages or steps.
 
-For example, the user may wish to only deploy on Travis CI by using `ci_on_travis()`:
+For example, the user may wish to only deploy on GitHub Actions by using `ci_on_ghactions()`:
 
 ```{r eval = FALSE}
-if (ci_on_travis()) {
+if (ci_on_ghactions()) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 
@@ -103,7 +92,7 @@ if (ci_on_travis()) {
 }
 ```
 
-By using the code above, the specified steps will only be executed on Travis CI.
+By using the code above, the specified steps will only be executed on GitHub Actions.
 See `?ci` for more information on which CI build information can be extracted from this function.
 
 ## Debugging: Running {tic} locally
@@ -114,7 +103,7 @@ Before pushing to GitHub and triggering a CI build, `tic.R` can be validated usi
 This function will source `tic.R` to check for possible problems.
 If everything is ok, it will return (invisibly) a list with all stages that will be run in the CI build.
 Here is a preview of the first two stages:
-    
+
 ```{r eval = FALSE}
 dsl_load()
 ```
@@ -176,96 +165,11 @@ Running install: step_install_deps(repos = repo_default())
 
 ## Debugging: Entering the CI build directly
 
-### Travis CI
-
-If your build fails and you don't understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can SSH into the build to debug it.
-To do so, your repository must be enabled on Travis CI for "ssh debugging".
-Unfortunately you need to take manual action by contacting Travis CI via e-mail, asking whether they can activate your repo for [ssh debugging](https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode).
-Usually you get a reply within one day including additional information.
-After that, you either follow the manual instructions you get via mail or take the easy way: `travis::travis_debug_job()`.
-
-All it needs is the "Job ID" of the respective build you want to enter.
-
-```{r, echo = FALSE, eval = TRUE, fig.align='center', dpi = 50}
-knitr::include_graphics("img/travis-job-id.png")
-```
-
-Rather than going to the web interface and getting the "Job ID" there, you can also do this from the command line.
-First, you need to query the overall "Build ID" of the run:
-
-```{r eval = FALSE}
-travis::travis_get_builds()
-```
-
-```{sh eval = FALSE}
-A collection of 25 Travis CI builds:
-- id: 416858821, number: 342, state: errored, duration: 3820, event_type: push, ...
-- id: 416834229, number: 341, state: errored, duration: 3738, event_type: push, ...
-- id: 416135954, number: 340, state: errored, duration: 3338, event_type: push, ...
-- id: 416107143, number: 339, state: errored, duration: 3670, event_type: push, ...
-- id: 416095854, number: 338, state: passed, duration: 3135, event_type: push, ...
-```
-
-Because every "build" has multiple "Jobs", you can now query the "Job ID".
-For example, when you know that you want to debug the latest build, you can combine both commands:
-
-```{r eval = FALSE}
-build_id <- travis::travis_get_builds()[[1]]$id
-travis::travis_get_jobs(build_id)
-```
-
-```{sh eval = FALSE}
-A collection of 7 Travis CI jobs:
-- id: 416858822, allow_failure: FALSE, number: 342.1, state: passed, started_at: 2018-08-16T15:02:52Z, ...
-- id: 416858823, allow_failure: FALSE, number: 342.2, state: passed, started_at: 2018-08-16T15:02:18Z, ...
-- id: 416858824, allow_failure: FALSE, number: 342.3, state: passed, started_at: 2018-08-16T15:02:43Z, ...
-- id: 416858825, allow_failure: FALSE, number: 342.4, state: passed, started_at: 2018-08-16T15:02:23Z, ...
-- id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...
-```
-
-Finally, the build can be restarted by calling `travis::travis_debug_job()`:
-
-```{r eval = FALSE}
-job_id <- travis::travis_get_jobs(build_id)[[1]]$id
-travis::travis_debug_job(job_id)
-```
-
-```{sh eval = FALSE}
-Finished restarting debug job 416983664 from Travis CI.
-```
-
-Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to enter the build.
-It should look similar to `ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io`.
-If you still do not want to use the browser manually, simple call `travis::browse()` to open your project on Travis.
-
-Once you are in the build you can use `bash` functions defined by Travis to to execute specific stages:
-
-```{sh eval = FALSE}
-travis_run_before_install
-travis_run_install
-travis_run_before_script
-travis_run_script
-travis_run_after_success
-travis_run_after_failure
-travis_run_after_script
-```
-
-The debug session is a VM running a [`tmate`](https://tmate.io/) session.
-This makes it possible to use `tmux` commands, such as:
-
-- Create multiple windows with `crtl-b c`.  
-- Switch to a different window: `crtl-b <window index>` where the indices start with 0, 1, 2 and so on.  
-- Scrolling up and down the history: `crtl-b [`. Press `q` to exit the scroll mode.  
-
-See this [cheatsheet](https://tmuxcheatsheet.com/) for more shortcuts.
-
-Keep in mind that you only have 30 minutes before the VM will be terminated automatically.
-
 ### Circle CI
 
-Debugging builds on Circle CI is much easiern than on Travis CI.
+Debugging builds on Circle CI is very convenient.
 Go to the web interface and click on the three dots as shown in the screenshot.
-Then you can restart your build from the appearing dropdown menu and SSH into the build in a the same as way shown for Travis CI.
+Then you can restart your build from the appearing dropdown menu and SSH into the build.
 
 ```{r, eval = TRUE, echo=FALSE, fig.align='center'}
 knitr::include_graphics("img/circleci-debug.png")
@@ -273,7 +177,5 @@ knitr::include_graphics("img/circleci-debug.png")
 
 # What's not covered yet?
 
-- `SystemRequirements`: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. 
-Future plans include to automatically provide suggestions like 
-
-  > "Please add `addons: apt: <library>` to `.travis.yml`" in case system requirements are missing.
+- `SystemRequirements`: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package.
+Future plans include to automatically provide suggestions like

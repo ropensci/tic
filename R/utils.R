@@ -60,16 +60,6 @@ yesno <- function(...) {
   menu(qs[rand]) != which(rand == 1)
 }
 
-check_travis_pkg <- function() {
-  if (!is_installed("travis")) {
-    cli::cat_rule(col = "red")
-    stopc(
-      "`use_tic()` needs the `travis` package. Please ",
-      'install it using `remotes::install_github("ropenscilabs/travis")`.'
-    )
-  }
-}
-
 check_circle_pkg <- function() {
   if (!is_installed("circle")) {
     cli::cat_rule(col = "red")
