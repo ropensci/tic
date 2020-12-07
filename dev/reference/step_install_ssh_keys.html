@@ -49,9 +49,8 @@
 to a file in ~/.ssh.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-travis::use_travis_deploy() , use_ghactions_deploy() and use_tic()
-functions encode a private key as an environment variable for use with this
-function." />
+use_ghactions_deploy() and use_tic() functions encode a private key as an
+environment variable for use with this function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -178,9 +177,8 @@ function." />
 to a file in <code>~/.ssh</code>.
 Only run in non-interactive settings and if the environment variable
 exists and is non-empty.
-<code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> , <code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code>
-functions encode a private key as an environment variable for use with this
-function.</p>
+<code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private key as an
+environment variable for use with this function.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_install_ssh_keys</span><span class='op'>(</span>private_key_name <span class='op'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span><span class='op'>)</span></pre>
@@ -191,16 +189,16 @@ function.</p>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code><a href='use_tic.html'>use_tic()</a></code>, pass this
+name here.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>, <code><a href='use_tic.html'>use_tic()</a></code>, <code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code></p>
+    <div class='dont-index'><p><code><a href='use_tic.html'>use_tic()</a></code>, <code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code></p>
 <p>Other steps: 
 <code><a href='step_add_to_drat.html'>step_add_to_drat</a>()</code>,
 <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts</a>()</code>,

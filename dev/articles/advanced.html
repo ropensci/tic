@@ -148,27 +148,17 @@
 <a href="#conditional-execution-use-cases" class="anchor"></a>Conditional execution: Use cases</h3>
 <p>The following shows some example code blocks to condition certain stages and their respective steps on</p>
 <ul>
-<li>the R Version (using an environment variable)</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># this env var already exists by default on Travis</span>
-<span class="co"># for other systems you need to set a custom env var in the CI YAML</span>
-<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_is_env</a></span><span class="op">(</span><span class="st">"TRAVIS_R_VERSION_STRING"</span>, <span class="st">"release"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"after_success"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu">step_...</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
-<ul>
 <li>the CI service</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"&lt;stage&gt;"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu">step_...</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <ul>
 <li>a specific branch</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_get_branch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="st">"main"</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"&lt;stage&gt;"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu">step_...</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
@@ -182,17 +172,17 @@
 <div id="github-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#github-packages" class="anchor"></a>GitHub packages</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_github</a></span><span class="op">(</span><span class="st">"r-lib/rcmdcheck"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Note that the underlying <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_github</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"r-lib/rcmdcheck"</span>, <span class="st">"r-lib/usethis"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="cran-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cran-packages" class="anchor"></a>CRAN packages</h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_cran</a></span><span class="op">(</span><span class="st">"magick"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
@@ -201,16 +191,16 @@
 <h2 class="hasAnchor">
 <a href="#ci-meta-information" class="anchor"></a>CI Meta-Information</h2>
 <p>The <code><a href="../reference/ci.html">ci()</a></code> function and its friends (<code>ci_*</code>) hold valuable information about the CI system. They can be used to query information that can be again be utilized for conditioning stages or steps.</p>
-<p>For example, the user may wish to only deploy on Travis CI by using <code><a href="../reference/ci.html">ci_on_travis()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<p>For example, the user may wish to only deploy on GitHub Actions by using <code><a href="../reference/ci.html">ci_on_ghactions()</a></code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
   <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>By using the code above, the specified steps will only be executed on Travis CI. See <code><a href="../reference/ci.html">?ci</a></code> for more information on which CI build information can be extracted from this function.</p>
+<p>By using the code above, the specified steps will only be executed on GitHub Actions. See <code><a href="../reference/ci.html">?ci</a></code> for more information on which CI build information can be extracted from this function.</p>
 </div>
 <div id="debugging-running-tic-locally" class="section level2">
 <h2 class="hasAnchor">
@@ -219,10 +209,10 @@
 <h3 class="hasAnchor">
 <a href="#checking-for-syntax-errors" class="anchor"></a>Checking for syntax errors</h3>
 <p>Before pushing to GitHub and triggering a CI build, <code>tic.R</code> can be validated using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>. This function will source <code>tic.R</code> to check for possible problems. If everything is ok, it will return (invisibly) a list with all stages that will be run in the CI build. Here is a preview of the first two stages:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>✔ Loading tic stage configuration from tic.R</code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl_get.html">dsl_get</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
 <pre><code>$before_install
 ── before_install ──────────────────────────────────────── stage ──
@@ -238,14 +228,14 @@ $install
 <a href="#emulating-a-ci-run-locally" class="anchor"></a>Emulating a CI run locally</h3>
 <p>A tic configuration can be emulated locally.</p>
 <p>First, ensure that all prerequisites are met:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/prepare_all_stages.html">prepare_all_stages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This might install additional packages, or even fail with a descriptive message.</p>
 <p>Then, run all steps defined in <code>tic.R</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/run_all_stages.html">run_all_stages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This emulates a CI run on your local machine by executing all stages and their corresponding steps. Note that this action this will use your local system libraries and not the CI environment. Only the steps that are shown with <code><a href="../reference/dsl_get.html">dsl_get()</a></code> are executed. Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/dsl.html">add_step(covr::codcov())</a></code> added by the macro <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/run_all_stages.html">run_all_stages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>✓ Loading tic stage configuration from tic.R
 Running install: step_install_github("ropensci/rotemplate")
@@ -257,60 +247,10 @@ Running install: step_install_deps(repos = repo_default())</code></pre>
 <div id="debugging-entering-the-ci-build-directly" class="section level2">
 <h2 class="hasAnchor">
 <a href="#debugging-entering-the-ci-build-directly" class="anchor"></a>Debugging: Entering the CI build directly</h2>
-<div id="travis-ci" class="section level3">
-<h3 class="hasAnchor">
-<a href="#travis-ci" class="anchor"></a>Travis CI</h3>
-<p>If your build fails and you don’t understand why (error messages are too unspecific, you cannot reproduce the problem locally), you can SSH into the build to debug it. To do so, your repository must be enabled on Travis CI for “ssh debugging”. Unfortunately you need to take manual action by contacting Travis CI via e-mail, asking whether they can activate your repo for <a href="https://docs.travis-ci.com/user/running-build-in-debug-mode/#enabling-debug-mode">ssh debugging</a>. Usually you get a reply within one day including additional information. After that, you either follow the manual instructions you get via mail or take the easy way: <code><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis::travis_debug_job()</a></code>.</p>
-<p>All it needs is the “Job ID” of the respective build you want to enter.</p>
-<p><img src="img/travis-job-id.png" style="display: block; margin: auto;"></p>
-<p>Rather than going to the web interface and getting the “Job ID” there, you can also do this from the command line. First, you need to query the overall “Build ID” of the run:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_builds</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="ex">A</span> collection of 25 Travis CI builds:</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="ex">-</span> id: 416858821, number: 342, state: errored, duration: 3820, event_type: push, ...</span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="ex">-</span> id: 416834229, number: 341, state: errored, duration: 3738, event_type: push, ...</span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="ex">-</span> id: 416135954, number: 340, state: errored, duration: 3338, event_type: push, ...</span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="ex">-</span> id: 416107143, number: 339, state: errored, duration: 3670, event_type: push, ...</span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="ex">-</span> id: 416095854, number: 338, state: passed, duration: 3135, event_type: push, ...</span></code></pre></div>
-<p>Because every “build” has multiple “Jobs”, you can now query the “Job ID”. For example, when you know that you want to debug the latest build, you can combine both commands:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">build_id</span> <span class="op">&lt;-</span> <span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_builds</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span>
-<span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_jobs</a></span><span class="op">(</span><span class="va">build_id</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1"></a><span class="ex">A</span> collection of 7 Travis CI jobs:</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="ex">-</span> id: 416858822, allow_failure: FALSE, number: 342.1, state: passed, started_at: 2018-08-16T15:02:52Z, ...</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="ex">-</span> id: 416858823, allow_failure: FALSE, number: 342.2, state: passed, started_at: 2018-08-16T15:02:18Z, ...</span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="ex">-</span> id: 416858824, allow_failure: FALSE, number: 342.3, state: passed, started_at: 2018-08-16T15:02:43Z, ...</span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="ex">-</span> id: 416858825, allow_failure: FALSE, number: 342.4, state: passed, started_at: 2018-08-16T15:02:23Z, ...</span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="ex">-</span> id: 416858826, allow_failure: FALSE, number: 342.5, state: passed, started_at: 2018-08-16T15:02:23Z, ...</span></code></pre></div>
-<p>Finally, the build can be restarted by calling <code><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis::travis_debug_job()</a></code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">job_id</span> <span class="op">&lt;-</span> <span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_get_jobs</a></span><span class="op">(</span><span class="va">build_id</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">id</span>
-<span class="fu">travis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/travis/man/travis_get_builds.html">travis_debug_job</a></span><span class="op">(</span><span class="va">job_id</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1"></a><span class="ex">Finished</span> restarting debug job 416983664 from Travis CI.</span></code></pre></div>
-<p>Wait a few minutes until the build arrives at the point when it shows the SSH command that can be used to enter the build. It should look similar to <code>ssh ukjiuCEkxBBnRAe32Y8xCH0zj@ny2.tmate.io</code>. If you still do not want to use the browser manually, simple call <code>travis::browse()</code> to open your project on Travis.</p>
-<p>Once you are in the build you can use <code>bash</code> functions defined by Travis to to execute specific stages:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="ex">travis_run_before_install</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="ex">travis_run_install</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="ex">travis_run_before_script</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="ex">travis_run_script</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="ex">travis_run_after_success</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="ex">travis_run_after_failure</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="ex">travis_run_after_script</span></span></code></pre></div>
-<p>The debug session is a VM running a <a href="https://tmate.io/"><code>tmate</code></a> session. This makes it possible to use <code>tmux</code> commands, such as:</p>
-<ul>
-<li>Create multiple windows with <code>crtl-b c</code>.<br>
-</li>
-<li>Switch to a different window: <code>crtl-b &lt;window index&gt;</code> where the indices start with 0, 1, 2 and so on.<br>
-</li>
-<li>Scrolling up and down the history: <code>crtl-b [</code>. Press <code>q</code> to exit the scroll mode.</li>
-</ul>
-<p>See this <a href="https://tmuxcheatsheet.com/">cheatsheet</a> for more shortcuts.</p>
-<p>Keep in mind that you only have 30 minutes before the VM will be terminated automatically.</p>
-</div>
 <div id="circle-ci" class="section level3">
 <h3 class="hasAnchor">
 <a href="#circle-ci" class="anchor"></a>Circle CI</h3>
-<p>Debugging builds on Circle CI is much easiern than on Travis CI. Go to the web interface and click on the three dots as shown in the screenshot. Then you can restart your build from the appearing dropdown menu and SSH into the build in a the same as way shown for Travis CI.</p>
+<p>Debugging builds on Circle CI is very convenient. Go to the web interface and click on the three dots as shown in the screenshot. Then you can restart your build from the appearing dropdown menu and SSH into the build.</p>
 <p><img src="img/circleci-debug.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -319,11 +259,7 @@ Running install: step_install_deps(repos = repo_default())</code></pre>
 <a href="#whats-not-covered-yet" class="anchor"></a>What’s not covered yet?</h1>
 <ul>
 <li>
-<p><code>SystemRequirements</code>: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Future plans include to automatically provide suggestions like</p>
-<blockquote>
-<p>“Please add <code>addons: apt: &lt;library&gt;</code> to <code>.travis.yml</code>” in case system requirements are missing.</p>
-</blockquote>
-</li>
+<code>SystemRequirements</code>: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Future plans include to automatically provide suggestions like</li>
 </ul>
 </div>
   </div>

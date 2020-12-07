@@ -241,8 +241,8 @@ Deprecated, use <code>error_on</code>.</p></td>
       <th>args</th>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br /></p>
-<p>Default for Travis and local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
-<p>Default for Appveyor and GitHub Actions (Windows):
+<p>Default for local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
+<p>Default for Windows:
 <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.</p>
 <p>On GitHub Actions option "--no-manual" is always used (appended to custom
 user input) because LaTeX is not available and installation is time
@@ -252,8 +252,8 @@ consuming and error prone.<br /></p></td>
       <th>build_args</th>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
-Default for Travis and local runs: <code>"--force"</code>.<br />
-Default for Appveyor: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
+Default for local runs: <code>"--force"</code>.<br />
+Default for Windows: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
     </tr>
     <tr>
       <th>error_on</th>

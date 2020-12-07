@@ -48,8 +48,8 @@
 <meta property="og:description" content="Adds to known hosts, installs private key, and tests the connection.
 Chaining step_install_ssh_keys(), step_add_to_known_hosts()
 and step_test_ssh().
-The travis::use_travis_deploy() and use_tic() functions encode a private
-key as an environment variable for use with this function." />
+use_tic() encodes a private key as an environment variable for use with
+this function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -175,8 +175,8 @@ key as an environment variable for use with this function." />
     <p>Adds to known hosts, installs private key, and tests the connection.
 Chaining <code><a href='step_install_ssh_keys.html'>step_install_ssh_keys()</a></code>, <code><a href='step_add_to_known_hosts.html'>step_add_to_known_hosts()</a></code>
 and <code><a href='step_test_ssh.html'>step_test_ssh()</a></code>.
-The <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code> and <code><a href='use_tic.html'>use_tic()</a></code> functions encode a private
-key as an environment variable for use with this function.</p>
+<code><a href='use_tic.html'>use_tic()</a></code> encodes a private key as an environment variable for use with
+this function.</p>
     </div>
 
     <pre class="usage"><span class='fu'>step_setup_ssh</span><span class='op'>(</span>
@@ -192,10 +192,10 @@ key as an environment variable for use with this function.</p>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code><a href='use_tic.html'>use_tic()</a></code>, pass this
+name here.</p></td>
     </tr>
     <tr>
       <th>host</th>

@@ -138,16 +138,15 @@
 <div id="q-auth-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#q-auth-1" class="anchor"></a>Q-Auth-1</h4>
-<p>I am getting an error when using one of <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>, <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html">circle::use_circle_deploy()</a></code> or <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>.</p>
+<p>I am getting an error when using <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html">circle::use_circle_deploy()</a></code> or <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>.</p>
 <p><strong>Answer</strong></p>
 <p>In most cases this is related to API authentication issues. Ensure that the following points are met:</p>
 <ol style="list-style-type: decimal">
-<li>For Circle CI and Travis CI, install the respective GitHub App from the <a href="https://github.com/marketplace">GitHub Marketplace</a>.</li>
+<li>For Circle CI, install the respective GitHub App from the <a href="https://github.com/marketplace">GitHub Marketplace</a>.</li>
 <li>Ensure that you have set the respective API keys for the problematic provider in your <code>.Renviron</code> file. Consult the help pages of the respective <code>use_*_deploy()</code> function for more help.</li>
 </ol>
 <ul>
 <li>GitHub Actions: A <code>GITHUB_PAT</code> with “public_repo” scopes.</li>
-<li>Travis CI: Env var <code>R_TRAVIS_ORG</code> or <code>R_TRAVIS_COM</code>, depending on the endpoint you use.</li>
 <li>Circle CI: Env var <code>R_CIRCLE</code>.</li>
 </ul>
 </div>
@@ -162,53 +161,11 @@
 <p><strong>Answer</strong></p>
 <p>{tic} uses <a href="https://github.com/r-lib/actions">r-lib/actions</a> as the base to install R in the first place. However in detail, {tic} does the following things differently which aim to enhance the CI experience:</p>
 <ul>
-<li><p>Caching: {tic} caches the whole R library rather than only the direct dependendencies of a package. This has the advantage that packages required for side actions ({pkgdown} deployment, README updates) will also be cached.</p></li>
+<li><p>Caching: {tic} caches the whole R library rather than only the direct dependencies of a package. This has the advantage that packages required for side actions ({pkgdown} deployment, README updates) will also be cached.</p></li>
 <li><p><code>ccache</code>: {tic} comes with a compiler cache for source installations of packages by default, speeding up repeated source installation highly. The compiler cache directory (<code>.ccache</code>) will also be cached (once a week). Example use case: If you installed {Rcpp} from source as a dependency of your package and have it stored in your cache and {Rcpp} now updates two days later, the reinstallation will make use of the compiler cache and install {Rcpp} instantly rather than recompiling the C code again.</p></li>
 <li><p>Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as <a href="https://github.com/r-lib/actions">r-lib/actions</a> does. This speeds up package installation a lot. 4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.</p></li>
 <li><p>Use of SSH deployment keys: Once set up via <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>, this deployment approach makes it possible to push any file of your repository to any branch of your remote. Other deployment approaches often limit you to only push to <code>gh-pages</code> branch or similar.</p></li>
 </ul>
-</div>
-</div>
-<div id="travis-ci" class="section level2">
-<h2 class="hasAnchor">
-<a href="#travis-ci" class="anchor"></a>Travis CI</h2>
-<div id="q-travis-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-travis-1" class="anchor"></a>Q-Travis-1</h4>
-<p>What is the difference between travis-ci.org and travis-ci.com and which one should I use?</p>
-<p><strong>Answer</strong></p>
-<p>When dealing with Travis CI (or the <a href="https://github.com/ropenscilabs/travis">{travis}</a> package) the first time, one might be confused what the difference is between <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. <a href="https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com">This devops.stackexchange question</a> gives some insights on the history of both services and why both still exist.</p>
-<ul>
-<li>Both <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a> are the same whereas the future belongs to <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>.</li>
-<li>Due to both being still active, the <a href="https://github.com/ropenscilabs/travis">{travis}</a> package supports both endpoints for API queries.</li>
-<li>If you start a new project, we recommend to enable the repo on <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. If you are using the {travis] package, the default endpoint is set to <code>".com"</code> so that all function call will try to interact with repositories on <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>. This can be changed via env var <code>R_TRAVIS</code>.</li>
-</ul>
-</div>
-<div id="q-travis-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-travis-2" class="anchor"></a>Q-Travis-2</h4>
-<p>I am seeing conflicts when deploying a pkgdown site during deployment - it looks like multiple runners are facing a git race condition. I am getting errors like</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">HEAD</span> is now at ada17f3 Deploy from Travis build 13 [ci skip]</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">git</span> cherry-pick --no-commit 8f4e52da03a6ccdb66a140c3ca08be22d57d7288</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">error</span>: could not apply 8f4e52d... Deploy from Travis build 13 [ci skip]</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">hint</span>: after resolving the conflicts, mark the corrected paths</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">hint</span>: with <span class="st">'git add &lt;paths&gt;'</span> or <span class="st">'git rm &lt;paths&gt;'</span></span></code></pre></div>
-<p><strong>Answer</strong></p>
-<p>Correct. This is because multiple runners building and deploying the pkgdown site nearly at the same time. To prevent this from happening (doing this for one runner is enough) condition the pkgdown step to one runner by setting an env var.</p>
-<p>In <code>tic.R</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="kw">ci_on_travis</span>() <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">ci_has_env</span>(<span class="st">"PKGDOWN"</span>) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="co"># creates pkgdown site and pushes to gh-pages branch</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="kw">do_pkgdown</span>()</span>
-<span id="cb2-4"><a href="#cb2-4"></a>}</span></code></pre></div>
-<p>and then set this env var for one of the runners in <code>.travis.yml</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">matrix</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">include</span><span class="kw">:</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> osx</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="at">      </span><span class="fu">r</span><span class="kw">:</span><span class="at"> release</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> linux</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="at">      </span><span class="fu">r</span><span class="kw">:</span><span class="at"> release</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="at">      </span><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> PKGDOWN=true</span></span></code></pre></div>
 </div>
 </div>
 <div id="appveyor-ci" class="section level2">
@@ -223,11 +180,11 @@
 <h2 class="hasAnchor">
 <a href="#appveyor" class="anchor"></a>Appveyor</h2>
 <p>I am facing the following build error:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>Error <span class="cf">in</span> <span class="kw">eval</span>(expr, <span class="dt">envir =</span> <span class="kw">list</span>(<span class="st">`</span><span class="dt">?</span><span class="st">`</span> =<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">stop</span>()), <span class="dt">enclos =</span> envir) <span class="op">:</span><span class="st"> </span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span>object <span class="st">'name'</span> not found</span>
-<span id="cb4-3"><a href="#cb4-3"></a>Calls<span class="op">:</span><span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>... .transformer -&gt;<span class="st"> </span>glue -&gt;<span class="st"> </span>glue_data -&gt;<span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>-&gt;<span class="st"> </span>.transformer</span>
-<span id="cb4-4"><a href="#cb4-4"></a>Execution halted</span>
-<span id="cb4-5"><a href="#cb4-5"></a>Command exited with code <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Error <span class="cf">in</span> <span class="kw">eval</span>(expr, <span class="dt">envir =</span> <span class="kw">list</span>(<span class="st">`</span><span class="dt">?</span><span class="st">`</span> =<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">stop</span>()), <span class="dt">enclos =</span> envir) <span class="op">:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="st">  </span>object <span class="st">'name'</span> not found</span>
+<span id="cb1-3"><a href="#cb1-3"></a>Calls<span class="op">:</span><span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>... .transformer -&gt;<span class="st"> </span>glue -&gt;<span class="st"> </span>glue_data -&gt;<span class="st"> </span><span class="er">&lt;</span>Anonymous<span class="op">&gt;</span><span class="st"> </span>-&gt;<span class="st"> </span>.transformer</span>
+<span id="cb1-4"><a href="#cb1-4"></a>Execution halted</span>
+<span id="cb1-5"><a href="#cb1-5"></a>Command exited with code <span class="dv">1</span></span></code></pre></div>
 <p><strong>Answer</strong></p>
 <p>Do you have a private SSH key stored as a secure environment variable in the in <code>appveyor.yml</code>? If yes, it could be that you encrypted while being logged in to a different account than the one the repo is running under in reality. This means if you have access to multiple organizations and your private account on Appveyor, you need to encrypt the environment variable using the account in which repo lives.</p>
 </div>

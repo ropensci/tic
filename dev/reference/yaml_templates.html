@@ -175,9 +175,7 @@ are also used within <code><a href='use_tic.html'>use_tic()</a></code>.</p>
 <p>If you want to update an existing template use <code><a href='update_yml.html'>update_yml()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_travis_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"linux-macos-deploy-matrix"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>use_appveyor_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"windows"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>use_appveyor_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"windows"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='fu'>use_circle_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"linux-matrix-deploy"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
@@ -239,26 +237,13 @@ runner matrix is completely user-defined. This is mainly useful in
 deploy on all platforms.</p>
 <p>Here is a list of all available combinations:</p><table class='table'>
 <tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
-<tr><td>Travis</td><td>Linux</td><td>no</td><td>no</td><td><code>use_travis_yml("linux")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("macos")</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("macos-deploy")</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("macos-matrix")</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("macos-deploy-matrix")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("linux-macos")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-macos-deploy")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-macos-matrix")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-macos-deploy-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
 <tr><td>Circle</td><td>Linux</td><td>no</td><td>no</td><td><code>use_circle_yml("linux")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_circle_yml("linux-deploy")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_circle_yml("linux-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_circle_yml("linux-deploy-matrix")</code></td></tr>
 <tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
 <tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
-<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_travis_yml("windows-matrix")</code></td></tr>
+<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_appveyor_yml("windows-matrix")</code></td></tr>
 <tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
 <tr><td>GH Actions</td><td>Linux</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux")</code></td></tr>
 <tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-deploy)</code></td></tr>
@@ -279,9 +264,6 @@ deploy on all platforms.</p>
 </table>
 
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>update_yml</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

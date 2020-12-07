@@ -181,7 +181,6 @@ tic." />
   deploy <span class='op'>=</span> <span class='st'>"ghactions"</span>,
   matrix <span class='op'>=</span> <span class='st'>"none"</span>,
   private_key_name <span class='op'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
-  travis_endpoint <span class='op'>=</span> <span class='st'>".com"</span>,
   quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -196,13 +195,13 @@ shown.</p></td>
     <tr>
       <th>linux</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Linux.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
+Possible options are <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
 and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>mac</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on macOS
-Possible options are <code>"none"</code>/<code>NULL</code>, <code>"travis"</code> and <code>"ghactions"</code>.</p></td>
+Possible options are <code>"none"</code>/<code>NULL</code> and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>windows</th>
@@ -212,28 +211,21 @@ Possible options are <code>"none"</code>/<code>NULL</code>, <code>"appveyor"</co
     <tr>
       <th>deploy</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to deploy artifacts
-such as pkgdown documentation. Possible options are <code>"travis"</code>, <code>"circle"</code>,
-<code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code> and <code>"all"</code>.</p></td>
+such as pkgdown documentation. Possible options are "circle"<code>, </code>"ghactions"<code>, </code>"none"<code><a href='https://rdrr.io/r/base/Arithmetic.html'>/</a></code>NULL<code>and</code>"all"`.</p></td>
     </tr>
     <tr>
       <th>matrix</th>
       <td><p><code>[string]</code><br /> For which CI provider(s) to set up matrix builds.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
+Possible options are  <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
 and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> or <code>use_tic()</code>, pass this name here.</p></td>
-    </tr>
-    <tr>
-      <th>travis_endpoint</th>
-      <td><p><code>[string]</code><br /> The Travis CI endpoint to use. Possible
-options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"</code>. See
-<code><a href='https://rdrr.io/pkg/travis/man/travis_enable.html'>travis::travis_enable()</a></code> for more information.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code>use_tic()</code>, pass this
+name here.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -262,7 +254,7 @@ options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"
   <span class='fu'>use_tic</span><span class='op'>(</span>
     wizard <span class='op'>=</span> <span class='cn'>FALSE</span>,
     linux <span class='op'>=</span> <span class='st'>"circle"</span>,
-    mac <span class='op'>=</span> <span class='st'>"travis"</span>,
+    mac <span class='op'>=</span> <span class='st'>"ghactions"</span>,
     windows <span class='op'>=</span> <span class='st'>"appveyor"</span>,
     deploy <span class='op'>=</span> <span class='st'>"circle"</span>,
     matrix <span class='op'>=</span> <span class='st'>"all"</span>

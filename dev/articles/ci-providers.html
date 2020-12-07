@@ -174,8 +174,8 @@
 <span id="cb2-2"><a href="#cb2-2"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> datew</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> echo "::set-output name=datew::$(date '+%Y-%V')"</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">        </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="at">        </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Cache ccache"</span></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> pat-s/always-upload-cache@v2.0.0</span></span>
@@ -183,7 +183,7 @@
 <span id="cb2-11"><a href="#cb2-11"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> ${{ env.CCACHE_DIR}}</span></span>
 <span id="cb2-12"><a href="#cb2-12"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a><span class="at">          </span><span class="fu">restore-keys</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="at">          </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co">      # install ccache and write config file</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a><span class="co">      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools</span></span>
 <span id="cb2-17"><a href="#cb2-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [macOS] ccache"</span></span>
@@ -235,11 +235,6 @@
 <div id="circle-ci" class="section level2">
 <h2 class="hasAnchor">
 <a href="#circle-ci" class="anchor"></a>Circle CI</h2>
-<p>WIP</p>
-</div>
-<div id="travis-ci" class="section level2">
-<h2 class="hasAnchor">
-<a href="#travis-ci" class="anchor"></a>Travis CI</h2>
 <p>WIP</p>
 </div>
 <div id="appveyor-ci" class="section level2">

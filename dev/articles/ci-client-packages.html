@@ -136,7 +136,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as <a href="https://docs.ropensci.org/travis/">{travis}</a> or <a href="https://pat-s.github.io/circle/">{circle}</a>. These enable the repo on the CI system and ensure that deployment permissions are granted.</p>
+<p>Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as <a href="https://docs.ropensci/circle/">{circle}</a>. These enable the repo on the CI system and ensure that deployment permissions are granted.</p>
 <p>After everything has been set up, the rest of the work goes to {tic}.</p>
 <ul>
 <li>Creation of the CI YAML templates.</li>
@@ -150,9 +150,9 @@
 <a href="#ci-client-packages" class="anchor"></a>CI Client Packages</h2>
 <p>Currently, the following CI client packages exist:</p>
 <ul>
-<li><a href="https://docs.ropensci.org/travis/">{travis}</a></li>
 <li><a href="(https://docs.ropensci.org/circle/)">{circle}</a></li>
 </ul>
+<p>The client package for <em>travis</em> was archived in November 2020.</p>
 <p>For <em>Appveyor</em> there is <a href="https://github.com/krlmlr/r-appveyor">r-appveyor</a> from Kirill Müller. This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the <em>Appveyor</em> API and is not used by {tic} currently. Also, it does not come with automation for deployment setup.</p>
 <p>For <em>GitHub Actions</em> there is <a href="https://github.com/maxheld83/ghactions">{ghactions}</a> from Max Held which comes with functions helping to set up YAML templates and other convenience. It does not provide API access and is not used by {tic} currently.</p>
 </div>

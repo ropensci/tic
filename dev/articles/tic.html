@@ -149,11 +149,11 @@
 </details><details><p><summary>Build matrix</summary></p>
 <p>Specification how many runners are started and their specification (operating system, custom environment variables, etc.)</p>
 </details><details><p><summary>CI Provider</summary></p>
-<p>A company that offers ready-to-use virtual images for runners which are started after a certain action. Such (third-party) companies are Travis, AppVeyor or Circle CI. However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.</p>
+<p>A company that offers ready-to-use virtual images for runners which are started after a certain action. Such (third-party) companies are AppVeyor or Circle CI. However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.</p>
 </details><details><p><summary>Deployment</summary></p>
 <p>CI builds cannot just perform specific checks on a package/project, they can also be used to (re-)build certain files in every run. With the appropriate permissions these files can then be pushed to a repository via <code>git</code> without the need to take manual actions by the user. This can save a lot of time and is commonly used to ensure that documentation is always up-to-date.</p>
 </details><details><p><summary>CI Client packages</summary></p>
-<p>R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.). Examples are <a href="https://github.com/ropenscilabs/travis">{travis}</a> or <a href="https://github.com/ropenscilabs/circle">{circle}</a>.</p>
+<p>R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.), e.g. <a href="https://github.com/ropenscilabs/circle">{circle}</a>.</p>
 </details><details><p><summary>CI Badges</summary></p>
 <p>Badges in the README of a repository showing the current build status of the project: Did the last build fail or finish successfully?</p>
 </details><details><p><summary>DSL</summary></p>
@@ -171,7 +171,7 @@
 <li><p>Test your package on multiple R versions</p></li>
 </ul>
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
-<p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured. (Currently you need to enable the project manually on AppVeyor.) See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
+<p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Circle CI and/or AppVeyor, as configured. (Currently you need to enable the project manually on AppVeyor.) See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
 <div id="quickstart" class="section level4">
 <h4 class="hasAnchor">
 <a href="#quickstart" class="anchor"></a>Quickstart</h4>
@@ -179,25 +179,15 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Travis CI</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>travis<span class="op">::</span><span class="kw">use_travis_deploy</span>() <span class="co"># (optional for deployment)</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>tic<span class="op">::</span><span class="kw">use_travis_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Circle CI</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>circle<span class="op">::</span><span class="kw">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>tic<span class="op">::</span><span class="kw">use_circle_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">## Circle CI</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>circle<span class="op">::</span><span class="kw">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>tic<span class="op">::</span><span class="kw">use_circle_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">## Appveyor</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>tic<span class="op">::</span><span class="kw">use_appveyor_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">## Appveyor</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>tic<span class="op">::</span><span class="kw">use_appveyor_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span></code></pre></div>
 <hr>
-<p>The reason why we suggest Travis CI as the default builds on three points:</p>
-<ul>
-<li>Travis is the most widely used CI provider within the R community</li>
-<li>Has been around for some years</li>
-<li>Supports Linux &amp; macOS.</li>
-</ul>
 <p>If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience. However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.</p>
-<p>The deployment setup functionality comes from the {travis} and {circle} packages. See the <a href="ci-client-packages.html">CI Client Packages</a> article for more detailed information on how {tic} and the CI client packages work together.</p>
+<p>See the <a href="ci-client-packages.html">CI Client Packages</a> article for more detailed information on how {tic} and the CI client packages work together.</p>
 </div>
 </div>
 <div id="the-role-of-the-tic-r-file" class="section level1">
@@ -205,7 +195,6 @@
 <a href="#the-role-of-the-tic-r-file" class="anchor"></a>The role of the <code>tic.R</code> file</h1>
 <p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find</p>
 <ul>
-<li><code>.travis.yml</code></li>
 <li><code>.circleci/config.yml</code></li>
 <li><code>appveyor.yml</code></li>
 <li><code>.github/workflows</code></li>
@@ -215,7 +204,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p><code>tic.R</code> file has a declarative nature: It should consist of “stages”, “steps” and “macro” functions (see below). These functions will only have an effect when specified in <code>tic.R</code> and should <strong>not</strong> be used standalone as they will only run in a (simulated) CI run following a certain order.</p>
@@ -256,21 +245,21 @@
 </h3>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p><code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> adds five steps to the build process:</p>
 <pre class="reval"><code># step_install_deps() in the "install" stage, using the repos argument.
-# 
+#
 # step_setup_ssh() in the "before_deploy" to setup the upcoming deployment (if deploy is set),
-# 
+#
 # step_setup_push_deploy() in the "before_deploy" stage (if deploy is set),
-# 
+#
 # step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
-# 
+#
 # step_do_push_deploy() in the "deploy" stage.</code></pre>
-<p>By default this currently happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
-<p><code><a href="../reference/ci.html">ci_on_travis()</a></code> can be replaced by one of its sibling functions like <code><a href="../reference/ci.html">ci_on_ghactions()</a></code>.</p>
+<p>By default this currently happens only on GitHub Actions, because <code><a href="../reference/ci.html">ci_on_ghactions()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
+<p><code><a href="../reference/ci.html">ci_on_ghactions()</a></code> can be replaced by one of its sibling functions like <code><a href="../reference/ci.html">ci_on_circle()</a></code>.</p>
 </div>
 <div id="do_readme_rmd" class="section level3">
 <h3 class="hasAnchor">
@@ -310,7 +299,7 @@
 <div id="blogdown" class="section level3">
 <h3 class="hasAnchor">
 <a href="#blogdown" class="anchor"></a>Blogdown</h3>
-<p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
+<p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span><span class="op">(</span><span class="fu">blogdown</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/install_hugo.html">install_hugo</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>

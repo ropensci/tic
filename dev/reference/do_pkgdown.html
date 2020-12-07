@@ -52,7 +52,8 @@ step_install_deps() in the &quot;install&quot; stage, using the
 repos argument.
 step_session_info() in the &quot;install&quot; stage.
 step_setup_ssh() in the &quot;before_deploy&quot; to setup
-the upcoming deployment (if deploy is set and only on Travis CI),
+the upcoming deployment (if deploy is set and only on
+GitHub Actions),
 step_setup_push_deploy() in the &quot;before_deploy&quot; stage
 (if deploy is set),
 step_build_pkgdown() in the &quot;deploy&quot; stage,
@@ -191,7 +192,8 @@ steps to the <code>"install"</code>, <code>"before_deploy"</code> and <code>"dep
 <code>repos</code> argument.</p></li>
 <li><p><code><a href='step_session_info.html'>step_session_info()</a></code> in the <code>"install"</code> stage.</p></li>
 <li><p><code><a href='step_setup_ssh.html'>step_setup_ssh()</a></code> in the <code>"before_deploy"</code> to setup
-the upcoming deployment (if <code>deploy</code> is set and only on Travis CI),</p></li>
+the upcoming deployment (if <code>deploy</code> is set and only on
+GitHub Actions),</p></li>
 <li><p><code><a href='step_setup_push_deploy.html'>step_setup_push_deploy()</a></code> in the <code>"before_deploy"</code> stage
 (if <code>deploy</code> is set),</p></li>
 <li><p><code><a href='step_build_pkgdown.html'>step_build_pkgdown()</a></code> in the <code>"deploy"</code> stage,
@@ -292,10 +294,10 @@ Add <code>--force</code> flag to git commands?</p></td>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code><a href='use_tic.html'>use_tic()</a></code>, pass this
+name here.</p></td>
     </tr>
     </table>
 
