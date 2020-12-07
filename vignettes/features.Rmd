@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-  
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -35,7 +35,7 @@ Possible use cases are:
 
 - Changed site contents of a {pkgdown} site
 - Updated .Rd files of a package (by calling `devtools::document()` before)
-- Automated generation of a [test summary page](https://github.com/yonicd/covrpage) for a package 
+- Automated generation of a [test summary page](https://github.com/yonicd/covrpage) for a package
 
 If {tic} should be used for deployment, some preparatory work is required:
 
@@ -57,9 +57,9 @@ For more detailed information on deployment in {tic}, have a look [Deployment](d
 - website deployment
 - _figshare_ deployment
 
-Each of these project types requires a standardized structure. 
+Each of these project types requires a standardized structure.
 {tic} detects this structure (assuming the user already has set it up) and adds CI templates tailored towards this specific project type to the repository when calling `use_tic()`.
-See the [Example projects](tic.html#example-projects) section in the "Get started" article for a list of supported project types including links to minimal example repositories. 
+See the [Example projects](tic.html#example-projects) section in the "Get started" article for a list of supported project types including links to minimal example repositories.
 
 ## CI-Agnostic workflows
 
@@ -70,12 +70,12 @@ The build script for R is [community maintained](https://github.com/travis-ci/tr
 Theoretically, R could be run on any CI system.
 Travis CI is only one out of a bunch of providers which offer (free) CI solutions.
 
-Each CI provider has its own way how the user has to write the YAML file to successfully talk to the service. 
+Each CI provider has its own way how the user has to write the YAML file to successfully talk to the service.
 This setup file controls what will be done in each run.
 
 To give you an example how different these control files can be, take a look at these two examples from [Travis CI](https://github.com/tidyverse/dplyr/blob/master/.travis.yml) and [Appveyor](https://github.com/tidyverse/dplyr/blob/master/appveyor.yml).
-While _Travis_ is the CI service with the most mature R implementation, people also like to test their code on _Appveyor_ which provides support for Windows.
-Getting everything setup on _Appveyor_ is a bit more complicated than on _Travis CI_ because no client package for R exists.
+While _Travis_ is the CI service with the longest history when it comes to R, people also like to test their code on _Appveyor_ which provides support for Windows.
+Getting everything setup on _Appveyor_ is somewhat complicated because no client package for R exists.
 Also, _Appveyor_ has its own YAML notation to specify certain actions.
 At this we have not mentioned other providers like [Circle CI](https://circleci.com/), [Azure](https://azure.microsoft.com/en-us/services/devops/pipelines/) or [GitHub Actions](https://github.com/features/actions) yet.
 
@@ -85,7 +85,7 @@ We could list way more differences - but that's exactly the point when {tic} com
 - The calls listed in `tic.R` will work the same way on every CI service that is supported by {tic}.
 - You can emulate all the stages and steps locally by calling `run_all_stages()`.
 - You are independent to changes made to the upstream runners of a specific CI system.
-- A `tic.R` workflow is usually shorter and easier to parse than a `.travis.yml` or `appveyor.yml` file as it builds on [macros](#macros).
+- A `tic.R` workflow is usually shorter and easier to parse than a `appveyor.yml` file as it builds on [macros](#macros).
 
 So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.
 
@@ -100,11 +100,11 @@ Usually CI workers will run `R CMD check <package>` to check the R package.
 - Enhanced and extended tracebacks of errors, especially errors in tests.
 - The whole check process is returned in a R object, making it easier to inspect errors/warnings.
 
-Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut the console log output early, often omitting important information about the error. 
+Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut the console log output early, often omitting important information about the error.
 
 ## Caching of packages
 
-When using {tic}, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the `"before_install"` and `"install"` stage. 
+When using {tic}, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the `"before_install"` and `"install"` stage.
 This has the advantage that all packages are added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.
 
 More information about the complete workflow can be found in the [Build lifecyle](build-lifecycle.html) vignette.

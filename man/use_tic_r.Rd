@@ -13,8 +13,7 @@ Which type of template should be used. Possible values are \code{"package"},
 
 \item{deploy_on}{(\code{character(1)})\cr
 Which CI provider should perform deployment? Defaults to \code{NULL} which means
-no deployment will be done. Possible values are \code{"ghactions"}, \code{"travis"},
-or \code{"circle"}.}
+no deployment will be done. Possible values are \code{"ghactions"} or \code{"circle"}.}
 }
 \description{
 Adds a \code{tic.R} file to containing the macros/steps/stages to be run during

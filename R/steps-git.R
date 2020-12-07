@@ -218,7 +218,6 @@ step_setup_push_deploy <- function(path = ".",
                                    orphan = FALSE,
                                    remote_url = NULL,
                                    checkout = TRUE) {
-
   SetupPushDeploy$new(
     path = path,
     branch = branch,
@@ -361,7 +360,7 @@ DoPushDeploy <- R6Class(
 #' Commits and pushes to a repo prepared by [step_setup_push_deploy()].
 #'
 #' Deployment usually requires setting up SSH keys with
-#' [use_tic()] or [travis::use_travis_deploy()].
+#' [use_tic()].
 #'
 #'
 #' @details
@@ -438,7 +437,6 @@ PushDeploy <- R6Class(
                           commit_message = NULL,
                           commit_paths = ".",
                           force = FALSE) {
-
       orphan <- (path != ".")
 
       private$setup <- step_setup_push_deploy(
@@ -490,7 +488,7 @@ PushDeploy <- R6Class(
 #' and [step_do_push_deploy()].
 #'
 #' Deployment usually requires setting up SSH keys with
-#' [use_tic()] or [travis::use_travis_deploy()].
+#' [use_tic()].
 #'
 #' @details
 #' Setup and deployment are combined in one step,

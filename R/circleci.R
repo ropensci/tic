@@ -27,7 +27,7 @@ CircleCI <- R6Class( # nolint
       Sys.getenv("CIRCLE_BUILD_URL")
     },
     get_commit = function() {
-      Sys.getenv("TRAVIS_COMMIT")
+      Sys.getenv("CIRCLE_COMMIT")
     },
     can_push = function(name) {
       # FIXME: Currently there is no way to check for the 'github-user-key' on

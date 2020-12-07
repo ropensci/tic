@@ -20,10 +20,10 @@ knitr::opts_chunk$set(
 The upstream support for the R language was developed by Jim Hester in [r-lib/actions](https://github.com/r-lib/actions).
 This repo also stores some usage [examples](https://github.com/r-lib/actions/tree/master/examples) which differ to the {tic} approach in the following points:
 
-- {tic} makes use of `ccache` for compiler caching enabling faster source installation of packages. 
+- {tic} makes use of `ccache` for compiler caching enabling faster source installation of packages.
   The `ccache` directory is cached and build once a week.
 - {tic} installs packages from source on Linux by default and does not use package binaries.
-- {tic} caches the complete R library and not only the direct packages dependencies (`actions` does this via `remotes::dev_package_deps(dependencies = TRUE)`). 
+- {tic} caches the complete R library and not only the direct packages dependencies (`actions` does this via `remotes::dev_package_deps(dependencies = TRUE)`).
   The cache is built once per day.
 
 Making use of binaries can speed up build times substantially.
@@ -33,7 +33,7 @@ The most prominent example for this is {rJava}.
 If the binary was built with the same version as the user is running on the system, everything will work.
 However, often enough a different version of the system library is installed and the R packages needs to be installed from source to successfully link against it.
 
-For the case of {rJava}, one needs to 
+For the case of {rJava}, one needs to
 
 - add a call to `R CMD javareconf` for **macOS** runners
 - add a call to `sudo R CMD javareconf` for **Linux** runners
@@ -83,8 +83,8 @@ The essential part is to prefix the compiler settings in `~/.R/Makevars` with `c
         if: runner.os != 'Windows'
         id: datew
         run: echo "::set-output name=datew::$(date '+%Y-%V')"
-        
-        
+
+
       - name: "[Custom] [Cache] Cache ccache"
         if: runner.os != 'Windows'
         uses: pat-s/always-upload-cache@v2.0.0
@@ -92,7 +92,7 @@ The essential part is to prefix the compiler settings in `~/.R/Makevars` with `c
           path: ${{ env.CCACHE_DIR}}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
-          
+
       # install ccache and write config file
       # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
       - name: "[Custom] [macOS] ccache"
@@ -149,10 +149,6 @@ On Linux, add `libgdal-dev libproj-dev libgeos-dev` to the `apt install` call in
 - [Windows] Installing {tinytex} for LaTeX availability does not complete
 
 ## Circle CI
-
-WIP
-
-## Travis CI
 
 WIP
 

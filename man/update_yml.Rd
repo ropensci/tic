@@ -9,7 +9,7 @@ update_yml(template_in = NULL, template_out = NULL)
 \arguments{
 \item{template_in}{\verb{[character]}\cr
 Path to template which should be updated. By default all standard template
-paths of GitHub Actions, Travis CI and Circle CI will be searched and
+paths of GitHub Actions or Circle CI will be searched and
 updated if they exist. Alternatively a full path to a single template can
 be passed.}
 

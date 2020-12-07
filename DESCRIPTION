@@ -41,10 +41,10 @@ Authors@R:
              role = "fnd"))
 Description: Provides a way to describe common build and deployment
     workflows for R-based projects: packages, websites (e.g.  blogdown,
-    pkgdown), or data processing (e.g. research compendia).  The recipe is
+    pkgdown), or data processing (e.g. research compendia). The recipe is
     described independent of the continuous integration tool used for
-    processing the workflow (e.g.  'Travis CI' or 'AppVeyor').  This
-    package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).
+    processing the workflow (e.g. 'GitHub Actions' or 'Circle CI').  This
+    package has been peer-reviewed by rOpenSci (v0.3.0.9004).
 License: GPL (>= 2)
 URL: https://github.com/ropensci/tic
 BugReports: https://github.com/ropensci/tic/issues
@@ -86,15 +86,13 @@ Suggests:
     stats,
     stringr,
     testthat (>= 2.1.0),
-    travis (>= 0.2.11.9001),
     utils
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
 Remotes:
-    ropenscilabs/circle,
-    ropenscilabs/travis
+    ropenscilabs/circle
 ByteCompile: No
 Encoding: UTF-8
 LazyData: TRUE
@@ -138,7 +136,6 @@ Collate:
     'steps-ssh.R'
     'steps-write-text-file.R'
     'tic-package.R'
-    'travis.R'
     'update-yaml-helpers.R'
     'update-yaml.R'
     'use-badge.R'

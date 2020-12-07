@@ -14,10 +14,9 @@
 github_add_key <- function(pubkey,
                            repo = get_repo(remote),
                            user = get_user(),
-                           title = "travis",
+                           title = "ghactions",
                            remote = "origin",
                            check_role = TRUE) {
-
   if (inherits(pubkey, "key")) {
     pubkey <- as.list(pubkey)$pubkey
   }
@@ -63,7 +62,6 @@ check_admin_repo <- function(owner, user, repo) {
 }
 
 add_key <- function(key_data, owner, project) {
-
   resp <- gh::gh("POST /repos/:owner/:repo/keys",
     owner = owner, repo = project,
     title = key_data$title,
@@ -78,7 +76,6 @@ add_key <- function(key_data, owner, project) {
 #' @template repo
 #' @rdname ssh_key_helpers
 get_role_in_repo <- function(owner, user, repo) {
-
   req <- gh::gh("/repos/:owner/:repo/collaborators/:username/permission",
     owner = owner, repo = repo, username = user
   )
@@ -222,7 +219,7 @@ auth_github <- function() {
   # authenticate on github
   token <- gh::gh_token()
   if (token == "") {
-    cli::cli_alert_danger("{.pkg travis}: Call
+    cli::cli_alert_danger("{.pkg tic}: Call
       {.code usethis::browse_github_token()} and follow the instructions.
       Then restart the session and try again.", wrap = TRUE)
     stopc("Environment variable 'GITHUB_PAT' not set.")

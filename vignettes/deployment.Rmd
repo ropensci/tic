@@ -17,28 +17,11 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-{tic} uses the [CI client packages](ci-client-packages.html) {travis} and {circle} for setting up deployment on the CI systems.
+{tic} uses [CI client packages](ci-client-packages.html) ({circle}) for setting up deployment on the CI systems.
 
-### Travis CI
-
-1. When calling `travis::use_travis_deploy()` (either directly or indirectly by using `use_tic()`), a public key is added to GitHub repository under the "Deploy keys" section and the user receives an e-mail:
-
-    ```{r, echo = FALSE, fig.align='center', dpi = 10}
-knitr::include_graphics("img/ssh-deploy-key.png")
-    ```
-    
-2. A private key is encoded in base64 and stored in an environment variable on Travis. 
-   During the CI run, {tic} installs it in the `~/.ssh` directory so that it can be used for authentication:
-
-    ```{r, echo = FALSE, fig.align='center', dpi = 10}
-knitr::include_graphics("img/private-key-travis.png")
-    ```
-    
-    Initiating the deployment via a public-private key pair has the advantage that rights are granted to a single repo only and the setup process can be automated.
-    
 ### Circle CI
 
-On Circle CI, setting up deployment is easier than on Travis as there is no need to create a SSH key pair for deployment.
+On Circle CI, setting up deployment convenient as there is no need to create a SSH key pair for deployment.
 
 When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use_tic()`), a so called "user-key" is created and stored in the Circle CI repo.
 This key makes it possible to deploy from Circle CI builds to your GitHub repo.
@@ -46,7 +29,7 @@ No extra deploy key need to be stored in the GitHub repo.
 
 ### Appveyor CI
 
-Appveyor follows the same philosophy as Travis CI when it comes to deployment.
+Appveyor follows a different approach when it comes to deployment.
 A bunch of [predefined deployment providers](https://www.appveyor.com/docs/deployment/) are available but deploying to the GitHub repo of the project is not possible.
 Unfortunately, there is no R client package for Appveyor yet.
 This means one needs to  manually set up an SSH key pair which is used for deployment.
@@ -69,8 +52,8 @@ private_key <- tic:::encode_private_key(key)
 
 1. Copy the private key and log into to your Appveyor account.
   Go to `Account -> Encrypt YAML` and encrypt the private key.
-  
-1. Copy the resulting snipped into the `appveyor.yml` file of the repo. 
+
+1. Copy the resulting snipped into the `appveyor.yml` file of the repo.
    Name the environment variable "id_rsa".
 
 Now the Appveyor builds should be able to deploy to the drat repo (where you added the public key).
@@ -98,7 +81,7 @@ To simplify the creation of a SSH key pair for deployment and adding the keys to
 To use this function, you need a `GITHUB_PAT` with public repo scope defined in your `.Renviron`.
 `usethis::browse_github_pat()` helps setting one up if you haven't done so already.
 
-#### Updating the deployment status 
+#### Updating the deployment status
 
 To update the deployment status in the "environments" menu (next to "release" and "branches") conditionally on the outcome of the "Deployment" stage, one can use the `chrnorm/deployment-status`.
 
@@ -144,33 +127,32 @@ It has become a quasi-standard to provide a {pkgdown} site for an R package.
 However, it is tedious to update the {pkgdown} site manually on every commit, check whether something has changed and commit the changes.
 {tic} comes with the ability to automate this process.
 
-The following example shows how {tic} deploys a {pkgdown} site on Travis CI.
+The following example shows how {tic} deploys a {pkgdown} site on GitHub Actions.
 Remember that you can freely choose your favorite provider for this task.
-In `.travis.yml` file the "before_deploy" and "deploy" stages are redirected to {tic}.
+In `tic.yml` file the "before_deploy" and "deploy" stages are redirected to {tic}.
 
 ```{yml eval = FALSE}
-before_deploy: R -q -e 'tic::before_deploy()'
-deploy:
-  provider: script
-  script: R -q -e 'tic::deploy()'
+- name: "[Stage] Before Deploy"
+  run: |
+    Rscript -e "tic::before_deploy()"
 ```
 
 In the "before_deploy" stage, {tic} will do the following:
 
 ```{r eval = FALSE}
-if (ci_on_travis()) {
+if (ci_on_ghactions()) {
   get_stage("before_deploy") %>%
     add_step(step_setup_ssh())
 }
 ```
 
-- Calls `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the Travis CI build. 
-  This step sets up SSH key previously added to the GitHub and Travis via `travis::use_travis_deploy()`.
-  Argument `private_key_name` can be ignored as long as no custom private key name was used during `travis::use_travis_deploy()`. 
+- Calls `step_setup_ssh()` if the environment variable `"BUILD_PKGDOWN"` is set in the CI build.
+  This step sets up SSH key previously added to the GitHub via `tic::use_ghactions_deploy()`.
+  Argument `private_key_name` can be ignored as long as no custom private key name was used during `tic::use_ghactions_deploy()`.
   If so, then supply it via the `private_key_name` argument in `do_pkgdown()`.
-  
+
   For backward compatibility, the deprecated default `"id_rsa"` is supported out of the box.
-  
+
 - Calls `add_step(step_build_pkgdown())` and `add_step(step_push_deploy())` in the "deploy" stage.
 
 ```{r eval = FALSE}
@@ -181,7 +163,7 @@ get_stage("deploy") %>%
 
 `step_build_pkgdown()` will build the {pkgdown} site and afterwards (note the `pipe` operator chaining the commands), `step_push_deploy()` takes care pushing the results to the repo.
 By default the site will be pushed to the `gh-pages` branch of your repo, keeping the history.
-    
+
 ### Deploying to `docs/` (default branch) or `gh-pages` branch
 
 By default deployment is pushed to the `gh-pages` branch.
@@ -197,13 +179,13 @@ Deploying to the `docs/` directory of the default branch has the following advan
 - Per-branch versions of the {pkgdown} site (if desired)
 - Per-branch versions enable the possibility to have preview for pull requests via https://www.netlify.com/
 
-The disadvantage is that the default branch will be cluttered by automatic commits triggered by Travis CI that push the changes of the {pkgdown} site to the default branch.
+The disadvantage is that the default branch will be cluttered by automatic commits that push the changes of the {pkgdown} site to the default branch.
 
 #### Orphaning the `gh-pages` branch
 
 By default, changes to the {pkgdown} site will be added as incremental commits to the `gh-pages` branch.
 This is useful to keep a history of past versions and to enable a release and dev version of the site.
-To have this feature, set 
+To have this feature, set
 
 ```yml
 development:
@@ -215,51 +197,6 @@ See `?pkgdown::build_site()` for more information.
 
 If you only want to have one version of your {pkgdown} site and not fill your repo with many commits in the `gh-pages` branch, you can use `do_pkgdown(orphan = TRUE)`.
 This will wipe all commits of this branch on every CI run so that there is only one commit corresponding to the latest version of your pkgdown site.
-
-## Conditional deployment
-
-If you are running a [build matrix](https://docs.travis-ci.com/user/build-matrix/) or [build stages](https://docs.travis-ci.com/user/build-stages/) on Travis CI, you want to run certain tasks only once during a build. 
-The creation of a {pkgdown} site is a common task which applies to this.
-
-Another situation in which conditioning comes in handy is when you want to deploy multiple files in different stages.
-You can restrict on which stage/job a task is executed with the help of environment variables.
-
-{tic} can make use of implicit set environment variables of the build and additional ones added by the user.
-In the following we show a "build stage" example on Travis CI using the custom env variable `"BUILD_PKGDOWN"`:
-
-`.travis.yml`:
-
-```{yml eval = FALSE}
-jobs:
-  include:
-    - stage: stage1
-      env: BUILD_PKGDOWN=TRUE
-      before_install: 
-        - R -q -e 'install.packages("remotes")'
-        - R -q -e 'remotes::install_github("ropensci/tic")'
-        - R -q -e 'tic::prepare_all_stages(); tic::before_install()'
-      [...]
-      deploy:
-        provider: script
-        script: R -q -e 'tic::deploy()'
-        on:
-          all_branches: true
-```
-
-`tic.R`:
-
-```{r eval = FALSE}
-if (ci_has_env("TIC_DEPLOY_KEY")) {
-  get_stage("before_deploy") %>%
-    add_step(step_setup_ssh())
-}
-
-if (isTRUE("BUILD_PKGDOWN")) {
-  get_stage("deploy") %>%
-    add_step(step_build_pkgdown()) %>%
-    add_step(step_push_deploy())
-}
-```
 
 ## Committing single files
 

@@ -33,8 +33,8 @@ GHActionsCI <- R6Class( # nolint
       Sys.getenv("GITHUB_SHA")
     },
     can_push = function(private_key_name = "TIC_DEPLOY_KEY") {
-      # id_rsa is the "old" name which was previously hard coded in the {travis}
-      # package. New default name: "TIC_DEPLOY_KEY"
+      # id_rsa is the "old" name which was previously hard coded.
+      # New default name: "TIC_DEPLOY_KEY"
       # for backward comp we check for the old one too
       private_key_name <- compat_ssh_key(private_key_name)
       self$has_env(private_key_name)
@@ -97,7 +97,6 @@ gha_add_secret <- function(secret,
                            remote = "origin",
                            visibility = "all",
                            selected_repositories = NULL) {
-
   requireNamespace("sodium", quietly = TRUE)
   requireNamespace("gh", quietly = TRUE)
 
@@ -179,7 +178,6 @@ use_ghactions_deploy <- function(path = usethis::proj_get(),
                                  key_name_private = "TIC_DEPLOY_KEY",
                                  key_name_public = "Deploy key for GitHub Actions", # nolint
                                  remote = "origin") {
-
   requireNamespace("sodium", quietly = TRUE)
   requireNamespace("gh", quietly = TRUE)
   requireNamespace("purrr", quietly = TRUE)

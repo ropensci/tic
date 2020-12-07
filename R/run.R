@@ -38,9 +38,8 @@ run_stage <- function(name, stages = dsl_load()) {
 
 #' Emulate a CI run locally
 #'
-#' Runs predefined [stages] similarly to Travis CI and AppVeyor.
+#' Runs predefined [stages] similarly to the chosen CI provider.
 #' The run aborts on error, the `after_failure` stage is never run.
-#'
 #'
 #' @family runners
 #' @inheritParams run_stage
@@ -84,7 +83,7 @@ run_all_stages <- function(stages = dsl_load()) {
 
 #' Predefined stages
 #'
-#' Stages available in both Travis CI and AppVeyor, for which shortcuts
+#' Stages available in the CI provider, for which shortcuts
 #' have been defined. All these functions call [run_stage()] with the
 #' corresponding stage name.
 #'

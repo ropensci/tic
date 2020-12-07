@@ -9,8 +9,6 @@ test_that("integration test: git race condition + path + branch + orphaning", {
   # - Updates repo (creates a file `clone.txt`)
   # - Clones repo again in third location
   # - Updates repo (updates that file `clone.txt`)
-  # - Deployment is run in all three clones,
-  #   emulating a race condition on Travis
   #
   # Deployment consists of listing all `.txt` files (recursively)
   # and writing the results to `deploy/dir.txt` .

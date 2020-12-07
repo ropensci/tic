@@ -14,7 +14,7 @@ github_add_key(
   pubkey,
   repo = get_repo(remote),
   user = get_user(),
-  title = "travis",
+  title = "ghactions",
   remote = "origin",
   check_role = TRUE
 )

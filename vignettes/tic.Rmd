@@ -20,9 +20,9 @@ library("tic")
 
 Continuous Integration (CI) is a huge field in software development.
 There are a lot of resources out there that try to explain what it can do and why you need it (and usually why their particular company/service does it best).
-If you are just getting started with software development or `git` based project work you might think: 
+If you are just getting started with software development or `git` based project work you might think:
 
-> "Ah I don't need all of this overhead, I am fine doing X and Y manually for this project. 
+> "Ah I don't need all of this overhead, I am fine doing X and Y manually for this project.
 > The overhead learning this next additional "tool" is not worth it.
 
 Reading [all vignettes of this package](https://docs.ropensci.org/tic/articles/) will help you understand what {tic} does to simplify all of that specifically for the R language.
@@ -55,7 +55,7 @@ Specification how many runners are started and their specification (operating sy
 <summary>CI Provider</summary>
 
 A company that offers ready-to-use virtual images for runners which are started after a certain action.
-Such (third-party) companies are Travis, AppVeyor or Circle CI.
+Such (third-party) companies are AppVeyor or Circle CI.
 However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.
 
 </details>
@@ -72,8 +72,7 @@ This can save a lot of time and is commonly used to ensure that documentation is
 <details>
 <summary>CI Client packages</summary>
 
-R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.).
-Examples are [{travis}](https://github.com/ropenscilabs/travis) or [{circle}](https://github.com/ropenscilabs/circle).
+R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.), e.g. [{circle}](https://github.com/ropenscilabs/circle).
 
 </details>
 
@@ -96,10 +95,10 @@ Badges in the README of a repository showing the current build status of the pro
 The easiest way to use {tic} for CI services is to call `tic::use_tic()`.
 This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by {tic}.
 
-Several yes/no questions need to be answered. 
+Several yes/no questions need to be answered.
 Based on the replies we'll select specific templates.
 
-Besides the question which CI system you want to use, you'll be asked if you want to 
+Besides the question which CI system you want to use, you'll be asked if you want to
 
 - Deploy from builds to GitHub (e.g. if you are building a {pkgdown} site)
 
@@ -108,13 +107,13 @@ Besides the question which CI system you want to use, you'll be asked if you wan
 Last, we'll add a `tic.R` file to the project root.
 
 After this, your project is ready for continuous integration.
-The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured.
+The next push to GitHub will create a build on Circle CI and/or AppVeyor, as configured.
 (Currently you need to enable the project manually on AppVeyor.)
 See the [Troubleshooting](advanced.html#troubleshooting) section in case anything doesn't work as expected.
 
 #### Quickstart
 
-If you are a new user, run 
+If you are a new user, run
 
 ```r
 tic::use_tic()
@@ -123,10 +122,6 @@ tic::use_tic()
 If you already use {tic} and want to configure a new CI provider, do
 
 ```r
-## Travis CI
-travis::use_travis_deploy() # (optional for deployment)
-tic::use_travis_yml(<option here>)
-
 ## Circle CI
 circle::use_circle_deploy() # (optional for deployment)
 tic::use_circle_yml(<option here>)
@@ -137,23 +132,15 @@ tic::use_appveyor_yml(<option here>)
 
 ---
 
-The reason why we suggest Travis CI as the default builds on three points:
-
-- Travis is the most widely used CI provider within the R community
-- Has been around for some years
-- Supports Linux & macOS.
-
 If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience.
 However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.
 
-The deployment setup functionality comes from the {travis} and {circle} packages.
 See the [CI Client Packages](ci-client-packages.html) article for more detailed information on how {tic} and the CI client packages work together.
 
 # The role of the `tic.R` file
 
 After having called `tic::use_tic()` you will find
 
-- `.travis.yml`
 - `.circleci/config.yml`
 - `appveyor.yml`
 - `.github/workflows`
@@ -169,7 +156,7 @@ The basic `tic.R` template looks as follows:
 ```{r eval = FALSE}
 do_package_checks()
 
-if (ci_on_travis()) {
+if (ci_on_ghactions()) {
   do_pkgdown()
 }
 ```
@@ -177,7 +164,7 @@ if (ci_on_travis()) {
 `tic.R` file has a declarative nature: It should consist of "stages", "steps" and "macro" functions (see below).
 These functions will only have an effect when specified in `tic.R` and should **not** be used standalone as they will only run in a (simulated) CI run following a certain order.
 
-To run plain R code within the build, encapsulate it within `add_code_step(<code>)` and add it to a certain build stage. 
+To run plain R code within the build, encapsulate it within `add_code_step(<code>)` and add it to a certain build stage.
 See [the Build Lifecycle](build-lifecycle.html) article for detailed info about how to do this.
 
 ## Macros {#macros}
@@ -204,8 +191,8 @@ If you have a good use case for a macro, let us know by opening an [issue](https
 do_package_checks()
 ```
 
-`do_package_checks()` adds essential steps to various stages of a CI run. 
-Most importantly, it adds `step_rcmdcheck()` to the "script" stage. 
+`do_package_checks()` adds essential steps to various stages of a CI run.
+Most importantly, it adds `step_rcmdcheck()` to the "script" stage.
 This step performs the check of an R package.
 Afterwards, the code coverage is being checked using `covr::codecov()`.
 See `?do_package_checks()` for more information.
@@ -224,7 +211,7 @@ See `?do_package_checks()` for more information.
 The other macro in the default template is `do_pkgdown()`.
 
 ```{r eval = FALSE}
-if (ci_on_travis()) {
+if (ci_on_ghactions()) {
   do_pkgdown()
 }
 ```
@@ -233,20 +220,20 @@ if (ci_on_travis()) {
 
 ```{reval = FALSE}
 # step_install_deps() in the "install" stage, using the repos argument.
-# 
+#
 # step_setup_ssh() in the "before_deploy" to setup the upcoming deployment (if deploy is set),
-# 
+#
 # step_setup_push_deploy() in the "before_deploy" stage (if deploy is set),
-# 
+#
 # step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
-# 
+#
 # step_do_push_deploy() in the "deploy" stage.
 ```
 
-By default this currently happens only on Travis CI, because `ci_on_travis()` is used as a condition.
+By default this currently happens only on GitHub Actions, because `ci_on_ghactions()` is used as a condition.
 Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.
 
-`ci_on_travis()` can be replaced by one of its sibling functions like `ci_on_ghactions()`.
+`ci_on_ghactions()` can be replaced by one of its sibling functions like `ci_on_circle()`.
 
 ### `do_readme_rmd()`
 
@@ -276,7 +263,7 @@ Simply check out the setup for the type of project you are interested in to get 
 
 As a show case, we explain a "blogdown" project in more detail.
 [`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for publishing websites.
-Under the hood, it uses the framework [Hugo](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5) in the "install" section:
+Under the hood, it uses the framework [Hugo](https://gohugo.io/) which gets installed by the respective `tic.R` [template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R) in the "install" section:
 
 ```{r eval = FALSE}
 get_stage("install") %>%

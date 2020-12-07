@@ -24,6 +24,7 @@ CCACHE
 cheatsheet
 ci
 circleci
+CircleCI
 cli
 cmd
 CMD
@@ -92,6 +93,7 @@ Gabor
 gcc
 gdal
 GDAL
+geos
 getOption
 getRversion
 gfortran
@@ -107,10 +109,12 @@ givenName
 gmail
 hacky
 hdiutil
+homebrew
 Homebrew
 http
 https
 hugo
+hyperthreading
 img
 inbetween
 init
@@ -147,6 +151,7 @@ libudunits
 lifecycle
 Lifecycle
 lifecyle
+LinkingTo
 linter
 linters
 linux
@@ -188,6 +193,7 @@ oldrel
 oldrelease
 ooms
 Ooms
+openMP
 openssl
 orcid
 ORCID
@@ -211,10 +217,12 @@ purrr
 Quickstart
 rb
 rcmdcheck
+Rcpp
 RdMacros
 readme
 README
 README's
+reinstallation
 releaseNotes
 Renviron
 repo
@@ -295,11 +303,13 @@ VignetteBuilder
 VM
 WebRequest
 wget
+WIP
 withr
 wordlist
 writeLines
 www
 xquartz
+XQuartz
 xz
 yaml
 YAML

@@ -33,30 +33,7 @@ The `after_xxx` stages are executed conditionally after their corresponding `xxx
 All action that should be run in a certain stage are defined in `tic.R`.
 The steps are specified in an CI-agnostic way using R syntax.
 
-The majority of `.travis.yml` consists of glue code and is not meant to be edited anymore.
-
-```yml
-# DO NOT CHANGE THE CODE BELOW
-before_install:
-  - R -q -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'
-  - R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'
-  - R -q -e 'remotes::install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
-  - R -q -e 'tic::before_install()'
-install: R -q -e 'tic::install()'
-before_script: R -q -e 'tic::before_script()'
-script: R -q -e 'tic::script()'
-after_success: R -q -e 'tic::after_success()'
-after_failure: R -q -e 'tic::after_failure()'
-before_deploy: R -q -e 'tic::before_deploy()'
-deploy:
-  provider: script
-  script: R -q -e 'tic::deploy()'
-  on:
-    all_branches: true
-after_deploy: R -q -e 'tic::after_deploy()'
-after_script: R -q -e 'tic::after_script()'
-# DO NOT CHANGE THE CODE ABOVE
-```
+The majority of the template code consists of glue code and is not meant to be edited.
 
 In a nutshell, the workflow is as follows:
 
@@ -64,7 +41,7 @@ CI YAML -> `tic.R` -> commands/steps to execute
 
 Some important points:
 
-- The R code declared in `tic.R` is not meant to be run manually. 
+- The R code declared in `tic.R` is not meant to be run manually.
   It also does not trigger a CI build.
 All commands just define the workflow of the CI build.
 - The workflow can be loaded using `dsl_load()`, however this will not run any of the commands defined.
@@ -127,7 +104,7 @@ Here is a list that shows a rough grouping of the steps into their default stage
 | ---  | ----------- |
 | `step_hello_world()` | Print "Hello, World!" to the console, helps testing a tic setup| | `step_run_code()` | Run arbitrary code, optionally run preparatory code and install dependent packages. `add_step(step_run_code())` an be abbreviated with `add_code_step()`
 | `step_write_text_file()` | Creates a text file with arbitrary contents |
-    
+
 #### Installation
 
 | Step | Description |
@@ -136,20 +113,19 @@ Here is a list that shows a rough grouping of the steps into their default stage
 | `step_install_github()` | Installs one or more packages from GitHub via `remotes::install_github()` |
 
 #### R package specific
- 
+
 | Step | Description |
 | ---  | ----------- |
 | `step_build_pkgdown()` | Building package documentation via [pkgdown](https://github.com/r-lib/pkgdown) |
 | `step_rcmdcheck()` | Run `R CMD check` via the {rcmdcheck} package |
-    
+
 #### Deployment
 
-| Step | Description |
-| ---  | ----------- |
-| `step_install_ssh_key()` | Make available a private SSH key (which has been added before to your project by `use_tic()` or `travis::use_travis_deploy()`). Only needed on Travis CI. |
-| `step_test_ssh()` | Test the SSH connection to GitHub, helps troubleshooting deploy problems. |
-| `step_setup_ssh()` | Adds to known hosts, installs private key, and tests the connection. Only needed on Travis CI. | 
-| `step_setup_push_deploy()` | Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`. |
-| `step_do_push_deploy()` | Deploy to GitHub. |
-| `step_push_deploy()` | Combines `step_setup_push_deploy()` and `step_do_push_deploy()`. |
-    
+| Step                       | Description                                                                                                                                               |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `step_install_ssh_key()`   | Make available a private SSH key (which has been added before to your project by `use_tic()` or `tic::use_ghactions_deploy()`).                           |
+| `step_test_ssh()`          | Test the SSH connection to GitHub, helps troubleshooting deploy problems.                                                                                 |
+| `step_setup_ssh()`         | Adds to known hosts, installs private key, and tests the connection.                                                                                      |
+| `step_setup_push_deploy()` | Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`.                                                |
+| `step_do_push_deploy()`    | Deploy to GitHub.                                                                                                                                         |
+| `step_push_deploy()`       | Combines `step_setup_push_deploy()` and `step_do_push_deploy()`.                                                                                          |

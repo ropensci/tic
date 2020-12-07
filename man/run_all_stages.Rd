@@ -12,7 +12,7 @@ A named list of \code{TicStage} objects as returned by \code{\link[=dsl_load]{ds
 by default loaded from \code{tic.R}.}
 }
 \description{
-Runs predefined \link{stages} similarly to Travis CI and AppVeyor.
+Runs predefined \link{stages} similarly to the chosen CI provider.
 The run aborts on error, the \code{after_failure} stage is never run.
 }
 \details{

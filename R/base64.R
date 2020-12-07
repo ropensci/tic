@@ -3,7 +3,7 @@
 #' @description
 #' `base64serialize()` converts an R object into a string suitable for storing
 #' in an environment variable. Use this function for encoding entire R objects
-#' (such as OAuth tokens) so that they can be used in Travis builds.
+#' (such as OAuth tokens).
 #'
 #' @param x Object to serialize or deserialize
 #' @param compression Passed on as `type` argument to [memCompress()] or
