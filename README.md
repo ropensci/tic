@@ -21,7 +21,6 @@ The following ones are supported:
 | Appveyor CI    | [{r-appveyor}](https://github.com/krlmlr/r-appveyor) | Windows               |                                                                       |
 | Circle CI      | [{circle}](https://docs.ropensci.org/circle/)        | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
 | Github Actions | [{ghactions}](https://maxheld.de/ghactions)          | Linux, macOS, Windows |                                                                       |
-| Travis CI      | [{travis}](https://docs.ropensci.org/travis/)        | Linux, macOS          | https://travis-ci.org and https://travis-ci.com                       |
 
 To learn more about CI, read our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
@@ -73,6 +72,7 @@ If you already use {tic} and want to configure a new CI provider, do
 
 ```r
 ### Circle CI ------------------------------------------------------------------
+
 circle::use_circle_deploy() # (optional for deployment)
 tic::use_circle_yml() # optional: Change `type` arg to your liking
 tic::use_tic_r("package", deploy_on = "circle")
@@ -82,9 +82,11 @@ tic::use_tic_r("package", deploy_on = "circle")
 tic::use_update_tic()
 
 ### Appveyor -------------------------------------------------------------------
+
 tic::use_appveyor_yml()
 
 ### GitHub Actions -------------------------------------------------------------
+
 tic::use_ghactions_deploy() # (optional for deployment)
 tic::use_ghactions_yml() # optional: Change `type` arg to your liking
 tic::use_tic_r("package", deploy_on = "ghactions")
@@ -110,43 +112,6 @@ We also recommend to take a look at the projects providing the direct R support 
 
 Updating of YAML templates is supported via [`update_yml()`](https://docs.ropensci.org/tic/reference/update_yml.html).
 See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for more information.
-
-## Examples
-
-All examples listed here should work on all CI providers listed above.
-The badges link to the most recent build of the master branch.
-
-- [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.blogdown.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.blogdown)
-
-- [tic.bookdown](https://github.com/ropenscilabs/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.bookdown.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.bookdown)
-
-- [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.covrpage.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.covrpage)
-
-- [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.drat.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.drat)
-
-- [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.figshare.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.figshare)
-
-- [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [_pkgdown_](https://pkgdown.r-lib.org/) documentation
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.package.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.package)
-
-- [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.packagedocs.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.packagedocs)
-
-- [tic.website](https://github.com/ropenscilabs/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
-
-  [![Travis build status](https://travis-ci.org/ropenscilabs/tic.website.svg?branch=master)](https://travis-ci.org/ropenscilabs/tic.website)
 
 ## Vignettes
 
@@ -174,20 +139,5 @@ The setup functions in this package assume Git as version control system, and Gi
 Automated setup works best if the project under test is located in the root of the Git repository.
 Multi-project repositories are not supported, see [the comment by @jwijffels](https://github.com/ropensci/tic/issues/117#issuecomment-460814990) for guidance to work around this limitation.
 
-## Footnotes
-
-- The DESCRIPTION files needs to live in the project root.
-  To simplify its creation have a look at [usethis::use_package()](https://usethis.r-lib.org/reference/use_package.html) or [usethis::use_description()](https://usethis.r-lib.org/reference/use_description.html).
-
----
-
-[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
-
-| Step                       | Description                                                                                                                                               |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `step_install_ssh_key()`   | Make available a private SSH key (which has been added before to your project by `use_tic()` or `tic::use_ghactions_deploy()`).                           |
-| `step_test_ssh()`          | Test the SSH connection to GitHub, helps troubleshooting deploy problems.                                                                                 |
-| `step_setup_ssh()`         | Adds to known hosts, installs private key, and tests the connection. Only needed on Travis CI.                                                            |
-| `step_setup_push_deploy()` | Clones a repo, initiates author information, and sets up remotes for a subsequent `step_do_push_deploy()`.                                                |
-| `step_do_push_deploy()`    | Deploy to GitHub.                                                                                                                                         |
-| `step_push_deploy()`       | Combines `step_setup_push_deploy()` and `step_do_push_deploy()`.                                                                                          |
+The DESCRIPTION files needs to live in the project root.
+ To simplify its creation have a look at [usethis::use_package()](https://usethis.r-lib.org/reference/use_package.html) or [usethis::use_description()](https://usethis.r-lib.org/reference/use_description.html).
