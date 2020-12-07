@@ -5,8 +5,8 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "tic",
-  "description": "Provides a way to describe common build and\n    deployment workflows for R-based projects: packages, websites (e.g.\n    blogdown, pkgdown), or data processing (e.g. research compendia).  The\n    recipe is described independent of the continuous integration tool\n    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').\n    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).",
-  "name": "tic: Tasks Integrating Continuously: CI-Agnostic Workflow\n    Definitions",
+  "description": "Provides a way to describe common build and deployment\n    workflows for R-based projects: packages, websites (e.g.  blogdown,\n    pkgdown), or data processing (e.g. research compendia). The recipe is\n    described independent of the continuous integration tool used for\n    processing the workflow (e.g. 'GitHub Actions' or 'Circle CI').  This\n    package has been peer-reviewed by rOpenSci (v0.3.0.9004).",
+  "name": "tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions",
   "codeRepository": "https://github.com/ropensci/tic",
   "issueTracker": "https://github.com/ropensci/tic/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
@@ -16,7 +16,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2020-11-20 r79451)",
+  "runtimePlatform": "R version 4.0.3 Patched (2020-11-27 r79522)",
   "author": [
     {
       "@type": "Person",
@@ -477,7 +477,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tic/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tic/blob/master/README.md",
-  "contIntegration": ["https://travis-ci.org/ropensci/tic", "https://circleci.com/gh/ropensci/tic", "https://codecov.io/gh/ropensci/tic", "https://travis-ci.org/ropenscilabs/tic.blogdown", "https://travis-ci.org/ropenscilabs/tic.bookdown", "https://travis-ci.org/ropenscilabs/tic.covrpage", "https://travis-ci.org/ropenscilabs/tic.drat", "https://travis-ci.org/ropenscilabs/tic.figshare", "https://travis-ci.org/ropenscilabs/tic.package", "https://travis-ci.org/ropenscilabs/tic.packagedocs", "https://travis-ci.org/ropenscilabs/tic.website"],
+  "contIntegration": ["https://travis-ci.org/ropensci/tic", "https://circleci.com/gh/ropensci/tic", "https://codecov.io/gh/ropensci/tic"],
   "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing",
   "keywords": [
     "r",
@@ -489,5 +489,5 @@
     "rstats",
     "githubactions"
   ],
-  "fileSize": "2468.97KB"
+  "fileSize": "2424.916KB"
 }

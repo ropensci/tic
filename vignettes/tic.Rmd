@@ -245,20 +245,6 @@ A deployment will only be made if the rendered output differs from the one store
 
 This macro requires that you have set up deployment for your selected provider beforehand.
 
-# Example projects
-
-{tic} can be used for various R projects.
-Simply check out the setup for the type of project you are interested in to get a feeling of how {tic} is used in practice.
-
-- [tic.package](https://github.com/ropenscilabs/tic.package): R packages with [{pkgdown}](https://pkgdown.r-lib.org/) documentation
-- [tic.packagedocs](https://github.com/ropenscilabs/tic.packagedocs): R packages with [_packagedocs_](http://hafen.github.io/packagedocs/) documentation
-- [tic.drat](https://github.com/ropenscilabs/tic.drat): CRAN-like package repositories with [_drat_](http://dirk.eddelbuettel.com/code/drat.html)
-- [tic.blogdown](https://github.com/ropenscilabs/tic.blogdown): Blogs with [_blogdown_](https://bookdown.org/yihui/blogdown/)
-- [tic.bookdown](https://github.com/ropenscilabs/tic.bookdown): Books with [_bookdown_](https://bookdown.org/)
-- [tic.website](https://github.com/ropenscilabs/tic.website): Websites with [_rmarkdown_](https://rmarkdown.rstudio.com/)
-- [tic.figshare](https://github.com/ropenscilabs/tic.figshare): Deploying artifacts to [figshare](https://figshare.com/) (work in progress).
-- [tic.covrpage](https://github.com/ropenscilabs/tic.covrpage): Unit test summary report.
-
 ### Blogdown
 
 As a show case, we explain a "blogdown" project in more detail.
