@@ -56,28 +56,6 @@ However in detail, {tic} does the following things differently which aim to enha
 - Use of SSH deployment keys: Once set up via `tic::use_ghactions_deploy()`, this deployment approach makes it possible to push any file of your repository to any branch of your remote.
   Other deployment approaches often limit you to only push to `gh-pages` branch or similar.
 
-## Appveyor CI
-
-#### Q-Appveyor-1
-
-## Appveyor
-
-I am facing the following build error:
-
-```{r eval=FALSE}
-Error in eval(expr, envir = list(`?` = function(...) stop()), enclos = envir) :
-  object 'name' not found
-Calls: <Anonymous> ... .transformer -> glue -> glue_data -> <Anonymous> -> .transformer
-Execution halted
-Command exited with code 1
-```
-
-**Answer**
-
-Do you have a private SSH key stored as a secure environment variable in the in `appveyor.yml`?
-If yes, it could be that you encrypted while being logged in to a different account than the one the repo is running under in reality.
-This means if you have access to multiple organizations and your private account on Appveyor, you need to encrypt the environment variable using the account in which repo lives.
-
 ## Other
 
 #### Q-Other-1

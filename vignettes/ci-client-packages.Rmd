@@ -39,6 +39,7 @@ The client package for _travis_ was archived in November 2020.
 For _Appveyor_ there is [r-appveyor](https://github.com/krlmlr/r-appveyor) from Kirill Müller.
 This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the _Appveyor_ API and is not used by {tic} currently.
 Also, it does not come with automation for deployment setup.
+Appveyor support has been removed from {tic} in December 2020 due to a strong focus on GitHub Actions.
 
 For _GitHub Actions_ there is [{ghactions}](https://github.com/maxheld83/ghactions) from Max Held which comes with functions helping to set up YAML templates and other convenience.
 It does not provide API access and is not used by {tic} currently.

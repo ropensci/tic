@@ -2,13 +2,10 @@
 % Please edit documentation in R/use-yaml.R
 \name{yaml_templates}
 \alias{yaml_templates}
-\alias{use_appveyor_yml}
 \alias{use_circle_yml}
 \alias{use_ghactions_yml}
 \title{Use CI YAML templates}
 \usage{
-use_appveyor_yml(type = "windows", write = TRUE, quiet = FALSE)
-
 use_circle_yml(type = "linux-matrix-deploy", write = TRUE, quiet = FALSE)
 
 use_ghactions_yml(
@@ -55,10 +52,6 @@ others are optional.
 \item Possible values for \verb{<action>} are \code{matrix} and \code{deploy}.
 }
 
-Not every combinations is supported on all CI systems.
-For example, for \code{use_appveyor_yaml()} only \code{windows} and \code{windows-matrix}
-are valid.
-
 Special types are \code{custom} and \code{custom-deploy}. These should be used if the
 runner matrix is completely user-defined. This is mainly useful in
 \code{\link[=update_yml]{update_yml()}}.
@@ -72,9 +65,6 @@ Here is a list of all available combinations:\tabular{lllll}{
     \tab Linux \tab yes \tab no \tab \code{use_circle_yml("linux-deploy")} \cr
     \tab Linux \tab no \tab yes \tab \code{use_circle_yml("linux-matrix")} \cr
     \tab Linux \tab no \tab yes \tab \code{use_circle_yml("linux-deploy-matrix")} \cr
-   ---------- \tab ------------------------ \tab ---------- \tab ------------------- \tab ------------------------------------------------------- \cr
-   Appveyor \tab Windows \tab no \tab no \tab \code{use_appveyor_yml("windows")} \cr
-    \tab Windows \tab no \tab yes \tab \code{use_appveyor_yml("windows-matrix")} \cr
    ---------- \tab ------------------------ \tab ---------- \tab ------------------- \tab ------------------------------------------------------- \cr
    GH Actions \tab Linux \tab no \tab no \tab \code{use_ghactions_yml("linux")} \cr
     \tab Linux \tab yes \tab no \tab \verb{use_ghactions_yml("linux-deploy)} \cr

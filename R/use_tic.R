@@ -19,7 +19,7 @@
 #'   Possible options are `"circle"`, `"ghactions"`, `"none"`/`NULL`
 #'   and `"all"`.
 #' @param windows `[string]`\cr Which CI provider(s) to use to test on Windows
-#'   Possible options are `"none"`/`NULL`, `"appveyor"` and `"ghactions"`.
+#'   Possible options are `"none"`/`NULL`, and `"ghactions"`.
 #' @param mac `[string]`\cr Which CI provider(s) to use to test on macOS
 #'   Possible options are `"none"`/`NULL` and `"ghactions"`.
 #' @param deploy `[string]`\cr Which CI provider(s) to use to deploy artifacts
@@ -41,7 +41,7 @@
 #'     wizard = FALSE,
 #'     linux = "circle",
 #'     mac = "ghactions",
-#'     windows = "appveyor",
+#'     windows = "ghactions",
 #'     deploy = "circle",
 #'     matrix = "all"
 #'   )
@@ -66,7 +66,7 @@ use_tic <- function(wizard = interactive(),
   cli_h1("Introduction:")
   cli_text("{.pkg tic} currently comes with support for four CI providers: ")
 
-  cli_ul(c("Appveyor", "Circle CI", "GitHub Actions"))
+  cli_ul(c("Circle CI", "GitHub Actions"))
 
   cli_par()
   cli_text(c(
@@ -100,7 +100,7 @@ use_tic <- function(wizard = interactive(),
       title = "Do you want to build on macOS?"
     )
 
-    windows <- ci_menu(c("appveyor", "ghactions", "none"),
+    windows <- ci_menu(c("ghactions", "none"),
       title = "Do you want to build on Windows?"
     )
 
@@ -112,7 +112,7 @@ use_tic <- function(wizard = interactive(),
     )
 
     matrix <- ci_menu(intersect(
-      c("none", "circle", "appveyor", "ghactions", "all"),
+      c("none", "circle", "ghactions", "all"),
       c(linux, mac, windows, "all", "none")
     ),
     title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
@@ -138,14 +138,14 @@ use_tic <- function(wizard = interactive(),
     mac <- match.arg(mac, c("none", "ghactions"),
       several.ok = TRUE
     )
-    windows <- match.arg(windows, c("none", "appveyor", "ghactions", "all"),
+    windows <- match.arg(windows, c("none", "ghactions", "all"),
       several.ok = TRUE
     )
     deploy <- match.arg(deploy, c("circle", "ghactions", "none", "all"), # nolint
       several.ok = TRUE
     )
     matrix <- match.arg(matrix,
-      c("none", "circle", "appveyor", "ghactions", "all"),
+      c("none", "circle", "ghactions", "all"),
       several.ok = TRUE
     )
   }
@@ -199,20 +199,6 @@ use_tic <- function(wizard = interactive(),
       } else {
         use_circle_yml("linux")
       }
-    }
-  }
-
-  cli_alert_success("OK")
-
-  # Appveyor -------------------------------------------------------------------
-
-  cli_h2("Appveyor CI")
-
-  if (appveyor_in(windows)) {
-    if (appveyor_in(matrix)) {
-      use_appveyor_yml("windows-matrix")
-    } else {
-      use_appveyor_yml("windows")
     }
   }
 
@@ -341,10 +327,6 @@ circle_in <- function(x) {
   !all(is.na(match(c("circle", "all"), x)))
 }
 
-appveyor_in <- function(x) {
-  !all(is.na(match(c("appveyor", "all"), x)))
-}
-
 ghactions_in <- function(x) {
   !all(is.na(match(c("ghactions", "all"), x)))
 }
@@ -356,7 +338,6 @@ ci_menu <- function(choices, title) {
 
   choice_map <- c(
     circle = "Circle CI",
-    appveyor = "AppVeyor CI",
     ghactions = "GitHub Actions",
     all = "All",
     none = "None"

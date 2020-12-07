@@ -28,10 +28,6 @@
 #'  * Possible values for `<platform>` are `linux`, and `macos`, `windows`.
 #'  * Possible values for `<action>` are `matrix` and `deploy`.
 #'
-#'  Not every combinations is supported on all CI systems.
-#'  For example, for `use_appveyor_yaml()` only `windows` and `windows-matrix`
-#'  are valid.
-#'
 #'  Special types are `custom` and `custom-deploy`. These should be used if the
 #'  runner matrix is completely user-defined. This is mainly useful in
 #'  [update_yml()].
@@ -47,9 +43,6 @@
 #'  |            | Linux                    | yes        | no                  | `use_circle_yml("linux-deploy")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_circle_yml("linux-matrix")`                        |
 #'  |            | Linux                    | no         | yes                 | `use_circle_yml("linux-deploy-matrix")`                 |
-#'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
-#'  | Appveyor   | Windows                  | no         | no                  | `use_appveyor_yml("windows")`                           |
-#'  |            | Windows                  | no         | yes                 | `use_appveyor_yml("windows-matrix")`                      |
 #'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                            |
 #'  |            | Linux                    | yes        | no                  | `use_ghactions_yml("linux-deploy)`                      |
@@ -69,44 +62,6 @@
 #'  |            | Linux + macOS + Windows  | yes        | no                  | `use_ghactions_yml("linux-macos-windows-deploy")`       |
 #'
 #' @name yaml_templates
-#' @export
-use_appveyor_yml <- function(type = "windows",
-                             write = TRUE,
-                             quiet = FALSE) {
-  if (type == "windows") {
-    template <- readLines(system.file("templates/appveyor.yml",
-      package = "tic"
-    ))
-  } else if (type == "windows-matrix") {
-    template <- readLines(system.file("templates/appveyor-matrix.yml",
-      package = "tic"
-    ))
-  }
-  if (!write) {
-    return(template)
-  } else {
-    writeLines(template, "appveyor.yml")
-  }
-
-  if (!quiet) {
-    cat_bullet(
-      "Below is the file structure of the new/changed files:",
-      bullet = "arrow_down", bullet_col = "blue"
-    )
-    data <- data.frame(
-      stringsAsFactors = FALSE,
-      package = c(
-        basename(getwd()), "appveyor.yml"
-      ),
-      dependencies = I(list(
-        "appveyor.yml", character(0)
-      ))
-    )
-    print(tree(data, root = basename(getwd())))
-  }
-}
-
-#' @rdname yaml_templates
 #' @export
 use_circle_yml <- function(type = "linux-matrix-deploy",
                            write = TRUE,

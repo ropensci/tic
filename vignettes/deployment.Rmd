@@ -27,44 +27,6 @@ When calling `circle::use_circle_deploy()` directly (or indirectly via `tic::use
 This key makes it possible to deploy from Circle CI builds to your GitHub repo.
 No extra deploy key need to be stored in the GitHub repo.
 
-### Appveyor CI
-
-Appveyor follows a different approach when it comes to deployment.
-A bunch of [predefined deployment providers](https://www.appveyor.com/docs/deployment/) are available but deploying to the GitHub repo of the project is not possible.
-Unfortunately, there is no R client package for Appveyor yet.
-This means one needs to  manually set up an SSH key pair which is used for deployment.
-
-Usually we suggest to simply deploy on one of the other CI providers.
-However, when it comes to deployment to a drat repository (see `?do_drat()`), one usually also wants to build and deploy Windows binaries.
-
-Follow these steps to add deployment capabilities via {tic} to Appveyor builds:
-
-1. Generate a SSH key pair
-
-   ```{r, eval=FALSE}
-key <- openssl::rsa_keygen()
-
-pub_key <- tic:::get_public_key(key)$ssh
-private_key <- tic:::encode_private_key(key)
-   ```
-
-1. Copy the public key and add it as an deploy key to `Settings -> Deploy Key` of the _drat repo you want to deploy to_ (**not** the one of the package which should be deployed).
-
-1. Copy the private key and log into to your Appveyor account.
-  Go to `Account -> Encrypt YAML` and encrypt the private key.
-
-1. Copy the resulting snipped into the `appveyor.yml` file of the repo.
-   Name the environment variable "id_rsa".
-
-Now the Appveyor builds should be able to deploy to the drat repo (where you added the public key).
-If you are building a drat repo, make sure to also add `USE_RTOOLS: true` to `appveyor.yml`.
-Otherwise R cannot build binaries on Windows.
-
-On a side note, we have an implicit R version requirement of >= 3.4 when building on Appveyor.
-This is due to the fact that we are only allowing binary installs on Appveyor with {tic} due to some nasty issues when building packages from source on Appveyor in the past.
-The requirement is caused by the {cli} >= 2.0.0 requirement of {tic}.
-This package version is not available as a binary on R =< 3.5.
-
 ### GitHub Actions
 
 GitHub Actions offers multiple options related to deployment:
