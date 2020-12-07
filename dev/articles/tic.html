@@ -268,34 +268,6 @@
 <p>Some projects rely on a dynamic README.Rmd file which contains R code. Sometimes the output of such README’s will change over time if the code driving it changes due to updates. To always stay up-to-date without needing to take manual action, you can use this macro. It will render <code>README.Rmd</code> and deploy <code>README.md</code> to the default repo branch. A deployment will only be made if the rendered output differs from the one stored upstream.</p>
 <p>This macro requires that you have set up deployment for your selected provider beforehand.</p>
 </div>
-</div>
-</div>
-<div id="example-projects" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-projects" class="anchor"></a>Example projects</h1>
-<p>{tic} can be used for various R projects. Simply check out the setup for the type of project you are interested in to get a feeling of how {tic} is used in practice.</p>
-<ul>
-<li>
-<a href="https://github.com/ropenscilabs/tic.package">tic.package</a>: R packages with <a href="https://pkgdown.r-lib.org/">{pkgdown}</a> documentation</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.packagedocs">tic.packagedocs</a>: R packages with <a href="http://hafen.github.io/packagedocs/"><em>packagedocs</em></a> documentation</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.drat">tic.drat</a>: CRAN-like package repositories with <a href="http://dirk.eddelbuettel.com/code/drat.html"><em>drat</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.blogdown">tic.blogdown</a>: Blogs with <a href="https://bookdown.org/yihui/blogdown/"><em>blogdown</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.bookdown">tic.bookdown</a>: Books with <a href="https://bookdown.org/"><em>bookdown</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.website">tic.website</a>: Websites with <a href="https://rmarkdown.rstudio.com/"><em>rmarkdown</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.covrpage">tic.covrpage</a>: Unit test summary report.</li>
-</ul>
 <div id="blogdown" class="section level3">
 <h3 class="hasAnchor">
 <a href="#blogdown" class="anchor"></a>Blogdown</h3>
@@ -310,6 +282,7 @@
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). {tic} is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
+</div>
 </div>
 <div id="tic-projects-from-the-community" class="section level2">
 <h2 class="hasAnchor">
