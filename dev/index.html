@@ -134,12 +134,6 @@
 <p>The goal of tic is to enhance and simplify working with continuous integration (CI) systems.</p>
 <p>The following ones are supported:</p>
 <table class="table">
-<colgroup>
-<col width="8%">
-<col width="33%">
-<col width="13%">
-<col width="44%">
-</colgroup>
 <thead><tr class="header">
 <th>Provider</th>
 <th>R package</th>
@@ -165,14 +159,6 @@
 <td><a href="https://maxheld.de/ghactions">{ghactions}</a></td>
 <td>Linux, macOS, Windows</td>
 <td></td>
-</tr>
-<tr class="even">
-<td>Travis CI</td>
-<td><a href="https://docs.ropensci.org/travis/">{travis}</a></td>
-<td>Linux, macOS</td>
-<td>
-<a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> and <a href="https://travis-ci.com" class="uri">https://travis-ci.com</a>
-</td>
 </tr>
 </tbody>
 </table>
@@ -215,6 +201,7 @@
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">### Circle CI ------------------------------------------------------------------</span>
+
 <span class="fu">circle</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html">use_circle_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span>
@@ -224,9 +211,11 @@
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">### Appveyor -------------------------------------------------------------------</span>
+
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_appveyor_yml</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">### GitHub Actions -------------------------------------------------------------</span>
+
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
 <span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"ghactions"</span><span class="op">)</span>
@@ -250,45 +239,6 @@
 <a href="#updating" class="anchor"></a>Updating</h2>
 <p>Updating of YAML templates is supported via <a href="https://docs.ropensci.org/tic/reference/update_yml.html"><code>update_yml()</code></a>. See vignette <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for more information.</p>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<p>All examples listed here should work on all CI providers listed above. The badges link to the most recent build of the master branch.</p>
-<ul>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.blogdown">tic.blogdown</a>: Blogs with <a href="https://bookdown.org/yihui/blogdown/"><em>blogdown</em></a></p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.blogdown"><img src="https://travis-ci.org/ropenscilabs/tic.blogdown.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.bookdown">tic.bookdown</a>: Books with <a href="https://bookdown.org/"><em>bookdown</em></a></p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.bookdown"><img src="https://travis-ci.org/ropenscilabs/tic.bookdown.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.covrpage">tic.covrpage</a>: Unit test summary report.</p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.covrpage"><img src="https://travis-ci.org/ropenscilabs/tic.covrpage.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.drat">tic.drat</a>: CRAN-like package repositories with <a href="http://dirk.eddelbuettel.com/code/drat.html"><em>drat</em></a></p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.drat"><img src="https://travis-ci.org/ropenscilabs/tic.drat.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.figshare"><img src="https://travis-ci.org/ropenscilabs/tic.figshare.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.package">tic.package</a>: R packages with <a href="https://pkgdown.r-lib.org/"><em>pkgdown</em></a> documentation</p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.package"><img src="https://travis-ci.org/ropenscilabs/tic.package.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.packagedocs">tic.packagedocs</a>: R packages with <a href="http://hafen.github.io/packagedocs/"><em>packagedocs</em></a> documentation</p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.packagedocs"><img src="https://travis-ci.org/ropenscilabs/tic.packagedocs.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-<li>
-<p><a href="https://github.com/ropenscilabs/tic.website">tic.website</a>: Websites with <a href="https://rmarkdown.rstudio.com/"><em>rmarkdown</em></a></p>
-<p><a href="https://travis-ci.org/ropenscilabs/tic.website"><img src="https://travis-ci.org/ropenscilabs/tic.website.svg?branch=master" alt="Travis build status"></a></p>
-</li>
-</ul>
-</div>
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
@@ -308,51 +258,7 @@
 <h2 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h2>
 <p>The setup functions in this package assume Git as version control system, and GitHub as platform. Automated setup works best if the project under test is located in the root of the Git repository. Multi-project repositories are not supported, see <a href="https://github.com/ropensci/tic/issues/117#issuecomment-460814990">the comment by @jwijffels</a> for guidance to work around this limitation.</p>
-</div>
-<div id="footnotes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#footnotes" class="anchor"></a>Footnotes</h2>
-<ul>
-<li>The DESCRIPTION files needs to live in the project root. To simplify its creation have a look at <a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_package()</a> or <a href="https://usethis.r-lib.org/reference/use_description.html">usethis::use_description()</a>.</li>
-</ul>
-<hr>
-<p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/ropensci_footer.png" alt="ropensci_footer"></a></p>
-<table class="table">
-<colgroup>
-<col width="14%">
-<col width="85%">
-</colgroup>
-<thead><tr class="header">
-<th>Step</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>step_install_ssh_key()</code></td>
-<td>Make available a private SSH key (which has been added before to your project by <code><a href="reference/use_tic.html">use_tic()</a></code> or <code><a href="reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>).</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_test_ssh.html">step_test_ssh()</a></code></td>
-<td>Test the SSH connection to GitHub, helps troubleshooting deploy problems.</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_setup_ssh.html">step_setup_ssh()</a></code></td>
-<td>Adds to known hosts, installs private key, and tests the connection. Only needed on Travis CI.</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code></td>
-<td>Clones a repo, initiates author information, and sets up remotes for a subsequent <code><a href="reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>.</td>
-</tr>
-<tr class="odd">
-<td><code><a href="reference/step_do_push_deploy.html">step_do_push_deploy()</a></code></td>
-<td>Deploy to GitHub.</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/step_push_deploy.html">step_push_deploy()</a></code></td>
-<td>Combines <code><a href="reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code> and <code><a href="reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>.</td>
-</tr>
-</tbody>
-</table>
+<p>The DESCRIPTION files needs to live in the project root. To simplify its creation have a look at <a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_package()</a> or <a href="https://usethis.r-lib.org/reference/use_description.html">usethis::use_description()</a>.</p>
 </div>
 </div>
   </div>
