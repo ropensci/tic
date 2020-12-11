@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css?nocache=123" rel="stylesheet">
+<link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Initialize CI testing using tic — use_tic" />
 <meta property="og:description" content="Prepares a repo for building and deploying supported by
@@ -54,15 +54,13 @@ tic." />
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Matomo -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script src="https://ropensci.org/scripts/matomo.js"></script>
+<noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- End Matomo Code -->
 
   </head>
 
@@ -81,7 +79,7 @@ tic." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -175,17 +173,16 @@ tic." />
 <span class="pkg">tic</span>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_tic</span>(
-  <span class='kw'>wizard</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(),
-  <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-  <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-  <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
-  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-  <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
-  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
-  <span class='kw'>travis_endpoint</span> <span class='kw'>=</span> <span class='st'>".com"</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>use_tic</span><span class='op'>(</span>
+  wizard <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
+  linux <span class='op'>=</span> <span class='st'>"ghactions"</span>,
+  mac <span class='op'>=</span> <span class='st'>"ghactions"</span>,
+  windows <span class='op'>=</span> <span class='st'>"ghactions"</span>,
+  deploy <span class='op'>=</span> <span class='st'>"ghactions"</span>,
+  matrix <span class='op'>=</span> <span class='st'>"none"</span>,
+  private_key_name <span class='op'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,44 +195,37 @@ shown.</p></td>
     <tr>
       <th>linux</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Linux.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code> and
-<code>"all"</code>.</p></td>
+Possible options are <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
+and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>mac</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on macOS
-Possible options are <code>"none"</code>, <code>"travis"</code> and <code>"ghactions"</code>.</p></td>
+Possible options are <code>"none"</code>/<code>NULL</code> and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>windows</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to test on Windows
-Possible options are <code>"none"</code>, <code>"appveyor"</code> and <code>"ghactions"</code>.</p></td>
+Possible options are <code>"none"</code>/<code>NULL</code>, and <code>"ghactions"</code>.</p></td>
     </tr>
     <tr>
       <th>deploy</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to deploy artifacts
-such as pkgdown documentation. Possible options are <code>"travis"</code>, <code>"circle"</code>,
-<code>"ghactions"</code>, <code>"none"</code> and <code>"all"</code>.</p></td>
+such as pkgdown documentation. Possible options are "circle"<code>, </code>"ghactions"<code>, </code>"none"<code><a href='https://rdrr.io/r/base/Arithmetic.html'>/</a></code>NULL<code>and</code>"all"`.</p></td>
     </tr>
     <tr>
       <th>matrix</th>
       <td><p><code>[string]</code><br /> For which CI provider(s) to set up matrix builds.
-Possible options are <code>"travis"</code>, <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code> and
-<code>"all"</code>.</p></td>
+Possible options are  <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
+and <code>"all"</code>.</p></td>
     </tr>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code>use_tic()</code>, pass this name here.</p></td>
-    </tr>
-    <tr>
-      <th>travis_endpoint</th>
-      <td><p><code>[string]</code><br /> The Travis CI endpoint to use. Possible
-options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"</code>. See
-<code><a href='https://rdrr.io/pkg/travis/man/travis_enable.html'>travis::travis_enable()</a></code> for more information.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code>use_tic()</code>, pass this
+name here.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -257,19 +247,20 @@ options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Requires interactive mode</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='fu'>use_tic</span>()
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>use_tic</span><span class='op'>(</span><span class='op'>)</span>
 
   <span class='co'># Pre-specified settings favoring Circle CI:</span>
-  <span class='fu'>use_tic</span>(
-    <span class='kw'>wizard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>linux</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
-    <span class='kw'>mac</span> <span class='kw'>=</span> <span class='st'>"travis"</span>,
-    <span class='kw'>windows</span> <span class='kw'>=</span> <span class='st'>"appveyor"</span>,
-    <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
-    <span class='kw'>matrix</span> <span class='kw'>=</span> <span class='st'>"all"</span>
-  )
-}</div></pre>
+  <span class='fu'>use_tic</span><span class='op'>(</span>
+    wizard <span class='op'>=</span> <span class='cn'>FALSE</span>,
+    linux <span class='op'>=</span> <span class='st'>"circle"</span>,
+    mac <span class='op'>=</span> <span class='st'>"ghactions"</span>,
+    windows <span class='op'>=</span> <span class='st'>"ghactions"</span>,
+    deploy <span class='op'>=</span> <span class='st'>"circle"</span>,
+    matrix <span class='op'>=</span> <span class='st'>"all"</span>
+  <span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -297,34 +288,33 @@ options are <code>".org"</code> and <code>".com"</code>. Default is <code>".com"
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-                            <h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                            <h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks & Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-xs-12">

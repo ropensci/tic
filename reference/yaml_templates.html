@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css?nocache=123" rel="stylesheet">
+<link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Use CI YAML templates — yaml_templates" />
 <meta property="og:description" content="Installs YAML templates for various CI providers. These functions
@@ -55,15 +55,13 @@ If you want to update an existing template use update_yml()." />
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Matomo -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script src="https://ropensci.org/scripts/matomo.js"></script>
+<noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- End Matomo Code -->
 
   </head>
 
@@ -82,7 +80,7 @@ If you want to update an existing template use update_yml()." />
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -177,17 +175,13 @@ are also used within <code><a href='use_tic.html'>use_tic()</a></code>.</p>
 <p>If you want to update an existing template use <code><a href='update_yml.html'>update_yml()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_travis_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-deploy-matrix"</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>use_circle_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"linux-matrix-deploy"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>use_appveyor_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"windows"</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>use_circle_yml</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-matrix-deploy"</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>use_ghactions_yml</span>(
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"linux-macos-windows-deploy"</span>,
-  <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+<span class='fu'>use_ghactions_yml</span><span class='op'>(</span>
+  type <span class='op'>=</span> <span class='st'>"linux-macos-windows-deploy"</span>,
+  write <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,9 +225,6 @@ others are optional.</p><ul>
 <li><p>Possible values for <code>&lt;action&gt;</code> are <code>matrix</code> and <code>deploy</code>.</p></li>
 </ul>
 
-<p>Not every combinations is supported on all CI systems.
-For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and <code>windows-matrix</code>
-are valid.</p>
 <p>Special types are <code>custom</code> and <code>custom-deploy</code>. These should be used if the
 runner matrix is completely user-defined. This is mainly useful in
 <code><a href='update_yml.html'>update_yml()</a></code>.</p>
@@ -241,26 +232,10 @@ runner matrix is completely user-defined. This is mainly useful in
 deploy on all platforms.</p>
 <p>Here is a list of all available combinations:</p><table class='table'>
 <tr><td>Provider</td><td>Operating system</td><td>Deployment</td><td>multiple R versions</td><td>Call</td></tr>
-<tr><td>Travis</td><td>Linux</td><td>no</td><td>no</td><td><code>use_travis_yml("linux")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("macos")</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("macos-deploy")</code></td></tr>
-<tr><td></td><td>macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("macos-matrix")</code></td></tr>
-<tr><td></td><td>macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("macos-deploy-matrix")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>no</td><td><code>use_travis_yml("linux-macos")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-macos-deploy")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-macos-matrix")</code></td></tr>
-<tr><td></td><td>Linux + macOS</td><td>yes</td><td>yes</td><td><code>use_travis_yml("linux-macos-deploy-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
 <tr><td>Circle</td><td>Linux</td><td>no</td><td>no</td><td><code>use_circle_yml("linux")</code></td></tr>
-<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_travis_yml("linux-deploy")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-matrix")</code></td></tr>
-<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_travis_yml("linux-deploy-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
-<tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
-<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_travis_yml("windows-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_circle_yml("linux-deploy")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_circle_yml("linux-matrix")</code></td></tr>
+<tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_circle_yml("linux-deploy-matrix")</code></td></tr>
 <tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
 <tr><td>GH Actions</td><td>Linux</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux")</code></td></tr>
 <tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-deploy)</code></td></tr>
@@ -281,9 +256,6 @@ deploy on all platforms.</p>
 </table>
 
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>update_yml</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -312,34 +284,33 @@ deploy on all platforms.</p>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-                            <h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                            <h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks & Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-xs-12">

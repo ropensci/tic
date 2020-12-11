@@ -14,17 +14,13 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
 <meta property="og:title" content="tic &amp; CI Client Packages - An Overview">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -40,7 +36,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -121,7 +117,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="ci-client-packages_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="ci-client-packages_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="ci-client-packages_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>tic &amp; CI Client Packages - An Overview</h1>
@@ -138,7 +135,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as <a href="https://docs.ropensci.org/travis/">{travis}</a> or <a href="https://pat-s.github.io/circle/">{circle}</a>. These enable the repo on the CI system and ensure that deployment permissions are granted.</p>
+<p>Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as <a href="https://docs.ropensci/circle/">{circle}</a>. These enable the repo on the CI system and ensure that deployment permissions are granted.</p>
 <p>After everything has been set up, the rest of the work goes to {tic}.</p>
 <ul>
 <li>Creation of the CI YAML templates.</li>
@@ -152,10 +149,10 @@
 <a href="#ci-client-packages" class="anchor"></a>CI Client Packages</h2>
 <p>Currently, the following CI client packages exist:</p>
 <ul>
-<li><a href="https://docs.ropensci.org/travis/">{travis}</a></li>
 <li><a href="(https://docs.ropensci.org/circle/)">{circle}</a></li>
 </ul>
-<p>For <em>Appveyor</em> there is <a href="https://github.com/krlmlr/r-appveyor">r-appveyor</a> from Kirill Müller. This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the <em>Appveyor</em> API and is not used by {tic} currently. Also, it does not come with automation for deployment setup.</p>
+<p>The client package for <em>travis</em> was archived in November 2020.</p>
+<p>For <em>Appveyor</em> there is <a href="https://github.com/krlmlr/r-appveyor">r-appveyor</a> from Kirill Müller. This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the <em>Appveyor</em> API and is not used by {tic} currently. Also, it does not come with automation for deployment setup. Appveyor support has been removed from {tic} in December 2020 due to a strong focus on GitHub Actions.</p>
 <p>For <em>GitHub Actions</em> there is <a href="https://github.com/maxheld83/ghactions">{ghactions}</a> from Max Held which comes with functions helping to set up YAML templates and other convenience. It does not provide API access and is not used by {tic} currently.</p>
 </div>
   </div>
@@ -187,34 +184,33 @@
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">

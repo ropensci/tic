@@ -14,17 +14,13 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
 <meta property="og:title" content="Developer info: Writing custom steps">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -40,7 +36,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -121,7 +117,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="custom-steps_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="custom-steps_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="custom-steps_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Developer info: Writing custom steps</h1>
@@ -146,19 +143,22 @@
 <h3 class="hasAnchor">
 <a href="#the-prepare-method" class="anchor"></a>The <code>prepare()</code> method</h3>
 <p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. This method should install all dependent packages that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <em>rcmdcheck</em> and <em>remotes</em> are installed:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">RCMDcheck</span>$<span class="no">public_methods</span>$<span class="no">prepare</span></pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">RCMDcheck</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">prepare</span></code></pre></div>
 </div>
 <div id="the-run-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-run-method" class="anchor"></a>The <code>run()</code> method</h3>
 <p>This method executes the step. When a step is added to a stage, <code>run()</code> will be called when the stage is executed. For example, the <code>run()</code> function of class <code>RCMDcheck</code> looks as follows:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">RCMDcheck</span>$<span class="no">public_methods</span>$<span class="no">run</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">RCMDcheck</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">run</span></code></pre></div>
 </div>
 <div id="the-check-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-check-method" class="anchor"></a>The <code>check()</code> method</h3>
-<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24"><code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code></a> function is an example step with the following implementation of the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">WriteTextFile</span>$<span class="no">public_methods</span>$<span class="no">check</span></pre></body></html></div>
+<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24"><code>step_write_text_file()</code></a> function is an example step with the following implementation of the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">WriteTextFile</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">check</span></code></pre></div>
 </div>
 </div>
 <div id="a-minimal-example" class="section level2">
@@ -166,16 +166,17 @@
 <a href="#a-minimal-example" class="anchor"></a>A minimal example</h2>
 <p>You can take a look at <a href="https://github.com/ropensci/tic/pull/75/files">a pull request that implements a new step</a>.</p>
 <p>The most minimalist version is the “Hello World” <a href="https://github.com/ropensci/tic/blob/master/R/steps-base.R">example step</a>. This class only contains a <code>run()</code> method which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instance of this class.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">HelloWorld</span> <span class="kw">&lt;-</span> <span class="fu">R6Class</span>(
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">HelloWorld</span> <span class="op">&lt;-</span> <span class="kw">R6Class</span><span class="op">(</span>
   <span class="st">"HelloWorld"</span>,
-  <span class="kw">inherit</span> <span class="kw">=</span> <span class="no">TicStep</span>,
+  inherit <span class="op">=</span> <span class="va">TicStep</span>,
 
-  <span class="kw">public</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">run</span> <span class="kw">=</span> <span class="kw">function</span>() {
-      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="st">"Hello, world!"</span>)
-    }
-  )
-)
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    run <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Hello, world!"</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 
 <span class="co">#' Step: Hello, world!</span>
 <span class="co">#'</span>
@@ -186,110 +187,111 @@
 <span class="co">#'</span>
 <span class="co">#' @family steps</span>
 <span class="co">#' @export</span>
-<span class="no">step_hello_world</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
-  <span class="no">HelloWorld</span>$<span class="fu">new</span>()
-}</pre></body></html></div>
+<span class="va">step_hello_world</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">HelloWorld</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="further-information-on-the-r6-class-system" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-information-on-the-r6-class-system" class="anchor"></a>Further information on the R6 class system</h2>
 <p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed along: Consider the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R">link to source</a>):</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">RCMDcheck</span> <span class="kw">&lt;-</span> <span class="fu">R6Class</span>( <span class="co"># nolint</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">RCMDcheck</span> <span class="op">&lt;-</span> <span class="kw">R6Class</span><span class="op">(</span> <span class="co"># nolint</span>
   <span class="st">"RCMDcheck"</span>,
-  <span class="kw">inherit</span> <span class="kw">=</span> <span class="no">TicStep</span>,
+  inherit <span class="op">=</span> <span class="va">TicStep</span>,
 
-  <span class="kw">public</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">initialize</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">warnings_are_errors</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="no">notes_are_errors</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-                          <span class="no">args</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"--no-manual"</span>, <span class="st">"--as-cran"</span>),
-                          <span class="no">build_args</span> <span class="kw">=</span> <span class="st">"--force"</span>, <span class="no">error_on</span> <span class="kw">=</span> <span class="st">"warning"</span>,
-                          <span class="no">repos</span> <span class="kw">=</span> <span class="fu"><a href="../reference/repo.html">repo_default</a></span>(), <span class="no">timeout</span> <span class="kw">=</span> <span class="fl">Inf</span>,
-                          <span class="no">check_dir</span> <span class="kw">=</span> <span class="kw">NULL</span>) {
-      <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">notes_are_errors</span>)) {
-        <span class="fu">warning_once</span>(
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">warnings_are_errors</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">notes_are_errors</span> <span class="op">=</span> <span class="cn">NULL</span>,
+                          <span class="va">args</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"--no-manual"</span>, <span class="st">"--as-cran"</span><span class="op">)</span>,
+                          <span class="va">build_args</span> <span class="op">=</span> <span class="st">"--force"</span>, <span class="va">error_on</span> <span class="op">=</span> <span class="st">"warning"</span>,
+                          <span class="va">repos</span> <span class="op">=</span> <span class="fu"><a href="../reference/repo.html">repo_default</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">timeout</span> <span class="op">=</span> <span class="cn">Inf</span>,
+                          <span class="va">check_dir</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">notes_are_errors</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu">warning_once</span><span class="op">(</span>
           <span class="st">'`notes_are_errors` is deprecated, please use `error_on = "note"`'</span>
-        )
-        <span class="kw">if</span> (<span class="no">notes_are_errors</span>) {
-          <span class="no">error_on</span> <span class="kw">&lt;-</span> <span class="st">"note"</span>
-        }
-      }
-      <span class="kw">else</span> <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">warnings_are_errors</span>)) {
-        <span class="fu">warning_once</span>(
+        <span class="op">)</span>
+        <span class="kw">if</span> <span class="op">(</span><span class="va">notes_are_errors</span><span class="op">)</span> <span class="op">{</span>
+          <span class="va">error_on</span> <span class="op">&lt;-</span> <span class="st">"note"</span>
+        <span class="op">}</span>
+      <span class="op">}</span>
+      <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">warnings_are_errors</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu">warning_once</span><span class="op">(</span>
           <span class="st">"`warnings_are_errors` is deprecated, "</span>,
           <span class="st">'please use `error_on = "warning"`'</span>
-        )
-        <span class="kw">if</span> (<span class="no">warnings_are_errors</span>) {
-          <span class="no">error_on</span> <span class="kw">&lt;-</span> <span class="st">"warning"</span>
-        }
-      }
-      <span class="no">private</span>$<span class="no">args</span> <span class="kw">&lt;-</span> <span class="no">args</span>
-      <span class="no">private</span>$<span class="no">build_args</span> <span class="kw">&lt;-</span> <span class="no">build_args</span>
-      <span class="no">private</span>$<span class="no">error_on</span> <span class="kw">&lt;-</span> <span class="no">error_on</span>
-      <span class="no">private</span>$<span class="no">repos</span> <span class="kw">&lt;-</span> <span class="no">repos</span>
-      <span class="no">private</span>$<span class="no">timeout</span> <span class="kw">&lt;-</span> <span class="no">timeout</span>
-      <span class="no">private</span>$<span class="no">check_dir</span> <span class="kw">&lt;-</span> <span class="no">check_dir</span>
+        <span class="op">)</span>
+        <span class="kw">if</span> <span class="op">(</span><span class="va">warnings_are_errors</span><span class="op">)</span> <span class="op">{</span>
+          <span class="va">error_on</span> <span class="op">&lt;-</span> <span class="st">"warning"</span>
+        <span class="op">}</span>
+      <span class="op">}</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">args</span> <span class="op">&lt;-</span> <span class="va">args</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">build_args</span> <span class="op">&lt;-</span> <span class="va">build_args</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">&lt;-</span> <span class="va">error_on</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">repos</span> <span class="op">&lt;-</span> <span class="va">repos</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">timeout</span> <span class="op">&lt;-</span> <span class="va">timeout</span>
+      <span class="va">private</span><span class="op">$</span><span class="va">check_dir</span> <span class="op">&lt;-</span> <span class="va">check_dir</span>
 
-      <span class="no">super</span>$<span class="fu">initialize</span>()
-    },
+      <span class="va">super</span><span class="op">$</span><span class="fu">initialize</span><span class="op">(</span><span class="op">)</span>
+    <span class="op">}</span>,
 
-    <span class="kw">run</span> <span class="kw">=</span> <span class="kw">function</span>() {
+    run <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
       <span class="co"># Don't include vignettes if --no-build-vignettes is included</span>
-      <span class="kw">if</span> (<span class="st">"--no-build-vignettes"</span> <span class="kw">%in%</span> <span class="no">private</span>$<span class="no">args</span>) {
-        <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"^vignettes$\n"</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">".Rbuildignore"</span>, <span class="kw">append</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-      }
+      <span class="kw">if</span> <span class="op">(</span><span class="st">"--no-build-vignettes"</span> <span class="op">%in%</span> <span class="va">private</span><span class="op">$</span><span class="va">args</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"^vignettes$\n"</span>, file <span class="op">=</span> <span class="st">".Rbuildignore"</span>, append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+      <span class="op">}</span>
 
-      <span class="kw pkg">withr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/withr/man/with_envvar.html">with_envvar</a></span>(
-        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
+      <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_envvar.html">with_envvar</a></span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
           <span class="co"># Avoid large version components</span>
-          <span class="st">"_R_CHECK_CRAN_INCOMING_"</span> <span class="kw">=</span> <span class="st">"FALSE"</span>,
+          <span class="st">"_R_CHECK_CRAN_INCOMING_"</span> <span class="op">=</span> <span class="st">"FALSE"</span>,
           <span class="co"># Don't check system clocks (because the API used there is flaky)</span>
-          <span class="st">"_R_CHECK_SYSTEM_CLOCK_"</span> <span class="kw">=</span> <span class="st">"FALSE"</span>,
+          <span class="st">"_R_CHECK_SYSTEM_CLOCK_"</span> <span class="op">=</span> <span class="st">"FALSE"</span>,
           <span class="co"># Don't force suggests</span>
-          <span class="st">"_R_CHECK_FORCE_SUGGESTS_"</span> <span class="kw">=</span> <span class="st">"FALSE"</span>,
+          <span class="st">"_R_CHECK_FORCE_SUGGESTS_"</span> <span class="op">=</span> <span class="st">"FALSE"</span>,
           <span class="co"># Work around missing qpdf executable</span>
-          <span class="st">"R_QPDF"</span> <span class="kw">=</span> <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span>(<span class="st">"qpdf"</span>) <span class="kw">==</span> <span class="st">""</span>) <span class="st">"true"</span>
-        ),
-        <span class="no">res</span> <span class="kw">&lt;-</span> <span class="kw pkg">rcmdcheck</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span>(
-          <span class="kw">args</span> <span class="kw">=</span> <span class="no">private</span>$<span class="no">args</span>, <span class="kw">build_args</span> <span class="kw">=</span> <span class="no">private</span>$<span class="no">build_args</span>,
-          <span class="kw">error_on</span> <span class="kw">=</span> <span class="st">"never"</span>,
-          <span class="kw">repos</span> <span class="kw">=</span> <span class="no">private</span>$<span class="no">repos</span>,
-          <span class="kw">timeout</span> <span class="kw">=</span> <span class="no">private</span>$<span class="no">timeout</span>,
-          <span class="kw">check_dir</span> <span class="kw">=</span> <span class="no">private</span>$<span class="no">check_dir</span>
-        )
-      )
+          <span class="st">"R_QPDF"</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span><span class="op">(</span><span class="st">"qpdf"</span><span class="op">)</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="st">"true"</span>
+        <span class="op">)</span>,
+        <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">rcmdcheck</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span><span class="op">(</span>
+          args <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">args</span>, build_args <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">build_args</span>,
+          error_on <span class="op">=</span> <span class="st">"never"</span>,
+          repos <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">repos</span>,
+          timeout <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">timeout</span>,
+          check_dir <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">check_dir</span>
+        <span class="op">)</span>
+      <span class="op">)</span>
 
-      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">res</span>)
-      <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">res</span>$<span class="no">errors</span>) <span class="kw">&gt;</span> <span class="fl">0</span>) {
-        <span class="fu">stopc</span>(<span class="st">"Errors found in rcmdcheck::rcmdcheck()."</span>)
-      }
-      <span class="kw">if</span> (<span class="no">private</span>$<span class="no">error_on</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"warning"</span>, <span class="st">"note"</span>) <span class="kw">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">res</span>$<span class="no">warnings</span>) <span class="kw">&gt;</span> <span class="fl">0</span>) {
-        <span class="fu">stopc</span>(
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">errors</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu">stopc</span><span class="op">(</span><span class="st">"Errors found in rcmdcheck::rcmdcheck()."</span><span class="op">)</span>
+      <span class="op">}</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"warning"</span>, <span class="st">"note"</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">warnings</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu">stopc</span><span class="op">(</span>
           <span class="st">"Warnings found in rcmdcheck::rcmdcheck(), "</span>,
           <span class="st">'and `errors_on = "warning"` is set.'</span>
-        )
-      }
-      <span class="kw">if</span> (<span class="no">private</span>$<span class="no">error_on</span> <span class="kw">==</span> <span class="st">"note"</span> <span class="kw">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">res</span>$<span class="no">notes</span>) <span class="kw">&gt;</span> <span class="fl">0</span>) {
-        <span class="fu">stopc</span>(
+        <span class="op">)</span>
+      <span class="op">}</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">==</span> <span class="st">"note"</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">notes</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu">stopc</span><span class="op">(</span>
           <span class="st">"Notes found in rcmdcheck::rcmdcheck(), "</span>,
           <span class="st">'and `errors_on = "note"` is set.'</span>
-        )
-      }
-    },
+        <span class="op">)</span>
+      <span class="op">}</span>
+    <span class="op">}</span>,
 
-    <span class="kw">prepare</span> <span class="kw">=</span> <span class="kw">function</span>() {
-      <span class="fu">verify_install</span>(<span class="st">"rcmdcheck"</span>)
-      <span class="no">super</span>$<span class="fu">prepare</span>()
-    }
-  ),
+    prepare <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu">verify_install</span><span class="op">(</span><span class="st">"rcmdcheck"</span><span class="op">)</span>
+      <span class="va">super</span><span class="op">$</span><span class="fu">prepare</span><span class="op">(</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span>,
 
-  <span class="kw">private</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">args</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">build_args</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">error_on</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">repos</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">timeout</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">check_dir</span> <span class="kw">=</span> <span class="kw">NULL</span>
-  )
-)</pre></body></html></div>
+  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    args <span class="op">=</span> <span class="cn">NULL</span>,
+    build_args <span class="op">=</span> <span class="cn">NULL</span>,
+    error_on <span class="op">=</span> <span class="cn">NULL</span>,
+    repos <span class="op">=</span> <span class="cn">NULL</span>,
+    timeout <span class="op">=</span> <span class="cn">NULL</span>,
+    check_dir <span class="op">=</span> <span class="cn">NULL</span>
+  <span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” members (e.g. <code>private$args</code>). Next, these private members are used in the <code>run()</code> function which carries out the actual work.</p>
 </div>
   </div>
@@ -321,34 +323,33 @@
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">

@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css?nocache=123" rel="stylesheet">
+<link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Build a blogdown site — do_blogdown" />
 <meta property="og:description" content="do_blogdown() adds default steps related to package checks
@@ -72,15 +72,13 @@ keeping the history. If the output directory of your blog/theme is not
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Matomo -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script src="https://ropensci.org/scripts/matomo.js"></script>
+<noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- End Matomo Code -->
 
   </head>
 
@@ -99,7 +97,7 @@ keeping the history. If the output directory of your blog/theme is not
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -211,21 +209,21 @@ keeping the history. If the output directory of your blog/theme is not
 <code>"public"</code> you need to change the <code>"path"</code> argument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>do_blogdown</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>deploy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>repos</span> <span class='kw'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span>(),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"public"</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"gh-pages"</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
-  <span class='kw'>cname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>do_blogdown</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  deploy <span class='op'>=</span> <span class='cn'>NULL</span>,
+  orphan <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  checkout <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  repos <span class='op'>=</span> <span class='fu'><a href='repo.html'>repo_default</a></span><span class='op'>(</span><span class='op'>)</span>,
+  path <span class='op'>=</span> <span class='st'>"public"</span>,
+  branch <span class='op'>=</span> <span class='st'>"gh-pages"</span>,
+  remote_url <span class='op'>=</span> <span class='cn'>NULL</span>,
+  commit_message <span class='op'>=</span> <span class='cn'>NULL</span>,
+  commit_paths <span class='op'>=</span> <span class='st'>"."</span>,
+  force <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  private_key_name <span class='op'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
+  cname <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,7 +244,8 @@ if the following conditions are met:</p><ol>
 <li><p>The repo can be pushed to (see <code><a href='ci.html'>ci_can_push()</a></code>).</p></li>
 <li><p>The <code>branch</code> argument is <code>NULL</code>
 (i.e., if the deployment happens to the active branch),
-or the current branch is <code>master</code> (see <code><a href='ci.html'>ci_get_branch()</a></code>).</p></li>
+or the current branch is the default repo branch
+(see <code><a href='ci.html'>ci_get_branch()</a></code>).</p></li>
 </ol></td>
     </tr>
     <tr>
@@ -305,10 +304,10 @@ Add <code>--force</code> flag to git commands?</p></td>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code><a href='use_tic.html'>use_tic()</a></code>, pass this
+name here.</p></td>
     </tr>
     <tr>
       <th>cname</th>
@@ -329,13 +328,14 @@ of the directory specified in argument <code>path</code>.</p></td>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>do_blogdown</span>()
+<span class='fu'>do_blogdown</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()
-}</div></pre>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -363,34 +363,33 @@ of the directory specified in argument <code>path</code>.</p></td>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-                            <h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                            <h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks & Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-xs-12">

@@ -14,17 +14,13 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
 <meta property="og:title" content="Getting started with CI for R">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -40,7 +36,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -121,7 +117,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tic_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tic_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="tic_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with CI for R</h1>
@@ -151,11 +148,11 @@
 </details><details><p><summary>Build matrix</summary></p>
 <p>Specification how many runners are started and their specification (operating system, custom environment variables, etc.)</p>
 </details><details><p><summary>CI Provider</summary></p>
-<p>A company that offers ready-to-use virtual images for runners which are started after a certain action. Such (third-party) companies are Travis, AppVeyor or Circle CI. However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.</p>
+<p>A company that offers ready-to-use virtual images for runners which are started after a certain action (.e.g Circle CI). However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.</p>
 </details><details><p><summary>Deployment</summary></p>
 <p>CI builds cannot just perform specific checks on a package/project, they can also be used to (re-)build certain files in every run. With the appropriate permissions these files can then be pushed to a repository via <code>git</code> without the need to take manual actions by the user. This can save a lot of time and is commonly used to ensure that documentation is always up-to-date.</p>
 </details><details><p><summary>CI Client packages</summary></p>
-<p>R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.). Examples are <a href="https://github.com/ropenscilabs/travis">{travis}</a> or <a href="https://github.com/ropenscilabs/circle">{circle}</a>.</p>
+<p>R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.), e.g. <a href="https://github.com/ropenscilabs/circle">{circle}</a>.</p>
 </details><details><p><summary>CI Badges</summary></p>
 <p>Badges in the README of a repository showing the current build status of the project: Did the last build fail or finish successfully?</p>
 </details><details><p><summary>DSL</summary></p>
@@ -173,32 +170,20 @@
 <li><p>Test your package on multiple R versions</p></li>
 </ul>
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
-<p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Travis CI, Circle CI, and/or AppVeyor, as configured. (Currently you need to enable the project manually on AppVeyor.) See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
+<p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Circle CI. See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
 <div id="quickstart" class="section level4">
 <h4 class="hasAnchor">
 <a href="#quickstart" class="anchor"></a>Quickstart</h4>
 <p>If you are a new user, run</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="kw pkg">tic</span><span class="kw ns">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">## Travis CI
-travis::use_travis_deploy() # (optional for deployment)
-tic::use_travis_yml(&lt;option here&gt;)
-
-## Circle CI
-circle::use_circle_deploy() # (optional for deployment)
-tic::use_circle_yml(&lt;option here&gt;)
-
-## Appveyor
-tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Circle CI</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>circle<span class="op">::</span><span class="kw">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>tic<span class="op">::</span><span class="kw">use_circle_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span></code></pre></div>
 <hr>
-<p>The reason why we suggest Travis CI as the default builds on three points:</p>
-<ul>
-<li>Travis is the most widely used CI provider within the R community</li>
-<li>Has been around for some years</li>
-<li>Supports Linux &amp; macOS.</li>
-</ul>
 <p>If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience. However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.</p>
-<p>The deployment setup functionality comes from the {travis} and {circle} packages. See the <a href="ci-client-packages.html">CI Client Packages</a> article for more detailed information on how {tic} and the CI client packages work together.</p>
+<p>See the <a href="ci-client-packages.html">CI Client Packages</a> article for more detailed information on how {tic} and the CI client packages work together.</p>
 </div>
 </div>
 <div id="the-role-of-the-tic-r-file" class="section level1">
@@ -206,18 +191,17 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
 <a href="#the-role-of-the-tic-r-file" class="anchor"></a>The role of the <code>tic.R</code> file</h1>
 <p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find</p>
 <ul>
-<li><code>.travis.yml</code></li>
 <li><code>.circleci/config.yml</code></li>
-<li><code>appveyor.yml</code></li>
 <li><code>.github/workflows</code></li>
 </ul>
 <p>and a <code>tic.R</code> file in your repo, depending on the choices you made during <code><a href="../reference/use_tic.html">use_tic()</a></code>. The latter will always be present because it will be the main CI config file for all providers from now on. Usually you do not need to touch the YAML files anymore. All build customization is done in <code>tic.R</code> and applies to all providers. For more information about the build lifecycle in general, check the <a href="build-lifecycle.html">Build lifecycle</a> article.</p>
 <p>The basic <code>tic.R</code> template looks as follows:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
-  <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()
-}</pre></body></html></div>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 <p><code>tic.R</code> file has a declarative nature: It should consist of “stages”, “steps” and “macro” functions (see below). These functions will only have an effect when specified in <code>tic.R</code> and should <strong>not</strong> be used standalone as they will only run in a (simulated) CI run following a certain order.</p>
 <p>To run plain R code within the build, encapsulate it within <code>add_code_step(&lt;code&gt;)</code> and add it to a certain build stage. See <a href="build-lifecycle.html">the Build Lifecycle</a> article for detailed info about how to do this.</p>
 <div id="macros" class="section level2">
@@ -230,91 +214,70 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
 <li>Build and deploy a bookdown project</li>
 </ul>
 <p>They can be distinguished from other functions by their <code>do_</code> prefix. The following ones are currently implemented:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/list_macros.html">list_macros</a></span>()
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/list_macros.html">list_macros</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "do_blogdown"       "do_bookdown"       "do_drat"          </span>
-<span class="co">#&gt; [4] "do_package_checks" "do_pkgdown"        "do_readme_rmd"</span></pre></body></html></div>
+<span class="co">#&gt; [4] "do_package_checks" "do_pkgdown"        "do_readme_rmd"</span></code></pre></div>
 <p>If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>.</p>
 <div id="do_package_checks" class="section level3">
 <h3 class="hasAnchor">
 <a href="#do_package_checks" class="anchor"></a><code>do_package_checks()</code>
 </h3>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"># step_install_deps() in the "install" stage, using the repos argument.
-#
-# step_rcmdcheck() in the "script" stage, using the warnings_are_errors, 
-#  notes_are_errors, args, and build_args arguments.
-#
-# A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># step_install_deps() in the "install" stage, using the repos argument.</span>
+<span class="co">#</span>
+<span class="co"># step_rcmdcheck() in the "script" stage, using the warnings_are_errors,</span>
+<span class="co">#  notes_are_errors, args, and build_args arguments.</span>
+<span class="co">#</span>
+<span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></code></pre></div>
 </div>
 <div id="do_pkgdown" class="section level3">
 <h3 class="hasAnchor">
 <a href="#do_pkgdown" class="anchor"></a><code>do_pkgdown()</code>
 </h3>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="../reference/ci.html">ci_on_travis</a></span>()) {
-  <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span>()
-}</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/do_pkgdown.html">do_pkgdown</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 <p><code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> adds five steps to the build process:</p>
 <pre class="reval"><code># step_install_deps() in the "install" stage, using the repos argument.
-# 
+#
 # step_setup_ssh() in the "before_deploy" to setup the upcoming deployment (if deploy is set),
-# 
+#
 # step_setup_push_deploy() in the "before_deploy" stage (if deploy is set),
-# 
+#
 # step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
-# 
+#
 # step_do_push_deploy() in the "deploy" stage.</code></pre>
-<p>By default this currently happens only on Travis CI, because <code><a href="../reference/ci.html">ci_on_travis()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
-<p><code><a href="../reference/ci.html">ci_on_travis()</a></code> can be replaced by one of its sibling functions like <code><a href="../reference/ci.html">ci_on_ghactions()</a></code>.</p>
+<p>By default this currently happens only on GitHub Actions, because <code><a href="../reference/ci.html">ci_on_ghactions()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
+<p><code><a href="../reference/ci.html">ci_on_ghactions()</a></code> can be replaced by one of its sibling functions like <code><a href="../reference/ci.html">ci_on_circle()</a></code>.</p>
 </div>
 <div id="do_readme_rmd" class="section level3">
 <h3 class="hasAnchor">
 <a href="#do_readme_rmd" class="anchor"></a><code>do_readme_rmd()</code>
 </h3>
-<p>Some projects rely on a dynamic README.Rmd file which contains R code. Sometimes the output of such README’s will change over time if the code driving it changes due to updates. To always stay up-to-date without needing to take manual action, you can use this macro. It will render <code>README.Rmd</code> and deploy <code>README.md</code> to the <code>master</code> branch. A deployment will only be made if the rendered output differs from the one stored upstream.</p>
+<p>Some projects rely on a dynamic README.Rmd file which contains R code. Sometimes the output of such README’s will change over time if the code driving it changes due to updates. To always stay up-to-date without needing to take manual action, you can use this macro. It will render <code>README.Rmd</code> and deploy <code>README.md</code> to the default repo branch. A deployment will only be made if the rendered output differs from the one stored upstream.</p>
 <p>This macro requires that you have set up deployment for your selected provider beforehand.</p>
 </div>
-</div>
-</div>
-<div id="example-projects" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-projects" class="anchor"></a>Example projects</h1>
-<p>{tic} can be used for various R projects. Simply check out the setup for the type of project you are interested in to get a feeling of how {tic} is used in practice.</p>
-<ul>
-<li>
-<a href="https://github.com/ropenscilabs/tic.package">tic.package</a>: R packages with <a href="https://pkgdown.r-lib.org/">{pkgdown}</a> documentation</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.packagedocs">tic.packagedocs</a>: R packages with <a href="http://hafen.github.io/packagedocs/"><em>packagedocs</em></a> documentation</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.drat">tic.drat</a>: CRAN-like package repositories with <a href="http://dirk.eddelbuettel.com/code/drat.html"><em>drat</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.blogdown">tic.blogdown</a>: Blogs with <a href="https://bookdown.org/yihui/blogdown/"><em>blogdown</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.bookdown">tic.bookdown</a>: Books with <a href="https://bookdown.org/"><em>bookdown</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.website">tic.website</a>: Websites with <a href="https://rmarkdown.rstudio.com/"><em>rmarkdown</em></a>
-</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.figshare">tic.figshare</a>: Deploying artifacts to <a href="https://figshare.com/">figshare</a> (work in progress).</li>
-<li>
-<a href="https://github.com/ropenscilabs/tic.covrpage">tic.covrpage</a>: Unit test summary report.</li>
-</ul>
 <div id="blogdown" class="section level3">
 <h3 class="hasAnchor">
 <a href="#blogdown" class="anchor"></a>Blogdown</h3>
-<p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R#L5">template</a> in the “install” section:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"install"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">blogdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/install_hugo.html">install_hugo</a></span>())</pre></body></html></div>
+<p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R">template</a> in the “install” section:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span><span class="op">(</span><span class="fu">blogdown</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/install_hugo.html">install_hugo</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Next the website is built and deployed. The <code><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">blogdown::build_site()</a></code> function for websites is the equivalent to <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> for R packages.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span>(<span class="kw pkg">blogdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">build_site</a></span>()) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span><span class="op">(</span><span class="fu">blogdown</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/blogdown/man/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Steps and stages differ between projects (e.g. between a “blogdown” website and a “package”). {tic} is smart enough to detect your project automatically when calling <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> and will add the correct template.</p>
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="uri">https://zenodo.org/</a> is work in progress.</p>
+</div>
 </div>
 <div id="tic-projects-from-the-community" class="section level2">
 <h2 class="hasAnchor">
@@ -357,34 +320,33 @@ tic::use_appveyor_yml(&lt;option here&gt;)</pre></body></html></div>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">

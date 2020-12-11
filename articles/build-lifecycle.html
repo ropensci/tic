@@ -14,17 +14,13 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
 <meta property="og:title" content="Build lifecycle">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -40,7 +36,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -121,7 +117,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="build-lifecycle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="build-lifecycle_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="build-lifecycle_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Build lifecycle</h1>
@@ -146,27 +143,7 @@
 <li>The <code>after_success</code> stage will only be run if the <code>script</code> stage executed successfully, i.e. without error; otherwise <code>after_failure</code> will be run instead.</li>
 </ul>
 <p><em>tic</em> also relies on a “stage” based approach. All action that should be run in a certain stage are defined in <code>tic.R</code>. The steps are specified in an CI-agnostic way using R syntax.</p>
-<p>The majority of <code>.travis.yml</code> consists of glue code and is not meant to be edited anymore.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># DO NOT CHANGE THE CODE BELOW</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">before_install</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'if (getRversion() &lt; "3.2" &amp;&amp; !requireNamespace("curl", quietly = TRUE)) install.packages("curl")'</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'remotes::install_cran("tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'tic::before_install()'</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">install</span><span class="kw">:</span><span class="at"> R -q -e 'tic::install()'</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">before_script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::before_script()'</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::script()'</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">after_success</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_success()'</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">after_failure</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_failure()'</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">before_deploy</span><span class="kw">:</span><span class="at"> R -q -e 'tic::before_deploy()'</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="fu">deploy</span><span class="kw">:</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="at">  </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> script</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::deploy()'</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="at">  </span><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="at">    </span><span class="fu">all_branches</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">after_deploy</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_deploy()'</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="fu">after_script</span><span class="kw">:</span><span class="at"> R -q -e 'tic::after_script()'</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># DO NOT CHANGE THE CODE ABOVE</span></span></code></pre></div>
+<p>The majority of the template code consists of glue code and is not meant to be edited.</p>
 <p>In a nutshell, the workflow is as follows:</p>
 <p>CI YAML -&gt; <code>tic.R</code> -&gt; commands/steps to execute</p>
 <p>Some important points:</p>
@@ -207,8 +184,9 @@
 <h2 class="hasAnchor">
 <a href="#steps" class="anchor"></a>Steps</h2>
 <p>Steps are the commands that are executed in each stage. <em>tic</em> uses the <a href="https://magrittr.tidyverse.org/">pipe operator</a> and the <code><a href="../reference/dsl.html">add_step()</a></code> function to chain steps in <code>tic.R</code>, for example</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span>(<span class="st">"deploy"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/dsl.html">add_step</a></span>(<span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>In the code example above <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> is added to the <code>"deploy"</code> stage and subsequently only run in this stage. More steps that should be run in this stage could just by piped after <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code>. In summary, steps are usually defined using two nested commands: <code><a href="../reference/dsl.html">add_step()</a></code> and the corresponding step, here <code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code>.</p>
 <p>Here is a list that shows a rough grouping of the steps into their default stages:</p>
 <div id="basic" class="section level4">
@@ -286,8 +264,8 @@
 <a href="#deployment" class="anchor"></a>Deployment</h4>
 <table class="table">
 <colgroup>
-<col width="21%">
-<col width="78%">
+<col width="14%">
+<col width="85%">
 </colgroup>
 <thead><tr class="header">
 <th>Step</th>
@@ -296,7 +274,7 @@
 <tbody>
 <tr class="odd">
 <td><code>step_install_ssh_key()</code></td>
-<td>Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="https://rdrr.io/pkg/travis/man/use_travis_deploy.html">travis::use_travis_deploy()</a></code>). Only needed on Travis CI.</td>
+<td>Make available a private SSH key (which has been added before to your project by <code><a href="../reference/use_tic.html">use_tic()</a></code> or <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>).</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/step_test_ssh.html">step_test_ssh()</a></code></td>
@@ -304,7 +282,7 @@
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code></td>
-<td>Adds to known hosts, installs private key, and tests the connection. Only needed on Travis CI.</td>
+<td>Adds to known hosts, installs private key, and tests the connection.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/step_setup_push_deploy.html">step_setup_push_deploy()</a></code></td>
@@ -351,34 +329,33 @@
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">

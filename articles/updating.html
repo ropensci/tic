@@ -14,17 +14,13 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=123" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
 <meta property="og:title" content="Updating">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
+<!-- End Matomo Code -->
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -40,7 +36,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -121,7 +117,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="updating_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="updating_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="updating_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Updating</h1>
@@ -137,7 +134,7 @@
 <p>{tic} comes with the convenience of providing YAML templates for various CI providers which remove the need of studying YAML notations of CI providers. The provided templates aim to work for most packages that use plain R code. Packages that rely on system libraries (such as GDAL, xml2) or link to other languages (such as Java) often need manual additions within the YAML file.</p>
 <p>However, making manual changes to such prohibits users from simply updating to the latest upstream template that {tic} provides via <code><a href="../reference/yaml_templates.html">yaml_templates()</a></code> because custom user changes would be overwritten.</p>
 <p>This often prevents users from updating to the most recent templates provided by {tic} since a manual comparison between the current template and the latest version is needed. {tic} 0.8.0 tackles this issue: The new <code><a href="../reference/update_yml.html">update_yml()</a></code> enables updating of templates to the latest version with <strong>user changes preserved</strong>.</p>
-<p>Currently this only works for GitHub Actions as this provider enables the inclusion of arbitrary custom blocks. {tic} extracts these blocks, updates the template and then inserts the custom blocks at the correct position back into the updated template. What may sound easy at first is in fact a very complicated task behind the scenes: indentation needs to preserved, some providers care about order and some do not accept duplicate keys. While <code><a href="../reference/update_yml.html">update_yml()</a></code> supports GitHub Actions, Travis CI and Circle CI right now for custom environment variables and user blocks, the following rules need to be followed to ensure a smooth experience.</p>
+<p>Currently this only works for GitHub Actions as this provider enables the inclusion of arbitrary custom blocks. {tic} extracts these blocks, updates the template and then inserts the custom blocks at the correct position back into the updated template. What may sound easy at first is in fact a very complicated task behind the scenes: indentation needs to preserved, some providers care about order and some do not accept duplicate keys. While <code><a href="../reference/update_yml.html">update_yml()</a></code> supports GitHub Actions and Circle CI right now for custom environment variables and user blocks, the following rules need to be followed to ensure a smooth experience.</p>
 <p><strong>Shared Rules</strong></p>
 <ul>
 <li>All templates need to have an <em>identifier</em> and a <em>revision date</em> in their first two lines.</li>
@@ -149,24 +146,34 @@
 <li>All <em>custom blocks</em> need to include <code>[Custom block]</code> in their name tag, e.g. <code>- name: "[Custom block] Test custom user block2"</code>.</li>
 <li>Custom env vars unique to a runner need to include <code>[Custom matrix env var]</code> in their tag, e.g. <code># [Custom matrix env var] test</code>.</li>
 </ul>
-<p><strong>Travis CI</strong></p>
-<ul>
-<li>
-<p>There needs to be an empty line after all custom user blocks, for example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">before_install</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># [Custom block]</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">-</span><span class="at"> echo 'test'</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">-</span><span class="at"> if [ "${TRAVIS_OS_NAME}" == "osx" ]; then brew install ccache; fi</span></span></code></pre></div>
-</li>
-</ul>
 <p>All of these tags are used by {tic} to preserve user changes and choose the right upstream template. During the process <code><a href="../reference/update_yml.html">update_yml()</a></code> also prints how many custom blocks and env vars were found. If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template. In any case, it is recommended to review the changes to avoid unexpected CI failures.</p>
-<p>The feature is in beta state and issues are expected, especially for edge cases. The internal heuristic is somewhat hacky and highly tailored to the specific CI provider. Please file an issue in the repo if you experience problems.</p>
+<div id="deviating-from-the-templates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deviating-from-the-templates" class="anchor"></a>Deviating from the templates</h2>
+<div id="custom-and-custom-deploy-templates" class="section level3">
+<h3 class="hasAnchor">
+<a href="#custom-and-custom-deploy-templates" class="anchor"></a><code>custom</code> and <code>custom-deploy</code> templates</h3>
+<p>If you are using the <code>custom</code> or <code>custom-deploy</code> deploy template (e.g. via <code><a href="../reference/yaml_templates.html">tic::use_ghactions_yml("custom")</a></code>), <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> will ignore the matrix part of the templates. This gives you the ability to specify your own runner config while still profiting from template updates.</p>
+</div>
+<div id="the-custom-header-tag" class="section level3">
+<h3 class="hasAnchor">
+<a href="#the-custom-header-tag" class="anchor"></a>The <code># [Custom header]</code> tag</h3>
+<p>If you want to go even more custom, you can add <code># [Custom header]</code> right below the <code>## revision date</code> line. This tells <code><a href="../reference/update_yml.html">update_yml()</a></code> to ignore the complete header including the the <code>env:</code> key completely. This can be useful if you want to insert a <code>service:</code> block between <code>env:</code> and <code>strategy</code> or when specifying custom build triggers in <code>on:</code>.</p>
+</div>
+</div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
 <p>Here are some examples for custom user blocks and custom env vars:</p>
 <p><strong>GitHub Actions</strong></p>
+<p><em>Custom header</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## tic GitHub Actions template: linux</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">## revision date: 2020-12-11</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># [Custom header]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">[</span><span class="at">...</span><span class="kw">]</span></span></code></pre></div>
 <p><em>Runner specific environment variable</em></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">matrix</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">config</span><span class="kw">:</span></span>
@@ -174,7 +181,7 @@
 <span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> windows-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="at"> </span><span class="kw">}</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">    # [Custom matrix env var] test</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> macOS-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="kw">,</span><span class="at"> </span><span class="fu">pkgdown</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span><span class="kw">,</span><span class="at"> </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span><span class="at"> </span><span class="kw">}</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> macOS-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"devel"</span><span class="at"> </span><span class="kw">}</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> ubuntu-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"devel"</span><span class="at"> </span><span class="kw">}</span></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> ubuntu-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="at"> </span><span class="kw">}</span></span></code></pre></div>
 <p><em>Environment variable</em></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">env</span><span class="kw">:</span></span>
@@ -185,41 +192,22 @@
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>    brew cask install xquartz</span></code></pre></div>
-<p><strong>Travis CI</strong></p>
-<p><em>Environment variable</em></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">matrix</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">include</span><span class="kw">:</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> osx</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="at">      </span><span class="fu">r</span><span class="kw">:</span><span class="at"> release</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> osx</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="at">      </span><span class="fu">r</span><span class="kw">:</span><span class="at"> oldrel</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">      # [Custom env]</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="at">      </span><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="at">      </span><span class="kw">-</span><span class="at"> foo="test"</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> linux</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="at">      </span><span class="fu">r</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre></div>
-<p><em>Block</em></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">install</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R -q -e 'tic::install()'</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">  # [Custom block] block 2</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo 'test2'</span></span></code></pre></div>
 <p><strong>Circle CI</strong></p>
 <p><em>Environment variable</em></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">environment</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">  # [Custom env] env var 2</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="at">  </span><span class="fu">test2</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">  # [Custom env] env var 2</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="at">  </span><span class="fu">test2</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span></span></code></pre></div>
 <p><em>Block</em></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] test2"</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">    command</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>      echo 'test2'</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] test2"</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">    command</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>      echo 'test2'</span></code></pre></div>
 </div>
 <div id="automating-the-update-process" class="section level2">
 <h2 class="hasAnchor">
 <a href="#automating-the-update-process" class="anchor"></a>Automating the update process</h2>
-<p>Updating {tic} YAML files can be automated further. We provide a <a href="https://github.com/ropenscilabs/tic.package/blob/ba72e7fb57c094b1e704ebe5ee8ed157e2b5fbb5/.github/workflows/update-tic.yml">GitHub Actions workflow</a> which can be used together with <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> to update the templates whenever there are newer upstream versions available. The workflow will create a branch, update the files and commit them and even open a pull request.</p>
-<p>Just put this workflow next to <code>.github/workflows/tic.yml</code> and it will silently do its job. By default it will run over night as a CRON job. It only runs once a day and is not being executed on push or pull request events.</p>
+<p>Updating {tic} YAML files can be automated further. We provide a GitHub Actions Workflow named <a href="https://github.com/ropensci/tic/blob/master/.github/workflows/update-tic.yml">update-tic.yml</a> which can be used together with <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> to update the templates whenever there are newer upstream versions available. The workflow will create a branch, update the files and commit them and even open a pull request.</p>
+<p>Just put this workflow next to any <code>tic.yml</code> file within <code>.github/workflows/</code> and it will silently do its job. By default it will run over night as a CRON job. It only runs once a day and is not being executed on push or pull request events. The underlying <code><a href="../reference/update_yml.html">update_yml()</a></code> will match all files starting with <code>"tic"</code>. Hence you can add multiple YAML files with {tic} support, e.g. <code>"tic.yml"</code> and <code>"tic-db.yml"</code>.</p>
 <p>Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches. To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with “workflow” scopes. This PAT need to be added as a “secret” to the repo so that it can be used within the build. <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> helps to automate this process. The linked workflow searches by default for a PAT secret named <code>TIC_UPDATE</code> when updating <code>tic.yml</code>.</p>
 </div>
   </div>
@@ -251,34 +239,33 @@
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-</div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-<h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+<h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-<h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+<h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+</div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+<h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">

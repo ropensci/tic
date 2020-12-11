@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tic: Tasks Integrating Continuously: CI-Agnostic Workflow
-    Definitions — tic-package • tic</title>
+<title>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions — tic-package • tic</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -43,16 +42,15 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css?nocache=123" rel="stylesheet">
+<link href="../ropensci.css" rel="stylesheet">
 
-<meta property="og:title" content="tic: Tasks Integrating Continuously: CI-Agnostic Workflow
-    Definitions — tic-package" />
-<meta property="og:description" content="Provides a way to describe common build and
-    deployment workflows for R-based projects: packages, websites (e.g.
-    blogdown, pkgdown), or data processing (e.g. research compendia).  The
-    recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
-    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004)." />
+<meta property="og:title" content="tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions — tic-package" />
+<meta property="og:description" content="Provides a way to describe common build and deployment
+    workflows for R-based projects: packages, websites (e.g.  blogdown,
+    pkgdown), or data processing (e.g. research compendia). The recipe is
+    described independent of the continuous integration tool used for
+    processing the workflow (e.g. 'GitHub Actions' or 'Circle CI').  This
+    package has been peer-reviewed by rOpenSci (v0.3.0.9004)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -60,15 +58,13 @@
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Matomo -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script src="https://ropensci.org/scripts/matomo.js"></script>
+<noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- End Matomo Code -->
 
   </head>
 
@@ -87,7 +83,7 @@
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -171,19 +167,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tic: Tasks Integrating Continuously: CI-Agnostic Workflow
-    Definitions</h1>
+    <h1>tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions</h1>
     <small class="dont-index">Source: <a href='https://github.com/ropensci/tic/blob/master/R/tic-package.R'><code>R/tic-package.R</code></a></small>
     <div class="hidden name"><code>tic-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides a way to describe common build and
-    deployment workflows for R-based projects: packages, websites (e.g.
-    blogdown, pkgdown), or data processing (e.g. research compendia).  The
-    recipe is described independent of the continuous integration tool
-    used for processing the workflow (e.g.  'Travis CI' or 'AppVeyor').
-    This package has been peer-reviewed by rOpenSci (v. 0.3.0.9004).</p>
+    <p>Provides a way to describe common build and deployment
+    workflows for R-based projects: packages, websites (e.g.  blogdown,
+    pkgdown), or data processing (e.g. research compendia). The recipe is
+    described independent of the continuous integration tool used for
+    processing the workflow (e.g. 'GitHub Actions' or 'Circle CI').  This
+    package has been peer-reviewed by rOpenSci (v0.3.0.9004).</p>
     </div>
 
 
@@ -205,6 +200,24 @@ several steps.</p>
 </ul>
 
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><strong>Maintainer</strong>: Kirill Müller <a href='mailto:krlmlr+r@mailbox.org'>krlmlr+r@mailbox.org</a> (<a href='https://orcid.org/0000-0002-1416-3412'>ORCID</a>)</p>
+<p>Authors:</p><ul>
+<li><p>Patrick Schratz <a href='mailto:patrick.schratz@gmail.com'>patrick.schratz@gmail.com</a> (<a href='https://orcid.org/0000-0003-0748-6624'>ORCID</a>)</p></li>
+<li><p>Mika Braginsky <a href='mailto:mika.br@gmail.com'>mika.br@gmail.com</a></p></li>
+<li><p>Karthik Ram <a href='mailto:karthik.ram@gmail.com'>karthik.ram@gmail.com</a></p></li>
+<li><p>Jeroen Ooms <a href='mailto:jeroen.ooms@stat.ucla.edu'>jeroen.ooms@stat.ucla.edu</a></p></li>
+</ul>
+
+<p>Other contributors:</p><ul>
+<li><p>Max Held (Max reviewed the package for ropensci, see &lt;https://github.com/ropensci/software-review/issues/305&gt;) [reviewer]</p></li>
+<li><p>Anna Krystalli (Anna reviewed the package for ropensci, see &lt;https://github.com/ropensci/software-review/issues/305&gt;) [reviewer]</p></li>
+<li><p>Laura DeCicco (Laura reviewed the package for ropensci, see &lt;https://github.com/ropensci/software-review/issues/305&gt;) [reviewer]</p></li>
+<li><p>rOpenSci [funder]</p></li>
+</ul>
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -233,34 +246,33 @@ several steps.</p>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-                            <h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                            <h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks & Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-xs-12">

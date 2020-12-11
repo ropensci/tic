@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- ropensci -->
-<link href="../ropensci.css?nocache=123" rel="stylesheet">
+<link href="../ropensci.css" rel="stylesheet">
 
 <meta property="og:title" content="Build and deploy drat repository — do_drat" />
 <meta property="og:description" content="do_drat() builds and deploys R packages to a drat repository and adds
@@ -63,15 +63,13 @@ step_do_push_deploy() in the &quot;deploy&quot; stage.
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-462421-8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Matomo -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script src="https://ropensci.org/scripts/matomo.js"></script>
+<noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 
-  gtag('config', 'UA-462421-8');
-</script>
+<!-- End Matomo Code -->
 
   </head>
 
@@ -90,7 +88,7 @@ step_do_push_deploy() in the &quot;deploy&quot; stage.
 
       <div class="navbar-brand-container">
         <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci" /></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0</small></i></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.10.0</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -193,19 +191,19 @@ the upcoming deployment</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>do_drat</span>(
-  <span class='kw'>repo_slug</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orphan</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>checkout</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"~/git/drat"</span>,
-  <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>,
-  <span class='kw'>remote_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_message</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>commit_paths</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>private_key_name</span> <span class='kw'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
-  <span class='kw'>deploy_dev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>do_drat</span><span class='op'>(</span>
+  repo_slug <span class='op'>=</span> <span class='cn'>NULL</span>,
+  orphan <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  checkout <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  path <span class='op'>=</span> <span class='st'>"~/git/drat"</span>,
+  branch <span class='op'>=</span> <span class='cn'>NULL</span>,
+  remote_url <span class='op'>=</span> <span class='cn'>NULL</span>,
+  commit_message <span class='op'>=</span> <span class='cn'>NULL</span>,
+  commit_paths <span class='op'>=</span> <span class='st'>"."</span>,
+  force <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  private_key_name <span class='op'>=</span> <span class='st'>"TIC_DEPLOY_KEY"</span>,
+  deploy_dev <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,8 +229,9 @@ if you deploy to a different branch.</p></td>
     </tr>
     <tr>
       <th>path, branch</th>
-      <td><p>By default, this macro deploys the <code>"master"</code> branch
-of the drat repository. An alternative option is <code>"gh-pages"</code>.</p></td>
+      <td><p>By default, this macro deploys the default repo branch
+(usually "master") of the drat repository.
+An alternative option is <code>"gh-pages"</code>.</p></td>
     </tr>
     <tr>
       <th>remote_url</th>
@@ -260,10 +259,10 @@ Add <code>--force</code> flag to git commands?</p></td>
     <tr>
       <th>private_key_name</th>
       <td><p><code>string</code><br />
-Only needed when deploying from builds on Travis CI or GitHub Actions.
+Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
-SSH key pair via <code><a href='https://rdrr.io/pkg/travis/man/use_travis_deploy.html'>travis::use_travis_deploy()</a></code>,
-<code><a href='use_ghactions_deploy.html'>tic::use_ghactions_deploy()</a></code> or <code><a href='use_tic.html'>use_tic()</a></code>, pass this name here.</p></td>
+SSH key pair via tic::use_ghactions_deploy()] or <code><a href='use_tic.html'>use_tic()</a></code>, pass this
+name here.</p></td>
     </tr>
     <tr>
       <th>deploy_dev</th>
@@ -276,14 +275,16 @@ deployed.</p></td>
 
     <h2 class="hasAnchor" id="deployment"><a class="anchor" href="#deployment"></a>Deployment</h2>
 
-    <p>Deployment can only happen to the <code>master</code> or
+    
+
+<p>Deployment can only happen to the default repo branch (usually "master") or
 <code>gh-pages</code> branch because the GitHub Pages functionality from GitHub is
 used to access the drat repository later on. You need to enable this
 functionality when creating the drat repository on GitHub via <code>Settings -&gt; GitHub pages</code> and set it to the chosen setting here.</p>
-<p>To build and deploy Windows binaries, builds on Travis CI with deployment
-permissions need to be triggered. To build and deploy macOS binaries,
-builds on Travis CI with deployment permissions need to be triggered. Have
-a look at <a href='https://docs.ropensci.org/tic/articles/deployment.html'>https://docs.ropensci.org/tic/articles/deployment.html</a> for
+<p>To build and deploy Windows and macOS binaries, builds with deployment
+permissions need to be triggered.
+Have a look at
+<a href='https://docs.ropensci.org/tic/articles/deployment.html'>https://docs.ropensci.org/tic/articles/deployment.html</a> for
 more information and instructions.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -296,25 +297,12 @@ more information and instructions.</p>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span>()</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
-<span class='fu'>do_drat</span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_setup_ssh(private_key_name = private_key_name)
-#&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
-#&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
-#&gt;     orphan = FALSE, checkout = TRUE)
-#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>deploy</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
-#&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
-#&gt;     commit_paths = ".", force = FALSE)</div><div class='input'>
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>before_deploy</span><span> </span><span style='color: #00BB00;'>──────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_setup_ssh(private_key_name = private_key_name)
-#&gt; ▶ step_setup_push_deploy(path = "~/git/drat", branch = "master", 
-#&gt;     remote_url = paste0("git@github.com:", repo_slug, ".git"), 
-#&gt;     orphan = FALSE, checkout = TRUE)
-#&gt; </span><span style='color: #00BB00;'>──</span><span> </span><span style='color: #00BB00;'>deploy</span><span> </span><span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span><span> </span><span style='color: #00BB00;'>stage</span><span> </span><span style='color: #00BB00;'>──</span><span>
-#&gt; ▶ step_add_to_drat(repo_slug = repo_slug, deploy_dev = deploy_dev)
-#&gt; ▶ step_do_push_deploy(path = "~/git/drat", commit_message = NULL, 
-#&gt;     commit_paths = ".", force = FALSE)</div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span><span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> See </span><span style='color: #000000;background-color: #BBBBBB;'>`?tic::dsl_get`</span><span> for details</span></div><div class='input'>
+<span class='fu'>do_drat</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✔</span><span> Setting active project to </span><span style='color: #0000BB;'>'/Users/runner/work/tic/tic/docs'</span><span></span></div><div class='output co'>#&gt; <span class='error'>Error: No remote named 'origin' found in remotes: 'tic-remote'.</span></div><div class='input'>
+<span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>tic configuration</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>ℹ</span><span> No steps defined in any stage</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -342,34 +330,33 @@ more information and instructions.</p>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Info</h5>
-                            <li><a href="https://ropensci.org/about">Mission</a></li>
-                            <li><a href="https://ropensci.org/about#team">Team</a></li>
-                            <li><a href="https://ropensci.org/about#collaborators">Collaborators</a></li>
-                            <li><a href="https://ropensci.org/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-sm-4">
-                        <ul>
-                            <h5 class="bottom-2">Work</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/blog/">Blog</a></li>
-                            <li><a href="https://ropensci.org/technotes/">Tech Notes</a></li>
-                            <li><a href="https://ropensci.org/tutorials/">Tutorials</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/resources/">More Resources</a></li>
+                            <h5 class="bottom-2">About</h5>
+                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
-                            <h5 class="bottom-2">Participate</h5>
-                            <li><a href="https://ropensci.org/contact/">Contact us</a></li>
-                            <li><a href="https://ropensci.org/community/">Community</a></li>
-                            <li><a href="https://ropensci.org/software-review/">Contribute software</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <h5 class="bottom-2">Community</h5>
+                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
                             <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/donate/">Donate</a></li>
+                            <li><a href="https://ropensci.org/events/">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <ul>
+                            <h5 class="bottom-2">Resources</h5>
+                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/">Talks & Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-xs-12">
