@@ -151,7 +151,3 @@ On Linux, add `libgdal-dev libproj-dev libgeos-dev` to the `apt install` call in
 ## Circle CI
 
 WIP
-
-## Appveyor CI
-
-WIP

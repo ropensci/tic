@@ -14,7 +14,6 @@
 \alias{ci_can_push}
 \alias{ci_is_interactive}
 \alias{ci_cat_with_color}
-\alias{ci_on_appveyor}
 \alias{ci_on_circle}
 \alias{ci_on_ghactions}
 \title{The current CI environment}
@@ -42,8 +41,6 @@ ci_can_push(private_key_name = "TIC_DEPLOY_KEY")
 ci_is_interactive()
 
 ci_cat_with_color(code)
-
-ci_on_appveyor()
 
 ci_on_circle()
 
@@ -101,8 +98,6 @@ or not. Global setup operations shouldn't be run on interactive CIs.
 \code{ci_cat_with_color()}: Colored output targeted to the CI log.
 The code argument can be an unevaluated call to a crayon function, the
 style will be applied even if it normally wouldn't be.
-
-\code{ci_on_appveyor()}: Are we running on Appveyor CI?
 
 \code{ci_on_circle()}: Are we running on Circle CI?
 

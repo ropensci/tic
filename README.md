@@ -18,7 +18,6 @@ The following ones are supported:
 
 | Provider       | R package                                            | Platforms             | Info                                                                  |
 | -------------- | ---------------------------------------------------- | --------------------- | --------------------------------------------------------------------- |
-| Appveyor CI    | [{r-appveyor}](https://github.com/krlmlr/r-appveyor) | Windows               |                                                                       |
 | Circle CI      | [{circle}](https://docs.ropensci.org/circle/)        | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
 | Github Actions | [{ghactions}](https://maxheld.de/ghactions)          | Linux, macOS, Windows |                                                                       |
 
@@ -45,7 +44,7 @@ remotes::install_github("ropensci/tic")
 ## Setup
 
 By calling `tic::use_tic()` a production ready CI setup is initialized, tailored to your specific R project.
-The created templates will use the providers https://travis-ci.com (https://travis-ci.org; see [this FAQ](https://docs.ropensci.org/tic/articles/faq.html#q-travis-1) for more info), https://appveyor.com, https://circleci.com and [Github Actions](https://github.com/actions).
+The created templates will use the providers [Circle CI](https://circleci.com) and [Github Actions](https://github.com/actions).
 
 If only the CI YAML templates from {tic} are desired, the `use_<provider>_yml()` functions can be used.
 Refer to [the complete list of options](https://docs.ropensci.org/tic/reference/yaml_templates.html).
@@ -80,10 +79,6 @@ tic::use_tic_r("package", deploy_on = "circle")
 # tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",
 #              matrix = "circle", deploy = "circle")
 tic::use_update_tic()
-
-### Appveyor -------------------------------------------------------------------
-
-tic::use_appveyor_yml()
 
 ### GitHub Actions -------------------------------------------------------------
 

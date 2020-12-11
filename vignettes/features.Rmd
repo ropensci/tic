@@ -73,11 +73,7 @@ Travis CI is only one out of a bunch of providers which offer (free) CI solution
 Each CI provider has its own way how the user has to write the YAML file to successfully talk to the service.
 This setup file controls what will be done in each run.
 
-To give you an example how different these control files can be, take a look at these two examples from [Travis CI](https://github.com/tidyverse/dplyr/blob/master/.travis.yml) and [Appveyor](https://github.com/tidyverse/dplyr/blob/master/appveyor.yml).
-While _Travis_ is the CI service with the longest history when it comes to R, people also like to test their code on _Appveyor_ which provides support for Windows.
-Getting everything setup on _Appveyor_ is somewhat complicated because no client package for R exists.
-Also, _Appveyor_ has its own YAML notation to specify certain actions.
-At this we have not mentioned other providers like [Circle CI](https://circleci.com/), [Azure](https://azure.microsoft.com/en-us/services/devops/pipelines/) or [GitHub Actions](https://github.com/features/actions) yet.
+To give you an example how different these control files can be, take a look at these two examples from [Circle CI](https://github.com/ropensci/tic/blob/master/.circleci/config.yml) and [Github Actions](https://github.com/ropensci/tic/blob/master/.github/workflows/tic.yml).
 
 We could list way more differences - but that's exactly the point when {tic} comes in!
 
@@ -85,7 +81,7 @@ We could list way more differences - but that's exactly the point when {tic} com
 - The calls listed in `tic.R` will work the same way on every CI service that is supported by {tic}.
 - You can emulate all the stages and steps locally by calling `run_all_stages()`.
 - You are independent to changes made to the upstream runners of a specific CI system.
-- A `tic.R` workflow is usually shorter and easier to parse than a `appveyor.yml` file as it builds on [macros](#macros).
+- A `tic.R` workflow is usually shorter and easier to parse than a provider-specific YAML configuration file as it builds on [macros](#macros).
 
 So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.
 

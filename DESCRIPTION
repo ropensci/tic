@@ -100,9 +100,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: sodium
 Collate:
-    'ci.R'
-    'appveyor.R'
     'base64.R'
+    'ci.R'
     'circleci.R'
     'dsl-storage.R'
     'dsl.R'

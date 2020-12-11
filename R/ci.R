@@ -3,8 +3,6 @@ ci_ <- function() {
     LocalCI$new()
   } else if (Sys.getenv("TIC_MOCK") == "true") {
     MockCI$new()
-  } else if (Sys.getenv("APPVEYOR") == "True") {
-    AppVeyorCI$new()
   } else if (Sys.getenv("CIRCLECI") == "true") {
     CircleCI$new()
   } else if (Sys.getenv("GITHUB_ACTIONS") == "true") {
@@ -65,11 +63,6 @@ CI <- R6Class( # nolint
     #'   exist?}
     can_push = function() {
       stop("NYI")
-    },
-    #'   \item{`on_appveyor()`}{
-    #'     Returns `TRUE` only on Appveyor, otherwise `FALSE`.}
-    on_appveyor = function() {
-      FALSE
     },
     #'   \item{`on_circle()`}{
     #'     Returns `TRUE` only on circle, otherwise `FALSE`.}
@@ -224,14 +217,6 @@ ci_is_interactive <- function() {
 #' @export
 ci_cat_with_color <- function(code) {
   ci()$cat_with_color(code)
-}
-
-#' CI on_appveyor
-#' @description `ci_on_appveyor()`: Are we running on Appveyor CI?
-#' @rdname ci
-#' @export
-ci_on_appveyor <- function() {
-  ci()$on_appveyor()
 }
 
 #' CI on_circle

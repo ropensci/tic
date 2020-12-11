@@ -27,7 +27,7 @@ and \code{"all"}.}
 Possible options are \code{"none"}/\code{NULL} and \code{"ghactions"}.}
 
 \item{windows}{\verb{[string]}\cr Which CI provider(s) to use to test on Windows
-Possible options are \code{"none"}/\code{NULL}, \code{"appveyor"} and \code{"ghactions"}.}
+Possible options are \code{"none"}/\code{NULL}, and \code{"ghactions"}.}
 
 \item{deploy}{\verb{[string]}\cr Which CI provider(s) to use to deploy artifacts
 such as pkgdown documentation. Possible options are "circle"\verb{, }"ghactions"\verb{, }"none"\code{/}NULL\code{and}"all"`.}
@@ -67,7 +67,7 @@ if (FALSE) {
     wizard = FALSE,
     linux = "circle",
     mac = "ghactions",
-    windows = "appveyor",
+    windows = "ghactions",
     deploy = "circle",
     matrix = "all"
   )

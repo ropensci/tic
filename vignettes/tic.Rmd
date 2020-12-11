@@ -54,8 +54,7 @@ Specification how many runners are started and their specification (operating sy
 <details>
 <summary>CI Provider</summary>
 
-A company that offers ready-to-use virtual images for runners which are started after a certain action.
-Such (third-party) companies are AppVeyor or Circle CI.
+A company that offers ready-to-use virtual images for runners which are started after a certain action (.e.g Circle CI).
 However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.
 
 </details>
@@ -107,8 +106,7 @@ Besides the question which CI system you want to use, you'll be asked if you wan
 Last, we'll add a `tic.R` file to the project root.
 
 After this, your project is ready for continuous integration.
-The next push to GitHub will create a build on Circle CI and/or AppVeyor, as configured.
-(Currently you need to enable the project manually on AppVeyor.)
+The next push to GitHub will create a build on Circle CI.
 See the [Troubleshooting](advanced.html#troubleshooting) section in case anything doesn't work as expected.
 
 #### Quickstart
@@ -125,9 +123,6 @@ If you already use {tic} and want to configure a new CI provider, do
 ## Circle CI
 circle::use_circle_deploy() # (optional for deployment)
 tic::use_circle_yml(<option here>)
-
-## Appveyor
-tic::use_appveyor_yml(<option here>)
 ```
 
 ---
@@ -142,7 +137,6 @@ See the [CI Client Packages](ci-client-packages.html) article for more detailed 
 After having called `tic::use_tic()` you will find
 
 - `.circleci/config.yml`
-- `appveyor.yml`
 - `.github/workflows`
 
 and a `tic.R` file in your repo, depending on the choices you made during `use_tic()`.
