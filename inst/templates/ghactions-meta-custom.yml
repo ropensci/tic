@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: custom
-## revision date: 2020-11-14
+## revision date: 2020-12-11
 # [Custom header]
 on:
   workflow_dispatch:

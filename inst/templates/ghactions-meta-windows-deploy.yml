@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: windows-deploy
-## revision date: 2020-11-14
+## revision date: 2020-12-11
 on:
   workflow_dispatch:
   push:

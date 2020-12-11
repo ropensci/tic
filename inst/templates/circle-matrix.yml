@@ -1,5 +1,5 @@
 ## tic Circle CI template: linux-matrix
-## revision date: 2020-05-09
+## revision date: 2020-12-11
 version: 2.1
 jobs:
   r-release:
@@ -19,7 +19,7 @@ jobs:
       - run:
           name: "[r-release] Install dependencies"
           command: |
-            sudo apt update && sudo apt install -y ccache
+            sudo apt update && sudo apt install -y ccache libgit2-dev
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
             mkdir -p $HOME/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nCXX11=ccache g++ -std=gnu99\nCXX14=ccache g++ -std=gnu99\nCXX17=ccache g++ -std=gnu99\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
 
