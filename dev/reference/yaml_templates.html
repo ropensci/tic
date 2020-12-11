@@ -175,9 +175,7 @@ are also used within <code><a href='use_tic.html'>use_tic()</a></code>.</p>
 <p>If you want to update an existing template use <code><a href='update_yml.html'>update_yml()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>use_appveyor_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"windows"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>use_circle_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"linux-matrix-deploy"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>use_circle_yml</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"linux-matrix-deploy"</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='fu'>use_ghactions_yml</span><span class='op'>(</span>
   type <span class='op'>=</span> <span class='st'>"linux-macos-windows-deploy"</span>,
@@ -227,9 +225,6 @@ others are optional.</p><ul>
 <li><p>Possible values for <code>&lt;action&gt;</code> are <code>matrix</code> and <code>deploy</code>.</p></li>
 </ul>
 
-<p>Not every combinations is supported on all CI systems.
-For example, for <code>use_appveyor_yaml()</code> only <code>windows</code> and <code>windows-matrix</code>
-are valid.</p>
 <p>Special types are <code>custom</code> and <code>custom-deploy</code>. These should be used if the
 runner matrix is completely user-defined. This is mainly useful in
 <code><a href='update_yml.html'>update_yml()</a></code>.</p>
@@ -241,9 +236,6 @@ deploy on all platforms.</p>
 <tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_circle_yml("linux-deploy")</code></td></tr>
 <tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_circle_yml("linux-matrix")</code></td></tr>
 <tr><td></td><td>Linux</td><td>no</td><td>yes</td><td><code>use_circle_yml("linux-deploy-matrix")</code></td></tr>
-<tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
-<tr><td>Appveyor</td><td>Windows</td><td>no</td><td>no</td><td><code>use_appveyor_yml("windows")</code></td></tr>
-<tr><td></td><td>Windows</td><td>no</td><td>yes</td><td><code>use_appveyor_yml("windows-matrix")</code></td></tr>
 <tr><td>----------</td><td>------------------------</td><td>----------</td><td>-------------------</td><td>-------------------------------------------------------</td></tr>
 <tr><td>GH Actions</td><td>Linux</td><td>no</td><td>no</td><td><code>use_ghactions_yml("linux")</code></td></tr>
 <tr><td></td><td>Linux</td><td>yes</td><td>no</td><td><code>use_ghactions_yml("linux-deploy)</code></td></tr>

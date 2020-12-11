@@ -177,14 +177,14 @@
 <p>What does “CI-Agnostic” mean and why do we need it?</p>
 <p>For to historic reasons, the R community first started on Travis CI to implement an easy way for R package checking. The build script for R is <a href="https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb">community maintained</a>. Theoretically, R could be run on any CI system. Travis CI is only one out of a bunch of providers which offer (free) CI solutions.</p>
 <p>Each CI provider has its own way how the user has to write the YAML file to successfully talk to the service. This setup file controls what will be done in each run.</p>
-<p>To give you an example how different these control files can be, take a look at these two examples from <a href="https://github.com/tidyverse/dplyr/blob/master/.travis.yml">Travis CI</a> and <a href="https://github.com/tidyverse/dplyr/blob/master/appveyor.yml">Appveyor</a>. While <em>Travis</em> is the CI service with the longest history when it comes to R, people also like to test their code on <em>Appveyor</em> which provides support for Windows. Getting everything setup on <em>Appveyor</em> is somewhat complicated because no client package for R exists. Also, <em>Appveyor</em> has its own YAML notation to specify certain actions. At this we have not mentioned other providers like <a href="https://circleci.com/">Circle CI</a>, <a href="https://azure.microsoft.com/en-us/services/devops/pipelines/">Azure</a> or <a href="https://github.com/features/actions">GitHub Actions</a> yet.</p>
+<p>To give you an example how different these control files can be, take a look at these two examples from <a href="https://github.com/ropensci/tic/blob/master/.circleci/config.yml">Circle CI</a> and <a href="https://github.com/ropensci/tic/blob/master/.github/workflows/tic.yml">Github Actions</a>.</p>
 <p>We could list way more differences - but that’s exactly the point when {tic} comes in!</p>
 <ul>
 <li>Rather than dealing with all the CI differences, {tic} enables the specification of the complete workflow in an external R script file <code>tic.R</code>.</li>
 <li>The calls listed in <code>tic.R</code> will work the same way on every CI service that is supported by {tic}.</li>
 <li>You can emulate all the stages and steps locally by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>.</li>
 <li>You are independent to changes made to the upstream runners of a specific CI system.</li>
-<li>A <code>tic.R</code> workflow is usually shorter and easier to parse than a <code>appveyor.yml</code> file as it builds on <a href="#macros">macros</a>.</li>
+<li>A <code>tic.R</code> workflow is usually shorter and easier to parse than a provider-specific YAML configuration file as it builds on <a href="#macros">macros</a>.</li>
 </ul>
 <p>So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.</p>
 </div>

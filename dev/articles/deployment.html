@@ -143,28 +143,6 @@
 <p>On Circle CI, setting up deployment convenient as there is no need to create a SSH key pair for deployment.</p>
 <p>When calling <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your GitHub repo. No extra deploy key need to be stored in the GitHub repo.</p>
 </div>
-<div id="appveyor-ci" class="section level3">
-<h3 class="hasAnchor">
-<a href="#appveyor-ci" class="anchor"></a>Appveyor CI</h3>
-<p>Appveyor follows a different approach when it comes to deployment. A bunch of <a href="https://www.appveyor.com/docs/deployment/">predefined deployment providers</a> are available but deploying to the GitHub repo of the project is not possible. Unfortunately, there is no R client package for Appveyor yet. This means one needs to manually set up an SSH key pair which is used for deployment.</p>
-<p>Usually we suggest to simply deploy on one of the other CI providers. However, when it comes to deployment to a drat repository (see <code>?do_drat()</code>), one usually also wants to build and deploy Windows binaries.</p>
-<p>Follow these steps to add deployment capabilities via {tic} to Appveyor builds:</p>
-<ol style="list-style-type: decimal">
-<li>
-<p>Generate a SSH key pair</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">key</span> <span class="op">&lt;-</span> <span class="fu">openssl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openssl/man/keygen.html">rsa_keygen</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">pub_key</span> <span class="op">&lt;-</span> <span class="fu">tic</span><span class="fu">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">get_public_key</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span><span class="op">$</span><span class="va">ssh</span>
-<span class="va">private_key</span> <span class="op">&lt;-</span> <span class="fu">tic</span><span class="fu">:::</span><span class="fu"><a href="../reference/ssh_key_helpers.html">encode_private_key</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span></code></pre></div>
-</li>
-<li><p>Copy the public key and add it as an deploy key to <code>Settings -&gt; Deploy Key</code> of the <em>drat repo you want to deploy to</em> (<strong>not</strong> the one of the package which should be deployed).</p></li>
-<li><p>Copy the private key and log into to your Appveyor account. Go to <code>Account -&gt; Encrypt YAML</code> and encrypt the private key.</p></li>
-<li><p>Copy the resulting snipped into the <code>appveyor.yml</code> file of the repo. Name the environment variable “id_rsa”.</p></li>
-</ol>
-<p>Now the Appveyor builds should be able to deploy to the drat repo (where you added the public key). If you are building a drat repo, make sure to also add <code>USE_RTOOLS: true</code> to <code>appveyor.yml</code>. Otherwise R cannot build binaries on Windows.</p>
-<p>On a side note, we have an implicit R version requirement of &gt;= 3.4 when building on Appveyor. This is due to the fact that we are only allowing binary installs on Appveyor with {tic} due to some nasty issues when building packages from source on Appveyor in the past. The requirement is caused by the {cli} &gt;= 2.0.0 requirement of {tic}. This package version is not available as a binary on R =&lt; 3.5.</p>
-</div>
 <div id="github-actions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
@@ -181,34 +159,34 @@
 <a href="#updating-the-deployment-status" class="anchor"></a>Updating the deployment status</h4>
 <p>To update the deployment status in the “environments” menu (next to “release” and “branches”) conditionally on the outcome of the “Deployment” stage, one can use the <code>chrnorm/deployment-status</code>.</p>
 <p>Add the following before the “Before Deploy” stage:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-action@v1.1.1</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">        </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Create GitHub deployment</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> deployment</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">          </span><span class="fu">token</span><span class="kw">:</span><span class="at"> </span><span class="st">"${{ github.token }}"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="at">          </span><span class="fu">environment</span><span class="kw">:</span><span class="at"> production</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="at">```yml</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">and then this part after the "After Deploy" stage</span><span class="kw">:</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="at">```yml</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Update deployment status (success)</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> success()</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-status@releases/v1</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="at">          </span><span class="fu">token</span><span class="kw">:</span><span class="at"> </span><span class="st">"${{ github.token }}"</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="at">          </span><span class="fu">target-url</span><span class="kw">:</span><span class="at"> http://my-app-url.com</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="at">          </span><span class="fu">state</span><span class="kw">:</span><span class="at"> </span><span class="st">"success"</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="at">          </span><span class="fu">deployment_id</span><span class="kw">:</span><span class="at"> ${{ steps.deployment.outputs.deployment_id }}</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Update deployment status (failure)</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> failure()</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-status@releases/v1</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="at">          </span><span class="fu">token</span><span class="kw">:</span><span class="at"> </span><span class="st">"${{ github.token }}"</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="at">          </span><span class="fu">target-url</span><span class="kw">:</span><span class="at"> http://my-app-url.com</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="at">          </span><span class="fu">state</span><span class="kw">:</span><span class="at"> </span><span class="st">"failure"</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="at">          </span><span class="fu">deployment_id</span><span class="kw">:</span><span class="at"> ${{ steps.deployment.outputs.deployment_id }}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-action@v1.1.1</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="at">        </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Create GitHub deployment</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> deployment</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="at">          </span><span class="fu">token</span><span class="kw">:</span><span class="at"> </span><span class="st">"${{ github.token }}"</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">          </span><span class="fu">environment</span><span class="kw">:</span><span class="at"> production</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="at">```yml</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">and then this part after the "After Deploy" stage</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="at">```yml</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Update deployment status (success)</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> success()</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-status@releases/v1</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="at">          </span><span class="fu">token</span><span class="kw">:</span><span class="at"> </span><span class="st">"${{ github.token }}"</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="at">          </span><span class="fu">target-url</span><span class="kw">:</span><span class="at"> http://my-app-url.com</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="at">          </span><span class="fu">state</span><span class="kw">:</span><span class="at"> </span><span class="st">"success"</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="at">          </span><span class="fu">deployment_id</span><span class="kw">:</span><span class="at"> ${{ steps.deployment.outputs.deployment_id }}</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Update deployment status (failure)</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> failure()</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-status@releases/v1</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="at">          </span><span class="fu">token</span><span class="kw">:</span><span class="at"> </span><span class="st">"${{ github.token }}"</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="at">          </span><span class="fu">target-url</span><span class="kw">:</span><span class="at"> http://my-app-url.com</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="at">          </span><span class="fu">state</span><span class="kw">:</span><span class="at"> </span><span class="st">"failure"</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="at">          </span><span class="fu">deployment_id</span><span class="kw">:</span><span class="at"> ${{ steps.deployment.outputs.deployment_id }}</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -218,11 +196,11 @@
 <p><a href="https://github.com/r-lib/pkgdown">{pkgdown}</a> is an R package which builds a documentation wrapper-site of an R package. It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.</p>
 <p>It has become a quasi-standard to provide a {pkgdown} site for an R package. However, it is tedious to update the {pkgdown} site manually on every commit, check whether something has changed and commit the changes. {tic} comes with the ability to automate this process.</p>
 <p>The following example shows how {tic} deploys a {pkgdown} site on GitHub Actions. Remember that you can freely choose your favorite provider for this task. In <code>tic.yml</code> file the “before_deploy” and “deploy” stages are redirected to {tic}.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Stage] Before Deploy"</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>    Rscript -e "tic::before_deploy()"</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Stage] Before Deploy"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    Rscript -e "tic::before_deploy()"</span></code></pre></div>
 <p>In the “before_deploy” stage, {tic} will do the following:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
@@ -234,7 +212,7 @@
 </li>
 <li><p>Calls <code><a href="../reference/dsl.html">add_step(step_build_pkgdown())</a></code> and <code><a href="../reference/dsl.html">add_step(step_push_deploy())</a></code> in the “deploy” stage.</p></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -262,8 +240,8 @@
 <h4 class="hasAnchor">
 <a href="#orphaning-the-gh-pages-branch" class="anchor"></a>Orphaning the <code>gh-pages</code> branch</h4>
 <p>By default, changes to the {pkgdown} site will be added as incremental commits to the <code>gh-pages</code> branch. This is useful to keep a history of past versions and to enable a release and dev version of the site. To have this feature, set</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">development</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">development</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre></div>
 <p>in your <code>_pkgdown.yml</code> file. See <code>?pkgdown::build_site()</code> for more information.</p>
 <p>If you only want to have one version of your {pkgdown} site and not fill your repo with many commits in the <code>gh-pages</code> branch, you can use <code><a href="../reference/do_pkgdown.html">do_pkgdown(orphan = TRUE)</a></code>. This will wipe all commits of this branch on every CI run so that there is only one commit corresponding to the latest version of your pkgdown site.</p>
 </div>
@@ -274,7 +252,7 @@
 <a href="#committing-single-files" class="anchor"></a>Committing single files</h2>
 <p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created during the CI run.</p>
 <p>In the following example, these files are created/updated by calling <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 

@@ -188,9 +188,15 @@ global option <code><a href='https://rdrr.io/r/base/options.html'>getOption('blo
     <dt><code>run_hugo</code></dt><dd><p>Whether to run <code>hugo_build()</code> after R Markdown files are
 compiled.</p></dd>
     <dt><code>build_rmd</code></dt><dd><p>Whether to (re)build R Markdown files. By default, they are
-not rebuilt. See &#8216;Details&#8217; for how <code>build_rmd = TRUE</code> works.
+not built. See &#8216;Details&#8217; for how <code>build_rmd = TRUE</code> works.
 Alternatively, it can take a vector of file paths, which means these files
-are to be (re)built.</p></dd>
+are to be (re)built. Or you can provide a function that takes a vector of
+paths of all R Markdown files under the <code class="file">content/</code> directory, and
+returns a vector of paths of files to be built, e.g., <code>build_rmd =
+blogdown::timestamp_filter</code>. Two aliases are currently provided for such
+functions: <code>build_rmd = 'timestamp'</code> is equivalent to <code>build_rmd
+= blogdown::timestamp_filter</code>, and <code>build_rmd = 'md5sum'</code> is
+equivalent to <code>build_rmd = blogdown::md5sum_filter</code>.</p></dd>
   
 </dl></td>
     </tr>

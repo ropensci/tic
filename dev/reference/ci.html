@@ -69,7 +69,6 @@ or not. Global setup operations shouldn't be run on interactive CIs.
 ci_cat_with_color(): Colored output targeted to the CI log.
 The code argument can be an unevaluated call to a crayon function, the
 style will be applied even if it normally wouldn't be.
-ci_on_appveyor(): Are we running on Appveyor CI?
 ci_on_circle(): Are we running on Circle CI?
 ci_on_ghactions(): Are we running on GitHub Actions?
 ci(): Return the current CI environment" />
@@ -219,7 +218,6 @@ or not. Global setup operations shouldn't be run on interactive CIs.</p>
 <p><code>ci_cat_with_color()</code>: Colored output targeted to the CI log.
 The code argument can be an unevaluated call to a crayon function, the
 style will be applied even if it normally wouldn't be.</p>
-<p><code>ci_on_appveyor()</code>: Are we running on Appveyor CI?</p>
 <p><code>ci_on_circle()</code>: Are we running on Circle CI?</p>
 <p><code>ci_on_ghactions()</code>: Are we running on GitHub Actions?</p>
 <p><code>ci()</code>: Return the current CI environment</p>
@@ -248,8 +246,6 @@ style will be applied even if it normally wouldn't be.</p>
 <span class='fu'>ci_is_interactive</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'>ci_cat_with_color</span><span class='op'>(</span><span class='va'>code</span><span class='op'>)</span>
-
-<span class='fu'>ci_on_appveyor</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'>ci_on_circle</span><span class='op'>(</span><span class='op'>)</span>
 
