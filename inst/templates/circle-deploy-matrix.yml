@@ -92,7 +92,7 @@ jobs:
       - run:
           name: "[r-oldrelease] Install dependencies"
           command: |
-            sudo apt install -y ccache
+            sudo apt update && sudo apt install -y ccache
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
             mkdir -p ~/.R && echo -e 'CC=ccache gcc\nCPP=ccache gcc\nCXX=ccache g++\nCXX11=ccache g++\nCXX14=ccache g++\nCXX17=ccache g++\nF77=ccache gfortran\nFC=ccache gfortran' > $HOME/.R/Makevars
             mkdir -p $HOME/.ccache && echo -e 'max_size = 5.0G\nsloppiness = include_file_ctime\nhash_dir=false' > $HOME/.ccache/ccache.conf
