@@ -45,13 +45,13 @@
 #'  |            | Linux                    | no         | yes                 | `use_circle_yml("linux-deploy-matrix")`                 |
 #'  | ---------- | ------------------------ | ---------- | ------------------- | ------------------------------------------------------- |
 #'  | GH Actions | Linux                    | no         | no                  | `use_ghactions_yml("linux")`                            |
-#'  |            | Linux                    | yes        | no                  | `use_ghactions_yml("linux-deploy)`                      |
-#'  |            | custom                   | no         | no                  | `use_ghactions_yml("custom)`                            |
-#'  |            | custom-deploy            | yes        | no                  | `use_ghactions_yml("custom-deploy)`                     |
-#'  |            | macOS                    | no         | no                  | `use_ghactions_yml("macos)`                             |
-#'  |            | macOS                    | yes        | no                  | `use_ghactions_yml("macos-deploy)`                      |
-#'  |            | Windows                  | no         | no                  | `use_ghactions_yml("windows)`                           |
-#'  |            | Windows                  | yes        | no                  | `use_ghactions_yml("windows-deploy)`                    |
+#'  |            | Linux                    | yes        | no                  | `use_ghactions_yml("linux-deploy")`                      |
+#'  |            | custom                   | no         | no                  | `use_ghactions_yml("custom")`                            |
+#'  |            | custom-deploy            | yes        | no                  | `use_ghactions_yml("custom-deploy")`                     |
+#'  |            | macOS                    | no         | no                  | `use_ghactions_yml("macos")`                             |
+#'  |            | macOS                    | yes        | no                  | `use_ghactions_yml("macos-deploy")`                      |
+#'  |            | Windows                  | no         | no                  | `use_ghactions_yml("windows")`                           |
+#'  |            | Windows                  | yes        | no                  | `use_ghactions_yml("windows-deploy")`                    |
 #'  |            | Linux + macOS            | no         | no                  | `use_ghactions_yml("linux-macos")`                      |
 #'  |            | Linux + macOS            | yes        | no                  | `use_ghactions_yml("linux-macos-deploy")`               |
 #'  |            | Linux + Windows          | no         | no                  | `use_ghactions_yml("linux-windows")`                    |
