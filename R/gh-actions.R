@@ -148,7 +148,7 @@ gha_add_secret <- function(secret,
   )
 
   cli::cli_alert_success("Successfully added secret {.env {name}} to repo
-   {.field {get_owner(remote)}/{get_repo(remote)}}.", wrap = TRUE)
+   {.field {owner}/{repo}}.", wrap = TRUE)
 }
 
 #' Setup deployment for GitHub Actions
