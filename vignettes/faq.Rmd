@@ -88,7 +88,7 @@ Package {rgl} fails to install because of either
 **Answer**
 
 The first one is usually caused by a missing installation of `XQuartz` on macOS.
-Add `brew cask install xquartz` to the runner.
+Add `brew install xquartz` to the runner.
 
 The second error requires to set the `DISPLAY` env var to mimic a non-headless state.
 Add `export DISPLAY=:99` to the stage in which {rgl} should be installed.
