@@ -67,13 +67,13 @@ Here is a list of all available combinations:\tabular{lllll}{
     \tab Linux \tab no \tab yes \tab \code{use_circle_yml("linux-deploy-matrix")} \cr
    ---------- \tab ------------------------ \tab ---------- \tab ------------------- \tab ------------------------------------------------------- \cr
    GH Actions \tab Linux \tab no \tab no \tab \code{use_ghactions_yml("linux")} \cr
-    \tab Linux \tab yes \tab no \tab \verb{use_ghactions_yml("linux-deploy)} \cr
-    \tab custom \tab no \tab no \tab \verb{use_ghactions_yml("custom)} \cr
-    \tab custom-deploy \tab yes \tab no \tab \verb{use_ghactions_yml("custom-deploy)} \cr
-    \tab macOS \tab no \tab no \tab \verb{use_ghactions_yml("macos)} \cr
-    \tab macOS \tab yes \tab no \tab \verb{use_ghactions_yml("macos-deploy)} \cr
-    \tab Windows \tab no \tab no \tab \verb{use_ghactions_yml("windows)} \cr
-    \tab Windows \tab yes \tab no \tab \verb{use_ghactions_yml("windows-deploy)} \cr
+    \tab Linux \tab yes \tab no \tab \code{use_ghactions_yml("linux-deploy")} \cr
+    \tab custom \tab no \tab no \tab \code{use_ghactions_yml("custom")} \cr
+    \tab custom-deploy \tab yes \tab no \tab \code{use_ghactions_yml("custom-deploy")} \cr
+    \tab macOS \tab no \tab no \tab \code{use_ghactions_yml("macos")} \cr
+    \tab macOS \tab yes \tab no \tab \code{use_ghactions_yml("macos-deploy")} \cr
+    \tab Windows \tab no \tab no \tab \code{use_ghactions_yml("windows")} \cr
+    \tab Windows \tab yes \tab no \tab \code{use_ghactions_yml("windows-deploy")} \cr
     \tab Linux + macOS \tab no \tab no \tab \code{use_ghactions_yml("linux-macos")} \cr
     \tab Linux + macOS \tab yes \tab no \tab \code{use_ghactions_yml("linux-macos-deploy")} \cr
     \tab Linux + Windows \tab no \tab no \tab \code{use_ghactions_yml("linux-windows")} \cr

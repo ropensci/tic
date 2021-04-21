@@ -91,11 +91,8 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Remotes:
-    ropenscilabs/circle
 ByteCompile: No
 Encoding: UTF-8
-LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: sodium
