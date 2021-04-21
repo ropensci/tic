@@ -182,9 +182,6 @@
     <dt><code>local</code></dt><dd><p>Whether to build the website locally. This argument is passed to
 <code><a href='https://pkgs.rstudio.com/blogdown/reference/hugo_cmd.html'>hugo_build</a>()</code>, and <code>local = TRUE</code> is mainly for serving
 the site locally via <code><a href='https://pkgs.rstudio.com/blogdown/reference/serve_site.html'>serve_site</a>()</code>.</p></dd>
-    <dt><code>method</code></dt><dd><p>Different methods to build a website (each with pros and cons).
-See &#8216;Details&#8217;. The value of this argument will be obtained from the
-global option <code><a href='https://rdrr.io/r/base/options.html'>getOption('blogdown.method')</a></code> when it is set.</p></dd>
     <dt><code>run_hugo</code></dt><dd><p>Whether to run <code>hugo_build()</code> after R Markdown files are
 compiled.</p></dd>
     <dt><code>build_rmd</code></dt><dd><p>Whether to (re)build R Markdown files. By default, they are
@@ -193,10 +190,11 @@ Alternatively, it can take a vector of file paths, which means these files
 are to be (re)built. Or you can provide a function that takes a vector of
 paths of all R Markdown files under the <code class="file">content/</code> directory, and
 returns a vector of paths of files to be built, e.g., <code>build_rmd =
-blogdown::timestamp_filter</code>. Two aliases are currently provided for such
-functions: <code>build_rmd = 'timestamp'</code> is equivalent to <code>build_rmd
-= blogdown::timestamp_filter</code>, and <code>build_rmd = 'md5sum'</code> is
-equivalent to <code>build_rmd = blogdown::md5sum_filter</code>.</p></dd>
+blogdown::filter_timestamp</code>. A few aliases are currently provided for such
+functions: <code>build_rmd = 'newfile'</code> is equivalent to <code>build_rmd =
+blogdown::filter_newfile</code>, <code>build_rmd = 'timestamp'</code> is equivalent to
+<code>build_rmd = blogdown::filter_timestamp</code>, and <code>build_rmd =
+'md5sum'</code> is equivalent to <code>build_rmd = blogdown::filter_md5sum</code>.</p></dd>
   
 </dl></td>
     </tr>
