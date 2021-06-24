@@ -61,10 +61,12 @@ do_pkgdown <- function(...,
 
     #'   2. The `branch` argument is `NULL`
     #'      (i.e., if the deployment happens to the active branch),
-    #'      or the current branch is thge default branch (usually "master")
+    #'      or the current branch is the default branch,
+    #'      or contains "cran" in its name (for compatibility with \pkg{fledge})
     #'      (see [ci_get_branch()]).
     if (deploy && !is.null(branch)) {
-      deploy <- (ci_get_branch() == github_info()$default_branch)
+      deploy <- (ci_get_branch() == github_info()$default_branch |
+        grepl("cran", ci_get_branch()))
     }
   }
 
