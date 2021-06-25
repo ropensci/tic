@@ -13,9 +13,6 @@ step_build_blogdown(...)
     \item{\code{local}}{Whether to build the website locally. This argument is passed to
 \code{\link[blogdown]{hugo_build}()}, and \code{local = TRUE} is mainly for serving
 the site locally via \code{\link[blogdown]{serve_site}()}.}
-    \item{\code{method}}{Different methods to build a website (each with pros and cons).
-See \sQuote{Details}. The value of this argument will be obtained from the
-global option \code{getOption('blogdown.method')} when it is set.}
     \item{\code{run_hugo}}{Whether to run \code{hugo_build()} after R Markdown files are
 compiled.}
     \item{\code{build_rmd}}{Whether to (re)build R Markdown files. By default, they are
@@ -24,10 +21,11 @@ Alternatively, it can take a vector of file paths, which means these files
 are to be (re)built. Or you can provide a function that takes a vector of
 paths of all R Markdown files under the \file{content/} directory, and
 returns a vector of paths of files to be built, e.g., \code{build_rmd =
-blogdown::timestamp_filter}. Two aliases are currently provided for such
-functions: \code{build_rmd = 'timestamp'} is equivalent to \code{build_rmd
-= blogdown::timestamp_filter}, and \code{build_rmd = 'md5sum'} is
-equivalent to \code{build_rmd = blogdown::md5sum_filter}.}
+blogdown::filter_timestamp}. A few aliases are currently provided for such
+functions: \code{build_rmd = 'newfile'} is equivalent to \code{build_rmd =
+blogdown::filter_newfile}, \code{build_rmd = 'timestamp'} is equivalent to
+\code{build_rmd = blogdown::filter_timestamp}, and \code{build_rmd =
+'md5sum'} is equivalent to \code{build_rmd = blogdown::filter_md5sum}.}
   }}
 }
 \description{

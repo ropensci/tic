@@ -5,9 +5,14 @@ GHActionsCI <- R6Class( # nolint
   inherit = CI,
   public = list(
     get_branch = function() {
-      ref <- Sys.getenv("GITHUB_REF")
-      # hopefully this also works for tags
-      strsplit(ref, "/", )[[1]][3]
+      # GITHUB_BASE_REF only exists for PRs
+      if (Sys.getenv("GITHUB_BASE_REF") != "") {
+        Sys.getenv("GITHUB_BASE_REF")
+      } else {
+        ref <- Sys.getenv("GITHUB_REF")
+        # hopefully this also works for tags
+        strsplit(ref, "/", )[[1]][3]
+      }
     },
     get_tag = function() {
       # FIXME: No way to get a tag? Merged with env var GITHUB_REF
@@ -148,7 +153,7 @@ gha_add_secret <- function(secret,
   )
 
   cli::cli_alert_success("Successfully added secret {.env {name}} to repo
-   {.field {get_owner(remote)}/{get_repo(remote)}}.", wrap = TRUE)
+   {.field {owner}/{repo}}.", wrap = TRUE)
 }
 
 #' Setup deployment for GitHub Actions

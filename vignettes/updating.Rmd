@@ -102,7 +102,7 @@ env:
 - name: "[Custom block] [macOS] xquartz"
   if: runner.os == 'macOS'
   run: |
-    brew cask install xquartz
+    brew install xquartz
 ```
 
 **Circle CI**
