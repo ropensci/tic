@@ -49,8 +49,7 @@ update_yml <- function(template_in = NULL,
     )
     if (length(tic_ymls) > 0) {
       ghactions <- tic_ymls
-    }
-    else {
+    } else {
       # account for old main.yml default
       if (file.exists(usethis::proj_path(".github/workflows", "main.yml"))) {
         ghactions <- usethis::proj_path(".github/workflows", "main.yml")
@@ -79,7 +78,7 @@ update_yml <- function(template_in = NULL,
     # read date of local template to compare against upstream template date
 
     # need a tryCatch() to protect against errors from as.Date()
-    rev_date_local <- tryCatch(as.Date(gsub(
+    rev_date_local <- tryCatch(as.character(gsub(
       ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
       instance_txt[2]
     )),
@@ -121,7 +120,7 @@ update_yml <- function(template_in = NULL,
       "Circle CI" = use_circle_yml(tmpl_type, write = FALSE, quiet = TRUE)
     )
     # get revision date from upstream template
-    rev_date_latest <- as.Date(gsub(
+    rev_date_latest <- as.character(gsub(
       ".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1",
       tmpl_latest[2]
     ), quiet = TRUE)
