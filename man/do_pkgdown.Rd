@@ -34,7 +34,8 @@ if the following conditions are met:
 account for old default "id_rsa"
 \item The \code{branch} argument is \code{NULL}
 (i.e., if the deployment happens to the active branch),
-or the current branch is thge default branch (usually "master")
+or the current branch is the default branch,
+or contains "cran" in its name (for compatibility with \pkg{fledge})
 (see \code{\link[=ci_get_branch]{ci_get_branch()}}).
 }}
 

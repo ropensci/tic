@@ -59,12 +59,26 @@ do_pkgdown <- function(...,
     #'      account for old default "id_rsa"
     deploy <- ci_can_push(private_key_name = private_key_name)
 
+    if (!deploy) {
+      cli::cli_alert_info("{.field tic}: Only building pkgdown website, not deploying it
+          because we are lacking push permissions to the repo. Did you add
+          a SSH key pair via {.fun tic::use_ghactions_deploy}?", wrap = TRUE)
+    }
+
     #'   2. The `branch` argument is `NULL`
     #'      (i.e., if the deployment happens to the active branch),
-    #'      or the current branch is thge default branch (usually "master")
+    #'      or the current branch is the default branch,
+    #'      or contains "cran-" in its name (for compatibility with \pkg{fledge})
     #'      (see [ci_get_branch()]).
     if (deploy && !is.null(branch)) {
-      deploy <- (ci_get_branch() == github_info()$default_branch)
+      deploy <- (ci_get_branch() == github_info()$default_branch |
+        grepl("cran-", ci_get_branch()))
+      if (!deploy) {
+        cli::cli_alert_info("{.field tic}: Only building pkgdown website, not
+          deploying it since we are not on the default branch or a branch which
+          contains 'cran' in its name but on branch
+          '{.field {tic::ci_get_branch()}}'.", wrap = TRUE)
+      }
     }
   }
 
