@@ -76,6 +76,7 @@ edu
 env
 ErrorActionPreference
 errored
+eval
 evans
 familyName
 fansi
