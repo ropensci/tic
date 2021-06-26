@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: linux-macos-deploy
-## revision date: 2020-12-11
+## revision date: 2021-06-26
 on:
   workflow_dispatch:
   push:
