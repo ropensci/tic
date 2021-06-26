@@ -38,10 +38,6 @@
           Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
           Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
 
-      - name: "[Stage] [Linux] Install curl and libgit2"
-        if: runner.os == 'Linux'
-        run: sudo apt install libcurl4-openssl-dev libgit2-dev
-
       - name: "[Stage] [macOS] Install libgit2"
         if: runner.os == 'macOS'
         run: brew install libgit2
@@ -56,7 +52,7 @@
 
       # Try to automatically check for system dependencies and install them
       # Note: this might not catch all required system libs and manual action might be needed
-      - name: Install linux system dependencies
+      - name: "[Stage] [Linux] Install linux system dependencies"
         if: runner.os == 'Linux'
         run: |
           while read -r cmd
