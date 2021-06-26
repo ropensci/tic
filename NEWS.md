@@ -1,3 +1,16 @@
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# tic 0.11.0 (2021-06-26)
+
+- Templates: On Linux, system libraries are now installed via `remotes::system_requirements()` (#300)
+- Instead of using an exact version tag, the core GHA actions are now referenced using a dynamic major version tag (e.g. v2 instead of v2.3.4).
+  This includes an update of the templates to the latest revision date 2021-06-26.
+- `do_pkgdown()` macro now also builds the site on on branches containing the word `cran`.
+  This adds support for the {fledge} release mechanism when using both a development and release site (#303)
+- `update-tic.yml`: Remove hardcoded reference to master branch
+- `update_yaml()` is not in beta state anymore
+
+
 # tic 0.10.0 (2020-12-11)
 
 - Drop Travis support (#295)
