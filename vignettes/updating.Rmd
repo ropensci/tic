@@ -67,7 +67,7 @@ Here are some examples for custom user blocks and custom env vars:
 
 ```yml
 ## tic GitHub Actions template: linux
-## revision date: 2021-06-26
+## revision date: 2021-06-27
 # [Custom header]
 on:
   workflow_dispatch:

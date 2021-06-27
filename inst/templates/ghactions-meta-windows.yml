@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: windows
-## revision date: 2021-06-26
+## revision date: 2021-06-27
 on:
   workflow_dispatch:
   push:
