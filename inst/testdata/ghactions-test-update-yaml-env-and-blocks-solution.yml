@@ -101,6 +101,10 @@ jobs:
         if: runner.os == 'macOS' && matrix.config.pkgdown != ''
         run: brew install harfbuzz fribidi
 
+      - name: "[Stage] [Linux] Install system libs for pkgdown"
+        if: runner.os == 'Linux' && matrix.config.pkgdown != ''
+        run: sudo apt install libharfbuzz-dev libfribidi-dev
+
       # Try to automatically check for system dependencies and install them
       # Note: this might not catch all required system libs and manual action might be needed
       - name: "[Stage] [Linux] Install linux system dependencies"
