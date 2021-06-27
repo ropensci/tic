@@ -3,6 +3,7 @@
 # tic 0.11.1 (2021-06-27)
 
 - Templates: install required system libs for {pkgdown} conditionally (accidentally removed in the previous template revision on 2021-06-26)
+- Templates: restore installation of `libcurl4-openssl-dev` and `libgit2-dev`
 
 
 # tic 0.11.0 (2021-06-26)

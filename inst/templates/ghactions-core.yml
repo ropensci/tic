@@ -32,6 +32,10 @@
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
+      - name: "[Stage] [Linux] Install required system libs"
+        if: runner.os == 'Linux'
+        run: sudo apt install libcurl4-openssl-dev libgit2-dev
+
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Prepare"
         run: |
