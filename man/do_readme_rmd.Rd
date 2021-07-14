@@ -36,7 +36,7 @@ SSH key pair via tic::use_ghactions_deploy()] or \code{\link[=use_tic]{use_tic()
 name here.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{do_readme_rmd()} renders an R Markdown README and deploys
 the rendered README.md file to Github. It adds default steps to the

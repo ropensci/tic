@@ -6,6 +6,7 @@ args
 aut
 auth
 BASEDIR
+bbb
 blogdown
 Blogdown
 bookdown
@@ -26,6 +27,7 @@ ci
 circleci
 CircleCI
 cli
+clipPath
 cmd
 CMD
 cname
@@ -55,6 +57,7 @@ cyclocomp
 datew
 dbi
 DeCicco
+DejaVu
 dep
 deps
 desc
@@ -72,6 +75,7 @@ dropdown
 dsl
 DSL
 easiern
+ec
 edu
 env
 ErrorActionPreference
@@ -80,6 +84,7 @@ eval
 evans
 familyName
 fansi
+fff
 fi
 figshare
 FII
@@ -155,6 +160,7 @@ libudunits
 lifecycle
 Lifecycle
 lifecyle
+linearGradient
 LinkingTo
 linter
 linters
@@ -226,6 +232,7 @@ RdMacros
 readme
 README
 README's
+rect
 reinstallation
 releaseNotes
 Renviron
@@ -259,6 +266,7 @@ rstats
 RStudio's
 rtools
 runtimePlatform
+rx
 sameAs
 schratz
 Schratz
@@ -281,9 +289,11 @@ subclasses
 subsequential
 sudo
 supersecret
+svg
 synch
 SystemRequirements
 testthat
+textLength
 thge
 TicStep
 tidyverse
@@ -303,6 +313,7 @@ usethis
 usr
 utest
 vectorized
+Verdana
 VignetteBuilder
 VM
 WebRequest
@@ -312,6 +323,8 @@ withr
 wordlist
 writeLines
 www
+xlink
+xmlns
 xquartz
 XQuartz
 xz

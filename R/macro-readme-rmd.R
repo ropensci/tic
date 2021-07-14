@@ -11,7 +11,7 @@ NULL
 #' Render a R Markdown README and deploy to Github
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#' `r lifecycle::badge("experimental")`
 #'
 #' `do_readme_rmd()` renders an R Markdown README and deploys
 #' the rendered README.md file to Github. It adds default steps to the
