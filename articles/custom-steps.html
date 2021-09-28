@@ -249,7 +249,7 @@
           <span class="co"># Work around missing qpdf executable</span>
           <span class="st">"R_QPDF"</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span><span class="op">(</span><span class="st">"qpdf"</span><span class="op">)</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="st">"true"</span>
         <span class="op">)</span>,
-        <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">rcmdcheck</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span><span class="op">(</span>
+        <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">rcmdcheck</span><span class="fu">::</span><span class="fu"><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html">rcmdcheck</a></span><span class="op">(</span>
           args <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">args</span>, build_args <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">build_args</span>,
           error_on <span class="op">=</span> <span class="st">"never"</span>,
           repos <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">repos</span>,
