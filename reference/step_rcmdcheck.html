@@ -201,9 +201,9 @@ Deprecated, use <code>error_on</code>.</p></td>
       <th>args</th>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br /></p>
-<p>Default for local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
+<p>Default for local runs: <code>c("--no-manual", "--as-cran")</code>.</p>
 <p>Default for Windows:
-<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.</p>
+<code>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</code>.</p>
 <p>On GitHub Actions option "--no-manual" is always used (appended to custom
 user input) because LaTeX is not available and installation is time
 consuming and error prone.<br /></p></td>
@@ -213,7 +213,7 @@ consuming and error prone.<br /></p></td>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
 Default for local runs: <code>"--force"</code>.<br />
-Default for Windows: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
+Default for Windows: <code>c("--no-build-vignettes", "--force")</code>.<br /></p></td>
     </tr>
     <tr>
       <th>error_on</th>
@@ -251,17 +251,22 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
 <p>Packages shipped with the R-installation will not be updated as they will be
 overwritten by the R-installer in each build.
 If you want these package to be updated, please add the following
-step to your workflow: <code><a href='dsl.html'>add_code_step(remotes::update_packages("&lt;pkg&gt;"))</a></code>.</p>
+step to your workflow: <code>add_code_step(remotes::update_packages("&lt;pkg&gt;"))</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> See <span style='color: #262626; background-color: #DADADA;'>`?tic::dsl_get`</span> for details</span></div><div class='input'>
-<span class='fu'><a href='dsl.html'>get_stage</a></span><span class='op'>(</span><span class='st'>"script"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='dsl.html'>add_step</a></span><span class='op'>(</span><span class='fu'>step_rcmdcheck</span><span class='op'>(</span>error_on <span class='op'>=</span> <span class='st'>"note"</span>, repos <span class='op'>=</span> <span class='fu'><a href='repo.html'>repo_bioc</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>script</span> <span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_rcmdcheck(error_on = "note", repos = repo_bioc())</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Creating a clean tic stage configuration</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> See <span style='color: #262626; background-color: #DADADA;'>`?tic::dsl_get`</span> for details</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='dsl.html'>get_stage</a></span><span class='op'>(</span><span class='st'>"script"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='dsl.html'>add_step</a></span><span class='op'>(</span><span class='fu'>step_rcmdcheck</span><span class='op'>(</span>error_on <span class='op'>=</span> <span class='st'>"note"</span>, repos <span class='op'>=</span> <span class='fu'><a href='repo.html'>repo_bioc</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>script</span> <span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_rcmdcheck(error_on = "note", repos = repo_bioc())</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

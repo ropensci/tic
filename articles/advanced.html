@@ -150,7 +150,7 @@
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"&lt;stage&gt;"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"&lt;stage&gt;"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu">step_...</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <ul>
@@ -158,7 +158,7 @@
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_get_branch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="st">"main"</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"&lt;stage&gt;"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"&lt;stage&gt;"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu">step_...</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
@@ -171,7 +171,7 @@
 <h3 class="hasAnchor">
 <a href="#github-packages" class="anchor"></a>GitHub packages</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_github</a></span><span class="op">(</span><span class="st">"r-lib/rcmdcheck"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Note that the underlying <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -181,7 +181,7 @@
 <h3 class="hasAnchor">
 <a href="#cran-packages" class="anchor"></a>CRAN packages</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_cran</a></span><span class="op">(</span><span class="st">"magick"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
@@ -192,10 +192,10 @@
 <p>For example, the user may wish to only deploy on GitHub Actions by using <code><a href="../reference/ci.html">ci_on_ghactions()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
-  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>By using the code above, the specified steps will only be executed on GitHub Actions. See <code><a href="../reference/ci.html">?ci</a></code> for more information on which CI build information can be extracted from this function.</p>
@@ -232,7 +232,7 @@ $install
 <p>Then, run all steps defined in <code>tic.R</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/run_all_stages.html">run_all_stages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This emulates a CI run on your local machine by executing all stages and their corresponding steps. Note that this action this will use your local system libraries and not the CI environment. Only the steps that are shown with <code><a href="../reference/dsl_get.html">dsl_get()</a></code> are executed. Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code><a href="../reference/dsl.html">add_step(covr::codcov())</a></code> added by the macro <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
+<p>This emulates a CI run on your local machine by executing all stages and their corresponding steps. Note that this action this will use your local system libraries and not the CI environment. Only the steps that are shown with <code><a href="../reference/dsl_get.html">dsl_get()</a></code> are executed. Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code>add_step(covr::codcov())</code> added by the macro <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/run_all_stages.html">run_all_stages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>✓ Loading tic stage configuration from tic.R

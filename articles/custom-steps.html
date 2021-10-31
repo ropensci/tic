@@ -234,7 +234,7 @@
 
     run <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
       <span class="co"># Don't include vignettes if --no-build-vignettes is included</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="st">"--no-build-vignettes"</span> <span class="op">%in%</span> <span class="va">private</span><span class="op">$</span><span class="va">args</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="st">"--no-build-vignettes"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">private</span><span class="op">$</span><span class="va">args</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"^vignettes$\n"</span>, file <span class="op">=</span> <span class="st">".Rbuildignore"</span>, append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
       <span class="op">}</span>
 
@@ -262,7 +262,7 @@
       <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">errors</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">stopc</span><span class="op">(</span><span class="st">"Errors found in rcmdcheck::rcmdcheck()."</span><span class="op">)</span>
       <span class="op">}</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"warning"</span>, <span class="st">"note"</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">warnings</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"warning"</span>, <span class="st">"note"</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">warnings</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">stopc</span><span class="op">(</span>
           <span class="st">"Warnings found in rcmdcheck::rcmdcheck(), "</span>,
           <span class="st">'and `errors_on = "warning"` is set.'</span>

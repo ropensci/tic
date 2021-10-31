@@ -137,7 +137,7 @@
 <ul>
 <li>{tic} makes use of <code>ccache</code> for compiler caching enabling faster source installation of packages. The <code>ccache</code> directory is cached and build once a week.</li>
 <li>{tic} installs packages from source on Linux by default and does not use package binaries.</li>
-<li>{tic} caches the complete R library and not only the direct packages dependencies (<code>actions</code> does this via <code><a href="https://remotes.r-lib.org/reference/package_deps.html">remotes::dev_package_deps(dependencies = TRUE)</a></code>). The cache is built once per day.</li>
+<li>{tic} caches the complete R library and not only the direct packages dependencies (<code>actions</code> does this via <code>remotes::dev_package_deps(dependencies = TRUE)</code>). The cache is built once per day.</li>
 </ul>
 <p>Making use of binaries can speed up build times substantially. This can be especially attractive for packages with many dependencies or dependencies which take a long time to install. However, binaries do oft run into problems when the package needs linking against system libraries. The most prominent example for this is {rJava}. If the binary was built with the same version as the user is running on the system, everything will work. However, often enough a different version of the system library is installed and the R packages needs to be installed from source to successfully link against it.</p>
 <p>For the case of {rJava}, one needs to</p>

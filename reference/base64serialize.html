@@ -201,9 +201,10 @@ by <code>base64serialize()</code>.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>serial</span> <span class='op'>&lt;-</span> <span class='fu'>base64serialize</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'>base64unserialize</span><span class='op'>(</span><span class='va'>serial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>serial</span> <span class='op'>&lt;-</span> <span class='fu'>base64serialize</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>base64unserialize</span><span class='op'>(</span><span class='va'>serial</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

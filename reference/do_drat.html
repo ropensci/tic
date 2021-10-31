@@ -297,12 +297,19 @@ more information and instructions.</p>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> See <span style='color: #262626; background-color: #DADADA;'>`?tic::dsl_get`</span> for details</span></div><div class='input'>
-<span class='fu'>do_drat</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Setting active project to <span style='color: #0000BB;'>'/Users/runner/work/tic/tic/docs'</span></span></div><div class='output co'>#&gt; <span class='error'>Error: No remote named 'origin' found in remotes: 'tic-remote'.</span></div><div class='input'>
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span style='color: #00BB00;'>ℹ</span> No steps defined in any stage</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Creating a clean tic stage configuration</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> See <span style='color: #262626; background-color: #DADADA;'>`?tic::dsl_get`</span> for details</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>do_drat</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Setting active project to <span style='color: #0000BB;'>'/Users/runner/work/tic/tic/docs'</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error:</span> No remote named 'origin' found in remotes: 'tic-remote'.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>ℹ</span> No steps defined in any stage</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

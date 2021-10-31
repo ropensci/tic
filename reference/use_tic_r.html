@@ -184,13 +184,13 @@ CI runs.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>repo_type</th>
-      <td><p>(<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>)<br />
+      <td><p>(<code>character(1)</code>)<br />
 Which type of template should be used. Possible values are <code>"package"</code>,
 <code>"site"</code>, <code>"blogdown"</code>, <code>"bookdown"</code> or <code>"unknown"</code>.</p></td>
     </tr>
     <tr>
       <th>deploy_on</th>
-      <td><p>(<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>)<br />
+      <td><p>(<code>character(1)</code>)<br />
 Which CI provider should perform deployment? Defaults to <code>NULL</code> which means
 no deployment will be done. Possible values are <code>"ghactions"</code> or <code>"circle"</code>.</p></td>
     </tr>
@@ -201,12 +201,12 @@ no deployment will be done. Possible values are <code>"ghactions"</code> or <cod
     <div class='dont-index'><p><a href='yaml_templates.html'>yaml_templates</a>, <code><a href='use_tic_badge.html'>use_tic_badge()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>use_tic_r</span><span class='op'>(</span><span class='st'>"package"</span><span class='op'>)</span>
-<span class='fu'>use_tic_r</span><span class='op'>(</span><span class='st'>"package"</span>, deploy_on <span class='op'>=</span> <span class='st'>"ghactions"</span><span class='op'>)</span>
-<span class='fu'>use_tic_r</span><span class='op'>(</span><span class='st'>"blogdown"</span>, deploy_on <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>use_tic_r</span><span class='op'>(</span><span class='st'>"package"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>use_tic_r</span><span class='op'>(</span><span class='st'>"package"</span>, deploy_on <span class='op'>=</span> <span class='st'>"ghactions"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>use_tic_r</span><span class='op'>(</span><span class='st'>"blogdown"</span>, deploy_on <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -224,7 +224,7 @@ stages:</p>
     <tr>
       <th>codecov</th>
       <td><p><code>[flag]</code><br /> Whether to include a step running
-<code><a href='http://covr.r-lib.org/reference/codecov.html'>covr::codecov(quiet = FALSE)</a></code> (default: only for non-interactive CI,
+<code>covr::codecov(quiet = FALSE)</code> (default: only for non-interactive CI,
 see <code><a href='ci.html'>ci_is_interactive()</a></code>).</p></td>
     </tr>
     <tr>
@@ -241,9 +241,9 @@ Deprecated, use <code>error_on</code>.</p></td>
       <th>args</th>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br /></p>
-<p>Default for local runs: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran")</a></code>.</p>
+<p>Default for local runs: <code>c("--no-manual", "--as-cran")</code>.</p>
 <p>Default for Windows:
-<code><a href='https://rdrr.io/r/base/c.html'>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</a></code>.</p>
+<code>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</code>.</p>
 <p>On GitHub Actions option "--no-manual" is always used (appended to custom
 user input) because LaTeX is not available and installation is time
 consuming and error prone.<br /></p></td>
@@ -253,7 +253,7 @@ consuming and error prone.<br /></p></td>
       <td><p><code>[character]</code><br />
 Passed to <code><a href='http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html'>rcmdcheck::rcmdcheck()</a></code>.<br />
 Default for local runs: <code>"--force"</code>.<br />
-Default for Windows: <code><a href='https://rdrr.io/r/base/c.html'>c("--no-build-vignettes", "--force")</a></code>.<br /></p></td>
+Default for Windows: <code>c("--no-build-vignettes", "--force")</code>.<br /></p></td>
     </tr>
     <tr>
       <th>error_on</th>
@@ -317,32 +317,40 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></td>
 <code><a href='list_macros.html'>list_macros</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Creating a clean tic stage configuration</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> See <span style='color: #262626; background-color: #DADADA;'>`?tic::dsl_get`</span> for details</span></div><div class='input'>
-<span class='fu'>do_package_checks</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>install</span> <span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
-#&gt;     dependencies = TRUE)
-#&gt; ▶ step_session_info()
-#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>script</span> <span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
-#&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
-#&gt;     timeout = Inf, check_dir = "check")
-#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>after_success</span> <span style='color: #00BB00;'>──────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_install_github("r-lib/covr")
-#&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div><div class='input'>
-<span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>install</span> <span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), 
-#&gt;     dependencies = TRUE)
-#&gt; ▶ step_session_info()
-#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>script</span> <span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, 
-#&gt;     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), 
-#&gt;     timeout = Inf, check_dir = "check")
-#&gt; <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>after_success</span> <span style='color: #00BB00;'>──────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span>
-#&gt; ▶ step_install_github("r-lib/covr")
-#&gt; ▶ step_run_code(covr::codecov(quiet = FALSE))</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='dsl_get.html'>dsl_init</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Creating a clean tic stage configuration</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> See <span style='color: #262626; background-color: #DADADA;'>`?tic::dsl_get`</span> for details</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>do_package_checks</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>install</span> <span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     dependencies = TRUE)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_session_info()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>script</span> <span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     timeout = Inf, check_dir = "check")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>after_success</span> <span style='color: #00BB00;'>──────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_install_github("r-lib/covr")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_run_code(covr::codecov(quiet = FALSE))</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='dsl_get.html'>dsl_get</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tic configuration</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>install</span> <span style='color: #00BB00;'>────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_install_deps(repos = repo_default(), type = getOption("pkgType"), </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     dependencies = TRUE)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_session_info()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>script</span> <span style='color: #00BB00;'>─────────────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_rcmdcheck(warnings_are_errors = NULL, notes_are_errors = NULL, </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     args = NULL, build_args = NULL, error_on = "warning", repos = repo_default(), </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     timeout = Inf, check_dir = "check")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>──</span> <span style='color: #00BB00;'>after_success</span> <span style='color: #00BB00;'>──────────────────────────────────────────────────────</span> <span style='color: #00BB00;'>stage</span> <span style='color: #00BB00;'>──</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_install_github("r-lib/covr")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ▶ step_run_code(covr::codecov(quiet = FALSE))</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

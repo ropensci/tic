@@ -524,7 +524,7 @@
 <li>
 <code>use_badge</code>: Refactor to use default badges from the respective providers rather than from shields.io (too slow and sometimes badges did not render at all) (<a href='https://github.com/ropensci/tic/issues/240'>#240</a>)</li>
 <li>Condition deployment templates on a single runner for deployment. This avoids race conditions during deployment. This applies to all CI providers and templates (blogdown, bookdown, package) (<a href='https://github.com/ropensci/tic/issues/241'>#241</a>)</li>
-<li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
+<li>Files specified for deployment via <code>step_push_deploy(commit_paths = )</code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
 </ul>
 </div>
 <div id="ci-provider-specific-3" class="section level2">
@@ -585,7 +585,7 @@
 <h1 class="page-header" data-toc-text="0.5.0.9003">
 <a href="#tic-0509003" class="anchor"></a>tic 0.5.0.9003</h1>
 <ul>
-<li>Files specified for deployment via <code><a href="../reference/step_push_deploy.html">step_push_deploy(commit_paths = )</a></code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
+<li>Files specified for deployment via <code>step_push_deploy(commit_paths = )</code> are now force added to the index by <code>git</code>. This enables to add directories like <code>docs/</code> (e.g. created by a local pkgdown build) to <code>.gitignore</code> and still deploy it during CI (<a href='https://github.com/ropensci/tic/issues/237'>#237</a>).</li>
 <li>
 <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>: Test in dir “check” to simplify upload of artifacts</li>
 </ul>
@@ -737,7 +737,7 @@
 <a href="#tic-030" class="anchor"></a>tic 0.3.0</h1>
 <ul>
 <li>add argument “check_dir” to step_rcmdcheck (<a href='https://github.com/ropensci/tic/issues/179'>#179</a>)</li>
-<li>use <code><a href="https://remotes.r-lib.org/reference/install_cran.html">remotes::install_cran(upgrade = TRUE)</a></code> to install packages (<a href='https://github.com/ropensci/tic/issues/186'>#186</a>)</li>
+<li>use <code>remotes::install_cran(upgrade = TRUE)</code> to install packages (<a href='https://github.com/ropensci/tic/issues/186'>#186</a>)</li>
 <li>added support for Circle CI (<a href='https://github.com/ropensci/tic/issues/177'>#177</a>)</li>
 <li>All packages installed for custom steps use binary packages if possible on Windows and macOS (<a href='https://github.com/ropensci/tic/issues/178'>#178</a>).</li>
 <li>Use <code>TRAVIS_BUILD_WEB_URL</code> for the commit message.</li>
@@ -854,7 +854,7 @@
 <li>New pkgdown macro via <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> (<a href='https://github.com/ropensci/tic/issues/126'>#126</a>, <a href='https://github.com/pat-s'>@pat-s</a>)</li>
 <li>New example: covrpage, cc <a href='https://github.com/yonicd'>@yonicd</a></li>
 <li>
-<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck(error_on = "note")</a></code> works again (<a href='https://github.com/ropensci/tic/issues/119'>#119</a>).</li>
+<code>step_rcmdcheck(error_on = "note")</code> works again (<a href='https://github.com/ropensci/tic/issues/119'>#119</a>).</li>
 <li>New <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href='https://github.com/ropensci/tic/issues/146'>#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href='https://github.com/ropensci/tic/issues/128'>#128</a>).</li>
 <li>
 <code><a href="../reference/dsl.html">add_step()</a></code> now evaluates the <code>step</code> argument in a <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> block and gives a bit of context if this fails (<a href='https://github.com/ropensci/tic/issues/73'>#73</a>).</li>

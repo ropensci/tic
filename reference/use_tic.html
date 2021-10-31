@@ -211,7 +211,7 @@ Possible options are <code>"none"</code>/<code>NULL</code>, and <code>"ghactions
     <tr>
       <th>deploy</th>
       <td><p><code>[string]</code><br /> Which CI provider(s) to use to deploy artifacts
-such as pkgdown documentation. Possible options are "circle"<code>, </code>"ghactions"<code>, </code>"none"<code><a href='https://rdrr.io/r/base/Arithmetic.html'>/</a></code>NULL<code>and</code>"all"`.</p></td>
+such as pkgdown documentation. Possible options are "circle"<code>, </code>"ghactions"<code>, </code>"none"<code>/</code>NULL<code>and</code>"all"`.</p></td>
     </tr>
     <tr>
       <th>matrix</th>
@@ -246,21 +246,21 @@ name here.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Requires interactive mode</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>use_tic</span><span class='op'>(</span><span class='op'>)</span>
-
-  <span class='co'># Pre-specified settings favoring Circle CI:</span>
-  <span class='fu'>use_tic</span><span class='op'>(</span>
-    wizard <span class='op'>=</span> <span class='cn'>FALSE</span>,
-    linux <span class='op'>=</span> <span class='st'>"circle"</span>,
-    mac <span class='op'>=</span> <span class='st'>"ghactions"</span>,
-    windows <span class='op'>=</span> <span class='st'>"ghactions"</span>,
-    deploy <span class='op'>=</span> <span class='st'>"circle"</span>,
-    matrix <span class='op'>=</span> <span class='st'>"all"</span>
-  <span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Requires interactive mode</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'>use_tic</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='co'># Pre-specified settings favoring Circle CI:</span></span>
+<span class='r-in'>  <span class='fu'>use_tic</span><span class='op'>(</span></span>
+<span class='r-in'>    wizard <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>    linux <span class='op'>=</span> <span class='st'>"circle"</span>,</span>
+<span class='r-in'>    mac <span class='op'>=</span> <span class='st'>"ghactions"</span>,</span>
+<span class='r-in'>    windows <span class='op'>=</span> <span class='st'>"ghactions"</span>,</span>
+<span class='r-in'>    deploy <span class='op'>=</span> <span class='st'>"circle"</span>,</span>
+<span class='r-in'>    matrix <span class='op'>=</span> <span class='st'>"all"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
