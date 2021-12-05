@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.11.2.9000 (2021-12-05)
+
+- Same as previous version.
+
+
 # tic 0.11.2 (2021-12-05)
 
 - `do_pkgdown()` now always create a `.nojekyll` file for both release and developement deployments.
