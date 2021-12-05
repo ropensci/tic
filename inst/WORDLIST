@@ -22,6 +22,7 @@ callr
 CamelCase
 ccache
 CCACHE
+Changelog
 cheatsheet
 ci
 circleci
@@ -84,6 +85,7 @@ eval
 evans
 familyName
 fansi
+faq
 fff
 fi
 figshare
@@ -119,6 +121,7 @@ harfbuzz
 hdiutil
 homebrew
 Homebrew
+href
 http
 https
 hugo
@@ -182,6 +185,7 @@ mlr
 mtime
 Müller
 mv
+navbar
 nCCFLAGS
 nCFLAGS
 nCPP
@@ -194,6 +198,7 @@ nFC
 nhash
 nlopt
 NOHASHDIR
+nojekyll
 noreply
 nsloppiness
 NUM
@@ -277,6 +282,7 @@ SDKs
 seealso
 Sexpr
 SHA
+showWarnings
 SKD
 SoftwareApplication
 softwareRequirements
@@ -299,7 +305,9 @@ TicStep
 tidyverse
 tinytex
 tmp
+toc
 toolchain
+tooltip
 traceback
 tracebacks
 travis

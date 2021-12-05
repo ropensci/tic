@@ -114,7 +114,10 @@ do_pkgdown <- function(...,
   #' 1. [step_build_pkgdown()] in the `"deploy"` stage,
   #'    forwarding all `...` arguments.
   get_stage("deploy") %>%
-    add_step(step_build_pkgdown(!!!enquos(...)))
+    add_step(step_build_pkgdown(!!!enquos(...))) %>%
+    add_code_step(writeLines("", paste0(!!path, "/.nojekyll"))) %>%
+    add_code_step(dir.create(paste0(!!path, "dev"), showWarnings = FALSE)) %>%
+    add_code_step(writeLines("", paste0(!!path, "/dev/.nojekyll")))
 
   #' 1. [step_do_push_deploy()] in the `"deploy"` stage.
   if (isTRUE(deploy)) {
