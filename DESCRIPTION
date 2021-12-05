@@ -1,7 +1,7 @@
 Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
-Version: 0.11.1
+Version: 0.11.2
 Authors@R:
     c(person(given = "Kirill",
              family = "Müller",

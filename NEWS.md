@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.11.2 (2021-12-05)
+
+- `do_pkgdown()` now always create a `.nojekyll` file for both release and developement deployments.
+  Otherwise custom fonts starting with an underscore will not be loaded as Jekyll ignores this pattern.
+  A `.nojekyll` file tells GitHub pages to not use Jekyll for serving the web page. (#307)
+
+
 # tic 0.11.1 (2021-06-27)
 
 - Templates: install required system libs for {pkgdown} conditionally (accidentally removed in the previous template revision on 2021-06-26)
