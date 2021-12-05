@@ -194,6 +194,7 @@ nFC
 nhash
 nlopt
 NOHASHDIR
+nojekyll
 noreply
 nsloppiness
 NUM
@@ -277,6 +278,7 @@ SDKs
 seealso
 Sexpr
 SHA
+showWarnings
 SKD
 SoftwareApplication
 softwareRequirements
