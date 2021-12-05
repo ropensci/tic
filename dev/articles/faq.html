@@ -14,7 +14,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=1" rel="stylesheet">
 <meta property="og:title" content="FAQ">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
@@ -23,9 +23,11 @@
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
 <!-- End Matomo Code -->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -36,74 +38,48 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9008</small></i></a>
+        <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.11.2.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">
     <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../articles/tic.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/tic.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Introduction
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/features.html">Feature Overview</a>
-    </li>
-    <li>
-      <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
-    </li>
-    <li>
-      <a href="../articles/ci-providers.html">CI Providers</a>
-    </li>
-    <li>
-      <a href="../articles/faq.html">FAQ</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-introduction">Introduction</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-introduction">
+    <a class="dropdown-item" href="../articles/features.html">Feature Overview</a>
+    <a class="dropdown-item" href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
+    <a class="dropdown-item" href="../articles/ci-client-packages.html">CI Client Packages</a>
+    <a class="dropdown-item" href="../articles/ci-providers.html">CI Providers</a>
+    <a class="dropdown-item" href="../articles/faq.html">FAQ</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Advanced
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/advanced.html">Advanced Usage</a>
-    </li>
-    <li>
-      <a href="../articles/deployment.html">Deployment</a>
-    </li>
-    <li>
-      <a href="../articles/custom-steps.html">Custom Steps</a>
-    </li>
-    <li>
-      <a href="../articles/updating.html">Updating Templates</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-advanced">Advanced</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-advanced">
+    <a class="dropdown-item" href="../articles/advanced.html">Advanced Usage</a>
+    <a class="dropdown-item" href="../articles/deployment.html">Deployment</a>
+    <a class="dropdown-item" href="../articles/custom-steps.html">Custom Steps</a>
+    <a class="dropdown-item" href="../articles/updating.html">Updating Templates</a>
+  </div>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/ropensci/tic/">
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/ropensci/tic/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -116,33 +92,29 @@
 </div>
 <!--/.navbar -->
 
-      
-
-      </header><script src="faq_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="faq_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="faq_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>FAQ</h1>
+    <div class="container template-article">
+<script src="faq_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>FAQ</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/faq.Rmd"><code>vignettes/faq.Rmd</code></a></small>
-      <div class="hidden name"><code>faq.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/faq.Rmd" class="external-link"><code>vignettes/faq.Rmd</code></a></small>
+      <div class="d-none name"><code>faq.Rmd</code></div>
     </div>
 
     
     
-<div id="authentication" class="section level2">
-<h2 class="hasAnchor">
-<a href="#authentication" class="anchor"></a>Authentication</h2>
-<div id="q-auth-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-auth-1" class="anchor"></a>Q-Auth-1</h4>
-<p>I am getting an error when using <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html">circle::use_circle_deploy()</a></code> or <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>.</p>
+<div class="section level2">
+<h2 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+</h2>
+<div class="section level4">
+<h4 id="q-auth-1">Q-Auth-1<a class="anchor" aria-label="anchor" href="#q-auth-1"></a>
+</h4>
+<p>I am getting an error when using <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html" class="external-link">circle::use_circle_deploy()</a></code> or <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>.</p>
 <p><strong>Answer</strong></p>
 <p>In most cases this is related to API authentication issues. Ensure that the following points are met:</p>
 <ol style="list-style-type: decimal">
-<li>For Circle CI, install the respective GitHub App from the <a href="https://github.com/marketplace">GitHub Marketplace</a>.</li>
+<li>For Circle CI, install the respective GitHub App from the <a href="https://github.com/marketplace" class="external-link">GitHub Marketplace</a>.</li>
 <li>Ensure that you have set the respective API keys for the problematic provider in your <code>.Renviron</code> file. Consult the help pages of the respective <code>use_*_deploy()</code> function for more help.</li>
 </ol>
 <ul>
@@ -151,68 +123,62 @@
 </ul>
 </div>
 </div>
-<div id="github-actions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#github-actions" class="anchor"></a>GitHub Actions</h2>
-<div id="q-gha-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-gha-1" class="anchor"></a>Q-GHA-1</h4>
-<p>How is {tic} different from what <a href="https://github.com/r-lib/actions">r-lib/actions</a> does?</p>
+<div class="section level2">
+<h2 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
+</h2>
+<div class="section level4">
+<h4 id="q-gha-1">Q-GHA-1<a class="anchor" aria-label="anchor" href="#q-gha-1"></a>
+</h4>
+<p>How is {tic} different from what <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> does?</p>
 <p><strong>Answer</strong></p>
-<p>{tic} uses <a href="https://github.com/r-lib/actions">r-lib/actions</a> as the base to install R in the first place. However in detail, {tic} does the following things differently which aim to enhance the CI experience:</p>
+<p>{tic} uses <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> as the base to install R in the first place. However in detail, {tic} does the following things differently which aim to enhance the CI experience:</p>
 <ul>
 <li><p>Caching: {tic} caches the whole R library rather than only the direct dependencies of a package. This has the advantage that packages required for side actions ({pkgdown} deployment, README updates) will also be cached.</p></li>
 <li><p><code>ccache</code>: {tic} comes with a compiler cache for source installations of packages by default, speeding up repeated source installation highly. The compiler cache directory (<code>.ccache</code>) will also be cached (once a week). Example use case: If you installed {Rcpp} from source as a dependency of your package and have it stored in your cache and {Rcpp} now updates two days later, the reinstallation will make use of the compiler cache and install {Rcpp} instantly rather than recompiling the C code again.</p></li>
-<li><p>Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as <a href="https://github.com/r-lib/actions">r-lib/actions</a> does. This speeds up package installation a lot. 4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.</p></li>
+<li><p>Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> does. This speeds up package installation a lot. 4 CPUs are max because all GitHub Actions runners have 2 hyperthreading cores available.</p></li>
 <li><p>Use of SSH deployment keys: Once set up via <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>, this deployment approach makes it possible to push any file of your repository to any branch of your remote. Other deployment approaches often limit you to only push to <code>gh-pages</code> branch or similar.</p></li>
 </ul>
 </div>
 </div>
-<div id="other" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other" class="anchor"></a>Other</h2>
-<div id="q-other-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-other-1" class="anchor"></a>Q-Other-1</h4>
+<div class="section level2">
+<h2 id="other">Other<a class="anchor" aria-label="anchor" href="#other"></a>
+</h2>
+<div class="section level4">
+<h4 id="q-other-1">Q-Other-1<a class="anchor" aria-label="anchor" href="#q-other-1"></a>
+</h4>
 <p>Is it possible to update the CI YAML templates installed by {tic} with upstream changes?</p>
 <p><strong>Answer</strong></p>
-<p>Yes! Have a look at <a href="https://docs.ropensci.org/tic/articles/updating.html">“Updating Templates”</a> for more information.</p>
+<p>Yes! Have a look at <a href="https://docs.ropensci.org/tic/articles/updating.html" class="external-link">“Updating Templates”</a> for more information.</p>
 <hr>
 </div>
-<div id="q-other-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-other-2" class="anchor"></a>Q-Other-2</h4>
+<div class="section level4">
+<h4 id="q-other-2">Q-Other-2<a class="anchor" aria-label="anchor" href="#q-other-2"></a>
+</h4>
 <p>Am I the only one using {tic}?</p>
 <p><strong>Answer</strong></p>
-<p>You can see who and how many people use {tic.R} on GitHub via this query: <a href="https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code" class="uri">https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code</a></p>
+<p>You can see who and how many people use {tic.R} on GitHub via this query: <a href="https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code" class="external-link uri">https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code</a></p>
 <hr>
 </div>
-<div id="q-other-3" class="section level4">
-<h4 class="hasAnchor">
-<a href="#q-other-3" class="anchor"></a>Q-Other-3</h4>
+<div class="section level4">
+<h4 id="q-other-3">Q-Other-3<a class="anchor" aria-label="anchor" href="#q-other-3"></a>
+</h4>
 <p>Package {rgl} fails to install because of either</p>
 <ul>
 <li>“configure: error: X11 not found but required, configure aborted.”</li>
 <li>“error: X11 not found; XQuartz (from www.xquartz.org) is required to run rgl.”</li>
 </ul>
 <p><strong>Answer</strong></p>
-<p>The first one is usually caused by a missing installation of <code>XQuartz</code> on macOS. Add <code>brew cask install xquartz</code> to the runner.</p>
-<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed. If the warning message during loading of {rgl} should be suppressed, either env var <code>RGL_USE_NULL = TRUE</code> can be set or R option <code><a href="https://rdrr.io/r/base/options.html">options(rgl.useNull = TRUE)</a></code>.</p>
+<p>The first one is usually caused by a missing installation of <code>XQuartz</code> on macOS. Add <code>brew install xquartz</code> to the runner.</p>
+<p>The second error requires to set the <code>DISPLAY</code> env var to mimic a non-headless state. Add <code>export DISPLAY=:99</code> to the stage in which {rgl} should be installed. If the warning message during loading of {rgl} should be suppressed, either env var <code>RGL_USE_NULL = TRUE</code> can be set or R option <code>options(rgl.useNull = TRUE)</code>.</p>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><!-- begin footer --><div class="footer">
+    <footer><!-- begin footer --><div class="footer">
     <div class="container">
         <div class="row start bottom-8">
             <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
@@ -220,49 +186,50 @@
             <div class="col-xs-10">
                 <div class="row">
                     <div class="col-md-4 col-xs-6">
-                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
-                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
-                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
-                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                        <a href="http://github.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank" class="external-link"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-vimeo"></div></a>
                     </div>
                 </div>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
 <h5 class="bottom-2">About</h5>
-                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
-                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
-                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
-                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
-                            <li><a href="https://ropensci.org/donate">Donate</a></li>
-                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
+                            <li><a href="https://ropensci.org/about" class="external-link">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review" class="external-link">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team" class="external-link">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers" class="external-link">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate" class="external-link">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact" class="external-link">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
 <h5 class="bottom-2">Community</h5>
-                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
-                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
-                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/community/" class="external-link">Our Community</a></li>
+                            <li><a href="https://ropensci.org/commcalls/" class="external-link">Community calls</a></li>
+                            <li><a href="https://ropensci.org/events/" class="external-link">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/" class="external-link">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct" class="external-link">Code of conduct</a></li>
                         </ul>
 </div>
                     <div class="col-md-2 col-sm-4">
                         <ul>
 <h5 class="bottom-2">Resources</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
-                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
-                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/packages/" class="external-link">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/" class="external-link">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/" class="external-link">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/" class="external-link">Documentation</a></li>
+                            <li><a href="https://ropensci.org/news/" class="external-link">Newsletter</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/" class="external-link">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">
                         <h5 class="bottom-2"></h5>
 
-                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
-                        <a href="http://numfocus.org" target="_blank"></a>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank" class="external-link">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank" class="external-link"></a>
 
                     </div>
                 </div>
@@ -272,11 +239,12 @@
 </div>
 <!-- / end footer -->
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

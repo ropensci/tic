@@ -235,3 +235,7 @@ html{
 .cc-revoke {
   display: none !important;
 }
+
+.contents h1 img {
+  max-width: 130px;
+}

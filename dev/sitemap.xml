@@ -1,183 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/index.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/advanced.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/Deprecated.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/build-lifecycle.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/TicStep.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/ci-client-packages.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/base64serialize.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/ci-providers.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/ci.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/custom-steps.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/do_blogdown.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/deployment.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/do_bookdown.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/faq.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/do_drat.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/features.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/do_package_checks.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/do_pkgdown.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/tic.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/do_readme_rmd.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/articles/updating.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/dsl.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/dsl_get.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/gha_add_secret.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/github_helpers.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/Deprecated.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/github_info.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/TicStep.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/list_macros.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/base64serialize.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/macro.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/ci.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/prepare_all_stages.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/do_blogdown.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/reexports.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/do_bookdown.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/repo.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/do_drat.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/run_all_stages.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/do_package_checks.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/run_stage.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/do_pkgdown.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/ssh_key_helpers.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/do_readme_rmd.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/stages.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/dsl.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_add_to_drat.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/dsl_get.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_add_to_known_hosts.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/gha_add_secret.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_build_blogdown.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/github_helpers.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_build_bookdown.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/github_info.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_build_pkgdown.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_do_push_deploy.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/list_macros.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_hello_world.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/macro.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_install_pkg.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/prepare_all_stages.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_install_ssh_keys.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_push_deploy.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/repo.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/run_all_stages.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_run_code.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/run_stage.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_session_info.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/ssh_key_helpers.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_setup_push_deploy.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/stages.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_setup_ssh.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_add_to_drat.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_test_ssh.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_add_to_known_hosts.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/step_write_text_file.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_build_blogdown.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/tic-package.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_build_bookdown.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/update_yml.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_build_pkgdown.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_do_push_deploy.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/use_tic.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_hello_world.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/use_tic_badge.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_install_pkg.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/use_tic_r.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_install_ssh_keys.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/use_update_tic.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_push_deploy.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/reference/yaml_templates.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_rcmdcheck.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/advanced.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_run_code.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/build-lifecycle.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_session_info.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/ci-client-packages.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_setup_push_deploy.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/ci-providers.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_setup_ssh.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/custom-steps.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_test_ssh.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/deployment.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/step_write_text_file.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/faq.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/tic-package.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/features.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/update_yml.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/tic.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/use_ghactions_deploy.html</loc>
   </url>
   <url>
-    <loc>https://docs.ropensci.org/tic/dev/articles/updating.html</loc>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/use_tic.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/use_tic_badge.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/use_tic_r.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/use_update_tic.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.ropensci.org/tic/dev/dev/reference/yaml_templates.html</loc>
   </url>
 </urlset>

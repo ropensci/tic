@@ -14,7 +14,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css?nocache=1" rel="stylesheet">
 <meta property="og:title" content="Developer info: Writing custom steps">
 <meta property="og:description" content="tic">
 <meta name="twitter:card" content="summary">
@@ -23,9 +23,11 @@
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
 <!-- End Matomo Code -->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -36,74 +38,48 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.9.0.9008</small></i></a>
+        <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
+        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.11.2.9000</small></i></a>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">
     <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../articles/tic.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/tic.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Introduction
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/features.html">Feature Overview</a>
-    </li>
-    <li>
-      <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
-    </li>
-    <li>
-      <a href="../articles/ci-providers.html">CI Providers</a>
-    </li>
-    <li>
-      <a href="../articles/faq.html">FAQ</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-introduction">Introduction</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-introduction">
+    <a class="dropdown-item" href="../articles/features.html">Feature Overview</a>
+    <a class="dropdown-item" href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
+    <a class="dropdown-item" href="../articles/ci-client-packages.html">CI Client Packages</a>
+    <a class="dropdown-item" href="../articles/ci-providers.html">CI Providers</a>
+    <a class="dropdown-item" href="../articles/faq.html">FAQ</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Advanced
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/advanced.html">Advanced Usage</a>
-    </li>
-    <li>
-      <a href="../articles/deployment.html">Deployment</a>
-    </li>
-    <li>
-      <a href="../articles/custom-steps.html">Custom Steps</a>
-    </li>
-    <li>
-      <a href="../articles/updating.html">Updating Templates</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-advanced">Advanced</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-advanced">
+    <a class="dropdown-item" href="../articles/advanced.html">Advanced Usage</a>
+    <a class="dropdown-item" href="../articles/deployment.html">Deployment</a>
+    <a class="dropdown-item" href="../articles/custom-steps.html">Custom Steps</a>
+    <a class="dropdown-item" href="../articles/updating.html">Updating Templates</a>
+  </div>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/ropensci/tic/">
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/ropensci/tic/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -116,65 +92,60 @@
 </div>
 <!--/.navbar -->
 
-      
-
-      </header><script src="custom-steps_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="custom-steps_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="custom-steps_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Developer info: Writing custom steps</h1>
-                        <h4 class="author">Kirill Müller, Patrick Schratz</h4>
+    <div class="container template-article">
+<script src="custom-steps_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Developer info: Writing custom steps</h1>
+                        <h4 data-toc-skip class="author">Kirill Müller, Patrick Schratz</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/custom-steps.Rmd"><code>vignettes/custom-steps.Rmd</code></a></small>
-      <div class="hidden name"><code>custom-steps.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/custom-steps.Rmd" class="external-link"><code>vignettes/custom-steps.Rmd</code></a></small>
+      <div class="d-none name"><code>custom-steps.Rmd</code></div>
     </div>
 
     
     
-<p>Most important steps running on CI systems are <a href="tic.html#steps">already implemented</a> in {tic}. The following vignette shows how new steps can be created and how {tic} defines them. Internally, all steps are defined using the <a href="https://github.com/wch/R6">R6</a> class system. If you are not familiar with object-oriented programming using R6, the <a href="https://adv-r.hadley.nz/r6.html">R6 chapter</a> in <a href="https://adv-r.hadley.nz/">Advanced R</a> is a good place to start.</p>
-<p>In most cases there should be no need to write steps on your own, because <code><a href="../reference/step_run_code.html">step_run_code()</a></code> can be used to run arbitrary code when preparing and running the step, and custom conditions in <code>tic.R</code> can be used to trigger the step. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/dsl.html">add_code_step()</a></code>, please let us know (by opening an <a href="https://github.com/ropensci/tic/issues">issue</a>) so that we can discuss whether it makes sense to implement it as a custom step.</p>
-<div id="the-ticstep-class" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-ticstep-class" class="anchor"></a>The <code>TicStep</code> class</h2>
-<p>A step is a subclass of the <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38"><code>TicStep</code> class</a>. The <code>step_...</code> functions in {tic} are forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
-<p>The <code>TicStep</code> class implements the public methods <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code>, <code>prepare()</code>, and <code>run()</code>. These methods must be callable without arguments. This means that you only need to override the methods you need; if you don’t need a <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> or <code>prepare()</code> method you can leave it out. The following sections describe these methods and show examples.</p>
-<div id="the-prepare-method" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-prepare-method" class="anchor"></a>The <code>prepare()</code> method</h3>
+<p>Most important steps running on CI systems are <a href="tic.html#steps">already implemented</a> in {tic}. The following vignette shows how new steps can be created and how {tic} defines them. Internally, all steps are defined using the <a href="https://github.com/wch/R6" class="external-link">R6</a> class system. If you are not familiar with object-oriented programming using R6, the <a href="https://adv-r.hadley.nz/r6.html" class="external-link">R6 chapter</a> in <a href="https://adv-r.hadley.nz/" class="external-link">Advanced R</a> is a good place to start.</p>
+<p>In most cases there should be no need to write steps on your own, because <code><a href="../reference/step_run_code.html">step_run_code()</a></code> can be used to run arbitrary code when preparing and running the step, and custom conditions in <code>tic.R</code> can be used to trigger the step. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/dsl.html">add_code_step()</a></code>, please let us know (by opening an <a href="https://github.com/ropensci/tic/issues" class="external-link">issue</a>) so that we can discuss whether it makes sense to implement it as a custom step.</p>
+<div class="section level2">
+<h2 id="the-ticstep-class">The <code>TicStep</code> class<a class="anchor" aria-label="anchor" href="#the-ticstep-class"></a>
+</h2>
+<p>A step is a subclass of the <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38" class="external-link"><code>TicStep</code> class</a>. The <code>step_...</code> functions in {tic} are forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
+<p>The <code>TicStep</code> class implements the public methods <code><a href="https://rdrr.io/r/utils/PkgUtils.html" class="external-link">check()</a></code>, <code>prepare()</code>, and <code>run()</code>. These methods must be callable without arguments. This means that you only need to override the methods you need; if you don’t need a <code><a href="https://rdrr.io/r/utils/PkgUtils.html" class="external-link">check()</a></code> or <code>prepare()</code> method you can leave it out. The following sections describe these methods and show examples.</p>
+<div class="section level3">
+<h3 id="the-prepare-method">The <code>prepare()</code> method<a class="anchor" aria-label="anchor" href="#the-prepare-method"></a>
+</h3>
 <p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. This method should install all dependent packages that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <em>rcmdcheck</em> and <em>remotes</em> are installed:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RCMDcheck</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">prepare</span></code></pre></div>
 </div>
-<div id="the-run-method" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-run-method" class="anchor"></a>The <code>run()</code> method</h3>
+<div class="section level3">
+<h3 id="the-run-method">The <code>run()</code> method<a class="anchor" aria-label="anchor" href="#the-run-method"></a>
+</h3>
 <p>This method executes the step. When a step is added to a stage, <code>run()</code> will be called when the stage is executed. For example, the <code>run()</code> function of class <code>RCMDcheck</code> looks as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RCMDcheck</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">run</span></code></pre></div>
 </div>
-<div id="the-check-method" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-check-method" class="anchor"></a>The <code>check()</code> method</h3>
-<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24"><code>step_write_text_file()</code></a> function is an example step with the following implementation of the <code><a href="https://rdrr.io/r/utils/PkgUtils.html">check()</a></code> method:</p>
+<div class="section level3">
+<h3 id="the-check-method">The <code>check()</code> method<a class="anchor" aria-label="anchor" href="#the-check-method"></a>
+</h3>
+<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24" class="external-link"><code>step_write_text_file()</code></a> function is an example step with the following implementation of the <code><a href="https://rdrr.io/r/utils/PkgUtils.html" class="external-link">check()</a></code> method:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">WriteTextFile</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">check</span></code></pre></div>
 </div>
 </div>
-<div id="a-minimal-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-minimal-example" class="anchor"></a>A minimal example</h2>
-<p>You can take a look at <a href="https://github.com/ropensci/tic/pull/75/files">a pull request that implements a new step</a>.</p>
-<p>The most minimalist version is the “Hello World” <a href="https://github.com/ropensci/tic/blob/master/R/steps-base.R">example step</a>. This class only contains a <code>run()</code> method which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instance of this class.</p>
+<div class="section level2">
+<h2 id="a-minimal-example">A minimal example<a class="anchor" aria-label="anchor" href="#a-minimal-example"></a>
+</h2>
+<p>You can take a look at <a href="https://github.com/ropensci/tic/pull/75/files" class="external-link">a pull request that implements a new step</a>.</p>
+<p>The most minimalist version is the “Hello World” <a href="https://github.com/ropensci/tic/blob/master/R/steps-base.R" class="external-link">example step</a>. This class only contains a <code>run()</code> method which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instance of this class.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HelloWorld</span> <span class="op">&lt;-</span> <span class="kw">R6Class</span><span class="op">(</span>
   <span class="st">"HelloWorld"</span>,
   inherit <span class="op">=</span> <span class="va">TicStep</span>,
-
-  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     run <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Hello, world!"</span><span class="op">)</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Hello, world!"</span><span class="op">)</span>
     <span class="op">}</span>
   <span class="op">)</span>
 <span class="op">)</span>
@@ -192,30 +163,28 @@
   <span class="va">HelloWorld</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="further-information-on-the-r6-class-system" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-information-on-the-r6-class-system" class="anchor"></a>Further information on the R6 class system</h2>
-<p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed along: Consider the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R">link to source</a>):</p>
+<div class="section level2">
+<h2 id="further-information-on-the-r6-class-system">Further information on the R6 class system<a class="anchor" aria-label="anchor" href="#further-information-on-the-r6-class-system"></a>
+</h2>
+<p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed along: Consider the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R" class="external-link">link to source</a>):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RCMDcheck</span> <span class="op">&lt;-</span> <span class="kw">R6Class</span><span class="op">(</span> <span class="co"># nolint</span>
   <span class="st">"RCMDcheck"</span>,
   inherit <span class="op">=</span> <span class="va">TicStep</span>,
-
-  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">warnings_are_errors</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">notes_are_errors</span> <span class="op">=</span> <span class="cn">NULL</span>,
-                          <span class="va">args</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"--no-manual"</span>, <span class="st">"--as-cran"</span><span class="op">)</span>,
+                          <span class="va">args</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"--no-manual"</span>, <span class="st">"--as-cran"</span><span class="op">)</span>,
                           <span class="va">build_args</span> <span class="op">=</span> <span class="st">"--force"</span>, <span class="va">error_on</span> <span class="op">=</span> <span class="st">"warning"</span>,
                           <span class="va">repos</span> <span class="op">=</span> <span class="fu"><a href="../reference/repo.html">repo_default</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">timeout</span> <span class="op">=</span> <span class="cn">Inf</span>,
                           <span class="va">check_dir</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">notes_are_errors</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">notes_are_errors</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">warning_once</span><span class="op">(</span>
           <span class="st">'`notes_are_errors` is deprecated, please use `error_on = "note"`'</span>
         <span class="op">)</span>
         <span class="kw">if</span> <span class="op">(</span><span class="va">notes_are_errors</span><span class="op">)</span> <span class="op">{</span>
           <span class="va">error_on</span> <span class="op">&lt;-</span> <span class="st">"note"</span>
         <span class="op">}</span>
-      <span class="op">}</span>
-      <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">warnings_are_errors</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">warnings_are_errors</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">warning_once</span><span class="op">(</span>
           <span class="st">"`warnings_are_errors` is deprecated, "</span>,
           <span class="st">'please use `error_on = "warning"`'</span>
@@ -233,15 +202,14 @@
 
       <span class="va">super</span><span class="op">$</span><span class="fu">initialize</span><span class="op">(</span><span class="op">)</span>
     <span class="op">}</span>,
-
     run <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
       <span class="co"># Don't include vignettes if --no-build-vignettes is included</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="st">"--no-build-vignettes"</span> <span class="op">%in%</span> <span class="va">private</span><span class="op">$</span><span class="va">args</span><span class="op">)</span> <span class="op">{</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"^vignettes$\n"</span>, file <span class="op">=</span> <span class="st">".Rbuildignore"</span>, append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="st">"--no-build-vignettes"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">private</span><span class="op">$</span><span class="va">args</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"^vignettes$\n"</span>, file <span class="op">=</span> <span class="st">".Rbuildignore"</span>, append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
       <span class="op">}</span>
 
-      <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_envvar.html">with_envvar</a></span><span class="op">(</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+      <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_envvar.html" class="external-link">with_envvar</a></span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
           <span class="co"># Avoid large version components</span>
           <span class="st">"_R_CHECK_CRAN_INCOMING_"</span> <span class="op">=</span> <span class="st">"FALSE"</span>,
           <span class="co"># Don't check system clocks (because the API used there is flaky)</span>
@@ -249,9 +217,9 @@
           <span class="co"># Don't force suggests</span>
           <span class="st">"_R_CHECK_FORCE_SUGGESTS_"</span> <span class="op">=</span> <span class="st">"FALSE"</span>,
           <span class="co"># Work around missing qpdf executable</span>
-          <span class="st">"R_QPDF"</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span><span class="op">(</span><span class="st">"qpdf"</span><span class="op">)</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="st">"true"</span>
+          <span class="st">"R_QPDF"</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"qpdf"</span><span class="op">)</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="st">"true"</span>
         <span class="op">)</span>,
-        <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">rcmdcheck</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html">rcmdcheck</a></span><span class="op">(</span>
+        <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">rcmdcheck</span><span class="fu">::</span><span class="fu"><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck</a></span><span class="op">(</span>
           args <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">args</span>, build_args <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">build_args</span>,
           error_on <span class="op">=</span> <span class="st">"never"</span>,
           repos <span class="op">=</span> <span class="va">private</span><span class="op">$</span><span class="va">repos</span>,
@@ -260,31 +228,29 @@
         <span class="op">)</span>
       <span class="op">)</span>
 
-      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">errors</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">errors</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">stopc</span><span class="op">(</span><span class="st">"Errors found in rcmdcheck::rcmdcheck()."</span><span class="op">)</span>
       <span class="op">}</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"warning"</span>, <span class="st">"note"</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">warnings</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"warning"</span>, <span class="st">"note"</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">warnings</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">stopc</span><span class="op">(</span>
           <span class="st">"Warnings found in rcmdcheck::rcmdcheck(), "</span>,
           <span class="st">'and `errors_on = "warning"` is set.'</span>
         <span class="op">)</span>
       <span class="op">}</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">==</span> <span class="st">"note"</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">notes</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="va">private</span><span class="op">$</span><span class="va">error_on</span> <span class="op">==</span> <span class="st">"note"</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">notes</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu">stopc</span><span class="op">(</span>
           <span class="st">"Notes found in rcmdcheck::rcmdcheck(), "</span>,
           <span class="st">'and `errors_on = "note"` is set.'</span>
         <span class="op">)</span>
       <span class="op">}</span>
     <span class="op">}</span>,
-
     prepare <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
       <span class="fu">verify_install</span><span class="op">(</span><span class="st">"rcmdcheck"</span><span class="op">)</span>
       <span class="va">super</span><span class="op">$</span><span class="fu">prepare</span><span class="op">(</span><span class="op">)</span>
     <span class="op">}</span>
   <span class="op">)</span>,
-
-  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     args <span class="op">=</span> <span class="cn">NULL</span>,
     build_args <span class="op">=</span> <span class="cn">NULL</span>,
     error_on <span class="op">=</span> <span class="cn">NULL</span>,
@@ -295,19 +261,13 @@
 <span class="op">)</span></code></pre></div>
 <p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” members (e.g. <code>private$args</code>). Next, these private members are used in the <code>run()</code> function which carries out the actual work.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><!-- begin footer --><div class="footer">
+    <footer><!-- begin footer --><div class="footer">
     <div class="container">
         <div class="row start bottom-8">
             <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
@@ -315,49 +275,50 @@
             <div class="col-xs-10">
                 <div class="row">
                     <div class="col-md-4 col-xs-6">
-                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
-                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
-                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
-                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                        <a href="http://github.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-github"></div></a>
+                        <a href="http://github.com/ropenscilabs" target="_blank" class="external-link"><div class="icon fa fa-flask"></div></a>
+                        <a href="http://twitter.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-twitter"></div></a>
+                        <a href="http://vimeo.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-vimeo"></div></a>
                     </div>
                 </div>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
 <h5 class="bottom-2">About</h5>
-                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
-                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
-                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
-                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
-                            <li><a href="https://ropensci.org/donate">Donate</a></li>
-                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
+                            <li><a href="https://ropensci.org/about" class="external-link">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review" class="external-link">Software Review Process</a></li>
+                            <li><a href="https://ropensci.org/about#team" class="external-link">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers" class="external-link">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate" class="external-link">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact" class="external-link">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
 <h5 class="bottom-2">Community</h5>
-                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
-                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
-                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/community/" class="external-link">Our Community</a></li>
+                            <li><a href="https://ropensci.org/commcalls/" class="external-link">Community calls</a></li>
+                            <li><a href="https://ropensci.org/events/" class="external-link">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/" class="external-link">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct" class="external-link">Code of conduct</a></li>
                         </ul>
 </div>
                     <div class="col-md-2 col-sm-4">
                         <ul>
 <h5 class="bottom-2">Resources</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
-                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
-                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/packages/" class="external-link">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/" class="external-link">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/" class="external-link">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/" class="external-link">Documentation</a></li>
+                            <li><a href="https://ropensci.org/news/" class="external-link">Newsletter</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/" class="external-link">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">
                         <h5 class="bottom-2"></h5>
 
-                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
-                        <a href="http://numfocus.org" target="_blank"></a>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank" class="external-link">NumFOCUS</a></p>
+                        <a href="http://numfocus.org" target="_blank" class="external-link"></a>
 
                     </div>
                 </div>
@@ -367,11 +328,12 @@
 </div>
 <!-- / end footer -->
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
