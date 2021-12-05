@@ -6,6 +6,6 @@
 ▶ step_rcmdcheck()
 ── deploy ───────────────────────────────────────────────────────────── stage ──
 ▶ step_build_pkgdown()
-▶ step_run_code(writeLines(\"\", paste0(\"docs\", \"/.nojekyll\")))"
-▶ step_run_code(dir.create(paste0(\"docs\", \"dev\"), showWarnings = FALSE))"
-▶ step_run_code(writeLines(\"\", paste0(\"docs\", \"/dev/.nojekyll\")))"
+▶ step_run_code(writeLines("", paste0("docs", "/.nojekyll")))
+▶ step_run_code(dir.create(paste0("docs", "dev"), showWarnings = FALSE))
+▶ step_run_code(writeLines("", paste0("docs", "/dev/.nojekyll")))
