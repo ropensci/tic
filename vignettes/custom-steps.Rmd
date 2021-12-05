@@ -3,7 +3,7 @@ title: "Developer info: Writing custom steps"
 author: "Kirill Müller, Patrick Schratz"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Custom steps}
+  %\VignetteIndexEntry{Developer info: Writing custom steps}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -79,7 +79,6 @@ It is initialized by calling `step_hello_world()` which creates a new instance o
 HelloWorld <- R6Class(
   "HelloWorld",
   inherit = TicStep,
-
   public = list(
     run = function() {
       print("Hello, world!")
@@ -110,7 +109,6 @@ Consider the `step_rcmdcheck()` function ([link to source](https://github.com/ro
 RCMDcheck <- R6Class( # nolint
   "RCMDcheck",
   inherit = TicStep,
-
   public = list(
     initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
                           args = c("--no-manual", "--as-cran"),
@@ -124,8 +122,7 @@ RCMDcheck <- R6Class( # nolint
         if (notes_are_errors) {
           error_on <- "note"
         }
-      }
-      else if (!is.null(warnings_are_errors)) {
+      } else if (!is.null(warnings_are_errors)) {
         warning_once(
           "`warnings_are_errors` is deprecated, ",
           'please use `error_on = "warning"`'
@@ -143,7 +140,6 @@ RCMDcheck <- R6Class( # nolint
 
       super$initialize()
     },
-
     run = function() {
       # Don't include vignettes if --no-build-vignettes is included
       if ("--no-build-vignettes" %in% private$args) {
@@ -187,13 +183,11 @@ RCMDcheck <- R6Class( # nolint
         )
       }
     },
-
     prepare = function() {
       verify_install("rcmdcheck")
       super$prepare()
     }
   ),
-
   private = list(
     args = NULL,
     build_args = NULL,

@@ -2,7 +2,7 @@
 title: "Implementation Details of CI Providers"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ci-providers}
+  %\VignetteIndexEntry{Implementation Details of CI Providers}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

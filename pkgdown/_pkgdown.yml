@@ -1,6 +1,7 @@
 url: https://docs.ropensci.org/tic/dev
 
 template:
+  bootstrap: 5
   package: rotemplate
 
 development:
@@ -56,6 +57,8 @@ reference:
 - title: Helpers
   contents:
   - github_helpers
+  - ssh_key_helpers
+  - github_repo
 - title: Deprecated
   contents:
   - Deprecated

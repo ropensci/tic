@@ -2,7 +2,7 @@
 title: "Updating"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{updating}
+  %\VignetteIndexEntry{Updating}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
