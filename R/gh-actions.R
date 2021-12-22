@@ -5,9 +5,9 @@ GHActionsCI <- R6Class( # nolint
   inherit = CI,
   public = list(
     get_branch = function() {
-      # GITHUB_BASE_REF only exists for PRs
-      if (Sys.getenv("GITHUB_BASE_REF") != "") {
-        Sys.getenv("GITHUB_BASE_REF")
+      # only defined in PR events
+      if (Sys.getenv("GITHUB_HEAD_REF") != "") {
+        Sys.getenv("GITHUB_HEAD_REF")
       } else {
         ref <- Sys.getenv("GITHUB_REF")
         # hopefully this also works for tags
