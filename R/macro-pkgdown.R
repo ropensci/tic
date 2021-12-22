@@ -70,7 +70,6 @@ do_pkgdown <- function(...,
     #'      or the current branch is the default branch,
     #'      or contains "cran-" in its name (for compatibility with \pkg{fledge})
     #'      (see [ci_get_branch()]).
-    print(sprintf("DEBUG: Branch: %s, ENV_VAR: %s, MOD_ENV_VAR: %s", ci_get_branch(), Sys.getenv("GITHUB_REF"), strsplit(Sys.getenv("GITHUB_REF"), "/", )[[1]][3]))
     if (deploy && !is.null(branch)) {
       deploy <- (ci_get_branch() == github_info()$default_branch ||
         grepl("cran-", ci_get_branch()))
