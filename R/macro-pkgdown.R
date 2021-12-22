@@ -71,7 +71,7 @@ do_pkgdown <- function(...,
     #'      or contains "cran-" in its name (for compatibility with \pkg{fledge})
     #'      (see [ci_get_branch()]).
     if (deploy && !is.null(branch)) {
-      deploy <- (ci_get_branch() == github_info()$default_branch |
+      deploy <- (ci_get_branch() == github_info()$default_branch ||
         grepl("cran-", ci_get_branch()))
       if (!deploy) {
         cli::cli_alert_info("{.field tic}: Only building pkgdown website, not
