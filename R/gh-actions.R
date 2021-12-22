@@ -5,14 +5,9 @@ GHActionsCI <- R6Class( # nolint
   inherit = CI,
   public = list(
     get_branch = function() {
-      # GITHUB_BASE_REF only exists for PRs
-      if (Sys.getenv("GITHUB_BASE_REF") != "") {
-        Sys.getenv("GITHUB_BASE_REF")
-      } else {
-        ref <- Sys.getenv("GITHUB_REF")
-        # hopefully this also works for tags
-        strsplit(ref, "/", )[[1]][3]
-      }
+      ref <- Sys.getenv("GITHUB_REF")
+      # hopefully this also works for tags
+      strsplit(ref, "/", )[[1]][3]
     },
     get_tag = function() {
       # FIXME: No way to get a tag? Merged with env var GITHUB_REF
