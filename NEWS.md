@@ -1,8 +1,8 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
-# tic 0.11.2.9000 (2021-12-05)
+# tic 0.11.3 (2021-12-22)
 
-- Same as previous version.
+- `do_pkgdown()`: Fix accidental deployments from pull requests (#308)
 
 
 # tic 0.11.2 (2021-12-05)
