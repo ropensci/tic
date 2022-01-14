@@ -39,7 +39,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../index.html">
@@ -116,6 +116,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="tic_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Getting started with CI for R</h1>
@@ -128,9 +131,9 @@
 
     
     
-<div class="section level1">
-<h1 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
-</h1>
+<div class="section level2">
+<h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+</h2>
 <p>Continuous Integration (CI) is a huge field in software development. There are a lot of resources out there that try to explain what it can do and why you need it (and usually why their particular company/service does it best). If you are just getting started with software development or <code>git</code> based project work you might think:</p>
 <blockquote>
 <p>“Ah I don’t need all of this overhead, I am fine doing X and Y manually for this project. The overhead learning this next additional”tool" is not worth it.</p>
@@ -155,9 +158,9 @@
 <p>“DSL” stands for “<a href="https://en.wikipedia.org/wiki/Domain-specific_language" class="external-link">domain-specific language</a>” and essentially means the implementation of a general concept for a specific programming language.</p>
 </details>
 </div>
-<div class="section level1">
-<h1 id="initializationsetup">Initialization/Setup<a class="anchor" aria-label="anchor" href="#initializationsetup"></a>
-</h1>
+<div class="section level2">
+<h2 id="initializationsetup">Initialization/Setup<a class="anchor" aria-label="anchor" href="#initializationsetup"></a>
+</h2>
 <p>The easiest way to use {tic} for CI services is to call <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>. This will initialize a setup wizard which will guide you through all possibilities of the offered CI providers by {tic}.</p>
 <p>Several yes/no questions need to be answered. Based on the replies we’ll select specific templates.</p>
 <p>Besides the question which CI system you want to use, you’ll be asked if you want to</p>
@@ -167,9 +170,9 @@
 </ul>
 <p>Last, we’ll add a <code>tic.R</code> file to the project root.</p>
 <p>After this, your project is ready for continuous integration. The next push to GitHub will create a build on Circle CI. See the <a href="advanced.html#troubleshooting">Troubleshooting</a> section in case anything doesn’t work as expected.</p>
-<div class="section level4">
-<h4 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
-</h4>
+<div class="section level5">
+<h5 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
+</h5>
 <p>If you are a new user, run</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -182,9 +185,9 @@
 <p>See the <a href="ci-client-packages.html">CI Client Packages</a> article for more detailed information on how {tic} and the CI client packages work together.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="the-role-of-the-tic-r-file">The role of the <code>tic.R</code> file<a class="anchor" aria-label="anchor" href="#the-role-of-the-tic-r-file"></a>
-</h1>
+<div class="section level2">
+<h2 id="the-role-of-the-tic-r-file">The role of the <code>tic.R</code> file<a class="anchor" aria-label="anchor" href="#the-role-of-the-tic-r-file"></a>
+</h2>
 <p>After having called <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> you will find</p>
 <ul>
 <li><code>.circleci/config.yml</code></li>
@@ -200,9 +203,9 @@
 <span class="op">}</span></code></pre></div>
 <p><code>tic.R</code> file has a declarative nature: It should consist of “stages”, “steps” and “macro” functions (see below). These functions will only have an effect when specified in <code>tic.R</code> and should <strong>not</strong> be used standalone as they will only run in a (simulated) CI run following a certain order.</p>
 <p>To run plain R code within the build, encapsulate it within <code>add_code_step(&lt;code&gt;)</code> and add it to a certain build stage. See <a href="build-lifecycle.html">the Build Lifecycle</a> article for detailed info about how to do this.</p>
-<div class="section level2">
-<h2 id="macros">Macros<a class="anchor" aria-label="anchor" href="#macros"></a>
-</h2>
+<div class="section level3">
+<h3 id="macros">Macros<a class="anchor" aria-label="anchor" href="#macros"></a>
+</h3>
 <p>{tic} builds on the “macro” idea. Macros are essentially wrappers of a sequence of steps for often used tasks on the CI system:</p>
 <ul>
 <li>Checking a package (R CMD check)</li>
@@ -215,10 +218,10 @@
 <span class="co">#&gt; [1] "do_blogdown"       "do_bookdown"       "do_drat"          </span>
 <span class="co">#&gt; [4] "do_package_checks" "do_pkgdown"        "do_readme_rmd"</span></code></pre></div>
 <p>If you have a good use case for a macro, let us know by opening an <a href="https://github.com/ropensci/tic/issues" class="external-link">issue</a>.</p>
-<div class="section level3">
-<h3 id="do_package_checks">
+<div class="section level4">
+<h4 id="do_package_checks">
 <code>do_package_checks()</code><a class="anchor" aria-label="anchor" href="#do_package_checks"></a>
-</h3>
+</h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/do_package_checks.html">do_package_checks</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> adds essential steps to various stages of a CI run. Most importantly, it adds <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> to the “script” stage. This step performs the check of an R package. Afterwards, the code coverage is being checked using <code><a href="http://covr.r-lib.org/reference/codecov.html" class="external-link">covr::codecov()</a></code>. See <code>?do_package_checks()</code> for more information.</p>
@@ -230,10 +233,10 @@
 <span class="co">#</span>
 <span class="co"># A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="do_pkgdown">
+<div class="section level4">
+<h4 id="do_pkgdown">
 <code>do_pkgdown()</code><a class="anchor" aria-label="anchor" href="#do_pkgdown"></a>
-</h3>
+</h4>
 <p>The other macro in the default template is <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -252,16 +255,16 @@
 <p>By default this currently happens only on GitHub Actions, because <code><a href="../reference/ci.html">ci_on_ghactions()</a></code> is used as a condition. Why do we do this? Building the pkgdown site on multiple CI services has no added benefit and might even cause problems due to race conditions during deployment.</p>
 <p><code><a href="../reference/ci.html">ci_on_ghactions()</a></code> can be replaced by one of its sibling functions like <code><a href="../reference/ci.html">ci_on_circle()</a></code>.</p>
 </div>
-<div class="section level3">
-<h3 id="do_readme_rmd">
+<div class="section level4">
+<h4 id="do_readme_rmd">
 <code>do_readme_rmd()</code><a class="anchor" aria-label="anchor" href="#do_readme_rmd"></a>
-</h3>
+</h4>
 <p>Some projects rely on a dynamic README.Rmd file which contains R code. Sometimes the output of such README’s will change over time if the code driving it changes due to updates. To always stay up-to-date without needing to take manual action, you can use this macro. It will render <code>README.Rmd</code> and deploy <code>README.md</code> to the default repo branch. A deployment will only be made if the rendered output differs from the one stored upstream.</p>
 <p>This macro requires that you have set up deployment for your selected provider beforehand.</p>
 </div>
-<div class="section level3">
-<h3 id="blogdown">Blogdown<a class="anchor" aria-label="anchor" href="#blogdown"></a>
-</h3>
+<div class="section level4">
+<h4 id="blogdown">Blogdown<a class="anchor" aria-label="anchor" href="#blogdown"></a>
+</h4>
 <p>As a show case, we explain a “blogdown” project in more detail. <a href="https://bookdown.org/yihui/blogdown/" class="external-link"><code>blogdown</code></a> is an R package for publishing websites. Under the hood, it uses the framework <a href="https://gohugo.io/" class="external-link">Hugo</a> which gets installed by the respective <code>tic.R</code> <a href="https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R" class="external-link">template</a> in the “install” section:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -275,14 +278,14 @@
 <p><strong>Note:</strong> Currently, publishing to <a href="https://figshare.com/" class="external-link uri">https://figshare.com/</a> doesn’t work. Also, publishing to <a href="https://zenodo.org/" class="external-link uri">https://zenodo.org/</a> is work in progress.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="tic-projects-from-the-community">{tic} projects from the community<a class="anchor" aria-label="anchor" href="#tic-projects-from-the-community"></a>
-</h2>
+<div class="section level3">
+<h3 id="tic-projects-from-the-community">{tic} projects from the community<a class="anchor" aria-label="anchor" href="#tic-projects-from-the-community"></a>
+</h3>
 <p>The templates we provide with {tic} are minimal working examples. By querying <code>tic.R</code> on GitHub one can see who else uses {tic} for their CI runs: <a href="https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code" class="external-link uri">https://github.com/search?p=5&amp;q=filename%3Atic.R&amp;type=Code</a></p>
 </div>
-<div class="section level2">
-<h2 id="still-got-questions">Still got questions?<a class="anchor" aria-label="anchor" href="#still-got-questions"></a>
-</h2>
+<div class="section level3">
+<h3 id="still-got-questions">Still got questions?<a class="anchor" aria-label="anchor" href="#still-got-questions"></a>
+</h3>
 <p>Have a look at the <a href="https://docs.ropensci.org/tic/articles/" class="external-link">list of articles</a> we wrote to shine more light on all the parts {tic} covers.</p>
 <p>If you face issues, make sure to also check out the <a href="https://docs.ropensci.org/tic/articles/faq.html" class="external-link">FAQ</a> vignette or browse the <a href="https://github.com/ropensci/tic/issues" class="external-link">issue tracker</a>.</p>
 </div>
