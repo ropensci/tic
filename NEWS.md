@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.11.4.9000 (2022-01-28)
+
+- Same as previous version.
+
+
 # tic 0.11.4 (2022-01-28)
 
 - Add compatibility for rlang >= v1.0.0
