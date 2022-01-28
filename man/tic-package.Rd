@@ -5,12 +5,7 @@
 \alias{tic-package}
 \title{tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions}
 \description{
-Provides a way to describe common build and deployment
-    workflows for R-based projects: packages, websites (e.g.  blogdown,
-    pkgdown), or data processing (e.g. research compendia). The recipe is
-    described independent of the continuous integration tool used for
-    processing the workflow (e.g. 'GitHub Actions' or 'Circle CI').  This
-    package has been peer-reviewed by rOpenSci (v0.3.0.9004).
+Provides a way to describe common build and deployment workflows for R-based projects: packages, websites (e.g. blogdown, pkgdown), or data processing (e.g. research compendia). The recipe is described independent of the continuous integration tool used for processing the workflow (e.g. 'GitHub Actions' or 'Circle CI'). This package has been peer-reviewed by rOpenSci (v0.3.0.9004).
 }
 \details{
 The \code{\link[=use_tic]{use_tic()}} function prepares a code repository for use with
