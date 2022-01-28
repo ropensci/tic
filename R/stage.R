@@ -130,7 +130,7 @@ stage_is_empty <- function(x) {
   x$is_empty()
 }
 
-#' @importFrom rlang try_fecth
+#' @importFrom rlang try_fetch
 # rlang::with_abort() replacement since rlang 1.0.0
 # https://github.com/r-lib/rlang/issues/1351
 with_entraced_errors <- function(expr) {
