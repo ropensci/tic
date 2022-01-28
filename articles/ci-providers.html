@@ -4,136 +4,135 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="tic">
 <title>Implementation Details of CI Providers • tic</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- ropensci --><link href="../ropensci.css" rel="stylesheet">
-<meta property="og:title" content="Implementation Details of CI Providers">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Implementation Details of CI Providers">
 <meta property="og:description" content="tic">
-<meta name="twitter:card" content="summary">
-<!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]--><!-- Matomo --><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script><script src="https://ropensci.org/scripts/matomo.js"></script><noscript><p><img src="https://ropensci.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt=""></p></noscript>
 <!-- End Matomo Code -->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-      <div class="navbar-brand-container">
-        <a href="https://ropensci.org"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
-        <a class="navbar-brand" href="../index.html"><i>tic <small>v0.11.1</small></i></a>
-      </div>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../index.html">
+    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-light"><div class="container">
+    <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
+    <a class="navbar-brand me-2" href="../index.html">tic</a>
+
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.11.4</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">
     <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../articles/tic.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/tic.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Introduction
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/features.html">Feature Overview</a>
-    </li>
-    <li>
-      <a href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
-    </li>
-    <li>
-      <a href="../articles/ci-client-packages.html">CI Client Packages</a>
-    </li>
-    <li>
-      <a href="../articles/ci-providers.html">CI Providers</a>
-    </li>
-    <li>
-      <a href="../articles/faq.html">FAQ</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-introduction">Introduction</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-introduction">
+    <a class="dropdown-item" href="../articles/features.html">Feature Overview</a>
+    <a class="dropdown-item" href="../articles/build-lifecycle.html">The CI Build Lifecycle</a>
+    <a class="dropdown-item" href="../articles/ci-client-packages.html">CI Client Packages</a>
+    <a class="dropdown-item" href="../articles/ci-providers.html">CI Providers</a>
+    <a class="dropdown-item" href="../articles/faq.html">FAQ</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Advanced
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/advanced.html">Advanced Usage</a>
-    </li>
-    <li>
-      <a href="../articles/deployment.html">Deployment</a>
-    </li>
-    <li>
-      <a href="../articles/custom-steps.html">Custom Steps</a>
-    </li>
-    <li>
-      <a href="../articles/updating.html">Updating Templates</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-advanced">Advanced</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-advanced">
+    <a class="dropdown-item" href="../articles/advanced.html">Advanced Usage</a>
+    <a class="dropdown-item" href="../articles/deployment.html">Deployment</a>
+    <a class="dropdown-item" href="../articles/custom-steps.html">Custom Steps</a>
+    <a class="dropdown-item" href="../articles/updating.html">Updating Templates</a>
+  </div>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/ropensci/tic/">
-    <span class="fab fa-github fa-lg"></span>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="nav-link" href="../articles/tic.html">Get started</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/advanced.html">Advanced usage</a>
+    <a class="dropdown-item" href="../articles/build-lifecycle.html">Build lifecycle</a>
+    <a class="dropdown-item" href="../articles/ci-client-packages.html">tic &amp; CI Client Packages - An Overview</a>
+    <a class="dropdown-item" href="../articles/ci-providers.html">Implementation Details of CI Providers</a>
+    <a class="dropdown-item" href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
+    <a class="dropdown-item" href="../articles/deployment.html">Deployment</a>
+    <a class="dropdown-item" href="../articles/faq.html">FAQ</a>
+    <a class="dropdown-item" href="../articles/features.html">The features of tic</a>
+    <a class="dropdown-item" href="../articles/updating.html">Updating</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/ropensci/tic/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
-      
 
-      </header><script src="ci-providers_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Implementation Details of CI Providers</h1>
+
+<script src="ci-providers_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Implementation Details of CI Providers</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/master/vignettes/ci-providers.Rmd"><code>vignettes/ci-providers.Rmd</code></a></small>
-      <div class="hidden name"><code>ci-providers.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/ci-providers.Rmd" class="external-link"><code>vignettes/ci-providers.Rmd</code></a></small>
+      <div class="d-none name"><code>ci-providers.Rmd</code></div>
     </div>
 
     
     
-<div id="github-actions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#github-actions" class="anchor"></a>GitHub Actions</h2>
-<p>{tic} supports running builds on GitHub Actions on all major platforms (Linux, macOS, Windows). The upstream support for the R language was developed by Jim Hester in <a href="https://github.com/r-lib/actions">r-lib/actions</a>. This repo also stores some usage <a href="https://github.com/r-lib/actions/tree/master/examples">examples</a> which differ to the {tic} approach in the following points:</p>
+<div class="section level2">
+<h2 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
+</h2>
+<p>{tic} supports running builds on GitHub Actions on all major platforms (Linux, macOS, Windows). The upstream support for the R language was developed by Jim Hester in <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a>. This repo also stores some usage <a href="https://github.com/r-lib/actions/tree/master/examples" class="external-link">examples</a> which differ to the {tic} approach in the following points:</p>
 <ul>
 <li>{tic} makes use of <code>ccache</code> for compiler caching enabling faster source installation of packages. The <code>ccache</code> directory is cached and build once a week.</li>
 <li>{tic} installs packages from source on Linux by default and does not use package binaries.</li>
@@ -145,14 +144,14 @@
 <li>add a call to <code>R CMD javareconf</code> for <strong>macOS</strong> runners</li>
 <li>add a call to <code>sudo R CMD javareconf</code> for <strong>Linux</strong> runners</li>
 </ul>
-<div id="macos-toolchain" class="section level3">
-<h3 class="hasAnchor">
-<a href="#macos-toolchain" class="anchor"></a>macOS toolchain</h3>
-<p>macOS is a bit tricky when it comes to source installation of packages. By default <code>clang</code> is used instead of <code>gcc</code> (Linux) because the former is the default for macOS. However, the default <code>clang</code> of macOS does not come with openMP support. Therefore, the R macOS core devs and CRAN currently use a <a href="https://cran.r-project.org/bin/macosx/tools/">custom openMP-enabled</a> (old) version of <code>clang</code> to build the CRAN package binaries. In {tic} we reflect this by installing <code>clang7</code> and <code>clang8</code> for the respective R version during build initialization in the “ccache” stages.</p>
+<div class="section level3">
+<h3 id="macos-toolchain">macOS toolchain<a class="anchor" aria-label="anchor" href="#macos-toolchain"></a>
+</h3>
+<p>macOS is a bit tricky when it comes to source installation of packages. By default <code>clang</code> is used instead of <code>gcc</code> (Linux) because the former is the default for macOS. However, the default <code>clang</code> of macOS does not come with openMP support. Therefore, the R macOS core devs and CRAN currently use a <a href="https://cran.r-project.org/bin/macosx/tools/" class="external-link">custom openMP-enabled</a> (old) version of <code>clang</code> to build the CRAN package binaries. In {tic} we reflect this by installing <code>clang7</code> and <code>clang8</code> for the respective R version during build initialization in the “ccache” stages.</p>
 </div>
-<div id="rjava" class="section level3">
-<h3 class="hasAnchor">
-<a href="#rjava" class="anchor"></a>rJava</h3>
+<div class="section level3">
+<h3 id="rjava">rJava<a class="anchor" aria-label="anchor" href="#rjava"></a>
+</h3>
 <p>If Java support is required, add the following for macOS runners:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[macOS] rJava"</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
@@ -161,9 +160,9 @@
 <span id="cb1-5"><a href="#cb1-5"></a>          Rscript -e "install.packages('rJava', type = 'source')"</span></code></pre></div>
 <p>For Linux, add <code>sudo R CMD javareconf</code> to stage “<a href="#linux">Linux</a> Prepare”. We currently do not support Java on Windows.</p>
 </div>
-<div id="ccache" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ccache" class="anchor"></a>ccache</h3>
+<div class="section level3">
+<h3 id="ccache">ccache<a class="anchor" aria-label="anchor" href="#ccache"></a>
+</h3>
 <p>If you have a huge dependency chain and compiling many packages from source (especially on R-devel), <code>ccache</code> can help to speed up package installation. It is recommended once your dependency installation time is higher than 30 minutes.</p>
 <p>Once the <code>ccache</code> cache is build, compilation will complete much faster. The <code>ccache</code> cache itself is only invalidated once a month. This means package installation can make use of the cache in 29/30 days in a month.</p>
 <p>The downside is that <code>ccache</code> needs to be installed and configured. This happens in every run, i.e. also in runs in which <code>ccache</code> is not used because a package cache already exists. Installation can take up to 1 min, depending on the platform. Note that <code>ccache</code> won’t be used on Windows since only binaries are used on this platform.</p>
@@ -204,101 +203,94 @@
 <span id="cb3-4"><a href="#cb3-4"></a><span class="fu">CCACHE_NOHASHDIR</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="fu">CCACHE_SLOPPINESS</span><span class="kw">:</span><span class="at"> include_file_ctime</span></span></code></pre></div>
 </div>
-<div id="spatial-libraries-gdal-proj-geos" class="section level3">
-<h3 class="hasAnchor">
-<a href="#spatial-libraries-gdal-proj-geos" class="anchor"></a>Spatial libraries (gdal, proj, geos)</h3>
-<div id="macos" class="section level4">
-<h4 class="hasAnchor">
-<a href="#macos" class="anchor"></a>macOS</h4>
-<p>homebrew-core has formulas for <code>gdal</code>, <code>geos</code> and <code>proj</code>. If you need more spatial formulas, have a look at the <a href="https://github.com/OSGeo/homebrew-osgeo4mac">osgeo4mac</a> tap. Note however, that when installing formulas from the latter, these will conflict with the ones from homebrew-core. Either install all formulas from <code>osgeo4mac</code> or none.</p>
+<div class="section level3">
+<h3 id="spatial-libraries-gdal-proj-geos">Spatial libraries (gdal, proj, geos)<a class="anchor" aria-label="anchor" href="#spatial-libraries-gdal-proj-geos"></a>
+</h3>
+<div class="section level4">
+<h4 id="macos">macOS<a class="anchor" aria-label="anchor" href="#macos"></a>
+</h4>
+<p>homebrew-core has formulas for <code>gdal</code>, <code>geos</code> and <code>proj</code>. If you need more spatial formulas, have a look at the <a href="https://github.com/OSGeo/homebrew-osgeo4mac" class="external-link">osgeo4mac</a> tap. Note however, that when installing formulas from the latter, these will conflict with the ones from homebrew-core. Either install all formulas from <code>osgeo4mac</code> or none.</p>
 <p>Also one needs to remove the <code>gfortran</code> build that is installed with <code>actions/setup-r</code>. This is due to <code>brew</code> installing <code>gcc</code> during the installation of <code>gdal</code>. <code>gcc</code> comes with <code>gfortran</code> included and when <code>brew</code> tries to link <code>gfortran</code> it will fail since there is already a local instance of <code>gfortran</code>. Hence, this instance needs to be removed so that the <code>brew link</code> step does not error and stop the build.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># conflicts with gfortran from r-lib/actions when linking gcc</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">rm '/usr/local/bin/gfortran'</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="at">brew install gdal proj geos</span></span></code></pre></div>
 </div>
-<div id="linux" class="section level4">
-<h4 class="hasAnchor">
-<a href="#linux" class="anchor"></a>Linux</h4>
+<div class="section level4">
+<h4 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>
+</h4>
 <p>On Linux, add <code>libgdal-dev libproj-dev libgeos-dev</code> to the <code>apt install</code> call in the “<a href="#linux">Linux</a> Prepare” stage.</p>
 </div>
 </div>
-<div id="known-issues" class="section level3">
-<h3 class="hasAnchor">
-<a href="#known-issues" class="anchor"></a>Known issues</h3>
+<div class="section level3">
+<h3 id="known-issues">Known issues<a class="anchor" aria-label="anchor" href="#known-issues"></a>
+</h3>
 <ul>
 <li>[Windows] Installing {tinytex} for LaTeX availability does not complete</li>
 </ul>
 </div>
 </div>
-<div id="circle-ci" class="section level2">
-<h2 class="hasAnchor">
-<a href="#circle-ci" class="anchor"></a>Circle CI</h2>
+<div class="section level2">
+<h2 id="circle-ci">Circle CI<a class="anchor" aria-label="anchor" href="#circle-ci"></a>
+</h2>
 <p>WIP</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><!-- begin footer --><div class="footer">
+    <footer><!-- begin footer --><div class="footer">
     <div class="container">
-        <div class="row start bottom-8">
-            <div class="col-xs-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
+        <div class="row start top-4 bottom-8">
+            <div class="col-2"> <img id="footerlogo" src="https://ropensci.org/img/icon_short_white.svg">
 </div>
-            <div class="col-xs-10">
+            <div class="col-10">
                 <div class="row">
                     <div class="col-md-4 col-xs-6">
-                        <a href="http://github.com/ropensci" target="_blank"><div class="icon fab fa-github"></div></a>
-                        <a href="http://github.com/ropenscilabs" target="_blank"><div class="icon fa fa-flask"></div></a>
-                        <a href="http://twitter.com/ropensci" target="_blank"><div class="icon fab fa-twitter"></div></a>
-                        <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon fab fa-vimeo"></div></a>
+                        <a href="https://github.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-github"></div></a>
+                        <a href="https://github.com/ropenscilabs" target="_blank" class="external-link"><div class="icon fa fa-flask"></div></a>
+                        <a href="https://twitter.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-twitter"></div></a>
+                        <a href="https://vimeo.com/ropensci" target="_blank" class="external-link"><div class="icon fab fa-vimeo"></div></a>
                     </div>
                 </div>
                 <div class="row top-4">
                     <div class="col-md-2 col-sm-4">
                         <ul>
 <h5 class="bottom-2">About</h5>
-                            <li><a href="https://ropensci.org/about">About rOpenSci</a></li>
-                            <li><a href="https://ropensci.org/software-review">Software Review Process</a></li>
-                            <li><a href="https://ropensci.org/about#team">Our Team</a></li>
-                            <li><a href="https://ropensci.org/careers">Jobs</a></li>
-                            <li><a href="https://ropensci.org/donate">Donate</a></li>
-                            <li><a href="https://ropensci.org/contact">Contact Us</a></li>
+                            <li><a href="https://ropensci.org/about" class="external-link">About rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/software-review" class="external-link">Software Review</a></li>
+                            <li><a href="https://ropensci.org/about#team" class="external-link">Our Team</a></li>
+                            <li><a href="https://ropensci.org/careers" class="external-link">Jobs</a></li>
+                            <li><a href="https://ropensci.org/donate" class="external-link">Donate</a></li>
+                            <li><a href="https://ropensci.org/contact" class="external-link">Contact Us</a></li>
                         </ul>
 </div>
                     <div class="col-md-3 col-sm-4">
                         <ul>
 <h5 class="bottom-2">Community</h5>
-                            <li><a href="https://ropensci.org/community/">Our Community</a></li>
-                            <li><a href="https://ropensci.org/commcalls/">Community calls</a></li>
-                            <li><a href="https://ropensci.org/events/">Events</a></li>
-                            <li><a href="https://discuss.ropensci.org/">Join the Discussion</a></li>
-                            <li><a href="https://ropensci.org/code-of-conduct">Code of conduct</a></li>
+                            <li><a href="https://ropensci.org/community/" class="external-link">Our Community</a></li>
+                            <li><a href="https://ropensci.org/commcalls/" class="external-link">Community calls</a></li>
+                            <li><a href="https://ropensci.org/events/" class="external-link">Events</a></li>
+                            <li><a href="https://discuss.ropensci.org/" class="external-link">Join the Discussion</a></li>
+                            <li><a href="https://ropensci.org/code-of-conduct" class="external-link">Code of conduct</a></li>
                         </ul>
 </div>
                     <div class="col-md-2 col-sm-4">
                         <ul>
 <h5 class="bottom-2">Resources</h5>
-                            <li><a href="https://ropensci.org/packages/">Packages</a></li>
-                            <li><a href="https://ropensci.org/usecases/">Use Cases</a></li>
-                            <li><a href="https://ropensci.org/talks-papers/">Talks &amp; Publications</a></li>
-                            <li><a href="https://docs.ropensci.org/">Documentation</a></li>
-                            <li><a href="https://ropensci.org/news/">Newsletter</a></li>
-                            <li><a href="https://ropensci.org/how-to-cite-ropensci/">Cite rOpenSci</a></li>
+                            <li><a href="https://ropensci.org/packages/" class="external-link">Packages</a></li>
+                            <li><a href="https://ropensci.org/usecases/" class="external-link">Use Cases</a></li>
+                            <li><a href="https://ropensci.org/talks-papers/" class="external-link">Talks &amp; Publications</a></li>
+                            <li><a href="https://docs.ropensci.org/" class="external-link">Documentation</a></li>
+                            <li><a href="https://ropensci.org/news/" class="external-link">Newsletter</a></li>
+                            <li><a href="https://ropensci.org/how-to-cite-ropensci/" class="external-link">Cite rOpenSci</a></li>
                         </ul>
 </div>
                     <div class="col-md-4 col-xs-12">
                         <h5 class="bottom-2"></h5>
 
-                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
-                        <a href="http://numfocus.org" target="_blank"></a>
+                        <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" class="external-link">NumFOCUS</a>.</p>
 
                     </div>
                 </div>
@@ -308,11 +300,13 @@
 </div>
 <!-- / end footer -->
 
-      </footer>
+
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
