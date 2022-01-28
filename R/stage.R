@@ -108,7 +108,7 @@ TicStage <- R6Class( # nolint
 
       tryCatch(
         { # nolint
-          with_abort({
+          with_entraced_errors({
             step$run()
             TRUE
           })
@@ -128,4 +128,19 @@ new_stages <- function(x) {
 
 stage_is_empty <- function(x) {
   x$is_empty()
+}
+
+#' @importFrom rlang try_fecth
+# rlang::with_abort() replacement since rlang 1.0.0
+# https://github.com/r-lib/rlang/issues/1351
+with_entraced_errors <- function(expr) {
+  try_fetch(
+    expr,
+    simpleError = function(cnd) {
+      abort(
+        conditionMessage(cnd),
+        call = conditionCall(cnd)
+      )
+    }
+  )
 }
