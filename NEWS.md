@@ -2,7 +2,7 @@
 
 # tic 0.11.4 (2022-01-28)
 
-- Add compatibility with rlang >= v1.0.0
+- Add compatibility for rlang >= v1.0.0
 
 
 # tic 0.11.3 (2021-12-22)
@@ -12,7 +12,7 @@
 
 # tic 0.11.2 (2021-12-05)
 
-- `do_pkgdown()` now always create a `.nojekyll` file for both release and developement deployments.
+- `do_pkgdown()` now always create a `.nojekyll` file for both release and development deployments.
   Otherwise custom fonts starting with an underscore will not be loaded as Jekyll ignores this pattern.
   A `.nojekyll` file tells GitHub pages to not use Jekyll for serving the web page. (#307)
 

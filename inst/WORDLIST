@@ -64,6 +64,7 @@ deps
 desc
 deserialize
 dev
+developement
 developmentStatus
 devtools
 dir
@@ -92,6 +93,7 @@ figshare
 FII
 fileSize
 filetype
+fledge
 fnd
 fribidi
 funder
@@ -117,6 +119,7 @@ GitLab
 givenName
 gmail
 hacky
+hardcoded
 harfbuzz
 hdiutil
 homebrew
