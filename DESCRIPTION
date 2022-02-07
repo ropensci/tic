@@ -60,7 +60,7 @@ Imports:
     methods,
     R6,
     remotes,
-    rlang (>= 0.4.1.9000),
+    rlang (>= 1.0.0),
     usethis,
     withr
 Suggests:
