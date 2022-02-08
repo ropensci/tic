@@ -69,6 +69,7 @@ toc:
 navbar:
   title:
   type: default
+  right: []
   left:
   - icon: fa-home
     href: index.html
