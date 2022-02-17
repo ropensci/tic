@@ -175,8 +175,7 @@ TestSSH <- R6Class(
     },
     run = function() {
       cli_text("{.fun step_test_ssh}: Trying to ssh into {private$url}")
-      cli_text("{.fun step_test_ssh}: Using command:
-               {.code ssh -i ~/.ssh/{private$private_key_name} -o LogLevel=error {private$url} {private$verbose}}")
+      cli_text("{.fun step_test_ssh}: Using command: ssh -i ~/.ssh/{private$private_key_name} -o LogLevel=error {private$url} {private$verbose}")
       # suppress the warning about adding the IP to .ssh/known_hosts
 
       # FIXME: This command freezes Windows builds on GHA during deployment.
