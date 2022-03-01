@@ -70,11 +70,7 @@ update_yml <- function(template_in = NULL,
   for (instance in providers) {
     instance_txt <- readLines(instance)
 
-    # by default overwrite the current template.
-    if (is.null(template_out)) {
-      template_out <- instance
-    }
-
+    template_out <- instance
     # read date of local template to compare against upstream template date
 
     # need a tryCatch() to protect against errors from as.Date()
