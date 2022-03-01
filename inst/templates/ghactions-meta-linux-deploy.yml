@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: linux-deploy
-## revision date: 2021-06-27
+## revision date: 2022-03-01
 on:
   workflow_dispatch:
   push:
