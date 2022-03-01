@@ -10,7 +10,7 @@
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.11.4</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.12.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,36 +55,7 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="../articles/tic.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/advanced.html">Advanced usage</a>
-    <a class="dropdown-item" href="../articles/build-lifecycle.html">Build lifecycle</a>
-    <a class="dropdown-item" href="../articles/ci-client-packages.html">tic &amp; CI Client Packages - An Overview</a>
-    <a class="dropdown-item" href="../articles/ci-providers.html">Implementation Details of CI Providers</a>
-    <a class="dropdown-item" href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
-    <a class="dropdown-item" href="../articles/deployment.html">Deployment</a>
-    <a class="dropdown-item" href="../articles/faq.html">FAQ</a>
-    <a class="dropdown-item" href="../articles/features.html">The features of tic</a>
-    <a class="dropdown-item" href="../articles/updating.html">Updating</a>
-  </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/ropensci/tic/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul></div>
+      <ul class="navbar-nav"></ul></div>
 
     
   </div>
@@ -96,8 +67,31 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.12.0" id="tic-0120-2022-03-01">tic 0.12.0 (2022-03-01)<a class="anchor" aria-label="anchor" href="#tic-0120-2022-03-01"></a></h2>
+<ul><li>Update Circle CI templates to 2022-03-01
+<ul><li>Remove <code>ccache</code> parts</li>
+<li>Run nightly builds also on <code>main</code> branch</li>
+</ul></li>
+<li>Update GHA and Circle CI templates to 2022-03-01
+<ul><li>Update to <code>setup-tinytex@v2</code>
+</li>
+<li>Update to <code>setup-r@v2</code>
+</li>
+<li>Update to <code>setup-pandoc@v2</code>
+</li>
+<li>Update to <code>checkout@v3</code>
+</li>
+</ul></li>
+<li>Only run one set of runners in pull requests. Previously, runners were triggered both by commits to a branch and the respective pull request</li>
+<li>Fixed a bug in <code><a href="../reference/update_yml.html">update_yml()</a></code> which updated the wrong CI config file in certain situations</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.11.4.9000" id="tic-01149000-2022-01-28">tic 0.11.4.9000 (2022-01-28)<a class="anchor" aria-label="anchor" href="#tic-01149000-2022-01-28"></a></h2>
+<ul><li>Same as previous version.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.4" id="tic-0114-2022-01-28">tic 0.11.4 (2022-01-28)<a class="anchor" aria-label="anchor" href="#tic-0114-2022-01-28"></a></h2>
-<ul><li>Add compatibility with rlang &gt;= v1.0.0</li>
+<ul><li>Add compatibility for rlang &gt;= v1.0.0</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.3" id="tic-0113-2021-12-22">tic 0.11.3 (2021-12-22)<a class="anchor" aria-label="anchor" href="#tic-0113-2021-12-22"></a></h2>
@@ -107,7 +101,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.2" id="tic-0112-2021-12-05">tic 0.11.2 (2021-12-05)<a class="anchor" aria-label="anchor" href="#tic-0112-2021-12-05"></a></h2>
 <ul><li>
-<code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> now always create a <code>.nojekyll</code> file for both release and developement deployments. Otherwise custom fonts starting with an underscore will not be loaded as Jekyll ignores this pattern. A <code>.nojekyll</code> file tells GitHub pages to not use Jekyll for serving the web page. (<a href="https://github.com/ropensci/tic/issues/307" class="external-link">#307</a>)</li>
+<code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> now always create a <code>.nojekyll</code> file for both release and development deployments. Otherwise custom fonts starting with an underscore will not be loaded as Jekyll ignores this pattern. A <code>.nojekyll</code> file tells GitHub pages to not use Jekyll for serving the web page. (<a href="https://github.com/ropensci/tic/issues/307" class="external-link">#307</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.1" id="tic-0111-2021-06-27">tic 0.11.1 (2021-06-27)<a class="anchor" aria-label="anchor" href="#tic-0111-2021-06-27"></a></h2>

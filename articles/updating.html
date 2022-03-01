@@ -31,7 +31,7 @@
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.11.4</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.12.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,37 +79,7 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="nav-link" href="../articles/tic.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/advanced.html">Advanced usage</a>
-    <a class="dropdown-item" href="../articles/build-lifecycle.html">Build lifecycle</a>
-    <a class="dropdown-item" href="../articles/ci-client-packages.html">tic &amp; CI Client Packages - An Overview</a>
-    <a class="dropdown-item" href="../articles/ci-providers.html">Implementation Details of CI Providers</a>
-    <a class="dropdown-item" href="../articles/custom-steps.html">Developer info: Writing custom steps</a>
-    <a class="dropdown-item" href="../articles/deployment.html">Deployment</a>
-    <a class="dropdown-item" href="../articles/faq.html">FAQ</a>
-    <a class="dropdown-item" href="../articles/features.html">The features of tic</a>
-    <a class="dropdown-item" href="../articles/updating.html">Updating</a>
-  </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/ropensci/tic/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+      <ul class="navbar-nav"></ul>
 </div>
 
     
@@ -118,7 +88,8 @@
 
 
 
-<script src="updating_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Updating</h1>
             
@@ -166,41 +137,41 @@
 <p>Here are some examples for custom user blocks and custom env vars:</p>
 <p><strong>GitHub Actions</strong></p>
 <p><em>Custom header</em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## tic GitHub Actions template: linux</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">## revision date: 2021-06-27</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># [Custom header]</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">[</span><span class="at">...</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## tic GitHub Actions template: linux</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">## revision date: 2022-03-01</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [Custom header]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="at">...</span><span class="kw">]</span></span></code></pre></div>
 <p><em>Runner specific environment variable</em></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">matrix</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">config</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">    # use a different tic template type if you do not want to build on all listed platforms</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> windows-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="at"> </span><span class="kw">}</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">    # [Custom matrix env var] test</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> macOS-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="kw">,</span><span class="at"> </span><span class="fu">pkgdown</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span><span class="kw">,</span><span class="at"> </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span><span class="at"> </span><span class="kw">}</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> ubuntu-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"devel"</span><span class="at"> </span><span class="kw">}</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> ubuntu-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="at"> </span><span class="kw">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">config</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # use a different tic template type if you do not want to build on all listed platforms</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> windows-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="at"> </span><span class="kw">}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    # [Custom matrix env var] test</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> macOS-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="kw">,</span><span class="at"> </span><span class="fu">pkgdown</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span><span class="kw">,</span><span class="at"> </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span><span class="at"> </span><span class="kw">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> ubuntu-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"devel"</span><span class="at"> </span><span class="kw">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">os</span><span class="kw">:</span><span class="at"> ubuntu-latest</span><span class="kw">,</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> </span><span class="st">"release"</span><span class="at"> </span><span class="kw">}</span></span></code></pre></div>
 <p><em>Environment variable</em></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">  # [Custom env]</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">R_MAX_NUM_DLLS</span><span class="kw">:</span><span class="at"> </span><span class="dv">999</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">  # [Custom env]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">R_MAX_NUM_DLLS</span><span class="kw">:</span><span class="at"> </span><span class="dv">999</span></span></code></pre></div>
 <p><em>Block</em></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] [macOS] xquartz"</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>    brew install xquartz</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] [macOS] xquartz"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    brew install xquartz</span></code></pre></div>
 <p><strong>Circle CI</strong></p>
 <p><em>Environment variable</em></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">environment</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">  # [Custom env] env var 2</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="at">  </span><span class="fu">test2</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">  # [Custom env] env var 2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">test2</span><span class="kw">:</span><span class="at"> </span><span class="st">"true"</span></span></code></pre></div>
 <p><em>Block</em></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] test2"</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">    command</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>      echo 'test2'</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] test2"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    command</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      echo 'test2'</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="automating-the-update-process">Automating the update process<a class="anchor" aria-label="anchor" href="#automating-the-update-process"></a>
