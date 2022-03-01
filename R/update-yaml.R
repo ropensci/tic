@@ -70,7 +70,10 @@ update_yml <- function(template_in = NULL,
   for (instance in providers) {
     instance_txt <- readLines(instance)
 
-    template_out <- instance
+    # by default overwrite the current template.
+    if (is.null(template_out)) {
+      template_out <- instance
+    }
     # read date of local template to compare against upstream template date
 
     # need a tryCatch() to protect against errors from as.Date()
@@ -127,6 +130,7 @@ update_yml <- function(template_in = NULL,
         the {ci_provider} template ({rev_date_latest}).",
         wrap = TRUE
       )
+      template_out <- NULL
       next
     } else {
       cli::cli_alert("Updating {ci_provider} template
@@ -138,11 +142,6 @@ update_yml <- function(template_in = NULL,
     tmpl_latest <- switch(ci_provider,
       "GitHub Actions" = update_ghactions_yml(instance_txt, tmpl_latest),
       "Circle CI"      = update_circle_yml(instance_txt, tmpl_latest)
-    )
-
-    template_out <- switch(ci_provider,
-      "GitHub Actions" = usethis::proj_path(".github/workflows", "main.yml"),
-      "Circle CI"      = usethis::proj_path(".circleci/", "config.yml")
     )
 
     cli::cli_alert_info("Writing {.file {template_out}}.")
