@@ -128,7 +128,7 @@ update_yml <- function(template_in = NULL,
     if (!rev_date_latest > rev_date_local) {
       cli::cli_alert_info(
         "{.file {basename(instance)}}: You already have the latest version of
-        the {ci_provider} template (rev_date_latest).",
+        the {ci_provider} template ({rev_date_latest}).",
         wrap = TRUE
       )
       next
