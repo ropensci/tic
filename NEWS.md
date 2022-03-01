@@ -1,5 +1,19 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.12.0 (2022-03-01)
+
+- Update Circle CI templates to 2022-03-01
+  - Remove `ccache` parts
+  - Run nightly builds also on `main` branch
+- Update GHA and Circle CI templates to 2022-03-01
+  - Update to `setup-tinytex@v2`
+  - Update to `setup-r@v2`
+  - Update to `setup-pandoc@v2`
+  - Update to `checkout@v3`
+- Only run one set of runners in pull requests. Previously, runners were triggered both by commits to a branch and the respective pull request
+- Fixed a bug in `update_yml()` which updated the wrong CI config file in certain situations
+
+
 # tic 0.11.4.9000 (2022-01-28)
 
 - Same as previous version.
