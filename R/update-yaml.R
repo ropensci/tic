@@ -140,6 +140,11 @@ update_yml <- function(template_in = NULL,
       "Circle CI"      = update_circle_yml(instance_txt, tmpl_latest)
     )
 
+    template_out <- switch(ci_provider,
+      "GitHub Actions" = usethis::proj_path(".github/workflows", "main.yml"),
+      "Circle CI"      = usethis::proj_path(".circleci/", "config.yml")
+    )
+
     cli::cli_alert_info("Writing {.file {template_out}}.")
     cli::cli_par()
     cli::cli_end()
