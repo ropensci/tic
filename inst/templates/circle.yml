@@ -1,5 +1,5 @@
 ## tic Circle CI template: linux
-## revision date: 2020-12-11
+## revision date: 2022-03-01
 version: 2.1
 jobs:
   r-release:
@@ -21,12 +21,9 @@ jobs:
       - run:
           name: "[r-release] Install dependencies"
           command: |
-            sudo apt update && sudo apt install -y ccache
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            mkdir -p $HOME/.ccache && echo -e 'max_size = 5.0G\nsloppiness = include_file_ctime\nhash_dir=false' > $HOME/.ccache/ccache.conf
-            mkdir -p ~/.R && echo -e 'CC=ccache gcc\nCPP=ccache gcc\nCXX=ccache g++\nCXX11=ccache g++\nCXX14=ccache g++\nCXX17=ccache g++\nF77=ccache gfortran\nFC=ccache gfortran' > $HOME/.R/Makevars
             R -q -e 'install.packages("remotes")'
-            R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
+            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
             R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
@@ -59,6 +56,7 @@ workflows:
             branches:
               only:
                 - master
+                - main
     jobs:
       - r-release
 # Custom user code -------------------------------------------------------------

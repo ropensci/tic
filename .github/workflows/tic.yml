@@ -1,145 +1,133 @@
-## tic GitHub Actions template: linux-macos-windows-deploy
+## tic Circle CI template: linux-matrix-deploy
 ## revision date: 2022-03-01
-on:
-  workflow_dispatch:
-  push:
-    branches:
-    - main
-    - master
-  pull_request:
-    branches:
-    - main
-    - master
-  # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron: "0 4 * * *"
-
-name: tic
-
+version: 2.1
 jobs:
-  all:
-    runs-on: ${{ matrix.config.os }}
+  r-release:
+    # r-release-env
+    environment:
+    docker:
+      - image: rocker/verse
+    steps:
+      - checkout
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+      # create a unique env var for the cache. Unfortunately normal env vars
+      # are not picked up by the cache, therefore this workaround is needed.
+      # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
+      - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+      - restore_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          # use a different tic template type if you do not want to build on all listed platforms
-          - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
-          - { os: ubuntu-latest, r: "devel" }
-          - { os: ubuntu-latest, r: "release" }
+      # install deps and check pkg ---------------------------------------------
+      - run:
+          name: "[r-release] Install dependencies"
+          command: |
+            sudo apt update && sudo apt install -y libgit2-dev
+            echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
+            R -q -e 'install.packages("remotes")'
+            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
+            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'tic::before_install()'
+            R -q -e 'tic::install()'
 
-    env:
-      # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      CRAN: ${{ matrix.config.cran }}
-      # make sure to run `tic::use_ghactions_deploy()` to set up deployment
-      TIC_DEPLOY_KEY: ${{ secrets.TIC_DEPLOY_KEY }}
-      # prevent rgl issues because no X11 display is available
-      RGL_USE_NULL: true
+      - run:
+          name: "[r-release] R CMD Check"
+          no_output_timeout: 60m
+          command: |
+            R -q -e 'tic::before_script()'
+            R -q -e 'tic::script()'
+
+      # save R pkg cache -------------------------------------------------------
+      - save_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          paths:
+            - /usr/local/lib/R/site-library
+  deploy:
+    # r-deploy-env
+    environment:
       # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
       # capitalized term. This also might need to be done in tic.R
-      BUILD_PKGDOWN: ${{ matrix.config.pkgdown }}
-      # macOS >= 10.15.4 linking
-      SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
-      # use GITHUB_TOKEN from GitHub to workaround rate limits in {remotes}
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
+      BUILD_PKGDOWN: true
+    docker:
+      - image: rocker/verse
     steps:
-      - uses: actions/checkout@v3
+      - checkout
 
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: ${{ matrix.config.r }}
-          Ncpus: 4
+      - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+      - restore_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
-      - uses: r-lib/actions/setup-tinytex@v2
-        if: matrix.config.latex == 'true'
+      - run:
+          name: Deploy
+          command: |
+            sudo apt update && sudo apt install -y libgit2-dev
+            echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
+            R -q -e 'install.packages("remotes")'
+            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
+            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'tic::before_deploy()'
+            R -q -e 'tic::deploy()'
+            R -q -e 'tic::after_deploy()'
 
-      - uses: r-lib/actions/setup-pandoc@v2
+  r-oldrelease:
+    # r-oldrelease-env
+    environment:
+    docker:
+      - image: rocker/verse:3.6.3
+    steps:
+      - checkout
 
-      # set date/week for use in cache creation
-      # https://github.community/t5/GitHub-Actions/How-to-set-and-access-a-Workflow-variable/m-p/42970
-      # - cache R packages daily
-      - name: "[Cache] Prepare daily timestamp for cache"
-        if: runner.os != 'Windows'
-        id: date
-        run: echo "::set-output name=date::$(date '+%d-%m')"
+      # create a unique env var for the cache. Unfortunately normal env vars
+      # are not picked up by the cache, therefore this workaround is needed.
+      # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
+      - run: echo "$(date '+%d-%m')-r-oldrelease" > /tmp/_tmp_file
+      - restore_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
-      - name: "[Cache] Cache R packages"
-        if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+      # install deps and check pkg ---------------------------------------------
+      - run:
+          name: "[r-oldrelease] Install dependencies"
+          command: |
+            sudo apt update && sudo apt install -y libgit2-dev
+            echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
+            R -q -e 'install.packages("remotes")'
+            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
+            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'tic::before_install()'
+            R -q -e 'tic::install()'
 
-      - name: "[Stage] [Linux] Install required system libs"
-        if: runner.os == 'Linux'
-        run: sudo apt install libcurl4-openssl-dev libgit2-dev
+      - run:
+          name: "[r-oldrelease] R CMD Check"
+          no_output_timeout: 60m
+          command: |
+            R -q -e 'tic::before_script()'
+            R -q -e 'tic::script()'
 
-      # for some strange Windows reason this step and the next one need to be decoupled
-      - name: "[Stage] Prepare"
-        run: |
-          Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
-          Rscript -e "if (!requireNamespace('curl')) install.packages('curl', type = 'source')"
+      # save R pkg cache -------------------------------------------------------
+      - save_cache:
+          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+          paths:
+            - /usr/local/lib/R/site-library
 
-      - name: "[Stage] [macOS] Install libgit2"
-        if: runner.os == 'macOS'
-        run: brew install libgit2
+workflows:
+  build-and-deploy:
+    jobs:
+      - r-release
+      - r-oldrelease
+      - deploy:
+          requires:
+            - r-release
 
-      - name: "[Stage] [macOS] Install system libs for pkgdown"
-        if: runner.os == 'macOS' && matrix.config.pkgdown != ''
-        run: brew install harfbuzz fribidi
-
-      - name: "[Stage] [Linux] Install system libs for pkgdown"
-        if: runner.os == 'Linux' && matrix.config.pkgdown != ''
-        run: sudo apt install libharfbuzz-dev libfribidi-dev
-
-      # Try to automatically check for system dependencies and install them
-      # Note: this might not catch all required system libs and manual action might be needed
-      - name: "[Stage] [Linux] Install linux system dependencies"
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-
-      - name: "[Stage] Install"
-        if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
-        run: Rscript -e "remotes::install_github('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
-
-      # macOS devel needs its own stage because we need to work with an option to suppress the usage of binaries
-      - name: "[Stage] Prepare & Install (macOS-devel)"
-        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'devel'
-        run: |
-          echo -e 'options(Ncpus = 4, pkgType = "source", repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-          Rscript -e "remotes::install_github('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
-
-      - name: "[Stage] Script"
-        run: Rscript -e 'tic::script()'
-
-      - name: "[Stage] After Success"
-        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
-        run: Rscript -e "tic::after_success()"
-
-      - name: "[Stage] Upload R CMD check artifacts"
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
-      - name: "[Stage] Before Deploy"
-        run: |
-          Rscript -e "tic::before_deploy()"
-
-      - name: "[Stage] Deploy"
-        run: Rscript -e "tic::deploy()"
-
-      - name: "[Stage] After Deploy"
-        run: Rscript -e "tic::after_deploy()"
+  # CRON job daily at 4 am in the morning
+  # - runs the "build" job on the master branch and builds package cache
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 4 * * *"
+          filters:
+            branches:
+              only:
+                - master
+                - main
+    jobs:
+      - r-release
+      - r-oldrelease
