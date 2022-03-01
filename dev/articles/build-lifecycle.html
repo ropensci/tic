@@ -89,7 +89,8 @@
 
 
 
-<script src="build-lifecycle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Build lifecycle</h1>
                         <h4 data-toc-skip class="author">Patrick Schratz, Kirill Müller</h4>
@@ -125,7 +126,7 @@
 <h3 id="accessing-a-single-stage">Accessing a single stage<a class="anchor" aria-label="anchor" href="#accessing-a-single-stage"></a>
 </h3>
 <p>The steps which are executed in each stage are specified in <code>tic.R</code>. A stage is executed by calling the respective <em>tic</em> function; for example for stage “deploy” <code><a href="../reference/stages.html">tic::deploy()</a></code>. This is what happens in the CI YAML templates if you take a closer look at them.</p>
-<p>These functions then source <code>tic.R</code> and collect all steps which belong to their stage by executing <code>get_stage("&lt;stage name&gt;")</code> (e.g. <code>get_stage("deploy")</code> for the “deploy” stage").</p>
+<p>These functions then source <code>tic.R</code> and collect all steps which belong to their stage by executing <code>get_stage("&lt;stage name&gt;")</code> (e.g. <code>get_stage("deploy")</code> for the “deploy” stage”).</p>
 <p>Again, remember that the order of the stages is fixed (see the <a href="#stages">“Stages”</a> section), it does not matter in which order you declare the stages in <code>tic.R</code>.</p>
 </div>
 <div class="section level3">

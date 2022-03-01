@@ -89,7 +89,8 @@
 
 
 
-<script src="tic_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Getting started with CI for R</h1>
                         <h4 data-toc-skip class="author">Patrick Schratz, Kirill Müller</h4>
@@ -106,26 +107,34 @@
 </h2>
 <p>Continuous Integration (CI) is a huge field in software development. There are a lot of resources out there that try to explain what it can do and why you need it (and usually why their particular company/service does it best). If you are just getting started with software development or <code>git</code> based project work you might think:</p>
 <blockquote>
-<p>“Ah I don’t need all of this overhead, I am fine doing X and Y manually for this project. The overhead learning this next additional”tool" is not worth it.</p>
+<p>“Ah I don’t need all of this overhead, I am fine doing X and Y manually for this project. The overhead learning this next additional”tool” is not worth it.</p>
 </blockquote>
 <p>Reading <a href="https://docs.ropensci.org/tic/articles/" class="external-link">all vignettes of this package</a> will help you understand what {tic} does to simplify all of that specifically for the R language.</p>
 <p>However, there is a lot of advanced information in these vignettes which might be a bit overwhelming at first if you are just getting started. Therefore we will explain a few of the most important terms first to give you a kickstart:</p>
-<details><p><summary>Runner</summary></p>
-<p>One build job (possibly among many others) on any operating system that executes certain commands specified in the YAML config file.</p>
-</details><details><p><summary>YAML config file</summary></p>
-<p>A file written in the YAML language telling the runner what to do after a push to the repository.</p>
-</details><details><p><summary>Build matrix</summary></p>
-<p>Specification how many runners are started and their specification (operating system, custom environment variables, etc.)</p>
-</details><details><p><summary>CI Provider</summary></p>
-<p>A company that offers ready-to-use virtual images for runners which are started after a certain action (.e.g Circle CI). However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.</p>
-</details><details><p><summary>Deployment</summary></p>
-<p>CI builds cannot just perform specific checks on a package/project, they can also be used to (re-)build certain files in every run. With the appropriate permissions these files can then be pushed to a repository via <code>git</code> without the need to take manual actions by the user. This can save a lot of time and is commonly used to ensure that documentation is always up-to-date.</p>
-</details><details><p><summary>CI Client packages</summary></p>
-<p>R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.), e.g. <a href="https://github.com/ropenscilabs/circle" class="external-link">{circle}</a>.</p>
-</details><details><p><summary>CI Badges</summary></p>
-<p>Badges in the README of a repository showing the current build status of the project: Did the last build fail or finish successfully?</p>
-</details><details><p><summary>DSL</summary></p>
-<p>“DSL” stands for “<a href="https://en.wikipedia.org/wiki/Domain-specific_language" class="external-link">domain-specific language</a>” and essentially means the implementation of a general concept for a specific programming language.</p>
+<details><summary>
+Runner
+</summary><p>One build job (possibly among many others) on any operating system that executes certain commands specified in the YAML config file.</p>
+</details><details><summary>
+YAML config file
+</summary><p>A file written in the YAML language telling the runner what to do after a push to the repository.</p>
+</details><details><summary>
+Build matrix
+</summary><p>Specification how many runners are started and their specification (operating system, custom environment variables, etc.)</p>
+</details><details><summary>
+CI Provider
+</summary><p>A company that offers ready-to-use virtual images for runners which are started after a certain action (.e.g Circle CI). However, code hosting sites like GitHub or GitLab also have their own CI integration meanwhile.</p>
+</details><details><summary>
+Deployment
+</summary><p>CI builds cannot just perform specific checks on a package/project, they can also be used to (re-)build certain files in every run. With the appropriate permissions these files can then be pushed to a repository via <code>git</code> without the need to take manual actions by the user. This can save a lot of time and is commonly used to ensure that documentation is always up-to-date.</p>
+</details><details><summary>
+CI Client packages
+</summary><p>R packages that interface the command line API of CI providers to simplify the execution of certain tasks (scraping build logs, enabling repos, etc.), e.g. <a href="https://github.com/ropenscilabs/circle" class="external-link">{circle}</a>.</p>
+</details><details><summary>
+CI Badges
+</summary><p>Badges in the README of a repository showing the current build status of the project: Did the last build fail or finish successfully?</p>
+</details><details><summary>
+DSL
+</summary><p>“DSL” stands for “<a href="https://en.wikipedia.org/wiki/Domain-specific_language" class="external-link">domain-specific language</a>” and essentially means the implementation of a general concept for a specific programming language.</p>
 </details>
 </div>
 <div class="section level2">
@@ -147,9 +156,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Circle CI</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>circle<span class="op">::</span><span class="kw">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>tic<span class="op">::</span><span class="kw">use_circle_yml</span>(<span class="op">&lt;</span>option here<span class="op">&gt;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Circle CI</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>circle<span class="sc">::</span><span class="fu">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tic<span class="sc">::</span><span class="fu">use_circle_yml</span>(<span class="sc">&lt;</span>option here<span class="sc">&gt;</span>)</span></code></pre></div>
 <hr>
 <p>If you are open to try out new things, Circle CI comes with some advantages that might simplify your CI experience. However, all providers come with pros and cons and we cannot provide an exhaustive list comparing all providers here.</p>
 <p>See the <a href="ci-client-packages.html">CI Client Packages</a> article for more detailed information on how {tic} and the CI client packages work together.</p>
