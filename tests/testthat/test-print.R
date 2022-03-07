@@ -1,4 +1,7 @@
 test_that("print stages", {
+  # this ensures equal test output locally and during CI runs
+  Sys.setenv("GITHUB_ACTIONS" = "true")
+
   skip_on_os("windows")
   dsl_init(quiet = TRUE)
 
