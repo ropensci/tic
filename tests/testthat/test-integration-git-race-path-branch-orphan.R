@@ -50,7 +50,7 @@ test_that("integration test: git race condition + path + branch + orphaning", {
       writeLines(character(), "deploy/.gitignore")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
-      git2r::push(refspec = sprintf("refs/heads/%s", system("git config --global init.defaultBranch", intern = TRUE)))
+      system("git push") # git2r::push() is only trouble
     }
   )
 
