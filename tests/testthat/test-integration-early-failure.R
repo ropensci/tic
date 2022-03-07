@@ -1,5 +1,3 @@
-context("test-integration-early-failure.R")
-
 test_that("integration test: early failure", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
 

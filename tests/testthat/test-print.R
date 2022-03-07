@@ -2,51 +2,46 @@ test_that("print stages", {
   skip_on_os("windows")
   dsl_init(quiet = TRUE)
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/empty.txt")
+  print(dsl_get())
+  expect_snapshot_output(
+    print(dsl_get()) # ,
+    # testthat::test_path("out/empty.txt")
   )
 
   get_stage("install") %>%
     add_step(step_install_deps())
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/install.txt")
+  expect_snapshot_output(
+    print(dsl_get())
   )
 
   get_stage("script") %>%
     add_step(step_rcmdcheck())
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/install-script.txt")
+  expect_snapshot_output(
+    print(dsl_get())
   )
 
-  expect_known_output(
-    print(get_stage("deploy"), omit_if_empty = FALSE),
-    testthat::test_path("out/deploy-empty.txt")
+  expect_snapshot_output(
+    print(get_stage("deploy"), omit_if_empty = FALSE)
   )
 
   do_pkgdown()
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/pkgdown.txt")
+  expect_snapshot_output(
+    print(dsl_get())
   )
 
   dsl_init(quiet = TRUE)
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/empty.txt")
+  expect_snapshot_output(
+    print(dsl_get())
   )
 
   do_bookdown()
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/bookdown.txt")
+  expect_snapshot_output(
+    print(dsl_get())
   )
 
   get_stage("install") %>%
@@ -57,8 +52,7 @@ test_that("print stages", {
     # exact duplicate including arguments ((should only appear once))
     add_step(step_install_deps(repos = repo_default()))
 
-  expect_known_output(
-    print(dsl_get()),
-    testthat::test_path("out/no-duplicated-steps.txt")
+  expect_snapshot_output(
+    print(dsl_get())
   )
 })

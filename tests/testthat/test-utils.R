@@ -1,5 +1,3 @@
-context("test-utils.R")
-
 test_that("deps", {
   expect_equal(get_deps_from_code(quote({})), character())
   expect_equal(get_deps_from_code(quote(pkg::fun)), "pkg")

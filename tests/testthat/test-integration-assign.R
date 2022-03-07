@@ -1,5 +1,3 @@
-context("test-integration-assign.R")
-
 test_that("integration test: assign (#33)", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
 

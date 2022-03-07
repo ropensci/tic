@@ -1,5 +1,3 @@
-context("test-integration-package.R")
-
 test_that("integration test: package failure", {
   cli::cat_boxx("integration test: package failure")
 

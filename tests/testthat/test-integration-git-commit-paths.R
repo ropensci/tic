@@ -1,5 +1,3 @@
-context("test-integration-git-commit-paths.R")
-
 test_that("integration test: git commit paths", {
   cli::cat_boxx("integration test: git commit paths")
 

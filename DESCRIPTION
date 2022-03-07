@@ -2,43 +2,22 @@ Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.12.0
-Authors@R:
-    c(person(given = "Kirill",
-             family = "Müller",
-             role = c("aut", "cre"),
-             email = "krlmlr+r@mailbox.org",
-             comment = c(ORCID = "0000-0002-1416-3412")),
-      person(given = "Patrick",
-             family = "Schratz",
-             role = "aut",
-             email = "patrick.schratz@gmail.com",
-             comment = c(ORCID = "0000-0003-0748-6624")),
-      person(given = "Mika",
-             family = "Braginsky",
-             role = "aut",
-             email = "mika.br@gmail.com"),
-      person(given = "Karthik",
-             family = "Ram",
-             role = "aut",
-             email = "karthik.ram@gmail.com"),
-      person(given = "Jeroen",
-             family = "Ooms",
-             role = "aut",
-             email = "jeroen.ooms@stat.ucla.edu"),
-      person(given = "Max",
-             family = "Held",
-             role = "rev",
-             comment = "Max reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
-      person(given = "Anna",
-             family = "Krystalli",
-             role = "rev",
-             comment = "Anna reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
-      person(given = "Laura",
-             family = "DeCicco",
-             role = "rev",
-             comment = "Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
-      person(given = "rOpenSci",
-             role = "fnd"))
+Authors@R:c(
+    person("Kirill", "Müller", , "krlmlr+r@mailbox.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-1416-3412")),
+    person("Patrick", "Schratz", , "patrick.schratz@gmail.com", role = "aut",
+           comment = c(ORCID = "0000-0003-0748-6624")),
+    person("Mika", "Braginsky", , "mika.br@gmail.com", role = "aut"),
+    person("Karthik", "Ram", , "karthik.ram@gmail.com", role = "aut"),
+    person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", role = "aut"),
+    person("Max", "Held", role = "rev",
+           comment = "Max reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
+    person("Anna", "Krystalli", role = "rev",
+           comment = "Anna reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
+    person("Laura", "DeCicco", role = "rev",
+           comment = "Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
+    person("rOpenSci", role = "fnd")
+  )
 Description: Provides a way to describe common build and deployment
     workflows for R-based projects: packages, websites (e.g.  blogdown,
     pkgdown), or data processing (e.g. research compendia). The recipe is
@@ -92,6 +71,8 @@ VignetteBuilder:
 RdMacros:
     lifecycle
 ByteCompile: No
+Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

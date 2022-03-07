@@ -1,5 +1,3 @@
-context("test-integration-git-race-path-branch-orphan.R")
-
 test_that("integration test: git race condition + path + branch + orphaning", {
   cli::cat_boxx("integration test: git race path branch orphan")
 

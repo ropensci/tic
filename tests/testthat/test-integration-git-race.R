@@ -1,5 +1,3 @@
-context("test-integration-git-race.R")
-
 test_that("integration test: git race condition", {
   cli::cat_boxx("integration test: git race")
 

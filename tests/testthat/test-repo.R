@@ -1,5 +1,3 @@
-context("test-repo")
-
 test_that("can determine available packages from repos", {
   skip_if(getRversion() < "3.3")
 

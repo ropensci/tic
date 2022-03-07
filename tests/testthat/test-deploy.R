@@ -1,9 +1,6 @@
-context("deploy")
-
 Running <- R6Class(
   "Running",
   inherit = TicStep,
-
   public = list(
     initialize = function(running = TRUE) {
       private$running <- running
@@ -15,11 +12,9 @@ Running <- R6Class(
       private$run_calls <- private$run_calls + 1L
     },
     check = function() private$running,
-
     get_prepare_calls = function() private$prepare_calls,
     get_run_calls = function() private$run_calls
   ),
-
   private = list(
     running = NULL,
     prepare_calls = 0L,
