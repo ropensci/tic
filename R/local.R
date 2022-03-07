@@ -1,7 +1,6 @@
 LocalCI <- R6Class(
   "LocalCI",
   inherit = CI,
-
   public = list(
     get_branch = function() {
       # Suppress warnings that occur if not in a Git repo
@@ -26,7 +25,9 @@ LocalCI <- R6Class(
           remote <- gh::gh_tree_remote()
           paste0(remote$username, "/", remote$repo)
         },
-        error = ""
+        error = function(e) {
+          return()
+        }
       )
     },
     get_build_number = function() {
