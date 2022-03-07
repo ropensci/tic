@@ -53,7 +53,7 @@ test_that("integration test: git race condition with path and branch", {
       writeLines(character(), "deploy/.gitignore")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
-      git2r::push(refspec = "refs/heads/master")
+      git2r::push(refspec = "refs/heads/main")
     }
   )
 

@@ -52,7 +52,7 @@ test_that("integration test: git race condition + path + branch + orphaning", {
       writeLines(character(), "deploy/.gitignore")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
-      git2r::push(refspec = "refs/heads/master")
+      git2r::push(refspec = "refs/heads/main")
     }
   )
 

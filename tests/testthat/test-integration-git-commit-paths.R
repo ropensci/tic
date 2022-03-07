@@ -40,7 +40,7 @@ test_that("integration test: git commit paths", {
       git2r::config(user.name = "tic", user.email = "tic@pkg.test")
       git2r::add(path = ".")
       git2r::commit(message = "Initial commit")
-      git2r::push(refspec = "refs/heads/master")
+      git2r::push(refspec = "refs/heads/main")
     }
   )
 
