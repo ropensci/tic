@@ -25,7 +25,7 @@ jobs:
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
             R -q -e 'install.packages("remotes")'
             R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic@colors", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
 
@@ -63,7 +63,7 @@ jobs:
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
             R -q -e 'install.packages("remotes")'
             R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic@colors", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_deploy()'
             R -q -e 'tic::deploy()'
             R -q -e 'tic::after_deploy()'
@@ -91,7 +91,7 @@ jobs:
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
             R -q -e 'install.packages("remotes")'
             R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic@colors", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
 
