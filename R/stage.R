@@ -63,7 +63,8 @@ TicStage <- R6Class( # nolint
         cat_bullet("No steps defined", bullet = "info")
       } else {
         options(width = 120)
-        lapply(private$steps, function(x) print(cli::cat_bullet(x$name, bullet = "play", bullet_col = "orange", col = "blue")))
+        # print(private$steps[[1]]$name)
+        lapply(private$steps, function(x) print(cli::cat_bullet(gsub(",", ", ", gsub(" ", "", gsub("\n", "", x$name))), bullet = "play", bullet_col = "orange", col = "blue")))
       }
     }
   ),
