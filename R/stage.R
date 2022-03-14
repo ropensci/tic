@@ -96,11 +96,14 @@ TicStage <- R6Class( # nolint
         return()
       }
 
-      cli::cat_bullet(
-        paste0("Preparing: ", step$stage_name),
-        bullet = "info",
-        col = "magenta"
-      )
+      if (step$stage_name != "") {
+        cli::cat_bullet(
+          paste0("Preparing: ", step$stage_name),
+          bullet = "info",
+          col = "magenta"
+        )
+      }
+
       # ci_cat_with_color(
       #   crayon::magenta(paste0("Preparing: ", step$stage_name))
       # )
@@ -128,13 +131,13 @@ TicStage <- R6Class( # nolint
         return(TRUE)
       }
 
-      cli::cat_bullet(gsub(
+      cli::cat_bullet(paste0("Running stage '", private$stage_name, "': ", gsub(
         ",", ", ",
         gsub(" ", "", gsub(
           "\n", "",
-          paste0("Running ", private$stage_name, ": ", step$name)
+          step$name
         ))
-      ),
+      )),
       bullet = "info", col = "magenta"
       )
       # ci_cat_with_color(
