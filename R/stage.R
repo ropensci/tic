@@ -96,13 +96,14 @@ TicStage <- R6Class( # nolint
         return()
       }
 
-      if (step$name != "") {
-        cli::cat_bullet(
-          paste0("Preparing: ", step$stage_name),
-          bullet = "info",
-          col = "magenta"
-        )
-      }
+      # browser()
+      # if (exists(step$stage_name)) {
+      cli::cat_bullet(
+        paste0("Preparing: ", step$name),
+        bullet = "info",
+        col = "magenta"
+      )
+      # }
 
       # ci_cat_with_color(
       #   crayon::magenta(paste0("Preparing: ", step$stage_name))

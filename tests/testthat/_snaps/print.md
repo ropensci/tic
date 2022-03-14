@@ -1,17 +1,17 @@
 # print stages
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     i No steps defined in any stage
 
 ---
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
     > step_install_deps()
 
 ---
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
     > step_install_deps()
     -- Stage: script ---------------------------------------------------------------
@@ -24,7 +24,7 @@
 
 ---
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
     > step_install_deps()
     > step_install_deps(repos=repo_default())
@@ -39,12 +39,12 @@
 
 ---
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     i No steps defined in any stage
 
 ---
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
     > step_install_deps(repos=repo_default())
     > step_session_info()
@@ -53,7 +53,7 @@
 
 ---
 
-    -- tic configuration -----------------------------------------------------------
+    -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
     > step_install_deps(repos=repo_default())
     > step_session_info()
