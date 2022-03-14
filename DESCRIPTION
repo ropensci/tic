@@ -2,7 +2,7 @@ Type: Package
 Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.12.0
-Authors@R:c(
+Authors@R: c(
     person("Kirill", "Müller", , "krlmlr+r@mailbox.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-1416-3412")),
     person("Patrick", "Schratz", , "patrick.schratz@gmail.com", role = "aut",
@@ -37,6 +37,7 @@ Imports:
     magrittr,
     memoise,
     methods,
+    octolog (>= 0.1.1.9000),
     R6,
     remotes,
     rlang (>= 1.0.0),
@@ -70,6 +71,8 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
+Remotes: 
+    assignUser/octolog
 ByteCompile: No
 Config/testthat/edition: 3
 Config/testthat/parallel: true

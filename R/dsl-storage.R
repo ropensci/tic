@@ -106,10 +106,11 @@ dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
     }
   } else {
     if (!quiet) {
-      cat_bullet(
-        "Loading tic stage configuration from ", crayon::blue(path),
-        bullet = "tick", bullet_col = "green"
-      )
+      octolog::octo_inform("Loading tic stage configuration from {path}")
+      # cat_bullet(
+      #   "Loading tic stage configuration from ", crayon::blue(path),
+      #   bullet = "tick", bullet_col = "green"
+      # )
     }
 
     # Restore old DSL in case of failure

@@ -100,9 +100,10 @@ TicStage <- R6Class( # nolint
         return(TRUE)
       }
 
-      ci_cat_with_color(
-        crayon::magenta(paste0("Running ", private$stage_name, ": ", step$name))
-      )
+      octolog::octo_inform("Running {private$stage_name}: {step$name}")
+      # ci_cat_with_color(
+      #   crayon::magenta(paste0("Running ", private$stage_name, ": ", step$name))
+      # )
 
       top <- environment()
 

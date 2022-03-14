@@ -3,6 +3,7 @@ Appveyor
 AppVeyor
 arg
 args
+assignUser
 aut
 auth
 BASEDIR
@@ -207,6 +208,7 @@ nsloppiness
 NUM
 nv
 OAuth
+octolog
 oldrel
 oldrelease
 ooms
