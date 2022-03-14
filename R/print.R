@@ -1,7 +1,7 @@
 #' @import cli
 #' @export
 print.TicStages <- function(x, ...) {
-  cli::cat_rule("tic configuration", col = "magenta")
+  cli::cat_rule("tic configuration", col = "blue")
 
   if (all(vlapply(x, stage_is_empty))) {
     cat_bullet(

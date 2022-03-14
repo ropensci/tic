@@ -96,7 +96,7 @@ TicStage <- R6Class( # nolint
         return()
       }
 
-      if (step$stage_name != "") {
+      if (step$name != "") {
         cli::cat_bullet(
           paste0("Preparing: ", step$stage_name),
           bullet = "info",
