@@ -45,13 +45,7 @@ RCMDcheck <- R6Class( # nolint
           # Work around missing qpdf executable
           "R_QPDF" = if (Sys.which("qpdf") == "") "true"
         ),
-        res <- rcmdcheck::rcmdcheck(
-          args = private$args, build_args = private$build_args,
-          error_on = "never",
-          repos = private$repos,
-          timeout = private$timeout,
-          check_dir = private$check_dir
-        )
+        res <- rcmdcheck::rcmdcheck(args = private$args, build_args = private$build_args, error_on = "never", repos = private$repos, timeout = private$timeout, check_dir = private$check_dir)
       )
 
       print(res)
@@ -184,16 +178,7 @@ step_rcmdcheck <- function(...,
     }
   }
 
-  RCMDcheck$new(
-    warnings_are_errors = warnings_are_errors,
-    notes_are_errors = notes_are_errors,
-    args = args,
-    build_args = build_args,
-    error_on = error_on,
-    repos = repos,
-    timeout = timeout,
-    check_dir = check_dir
-  )
+  RCMDcheck$new(warnings_are_errors = warnings_are_errors, notes_are_errors = notes_are_errors, args = args, build_args = build_args, error_on = error_on, repos = repos, timeout = timeout, check_dir = check_dir)
 }
 
 # withr usage from R6 methods not recognized

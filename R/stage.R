@@ -64,9 +64,6 @@ TicStage <- R6Class( # nolint
       } else {
         options(width = 120)
         lapply(private$steps, function(x) print(cli::cat_bullet(x$name, bullet = "play", bullet_col = "orange", col = "blue")))
-        # cli::
-        # cli::bul
-        # lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
     }
   ),
