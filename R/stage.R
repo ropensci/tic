@@ -90,12 +90,15 @@ TicStage <- R6Class( # nolint
     },
     run_one = function(step) {
       if (!isTRUE(step$check())) {
-        ci_cat_with_color(
-          crayon::magenta(paste0(
-            "Skipping ", private$stage_name, ": ",
-            step$stage_name
-          ))
+        octolog::octo_inform(
+          "Skipping {private$stage_name}: {step$stage_name}"
         )
+        # ci_cat_with_color(
+        #   crayon::magenta(paste0(
+        #     "Skipping ", private$stage_name, ": ",
+        #     step$stage_name
+        #   ))
+        # )
         print(step$check)
         return(TRUE)
       }

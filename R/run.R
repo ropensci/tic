@@ -30,7 +30,7 @@ prepare_all_stages <- function(stages = dsl_load()) {
 #'
 #' @export
 run_stage <- function(name, stages = dsl_load()) {
-  octolog::enable_github_colors()
+  octolog::enable_github_colors(quiet = TRUE)
   stage <- stages[[name]]
   if (!is.null(stage)) {
     stage$run_all()
