@@ -64,7 +64,13 @@ TicStage <- R6Class( # nolint
       } else {
         options(width = 120)
         # print(private$steps[[1]]$name)
-        lapply(private$steps, function(x) print(cli::cat_bullet(gsub(",", ", ", gsub(" ", "", gsub("\n", "", x$name))), bullet = "play", bullet_col = "orange", col = "green")))
+        # browser()
+        names <- sapply(private$steps, function(x) x$name)
+        cli::cat_bullet(gsub(
+          ",", ", ",
+          gsub(" ", "", gsub("\n", "", names))
+        ), bullet = "play", bullet_col = "orange", col = "blue")
+        # out = lapply(names, function(x) )
       }
     }
   ),
