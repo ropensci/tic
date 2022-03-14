@@ -96,20 +96,25 @@ dsl_get <- function() {
 #' @rdname dsl_get
 #' @export
 dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
+  Sys.setenv("R_CLI_NUM_COLORS" = as.integer(256^3))
   if (dslobj_has() && !force) {
     if (!quiet) {
-      cat_bullet(
-        "Using existing tic stage configuration, use ",
-        crayon::silver("`force = TRUE`"), " to reload",
-        bullet = "info", bullet_col = "green"
-      )
+      if (Sys.getenv("CI") == "") {
+        cat_bullet(
+          "Using existing tic stage configuration, use ",
+          crayon::silver("`force = TRUE`"), " to reload",
+          bullet = "info", bullet_col = "green"
+        )
+      }
     }
   } else {
     if (!quiet) {
-      cat_bullet(
-        "Loading tic stage configuration from ", crayon::blue(path),
-        bullet = "tick", bullet_col = "green"
-      )
+      if (Sys.getenv("CI") == "") {
+        cat_bullet(
+          "Loading tic stage configuration from ", crayon::blue(path),
+          bullet = "tick", bullet_col = "green"
+        )
+      }
     }
 
     # Restore old DSL in case of failure
