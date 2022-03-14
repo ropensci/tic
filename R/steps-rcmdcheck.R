@@ -1,13 +1,8 @@
 RCMDcheck <- R6Class( # nolint
   "RCMDcheck",
   inherit = TicStep,
-
   public = list(
-    initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
-                          args = c("--no-manual", "--as-cran"),
-                          build_args = "--force", error_on = "warning",
-                          repos = repo_default(), timeout = Inf,
-                          check_dir = NULL) {
+    initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL, args = c("--no-manual", "--as-cran"), build_args = "--force", error_on = "warning", repos = repo_default(), timeout = Inf, check_dir = NULL) {
       if (!is.null(notes_are_errors)) {
         warning_once(
           '`notes_are_errors` is deprecated, please use `error_on = "note"`'
@@ -15,8 +10,7 @@ RCMDcheck <- R6Class( # nolint
         if (notes_are_errors) {
           error_on <- "note"
         }
-      }
-      else if (!is.null(warnings_are_errors)) {
+      } else if (!is.null(warnings_are_errors)) {
         warning_once(
           "`warnings_are_errors` is deprecated, ",
           'please use `error_on = "warning"`'
@@ -34,7 +28,6 @@ RCMDcheck <- R6Class( # nolint
 
       super$initialize()
     },
-
     run = function() {
       # Don't include vignettes if --no-build-vignettes is included
       if ("--no-build-vignettes" %in% private$args) {
@@ -79,13 +72,11 @@ RCMDcheck <- R6Class( # nolint
         )
       }
     },
-
     prepare = function() {
       verify_install("rcmdcheck")
       super$prepare()
     }
   ),
-
   private = list(
     args = NULL,
     build_args = NULL,
