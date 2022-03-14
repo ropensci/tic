@@ -56,12 +56,15 @@ TicStage <- R6Class( # nolint
       if (omit_if_empty && length(private$steps) == 0) {
         return()
       }
-      cat_rule(private$stage_name, right = "stage", col = "green")
+      cli::rule("{private$stage_name}", line_col = "green", right = "stage")
+      # cat_rule(private$stage_name, , col = "green")
 
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
       } else {
-        lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
+        lapply(private$steps, function(x) cli::cat_bullet(x$name, bullet = "play", bullet_col = "blue"))
+        # cli::bul
+        # lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
     }
   ),
@@ -81,9 +84,12 @@ TicStage <- R6Class( # nolint
         return()
       }
 
-      ci_cat_with_color(
-        crayon::magenta(paste0("Preparing: ", step$stage_name))
+      octolog::octo_inform(
+        "Preparing: {step$stage_name}"
       )
+      # ci_cat_with_color(
+      #   crayon::magenta(paste0("Preparing: ", step$stage_name))
+      # )
       step$prepare()
 
       invisible()
