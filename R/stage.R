@@ -130,7 +130,7 @@ TicStage <- R6Class( # nolint
         ",", ", ",
         gsub(" ", "", gsub(
           "\n", "",
-          step$name
+          cli::col_silver(step$name)
         ))
       )),
       bullet = "info", col = "cyan"
