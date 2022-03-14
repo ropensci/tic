@@ -96,6 +96,7 @@ dsl_get <- function() {
 #' @rdname dsl_get
 #' @export
 dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
+  Sys.setenv("R_CLI_NUM_COLORS" = as.integer(256^3))
   if (dslobj_has() && !force) {
     if (!quiet) {
       cat_bullet(

@@ -56,12 +56,16 @@ TicStage <- R6Class( # nolint
       if (omit_if_empty && length(private$steps) == 0) {
         return()
       }
-      cat_rule(private$stage_name, right = "stage", col = "green")
+
+      Sys.setenv("R_CLI_NUM_COLORS" = as.integer(256^3))
+      cli::cat_rule(sprintf("Stage: %s", private$stage_name), line_col = "yellow", col = "blue")
 
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
       } else {
-        lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
+        names <- sapply(private$steps, function(x) x$name)
+        cli::cat_bullet(names, bullet = "play", bullet_col = "yellow", col = "blue")
+        # lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
     }
   ),
@@ -90,19 +94,30 @@ TicStage <- R6Class( # nolint
     },
     run_one = function(step) {
       if (!isTRUE(step$check())) {
-        ci_cat_with_color(
-          crayon::magenta(paste0(
+        cli::cat_bullet(
+          paste0(
             "Skipping ", private$stage_name, ": ",
             step$stage_name
-          ))
+          ),
+          bullet = "info",
+          col = "magenta"
         )
+        # ci_cat_with_color(
+        #   crayon::magenta(paste0(
+        #     "Skipping ", private$stage_name, ": ",
+        #     step$stage_name
+        #   ))
+        # )
         print(step$check)
         return(TRUE)
       }
 
-      ci_cat_with_color(
-        crayon::magenta(paste0("Running ", private$stage_name, ": ", step$name))
+      cli::cat_bullet(paste0("Running ", private$stage_name, ": ", step$name),
+        bullet = "info", col = "magenta"
       )
+      # ci_cat_with_color(
+      #   crayon::magenta(paste0("Running ", private$stage_name, ": ", step$name))
+      # )
 
       top <- environment()
 
