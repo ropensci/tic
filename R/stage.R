@@ -56,13 +56,15 @@ TicStage <- R6Class( # nolint
       if (omit_if_empty && length(private$steps) == 0) {
         return()
       }
-      # cli::rule({private$stage_name}, line_col = "green", )
-      cat_rule(private$stage_name, right = "stage", line_col = "blue")
+      print(cli::rule(left = sprintf("Stage: %s", private$stage_name), line_col = "green"))
+      # cat_rule(private$stage_name, right = "stage", line_col = "blue")
 
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
       } else {
+        octolog::enable_github_colors(quiet = TRUE)
         lapply(private$steps, function(x) cli::cat_bullet(x$name, bullet = "play", bullet_col = "blue"))
+        # cli::
         # cli::bul
         # lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
