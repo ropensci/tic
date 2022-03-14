@@ -56,11 +56,6 @@ TicStage <- R6Class( # nolint
       if (omit_if_empty && length(private$steps) == 0) {
         return()
       }
-
-      # withr::local_envvar(
-      #   "R_CLI_NUM_COLORS" = as.integer(256^3),
-      #   .local_envir = parent.frame()
-      # )
       cli::cat_rule(sprintf("Stage: %s", private$stage_name), line_col = "yellow", col = "blue")
 
       if (length(private$steps) == 0) {
@@ -71,7 +66,6 @@ TicStage <- R6Class( # nolint
           ",", ", ",
           gsub(" ", "", gsub("\n", "", names))
         ), bullet = "play", bullet_col = "yellow", col = "blue")
-        # lapply(private$steps, function(x) cat_bullet(x$name, bullet = "play"))
       }
     }
   ),
@@ -89,37 +83,27 @@ TicStage <- R6Class( # nolint
           bullet = "info",
           col = "magenta"
         )
-        # ci_cat_with_color(
-        #   crayon::magenta()
-        # )
         print(step$check)
         return()
       }
 
-      # browser()
-      # if (exists(step$stage_name)) {
       cli::cat_bullet(
         paste0("Preparing stage '", private$stage_name, "': ", gsub(
           ",", ", ",
           gsub(" ", "", gsub(
-            "\n", "", step$name
+            "\n", "", cli::col_silver(step$name)
           ))
         )),
         bullet = "info",
         col = "magenta"
       )
-      # }
-
-      # ci_cat_with_color(
-      #   crayon::magenta(paste0("Preparing: ", step$stage_name))
-      # )
       step$prepare()
 
       cli::cat_bullet(
-        paste0("Finished preparing ", gsub(
+        paste0("Finished preparing: ", gsub(
           ",", ", ",
           gsub(" ", "", gsub(
-            "\n", "", step$name
+            "\n", "", cli::col_silver(step$name)
           ))
         )),
         bullet = "tick",
@@ -138,12 +122,6 @@ TicStage <- R6Class( # nolint
           bullet = "info",
           col = "magenta"
         )
-        # ci_cat_with_color(
-        #   crayon::magenta(paste0(
-        #     "Skipping ", private$stage_name, ": ",
-        #     step$stage_name
-        #   ))
-        # )
         print(step$check)
         return(TRUE)
       }
@@ -157,9 +135,6 @@ TicStage <- R6Class( # nolint
       )),
       bullet = "info", col = "cyan"
       )
-      # ci_cat_with_color(
-      #   crayon::magenta(paste0("Running ", private$stage_name, ": ", step$name))
-      # )
 
       top <- environment()
 
