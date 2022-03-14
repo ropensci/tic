@@ -62,7 +62,7 @@ TicStage <- R6Class( # nolint
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
       } else {
-        options(width = 120)
+        # options(width = 120)
         octolog::enable_github_colors(quiet = TRUE)
         # print(private$steps[[1]]$name)
         # browser()
@@ -70,7 +70,7 @@ TicStage <- R6Class( # nolint
         cli::cat_bullet(gsub(
           ",", ", ",
           gsub(" ", "", gsub("\n", "", names))
-        ), bullet = "play", bullet_col = "orange", col = "blue")
+        ), bullet = "play", bullet_col = "green", col = "blue")
         # out = lapply(names, function(x) )
       }
     }
