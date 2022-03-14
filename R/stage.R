@@ -59,7 +59,7 @@ TicStage <- R6Class( # nolint
 
       withr::local_envvar(
         "R_CLI_NUM_COLORS" = as.integer(256^3),
-        .local_envir = .local_envir
+        .local_envir = parent.frame()
       )
       cli::cat_rule(sprintf("Stage: %s", private$stage_name), line_col = "yellow", col = "blue")
 

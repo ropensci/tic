@@ -98,7 +98,7 @@ dsl_get <- function() {
 dsl_load <- function(path = "tic.R", force = FALSE, quiet = FALSE) {
   withr::local_envvar(
     "R_CLI_NUM_COLORS" = as.integer(256^3),
-    .local_envir = .local_envir
+    .local_envir = parent.frame()
   )
   if (dslobj_has() && !force) {
     if (!quiet) {
