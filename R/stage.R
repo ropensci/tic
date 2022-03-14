@@ -99,7 +99,7 @@ TicStage <- R6Class( # nolint
       # browser()
       # if (exists(step$stage_name)) {
       cli::cat_bullet(
-        paste0("Preparing: ", gsub(
+        paste0("Preparing stage '", private$stage_name, "': ", gsub(
           ",", ", ",
           gsub(" ", "", gsub(
             "\n", "", step$name
@@ -114,6 +114,17 @@ TicStage <- R6Class( # nolint
       #   crayon::magenta(paste0("Preparing: ", step$stage_name))
       # )
       step$prepare()
+
+      cli::cat_bullet(
+        paste0("Finished preparing ", gsub(
+          ",", ", ",
+          gsub(" ", "", gsub(
+            "\n", "", step$name
+          ))
+        )),
+        bullet = "tick",
+        col = "magenta"
+      )
 
       invisible()
     },
