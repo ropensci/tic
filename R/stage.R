@@ -56,8 +56,8 @@ TicStage <- R6Class( # nolint
       if (omit_if_empty && length(private$steps) == 0) {
         return()
       }
-      cli::rule("{private$stage_name}", line_col = "green", right = "stage")
-      # cat_rule(private$stage_name, , col = "green")
+      # cli::rule({private$stage_name}, line_col = "green", )
+      cat_rule(private$stage_name, right = "stage", line_col = "blue")
 
       if (length(private$steps) == 0) {
         cat_bullet("No steps defined", bullet = "info")
