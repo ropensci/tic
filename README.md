@@ -15,10 +15,10 @@ The goal of tic is to enhance and simplify working with continuous integration (
 
 The following ones are supported:
 
-| Provider       | R package                                            | Platforms             | Info                                                                  |
-| -------------- | ---------------------------------------------------- | --------------------- | --------------------------------------------------------------------- |
-| Circle CI      | [{circle}](https://docs.ropensci.org/circle/)        | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
-| Github Actions | [{ghactions}](https://maxheld.de/ghactions)          | Linux, macOS, Windows |                                                                       |
+| Provider       | R package                                     | Platforms             | Info                                                                  |
+| -------------- | --------------------------------------------- | --------------------- | --------------------------------------------------------------------- |
+| Circle CI      | [{circle}](https://docs.ropensci.org/circle/) | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
+| Github Actions | [{ghactions}](https://maxheld.de/ghactions)   | Linux, macOS, Windows |                                                                       |
 
 To learn more about CI, read our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
@@ -66,7 +66,7 @@ If you are a new user, run
 tic::use_tic()
 ```
 
-If you already use {tic} and want to configure a new CI provider, do
+If you already use {tic} and want to configure a new CI provider, do one of the following (depending on your preferred CI provider)
 
 ```r
 ### Circle CI ------------------------------------------------------------------
