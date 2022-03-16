@@ -3,13 +3,12 @@
 <!-- badges: start -->
 
 [![tic](https://github.com/ropensci/tic/workflows/tic/badge.svg?branch=master)](https://github.com/ropensci/tic/actions)
-[![Travis build status](https://travis-ci.org/ropensci/tic.svg?branch=master)](https://travis-ci.org/ropensci/tic)
 [![CircleCI](https://img.shields.io/circleci/build/gh/ropensci/tic/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/ropensci/tic)
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
 [![codecov](https://codecov.io/gh/ropensci/tic/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tic)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![tic status badge](https://ropensci.r-universe.dev/badges/tic)](https://ropensci.r-universe.dev)
 [![](https://badges.ropensci.org/305_status.svg)](https://github.com/ropensci/software-review/issues/305)
-
 <!-- badges: end -->
 
 The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
