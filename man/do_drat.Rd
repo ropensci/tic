@@ -90,11 +90,13 @@ more information and instructions.
 }
 
 \examples{
+\dontrun{
 dsl_init()
 
 do_drat()
 
 dsl_get()
+}
 }
 \seealso{
 Other macros: 
