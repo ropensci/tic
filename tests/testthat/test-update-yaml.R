@@ -1,6 +1,7 @@
 # GitHub Actions ---------------------------------------------------------------
 
 test_that("update_yml() preserves custom env vars AND blocks", {
+  create_local_package()
   update_yml(
     system.file("testdata/ghactions-test-update-yaml-env-and-blocks.yml", package = "tic"), # nolint
     paste0(tempdir(), "test-update-yaml-env-and-blocks-updated.yml")
@@ -13,6 +14,7 @@ test_that("update_yml() preserves custom env vars AND blocks", {
 
 test_that("update_yml() fails with descriptive error message if diffs between
           local and upstream template are too large", {
+  create_local_package()
   expect_error(
     update_yml(
       system.file("testdata/ghactions-check-update-fail.yml", package = "tic"), # nolint
@@ -24,6 +26,7 @@ test_that("update_yml() fails with descriptive error message if diffs between
 # Circle CI --------------------------------------------------------------------
 
 test_that("update_yml() preserves custom env vars AND blocks - Circle CI", {
+  create_local_package()
   update_yml(
     system.file("testdata/circle-test-update-yaml-env-and-blocks.yml", package = "tic"), # nolint
     paste0(tempdir(), "circle-test-update-yaml-env-and-blocks-updated.yml")
