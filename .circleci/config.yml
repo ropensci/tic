@@ -13,9 +13,9 @@ jobs:
       # create a unique env var for the cache. Unfortunately normal env vars
       # are not picked up by the cache, therefore this workaround is needed.
       # See https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/7
-      - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
-      - restore_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+      # - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+      # - restore_cache:
+      #     key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
       # install deps and check pkg ---------------------------------------------
       - run:
@@ -23,9 +23,7 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y libgit2-dev
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("remotes")'
-            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
 
@@ -61,9 +59,7 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y libgit2-dev
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("remotes")'
-            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_deploy()'
             R -q -e 'tic::deploy()'
             R -q -e 'tic::after_deploy()'
@@ -89,9 +85,7 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y libgit2-dev
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("remotes")'
-            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
 
@@ -103,10 +97,10 @@ jobs:
             R -q -e 'tic::script()'
 
       # save R pkg cache -------------------------------------------------------
-      - save_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
-          paths:
-            - /usr/local/lib/R/site-library
+      # - save_cache:
+      #     key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+      #     paths:
+      #       - /usr/local/lib/R/site-library
 
 workflows:
   build-and-deploy:
