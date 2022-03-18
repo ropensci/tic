@@ -70,21 +70,17 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date '+%d-%m')"
 
-      # - name: "[Cache] Cache R packages"
-      #   if: runner.os != 'Windows'
-      #   uses: pat-s/always-upload-cache@v2
-      #   with:
-      #     path: ${{ env.R_LIBS_USER }}
-      #     key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
-      #     restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+      - name: "[Cache] Cache R packages"
+        if: runner.os != 'Windows'
+        uses: pat-s/always-upload-cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
       - name: "[Stage] [Linux] Install required system libs"
         if: runner.os == 'Linux'
         run: sudo apt install libcurl4-openssl-dev libgit2-dev
-
-      # for some strange Windows reason this step and the next one need to be decoupled
-      # - name: "[Stage] Prepare"
-      #   run: |
 
       - name: "[Stage] [macOS] Install libgit2"
         if: runner.os == 'macOS'
