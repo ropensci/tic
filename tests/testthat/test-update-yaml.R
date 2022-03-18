@@ -4,10 +4,10 @@ test_that("update_yml() preserves custom env vars AND blocks", {
   create_local_package()
   update_yml(
     system.file("testdata/ghactions-test-update-yaml-env-and-blocks.yml", package = "tic"), # nolint
-    paste0(tempdir(), "test-update-yaml-env-and-blocks-updated.yml")
+    paste0(tempdir(), "/test-update-yaml-env-and-blocks-updated.yml")
   )
 
-  updated <- readLines(paste0(tempdir(), "test-update-yaml-env-and-blocks-updated.yml")) # nolint
+  updated <- readLines(paste0(tempdir(), "/test-update-yaml-env-and-blocks-updated.yml")) # nolint
   solution <- readLines(system.file("testdata/ghactions-test-update-yaml-env-and-blocks-solution.yml", package = "tic")) # nolint
   expect_equal(updated, solution)
 })
@@ -29,10 +29,10 @@ test_that("update_yml() preserves custom env vars AND blocks - Circle CI", {
   create_local_package()
   update_yml(
     system.file("testdata/circle-test-update-yaml-env-and-blocks.yml", package = "tic"), # nolint
-    paste0(tempdir(), "circle-test-update-yaml-env-and-blocks-updated.yml")
+    paste0(tempdir(), "/circle-test-update-yaml-env-and-blocks-updated.yml")
   )
 
-  updated <- readLines(paste0(tempdir(), "circle-test-update-yaml-env-and-blocks-updated.yml")) # nolint
+  updated <- readLines(paste0(tempdir(), "/circle-test-update-yaml-env-and-blocks-updated.yml")) # nolint
   solution <- readLines(system.file("testdata/circle-test-update-yaml-env-and-blocks-solution.yml", package = "tic")) # nolint
   expect_equal(updated, solution)
 })
