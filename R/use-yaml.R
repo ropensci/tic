@@ -63,7 +63,7 @@
 #'
 #' @name yaml_templates
 #' @export
-use_circle_yml <- function(type = "linux-matrix-deploy",
+use_circle_yml <- function(type = "linux-deploy",
                            write = TRUE,
                            quiet = FALSE) {
   if (type == "linux") {
@@ -108,7 +108,7 @@ use_circle_yml <- function(type = "linux-matrix-deploy",
 
 #' @rdname yaml_templates
 #' @export
-use_ghactions_yml <- function(type = "linux-macos-windows-deploy",
+use_ghactions_yml <- function(type = "linux-deploy",
                               write = TRUE,
                               quiet = FALSE) {
 

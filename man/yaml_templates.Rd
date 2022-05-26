@@ -6,13 +6,9 @@
 \alias{use_ghactions_yml}
 \title{Use CI YAML templates}
 \usage{
-use_circle_yml(type = "linux-matrix-deploy", write = TRUE, quiet = FALSE)
+use_circle_yml(type = "linux-deploy", write = TRUE, quiet = FALSE)
 
-use_ghactions_yml(
-  type = "linux-macos-windows-deploy",
-  write = TRUE,
-  quiet = FALSE
-)
+use_ghactions_yml(type = "linux-deploy", write = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{type}{\verb{[character]}\cr
