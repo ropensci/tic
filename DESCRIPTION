@@ -81,6 +81,7 @@ Collate:
     'base64.R'
     'ci.R'
     'circleci.R'
+    'droneci.R'
     'dsl-storage.R'
     'dsl.R'
     'gh-actions.R'
