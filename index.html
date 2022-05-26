@@ -101,7 +101,7 @@
 </h1></div>
 <!-- badges: start -->
 <p>The goal of tic is to enhance and simplify working with continuous integration (CI) systems.</p>
-<p>The following ones are supported:</p>
+<p>The following providers are supported:</p>
 <table class="table">
 <thead><tr class="header">
 <th>Provider</th>
@@ -125,6 +125,7 @@
 </tr>
 </tbody>
 </table>
+<p>In addition there is partial support for <a href="drone.io">Drone CI</a> via class <code>DRONE_CI</code>. This means that {tic} recognizes Drone CI as a CI platform and does not exit early or requires setting a fake env var to mimic another CI provider. However, there is neither an R client package for Drone CI currently nor {tic} templates available for bootstrapping CI configuration via <code><a href="reference/use_tic.html">tic::use_tic()</a></code>.</p>
 <p>To learn more about CI, read our <a href="https://docs.ropensci.org/tic/articles/tic.html#prerequisites" class="external-link">Getting Started</a> vignette.</p>
 <p>The most important improvements over existing solutions are:</p>
 <ol style="list-style-type: decimal">
