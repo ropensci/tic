@@ -7,6 +7,8 @@ ci_ <- function() {
     CircleCI$new()
   } else if (Sys.getenv("GITHUB_ACTIONS") == "true") {
     GHActionsCI$new()
+  } else if (Sys.getenv("DRONE_CI") == "true") {
+    DRONE_CI$new()
   } else {
     LocalCI$new()
   }

@@ -13,12 +13,16 @@
 
 The goal of tic is to enhance and simplify working with continuous integration (CI) systems.
 
-The following ones are supported:
+The following providers are supported:
 
 | Provider       | R package                                     | Platforms             | Info                                                                  |
 | -------------- | --------------------------------------------- | --------------------- | --------------------------------------------------------------------- |
 | Circle CI      | [{circle}](https://docs.ropensci.org/circle/) | Linux                 | via Docker images from [rocker](https://github.com/rocker-org/rocker) |
 | Github Actions | [{ghactions}](https://maxheld.de/ghactions)   | Linux, macOS, Windows |                                                                       |
+
+In addition there is partial support for [Drone CI](drone.io) via class `DRONE_CI`.
+This means that {tic} recognizes Drone CI as a CI platform and does not exit early or requires setting a fake env var to mimic another CI provider.
+However, there is neither an R client package for Drone CI currently nor {tic} templates available for bootstrapping CI configuration via `tic::use_tic()`.
 
 To learn more about CI, read our [Getting Started](https://docs.ropensci.org/tic/articles/tic.html#prerequisites) vignette.
 
