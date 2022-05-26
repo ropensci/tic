@@ -19,10 +19,7 @@ add_package_checks(
 \arguments{
 \item{...}{Ignored, used to enforce naming of arguments.}
 
-\item{warnings_are_errors}{\verb{[flag]}\cr
-Deprecated, use \code{error_on}.}
-
-\item{notes_are_errors}{\verb{[flag]}\cr
+\item{warnings_are_errors, notes_are_errors}{\verb{[flag]}\cr
 Deprecated, use \code{error_on}.}
 
 \item{args}{\verb{[character]}\cr

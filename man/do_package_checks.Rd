@@ -26,10 +26,7 @@ do_package_checks(
 \code{covr::codecov(quiet = FALSE)} (default: only for non-interactive CI,
 see \code{\link[=ci_is_interactive]{ci_is_interactive()}}).}
 
-\item{warnings_are_errors}{\verb{[flag]}\cr
-Deprecated, use \code{error_on}.}
-
-\item{notes_are_errors}{\verb{[flag]}\cr
+\item{warnings_are_errors, notes_are_errors}{\verb{[flag]}\cr
 Deprecated, use \code{error_on}.}
 
 \item{args}{\verb{[character]}\cr

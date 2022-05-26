@@ -9,15 +9,15 @@ Override this class to create a new step.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{TicStep$new()}}
-\item \href{#method-run}{\code{TicStep$run()}}
-\item \href{#method-prepare}{\code{TicStep$prepare()}}
-\item \href{#method-check}{\code{TicStep$check()}}
+\item \href{#method-TicStep-new}{\code{TicStep$new()}}
+\item \href{#method-TicStep-run}{\code{TicStep$run()}}
+\item \href{#method-TicStep-prepare}{\code{TicStep$prepare()}}
+\item \href{#method-TicStep-check}{\code{TicStep$check()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-TicStep-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TicStep-new}{}}}
 \subsection{Method \code{new()}}{
 Create a \code{TicStep} object.
 \subsection{Usage}{
@@ -26,8 +26,8 @@ Create a \code{TicStep} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-run"></a>}}
-\if{latex}{\out{\hypertarget{method-run}{}}}
+\if{html}{\out{<a id="method-TicStep-run"></a>}}
+\if{latex}{\out{\hypertarget{method-TicStep-run}{}}}
 \subsection{Method \code{run()}}{
 This method must be overridden, it is called when running the stage
 to which a step has been added.
@@ -37,8 +37,8 @@ to which a step has been added.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-prepare"></a>}}
-\if{latex}{\out{\hypertarget{method-prepare}{}}}
+\if{html}{\out{<a id="method-TicStep-prepare"></a>}}
+\if{latex}{\out{\hypertarget{method-TicStep-prepare}{}}}
 \subsection{Method \code{prepare()}}{
 This is just a placeholder.
 This method is called when preparing the stage to
@@ -57,8 +57,8 @@ non-standard repositories, e.g. from GitHub.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-check"></a>}}
-\if{latex}{\out{\hypertarget{method-check}{}}}
+\if{html}{\out{<a id="method-TicStep-check"></a>}}
+\if{latex}{\out{\hypertarget{method-TicStep-check}{}}}
 \subsection{Method \code{check()}}{
 This method determines if a step is prepared and run.
 Return \code{FALSE} if conditions for running this step are not met.
