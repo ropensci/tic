@@ -107,24 +107,35 @@ and <code><a href="step_do_push_deploy.html">step_do_push_deploy()</a></code>.</
 <dd><p><code>[string]</code><br>
 Path to the repository, default <code>"."</code> which means setting up the current
 repository.</p></dd>
+
+
 <dt>branch</dt>
 <dd><p><code>[string]</code><br>
 Target branch, default: current branch.</p></dd>
+
+
 <dt>remote_url</dt>
 <dd><p><code>[string]</code><br>
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.</p></dd>
+
+
 <dt>commit_message</dt>
 <dd><p><code>[string]</code><br>
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></dd>
+
+
 <dt>commit_paths</dt>
 <dd><p><code>[character]</code><br>
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></dd>
+
+
 <dt>force</dt>
 <dd><p><code>[logical]</code><br>
 Add <code>--force</code> flag to git commands?</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

@@ -93,31 +93,46 @@ tic."><!--[if lt IE 9]>
     <dl><dt>wizard</dt>
 <dd><p><code>[flag]</code><br> Interactive operation? If <code>TRUE</code>, a menu will be
 shown.</p></dd>
+
+
 <dt>linux</dt>
 <dd><p><code>[string]</code><br> Which CI provider(s) to use to test on Linux.
 Possible options are <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
 and <code>"all"</code>.</p></dd>
+
+
 <dt>mac</dt>
 <dd><p><code>[string]</code><br> Which CI provider(s) to use to test on macOS
 Possible options are <code>"none"</code>/<code>NULL</code> and <code>"ghactions"</code>.</p></dd>
+
+
 <dt>windows</dt>
 <dd><p><code>[string]</code><br> Which CI provider(s) to use to test on Windows
 Possible options are <code>"none"</code>/<code>NULL</code>, and <code>"ghactions"</code>.</p></dd>
+
+
 <dt>deploy</dt>
 <dd><p><code>[string]</code><br> Which CI provider(s) to use to deploy artifacts
 such as pkgdown documentation. Possible options are "circle"<code>, </code>"ghactions"<code>, </code>"none"<code>/</code>NULL<code>and</code>"all"`.</p></dd>
+
+
 <dt>matrix</dt>
 <dd><p><code>[string]</code><br> For which CI provider(s) to set up matrix builds.
 Possible options are  <code>"circle"</code>, <code>"ghactions"</code>, <code>"none"</code>/<code>NULL</code>
 and <code>"all"</code>.</p></dd>
+
+
 <dt>private_key_name</dt>
 <dd><p><code>string</code><br>
 Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
 SSH key pair via tic::use_ghactions_deploy()] or <code>use_tic()</code>, pass this
 name here.</p></dd>
+
+
 <dt>quiet</dt>
 <dd><p><code>[flag]</code><br> Less verbose output? Default: <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

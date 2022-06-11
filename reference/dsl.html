@@ -115,21 +115,30 @@ and the links therein for available steps.</p>
     <dl><dt>name</dt>
 <dd><p><code>[string]</code><br>
 The name for the stage.</p></dd>
+
+
 <dt>stage</dt>
 <dd><p><code>[TicStage]</code><br>
 A <code>TicStage</code> object as returned by <code>get_stage()</code>.</p></dd>
+
+
 <dt>step</dt>
 <dd><p><code>[function]</code><br>
 An object of class <a href="TicStep.html">TicStep</a>, usually created by functions
 with the <code>step_</code> prefix like <code><a href="step_hello_world.html">step_hello_world()</a></code>.</p></dd>
+
+
 <dt>call</dt>
 <dd><p><code>[call]</code><br>
 An arbitrary R expression executed during the stage to which this step is
 added.
 The default is useful if you only pass <code>prepare_call</code>.</p></dd>
+
+
 <dt>prepare_call</dt>
 <dd><p><code>[call]</code><br>
 An optional arbitrary R expression executed during preparation.</p></dd>
+
 </dl></div>
 
     <div class="section level2">

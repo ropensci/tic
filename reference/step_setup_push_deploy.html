@@ -91,23 +91,32 @@ for a subsequent <code><a href="step_do_push_deploy.html">step_do_push_deploy()<
 <dd><p><code>[string]</code><br>
 Path to the repository, default <code>"."</code> which means setting up the current
 repository.</p></dd>
+
+
 <dt>branch</dt>
 <dd><p><code>[string]</code><br>
 Target branch, default: current branch.</p></dd>
+
+
 <dt>orphan</dt>
 <dd><p><code>[flag]</code><br>
 Create and force-push an orphan branch consisting of only one commit?
 This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
 but cannot be applied for pushing to the current branch.</p></dd>
+
+
 <dt>remote_url</dt>
 <dd><p><code>[string]</code><br>
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.</p></dd>
+
+
 <dt>checkout</dt>
 <dd><p><code>[flag]</code><br>
 Check out the current contents of the repository? Defaults to <code>TRUE</code>,
 set to <code>FALSE</code> if the build process relies on existing contents or
 if you deploy to a different branch.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

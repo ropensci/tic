@@ -136,10 +136,14 @@ GitHub version is different from the locally installed version.</p>
     <dl><dt>repos</dt>
 <dd><p>CRAN-like repositories to install from, defaults to
 <code><a href="repo.html">repo_default()</a></code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>Passed on to <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code>. The default avoids
 installation from source on Windows and macOS by passing
 <code><a href="https://rdrr.io/r/base/Platform.html" class="external-link">.Platform</a>$pkgType</code>.</p></dd>
+
+
 <dt>dependencies</dt>
 <dd><p>Which dependencies do you want to check?
 Can be a character vector (selecting from "Depends", "Imports",
@@ -153,12 +157,19 @@ just check this package, not its dependencies).</p>
 common ones include:</p><ul><li><p>Config/Needs/website - for dependencies used in building the pkgdown site.</p></li>
 <li><p>Config/Needs/coverage for dependencies used in calculating test coverage.</p></li>
 </ul></dd>
+
+
 <dt>package</dt>
 <dd><p>Package(s) to install</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Passed on to <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> or <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">remotes::install_github()</a></code>.</p></dd>
+
+
 <dt>repo</dt>
 <dd><p>Package to install in the "user/repo" format.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

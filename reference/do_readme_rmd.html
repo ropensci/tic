@@ -119,23 +119,32 @@ the upcoming deployment</p></li>
 Check out the current contents of the repository? Defaults to <code>TRUE</code>,
 set to <code>FALSE</code> if the build process relies on existing contents or
 if you deploy to a different branch.</p></dd>
+
+
 <dt>remote_url</dt>
 <dd><p><code>[string]</code><br>
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.</p></dd>
+
+
 <dt>commit_message</dt>
 <dd><p><code>[string]</code><br>
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></dd>
+
+
 <dt>force</dt>
 <dd><p><code>[logical]</code><br>
 Add <code>--force</code> flag to git commands?</p></dd>
+
+
 <dt>private_key_name</dt>
 <dd><p><code>string</code><br>
 Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
 SSH key pair via tic::use_ghactions_deploy()] or <code><a href="use_tic.html">use_tic()</a></code>, pass this
 name here.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

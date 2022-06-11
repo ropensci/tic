@@ -148,6 +148,8 @@ keeping the history. If the output directory of your blog/theme is not
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>Passed on to <code><a href="step_build_blogdown.html">step_build_blogdown()</a></code></p></dd>
+
+
 <dt>deploy</dt>
 <dd><p><code>[flag]</code><br>
 If <code>TRUE</code>, deployment setup is performed
@@ -161,51 +163,74 @@ if the following conditions are met:</p><ol><li><p>The repo can be pushed to (se
 or the current branch is the default repo branch
 (see <code><a href="ci.html">ci_get_branch()</a></code>).</p></li>
 </ol></dd>
+
+
 <dt>orphan</dt>
 <dd><p><code>[flag]</code><br>
 Create and force-push an orphan branch consisting of only one commit?
 This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
 but cannot be applied for pushing to the current branch.</p></dd>
+
+
 <dt>checkout</dt>
 <dd><p><code>[flag]</code><br>
 Check out the current contents of the repository? Defaults to <code>TRUE</code>,
 set to <code>FALSE</code> if the build process relies on existing contents or
 if you deploy to a different branch.</p></dd>
+
+
 <dt>repos</dt>
 <dd><p>CRAN-like repositories to install from, defaults to
 <code><a href="repo.html">repo_default()</a></code>.</p></dd>
+
+
 <dt>path</dt>
 <dd><p><code>[string]</code><br>
 Path to the repository, default <code>"."</code> which means setting up the current
 repository.</p></dd>
+
+
 <dt>branch</dt>
 <dd><p><code>[string]</code><br>
 Target branch, default: current branch.</p></dd>
+
+
 <dt>remote_url</dt>
 <dd><p><code>[string]</code><br>
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.</p></dd>
+
+
 <dt>commit_message</dt>
 <dd><p><code>[string]</code><br>
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></dd>
+
+
 <dt>commit_paths</dt>
 <dd><p><code>[character]</code><br>
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></dd>
+
+
 <dt>force</dt>
 <dd><p><code>[logical]</code><br>
 Add <code>--force</code> flag to git commands?</p></dd>
+
+
 <dt>private_key_name</dt>
 <dd><p><code>string</code><br>
 Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
 SSH key pair via tic::use_ghactions_deploy()] or <code><a href="use_tic.html">use_tic()</a></code>, pass this
 name here.</p></dd>
+
+
 <dt>cname</dt>
 <dd><p>(<code>character(1)</code><br> An optional URL for redirecting the created
 website A <code>CNAME</code> file containing the given URL will be added to the root
 of the directory specified in argument <code>path</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

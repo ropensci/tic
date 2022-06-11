@@ -120,46 +120,65 @@ the upcoming deployment</p></li>
     <dl><dt>repo_slug</dt>
 <dd><p><code>[string]</code><br>
 The name of the drat repository to deploy to in the form <code>:owner/:repo</code>.</p></dd>
+
+
 <dt>orphan</dt>
 <dd><p><code>[flag]</code><br>
 Create and force-push an orphan branch consisting of only one commit?
 This can be useful e.g. for <code>path = "docs", branch = "gh-pages"</code>,
 but cannot be applied for pushing to the current branch.</p></dd>
+
+
 <dt>checkout</dt>
 <dd><p><code>[flag]</code><br>
 Check out the current contents of the repository? Defaults to <code>TRUE</code>,
 set to <code>FALSE</code> if the build process relies on existing contents or
 if you deploy to a different branch.</p></dd>
+
+
 <dt>path, branch</dt>
 <dd><p>By default, this macro deploys the default repo branch
 (usually "master") of the drat repository.
 An alternative option is <code>"gh-pages"</code>.</p></dd>
+
+
 <dt>remote_url</dt>
 <dd><p><code>[string]</code><br>
 The URL of the remote Git repository to push to, defaults to the
 current GitHub repository.</p></dd>
+
+
 <dt>commit_message</dt>
 <dd><p><code>[string]</code><br>
 Commit message to use, defaults to a useful message linking to the CI build
 and avoiding recursive CI runs.</p></dd>
+
+
 <dt>commit_paths</dt>
 <dd><p><code>[character]</code><br>
 Restrict the set of directories and/or files added to Git before deploying.
 Default: deploy all files.</p></dd>
+
+
 <dt>force</dt>
 <dd><p><code>[logical]</code><br>
 Add <code>--force</code> flag to git commands?</p></dd>
+
+
 <dt>private_key_name</dt>
 <dd><p><code>string</code><br>
 Only needed when deploying from builds on GitHub Actions.
 If you have set a custom name for the private key during creation of the
 SSH key pair via tic::use_ghactions_deploy()] or <code><a href="use_tic.html">use_tic()</a></code>, pass this
 name here.</p></dd>
+
+
 <dt>deploy_dev</dt>
 <dd><p><code>[logical]</code><br>
 Should development versions of packages also be deployed to the drat repo?
 By default only "major", "minor" and "patch" releases are build and
 deployed.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="deployment">Deployment<a class="anchor" aria-label="anchor" href="#deployment"></a></h2>

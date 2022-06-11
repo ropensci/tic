@@ -118,17 +118,24 @@ See <code><a href="../articles/build-lifecycle.html">vignette("build-lifecycle",
     <dl><dt>path</dt>
 <dd><p><code>[string]</code><br>
 Path to the stage definition file, default: <code>"tic.R"</code>.</p></dd>
+
+
 <dt>force</dt>
 <dd><p><code>[flag]</code><br>
 Set to <code>TRUE</code> to force loading from file even if a configuration exists.
 By default an existing configuration is not overwritten by <code>dsl_load()</code>.</p></dd>
+
+
 <dt>quiet</dt>
 <dd><p><code>[flag]</code><br>
 Set to <code>TRUE</code> to turn off verbose output.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A named list of opaque stage objects with a <code>"class"</code> attribute
+    
+
+<p>A named list of opaque stage objects with a <code>"class"</code> attribute
 and a corresponding <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method for pretty output.
 Use the high-level <code><a href="dsl.html">get_stage()</a></code> and <code><a href="dsl.html">add_step()</a></code> functions to configure,
 and the <a href="stages.html">stages</a> functions to run.</p>

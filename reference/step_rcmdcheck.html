@@ -93,9 +93,13 @@ which ultimately calls <code>R CMD check</code>.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>Ignored, used to enforce naming of arguments.</p></dd>
+
+
 <dt>warnings_are_errors, notes_are_errors</dt>
 <dd><p><code>[flag]</code><br>
 Deprecated, use <code>error_on</code>.</p></dd>
+
+
 <dt>args</dt>
 <dd><p><code>[character]</code><br>
 Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>.<br></p>
@@ -105,11 +109,15 @@ Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.ht
 <p>On GitHub Actions option "--no-manual" is always used (appended to custom
 user input) because LaTeX is not available and installation is time
 consuming and error prone.<br></p></dd>
+
+
 <dt>build_args</dt>
 <dd><p><code>[character]</code><br>
 Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>.<br>
 Default for local runs: <code>"--force"</code>.<br>
 Default for Windows: <code>c("--no-build-vignettes", "--force")</code>.<br></p></dd>
+
+
 <dt>error_on</dt>
 <dd><p><code>[character]</code><br>
 Whether to throw an error on R CMD check failures. Note that the check is
@@ -118,17 +126,24 @@ after completion. If "never", then no errors are thrown. If "error", then
 only ERROR failures generate errors. If "warning", then WARNING failures
 generate errors as well. If "note", then any check failure generated an
 error.</p></dd>
+
+
 <dt>repos</dt>
 <dd><p><code>[character]</code><br>
 Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>, default:
 <code><a href="repo.html">repo_default()</a></code>.</p></dd>
+
+
 <dt>timeout</dt>
 <dd><p><code>[numeric]</code><br>
 Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></dd>
+
+
 <dt>check_dir</dt>
 <dd><p><code>[character]</code> <br> Path specifying the directory for R CMD
 check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="updating-of-dependency-packages">Updating of (dependency) packages<a class="anchor" aria-label="anchor" href="#updating-of-dependency-packages"></a></h2>
