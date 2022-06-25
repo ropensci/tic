@@ -100,19 +100,19 @@ the upcoming deployment</p></li>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">do_drat</span><span class="op">(</span>
-  repo_slug <span class="op">=</span> <span class="cn">NULL</span>,
-  orphan <span class="op">=</span> <span class="cn">FALSE</span>,
-  checkout <span class="op">=</span> <span class="cn">TRUE</span>,
-  path <span class="op">=</span> <span class="st">"~/git/drat"</span>,
-  branch <span class="op">=</span> <span class="cn">NULL</span>,
-  remote_url <span class="op">=</span> <span class="cn">NULL</span>,
-  commit_message <span class="op">=</span> <span class="cn">NULL</span>,
-  commit_paths <span class="op">=</span> <span class="st">"."</span>,
-  force <span class="op">=</span> <span class="cn">FALSE</span>,
-  private_key_name <span class="op">=</span> <span class="st">"TIC_DEPLOY_KEY"</span>,
-  deploy_dev <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_drat</span><span class="op">(</span></span>
+<span>  repo_slug <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  orphan <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  checkout <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"~/git/drat"</span>,</span>
+<span>  branch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  remote_url <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  commit_message <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  commit_paths <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  private_key_name <span class="op">=</span> <span class="st">"TIC_DEPLOY_KEY"</span>,</span>
+<span>  deploy_dev <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -207,13 +207,13 @@ more information and instructions.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="dsl_get.html">dsl_init</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">do_drat</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="dsl_get.html">dsl_get</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="dsl_get.html">dsl_init</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">do_drat</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="dsl_get.html">dsl_get</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

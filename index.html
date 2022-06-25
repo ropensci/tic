@@ -138,7 +138,7 @@
 </h2>
 <p>{tic} can be installed from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/tic"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/tic"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
@@ -161,30 +161,30 @@
 </h4>
 <p>If you are a new user, run</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider, do one of the following (depending on your preferred CI provider)</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">### Circle CI ------------------------------------------------------------------</span>
-
-<span class="fu">circle</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html" class="external-link">use_circle_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span>
-<span class="co"># (all of the above in one call)</span>
-<span class="co"># tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",</span>
-<span class="co">#              matrix = "circle", deploy = "circle")</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co">### GitHub Actions -------------------------------------------------------------</span>
-
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"ghactions"</span><span class="op">)</span>
-<span class="co"># (all of the above in one call)</span>
-<span class="co"># tic::use_tic(wizard = FALSE, linux = "ghactions", mac = "ghactions",</span>
-<span class="co">#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")</span>
-
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span><span class="op">(</span><span class="st">"ghactions"</span><span class="op">)</span>
-<span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">### Circle CI ------------------------------------------------------------------</span></span>
+<span></span>
+<span><span class="fu">circle</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html" class="external-link">use_circle_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_circle_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span></span>
+<span><span class="co"># (all of the above in one call)</span></span>
+<span><span class="co"># tic::use_tic(wizard = FALSE, linux = "circle", mac = "none", windows = "none",</span></span>
+<span><span class="co">#              matrix = "circle", deploy = "circle")</span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">### GitHub Actions -------------------------------------------------------------</span></span>
+<span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_ghactions_deploy.html">use_ghactions_deploy</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># (optional for deployment)</span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/yaml_templates.html">use_ghactions_yml</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># optional: Change `type` arg to your liking</span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_r.html">use_tic_r</a></span><span class="op">(</span><span class="st">"package"</span>, deploy_on <span class="op">=</span> <span class="st">"ghactions"</span><span class="op">)</span></span>
+<span><span class="co"># (all of the above in one call)</span></span>
+<span><span class="co"># tic::use_tic(wizard = FALSE, linux = "ghactions", mac = "ghactions",</span></span>
+<span><span class="co">#              windows = "ghactions", matrix = "ghactions", deploy = "ghactions")</span></span>
+<span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_tic_badge.html">use_tic_badge</a></span><span class="op">(</span><span class="st">"ghactions"</span><span class="op">)</span></span>
+<span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="reference/use_update_tic.html">use_update_tic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

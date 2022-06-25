@@ -112,20 +112,20 @@ stages:</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">do_package_checks</span><span class="op">(</span>
-  <span class="va">...</span>,
-  codecov <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="ci.html">ci_is_interactive</a></span><span class="op">(</span><span class="op">)</span>,
-  warnings_are_errors <span class="op">=</span> <span class="cn">NULL</span>,
-  notes_are_errors <span class="op">=</span> <span class="cn">NULL</span>,
-  args <span class="op">=</span> <span class="cn">NULL</span>,
-  build_args <span class="op">=</span> <span class="cn">NULL</span>,
-  error_on <span class="op">=</span> <span class="st">"warning"</span>,
-  repos <span class="op">=</span> <span class="fu"><a href="repo.html">repo_default</a></span><span class="op">(</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"pkgType"</span><span class="op">)</span>,
-  dependencies <span class="op">=</span> <span class="cn">TRUE</span>,
-  timeout <span class="op">=</span> <span class="cn">Inf</span>,
-  check_dir <span class="op">=</span> <span class="st">"check"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">do_package_checks</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  codecov <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="ci.html">ci_is_interactive</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  warnings_are_errors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  notes_are_errors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  args <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  build_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error_on <span class="op">=</span> <span class="st">"warning"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="repo.html">repo_default</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"pkgType"</span><span class="op">)</span>,</span>
+<span>  dependencies <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  check_dir <span class="op">=</span> <span class="st">"check"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -224,11 +224,11 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="dsl_get.html">dsl_init</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="dsl_get.html">dsl_init</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Creating a clean tic stage configuration</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See `?tic::dsl_get` for details</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">do_package_checks</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">do_package_checks</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">──</span> <span style="color: #0000BB;">tic configuration summary</span> <span style="color: #0000BB;">───────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: install</span> <span style="color: #BBBB00;">──────────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_deps(repos=repo_default(), type=getOption("pkgType"), dependencies=TRUE)</span></span>
@@ -238,8 +238,8 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: after_success</span> <span style="color: #BBBB00;">────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_github("r-lib/covr")</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_run_code(covr::codecov(quiet=FALSE))</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="dsl_get.html">dsl_get</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="dsl_get.html">dsl_get</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">──</span> <span style="color: #0000BB;">tic configuration summary</span> <span style="color: #0000BB;">───────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: install</span> <span style="color: #BBBB00;">──────────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_deps(repos=repo_default(), type=getOption("pkgType"), dependencies=TRUE)</span></span>

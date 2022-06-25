@@ -79,27 +79,27 @@ corresponding stage name.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">before_install</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">install</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">after_install</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">before_script</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">script</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">after_success</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">after_failure</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">before_deploy</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">deploy</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">after_deploy</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">after_script</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">before_install</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">install</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">after_install</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">before_script</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">script</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">after_success</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">after_failure</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">before_deploy</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">deploy</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">after_deploy</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">after_script</span><span class="op">(</span>stages <span class="op">=</span> <span class="fu"><a href="dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">

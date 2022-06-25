@@ -88,9 +88,9 @@ by <code>base64serialize()</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">base64serialize</span><span class="op">(</span><span class="va">x</span>, compression <span class="op">=</span> <span class="st">"gzip"</span><span class="op">)</span>
-
-<span class="fu">base64unserialize</span><span class="op">(</span><span class="va">x</span>, compression <span class="op">=</span> <span class="st">"gzip"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">base64serialize</span><span class="op">(</span><span class="va">x</span>, compression <span class="op">=</span> <span class="st">"gzip"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">base64unserialize</span><span class="op">(</span><span class="va">x</span>, compression <span class="op">=</span> <span class="st">"gzip"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -107,8 +107,8 @@ by <code>base64serialize()</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">serial</span> <span class="op">&lt;-</span> <span class="fu">base64serialize</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">base64unserialize</span><span class="op">(</span><span class="va">serial</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">serial</span> <span class="op">&lt;-</span> <span class="fu">base64serialize</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">base64unserialize</span><span class="op">(</span><span class="va">serial</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
 </code></pre></div>
     </div>
