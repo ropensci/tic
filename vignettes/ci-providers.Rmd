@@ -140,6 +140,27 @@ rm '/usr/local/bin/gfortran'
 brew install gdal proj geos
 ```
 
+When spatial packages like {sf} or {terra} get updated, it takes some time until the binary is available.
+In the mean time, they must be installed from source.
+This fails for some time now due to a linking issue of `sqlite` or `jpeg`, see https://github.com/r-spatial/sf/issues/1894 for more information.
+To fix this, one can add the following as a custom block to `tic.yml`:
+
+```
+mkdir ~/.R && echo -e "CPPFLAGS += -L/opt/homebrew/opt/jpeg/lib" >> ~/.R/Makevars
+```
+
+Here's the full block, used in {mlr3spatiotempcv}:
+
+```yml
+      - name: "[Custom block] [macOS] Install spatial libraries"
+        if: runner.os == 'macOS'
+        run: |
+          rm '/usr/local/bin/gfortran'
+          brew install ccache gdal geos proj udunits jpeg sqlite
+          brew install xquartz
+          mkdir ~/.R && echo -e "CPPFLAGS += -L/usr/local/opt/jpeg/lib" >> ~/.R/Makevars
+```
+
 #### Linux
 
 On Linux, add `libgdal-dev libproj-dev libgeos-dev` to the `apt install` call in the "[Linux] Prepare" stage.

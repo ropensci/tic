@@ -293,6 +293,7 @@ SoftwareApplication
 softwareRequirements
 SoftwareSourceCode
 softwareSuggestions
+spatiotempcv
 spdx
 specfic
 stringr
@@ -303,6 +304,7 @@ supersecret
 svg
 synch
 SystemRequirements
+terra
 testthat
 textLength
 thge
