@@ -136,6 +136,7 @@ inbetween
 init
 inits
 io
+issuecomment
 issueTracker
 isysroot
 javareconf
@@ -280,8 +281,10 @@ rtools
 runtimePlatform
 rx
 sameAs
+scalingexcellence
 schratz
 Schratz
+scrapybook
 sdk
 SDK
 SDKROOT
@@ -298,6 +301,7 @@ softwareSuggestions
 spdx
 specfic
 sprintf
+sslverify
 stringr
 subclasses
 subsequential
