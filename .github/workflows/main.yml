@@ -29,11 +29,11 @@ jobs:
       matrix:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
-          # - { os: windows-latest, r: "release" }
+          - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           # - { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "devel", pkgdown: "true" }
-          # - { os: ubuntu-latest, r: "release" }
+          - { os: ubuntu-latest, r: "release" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -86,8 +86,6 @@ jobs:
       - name: "[Stage] Install pak"
         run: |
           Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
-          git config --global http.sslverify "false" # https://github.com/scalingexcellence/scrapybook/issues/36#issuecomment-370126203
-          git config --global commit.gpgsign false
 
       - name: "[Stage] Install"
         run: Rscript -e "pak::pkg_install('ropensci/tic@pak2')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
@@ -96,7 +94,6 @@ jobs:
         run: Rscript -e 'tic::script()'
 
       - name: "[Stage] After Success"
-        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
         run: Rscript -e "tic::after_success()"
 
       - name: "[Stage] Upload R CMD check artifacts"
