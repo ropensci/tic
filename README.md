@@ -106,9 +106,20 @@ Without this knowledge, you will also have a hard way understanding {tic}.
 
 We also recommend to take a look at the projects providing the direct R support for each CI system (which {tic} builds upon) to gain a deeper understanding of the whole concept.
 
-## Updating
+## Keeping CI templates up-to-date
 
-Updating of YAML templates is supported via [`update_yml()`](https://docs.ropensci.org/tic/reference/update_yml.html).
+{tic} is refreshing its template every few months.
+There are two ways to stay up-to-date and have a functional CI YAML definition:
+
+1. **Manual updates**: You can keep {tic} up-to-date by rerunning the `use_*_()` function which you have used to init {tic} the first time.
+  If you have forgotten which settings you have chosen back then, you can have a look at the first line of your YAML file.
+
+1. **Automatic updates via GHA**: If you're using GitHub actions, you can use `tic::use_update_tic()`.
+   This will initialize a new workflow which checks daily for new template updates.
+   Important: This workflow requires a personal access token with "workflow" scopes.
+   After creation, you can add it via `tic::gha_add_secret()` to your repo account.
+   Hint: If you're operating in an organization, you can set this GHA secret organization-wide which saves you adding it to multiple single repos.
+
 See vignette ["Updating Templates"](https://docs.ropensci.org/tic/articles/updating.html) for more information.
 
 ## Vignettes
