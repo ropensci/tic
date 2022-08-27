@@ -13,7 +13,6 @@ do_package_checks(
   build_args = NULL,
   error_on = "warning",
   repos = repo_default(),
-  type = getOption("pkgType"),
   dependencies = TRUE,
   timeout = Inf,
   check_dir = "check"
@@ -58,27 +57,11 @@ error.}
 Passed to \code{rcmdcheck::rcmdcheck()}, default:
 \code{\link[=repo_default]{repo_default()}}.}
 
-\item{type}{Passed on to \code{\link[=install.packages]{install.packages()}}. The default avoids
-installation from source on Windows and macOS by passing
-\code{\link{.Platform}$pkgType}.}
-
-\item{dependencies}{Which dependencies do you want to check?
-Can be a character vector (selecting from "Depends", "Imports",
-"LinkingTo", "Suggests", or "Enhances"), or a logical vector.
-
-\code{TRUE} is shorthand for "Depends", "Imports", "LinkingTo" and
-"Suggests". \code{NA} is shorthand for "Depends", "Imports" and "LinkingTo"
-and is the default. \code{FALSE} is shorthand for no dependencies (i.e.
-just check this package, not its dependencies).
-
-The value "soft" means the same as \code{TRUE}, "hard" means the same as \code{NA}.
-
-You can also specify dependencies from one or more additional fields,
-common ones include:
-\itemize{
-\item Config/Needs/website - for dependencies used in building the pkgdown site.
-\item Config/Needs/coverage for dependencies used in calculating test coverage.
-}}
+\item{dependencies}{Dependency types. See
+\code{\link[pkgdepends:as_pkg_dependencies]{pkgdepends::as_pkg_dependencies()}} for possible values. Note that
+changing this argument from the default might result an installation
+failure, e.g. if you set it to \code{FALSE}, packages might not build if
+their dependencies are not already installed.}
 
 \item{timeout}{\verb{[numeric]}\cr
 Passed to \code{rcmdcheck::rcmdcheck()}, default:

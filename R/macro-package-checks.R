@@ -38,7 +38,6 @@ do_package_checks <- function(...,
                               build_args = NULL,
                               error_on = "warning",
                               repos = repo_default(),
-                              type = getOption("pkgType"),
                               dependencies = TRUE,
                               timeout = Inf,
                               check_dir = "check") {
@@ -49,8 +48,7 @@ do_package_checks <- function(...,
   get_stage("install") %>%
     add_step(
       step_install_deps(
-        repos = {{ repos }}, type = {{ type }},
-        dependencies = {{ dependencies }}
+        repos = {{ repos }}, dependencies = {{ dependencies }}
       )
     ) %>%
     add_step(

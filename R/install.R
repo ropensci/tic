@@ -6,7 +6,7 @@ verify_install <- function(pkg_names) { # nolint
 }
 
 verify_install_one <- function(pkg_name) { # nolint
-  remotes::install_cran(pkg_name, upgrade = TRUE, quiet = TRUE)
+  pak::pkg_install(pkg_name, upgrade = TRUE)
   if (!package_installed(pkg_name)) {
     stopc(
       "Error installing package ", pkg_name, " or one of its dependencies."
