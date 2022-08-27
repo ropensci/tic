@@ -10,7 +10,7 @@ BuildBookdown <- R6Class(
       do.call(bookdown::render_book, private$bookdown_args)
     },
     prepare = function() {
-      verify_install(c("bookdown", "remotes"))
+      verify_install(c("bookdown"))
       super$prepare()
     }
   ),

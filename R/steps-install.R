@@ -118,7 +118,7 @@ InstallGitHub <- R6Class(
     run = function() {
       do.call(
         pak::pkg_install, c(
-          list(repo = private$repo),
+          list(pkg = private$repo),
           private$install_args
         )
       )

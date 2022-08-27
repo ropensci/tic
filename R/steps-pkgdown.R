@@ -8,7 +8,7 @@ BuildPkgdown <- R6Class(
       super$initialize()
     },
     run = function() {
-      pak::local_install(".")
+      # pak::local_install(".")
       if (dir.exists("docs")) {
         pkgdown::clean_site()
       }
@@ -23,7 +23,7 @@ BuildPkgdown <- R6Class(
                          for packages.", wrap = TRUE)
         stopc("No DESCRIPTION file found.")
       }
-      verify_install(c("pkgdown", "pak"))
+      verify_install("pkgdown")
       super$prepare()
     }
   ),
