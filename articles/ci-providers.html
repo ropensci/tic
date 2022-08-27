@@ -185,6 +185,16 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># conflicts with gfortran from r-lib/actions when linking gcc</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">rm '/usr/local/bin/gfortran'</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">brew install gdal proj geos</span></span></code></pre></div>
+<p>When spatial packages like {sf} or {terra} get updated, it takes some time until the binary is available. In the mean time, they must be installed from source. This fails for some time now due to a linking issue of <code>sqlite</code> or <code>jpeg</code>, see <a href="https://github.com/r-spatial/sf/issues/1894" class="external-link uri">https://github.com/r-spatial/sf/issues/1894</a> for more information. To fix this, one can add the following as a custom block to <code>tic.yml</code>:</p>
+<pre><code>mkdir ~/.R &amp;&amp; echo -e "CPPFLAGS += -L/opt/homebrew/opt/jpeg/lib" &gt;&gt; ~/.R/Makevars</code></pre>
+<p>Here’s the full block, used in {mlr3spatiotempcv}:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] [macOS] Install spatial libraries"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          rm '/usr/local/bin/gfortran'</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          brew install ccache gdal geos proj udunits jpeg sqlite</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          brew install xquartz</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>          mkdir ~/.R &amp;&amp; echo -e "CPPFLAGS += -L/usr/local/opt/jpeg/lib" &gt;&gt; ~/.R/Makevars</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>
