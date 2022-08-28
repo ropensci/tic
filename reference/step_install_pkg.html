@@ -115,7 +115,7 @@ GitHub version is different from the locally installed version.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">step_install_deps</span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="repo.html">repo_default</a></span><span class="op">(</span><span class="op">)</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">step_install_deps</span><span class="op">(</span>dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">step_install_cran</span><span class="op">(</span>package <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -124,12 +124,7 @@ GitHub version is different from the locally installed version.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>repos</dt>
-<dd><p>CRAN-like repositories to install from, defaults to
-<code><a href="repo.html">repo_default()</a></code>.</p></dd>
-
-
-<dt>dependencies</dt>
+    <dl><dt>dependencies</dt>
 <dd><p>Dependency types. See
 <code><a href="https://rdrr.io/pkg/pkgdepends/man/as_pkg_dependencies.html" class="external-link">pkgdepends::as_pkg_dependencies()</a></code> for possible values. Note that
 changing this argument from the default might result an installation
