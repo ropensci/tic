@@ -1,7 +1,6 @@
 account_for_dup_env_vars <- function(custom_env_var_list,
                                      env_var_index_latest,
                                      tmpl_latest) {
-
   requireNamespace("stats", quietly = TRUE)
 
   # get all custom env vars
@@ -16,7 +15,7 @@ account_for_dup_env_vars <- function(custom_env_var_list,
   # find dups
   env_dups <- lapply(env_vars_raw, function(x) {
     length(grep(
-      x,
+      sprintf("%s: ", x),
       tmpl_latest[env_var_index_latest:length(tmpl_latest)]
     ))
   })

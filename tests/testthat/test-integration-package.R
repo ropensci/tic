@@ -1,6 +1,6 @@
 test_that("integration test: package", {
   # since the move to pak this tests fails during CI but succeed locally
-  skip()
+  skip("failing weirdly since pak transition")
 
   cli::cat_boxx("integration test: package")
 
