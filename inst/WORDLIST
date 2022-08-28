@@ -120,6 +120,7 @@ GitHubs
 GitLab
 givenName
 gmail
+gpgsign
 hacky
 hardcoded
 harfbuzz
@@ -222,6 +223,7 @@ osgeo
 osx
 OutFile
 packagedocs
+pak
 pandoc
 patrick
 phracker
@@ -272,6 +274,7 @@ rsa
 RSA
 rsconnect
 Rscript
+rspm
 rstats
 RStudio's
 rtools
@@ -296,6 +299,7 @@ softwareSuggestions
 spatiotempcv
 spdx
 specfic
+sprintf
 stringr
 subclasses
 subsequential

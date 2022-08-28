@@ -7,50 +7,25 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(
-  repos = repo_default(),
-  type = getOption("pkgType"),
-  dependencies = TRUE
-)
+step_install_deps(repos = repo_default(), dependencies = TRUE)
 
-step_install_cran(
-  package = NULL,
-  ...,
-  repos = repo_default(),
-  type = getOption("pkgType")
-)
+step_install_cran(package = NULL, ..., repos = repo_default())
 
-step_install_github(repo = NULL, ..., type = getOption("pkgType"))
+step_install_github(repo = NULL, ...)
 }
 \arguments{
 \item{repos}{CRAN-like repositories to install from, defaults to
 \code{\link[=repo_default]{repo_default()}}.}
 
-\item{type}{Passed on to \code{\link[=install.packages]{install.packages()}}. The default avoids
-installation from source on Windows and macOS by passing
-\code{\link{.Platform}$pkgType}.}
-
-\item{dependencies}{Which dependencies do you want to check?
-Can be a character vector (selecting from "Depends", "Imports",
-"LinkingTo", "Suggests", or "Enhances"), or a logical vector.
-
-\code{TRUE} is shorthand for "Depends", "Imports", "LinkingTo" and
-"Suggests". \code{NA} is shorthand for "Depends", "Imports" and "LinkingTo"
-and is the default. \code{FALSE} is shorthand for no dependencies (i.e.
-just check this package, not its dependencies).
-
-The value "soft" means the same as \code{TRUE}, "hard" means the same as \code{NA}.
-
-You can also specify dependencies from one or more additional fields,
-common ones include:
-\itemize{
-\item Config/Needs/website - for dependencies used in building the pkgdown site.
-\item Config/Needs/coverage for dependencies used in calculating test coverage.
-}}
+\item{dependencies}{Dependency types. See
+\code{\link[pkgdepends:as_pkg_dependencies]{pkgdepends::as_pkg_dependencies()}} for possible values. Note that
+changing this argument from the default might result an installation
+failure, e.g. if you set it to \code{FALSE}, packages might not build if
+their dependencies are not already installed.}
 
 \item{package}{Package(s) to install}
 
-\item{...}{Passed on to \code{install.packages()} or \code{remotes::install_github()}.}
+\item{...}{Passed on to \code{pak::pkg_install()}.}
 
 \item{repo}{Package to install in the "user/repo" format.}
 }
@@ -62,7 +37,7 @@ By default, binary versions of packages are installed if possible,
 even if the CRAN version is ahead.
 
 A \code{step_install_deps()} step installs all package dependencies declared in
-\code{DESCRIPTION}, using \code{\link[remotes:install_deps]{remotes::install_deps()}}.
+\code{DESCRIPTION}, using \code{\link[pak:local_install_dev_deps]{pak::local_install_dev_deps()}}.
 This includes upgrading outdated packages.
 
 This step can only be used if a DESCRIPTION file is present in the repository
@@ -72,7 +47,7 @@ A \code{step_install_cran()} step installs one package from CRAN via
 \code{\link[=install.packages]{install.packages()}}, but only if it's not already installed.
 
 A \code{step_install_github()} step installs one or more packages from GitHub
-via \code{\link[remotes:install_github]{remotes::install_github()}}, the packages are only installed if their
+via \code{\link[pak:pkg_install]{pak::pkg_install()}}, the packages are only installed if their
 GitHub version is different from the locally installed version.
 }
 \examples{

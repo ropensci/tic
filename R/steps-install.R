@@ -3,34 +3,21 @@
 InstallDeps <- R6Class(
   "InstallDeps",
   inherit = TicStep,
-
   public = list(
     initialize = function(repos = repo_default(),
-                          type = getOption("pkgType"),
                           dependencies = TRUE) {
-      private$repos <- repos
-      private$type <- type
-      private$dependencies <- dependencies
     },
-
     prepare = function() {
-      verify_install("remotes")
+      # FIXME: for some reason pak 0.3.0 missed knitr in the DESCRIPTION
+      # test if this is resolved in later versions
+      verify_install("knitr")
     },
-
     run = function() {
-      remotes::install_deps(
-        dependencies = private$dependencies,
-        repos = private$repos,
-        type = private$type,
-        build = FALSE,
-        INSTALL_OPTS = "--no-multiarch"
-      )
+      pak::local_install_dev_deps()
     }
   ),
-
   private = list(
     repos = NULL,
-    type = NULL,
     dependencies = NULL
   )
 )
@@ -45,7 +32,7 @@ InstallDeps <- R6Class(
 #' even if the CRAN version is ahead.
 #'
 #' A `step_install_deps()` step installs all package dependencies declared in
-#' `DESCRIPTION`, using [remotes::install_deps()].
+#' `DESCRIPTION`, using [pak::local_install_dev_deps()].
 #' This includes upgrading outdated packages.
 #'
 #' This step can only be used if a DESCRIPTION file is present in the repository
@@ -53,10 +40,7 @@ InstallDeps <- R6Class(
 #'
 #' @param repos CRAN-like repositories to install from, defaults to
 #'   [repo_default()].
-#' @param type Passed on to [install.packages()]. The default avoids
-#'   installation from source on Windows and macOS by passing
-#'   \code{\link{.Platform}$pkgType}.
-#' @inheritParams remotes::install_deps
+#' @inheritParams pak::local_install_dev_deps
 #' @family steps
 #' @export
 #' @name step_install_pkg
@@ -68,9 +52,8 @@ InstallDeps <- R6Class(
 #'
 #' dsl_get()
 step_install_deps <- function(repos = repo_default(),
-                              type = getOption("pkgType"),
                               dependencies = TRUE) {
-  InstallDeps$new(repos = repos, type = type, dependencies = dependencies)
+  InstallDeps$new(repos = repos, dependencies = dependencies)
 }
 
 # InstallCRAN ------------------------------------------------------------------
@@ -78,7 +61,6 @@ step_install_deps <- function(repos = repo_default(),
 InstallCRAN <- R6Class(
   "InstallCRAN",
   inherit = TicStep,
-
   public = list(
     initialize = function(package, ...) {
       stopifnot(length(package) == 1)
@@ -86,9 +68,9 @@ InstallCRAN <- R6Class(
       private$install_args <- list(...)
     },
     run = function() {
-      if (length(find.package(private$package, quiet = TRUE)) == 0) {
+      if (length(find.package(private$package)) == 0) {
         rlang::exec(
-          install.packages,
+          pak::pkg_install,
           pkg = private$package,
           !!!private$install_args
         )
@@ -108,7 +90,7 @@ InstallCRAN <- R6Class(
 #' [install.packages()], but only if it's not already installed.
 #'
 #' @param package Package(s) to install
-#' @param ... Passed on to `install.packages()` or `remotes::install_github()`.
+#' @param ... Passed on to `pak::pkg_install()`.
 #' @export
 #' @rdname step_install_pkg
 #' @examples
@@ -119,9 +101,8 @@ InstallCRAN <- R6Class(
 #'
 #' dsl_get()
 step_install_cran <- function(package = NULL, ...,
-                              repos = repo_default(),
-                              type = getOption("pkgType")) {
-  InstallCRAN$new(package = package, repos = repos, ..., type = type)
+                              repos = repo_default()) {
+  InstallCRAN$new(package = package, repos = repos, ...)
 }
 
 # InstallGithub ----------------------------------------------------------------
@@ -129,7 +110,6 @@ step_install_cran <- function(package = NULL, ...,
 InstallGitHub <- R6Class(
   "InstallGitHub",
   inherit = TicStep,
-
   public = list(
     initialize = function(repo, ...) {
       private$repo <- repo
@@ -137,14 +117,14 @@ InstallGitHub <- R6Class(
     },
     run = function() {
       do.call(
-        remotes::install_github, c(
-          list(repo = private$repo),
+        pak::pkg_install, c(
+          list(pkg = private$repo),
           private$install_args
         )
       )
     },
     prepare = function() {
-      verify_install("remotes")
+      TRUE
     }
   ),
   private = list(
@@ -155,7 +135,7 @@ InstallGitHub <- R6Class(
 
 #' @description
 #' A `step_install_github()` step installs one or more packages from GitHub
-#' via [remotes::install_github()], the packages are only installed if their
+#' via [pak::pkg_install()], the packages are only installed if their
 #' GitHub version is different from the locally installed version.
 #'
 #' @param repo Package to install in the "user/repo" format.
@@ -168,7 +148,6 @@ InstallGitHub <- R6Class(
 #'   add_step(step_install_github("rstudio/gt"))
 #'
 #' dsl_get()
-step_install_github <- function(repo = NULL, ...,
-                                type = getOption("pkgType")) {
-  InstallGitHub$new(repo = repo, ..., type = type)
+step_install_github <- function(repo = NULL, ...) {
+  InstallGitHub$new(repo = repo, ...)
 }

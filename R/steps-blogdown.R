@@ -13,7 +13,7 @@ BuildBlogdown <- R6Class(
     },
 
     prepare = function() {
-      verify_install(c("blogdown", "remotes"))
+      verify_install(c("blogdown"))
       super$prepare()
     }
   ),

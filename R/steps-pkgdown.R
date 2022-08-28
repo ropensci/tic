@@ -2,15 +2,13 @@
 BuildPkgdown <- R6Class(
   "BuildPkgdown",
   inherit = TicStep,
-
   public = list(
     initialize = function(...) {
       private$pkgdown_args <- list(...)
       super$initialize()
     },
-
     run = function() {
-      remotes::install_local(".")
+      # pak::local_install(".")
       if (dir.exists("docs")) {
         pkgdown::clean_site()
       }
@@ -18,7 +16,6 @@ BuildPkgdown <- R6Class(
         pkgdown::build_site, c(list(preview = FALSE), private$pkgdown_args)
       )
     },
-
     prepare = function() {
       if (!file.exists("DESCRIPTION")) {
         cli::cli_alert_danger("The {.code step_build_pkgdown()} step and the
@@ -26,11 +23,10 @@ BuildPkgdown <- R6Class(
                          for packages.", wrap = TRUE)
         stopc("No DESCRIPTION file found.")
       }
-      verify_install(c("pkgdown", "remotes"))
+      verify_install("pkgdown")
       super$prepare()
     }
   ),
-
   private = list(
     pkgdown_args = NULL
   )
