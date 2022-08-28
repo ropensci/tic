@@ -121,6 +121,7 @@ GitLab
 givenName
 gmail
 gpgsign
+grepl
 hacky
 hardcoded
 harfbuzz
@@ -174,6 +175,7 @@ LinkingTo
 linter
 linters
 linux
+lsb
 lubridate
 macos
 macOS
@@ -223,6 +225,7 @@ osgeo
 osx
 OutFile
 packagedocs
+packagemanager
 pak
 pandoc
 patrick
@@ -277,6 +280,7 @@ rsconnect
 Rscript
 rspm
 rstats
+rstudio
 RStudio's
 rtools
 runtimePlatform
@@ -308,6 +312,7 @@ sudo
 supersecret
 svg
 synch
+Sys
 SystemRequirements
 terra
 testthat
