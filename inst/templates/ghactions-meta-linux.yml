@@ -1,11 +1,12 @@
 ## tic GitHub Actions template: linux
-## revision date: 2022-03-01
+## revision date: 2022-08-28
 on:
   workflow_dispatch:
   push:
     branches:
     - main
     - master
+    - cran-*
   pull_request:
     branches:
     - main

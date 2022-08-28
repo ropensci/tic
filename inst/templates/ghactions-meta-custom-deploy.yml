@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: custom-deploy
-## revision date: 2022-03-01
+## revision date: 2022-08-28
 # [Custom header]
 on:
   workflow_dispatch:
@@ -7,6 +7,7 @@ on:
     branches:
     - main
     - master
+    - cran-*
   pull_request:
     branches:
     - main

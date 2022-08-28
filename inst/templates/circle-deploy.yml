@@ -1,5 +1,5 @@
 ## tic Circle CI template: linux-deploy
-## revision date: 2022-03-01
+## revision date: 2022-08-28
 version: 2.1
 jobs:
   r-release:
@@ -19,13 +19,9 @@ jobs:
       - run:
           name: "[r-release] Install dependencies"
           command: |
-            sudo apt update && sudo apt install -y libgit2-dev
-            echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("remotes")'
-            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
-            R -q -e 'tic::before_install()'
-            R -q -e 'tic::install()'
+            sudo apt update && sudo apt install -y pandoc
+            R -q -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel')"
+            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']]) && !grepl('Under development', R.version[['status']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}else{options(repos = c(CRAN = 'cloud.r-project.org'))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       - run:
           name: "[r-release] R CMD Check"
@@ -57,11 +53,9 @@ jobs:
       - run:
           name: Deploy
           command: |
-            sudo apt update && sudo apt install -y libgit2-dev
-            echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("remotes")'
-            R -q -e 'if (!requireNamespace("curl")) install.packages("curl")'
-            R -q -e 'remotes::install_github("ropensci/tic", upgrade = "always"); print(tic::dsl_load()); tic::prepare_all_stages()'
+            sudo apt update && sudo apt install -y pandoc
+            R -q -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel')"
+            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()"
             R -q -e 'tic::before_deploy()'
             R -q -e 'tic::deploy()'
             R -q -e 'tic::after_deploy()'
@@ -85,6 +79,7 @@ workflows:
               only:
                 - master
                 - main
+                - cran-*
     jobs:
       - r-release
 # Custom user code -------------------------------------------------------------
