@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.13.0 (2022-08-28)
+
+
+- Use {pak} for pkg installation and binaries on Linux (#327)
+- Update instructions for building {sf} and {terra} from source (#326)
+- `use_*_yml()`: change default template type to use only Linux runners
+- Add basic support for Drone CI (#325)
+
+
 # tic 0.12.0 (2022-03-01)
 
 - Update Circle CI templates to 2022-03-01
