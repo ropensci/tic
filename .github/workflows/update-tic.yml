@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: "0 4 * * *"
+    - cron: "0 4 * * 0" # every week
 
 name: Update tic
 
@@ -33,17 +33,18 @@ jobs:
           Ncpus: 4
 
       - name: "[Stage] Dependencies"
+        env:
+          RSPM: https://packagemanager.rstudio.com/all/__linux__/focal/latest
         run: |
-            sudo apt install libcurl4-openssl-dev libsodium-dev libharfbuzz-dev libfribidi-dev libgit2-dev
-            Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
-            Rscript -e "remotes::install_github('ropensci/tic', dependencies = TRUE)"
+          Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
+          Rscript -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic', dependencies = TRUE)"
 
       - name: "[Stage] Update YAMLs"
         run: |
-            Rscript -e "tic::update_yml()"
+          Rscript -e "tic::update_yml()"
 
       - name: "[Stage] Create Pull Request"
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           token: ${{ secrets.TIC_UPDATE }}

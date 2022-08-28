@@ -61,7 +61,7 @@ jobs:
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
       # Windows: never finishes
-      - uses: r-lib/actions/setup-tinytex@master
+      - uses: r-lib/actions/setup-tinytex@v2
         if: matrix.config.latex == 'true'
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -79,8 +79,8 @@ jobs:
         uses: pat-s/always-upload-cache@v3
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}-1
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}-1
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Install pak"
@@ -88,7 +88,7 @@ jobs:
           Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
 
       - name: "[Stage] Install"
-        run: Rscript -e "pak::pkg_install('tic', repos = 'https://ropensci.r-universe.dev')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+        run: Rscript -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'

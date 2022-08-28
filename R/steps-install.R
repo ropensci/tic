@@ -13,6 +13,12 @@ InstallDeps <- R6Class(
       verify_install("knitr")
     },
     run = function() {
+      if (grepl("Ubuntu", Sys.info()[["version"]])) {
+        options(repos = c(CRAN = sprintf(
+          "https://packagemanager.rstudio.com/all/__linux__/%s/latest",
+          system("lsb_release -cs", intern = TRUE)
+        )))
+      }
       pak::local_install_dev_deps()
     }
   ),
