@@ -38,7 +38,7 @@ A call to covr::codecov() in the "after_success" stage
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.12.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.13.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +121,6 @@ stages:</p>
 <span>  build_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  error_on <span class="op">=</span> <span class="st">"warning"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="fu"><a href="repo.html">repo_default</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"pkgType"</span><span class="op">)</span>,</span>
 <span>  dependencies <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  timeout <span class="op">=</span> <span class="cn">Inf</span>,</span>
 <span>  check_dir <span class="op">=</span> <span class="st">"check"</span></span>
@@ -179,25 +178,12 @@ Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.ht
 <code><a href="repo.html">repo_default()</a></code>.</p></dd>
 
 
-<dt>type</dt>
-<dd><p>Passed on to <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code>. The default avoids
-installation from source on Windows and macOS by passing
-<code><a href="https://rdrr.io/r/base/Platform.html" class="external-link">.Platform</a>$pkgType</code>.</p></dd>
-
-
 <dt>dependencies</dt>
-<dd><p>Which dependencies do you want to check?
-Can be a character vector (selecting from "Depends", "Imports",
-"LinkingTo", "Suggests", or "Enhances"), or a logical vector.</p>
-<p><code>TRUE</code> is shorthand for "Depends", "Imports", "LinkingTo" and
-"Suggests". <code>NA</code> is shorthand for "Depends", "Imports" and "LinkingTo"
-and is the default. <code>FALSE</code> is shorthand for no dependencies (i.e.
-just check this package, not its dependencies).</p>
-<p>The value "soft" means the same as <code>TRUE</code>, "hard" means the same as <code>NA</code>.</p>
-<p>You can also specify dependencies from one or more additional fields,
-common ones include:</p><ul><li><p>Config/Needs/website - for dependencies used in building the pkgdown site.</p></li>
-<li><p>Config/Needs/coverage for dependencies used in calculating test coverage.</p></li>
-</ul></dd>
+<dd><p>Dependency types. See
+<code><a href="https://rdrr.io/pkg/pkgdepends/man/as_pkg_dependencies.html" class="external-link">pkgdepends::as_pkg_dependencies()</a></code> for possible values. Note that
+changing this argument from the default might result an installation
+failure, e.g. if you set it to <code>FALSE</code>, packages might not build if
+their dependencies are not already installed.</p></dd>
 
 
 <dt>timeout</dt>
@@ -231,23 +217,21 @@ check. Defaults to <code>"check"</code> for easy upload of artifacts.</p></dd>
 <span class="r-in"><span><span class="fu">do_package_checks</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">──</span> <span style="color: #0000BB;">tic configuration summary</span> <span style="color: #0000BB;">───────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: install</span> <span style="color: #BBBB00;">──────────────────────────────────────────────────────────────</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_deps(repos=repo_default(), type=getOption("pkgType"), dependencies=TRUE)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_deps(repos=repo_default(), dependencies=TRUE)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_session_info()</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: script</span> <span style="color: #BBBB00;">───────────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_rcmdcheck(warnings_are_errors=NULL, notes_are_errors=NULL, args=NULL, build_args=NULL, error_on="warning", repos=repo_default(), timeout=Inf, check_dir="check")</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: after_success</span> <span style="color: #BBBB00;">────────────────────────────────────────────────────────</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_github("r-lib/covr")</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_run_code(covr::codecov(quiet=FALSE))</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="dsl_get.html">dsl_get</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">──</span> <span style="color: #0000BB;">tic configuration summary</span> <span style="color: #0000BB;">───────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: install</span> <span style="color: #BBBB00;">──────────────────────────────────────────────────────────────</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_deps(repos=repo_default(), type=getOption("pkgType"), dependencies=TRUE)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_deps(repos=repo_default(), dependencies=TRUE)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_session_info()</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: script</span> <span style="color: #BBBB00;">───────────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_rcmdcheck(warnings_are_errors=NULL, notes_are_errors=NULL, args=NULL, build_args=NULL, error_on="warning", repos=repo_default(), timeout=Inf, check_dir="check")</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">──</span> <span style="color: #0000BB;">Stage: after_success</span> <span style="color: #BBBB00;">────────────────────────────────────────────────────────</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_install_github("r-lib/covr")</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">▶</span> <span style="color: #0000BB;">step_run_code(covr::codecov(quiet=FALSE))</span></span>
 </code></pre></div>
     </div>
