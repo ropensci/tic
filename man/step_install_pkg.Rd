@@ -9,7 +9,7 @@
 \usage{
 step_install_deps(repos = repo_default(), dependencies = TRUE)
 
-step_install_cran(package = NULL, ..., repos = repo_default())
+step_install_cran(package = NULL, ...)
 
 step_install_github(repo = NULL, ...)
 }
