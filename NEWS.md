@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.13.1 (2022-08-28)
+
+- Circle CI: install pandoc in deploy stage
+- Do not use RSPM binarines on R-devel (no binaries available)
+- Bump templates to 2022-08-28
+
+
 # tic 0.13.0 (2022-08-28)
 
 
