@@ -7,12 +7,11 @@ InstallDeps <- R6Class(
     initialize = function(dependencies = TRUE) {
     },
     prepare = function() {
-      # FIXME: for some reason pak 0.3.0 missed knitr in the DESCRIPTION
-      # test if this is resolved in later versions
-      verify_install("knitr")
+      TRUE
     },
     run = function() {
-      if (grepl("Ubuntu", Sys.info()[["version"]])) {
+      if (grepl("Ubuntu", Sys.info()[["version"]]) &&
+        !grepl("Under development", R.version[['status']])) {
         options(repos = c(CRAN = sprintf(
           "https://packagemanager.rstudio.com/all/__linux__/%s/latest",
           system("lsb_release -cs", intern = TRUE)

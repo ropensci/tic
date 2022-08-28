@@ -23,7 +23,7 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y pandoc
             R -q -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel')"
-            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']]) && !grepl('Under development', R.version[['status']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}else{options(repos = c(CRAN = 'cloud.r-project.org'))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       - run:
           name: "[r-release] R CMD Check"
@@ -57,7 +57,7 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y pandoc
             R -q -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel')"
-            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()"
+            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']]) && !grepl('Under development', R.version[['status']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}else{options(repos = c(CRAN = 'cloud.r-project.org'))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()"
             R -q -e 'tic::before_deploy()'
             R -q -e 'tic::deploy()'
             R -q -e 'tic::after_deploy()'
@@ -66,7 +66,7 @@ jobs:
     # r-devel-env
     environment:
     docker:
-      - image: rocker/verse:3.6.3
+      - image: rocker/verse:devel
     steps:
       - checkout
 
@@ -83,7 +83,7 @@ jobs:
           command: |
             sudo apt update && sudo apt install -y pandoc
             R -q -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel')"
-            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+            R -q -e "if (grepl('Ubuntu', Sys.info()[['version']]) && !grepl('Under development', R.version[['status']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}else{options(repos = c(CRAN = 'cloud.r-project.org'))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       - run:
           name: "[r-devel] R CMD Check"

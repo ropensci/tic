@@ -152,6 +152,7 @@ update_yml <- function(template_in = NULL,
     # reset template_out
     template_out <- NULL
   }
+  return(TRUE)
 }
 
 update_ghactions_yml <- function(tmpl_local, tmpl_latest) {
