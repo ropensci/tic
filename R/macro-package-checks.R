@@ -47,9 +47,7 @@ do_package_checks <- function(...,
   #' 1. [step_session_info()] in the `"install"` stage.
   get_stage("install") %>%
     add_step(
-      step_install_deps(
-        repos = {{ repos }}, dependencies = {{ dependencies }}
-      )
+      step_install_deps(dependencies = {{ dependencies }})
     ) %>%
     add_step(
       step_session_info()

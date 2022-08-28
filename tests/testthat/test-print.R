@@ -51,9 +51,9 @@ test_that("print stages", {
     # exact duplicate with no arguments (should only appear once)
     add_step(step_session_info()) %>%
     # step with different argument (should appear)
-    add_step(step_install_deps(repos = "test")) %>%
+    add_step(step_install_deps()) %>%
     # exact duplicate including arguments ((should only appear once))
-    add_step(step_install_deps(repos = repo_default()))
+    add_step(step_install_deps())
 
   expect_snapshot_output(
     print(dsl_get())

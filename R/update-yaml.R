@@ -434,7 +434,7 @@ update_circle_yml <- function(tmpl_local, tmpl_latest) {
       variable{?s}.", wrap = TRUE)
 
     for (release in c(
-      "# r-release-env", "# r-oldrelease-env",
+      "# r-release-env", "# r-devel-env",
       "# r-deploy-env"
     )) {
       env_var_index_latest <- stringr::str_which(tmpl_latest, release) + 1

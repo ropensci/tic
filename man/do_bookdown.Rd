@@ -9,7 +9,6 @@ do_bookdown(
   deploy = NULL,
   orphan = FALSE,
   checkout = TRUE,
-  repos = repo_default(),
   path = "_book",
   branch = "gh-pages",
   remote_url = NULL,
@@ -48,9 +47,6 @@ Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
 
-\item{repos}{CRAN-like repositories to install from, defaults to
-\code{\link[=repo_default]{repo_default()}}.}
-
 \item{path}{\verb{[string]}\cr
 Path to the repository, default \code{"."} which means setting up the current
 repository.}
@@ -88,8 +84,7 @@ of the directory specified in argument \code{path}.}
 to the \code{"install"}, \code{"before_deploy"}, \code{"script"} and \code{"deploy"} stages.
 
 \enumerate{
-\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage
 \item \code{\link[=step_session_info]{step_session_info()}} in the \code{"install"} stage.
 \item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"}
 to setup the upcoming deployment (if \code{deploy} is set),

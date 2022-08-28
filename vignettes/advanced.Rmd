@@ -124,7 +124,7 @@ $before_install
 $install
 ── install ─────────────────────────────────────────────── stage ──
 ▶ step_install_github("ropensci/rotemplate")
-▶ step_install_deps(repos = repo_default())
+▶ step_install_deps()
 ```
 
 
@@ -160,7 +160,7 @@ run_all_stages()
 Running install: step_install_github("ropensci/rotemplate")
 Skipping install of 'rotemplate' from a github remote, the SHA1 (bec3e6eb) has not changed since last install.
   Use `force = TRUE` to force installation
-Running install: step_install_deps(repos = repo_default())
+Running install: step_install_deps()
 ```
 
 ## Debugging: Entering the CI build directly

@@ -36,7 +36,6 @@ do_blogdown <- function(...,
                         deploy = NULL,
                         orphan = FALSE,
                         checkout = TRUE,
-                        repos = repo_default(),
                         path = "public",
                         branch = "gh-pages",
                         remote_url = NULL,
@@ -73,13 +72,12 @@ do_blogdown <- function(...,
   }
 
   #' @description
-  #' 1. [step_install_deps()] in the `"install"` stage, using the
-  #'    `repos` argument.
+  #' 1. [step_install_deps()] in the `"install"` stage
   #' 1. `blogdown::install_hugo()` in the `"install"` stage to install the
   #'    latest version of HUGO.
   #' 1. [step_session_info()] in the `"install"` stage.
   get_stage("install") %>%
-    add_step(step_install_deps(repos = !!enquo(repos))) %>%
+    add_step(step_install_deps()) %>%
     add_code_step(blogdown::install_hugo()) %>%
     add_step(step_session_info())
 

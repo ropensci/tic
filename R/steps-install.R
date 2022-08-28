@@ -4,8 +4,7 @@ InstallDeps <- R6Class(
   "InstallDeps",
   inherit = TicStep,
   public = list(
-    initialize = function(repos = repo_default(),
-                          dependencies = TRUE) {
+    initialize = function(dependencies = TRUE) {
     },
     prepare = function() {
       # FIXME: for some reason pak 0.3.0 missed knitr in the DESCRIPTION
@@ -23,7 +22,6 @@ InstallDeps <- R6Class(
     }
   ),
   private = list(
-    repos = NULL,
     dependencies = NULL
   )
 )
@@ -44,8 +42,6 @@ InstallDeps <- R6Class(
 #' This step can only be used if a DESCRIPTION file is present in the repository
 #' root.
 #'
-#' @param repos CRAN-like repositories to install from, defaults to
-#'   [repo_default()].
 #' @inheritParams pak::local_install_dev_deps
 #' @family steps
 #' @export
@@ -57,9 +53,8 @@ InstallDeps <- R6Class(
 #'   add_step(step_install_deps())
 #'
 #' dsl_get()
-step_install_deps <- function(repos = repo_default(),
-                              dependencies = TRUE) {
-  InstallDeps$new(repos = repos, dependencies = dependencies)
+step_install_deps <- function(dependencies = TRUE) {
+  InstallDeps$new(dependencies = dependencies)
 }
 
 # InstallCRAN ------------------------------------------------------------------

@@ -7,16 +7,13 @@
 \alias{step_install_github}
 \title{Step: Install packages}
 \usage{
-step_install_deps(repos = repo_default(), dependencies = TRUE)
+step_install_deps(dependencies = TRUE)
 
 step_install_cran(package = NULL, ...)
 
 step_install_github(repo = NULL, ...)
 }
 \arguments{
-\item{repos}{CRAN-like repositories to install from, defaults to
-\code{\link[=repo_default]{repo_default()}}.}
-
 \item{dependencies}{Dependency types. See
 \code{\link[pkgdepends:as_pkg_dependencies]{pkgdepends::as_pkg_dependencies()}} for possible values. Note that
 changing this argument from the default might result an installation

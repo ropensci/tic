@@ -9,7 +9,6 @@ do_pkgdown(
   deploy = NULL,
   orphan = FALSE,
   checkout = TRUE,
-  repos = repo_default(),
   path = "docs",
   branch = "gh-pages",
   remote_url = NULL,
@@ -49,9 +48,6 @@ Check out the current contents of the repository? Defaults to \code{TRUE},
 set to \code{FALSE} if the build process relies on existing contents or
 if you deploy to a different branch.}
 
-\item{repos}{CRAN-like repositories to install from, defaults to
-\code{\link[=repo_default]{repo_default()}}.}
-
 \item{path, branch}{By default, this macro deploys the \code{docs} directory
 to the \code{gh-pages} branch. This is different from \code{\link[=step_push_deploy]{step_push_deploy()}}.}
 
@@ -81,8 +77,7 @@ name here.}
 steps to the \code{"install"}, \code{"before_deploy"} and \code{"deploy"} stages:
 
 \enumerate{
-\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage, using the
-\code{repos} argument.
+\item \code{\link[=step_install_deps]{step_install_deps()}} in the \code{"install"} stage
 \item \code{\link[=step_session_info]{step_session_info()}} in the \code{"install"} stage.
 \item \code{\link[=step_setup_ssh]{step_setup_ssh()}} in the \code{"before_deploy"} to setup
 the upcoming deployment (if \code{deploy} is set and only on

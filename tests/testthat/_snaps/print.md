@@ -27,7 +27,6 @@
     -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
     > step_install_deps()
-    > step_install_deps(repos=repo_default())
     > step_session_info()
     -- Stage: script ---------------------------------------------------------------
     > step_rcmdcheck()
@@ -46,7 +45,7 @@
 
     -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
-    > step_install_deps(repos=repo_default())
+    > step_install_deps()
     > step_session_info()
     -- Stage: deploy ---------------------------------------------------------------
     > step_build_bookdown()
@@ -55,9 +54,8 @@
 
     -- tic configuration summary ---------------------------------------------------
     -- Stage: install --------------------------------------------------------------
-    > step_install_deps(repos=repo_default())
+    > step_install_deps()
     > step_session_info()
-    > step_install_deps(repos="test")
     -- Stage: deploy ---------------------------------------------------------------
     > step_build_bookdown()
 

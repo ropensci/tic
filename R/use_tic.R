@@ -115,7 +115,7 @@ use_tic <- function(wizard = interactive(),
       c("none", "circle", "ghactions", "all"),
       c(linux, mac, windows, "all", "none")
     ),
-    title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, R-oldrelease). If yes, on which platform(s)?" # nolint
+    title = "Do you want to build on multiple R versions? (i.e. R-devel, R-release, r-devel). If yes, on which platform(s)?" # nolint
     )
 
     wizard <- FALSE
