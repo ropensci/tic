@@ -74,15 +74,11 @@ InstallCRAN <- R6Class(
       private$install_args <- list(...)
     },
     run = function() {
-      if (length(find.package(private$package)) == 0) {
-        rlang::exec(
-          pak::pkg_install,
-          pkg = private$package,
-          !!!private$install_args
-        )
-      } else {
-        message(paste0("Package ", private$package, " already installed."))
-      }
+      rlang::exec(
+        pak::pkg_install,
+        pkg = private$package,
+        !!!private$install_args
+      )
     }
   ),
   private = list(
@@ -106,9 +102,8 @@ InstallCRAN <- R6Class(
 #'   add_step(step_install_cran("magick"))
 #'
 #' dsl_get()
-step_install_cran <- function(package = NULL, ...,
-                              repos = repo_default()) {
-  InstallCRAN$new(package = package, repos = repos, ...)
+step_install_cran <- function(package = NULL, ...) {
+  InstallCRAN$new(package = package, ...)
 }
 
 # InstallGithub ----------------------------------------------------------------
