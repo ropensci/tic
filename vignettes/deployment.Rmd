@@ -41,7 +41,7 @@ A SSH key can be easily created, is safe to use and when browsing at the "Deploy
 
 To simplify the creation of a SSH key pair for deployment and adding the keys to the appropriate places, {tic} comes with a little helper function `use_ghactions_deploy()`.
 To use this function, you need a `GITHUB_PAT` with public repo scope defined in your `.Renviron`.
-`usethis::browse_github_pat()` helps setting one up if you haven't done so already.
+`usethis::create_github_token()` helps setting one up if you haven't done so already.
 
 #### Updating the deployment status
 

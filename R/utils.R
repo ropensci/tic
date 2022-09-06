@@ -75,7 +75,7 @@ check_ghactions_pat <- function() {
     cli::cli_alert_danger("A {.var GITHUB_PAT} needs to be set to create
                             the SSH key pair required for deployment on GitHub
                             Actions. Please call
-                            {.fun usethis::browse_github_pat}, follow the
+                            {.fun usethis::create_github_token}, follow the
                             instructions and then call {.fun use_tic} again.",
       wrap = TRUE
     )
