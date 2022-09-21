@@ -11,13 +11,14 @@ InstallDeps <- R6Class(
     },
     run = function() {
       if (grepl("Ubuntu", Sys.info()[["version"]]) &&
-        !grepl("Under development", R.version[['status']])) {
+        !grepl("Under development", R.version[["status"]])) {
         options(repos = c(CRAN = sprintf(
           "https://packagemanager.rstudio.com/all/__linux__/%s/latest",
           system("lsb_release -cs", intern = TRUE)
         )))
       }
       pak::local_install_dev_deps()
+      startup::restart()
     }
   ),
   private = list(

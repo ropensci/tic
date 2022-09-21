@@ -29,11 +29,11 @@ jobs:
       matrix:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
-          - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
+          # - { os: windows-latest, r: "release" }
+          # - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           # - { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "devel", pkgdown: "true" }
-          - { os: ubuntu-latest, r: "release" }
+          # - { os: ubuntu-latest, r: "release" }
 
     env:
       # make sure to run `tic::use_ghactions_deploy()` to set up deployment

@@ -41,6 +41,7 @@ Imports:
     R6,
     remotes,
     rlang (>= 1.0.0),
+    startup,
     usethis,
     withr
 Suggests:
