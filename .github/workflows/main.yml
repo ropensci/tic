@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - main
-    - master
-    - pak2
+      - main
+      - master
+      - pak2
   pull_request:
     branches:
-    - main
-    - master
+      - main
+      - master
   # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
   schedule:
     # * is a special character in YAML so you have to quote this string
@@ -79,7 +79,13 @@ jobs:
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
-      - name: "[Stage] Install pak"
+      - name: "[Custom Stage] Install pak"
+        run: |
+          Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
+
+      # pak CRAN and pak binary do not go well together due to certificates.
+      # pak installs pak again from CRAN due to being listed in DESCRIPTION, hence we install pak from CRAN directly
+      - name: "[Custom Stage] Install pak"
         run: |
           Rscript -e "install.packages('pak')"
 
