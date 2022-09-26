@@ -18,7 +18,6 @@ InstallDeps <- R6Class(
         )))
       }
       pak::local_install_dev_deps()
-      startup::restart()
     }
   ),
   private = list(
