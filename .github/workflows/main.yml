@@ -86,6 +86,7 @@ jobs:
       # pak installs pak again from CRAN due to being listed in DESCRIPTION, hence we install pak from CRAN directly
       - name: "[Custom Stage] Install pak"
         run: |
+          sudo apt install -y libcurl4-openssl-dev
           Rscript -e "install.packages(c('pkgdepends', 'pak'))"
 
       - name: "[Stage] Install"
