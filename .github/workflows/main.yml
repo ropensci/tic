@@ -84,9 +84,13 @@ jobs:
 
       # pak CRAN and pak binary do not go well together due to certificates.
       # pak installs pak again from CRAN due to being listed in DESCRIPTION, hence we install pak from CRAN directly
-      - name: "[Custom Stage] Install pak"
+      - name: "[Custom Stage] Install libcurl4-openssl-dev"
+        if: runner.os == 'Linux'
         run: |
           sudo apt install -y libcurl4-openssl-dev
+
+      - name: "[Custom Stage] Install pak"
+        run: |
           Rscript -e "install.packages(c('pkgdepends', 'pak'))"
 
       - name: "[Stage] Install"
