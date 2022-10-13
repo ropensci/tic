@@ -31,7 +31,7 @@ jobs:
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           # - { os: macOS-latest, r: "devel" }
-          - { os: ubuntu-latest, r: "devel", pkgdown: "true" }
+          - { os: ubuntu-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
     env:
