@@ -92,7 +92,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>The features of tic</h1>
-                        <h4 data-toc-skip class="author">Patrick Schratz, Kirill Müller</h4>
+                        <h4 data-toc-skip class="author">Patrick
+Schratz, Kirill Müller</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/features.Rmd" class="external-link"><code>vignettes/features.Rmd</code></a></small>
@@ -101,34 +102,55 @@
 
     
     
-<p>What is the advantage of using {tic} compared to the default R setup?</p>
+<p>What is the advantage of using {tic} compared to the default R
+setup?</p>
 <ol style="list-style-type: decimal">
 <li><p>Deployment to a Git repository is greatly simplified.</p></li>
-<li><p>Support for R packages and other kinds of project (<em>bookdown</em>, <em>blogdown</em>, etc.), with predefined templates. Set up your project to deploy rendered versions of your book or blog with a single push.</p></li>
-<li><p>Workflow specification are specified in a single R script, regardless of the CI system used. No need anymore for YAML configuration files that differ across CI services.</p></li>
+<li><p>Support for R packages and other kinds of project
+(<em>bookdown</em>, <em>blogdown</em>, etc.), with predefined templates.
+Set up your project to deploy rendered versions of your book or blog
+with a single push.</p></li>
+<li><p>Workflow specification are specified in a single R script,
+regardless of the CI system used. No need anymore for YAML configuration
+files that differ across CI services.</p></li>
 </ol>
-<p>Other minor advantages include the use of <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code> for package checking (instead of <code>R CMD check</code>) and robust caching approach of project dependencies (via <code>ccache</code> and R package caching).</p>
+<p>Other minor advantages include the use of
+<code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code> for package checking (instead of
+<code>R CMD check</code>) and robust caching approach of project
+dependencies (via <code>ccache</code> and R package caching).</p>
 <div class="section level2">
 <h2 id="simplified-deployment">Simplified Deployment<a class="anchor" aria-label="anchor" href="#simplified-deployment"></a>
 </h2>
-<p>CI services can be used to automatically build and deploy files. This means that these services can push certain files created during the build to repositories (GitHub, GitLab, etc.). Possible use cases are:</p>
+<p>CI services can be used to automatically build and deploy files. This
+means that these services can push certain files created during the
+build to repositories (GitHub, GitLab, etc.). Possible use cases
+are:</p>
 <ul>
 <li>Changed site contents of a {pkgdown} site</li>
-<li>Updated .Rd files of a package (by calling <code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code> before)</li>
-<li>Automated generation of a <a href="https://github.com/yonicd/covrpage" class="external-link">test summary page</a> for a package</li>
+<li>Updated .Rd files of a package (by calling
+<code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code> before)</li>
+<li>Automated generation of a <a href="https://github.com/yonicd/covrpage" class="external-link">test summary page</a> for a
+package</li>
 </ul>
-<p>If {tic} should be used for deployment, some preparatory work is required:</p>
+<p>If {tic} should be used for deployment, some preparatory work is
+required:</p>
 <ul>
-<li>Setting up a SSH key pair for deployment (differs across CI services).</li>
+<li>Setting up a SSH key pair for deployment (differs across CI
+services).</li>
 <li>Granting permission to push to the repo on GitHub.</li>
 </ul>
-<p>When calling <code><a href="../reference/use_tic.html">use_tic()</a></code>, the streamlined preparation process is run, utilizing the <a href="ci-client-packages.html">R Client packages</a> of the respective CI service under the hood. This step is needed once per repository.</p>
+<p>When calling <code><a href="../reference/use_tic.html">use_tic()</a></code>, the streamlined preparation
+process is run, utilizing the <a href="ci-client-packages.html">R Client
+packages</a> of the respective CI service under the hood. This step is
+needed once per repository.</p>
 <p>For more detailed information on deployment in {tic}, have a look <a href="deployment.html">Deployment</a> vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="support-for-various-r-projects">Support for various R projects<a class="anchor" aria-label="anchor" href="#support-for-various-r-projects"></a>
 </h2>
-<p>{tic} was developed with the aim to not only simplify R package development using CI services but also to support other R project types:</p>
+<p>{tic} was developed with the aim to not only simplify R package
+development using CI services but also to support other R project
+types:</p>
 <ul>
 <li><em>bookdown</em></li>
 <li><em>blogdown</em></li>
@@ -137,46 +159,88 @@
 <li>
 <em>figshare</em> deployment</li>
 </ul>
-<p>Each of these project types requires a standardized structure. {tic} detects this structure (assuming the user already has set it up) and adds CI templates tailored towards this specific project type to the repository when calling <code><a href="../reference/use_tic.html">use_tic()</a></code>. See the <a href="tic.html#example-projects">Example projects</a> section in the “Get started” article for a list of supported project types including links to minimal example repositories.</p>
+<p>Each of these project types requires a standardized structure. {tic}
+detects this structure (assuming the user already has set it up) and
+adds CI templates tailored towards this specific project type to the
+repository when calling <code><a href="../reference/use_tic.html">use_tic()</a></code>. See the <a href="tic.html#example-projects">Example projects</a> section in the
+“Get started” article for a list of supported project types including
+links to minimal example repositories.</p>
 </div>
 <div class="section level2">
 <h2 id="ci-agnostic-workflows">CI-Agnostic workflows<a class="anchor" aria-label="anchor" href="#ci-agnostic-workflows"></a>
 </h2>
 <p>What does “CI-Agnostic” mean and why do we need it?</p>
-<p>For to historic reasons, the R community first started on Travis CI to implement an easy way for R package checking. The build script for R is <a href="https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb" class="external-link">community maintained</a>. Theoretically, R could be run on any CI system. Travis CI is only one out of a bunch of providers which offer (free) CI solutions.</p>
-<p>Each CI provider has its own way how the user has to write the YAML file to successfully talk to the service. This setup file controls what will be done in each run.</p>
-<p>To give you an example how different these control files can be, take a look at these two examples from <a href="https://github.com/ropensci/tic/blob/master/.circleci/config.yml" class="external-link">Circle CI</a> and <a href="https://github.com/ropensci/tic/blob/master/.github/workflows/tic.yml" class="external-link">Github Actions</a>.</p>
-<p>We could list way more differences - but that’s exactly the point when {tic} comes in!</p>
+<p>For to historic reasons, the R community first started on Travis CI
+to implement an easy way for R package checking. The build script for R
+is <a href="https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb" class="external-link">community
+maintained</a>. Theoretically, R could be run on any CI system. Travis
+CI is only one out of a bunch of providers which offer (free) CI
+solutions.</p>
+<p>Each CI provider has its own way how the user has to write the YAML
+file to successfully talk to the service. This setup file controls what
+will be done in each run.</p>
+<p>To give you an example how different these control files can be, take
+a look at these two examples from <a href="https://github.com/ropensci/tic/blob/master/.circleci/config.yml" class="external-link">Circle
+CI</a> and <a href="https://github.com/ropensci/tic/blob/master/.github/workflows/tic.yml" class="external-link">Github
+Actions</a>.</p>
+<p>We could list way more differences - but that’s exactly the point
+when {tic} comes in!</p>
 <ul>
-<li>Rather than dealing with all the CI differences, {tic} enables the specification of the complete workflow in an external R script file <code>tic.R</code>.</li>
-<li>The calls listed in <code>tic.R</code> will work the same way on every CI service that is supported by {tic}.</li>
-<li>You can emulate all the stages and steps locally by calling <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>.</li>
-<li>You are independent to changes made to the upstream runners of a specific CI system.</li>
-<li>A <code>tic.R</code> workflow is usually shorter and easier to parse than a provider-specific YAML configuration file as it builds on <a href="#macros">macros</a>.</li>
+<li>Rather than dealing with all the CI differences, {tic} enables the
+specification of the complete workflow in an external R script file
+<code>tic.R</code>.</li>
+<li>The calls listed in <code>tic.R</code> will work the same way on
+every CI service that is supported by {tic}.</li>
+<li>You can emulate all the stages and steps locally by calling
+<code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>.</li>
+<li>You are independent to changes made to the upstream runners of a
+specific CI system.</li>
+<li>A <code>tic.R</code> workflow is usually shorter and easier to parse
+than a provider-specific YAML configuration file as it builds on <a href="#macros">macros</a>.</li>
 </ul>
-<p>So instead of learning how to specify specific tasks on different CI platforms, you only apply R commands which work the same on all CI systems.</p>
+<p>So instead of learning how to specify specific tasks on different CI
+platforms, you only apply R commands which work the same on all CI
+systems.</p>
 </div>
 <div class="section level2">
 <h2 id="enhanced-r-package-checking">Enhanced R package checking<a class="anchor" aria-label="anchor" href="#enhanced-r-package-checking"></a>
 </h2>
-<p>As an R package developer calling <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> is a common task. Usually CI workers will run <code>R CMD check &lt;package&gt;</code> to check the R package. {tic} instead makes use of <a href="https://github.com/r-lib/rcmdcheck" class="external-link">{rcmdcheck}</a>, a wrapper around <code>R CMD build</code> and <code>R CMD check</code> developed by <a href="https://github.com/gaborcsardi" class="external-link">Gabor Csardi</a>. {rcmdcheck} comes with several enhancements:</p>
+<p>As an R package developer calling <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> is a
+common task. Usually CI workers will run
+<code>R CMD check &lt;package&gt;</code> to check the R package. {tic}
+instead makes use of <a href="https://github.com/r-lib/rcmdcheck" class="external-link">{rcmdcheck}</a>, a wrapper
+around <code>R CMD build</code> and <code>R CMD check</code> developed
+by <a href="https://github.com/gaborcsardi" class="external-link">Gabor Csardi</a>.
+{rcmdcheck} comes with several enhancements:</p>
 <ul>
-<li>Coloring of important steps, simplifying the readability of the log.</li>
-<li>Enhanced and extended tracebacks of errors, especially errors in tests.</li>
-<li>The whole check process is returned in a R object, making it easier to inspect errors/warnings.</li>
+<li>Coloring of important steps, simplifying the readability of the
+log.</li>
+<li>Enhanced and extended tracebacks of errors, especially errors in
+tests.</li>
+<li>The whole check process is returned in a R object, making it easier
+to inspect errors/warnings.</li>
 </ul>
-<p>Especially the extended log printing of errors on the CI service is a huge advantage - often enough, CI services cut the console log output early, often omitting important information about the error.</p>
+<p>Especially the extended log printing of errors on the CI service is a
+huge advantage - often enough, CI services cut the console log output
+early, often omitting important information about the error.</p>
 </div>
 <div class="section level2">
 <h2 id="caching-of-packages">Caching of packages<a class="anchor" aria-label="anchor" href="#caching-of-packages"></a>
 </h2>
-<p>When using {tic}, all dependencies (the ones of the package plus the ones of other stages of the CI build) are installed in the <code>"before_install"</code> and <code>"install"</code> stage. This has the advantage that all packages are added to the cache (even if they are just needed for deployment), speeding up subsequent builds substantially.</p>
+<p>When using {tic}, all dependencies (the ones of the package plus the
+ones of other stages of the CI build) are installed in the
+<code>"before_install"</code> and <code>"install"</code> stage. This has
+the advantage that all packages are added to the cache (even if they are
+just needed for deployment), speeding up subsequent builds
+substantially.</p>
 <p>More information about the complete workflow can be found in the <a href="build-lifecycle.html">Build lifecyle</a> vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="easier-troubleshooting">Easier troubleshooting<a class="anchor" aria-label="anchor" href="#easier-troubleshooting"></a>
 </h2>
-<p>{tic} comes with the ability to <a href="advanced.html#emulate-a-ci-run-locally">emulate a CI run locally</a> and <a href="advanced#troubleshooting-running-tic-locally">debug problems in the config file</a> by calling <code><a href="../reference/dsl_get.html">dsl_load()</a></code> locally.</p>
+<p>{tic} comes with the ability to <a href="advanced.html#emulate-a-ci-run-locally">emulate a CI run
+locally</a> and <a href="advanced#troubleshooting-running-tic-locally">debug problems in
+the config file</a> by calling <code><a href="../reference/dsl_get.html">dsl_load()</a></code> locally.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

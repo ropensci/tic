@@ -82,10 +82,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.12.0" id="tic-0120-2022-03-01">tic 0.12.0 (2022-03-01)<a class="anchor" aria-label="anchor" href="#tic-0120-2022-03-01"></a></h2>
-<ul><li>Update Circle CI templates to 2022-03-01<ul><li>Remove <code>ccache</code> parts</li>
+<ul><li>Update Circle CI templates to 2022-03-01
+<ul><li>Remove <code>ccache</code> parts</li>
 <li>Run nightly builds also on <code>main</code> branch</li>
 </ul></li>
-<li>Update GHA and Circle CI templates to 2022-03-01<ul><li>Update to <code>setup-tinytex@v2</code>
+<li>Update GHA and Circle CI templates to 2022-03-01
+<ul><li>Update to <code>setup-tinytex@v2</code>
 </li>
 <li>Update to <code>setup-r@v2</code>
 </li>
@@ -99,18 +101,22 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.4.9000" id="tic-01149000-2022-01-28">tic 0.11.4.9000 (2022-01-28)<a class="anchor" aria-label="anchor" href="#tic-01149000-2022-01-28"></a></h2>
-<ul><li>Same as previous version.</li></ul></div>
+<ul><li>Same as previous version.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.4" id="tic-0114-2022-01-28">tic 0.11.4 (2022-01-28)<a class="anchor" aria-label="anchor" href="#tic-0114-2022-01-28"></a></h2>
-<ul><li>Add compatibility for rlang &gt;= v1.0.0</li></ul></div>
+<ul><li>Add compatibility for rlang &gt;= v1.0.0</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.3" id="tic-0113-2021-12-22">tic 0.11.3 (2021-12-22)<a class="anchor" aria-label="anchor" href="#tic-0113-2021-12-22"></a></h2>
 <ul><li>
-<code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>: Fix accidental deployments from pull requests (<a href="https://github.com/ropensci/tic/issues/308" class="external-link">#308</a>)</li></ul></div>
+<code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>: Fix accidental deployments from pull requests (<a href="https://github.com/ropensci/tic/issues/308" class="external-link">#308</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.2" id="tic-0112-2021-12-05">tic 0.11.2 (2021-12-05)<a class="anchor" aria-label="anchor" href="#tic-0112-2021-12-05"></a></h2>
 <ul><li>
-<code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> now always create a <code>.nojekyll</code> file for both release and development deployments. Otherwise custom fonts starting with an underscore will not be loaded as Jekyll ignores this pattern. A <code>.nojekyll</code> file tells GitHub pages to not use Jekyll for serving the web page. (<a href="https://github.com/ropensci/tic/issues/307" class="external-link">#307</a>)</li></ul></div>
+<code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code> now always create a <code>.nojekyll</code> file for both release and development deployments. Otherwise custom fonts starting with an underscore will not be loaded as Jekyll ignores this pattern. A <code>.nojekyll</code> file tells GitHub pages to not use Jekyll for serving the web page. (<a href="https://github.com/ropensci/tic/issues/307" class="external-link">#307</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.1" id="tic-0111-2021-06-27">tic 0.11.1 (2021-06-27)<a class="anchor" aria-label="anchor" href="#tic-0111-2021-06-27"></a></h2>
 <ul><li>Templates: install required system libs for {pkgdown} conditionally (accidentally removed in the previous template revision on 2021-06-26)</li>
@@ -136,10 +142,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9008" id="tic-0909008-2020-11-18">tic 0.9.0.9008 (2020-11-18)<a class="anchor" aria-label="anchor" href="#tic-0909008-2020-11-18"></a></h2>
-<ul><li>update peter-evans/create-pull-request action in <code>update-tic.yml</code> template to v3.5.0</li></ul></div>
+<ul><li>update peter-evans/create-pull-request action in <code>update-tic.yml</code> template to v3.5.0</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9007" id="tic-0909007-2020-11-14">tic 0.9.0.9007 (2020-11-14)<a class="anchor" aria-label="anchor" href="#tic-0909007-2020-11-14"></a></h2>
-<ul><li>update GitHub Actions templates<ul><li>update actions/checkout to v2.3.4</li>
+<ul><li>update GitHub Actions templates
+<ul><li>update actions/checkout to v2.3.4</li>
 <li>update actions/upload-artifacts to v2.2.1</li>
 <li>update pat-s/always-upload-cache to v2.1.3</li>
 </ul></li>
@@ -147,7 +155,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9006" id="tic-0909006-2020-09-19">tic 0.9.0.9006 (2020-09-19)<a class="anchor" aria-label="anchor" href="#tic-0909006-2020-09-19"></a></h2>
-<ul><li>Replace hardcoded references to “master” by a dynamic query of the default repo branch</li></ul></div>
+<ul><li>Replace hardcoded references to “master” by a dynamic query of the default repo branch</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9005" id="tic-0909005-2020-09-04">tic 0.9.0.9005 (2020-09-04)<a class="anchor" aria-label="anchor" href="#tic-0909005-2020-09-04"></a></h2>
 <ul><li>
@@ -157,7 +166,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9004" id="tic-0909004-2020-08-27">tic 0.9.0.9004 (2020-08-27)<a class="anchor" aria-label="anchor" href="#tic-0909004-2020-08-27"></a></h2>
 <ul><li>
-<code><a href="../reference/update_yml.html">update_yml()</a></code>: Support updating multiple YAML files</li></ul></div>
+<code><a href="../reference/update_yml.html">update_yml()</a></code>: Support updating multiple YAML files</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9003" id="tic-0909003-2020-08-06">tic 0.9.0.9003 (2020-08-06)<a class="anchor" aria-label="anchor" href="#tic-0909003-2020-08-06"></a></h2>
 <ul><li>GHA: add <code>workflow_dispatch</code> event trigger to templates</li>
@@ -181,10 +191,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9001" id="tic-0909001">tic 0.9.0.9001<a class="anchor" aria-label="anchor" href="#tic-0909001"></a></h2>
-<ul><li>gha_add_secret(): Add new upstream parameters and fix endpoint</li></ul></div>
+<ul><li>gha_add_secret(): Add new upstream parameters and fix endpoint</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0.9000" id="tic-0909000">tic 0.9.0.9000<a class="anchor" aria-label="anchor" href="#tic-0909000"></a></h2>
-<ul><li>Same as previous version.</li></ul></div>
+<ul><li>Same as previous version.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0" id="tic-090">tic 0.9.0<a class="anchor" aria-label="anchor" href="#tic-090"></a></h2>
 <div class="section level3">
@@ -244,13 +256,16 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9006" id="tic-0809006">tic 0.8.0.9006<a class="anchor" aria-label="anchor" href="#tic-0809006"></a></h2>
 <ul><li>
-<code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> and <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> gain <code>dependencies = TRUE</code> argument.</li></ul></div>
+<code><a href="../reference/step_install_pkg.html">step_install_deps()</a></code> and <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> gain <code>dependencies = TRUE</code> argument.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9005" id="tic-0809005">tic 0.8.0.9005<a class="anchor" aria-label="anchor" href="#tic-0809005"></a></h2>
-<ul><li>GHA: Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}</li></ul></div>
+<ul><li>GHA: Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate limits in {remotes}</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9004" id="tic-0809004">tic 0.8.0.9004<a class="anchor" aria-label="anchor" href="#tic-0809004"></a></h2>
-<ul><li>New <code><a href="../reference/use_update_tic.html">use_update_tic()</a></code>: Adds GitHub Actions workflow <code>update-tic.yml</code> to automatically update tic YAML templates</li></ul></div>
+<ul><li>New <code><a href="../reference/use_update_tic.html">use_update_tic()</a></code>: Adds GitHub Actions workflow <code>update-tic.yml</code> to automatically update tic YAML templates</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9003" id="tic-0809003">tic 0.8.0.9003<a class="anchor" aria-label="anchor" href="#tic-0809003"></a></h2>
 <ul><li>Support fully custom runner matrices on GitHub Actions via template types <code>"custom"</code> and ´“custom-deploy”`</li>
@@ -258,7 +273,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9002" id="tic-0809002">tic 0.8.0.9002<a class="anchor" aria-label="anchor" href="#tic-0809002"></a></h2>
-<ul><li>New <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> to automate the process of adding a GitHub PAT to a repo as a secret. This function will probably be move to {ghactions} in the future.</li></ul></div>
+<ul><li>New <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> to automate the process of adding a GitHub PAT to a repo as a secret. This function will probably be move to {ghactions} in the future.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9001" id="tic-0809001">tic 0.8.0.9001<a class="anchor" aria-label="anchor" href="#tic-0809001"></a></h2>
 <div class="section level4">
@@ -270,7 +286,8 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0.9000" id="tic-0809000">tic 0.8.0.9000<a class="anchor" aria-label="anchor" href="#tic-0809000"></a></h2>
-<ul><li>Same as previous version.</li></ul></div>
+<ul><li>Same as previous version.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0" id="tic-080">tic 0.8.0<a class="anchor" aria-label="anchor" href="#tic-080"></a></h2>
 <div class="section level3">
@@ -290,7 +307,8 @@
 </ul></div>
 <div class="section level4">
 <h4 id="circle-ci-0-8-0">Circle CI<a class="anchor" aria-label="anchor" href="#circle-ci-0-8-0"></a></h4>
-<ul><li>Update r-oldrelease to R 3.6.3</li></ul></div>
+<ul><li>Update r-oldrelease to R 3.6.3</li>
+</ul></div>
 </div>
 </div>
     <div class="section level2">
@@ -303,7 +321,8 @@
 <h2 class="pkg-version" data-toc-text="0.7.0" id="tic-070">tic 0.7.0<a class="anchor" aria-label="anchor" href="#tic-070"></a></h2>
 <div class="section level3">
 <h3 id="macros-0-7-0">Macros<a class="anchor" aria-label="anchor" href="#macros-0-7-0"></a></h3>
-<ul><li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href="https://github.com/ropensci/tic/issues/242" class="external-link">#242</a>)</li></ul></div>
+<ul><li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href="https://github.com/ropensci/tic/issues/242" class="external-link">#242</a>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="ci-provider-specific-0-7-0">CI Provider specific<a class="anchor" aria-label="anchor" href="#ci-provider-specific-0-7-0"></a></h3>
 <div class="section level4">
@@ -329,10 +348,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0.9001" id="tic-0609001">tic 0.6.0.9001<a class="anchor" aria-label="anchor" href="#tic-0609001"></a></h2>
-<ul><li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href="https://github.com/ropensci/tic/issues/242" class="external-link">#242</a>)</li></ul></div>
+<ul><li>Add <code><a href="../reference/do_blogdown.html">do_blogdown()</a></code> macro (<a href="https://github.com/ropensci/tic/issues/242" class="external-link">#242</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0.9000" id="tic-0609000">tic 0.6.0.9000<a class="anchor" aria-label="anchor" href="#tic-0609000"></a></h2>
-<ul><li>Same as previous version.</li></ul></div>
+<ul><li>Same as previous version.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0" id="tic-060">tic 0.6.0<a class="anchor" aria-label="anchor" href="#tic-060"></a></h2>
 <div class="section level3">
@@ -363,12 +384,14 @@
 <div class="section level3">
 <h3 id="documentation-0-6-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-6-0"></a></h3>
 <ul><li>
-<code>faq.Rmd</code>: Add info how to avoid git race conditions during pkgdown deployment (<a href="https://github.com/ropensci/tic/issues/238" class="external-link">#238</a>)</li></ul></div>
+<code>faq.Rmd</code>: Add info how to avoid git race conditions during pkgdown deployment (<a href="https://github.com/ropensci/tic/issues/238" class="external-link">#238</a>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0.9005" id="tic-0509005">tic 0.5.0.9005<a class="anchor" aria-label="anchor" href="#tic-0509005"></a></h2>
 <ul><li>
-<code><a href="../reference/use_tic.html">use_tic()</a></code> fails with descriptive error message if the badges start/end sections are missing in README</li></ul></div>
+<code><a href="../reference/use_tic.html">use_tic()</a></code> fails with descriptive error message if the badges start/end sections are missing in README</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0.9004" id="tic-0509004">tic 0.5.0.9004<a class="anchor" aria-label="anchor" href="#tic-0509004"></a></h2>
 <ul><li>
@@ -400,10 +423,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0.9001" id="tic-0509001">tic 0.5.0.9001<a class="anchor" aria-label="anchor" href="#tic-0509001"></a></h2>
-<ul><li>Add <code><a href="../reference/use_tic_badge.html">use_tic_badge()</a></code>: Creation of pretty CI status badges</li></ul></div>
+<ul><li>Add <code><a href="../reference/use_tic_badge.html">use_tic_badge()</a></code>: Creation of pretty CI status badges</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0.9000" id="tic-0509000">tic 0.5.0.9000<a class="anchor" aria-label="anchor" href="#tic-0509000"></a></h2>
-<ul><li>Same as previous version.</li></ul></div>
+<ul><li>Same as previous version.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="tic-050">tic 0.5.0<a class="anchor" aria-label="anchor" href="#tic-050"></a></h2>
 <div class="section level3">
@@ -482,7 +507,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0.9001" id="tic-0309001">tic 0.3.0.9001<a class="anchor" aria-label="anchor" href="#tic-0309001"></a></h2>
-<ul><li>Move <code>use_travis_deploy()</code> back to {travis}.</li></ul></div>
+<ul><li>Move <code>use_travis_deploy()</code> back to {travis}.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="tic-030">tic 0.3.0<a class="anchor" aria-label="anchor" href="#tic-030"></a></h2>
 <ul><li>add argument “check_dir” to step_rcmdcheck (<a href="https://github.com/ropensci/tic/issues/179" class="external-link">#179</a>)</li>
@@ -503,7 +529,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9019" id="tic-02139019">tic 0.2.13.9019<a class="anchor" aria-label="anchor" href="#tic-02139019"></a></h2>
-<ul><li>Building pkgdown site succeeds if <code>docs/</code> directory is missing (<a href="https://github.com/ropensci/tic/issues/173" class="external-link">#173</a>, r-lib/pkgdown#1050).</li></ul></div>
+<ul><li>Building pkgdown site succeeds if <code>docs/</code> directory is missing (<a href="https://github.com/ropensci/tic/issues/173" class="external-link">#173</a>, r-lib/pkgdown#1050).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9018" id="tic-02139018">tic 0.2.13.9018<a class="anchor" aria-label="anchor" href="#tic-02139018"></a></h2>
 <ul><li>Move <code>use_travis_deploy()</code> from the travis package to here.</li>
@@ -621,7 +648,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9007" id="tic-02139007">tic 0.2.13.9007<a class="anchor" aria-label="anchor" href="#tic-02139007"></a></h2>
-<ul><li>The <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> and <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (<a href="https://github.com/ropensci/tic/issues/27" class="external-link">#27</a>).</li></ul></div>
+<ul><li>The <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code> and <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> steps are not executed for builds on a tag, because this would create a branch of the same name as the tag (<a href="https://github.com/ropensci/tic/issues/27" class="external-link">#27</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9006" id="tic-02139006">tic 0.2.13.9006<a class="anchor" aria-label="anchor" href="#tic-02139006"></a></h2>
 <ul><li>Support creating variables in <code>tic.R</code> by sourcing <code>tic.R</code> in a modifiable environment (<a href="https://github.com/ropensci/tic/issues/33" class="external-link">#33</a>).</li>
@@ -629,7 +657,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9005" id="tic-02139005">tic 0.2.13.9005<a class="anchor" aria-label="anchor" href="#tic-02139005"></a></h2>
-<ul><li>A failing step immediately fails the entire stage, subsequent steps are not run (<a href="https://github.com/ropensci/tic/issues/59" class="external-link">#59</a>).</li></ul></div>
+<ul><li>A failing step immediately fails the entire stage, subsequent steps are not run (<a href="https://github.com/ropensci/tic/issues/59" class="external-link">#59</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9004" id="tic-02139004">tic 0.2.13.9004<a class="anchor" aria-label="anchor" href="#tic-02139004"></a></h2>
 <ul><li>New <code><a href="../reference/ssh_key_helpers.html">get_public_key()</a></code> and <code><a href="../reference/ssh_key_helpers.html">encode_private_key()</a></code> moved from <em>travis</em> (<a href="https://github.com/ropensci/tic/issues/71" class="external-link">#71</a>, <a href="https://github.com/pat-s" class="external-link">@pat-s</a>).</li>
@@ -654,10 +683,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9001" id="tic-02139001">tic 0.2.13.9001<a class="anchor" aria-label="anchor" href="#tic-02139001"></a></h2>
-<ul><li>The <em>pkgdown</em> package is installed from CRAN.</li></ul></div>
+<ul><li>The <em>pkgdown</em> package is installed from CRAN.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13.9000" id="tic-02139000">tic 0.2.13.9000<a class="anchor" aria-label="anchor" href="#tic-02139000"></a></h2>
-<ul><li>New <code>subdir</code> argument to <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>, allows restricting the set of files to be committed to Git (<a href="https://github.com/ropensci/tic/issues/42" class="external-link">#42</a>).</li></ul></div>
+<ul><li>New <code>subdir</code> argument to <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> and <code><a href="../reference/step_do_push_deploy.html">step_do_push_deploy()</a></code>, allows restricting the set of files to be committed to Git (<a href="https://github.com/ropensci/tic/issues/42" class="external-link">#42</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-13" id="tic-02-13-2018-02-01">tic 0.2-13 (2018-02-01)<a class="anchor" aria-label="anchor" href="#tic-02-13-2018-02-01"></a></h2>
 <ul><li>New <code><a href="../reference/base64serialize.html">base64serialize()</a></code> and <code><a href="../reference/base64serialize.html">base64unserialize()</a></code> (<a href="https://github.com/ropensci/tic/issues/37" class="external-link">#37</a>).</li>
@@ -669,7 +700,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-12" id="tic-02-12-2017-06-29">tic 0.2-12 (2017-06-29)<a class="anchor" aria-label="anchor" href="#tic-02-12-2017-06-29"></a></h2>
-<ul><li>Fix <code><a href="../reference/Deprecated.html">add_package_checks()</a></code>.</li></ul></div>
+<ul><li>Fix <code><a href="../reference/Deprecated.html">add_package_checks()</a></code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-11" id="tic-02-11-2017-06-29">tic 0.2-11 (2017-06-29)<a class="anchor" aria-label="anchor" href="#tic-02-11-2017-06-29"></a></h2>
 <ul><li>
@@ -698,7 +730,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-8" id="tic-02-8-2017-06-17">tic 0.2-8 (2017-06-17)<a class="anchor" aria-label="anchor" href="#tic-02-8-2017-06-17"></a></h2>
-<ul><li>An error occurring when running a step is printed in red (<a href="https://github.com/ropensci/tic/issues/5" class="external-link">#5</a>).</li></ul></div>
+<ul><li>An error occurring when running a step is printed in red (<a href="https://github.com/ropensci/tic/issues/5" class="external-link">#5</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-7" id="tic-02-7-2017-06-13">tic 0.2-7 (2017-06-13)<a class="anchor" aria-label="anchor" href="#tic-02-7-2017-06-13"></a></h2>
 <ul><li>New <code><a href="../reference/step_write_text_file.html">step_write_text_file()</a></code> for creating arbitrary text files, including <code>~/.R/Makevars</code> (<a href="https://github.com/ropensci/tic/issues/14" class="external-link">#14</a>).</li>
@@ -716,7 +749,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-6" id="tic-02-6-2017-06-04">tic 0.2-6 (2017-06-04)<a class="anchor" aria-label="anchor" href="#tic-02-6-2017-06-04"></a></h2>
-<ul><li>Technical release to sync default and production branches.</li></ul></div>
+<ul><li>Technical release to sync default and production branches.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-5" id="tic-02-5-2016-11-27">tic 0.2-5 (2016-11-27)<a class="anchor" aria-label="anchor" href="#tic-02-5-2016-11-27"></a></h2>
 <ul><li>Fix <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code>.</li>
@@ -724,7 +758,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-4" id="tic-02-4-2016-11-27">tic 0.2-4 (2016-11-27)<a class="anchor" aria-label="anchor" href="#tic-02-4-2016-11-27"></a></h2>
-<ul><li>Use new DSL with the notion of stages with arbitrary names.<ul><li>New <code>load_from_file()</code> replaces <code>get_xxx_steps()</code>
+<ul><li>Use new DSL with the notion of stages with arbitrary names.
+<ul><li>New <code>load_from_file()</code> replaces <code>get_xxx_steps()</code>
 </li>
 <li>
 <code>task_...()</code> has been renamed to <code>step_...()</code>
@@ -744,10 +779,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-3" id="tic-02-3-2016-11-06">tic 0.2-3 (2016-11-06)<a class="anchor" aria-label="anchor" href="#tic-02-3-2016-11-06"></a></h2>
-<ul><li>Install package for <code>task_build_pkgdown</code> task.</li></ul></div>
+<ul><li>Install package for <code>task_build_pkgdown</code> task.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-2" id="tic-02-2-2016-11-05">tic 0.2-2 (2016-11-05)<a class="anchor" aria-label="anchor" href="#tic-02-2-2016-11-05"></a></h2>
-<ul><li>DSL to define steps via <code><a href="https://rdrr.io/r/stats/step.html" class="external-link">step()</a></code>, which are tasks with a branch and/or env var filter (<a href="https://github.com/ropensci/tic/issues/6" class="external-link">#6</a>).</li></ul></div>
+<ul><li>DSL to define steps via <code><a href="https://rdrr.io/r/stats/step.html" class="external-link">step()</a></code>, which are tasks with a branch and/or env var filter (<a href="https://github.com/ropensci/tic/issues/6" class="external-link">#6</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2-1" id="tic-02-1-2016-11-05">tic 0.2-1 (2016-11-05)<a class="anchor" aria-label="anchor" href="#tic-02-1-2016-11-05"></a></h2>
 <ul><li>Support environment variables from both Travis and AppVeyor (<a href="https://github.com/ropensci/tic/issues/6" class="external-link">#6</a>).</li>
@@ -758,7 +795,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2" id="tic-02-2016-11-05">tic 0.2 (2016-11-05)<a class="anchor" aria-label="anchor" href="#tic-02-2016-11-05"></a></h2>
 <p>Initial release.</p>
-<ul><li>Rudimentary configuration based on task objects. A task object is a list/environment which contains at least the members <code>check()</code>, <code>prepare()</code> and <code>run()</code> – functions without arguments, only <code>check()</code> needs to return a <code>logical</code> scalar. These can be subclasses of the new <code>TravisTask</code> R6 class, the package now contains six subclasses: <code>HelloWorld</code>, <code>RunCovr</code>, <code>BuildPkgdown</code>, <code>InstallSSHKeys</code>, <code>TestSSH</code>, and <code>PushDeploy</code>. The <code>new</code> methods of theses subclasses are exported as <code>task_hello_world()</code>, <code>task_run_covr()</code>, <code>task_build_pkgdown()</code> <code>task_install_ssh_keys()</code>, <code>task_test_ssh()</code>, and <code>task_push_deploy()</code>, respectively. The three functions <code><a href="../reference/stages.html">before_script()</a></code>, <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code> accept a semicolon-separated list of task objects, which is by default taken from the <code>TIC_AFTER_SUCCESS_TASKS</code> and <code>TIC_DEPLOY_TASKS</code> environment variables. These functions call the <code>prepare()</code> and <code>run()</code> methods of the task objects if and only if the <code>check()</code> method returns <code>TRUE</code> (<a href="https://github.com/ropensci/tic/issues/42" class="external-link">#42</a>).</li></ul></div>
+<ul><li>Rudimentary configuration based on task objects. A task object is a list/environment which contains at least the members <code>check()</code>, <code>prepare()</code> and <code>run()</code> – functions without arguments, only <code>check()</code> needs to return a <code>logical</code> scalar. These can be subclasses of the new <code>TravisTask</code> R6 class, the package now contains six subclasses: <code>HelloWorld</code>, <code>RunCovr</code>, <code>BuildPkgdown</code>, <code>InstallSSHKeys</code>, <code>TestSSH</code>, and <code>PushDeploy</code>. The <code>new</code> methods of theses subclasses are exported as <code>task_hello_world()</code>, <code>task_run_covr()</code>, <code>task_build_pkgdown()</code> <code>task_install_ssh_keys()</code>, <code>task_test_ssh()</code>, and <code>task_push_deploy()</code>, respectively. The three functions <code><a href="../reference/stages.html">before_script()</a></code>, <code><a href="../reference/stages.html">after_success()</a></code> and <code><a href="../reference/stages.html">deploy()</a></code> accept a semicolon-separated list of task objects, which is by default taken from the <code>TIC_AFTER_SUCCESS_TASKS</code> and <code>TIC_DEPLOY_TASKS</code> environment variables. These functions call the <code>prepare()</code> and <code>run()</code> methods of the task objects if and only if the <code>check()</code> method returns <code>TRUE</code> (<a href="https://github.com/ropensci/tic/issues/42" class="external-link">#42</a>).</li>
+</ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

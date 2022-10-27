@@ -92,7 +92,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Developer info: Writing custom steps</h1>
-                        <h4 data-toc-skip class="author">Kirill Müller, Patrick Schratz</h4>
+                        <h4 data-toc-skip class="author">Kirill Müller,
+Patrick Schratz</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/custom-steps.Rmd" class="external-link"><code>vignettes/custom-steps.Rmd</code></a></small>
@@ -101,31 +102,63 @@
 
     
     
-<p>Most important steps running on CI systems are <a href="tic.html#steps">already implemented</a> in {tic}. The following vignette shows how new steps can be created and how {tic} defines them. Internally, all steps are defined using the <a href="https://github.com/wch/R6" class="external-link">R6</a> class system. If you are not familiar with object-oriented programming using R6, the <a href="https://adv-r.hadley.nz/r6.html" class="external-link">R6 chapter</a> in <a href="https://adv-r.hadley.nz/" class="external-link">Advanced R</a> is a good place to start.</p>
-<p>In most cases there should be no need to write steps on your own, because <code><a href="../reference/step_run_code.html">step_run_code()</a></code> can be used to run arbitrary code when preparing and running the step, and custom conditions in <code>tic.R</code> can be used to trigger the step. However, if you have the need for a repeated use of specific combinations of <code><a href="../reference/dsl.html">add_code_step()</a></code>, please let us know (by opening an <a href="https://github.com/ropensci/tic/issues" class="external-link">issue</a>) so that we can discuss whether it makes sense to implement it as a custom step.</p>
+<p>Most important steps running on CI systems are <a href="tic.html#steps">already implemented</a> in {tic}. The following
+vignette shows how new steps can be created and how {tic} defines them.
+Internally, all steps are defined using the <a href="https://github.com/wch/R6" class="external-link">R6</a> class system. If you are not
+familiar with object-oriented programming using R6, the <a href="https://adv-r.hadley.nz/r6.html" class="external-link">R6 chapter</a> in <a href="https://adv-r.hadley.nz/" class="external-link">Advanced R</a> is a good place to
+start.</p>
+<p>In most cases there should be no need to write steps on your own,
+because <code><a href="../reference/step_run_code.html">step_run_code()</a></code> can be used to run arbitrary code
+when preparing and running the step, and custom conditions in
+<code>tic.R</code> can be used to trigger the step. However, if you have
+the need for a repeated use of specific combinations of
+<code><a href="../reference/dsl.html">add_code_step()</a></code>, please let us know (by opening an <a href="https://github.com/ropensci/tic/issues" class="external-link">issue</a>) so that we can
+discuss whether it makes sense to implement it as a custom step.</p>
 <div class="section level2">
 <h2 id="the-ticstep-class">The <code>TicStep</code> class<a class="anchor" aria-label="anchor" href="#the-ticstep-class"></a>
 </h2>
-<p>A step is a subclass of the <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38" class="external-link"><code>TicStep</code> class</a>. The <code>step_...</code> functions in {tic} are forwarded to the <code>new()</code> methods of the corresponding R6 class objects (and from there to <code>initialize()</code> member functions). We recommend following the same pattern for your custom steps.</p>
-<p>The <code>TicStep</code> class implements the public methods <code>check()</code>, <code>prepare()</code>, and <code>run()</code>. These methods must be callable without arguments. This means that you only need to override the methods you need; if you don’t need a <code>check()</code> or <code>prepare()</code> method you can leave it out. The following sections describe these methods and show examples.</p>
+<p>A step is a subclass of the <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38" class="external-link"><code>TicStep</code>
+class</a>. The <code>step_...</code> functions in {tic} are forwarded to
+the <code>new()</code> methods of the corresponding R6 class objects
+(and from there to <code>initialize()</code> member functions). We
+recommend following the same pattern for your custom steps.</p>
+<p>The <code>TicStep</code> class implements the public methods
+<code>check()</code>, <code>prepare()</code>, and <code>run()</code>.
+These methods must be callable without arguments. This means that you
+only need to override the methods you need; if you don’t need a
+<code>check()</code> or <code>prepare()</code> method you can leave it
+out. The following sections describe these methods and show
+examples.</p>
 <div class="section level3">
 <h3 id="the-prepare-method">The <code>prepare()</code> method<a class="anchor" aria-label="anchor" href="#the-prepare-method"></a>
 </h3>
-<p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It is intended to run in the <code>before_script</code> phase of the CI run. This method should install all dependent packages that the step requires, which then can be cached by the CI system. You also may include further preparation code here. For example <code>step_rcmdcheck</code> verifies that the R packages <em>rcmdcheck</em> and <em>remotes</em> are installed:</p>
+<p>This method will be called by <code><a href="../reference/prepare_all_stages.html">prepare_all_stages()</a></code>. It
+is intended to run in the <code>before_script</code> phase of the CI
+run. This method should install all dependent packages that the step
+requires, which then can be cached by the CI system. You also may
+include further preparation code here. For example
+<code>step_rcmdcheck</code> verifies that the R packages
+<em>rcmdcheck</em> and <em>remotes</em> are installed:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RCMDcheck</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">prepare</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="the-run-method">The <code>run()</code> method<a class="anchor" aria-label="anchor" href="#the-run-method"></a>
 </h3>
-<p>This method executes the step. When a step is added to a stage, <code>run()</code> will be called when the stage is executed. For example, the <code>run()</code> function of class <code>RCMDcheck</code> looks as follows:</p>
+<p>This method executes the step. When a step is added to a stage,
+<code>run()</code> will be called when the stage is executed. For
+example, the <code>run()</code> function of class <code>RCMDcheck</code>
+looks as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RCMDcheck</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">run</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="the-check-method">The <code>check()</code> method<a class="anchor" aria-label="anchor" href="#the-check-method"></a>
 </h3>
-<p>This method checks whether the step is actually run. It returns a logical scalar. The <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24" class="external-link"><code>step_write_text_file()</code></a> function is an example step with the following implementation of the <code>check()</code> method:</p>
+<p>This method checks whether the step is actually run. It returns a
+logical scalar. The <a href="https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24" class="external-link"><code>step_write_text_file()</code></a>
+function is an example step with the following implementation of the
+<code>check()</code> method:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">WriteTextFile</span><span class="op">$</span><span class="va">public_methods</span><span class="op">$</span><span class="va">check</span></span></code></pre></div>
 </div>
@@ -133,8 +166,13 @@
 <div class="section level2">
 <h2 id="a-minimal-example">A minimal example<a class="anchor" aria-label="anchor" href="#a-minimal-example"></a>
 </h2>
-<p>You can take a look at <a href="https://github.com/ropensci/tic/pull/75/files" class="external-link">a pull request that implements a new step</a>.</p>
-<p>The most minimalist version is the “Hello World” <a href="https://github.com/ropensci/tic/blob/master/R/steps-base.R" class="external-link">example step</a>. This class only contains a <code>run()</code> method which does nothing more than printing “Hello World” to the console. It is initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a new instance of this class.</p>
+<p>You can take a look at <a href="https://github.com/ropensci/tic/pull/75/files" class="external-link">a pull request that
+implements a new step</a>.</p>
+<p>The most minimalist version is the “Hello World” <a href="https://github.com/ropensci/tic/blob/master/R/steps-base.R" class="external-link">example
+step</a>. This class only contains a <code>run()</code> method which
+does nothing more than printing “Hello World” to the console. It is
+initialized by calling <code><a href="../reference/step_hello_world.html">step_hello_world()</a></code> which creates a
+new instance of this class.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HelloWorld</span> <span class="op">&lt;-</span> <span class="kw">R6Class</span><span class="op">(</span></span>
 <span>  <span class="st">"HelloWorld"</span>,</span>
@@ -162,7 +200,10 @@
 <div class="section level2">
 <h2 id="further-information-on-the-r6-class-system">Further information on the R6 class system<a class="anchor" aria-label="anchor" href="#further-information-on-the-r6-class-system"></a>
 </h2>
-<p>If you are unfamiliar with <code>R6</code> classes, here is a short guidance how the arguments are passed along: Consider the <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R" class="external-link">link to source</a>):</p>
+<p>If you are unfamiliar with <code>R6</code> classes, here is a short
+guidance how the arguments are passed along: Consider the
+<code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> function (<a href="https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R" class="external-link">link
+to source</a>):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RCMDcheck</span> <span class="op">&lt;-</span> <span class="kw">R6Class</span><span class="op">(</span> <span class="co"># nolint</span></span>
 <span>  <span class="st">"RCMDcheck"</span>,</span>
@@ -255,7 +296,14 @@
 <span>    check_dir <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Here, a new instance of the defined <code>R6</code> class <code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>. The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the <code>initialize()</code> function of the <code>R6</code> class. Here, the arguments are assigned to the “private” members (e.g. <code>private$args</code>). Next, these private members are used in the <code>run()</code> function which carries out the actual work.</p>
+<p>Here, a new instance of the defined <code>R6</code> class
+<code>RCMDcheck</code> is initiated with <code>RCMDcheck$new()</code>.
+The arguments to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> are passed on to the
+<code>initialize()</code> function of the <code>R6</code> class. Here,
+the arguments are assigned to the “private” members
+(e.g. <code>private$args</code>). Next, these private members are used
+in the <code>run()</code> function which carries out the actual
+work.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

@@ -100,22 +100,55 @@
 
     
     
-<p>{tic} comes with the convenience of providing YAML templates for various CI providers which remove the need of studying YAML notations of CI providers. The provided templates aim to work for most packages that use plain R code. Packages that rely on system libraries (such as GDAL, xml2) or link to other languages (such as Java) often need manual additions within the YAML file.</p>
-<p>However, making manual changes to such prohibits users from simply updating to the latest upstream template that {tic} provides via <code><a href="../reference/yaml_templates.html">yaml_templates()</a></code> because custom user changes would be overwritten.</p>
-<p>This often prevents users from updating to the most recent templates provided by {tic} since a manual comparison between the current template and the latest version is needed. {tic} 0.8.0 tackles this issue: The new <code><a href="../reference/update_yml.html">update_yml()</a></code> enables updating of templates to the latest version with <strong>user changes preserved</strong>.</p>
-<p>Currently this only works for GitHub Actions as this provider enables the inclusion of arbitrary custom blocks. {tic} extracts these blocks, updates the template and then inserts the custom blocks at the correct position back into the updated template. What may sound easy at first is in fact a very complicated task behind the scenes: indentation needs to preserved, some providers care about order and some do not accept duplicate keys. While <code><a href="../reference/update_yml.html">update_yml()</a></code> supports GitHub Actions and Circle CI right now for custom environment variables and user blocks, the following rules need to be followed to ensure a smooth experience.</p>
+<p>{tic} comes with the convenience of providing YAML templates for
+various CI providers which remove the need of studying YAML notations of
+CI providers. The provided templates aim to work for most packages that
+use plain R code. Packages that rely on system libraries (such as GDAL,
+xml2) or link to other languages (such as Java) often need manual
+additions within the YAML file.</p>
+<p>However, making manual changes to such prohibits users from simply
+updating to the latest upstream template that {tic} provides via
+<code><a href="../reference/yaml_templates.html">yaml_templates()</a></code> because custom user changes would be
+overwritten.</p>
+<p>This often prevents users from updating to the most recent templates
+provided by {tic} since a manual comparison between the current template
+and the latest version is needed. {tic} 0.8.0 tackles this issue: The
+new <code><a href="../reference/update_yml.html">update_yml()</a></code> enables updating of templates to the
+latest version with <strong>user changes preserved</strong>.</p>
+<p>Currently this only works for GitHub Actions as this provider enables
+the inclusion of arbitrary custom blocks. {tic} extracts these blocks,
+updates the template and then inserts the custom blocks at the correct
+position back into the updated template. What may sound easy at first is
+in fact a very complicated task behind the scenes: indentation needs to
+preserved, some providers care about order and some do not accept
+duplicate keys. While <code><a href="../reference/update_yml.html">update_yml()</a></code> supports GitHub Actions
+and Circle CI right now for custom environment variables and user
+blocks, the following rules need to be followed to ensure a smooth
+experience.</p>
 <p><strong>Shared Rules</strong></p>
 <ul>
-<li>All templates need to have an <em>identifier</em> and a <em>revision date</em> in their first two lines.</li>
+<li>All templates need to have an <em>identifier</em> and a <em>revision
+date</em> in their first two lines.</li>
 <li>Comments of custom env vars may only span one line.</li>
-<li>All <em>custom env vars</em> need to have a comment (above the actual env var) which includes the term <code>[Custom env]</code>.</li>
+<li>All <em>custom env vars</em> need to have a comment (above the
+actual env var) which includes the term <code>[Custom env]</code>.</li>
 </ul>
 <p><strong>GitHub Actions &amp; Circle CI</strong></p>
 <ul>
-<li>All <em>custom blocks</em> need to include <code>[Custom block]</code> in their name tag, e.g. <code>- name: "[Custom block] Test custom user block2"</code>.</li>
-<li>Custom env vars unique to a runner need to include <code>[Custom matrix env var]</code> in their tag, e.g. <code># [Custom matrix env var] test</code>.</li>
+<li>All <em>custom blocks</em> need to include
+<code>[Custom block]</code> in their name tag,
+e.g. <code>- name: "[Custom block] Test custom user block2"</code>.</li>
+<li>Custom env vars unique to a runner need to include
+<code>[Custom matrix env var]</code> in their tag,
+e.g. <code># [Custom matrix env var] test</code>.</li>
 </ul>
-<p>All of these tags are used by {tic} to preserve user changes and choose the right upstream template. During the process <code><a href="../reference/update_yml.html">update_yml()</a></code> also prints how many custom blocks and env vars were found. If you have some in your template and nothing is printed when updating, something went wrong and you should double check your template. In any case, it is recommended to review the changes to avoid unexpected CI failures.</p>
+<p>All of these tags are used by {tic} to preserve user changes and
+choose the right upstream template. During the process
+<code><a href="../reference/update_yml.html">update_yml()</a></code> also prints how many custom blocks and env
+vars were found. If you have some in your template and nothing is
+printed when updating, something went wrong and you should double check
+your template. In any case, it is recommended to review the changes to
+avoid unexpected CI failures.</p>
 <div class="section level2">
 <h2 id="deviating-from-the-templates">Deviating from the templates<a class="anchor" aria-label="anchor" href="#deviating-from-the-templates"></a>
 </h2>
@@ -123,18 +156,31 @@
 <h3 id="custom-and-custom-deploy-templates">
 <code>custom</code> and <code>custom-deploy</code> templates<a class="anchor" aria-label="anchor" href="#custom-and-custom-deploy-templates"></a>
 </h3>
-<p>If you are using the <code>custom</code> or <code>custom-deploy</code> deploy template (e.g. via <code>tic::use_ghactions_yml("custom")</code>), <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> will ignore the matrix part of the templates. This gives you the ability to specify your own runner config while still profiting from template updates.</p>
+<p>If you are using the <code>custom</code> or
+<code>custom-deploy</code> deploy template (e.g. via
+<code>tic::use_ghactions_yml("custom")</code>),
+<code><a href="../reference/update_yml.html">tic::update_yml()</a></code> will ignore the matrix part of the
+templates. This gives you the ability to specify your own runner config
+while still profiting from template updates.</p>
 </div>
 <div class="section level3">
 <h3 id="the-custom-header-tag">The <code># [Custom header]</code> tag<a class="anchor" aria-label="anchor" href="#the-custom-header-tag"></a>
 </h3>
-<p>If you want to go even more custom, you can add <code># [Custom header]</code> right below the <code>## revision date</code> line. This tells <code><a href="../reference/update_yml.html">update_yml()</a></code> to ignore the complete header including the the <code>env:</code> key completely. This can be useful if you want to insert a <code>service:</code> block between <code>env:</code> and <code>strategy</code> or when specifying custom build triggers in <code>on:</code>.</p>
+<p>If you want to go even more custom, you can add
+<code># [Custom header]</code> right below the
+<code>## revision date</code> line. This tells <code><a href="../reference/update_yml.html">update_yml()</a></code>
+to ignore the complete header including the the <code>env:</code> key
+completely. This can be useful if you want to insert a
+<code>service:</code> block between <code>env:</code> and
+<code>strategy</code> or when specifying custom build triggers in
+<code>on:</code>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>Here are some examples for custom user blocks and custom env vars:</p>
+<p>Here are some examples for custom user blocks and custom env
+vars:</p>
 <p><strong>GitHub Actions</strong></p>
 <p><em>Custom header</em></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## tic GitHub Actions template: linux</span></span>
@@ -176,9 +222,26 @@
 <div class="section level2">
 <h2 id="automating-the-update-process">Automating the update process<a class="anchor" aria-label="anchor" href="#automating-the-update-process"></a>
 </h2>
-<p>Updating {tic} YAML files can be automated further. We provide a GitHub Actions Workflow named <a href="https://github.com/ropensci/tic/blob/master/.github/workflows/update-tic.yml" class="external-link">update-tic.yml</a> which can be used together with <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> to update the templates whenever there are newer upstream versions available. The workflow will create a branch, update the files and commit them and even open a pull request.</p>
-<p>Just put this workflow next to any <code>tic.yml</code> file within <code>.github/workflows/</code> and it will silently do its job. By default it will run over night as a CRON job. It only runs once a day and is not being executed on push or pull request events. The underlying <code><a href="../reference/update_yml.html">update_yml()</a></code> will match all files starting with <code>"tic"</code>. Hence you can add multiple YAML files with {tic} support, e.g. <code>"tic.yml"</code> and <code>"tic-db.yml"</code>.</p>
-<p>Unfortunately, GitHub does not allow GHA workflow files to be updated and pushed by automatic approaches. To make this work, the user needs to pass a GitHub Personal Access Token (PAT) with “workflow” scopes. This PAT need to be added as a “secret” to the repo so that it can be used within the build. <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> helps to automate this process. The linked workflow searches by default for a PAT secret named <code>TIC_UPDATE</code> when updating <code>tic.yml</code>.</p>
+<p>Updating {tic} YAML files can be automated further. We provide a
+GitHub Actions Workflow named <a href="https://github.com/ropensci/tic/blob/master/.github/workflows/update-tic.yml" class="external-link">update-tic.yml</a>
+which can be used together with <code><a href="../reference/update_yml.html">tic::update_yml()</a></code> to update
+the templates whenever there are newer upstream versions available. The
+workflow will create a branch, update the files and commit them and even
+open a pull request.</p>
+<p>Just put this workflow next to any <code>tic.yml</code> file within
+<code>.github/workflows/</code> and it will silently do its job. By
+default it will run over night as a CRON job. It only runs once a day
+and is not being executed on push or pull request events. The underlying
+<code><a href="../reference/update_yml.html">update_yml()</a></code> will match all files starting with
+<code>"tic"</code>. Hence you can add multiple YAML files with {tic}
+support, e.g. <code>"tic.yml"</code> and <code>"tic-db.yml"</code>.</p>
+<p>Unfortunately, GitHub does not allow GHA workflow files to be updated
+and pushed by automatic approaches. To make this work, the user needs to
+pass a GitHub Personal Access Token (PAT) with “workflow” scopes. This
+PAT need to be added as a “secret” to the repo so that it can be used
+within the build. <code><a href="../reference/gha_add_secret.html">gha_add_secret()</a></code> helps to automate this
+process. The linked workflow searches by default for a PAT secret named
+<code>TIC_UPDATE</code> when updating <code>tic.yml</code>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

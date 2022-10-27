@@ -92,7 +92,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>tic &amp; CI Client Packages - An Overview</h1>
-                        <h4 data-toc-skip class="author">Patrick Schratz, Kirill Müller</h4>
+                        <h4 data-toc-skip class="author">Patrick
+Schratz, Kirill Müller</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/ci-client-packages.Rmd" class="external-link"><code>vignettes/ci-client-packages.Rmd</code></a></small>
@@ -104,14 +105,19 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Most of the setup work that needs to be done for specific CI systems is handled by the respective R client packages such as <a href="https://docs.ropensci/circle/" class="external-link">{circle}</a>. These enable the repo on the CI system and ensure that deployment permissions are granted.</p>
-<p>After everything has been set up, the rest of the work goes to {tic}.</p>
+<p>Most of the setup work that needs to be done for specific CI systems
+is handled by the respective R client packages such as <a href="https://docs.ropensci/circle/" class="external-link">{circle}</a>. These enable the repo
+on the CI system and ensure that deployment permissions are granted.</p>
+<p>After everything has been set up, the rest of the work goes to
+{tic}.</p>
 <ul>
 <li>Creation of the CI YAML templates.</li>
 <li>Which steps are going to be run.</li>
 <li>Deployment: Yes/no</li>
 </ul>
-<p>In essence, <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> is a wrapper for creating CI YAML templates and setting up deployment on the CI systems which is powered by the client packages.</p>
+<p>In essence, <code><a href="../reference/use_tic.html">tic::use_tic()</a></code> is a wrapper for creating CI
+YAML templates and setting up deployment on the CI systems which is
+powered by the client packages.</p>
 </div>
 <div class="section level2">
 <h2 id="ci-client-packages">CI Client Packages<a class="anchor" aria-label="anchor" href="#ci-client-packages"></a>
@@ -120,9 +126,18 @@
 <ul>
 <li><a href="(https://docs.ropensci.org/circle/)" class="external-link">{circle}</a></li>
 </ul>
-<p>The client package for <em>travis</em> was archived in November 2020.</p>
-<p>For <em>Appveyor</em> there is <a href="https://github.com/krlmlr/r-appveyor" class="external-link">r-appveyor</a> from Kirill Müller. This project makes it possible in the first place to run R checks on Appveyor but does not provide access to the <em>Appveyor</em> API and is not used by {tic} currently. Also, it does not come with automation for deployment setup. Appveyor support has been removed from {tic} in December 2020 due to a strong focus on GitHub Actions.</p>
-<p>For <em>GitHub Actions</em> there is <a href="https://github.com/maxheld83/ghactions" class="external-link">{ghactions}</a> from Max Held which comes with functions helping to set up YAML templates and other convenience. It does not provide API access and is not used by {tic} currently.</p>
+<p>The client package for <em>travis</em> was archived in November
+2020.</p>
+<p>For <em>Appveyor</em> there is <a href="https://github.com/krlmlr/r-appveyor" class="external-link">r-appveyor</a> from Kirill
+Müller. This project makes it possible in the first place to run R
+checks on Appveyor but does not provide access to the <em>Appveyor</em>
+API and is not used by {tic} currently. Also, it does not come with
+automation for deployment setup. Appveyor support has been removed from
+{tic} in December 2020 due to a strong focus on GitHub Actions.</p>
+<p>For <em>GitHub Actions</em> there is <a href="https://github.com/maxheld83/ghactions" class="external-link">{ghactions}</a> from Max
+Held which comes with functions helping to set up YAML templates and
+other convenience. It does not provide API access and is not used by
+{tic} currently.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

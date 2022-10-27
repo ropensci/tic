@@ -92,7 +92,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Deployment</h1>
-                        <h4 data-toc-skip class="author">Patrick Schratz, Kirill Müller</h4>
+                        <h4 data-toc-skip class="author">Patrick
+Schratz, Kirill Müller</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/deployment.Rmd" class="external-link"><code>vignettes/deployment.Rmd</code></a></small>
@@ -104,12 +105,18 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>{tic} uses <a href="ci-client-packages.html">CI client packages</a> ({circle}) for setting up deployment on the CI systems.</p>
+<p>{tic} uses <a href="ci-client-packages.html">CI client packages</a>
+({circle}) for setting up deployment on the CI systems.</p>
 <div class="section level3">
 <h3 id="circle-ci">Circle CI<a class="anchor" aria-label="anchor" href="#circle-ci"></a>
 </h3>
-<p>On Circle CI, setting up deployment convenient as there is no need to create a SSH key pair for deployment.</p>
-<p>When calling <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html" class="external-link">circle::use_circle_deploy()</a></code> directly (or indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is created and stored in the Circle CI repo. This key makes it possible to deploy from Circle CI builds to your GitHub repo. No extra deploy key need to be stored in the GitHub repo.</p>
+<p>On Circle CI, setting up deployment convenient as there is no need to
+create a SSH key pair for deployment.</p>
+<p>When calling <code><a href="https://docs.ropensci.org/circle/reference/use_circle_deploy.html" class="external-link">circle::use_circle_deploy()</a></code> directly (or
+indirectly via <code><a href="../reference/use_tic.html">tic::use_tic()</a></code>), a so called “user-key” is
+created and stored in the Circle CI repo. This key makes it possible to
+deploy from Circle CI builds to your GitHub repo. No extra deploy key
+need to be stored in the GitHub repo.</p>
 </div>
 <div class="section level3">
 <h3 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
@@ -117,15 +124,29 @@
 <p>GitHub Actions offers multiple options related to deployment:</p>
 <ul>
 <li>Deployment related actions on the GitHub marketplace</li>
-<li>Supplying an <code>DEPLOY_PAT</code> secret as <a href="https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site" class="external-link">r-lib/actions</a> suggests</li>
-<li>Using an SSH key pair with the private key stored as a “secret” in the repo and the public key as a “Deploy key” ({tic} default)</li>
+<li>Supplying an <code>DEPLOY_PAT</code> secret as <a href="https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site" class="external-link">r-lib/actions</a>
+suggests</li>
+<li>Using an SSH key pair with the private key stored as a “secret” in
+the repo and the public key as a “Deploy key” ({tic} default)</li>
 </ul>
-<p>To reflect a successful deployment in the repo checks, <a href="https://github.com/chrnorm/deployment-status" class="external-link">actions from the GitHub marketplace</a> help. For the actual deployment we recommend to use a SSH key pair. A SSH key can be easily created, is safe to use and when browsing at the “Deploy key” section of a repo, one can directly see if deployment was granted to a CI service for the repository.</p>
-<p>To simplify the creation of a SSH key pair for deployment and adding the keys to the appropriate places, {tic} comes with a little helper function <code><a href="../reference/use_ghactions_deploy.html">use_ghactions_deploy()</a></code>. To use this function, you need a <code>GITHUB_PAT</code> with public repo scope defined in your <code>.Renviron</code>. <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> helps setting one up if you haven’t done so already.</p>
+<p>To reflect a successful deployment in the repo checks, <a href="https://github.com/chrnorm/deployment-status" class="external-link">actions from the
+GitHub marketplace</a> help. For the actual deployment we recommend to
+use a SSH key pair. A SSH key can be easily created, is safe to use and
+when browsing at the “Deploy key” section of a repo, one can directly
+see if deployment was granted to a CI service for the repository.</p>
+<p>To simplify the creation of a SSH key pair for deployment and adding
+the keys to the appropriate places, {tic} comes with a little helper
+function <code><a href="../reference/use_ghactions_deploy.html">use_ghactions_deploy()</a></code>. To use this function, you
+need a <code>GITHUB_PAT</code> with public repo scope defined in your
+<code>.Renviron</code>. <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code>
+helps setting one up if you haven’t done so already.</p>
 <div class="section level4">
 <h4 id="updating-the-deployment-status">Updating the deployment status<a class="anchor" aria-label="anchor" href="#updating-the-deployment-status"></a>
 </h4>
-<p>To update the deployment status in the “environments” menu (next to “release” and “branches”) conditionally on the outcome of the “Deployment” stage, one can use the <code>chrnorm/deployment-status</code>.</p>
+<p>To update the deployment status in the “environments” menu (next to
+“release” and “branches”) conditionally on the outcome of the
+“Deployment” stage, one can use the
+<code>chrnorm/deployment-status</code>.</p>
 <p>Add the following before the “Before Deploy” stage:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> chrnorm/deployment-action@v1.1.1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Create GitHub deployment</span></span>
@@ -161,9 +182,18 @@
 <div class="section level2">
 <h2 id="pkgdown-deployment">{pkgdown} deployment<a class="anchor" aria-label="anchor" href="#pkgdown-deployment"></a>
 </h2>
-<p><a href="https://github.com/r-lib/pkgdown" class="external-link">{pkgdown}</a> is an R package which builds a documentation wrapper-site of an R package. It collects all the vignettes, function references and metadata information of a package and presents it in an eye-appealing HTML version.</p>
-<p>It has become a quasi-standard to provide a {pkgdown} site for an R package. However, it is tedious to update the {pkgdown} site manually on every commit, check whether something has changed and commit the changes. {tic} comes with the ability to automate this process.</p>
-<p>The following example shows how {tic} deploys a {pkgdown} site on GitHub Actions. Remember that you can freely choose your favorite provider for this task. In <code>tic.yml</code> file the “before_deploy” and “deploy” stages are redirected to {tic}.</p>
+<p><a href="https://github.com/r-lib/pkgdown" class="external-link">{pkgdown}</a> is an R
+package which builds a documentation wrapper-site of an R package. It
+collects all the vignettes, function references and metadata information
+of a package and presents it in an eye-appealing HTML version.</p>
+<p>It has become a quasi-standard to provide a {pkgdown} site for an R
+package. However, it is tedious to update the {pkgdown} site manually on
+every commit, check whether something has changed and commit the
+changes. {tic} comes with the ability to automate this process.</p>
+<p>The following example shows how {tic} deploys a {pkgdown} site on
+GitHub Actions. Remember that you can freely choose your favorite
+provider for this task. In <code>tic.yml</code> file the “before_deploy”
+and “deploy” stages are redirected to {tic}.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Stage] Before Deploy"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    Rscript -e "tic::before_deploy()"</span></code></pre></div>
@@ -175,20 +205,36 @@
 <span><span class="op">}</span></span></code></pre></div>
 <ul>
 <li>
-<p>Calls <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable <code>"BUILD_PKGDOWN"</code> is set in the CI build. This step sets up SSH key previously added to the GitHub via <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>. Argument <code>private_key_name</code> can be ignored as long as no custom private key name was used during <code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>. If so, then supply it via the <code>private_key_name</code> argument in <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
-<p>For backward compatibility, the deprecated default <code>"id_rsa"</code> is supported out of the box.</p>
+<p>Calls <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> if the environment variable
+<code>"BUILD_PKGDOWN"</code> is set in the CI build. This step sets up
+SSH key previously added to the GitHub via
+<code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>. Argument
+<code>private_key_name</code> can be ignored as long as no custom
+private key name was used during
+<code><a href="../reference/use_ghactions_deploy.html">tic::use_ghactions_deploy()</a></code>. If so, then supply it via the
+<code>private_key_name</code> argument in <code><a href="../reference/do_pkgdown.html">do_pkgdown()</a></code>.</p>
+<p>For backward compatibility, the deprecated default
+<code>"id_rsa"</code> is supported out of the box.</p>
 </li>
-<li><p>Calls <code>add_step(step_build_pkgdown())</code> and <code>add_step(step_push_deploy())</code> in the “deploy” stage.</p></li>
+<li><p>Calls <code>add_step(step_build_pkgdown())</code> and
+<code>add_step(step_push_deploy())</code> in the “deploy”
+stage.</p></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_build_pkgdown.html">step_build_pkgdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the {pkgdown} site and afterwards (note the <code>pipe</code> operator chaining the commands), <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the repo. By default the site will be pushed to the <code>gh-pages</code> branch of your repo, keeping the history.</p>
+<p><code><a href="../reference/step_build_pkgdown.html">step_build_pkgdown()</a></code> will build the {pkgdown} site and
+afterwards (note the <code>pipe</code> operator chaining the commands),
+<code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> takes care pushing the results to the
+repo. By default the site will be pushed to the <code>gh-pages</code>
+branch of your repo, keeping the history.</p>
 <div class="section level3">
-<h3 id="deploying-to-docs-default-branch-or-gh-pages-branch">Deploying to <code>docs/</code> (default branch) or <code>gh-pages</code> branch<a class="anchor" aria-label="anchor" href="#deploying-to-docs-default-branch-or-gh-pages-branch"></a>
+<h3 id="deploying-to-docs-default-branch-or-gh-pages-branch">Deploying to <code>docs/</code> (default branch) or
+<code>gh-pages</code> branch<a class="anchor" aria-label="anchor" href="#deploying-to-docs-default-branch-or-gh-pages-branch"></a>
 </h3>
-<p>By default deployment is pushed to the <code>gh-pages</code> branch. This has the following advantages:</p>
+<p>By default deployment is pushed to the <code>gh-pages</code> branch.
+This has the following advantages:</p>
 <ul>
 <li>No cluttering of the commit history in the default branch</li>
 <li>Everything “just works” silently in the background</li>
@@ -196,30 +242,49 @@
 <div class="section level4">
 <h4 id="default-branch-deployment">Default branch deployment<a class="anchor" aria-label="anchor" href="#default-branch-deployment"></a>
 </h4>
-<p>Deploying to the <code>docs/</code> directory of the default branch has the following advantages:</p>
+<p>Deploying to the <code>docs/</code> directory of the default branch
+has the following advantages:</p>
 <ul>
 <li>Per-branch versions of the {pkgdown} site (if desired)</li>
-<li>Per-branch versions enable the possibility to have preview for pull requests via <a href="https://www.netlify.com/" class="external-link uri">https://www.netlify.com/</a>
+<li>Per-branch versions enable the possibility to have preview for pull
+requests via <a href="https://www.netlify.com/" class="external-link uri">https://www.netlify.com/</a>
 </li>
 </ul>
-<p>The disadvantage is that the default branch will be cluttered by automatic commits that push the changes of the {pkgdown} site to the default branch.</p>
+<p>The disadvantage is that the default branch will be cluttered by
+automatic commits that push the changes of the {pkgdown} site to the
+default branch.</p>
 </div>
 <div class="section level4">
 <h4 id="orphaning-the-gh-pages-branch">Orphaning the <code>gh-pages</code> branch<a class="anchor" aria-label="anchor" href="#orphaning-the-gh-pages-branch"></a>
 </h4>
-<p>By default, changes to the {pkgdown} site will be added as incremental commits to the <code>gh-pages</code> branch. This is useful to keep a history of past versions and to enable a release and dev version of the site. To have this feature, set</p>
+<p>By default, changes to the {pkgdown} site will be added as
+incremental commits to the <code>gh-pages</code> branch. This is useful
+to keep a history of past versions and to enable a release and dev
+version of the site. To have this feature, set</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">development</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre></div>
-<p>in your <code>_pkgdown.yml</code> file. See <code>?pkgdown::build_site()</code> for more information.</p>
-<p>If you only want to have one version of your {pkgdown} site and not fill your repo with many commits in the <code>gh-pages</code> branch, you can use <code>do_pkgdown(orphan = TRUE)</code>. This will wipe all commits of this branch on every CI run so that there is only one commit corresponding to the latest version of your pkgdown site.</p>
+<p>in your <code>_pkgdown.yml</code> file. See
+<code>?pkgdown::build_site()</code> for more information.</p>
+<p>If you only want to have one version of your {pkgdown} site and not
+fill your repo with many commits in the <code>gh-pages</code> branch,
+you can use <code>do_pkgdown(orphan = TRUE)</code>. This will wipe all
+commits of this branch on every CI run so that there is only one commit
+corresponding to the latest version of your pkgdown site.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="committing-single-files">Committing single files<a class="anchor" aria-label="anchor" href="#committing-single-files"></a>
 </h2>
-<p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step has the ability to restrict the files that are committed and pushed. This can be very useful for conditionally pushing documentation files like <code>NEWS</code> or <code>man/</code> and <code>NAMESPACE</code> if these are automatically created during the CI run.</p>
-<p>In the following example, these files are created/updated by calling <code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code>. The <code>commit_paths</code> argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are committed and pushed:</p>
+<p>The <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> step has the ability to restrict
+the files that are committed and pushed. This can be very useful for
+conditionally pushing documentation files like <code>NEWS</code> or
+<code>man/</code> and <code>NAMESPACE</code> if these are automatically
+created during the CI run.</p>
+<p>In the following example, these files are created/updated by calling
+<code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code>. The <code>commit_paths</code>
+argument in <code><a href="../reference/step_push_deploy.html">step_push_deploy()</a></code> decides which files are
+committed and pushed:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_setup_ssh.html">step_setup_ssh</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -227,7 +292,10 @@
 <span><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">add_code_step</a></span><span class="op">(</span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span>roclets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rd"</span>, <span class="st">"collate"</span>, <span class="st">"namespace"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span>commit_paths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NAMESPACE"</span>, <span class="st">"man/*"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Applying this idea depends on your overall R package development strategy: Commit files like <code>/man/</code> and <code>NAMESPACE</code> directly or let them be created during the CI run?</p>
+<p>Applying this idea depends on your overall R package development
+strategy: Commit files like <code>/man/</code> and
+<code>NAMESPACE</code> directly or let them be created during the CI
+run?</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

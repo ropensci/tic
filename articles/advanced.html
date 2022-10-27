@@ -92,7 +92,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Advanced usage</h1>
-                        <h4 data-toc-skip class="author">Patrick Schratz, Kirill Müller</h4>
+                        <h4 data-toc-skip class="author">Patrick
+Schratz, Kirill Müller</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/tic/blob/HEAD/vignettes/advanced.Rmd" class="external-link"><code>vignettes/advanced.Rmd</code></a></small>
@@ -104,17 +105,25 @@
 <div class="section level3">
 <h3 id="running-steps-conditionally">Running steps conditionally<a class="anchor" aria-label="anchor" href="#running-steps-conditionally"></a>
 </h3>
-<p>Steps and stages can be run conditionally using the control workflow of {tic}. Possible conditionals are</p>
+<p>Steps and stages can be run conditionally using the control workflow
+of {tic}. Possible conditionals are</p>
 <ul>
-<li>Environment variables of the build (queried by <code><a href="../reference/ci.html">ci_is_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> or <code><a href="../reference/ci.html">ci_get_env()</a></code>).</li>
+<li>Environment variables of the build (queried by
+<code><a href="../reference/ci.html">ci_is_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> or
+<code><a href="../reference/ci.html">ci_get_env()</a></code>).</li>
 <li>R Version of the current build (<code><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">getRversion()</a></code>).</li>
-<li>Other features of the build (e.g. branch name via <code><a href="../reference/ci.html">ci_get_branch()</a></code>).</li>
+<li>Other features of the build (e.g. branch name via
+<code><a href="../reference/ci.html">ci_get_branch()</a></code>).</li>
 </ul>
-<p>Common tasks to use this feature are testing on multiple R versions and the restriction of certain tasks that should only be executed once (e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a {pkgdown} site</a>).</p>
+<p>Common tasks to use this feature are testing on multiple R versions
+and the restriction of certain tasks that should only be executed once
+(e.g. the <a href="deployment.html#pkgdown-deployment">deployment of a
+{pkgdown} site</a>).</p>
 <div class="section level4">
 <h4 id="conditional-execution-use-cases">Conditional execution: Use cases<a class="anchor" aria-label="anchor" href="#conditional-execution-use-cases"></a>
 </h4>
-<p>The following shows some example code blocks to condition certain stages and their respective steps on</p>
+<p>The following shows some example code blocks to condition certain
+stages and their respective steps on</p>
 <ul>
 <li>the CI service</li>
 </ul>
@@ -136,14 +145,21 @@
 <div class="section level3">
 <h3 id="installation-of-packages">Installation of packages<a class="anchor" aria-label="anchor" href="#installation-of-packages"></a>
 </h3>
-<p>Required packages are installed based on the “Depends”/“Imports”/“Suggests” fields of the <code>DESCRIPTION</code> file. You should only use the following steps in extraordinary circumstances. An example can be the use of a package in the <code>README.Rmd</code> file which is not listed within the package’s <code>DESCRIPTION</code> file.</p>
+<p>Required packages are installed based on the
+“Depends”/“Imports”/“Suggests” fields of the <code>DESCRIPTION</code>
+file. You should only use the following steps in extraordinary
+circumstances. An example can be the use of a package in the
+<code>README.Rmd</code> file which is not listed within the package’s
+<code>DESCRIPTION</code> file.</p>
 <div class="section level4">
 <h4 id="github-packages">GitHub packages<a class="anchor" aria-label="anchor" href="#github-packages"></a>
 </h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"install"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_github</a></span><span class="op">(</span><span class="st">"r-lib/rcmdcheck"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Note that the underlying <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">remotes::install_github()</a></code> is vectorized for the <code>repo</code> argument which means you can pass all packages you want to install in a single function call:</p>
+<p>Note that the underlying <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">remotes::install_github()</a></code> is
+vectorized for the <code>repo</code> argument which means you can pass
+all packages you want to install in a single function call:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_install_pkg.html">step_install_github</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r-lib/rcmdcheck"</span>, <span class="st">"r-lib/usethis"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -158,8 +174,12 @@
 <div class="section level3">
 <h3 id="ci-meta-information">CI Meta-Information<a class="anchor" aria-label="anchor" href="#ci-meta-information"></a>
 </h3>
-<p>The <code><a href="../reference/ci.html">ci()</a></code> function and its friends (<code>ci_*</code>) hold valuable information about the CI system. They can be used to query information that can be again be utilized for conditioning stages or steps.</p>
-<p>For example, the user may wish to only deploy on GitHub Actions by using <code><a href="../reference/ci.html">ci_on_ghactions()</a></code>:</p>
+<p>The <code><a href="../reference/ci.html">ci()</a></code> function and its friends (<code>ci_*</code>)
+hold valuable information about the CI system. They can be used to query
+information that can be again be utilized for conditioning stages or
+steps.</p>
+<p>For example, the user may wish to only deploy on GitHub Actions by
+using <code><a href="../reference/ci.html">ci_on_ghactions()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/ci.html">ci_on_ghactions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"before_deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -168,7 +188,9 @@
 <span>  <span class="fu"><a href="../reference/dsl.html">get_stage</a></span><span class="op">(</span><span class="st">"deploy"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/dsl.html">add_step</a></span><span class="op">(</span><span class="fu"><a href="../reference/step_push_deploy.html">step_push_deploy</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>By using the code above, the specified steps will only be executed on GitHub Actions. See <code><a href="../reference/ci.html">?ci</a></code> for more information on which CI build information can be extracted from this function.</p>
+<p>By using the code above, the specified steps will only be executed on
+GitHub Actions. See <code><a href="../reference/ci.html">?ci</a></code> for more information on which CI
+build information can be extracted from this function.</p>
 </div>
 <div class="section level3">
 <h3 id="debugging-running-tic-locally">Debugging: Running {tic} locally<a class="anchor" aria-label="anchor" href="#debugging-running-tic-locally"></a>
@@ -176,7 +198,12 @@
 <div class="section level4">
 <h4 id="checking-for-syntax-errors">Checking for syntax errors<a class="anchor" aria-label="anchor" href="#checking-for-syntax-errors"></a>
 </h4>
-<p>Before pushing to GitHub and triggering a CI build, <code>tic.R</code> can be validated using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>. This function will source <code>tic.R</code> to check for possible problems. If everything is ok, it will return (invisibly) a list with all stages that will be run in the CI build. Here is a preview of the first two stages:</p>
+<p>Before pushing to GitHub and triggering a CI build,
+<code>tic.R</code> can be validated using <code><a href="../reference/dsl_get.html">dsl_load()</a></code>. This
+function will source <code>tic.R</code> to check for possible problems.
+If everything is ok, it will return (invisibly) a list with all stages
+that will be run in the CI build. Here is a preview of the first two
+stages:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dsl_get.html">dsl_load</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>✔ Loading tic stage configuration from tic.R</code></pre>
@@ -198,11 +225,18 @@ $install
 <p>First, ensure that all prerequisites are met:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/prepare_all_stages.html">prepare_all_stages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This might install additional packages, or even fail with a descriptive message.</p>
+<p>This might install additional packages, or even fail with a
+descriptive message.</p>
 <p>Then, run all steps defined in <code>tic.R</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/run_all_stages.html">run_all_stages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This emulates a CI run on your local machine by executing all stages and their corresponding steps. Note that this action this will use your local system libraries and not the CI environment. Only the steps that are shown with <code><a href="../reference/dsl_get.html">dsl_get()</a></code> are executed. Some steps will not be executed as they are conditioned to run on non-interactive environments only, e.g. <code>add_step(covr::codcov())</code> added by the macro <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
+<p>This emulates a CI run on your local machine by executing all stages
+and their corresponding steps. Note that this action this will use your
+local system libraries and not the CI environment. Only the steps that
+are shown with <code><a href="../reference/dsl_get.html">dsl_get()</a></code> are executed. Some steps will not
+be executed as they are conditioned to run on non-interactive
+environments only, e.g. <code>add_step(covr::codcov())</code> added by
+the macro <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/run_all_stages.html">run_all_stages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>✓ Loading tic stage configuration from tic.R
@@ -218,7 +252,10 @@ Running install: step_install_deps()</code></pre>
 <div class="section level4">
 <h4 id="circle-ci">Circle CI<a class="anchor" aria-label="anchor" href="#circle-ci"></a>
 </h4>
-<p>Debugging builds on Circle CI is very convenient. Go to the web interface and click on the three dots as shown in the screenshot. Then you can restart your build from the appearing dropdown menu and SSH into the build.</p>
+<p>Debugging builds on Circle CI is very convenient. Go to the web
+interface and click on the three dots as shown in the screenshot. Then
+you can restart your build from the appearing dropdown menu and SSH into
+the build.</p>
 <p><img src="img/circleci-debug.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -227,7 +264,10 @@ Running install: step_install_deps()</code></pre>
 </h2>
 <ul>
 <li>
-<code>SystemRequirements</code>: {tic} is not yet capable of automatically determining system requirements specified in DESCRIPTION files of an R package. Future plans include to automatically provide suggestions like</li>
+<code>SystemRequirements</code>: {tic} is not yet capable of
+automatically determining system requirements specified in DESCRIPTION
+files of an R package. Future plans include to automatically provide
+suggestions like</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
