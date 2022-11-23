@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: macos
-## revision date: 2022-08-28
+## revision date: 2022-11-23
 on:
   workflow_dispatch:
   push:
