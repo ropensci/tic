@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.13.2 (2022-11-23)
+
+- Bump template revision: account for GHA deprecation warnings regarding `set-output` and `save-state`
+
+
 # tic 0.13.1 (2022-08-28)
 
 - Circle CI: install pandoc in deploy stage
