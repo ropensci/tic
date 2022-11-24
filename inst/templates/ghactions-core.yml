@@ -18,7 +18,7 @@
       - name: "[Cache] Prepare daily timestamp for cache"
         if: runner.os != 'Windows'
         id: date
-        run: echo "::set-output name=date::$(date '+%d-%m')"
+        run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
