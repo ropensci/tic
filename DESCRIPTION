@@ -3,10 +3,10 @@ Package: tic
 Title: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions
 Version: 0.13.2
 Authors@R: c(
-    person("Kirill", "Müller", , "krlmlr+r@mailbox.org", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-1416-3412")),
-    person("Patrick", "Schratz", , "patrick.schratz@gmail.com", role = "aut",
+    person("Patrick", "Schratz", , "patrick.schratz@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0748-6624")),
+    person("Kirill", "Müller", , role = "aut",
+           comment = c(ORCID = "0000-0002-1416-3412")),
     person("Mika", "Braginsky", , "mika.br@gmail.com", role = "aut"),
     person("Karthik", "Ram", , "karthik.ram@gmail.com", role = "aut"),
     person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", role = "aut"),
