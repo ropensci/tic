@@ -4,12 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-      - master
+    - main
+    - master
+    - cran-*
   pull_request:
     branches:
-      - main
-      - master
+    - main
+    - master
   # for now, CRON jobs only run on the default branch of the repo (i.e. usually on master)
   schedule:
     # * is a special character in YAML so you have to quote this string
@@ -30,7 +31,6 @@ jobs:
           # use a different tic template type if you do not want to build on all listed platforms
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
-          # - { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
@@ -53,10 +53,6 @@ jobs:
           r-version: ${{ matrix.config.r }}
           Ncpus: 4
 
-      # LaTeX. Installation time:
-      # Linux: ~ 1 min
-      # macOS: ~ 1 min 30s
-      # Windows: never finishes
       - uses: r-lib/actions/setup-tinytex@v2
         if: matrix.config.latex == 'true'
 
@@ -68,7 +64,7 @@ jobs:
       - name: "[Cache] Prepare daily timestamp for cache"
         if: runner.os != 'Windows'
         id: date
-        run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=date::$(date '+%d-%m')"
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
@@ -78,23 +74,11 @@ jobs:
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
-      - name: "[Custom Stage] Install pak"
-        run: |
-          Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
-
-      # pak CRAN and pak binary do not go well together due to certificates.
-      # pak installs pak again from CRAN due to being listed in DESCRIPTION, hence we install pak from CRAN directly
-      - name: "[Custom Stage] Install libcurl4-openssl-dev"
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt install -y libcurl4-openssl-dev
-
-      - name: "[Custom Stage] Install pak"
-        run: |
-          Rscript -e "install.packages(c('pkgdepends', 'pak'))"
+      - name: "[Stage] Install pak"
+        run: Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
 
       - name: "[Stage] Install"
-        run: Rscript -e "if (grepl('Ubuntu', Sys.info()[['version']]) && !grepl('Under development', R.version[['status']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}else{options(repos = c(CRAN = 'cloud.r-project.org'))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+        run: Rscript -e "if (grepl('Ubuntu', Sys.info()[['version']])) {options(repos = c(CRAN = sprintf('https://packagemanager.rstudio.com/all/__linux__/%s/latest', system('lsb_release -cs', intern = TRUE))))}; pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'
@@ -104,7 +88,7 @@ jobs:
 
       - name: "[Stage] Upload R CMD check artifacts"
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
