@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# tic 0.13.3 (2023-05-22)
+
+- Updated `actions/upload-artifact` version to v3 to silence nodejs deprecation warnings
+
+
 # tic 0.13.2 (2022-11-23)
 
 - Bump template revision: account for GHA deprecation warnings regarding `set-output` and `save-state`
