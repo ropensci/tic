@@ -82,7 +82,7 @@ The essential part is to prefix the compiler settings in `~/.R/Makevars` with `c
       - name: "[Custom] [Cache] Prepare weekly timestamp for cache"
         if: runner.os != 'Windows'
         id: datew
-        run: echo "::set-output name=datew::$(date '+%Y-%V')"
+        run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
 
 
       - name: "[Custom] [Cache] Cache ccache"
