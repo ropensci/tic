@@ -102,14 +102,14 @@ but it is also possible to install dependencies manually.
 By default, binary versions of packages are installed if possible,
 even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
-<code>DESCRIPTION</code>, using <code><a href="http://pak.r-lib.org/reference/local_install_dev_deps.html" class="external-link">pak::local_install_dev_deps()</a></code>.
+<code>DESCRIPTION</code>, using <code><a href="https://pak.r-lib.org/reference/local_install_dev_deps.html" class="external-link">pak::local_install_dev_deps()</a></code>.
 This includes upgrading outdated packages.</p>
 <p>This step can only be used if a DESCRIPTION file is present in the repository
 root.</p>
 <p>A <code>step_install_cran()</code> step installs one package from CRAN via
 <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code>, but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
-via <code><a href="http://pak.r-lib.org/reference/pkg_install.html" class="external-link">pak::pkg_install()</a></code>, the packages are only installed if their
+via <code><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pak::pkg_install()</a></code>, the packages are only installed if their
 GitHub version is different from the locally installed version.</p>
     </div>
 
@@ -137,7 +137,7 @@ their dependencies are not already installed.</p></dd>
 
 
 <dt>...</dt>
-<dd><p>Passed on to <code><a href="http://pak.r-lib.org/reference/pkg_install.html" class="external-link">pak::pkg_install()</a></code>.</p></dd>
+<dd><p>Passed on to <code><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pak::pkg_install()</a></code>.</p></dd>
 
 
 <dt>repo</dt>
