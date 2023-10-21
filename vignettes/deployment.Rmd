@@ -56,7 +56,7 @@ Add the following before the "Before Deploy" stage:
         with:
           token: "${{ github.token }}"
           environment: production
-```yml
+```
 
 and then this part after the "After Deploy" stage:
 
