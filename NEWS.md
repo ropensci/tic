@@ -13,7 +13,7 @@
 # tic 0.13.1 (2022-08-28)
 
 - Circle CI: install pandoc in deploy stage
-- Do not use RSPM binarines on R-devel (no binaries available)
+- Do not use RSPM binaries on R-devel (no binaries available)
 - Bump templates to 2022-08-28
 
 
