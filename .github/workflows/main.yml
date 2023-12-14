@@ -75,7 +75,7 @@ jobs:
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
       - name: "[Stage] Install"
-        run: Rscript -e "install.packages('tic', repos = 'https://ropensci.r-universe.dev')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+        run: Rscript -e "install.packages('tic', repos = c('https://ropensci.r-universe.dev', 'https://cloud.r-project.org'))" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'
