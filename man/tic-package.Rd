@@ -25,11 +25,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org} (\href{https://orcid.org/0000-0002-1416-3412}{ORCID})
+\strong{Maintainer}: Patrick Schratz \email{patrick.schratz@gmail.com} (\href{https://orcid.org/0000-0003-0748-6624}{ORCID})
 
 Authors:
 \itemize{
-  \item Patrick Schratz \email{patrick.schratz@gmail.com} (\href{https://orcid.org/0000-0003-0748-6624}{ORCID})
+  \item Kirill Müller (\href{https://orcid.org/0000-0002-1416-3412}{ORCID})
   \item Mika Braginsky \email{mika.br@gmail.com}
   \item Karthik Ram \email{karthik.ram@gmail.com}
   \item Jeroen Ooms \email{jeroen.ooms@stat.ucla.edu}

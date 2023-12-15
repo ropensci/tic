@@ -14,11 +14,17 @@ step_install_cran(package = NULL, ...)
 step_install_github(repo = NULL, ...)
 }
 \arguments{
-\item{dependencies}{Dependency types. See
-\code{\link[pkgdepends:as_pkg_dependencies]{pkgdepends::as_pkg_dependencies()}} for possible values. Note that
-changing this argument from the default might result an installation
-failure, e.g. if you set it to \code{FALSE}, packages might not build if
-their dependencies are not already installed.}
+\item{dependencies}{What kinds of dependencies to install. Most commonly
+one of the following values:
+\itemize{
+\item \code{NA}: only required (hard) dependencies,
+\item \code{TRUE}: required dependencies plus optional and development
+dependencies,
+\item \code{FALSE}: do not install any dependencies. (You might end up with a
+non-working package, and/or the installation might fail.)
+See \link[pak]{Package dependency types} for other possible values and more
+information about package dependencies.
+}}
 
 \item{package}{Package(s) to install}
 
