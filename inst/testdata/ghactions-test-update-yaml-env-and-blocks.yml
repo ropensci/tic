@@ -73,6 +73,10 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
+      - name: Install sys deps for Ubuntu
+        if: runner.os == 'Linux'
+        run: sudo apt update && sudo apt install -y libgit2-dev libcurl4-openssl-dev
+
       # set date/week for use in cache creation
       # https://github.community/t5/GitHub-Actions/How-to-set-and-access-a-Workflow-variable/m-p/42970
       # - cache R packages daily
@@ -82,30 +86,16 @@ jobs:
         id: date
         run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
 
-      - name: "[Cache] Cache R packages"
+      - name: "[Cache] Restore R package cache"
         if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v1.2.0
+        uses: actions/cache/restore@v3
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
-
-      # install ccache and write config file
-      - name: "[Linux] ccache"
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt install ccache libcurl4-openssl-dev
-          mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
 
       - name: "[Custom block] Test custom user block"
         run: |
           echo 'test'
-
-      # for some strange Windows reason this step and the next one need to be decoupled
-      - name: "[Stage] Prepare"
-        run: |
-          Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
-          Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
@@ -117,6 +107,13 @@ jobs:
         run: |
           echo -e 'options(Ncpus = 4, pkgType = "source", repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
           Rscript -e "remotes::install_github('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+
+      - name: "[Cache] Save R package cache"
+        if: runner.os != 'Windows' && always()
+        uses: actions/cache/save@v3
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
       - name: "[Stage] Script"
         run: Rscript -e 'tic::script()'
@@ -131,7 +128,7 @@ jobs:
 
       - name: "[Stage] Upload R CMD check artifacts"
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
