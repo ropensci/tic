@@ -10,7 +10,7 @@
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.13.2</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,12 @@
       <small>Source: <a href="https://github.com/ropensci/tic/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.14.0" id="tic-0140-2023-12-15">tic 0.14.0 (2023-12-15)<a class="anchor" aria-label="anchor" href="#tic-0140-2023-12-15"></a></h2>
+<ul><li>Install {tic} via r-universe to avoid re-installation issues with {pak}</li>
+<li>Switch to official <code>actions/save</code> and <code>actions/restore</code> actions after they support to always save and restore cache</li>
+<li>Update all templates</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.13.3" id="tic-0133-2023-05-22">tic 0.13.3 (2023-05-22)<a class="anchor" aria-label="anchor" href="#tic-0133-2023-05-22"></a></h2>
 <ul><li>Updated <code>actions/upload-artifact</code> version to v3 to silence nodejs deprecation warnings</li>
@@ -627,10 +633,7 @@
 <li>Fix two links in README (<a href="https://github.com/ropensci/tic/issues/115" class="external-link">#115</a>, <a href="https://github.com/Rekyt" class="external-link">@Rekyt</a>).</li>
 <li>Vignette update (<a href="https://github.com/ropensci/tic/issues/80" class="external-link">#80</a>, <a href="https://github.com/pat-s" class="external-link">@pat-s</a>).</li>
 <li>Support <code>build_args</code> argument in <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code> (<a href="https://github.com/ropensci/tic/issues/64" class="external-link">#64</a>, <a href="https://github.com/pat-s" class="external-link">@pat-s</a>).</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.13.9011" id="tic-02139011-1">tic 0.2.13.9011<a class="anchor" aria-label="anchor" href="#tic-02139011-1"></a></h2>
-<div class="section level3">
+</ul><div class="section level3">
 <h3 id="step_rcmdcheck-0-2-13-9011">step_rcmdcheck()<a class="anchor" aria-label="anchor" href="#step_rcmdcheck-0-2-13-9011"></a></h3>
 <ul><li>deprecate <code>warnings_are_errors</code> and <code>notes_are_errors</code> in favor of the new <code>error_on</code> argument</li>
 <li>add args <code>timeout</code> and <code>repos</code>

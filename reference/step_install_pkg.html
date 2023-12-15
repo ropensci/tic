@@ -38,7 +38,7 @@ GitHub version is different from the locally installed version."><!--[if lt IE 9
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.13.2</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,11 +125,15 @@ GitHub version is different from the locally installed version.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>dependencies</dt>
-<dd><p>Dependency types. See
-<code><a href="https://r-lib.github.io/pkgdepends/reference/as_pkg_dependencies.html" class="external-link">pkgdepends::as_pkg_dependencies()</a></code> for possible values. Note that
-changing this argument from the default might result an installation
-failure, e.g. if you set it to <code>FALSE</code>, packages might not build if
-their dependencies are not already installed.</p></dd>
+<dd><p>What kinds of dependencies to install. Most commonly
+one of the following values:</p><ul><li><p><code>NA</code>: only required (hard) dependencies,</p></li>
+<li><p><code>TRUE</code>: required dependencies plus optional and development
+dependencies,</p></li>
+<li><p><code>FALSE</code>: do not install any dependencies. (You might end up with a
+non-working package, and/or the installation might fail.)
+See <a href="https://pak.r-lib.org/reference/package-dependency-types.html" class="external-link">Package dependency types</a> for other possible values and more
+information about package dependencies.</p></li>
+</ul></dd>
 
 
 <dt>package</dt>
