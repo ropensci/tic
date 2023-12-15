@@ -1,4 +1,11 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+<!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
+
+# tic 0.14.0 (2023-12-15)
+
+- Install {tic} via r-universe to avoid re-installation issues with {pak}
+- Switch to official `actions/save` and `actions/restore` actions after they support to always save and restore cache
+- Update all templates
+
 
 # tic 0.13.3 (2023-05-22)
 
@@ -533,8 +540,6 @@
 - Fix two links in README (#115, @Rekyt).
 - Vignette update (#80, @pat-s).
 - Support `build_args` argument in `step_rcmdcheck()` (#64, @pat-s).
-
-# tic 0.2.13.9011
 
 ## step_rcmdcheck()
 
