@@ -67,8 +67,8 @@ jobs:
         run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
 
       - name: "[Cache] Cache R packages"
-        if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v3
+        if: runner.os != 'Windows' && always()
+        uses: actions/cache/save@v3
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
@@ -85,7 +85,7 @@ jobs:
 
       - name: "[Stage] Upload R CMD check artifacts"
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
