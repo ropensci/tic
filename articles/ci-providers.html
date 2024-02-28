@@ -153,11 +153,11 @@ during build initialization in the “ccache” stages.</p>
 <h3 id="rjava">rJava<a class="anchor" aria-label="anchor" href="#rjava"></a>
 </h3>
 <p>If Java support is required, add the following for macOS runners:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[macOS] rJava"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>          R CMD javareconf</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>          Rscript -e "install.packages('rJava', type = 'source')"</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[macOS] rJava"</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>          R CMD javareconf</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>          Rscript -e "install.packages('rJava', type = 'source')"</span></code></pre></div>
 <p>For Linux, add <code>sudo R CMD javareconf</code> to stage “<a href="#linux">Linux</a> Prepare”. We currently do not support Java on
 Windows.</p>
 </div>
@@ -182,41 +182,41 @@ used on this platform.</p>
 <code>tic.yml</code> as needed. The essential part is to prefix the
 compiler settings in <code>~/.R/Makevars</code> with
 <code>ccache</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Prepare weekly timestamp for cache"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> datew</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> echo "date=$(date '+%d-%m')" &gt;&gt; $GITHUB_OUTPUT</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Cache ccache"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> pat-s/always-upload-cache@v2.0.0</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> ${{ env.CCACHE_DIR}}</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">restore-keys</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">      # install ccache and write config file</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [macOS] ccache"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS' &amp;&amp; matrix.config.r == 'devel'</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>          brew install ccache</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>          # set compiler flags</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' &gt; $HOME/.R/Makevars</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">      # install ccache and write config file</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Linux] ccache"</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'Linux'</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>          sudo apt install ccache libcurl4-openssl-dev</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' &gt; $HOME/.R/Makevars</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Prepare weekly timestamp for cache"</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> datew</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> echo "date=$(date '+%d-%m')" &gt;&gt; $GITHUB_OUTPUT</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Cache] Cache ccache"</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os != 'Windows'</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> pat-s/always-upload-cache@v2.0.0</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> ${{ env.CCACHE_DIR}}</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">          </span><span class="fu">restore-keys</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">      # install ccache and write config file</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [macOS] ccache"</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS' &amp;&amp; matrix.config.r == 'devel'</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>          brew install ccache</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>          # set compiler flags</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' &gt; $HOME/.R/Makevars</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">      # install ccache and write config file</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom] [Linux] ccache"</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'Linux'</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>          sudo apt install ccache libcurl4-openssl-dev</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>          mkdir -p ~/.R &amp;&amp; echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' &gt; $HOME/.R/Makevars</span></code></pre></div>
 <p>In addition you also need to set the following env variables:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># setting some ccache options</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CCACHE_BASEDIR</span><span class="kw">:</span><span class="at"> ${{ GITHUB.WORKSPACE }}</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">CCACHE_DIR</span><span class="kw">:</span><span class="at"> ${{ GITHUB.WORKSPACE }}/.ccache</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">CCACHE_NOHASHDIR</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">CCACHE_SLOPPINESS</span><span class="kw">:</span><span class="at"> include_file_ctime</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># setting some ccache options</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">CCACHE_BASEDIR</span><span class="kw">:</span><span class="at"> ${{ GITHUB.WORKSPACE }}</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">CCACHE_DIR</span><span class="kw">:</span><span class="at"> ${{ GITHUB.WORKSPACE }}/.ccache</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">CCACHE_NOHASHDIR</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">CCACHE_SLOPPINESS</span><span class="kw">:</span><span class="at"> include_file_ctime</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="spatial-libraries-gdal-proj-geos">Spatial libraries (gdal, proj, geos)<a class="anchor" aria-label="anchor" href="#spatial-libraries-gdal-proj-geos"></a>
@@ -238,9 +238,9 @@ included and when <code>brew</code> tries to link <code>gfortran</code>
 it will fail since there is already a local instance of
 <code>gfortran</code>. Hence, this instance needs to be removed so that
 the <code>brew link</code> step does not error and stop the build.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># conflicts with gfortran from r-lib/actions when linking gcc</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">rm '/usr/local/bin/gfortran'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">brew install gdal proj geos</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># conflicts with gfortran from r-lib/actions when linking gcc</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="at">rm '/usr/local/bin/gfortran'</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="at">brew install gdal proj geos</span></span></code></pre></div>
 <p>When spatial packages like {sf} or {terra} get updated, it takes some
 time until the binary is available. In the mean time, they must be
 installed from source. This fails for some time now due to a linking
@@ -249,13 +249,13 @@ information. To fix this, one can add the following as a custom block to
 <code>tic.yml</code>:</p>
 <pre><code>mkdir ~/.R &amp;&amp; echo -e "CPPFLAGS += -L/opt/homebrew/opt/jpeg/lib" &gt;&gt; ~/.R/Makevars</code></pre>
 <p>Here’s the full block, used in {mlr3spatiotempcv}:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] [macOS] Install spatial libraries"</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          rm '/usr/local/bin/gfortran'</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          brew install ccache gdal geos proj udunits jpeg sqlite</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          brew install xquartz</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>          mkdir ~/.R &amp;&amp; echo -e "CPPFLAGS += -L/usr/local/opt/jpeg/lib" &gt;&gt; ~/.R/Makevars</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Custom block] [macOS] Install spatial libraries"</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'macOS'</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>          rm '/usr/local/bin/gfortran'</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>          brew install ccache gdal geos proj udunits jpeg sqlite</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>          brew install xquartz</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>          mkdir ~/.R &amp;&amp; echo -e "CPPFLAGS += -L/usr/local/opt/jpeg/lib" &gt;&gt; ~/.R/Makevars</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>

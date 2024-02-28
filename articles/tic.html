@@ -192,9 +192,9 @@ anything doesn’t work as expected.</p>
 <code class="sourceCode R"><span><span class="fu">tic</span><span class="fu">::</span><span class="fu"><a href="../reference/use_tic.html">use_tic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you already use {tic} and want to configure a new CI provider,
 do</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Circle CI</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>circle<span class="sc">::</span><span class="fu">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tic<span class="sc">::</span><span class="fu">use_circle_yml</span>(<span class="sc">&lt;</span>option here<span class="sc">&gt;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="do">## Circle CI</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>circle<span class="sc">::</span><span class="fu">use_circle_deploy</span>() <span class="co"># (optional for deployment)</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>tic<span class="sc">::</span><span class="fu">use_circle_yml</span>(<span class="sc">&lt;</span>option here<span class="sc">&gt;</span>)</span></code></pre></div>
 <hr>
 <p>If you are open to try out new things, Circle CI comes with some
 advantages that might simplify your CI experience. However, all
