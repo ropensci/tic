@@ -69,41 +69,39 @@ toc:
 navbar:
   title:
   type: default
-  right: []
-  left:
-  - icon: fa-home
-    href: index.html
-  - text: Get started
-    href: articles/tic.html
-  - text: Reference
-    href: reference/index.html
-  - text: Introduction
-    menu:
-    - text: Feature Overview
-      href: articles/features.html
-    - text: The CI Build Lifecycle
-      href: articles/build-lifecycle.html
-    - text: CI Client Packages
-      href: articles/ci-client-packages.html
-    - text: CI Providers
-      href: articles/ci-providers.html
-    - text: FAQ
-      href: articles/faq.html
-  - text: Advanced
-    menu:
-    - text: Advanced Usage
-      href: articles/advanced.html
-    - text: Deployment
-      href: articles/deployment.html
-    - text: Custom Steps
-      href: articles/custom-steps.html
-    - text: Updating Templates
-      href: articles/updating.html
-  - text: Changelog
-    href: news/index.html
+  components:
+    overview:
+      text: Introduction
+      menu:
+      - text: Feature Overview
+        href: articles/features.html
+      - text: The CI Build Lifecycle
+        href: articles/build-lifecycle.html
+      - text: CI Client Packages
+        href: articles/ci-client-packages.html
+      - text: CI Providers
+        href: articles/ci-providers.html
+      - text: FAQ
+        href: articles/faq.html
+    advanced:
+      text: Advanced
+      menu:
+      - text: Advanced Usage
+        href: articles/advanced.html
+      - text: Deployment
+        href: articles/deployment.html
+      - text: Custom Steps
+        href: articles/custom-steps.html
+      - text: Updating Templates
+        href: articles/updating.html
+
+  structure:
+    left: [home, intro, reference, overview, advanced, news]
+    right: [search, github]
 
 authors:
   Kirill Müller:
     href: https://krlmlr.info
   Patrick Schratz:
     href: https://pat-s.me
+
