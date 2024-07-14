@@ -1,6 +1,6 @@
 pandoc: 3.1.11
 pkgdown: 2.1.0.9000
-pkgdown_sha: 1407329e7a0027d6430684504c3d314fbc83b08f
+pkgdown_sha: 89c9e51b7a9c9082cc48fc73ec4b9743c07fb388
 articles:
   advanced: advanced.html
   build-lifecycle: build-lifecycle.html
@@ -12,7 +12,7 @@ articles:
   features: features.html
   tic: tic.html
   updating: updating.html
-last_built: 2024-07-13T04:13Z
+last_built: 2024-07-14T04:15Z
 urls:
   reference: https://docs.ropensci.org/tic/dev/reference
   article: https://docs.ropensci.org/tic/dev/articles
