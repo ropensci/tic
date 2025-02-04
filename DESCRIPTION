@@ -9,14 +9,14 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-1416-3412")),
     person("Mika", "Braginsky", , "mika.br@gmail.com", role = "aut"),
     person("Karthik", "Ram", , "karthik.ram@gmail.com", role = "aut"),
-    person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", role = "aut"),
+    person("Jeroen", "Ooms", , "jeroenooms@gmail.com", role = "aut"),
     person("Max", "Held", role = "rev",
            comment = "Max reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
     person("Anna", "Krystalli", role = "rev",
            comment = "Anna reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
     person("Laura", "DeCicco", role = "rev",
            comment = "Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>"),
-    person("rOpenSci", role = "fnd")
+    person("rOpenSci", role = "fnd", comment = c(ROR = "019jywm96"))
   )
 Description: Provides a way to describe common build and deployment
     workflows for R-based projects: packages, websites (e.g.  blogdown,
