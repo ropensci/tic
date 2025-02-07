@@ -29,7 +29,7 @@ means that you can have multiple YAML files with update support, e.g.
 }
 \section{Formatting requirements of tic YAML templates}{
  To ensure that
-updating of {tic} templates works, ensure the following points:
+updating of 'tic' templates works, ensure the following points:
 \itemize{
 \item Your template contains the type (e.g. linux-matrix-deploy) and the revision
 date in its first two lines.

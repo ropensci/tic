@@ -12,7 +12,7 @@
 #' @param quiet `[logical]`\cr
 #'   Whether to print informative messages.
 #' @section pkgdown:
-#'  If `type` contains "deploy", {tic} by default also sets the environment
+#'  If `type` contains "deploy", \pkg{tic} by default also sets the environment
 #'  variable `BUILD_PKGDOWN=true`. This triggers a call to
 #'  `pkgdown::build_site()` via the `do_pkgdown` macro in `tic.R` for the
 #'  respective runners.

@@ -2,6 +2,7 @@
 % Please edit documentation in R/tic-package.R
 \docType{package}
 \name{tic-package}
+\alias{tic}
 \alias{tic-package}
 \title{tic: Tasks Integrating Continuously: CI-Agnostic Workflow Definitions}
 \description{
@@ -25,14 +26,15 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Patrick Schratz \email{patrick.schratz@gmail.com} (\href{https://orcid.org/0000-0003-0748-6624}{ORCID})
+\strong{Maintainer}: Eli Miller \email{eli@eli.dev} (\href{https://orcid.org/0000-0002-2127-9456}{ORCID})
 
 Authors:
 \itemize{
+  \item Patrick Schratz (\href{https://orcid.org/0000-0003-0748-6624}{ORCID})
   \item Kirill Müller (\href{https://orcid.org/0000-0002-1416-3412}{ORCID})
   \item Mika Braginsky \email{mika.br@gmail.com}
   \item Karthik Ram \email{karthik.ram@gmail.com}
-  \item Jeroen Ooms \email{jeroen.ooms@stat.ucla.edu}
+  \item Jeroen Ooms \email{jeroenooms@gmail.com}
 }
 
 Other contributors:
@@ -40,7 +42,7 @@ Other contributors:
   \item Max Held (Max reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>) [reviewer]
   \item Anna Krystalli (Anna reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>) [reviewer]
   \item Laura DeCicco (Laura reviewed the package for ropensci, see <https://github.com/ropensci/software-review/issues/305>) [reviewer]
-  \item rOpenSci [funder]
+  \item rOpenSci (019jywm96) [funder]
 }
 
 }
