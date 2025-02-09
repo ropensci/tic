@@ -9,7 +9,7 @@ Calls pkgdown::clean_site() and then pkgdown::build_site(...)."><link rel="style
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,8 +76,8 @@ Calls <code><a href="https://pkgdown.r-lib.org/reference/clean.html" class="exte
 <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
 
     <dt><code>seed</code></dt>
-<dd><p>Seed used to initialize so that random examples are
-reproducible.</p></dd>
+<dd><p>Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
 
     <dt><code>lazy</code></dt>
 <dd><p>If <code>TRUE</code>, will only rebuild articles and reference pages
@@ -111,9 +111,6 @@ in the current process affects the build process.</p></dd>
     <dt><code>install</code></dt>
 <dd><p>If <code>TRUE</code>, will install the package in a temporary library
 so it is available for vignettes.</p></dd>
-
-    <dt><code>document</code></dt>
-<dd><p><strong>Deprecated</strong> Use <code>devel</code> instead.</p></dd>
 
 
 </dl></dd>

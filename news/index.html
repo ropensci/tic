@@ -7,7 +7,7 @@
     <a href="https://ropensci.org" class="external-link"><img src="https://ropensci.org/img/icon_short_white.svg" id="hexlogo" alt="rOpenSci"></a>
     <a class="navbar-brand me-2" href="../index.html">tic</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.14.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -603,7 +603,7 @@
 <li>New <code><a href="../reference/do_package_checks.html">do_package_checks()</a></code> with <code>codecov = TRUE</code> argument (<a href="https://github.com/ropensci/tic/issues/146" class="external-link">#146</a>), replaces <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> which stays around for compatibility (<a href="https://github.com/ropensci/tic/issues/128" class="external-link">#128</a>).</li>
 <li>
 <code><a href="../reference/dsl.html">add_step()</a></code> now evaluates the <code>step</code> argument in a <code><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch()</a></code> block and gives a bit of context if this fails (<a href="https://github.com/ropensci/tic/issues/73" class="external-link">#73</a>).</li>
-<li>New <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>, previously <code>tic()</code> (<a href="https://github.com/ropensci/tic/issues/66" class="external-link">#66</a>).</li>
+<li>New <code><a href="../reference/run_all_stages.html">run_all_stages()</a></code>, previously <code><a href="../reference/tic-package.html">tic()</a></code> (<a href="https://github.com/ropensci/tic/issues/66" class="external-link">#66</a>).</li>
 <li>New <code><a href="../reference/ci.html">ci_get_env()</a></code>, <code><a href="../reference/ci.html">ci_has_env()</a></code> and <code><a href="../reference/ci.html">ci_is_env()</a></code> functions to avoid verbose <code><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv()</a></code> calls in <code>tic.R</code> (<a href="https://github.com/ropensci/tic/issues/124" class="external-link">#124</a>, <a href="https://github.com/pat-s" class="external-link">@pat-s</a>).</li>
 <li>New <code>ci_*()</code> functions to avoid R6 notation in <code>tic.R</code> (<a href="https://github.com/ropensci/tic/issues/125" class="external-link">#125</a>, <a href="https://github.com/pat-s" class="external-link">@pat-s</a>).</li>
 </ul></div>
@@ -702,7 +702,7 @@
 <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> gains arguments that are passed to <code><a href="../reference/step_rcmdcheck.html">step_rcmdcheck()</a></code>.</li>
 <li>New <code><a href="../reference/step_setup_ssh.html">step_setup_ssh()</a></code> (<a href="https://github.com/ropensci/tic/issues/24" class="external-link">#24</a>).</li>
 <li>New <code><a href="../reference/dsl.html">add_code_step()</a></code> (<a href="https://github.com/ropensci/tic/issues/21" class="external-link">#21</a>).</li>
-<li>New <code>tic()</code> to run all steps locally (<a href="https://github.com/ropensci/tic/issues/23" class="external-link">#23</a>).</li>
+<li>New <code><a href="../reference/tic-package.html">tic()</a></code> to run all steps locally (<a href="https://github.com/ropensci/tic/issues/23" class="external-link">#23</a>).</li>
 <li>New <code><a href="../reference/Deprecated.html">add_package_checks()</a></code> (<a href="https://github.com/ropensci/tic/issues/25" class="external-link">#25</a>).</li>
 </ul></div>
     <div class="section level2">
