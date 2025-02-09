@@ -64,7 +64,7 @@ jobs:
     # r-devel-env
     environment:
     docker:
-      - image: rocker/verse:devel
+      - image: rocker/tidyverse:devel
     steps:
       - checkout
 

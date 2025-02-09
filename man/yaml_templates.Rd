@@ -29,7 +29,7 @@ If you want to update an existing template use \code{\link[=update_yml]{update_y
 }
 \section{pkgdown}{
 
-If \code{type} contains "deploy", {tic} by default also sets the environment
+If \code{type} contains "deploy", \pkg{tic} by default also sets the environment
 variable \code{BUILD_PKGDOWN=true}. This triggers a call to
 \code{pkgdown::build_site()} via the \code{do_pkgdown} macro in \code{tic.R} for the
 respective runners.

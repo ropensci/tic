@@ -8,7 +8,7 @@
 #'   `"tic.yml"` and `"tic-db.yml"`.
 #'
 #' @section Formatting requirements of tic YAML templates: To ensure that
-#'   updating of {tic} templates works, ensure the following points:
+#'   updating of \pkg{tic} templates works, ensure the following points:
 #' - Your template contains the type (e.g. linux-matrix-deploy) and the revision
 #' date in its first two lines.
 #' - When inserting comments into custom code blocks, only one-line comments are
