@@ -1,0 +1,313 @@
+# Getting started with CI for R
+
+## Prerequisites
+
+Continuous Integration (CI) is a huge field in software development.
+There are a lot of resources out there that try to explain what it can
+do and why you need it (and usually why their particular company/service
+does it best). If you are just getting started with software development
+or `git` based project work you might think:
+
+> “Ah I don’t need all of this overhead, I am fine doing X and Y
+> manually for this project. The overhead learning this next
+> additional”tool” is not worth it.
+
+Reading [all vignettes of this
+package](https://docs.ropensci.org/tic/articles/) will help you
+understand what {tic} does to simplify all of that specifically for the
+R language.
+
+However, there is a lot of advanced information in these vignettes which
+might be a bit overwhelming at first if you are just getting started.
+Therefore we will explain a few of the most important terms first to
+give you a kickstart:
+
+Runner
+
+One build job (possibly among many others) on any operating system that
+executes certain commands specified in the YAML config file.
+
+YAML config file
+
+A file written in the YAML language telling the runner what to do after
+a push to the repository.
+
+Build matrix
+
+Specification how many runners are started and their specification
+(operating system, custom environment variables, etc.)
+
+CI Provider
+
+A company that offers ready-to-use virtual images for runners which are
+started after a certain action (.e.g Circle CI). However, code hosting
+sites like GitHub or GitLab also have their own CI integration
+meanwhile.
+
+Deployment
+
+CI builds cannot just perform specific checks on a package/project, they
+can also be used to (re-)build certain files in every run. With the
+appropriate permissions these files can then be pushed to a repository
+via `git` without the need to take manual actions by the user. This can
+save a lot of time and is commonly used to ensure that documentation is
+always up-to-date.
+
+CI Client packages
+
+R packages that interface the command line API of CI providers to
+simplify the execution of certain tasks (scraping build logs, enabling
+repos, etc.), e.g. [{circle}](https://github.com/ropenscilabs/circle).
+
+CI Badges
+
+Badges in the README of a repository showing the current build status of
+the project: Did the last build fail or finish successfully?
+
+DSL
+
+“DSL” stands for “[domain-specific
+language](https://en.wikipedia.org/wiki/Domain-specific_language)” and
+essentially means the implementation of a general concept for a specific
+programming language.
+
+## Initialization/Setup
+
+The easiest way to use {tic} for CI services is to call
+[`tic::use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md).
+This will initialize a setup wizard which will guide you through all
+possibilities of the offered CI providers by {tic}.
+
+Several yes/no questions need to be answered. Based on the replies we’ll
+select specific templates.
+
+Besides the question which CI system you want to use, you’ll be asked if
+you want to
+
+- Deploy from builds to GitHub (e.g. if you are building a {pkgdown}
+  site)
+
+- Test your package on multiple R versions
+
+Last, we’ll add a `tic.R` file to the project root.
+
+After this, your project is ready for continuous integration. The next
+push to GitHub will create a build on Circle CI. See the
+[Troubleshooting](https://docs.ropensci.org/tic/dev/articles/advanced.html#troubleshooting)
+section in case anything doesn’t work as expected.
+
+##### Quickstart
+
+If you are a new user, run
+
+``` r
+tic::use_tic()
+```
+
+If you already use {tic} and want to configure a new CI provider, do
+
+``` r
+## Circle CI
+circle::use_circle_deploy() # (optional for deployment)
+tic::use_circle_yml(<option here>)
+```
+
+------------------------------------------------------------------------
+
+If you are open to try out new things, Circle CI comes with some
+advantages that might simplify your CI experience. However, all
+providers come with pros and cons and we cannot provide an exhaustive
+list comparing all providers here.
+
+See the [CI Client
+Packages](https://docs.ropensci.org/tic/dev/articles/ci-client-packages.md)
+article for more detailed information on how {tic} and the CI client
+packages work together.
+
+## The role of the `tic.R` file
+
+After having called
+[`tic::use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+you will find
+
+- `.circleci/config.yml`
+- `.github/workflows`
+
+and a `tic.R` file in your repo, depending on the choices you made
+during
+[`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md).
+The latter will always be present because it will be the main CI config
+file for all providers from now on. Usually you do not need to touch the
+YAML files anymore. All build customization is done in `tic.R` and
+applies to all providers. For more information about the build lifecycle
+in general, check the [Build
+lifecycle](https://docs.ropensci.org/tic/dev/articles/build-lifecycle.md)
+article.
+
+The basic `tic.R` template looks as follows:
+
+``` r
+do_package_checks()
+
+if (ci_on_ghactions()) {
+  do_pkgdown()
+}
+```
+
+`tic.R` file has a declarative nature: It should consist of “stages”,
+“steps” and “macro” functions (see below). These functions will only
+have an effect when specified in `tic.R` and should **not** be used
+standalone as they will only run in a (simulated) CI run following a
+certain order.
+
+To run plain R code within the build, encapsulate it within
+`add_code_step(<code>)` and add it to a certain build stage. See [the
+Build
+Lifecycle](https://docs.ropensci.org/tic/dev/articles/build-lifecycle.md)
+article for detailed info about how to do this.
+
+### Macros
+
+{tic} builds on the “macro” idea. Macros are essentially wrappers of a
+sequence of steps for often used tasks on the CI system:
+
+- Checking a package (R CMD check)
+- Building and deploying a pkgdown site
+- Build and deploy a bookdown project
+
+They can be distinguished from other functions by their `do_` prefix.
+The following ones are currently implemented:
+
+``` r
+list_macros()
+#> [1] "do_blogdown"       "do_bookdown"       "do_drat"          
+#> [4] "do_package_checks" "do_pkgdown"        "do_readme_rmd"
+```
+
+If you have a good use case for a macro, let us know by opening an
+[issue](https://github.com/ropensci/tic/issues).
+
+#### `do_package_checks()`
+
+``` r
+do_package_checks()
+```
+
+[`do_package_checks()`](https://docs.ropensci.org/tic/dev/reference/do_package_checks.md)
+adds essential steps to various stages of a CI run. Most importantly, it
+adds
+[`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+to the “script” stage. This step performs the check of an R package.
+Afterwards, the code coverage is being checked using
+[`covr::codecov()`](http://covr.r-lib.org/reference/codecov.md). See
+`?do_package_checks()` for more information.
+
+``` r
+# step_install_deps() in the "install" stage, using the repos argument.
+#
+# step_rcmdcheck() in the "script" stage, using the warnings_are_errors,
+#  notes_are_errors, args, and build_args arguments.
+#
+# A call to covr::codecov() in the "after_success" stage (only if the codecov flag is set)
+```
+
+#### `do_pkgdown()`
+
+The other macro in the default template is
+[`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md).
+
+``` r
+if (ci_on_ghactions()) {
+  do_pkgdown()
+}
+```
+
+[`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md)
+adds five steps to the build process:
+
+``` reval
+# step_install_deps() in the "install" stage, using the repos argument.
+#
+# step_setup_ssh() in the "before_deploy" to setup the upcoming deployment (if deploy is set),
+#
+# step_setup_push_deploy() in the "before_deploy" stage (if deploy is set),
+#
+# step_build_pkgdown() in the "deploy" stage, forwarding all ... arguments.
+#
+# step_do_push_deploy() in the "deploy" stage.
+```
+
+By default this currently happens only on GitHub Actions, because
+[`ci_on_ghactions()`](https://docs.ropensci.org/tic/dev/reference/ci.md)
+is used as a condition. Why do we do this? Building the pkgdown site on
+multiple CI services has no added benefit and might even cause problems
+due to race conditions during deployment.
+
+[`ci_on_ghactions()`](https://docs.ropensci.org/tic/dev/reference/ci.md)
+can be replaced by one of its sibling functions like
+[`ci_on_circle()`](https://docs.ropensci.org/tic/dev/reference/ci.md).
+
+#### `do_readme_rmd()`
+
+Some projects rely on a dynamic README.Rmd file which contains R code.
+Sometimes the output of such README’s will change over time if the code
+driving it changes due to updates. To always stay up-to-date without
+needing to take manual action, you can use this macro. It will render
+`README.Rmd` and deploy `README.md` to the default repo branch. A
+deployment will only be made if the rendered output differs from the one
+stored upstream.
+
+This macro requires that you have set up deployment for your selected
+provider beforehand.
+
+#### Blogdown
+
+As a show case, we explain a “blogdown” project in more detail.
+[`blogdown`](https://bookdown.org/yihui/blogdown/) is an R package for
+publishing websites. Under the hood, it uses the framework
+[Hugo](https://gohugo.io/) which gets installed by the respective
+`tic.R`
+[template](https://github.com/krlmlr/tic.blogdown/blob/975aedd43fec1dd55e8348eccfca2c7c5f663006/tic.R)
+in the “install” section:
+
+``` r
+get_stage("install") %>%
+  add_code_step(blogdown::install_hugo())
+```
+
+Next the website is built and deployed. The
+[`blogdown::build_site()`](https://pkgs.rstudio.com/blogdown/reference/build_site.html)
+function for websites is the equivalent to
+[`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html)
+for R packages.
+
+``` r
+get_stage("deploy") %>%
+  add_code_step(blogdown::build_site()) %>%
+  add_step(step_push_deploy())
+```
+
+Steps and stages differ between projects (e.g. between a “blogdown”
+website and a “package”). {tic} is smart enough to detect your project
+automatically when calling
+[`tic::use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+and will add the correct template.
+
+**Note:** Currently, publishing to <https://figshare.com/> doesn’t work.
+Also, publishing to <https://zenodo.org/> is work in progress.
+
+### {tic} projects from the community
+
+The templates we provide with {tic} are minimal working examples. By
+querying `tic.R` on GitHub one can see who else uses {tic} for their CI
+runs: <https://github.com/search?p=5&q=filename%3Atic.R&type=Code>
+
+### Still got questions?
+
+Have a look at the [list of
+articles](https://docs.ropensci.org/tic/articles/) we wrote to shine
+more light on all the parts {tic} covers.
+
+If you face issues, make sure to also check out the
+[FAQ](https://docs.ropensci.org/tic/articles/faq.html) vignette or
+browse the [issue tracker](https://github.com/ropensci/tic/issues).

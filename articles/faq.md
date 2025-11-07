@@ -1,0 +1,107 @@
+# FAQ
+
+## Authentication
+
+#### Q-Auth-1
+
+I am getting an error when using
+[`circle::use_circle_deploy()`](https://docs.ropensci.org/circle/reference/use_circle_deploy.html)
+or
+[`tic::use_ghactions_deploy()`](https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.md).
+
+**Answer**
+
+In most cases this is related to API authentication issues. Ensure that
+the following points are met:
+
+1.  For Circle CI, install the respective GitHub App from the [GitHub
+    Marketplace](https://github.com/marketplace).
+2.  Ensure that you have set the respective API keys for the problematic
+    provider in your `.Renviron` file. Consult the help pages of the
+    respective `use_*_deploy()` function for more help.
+
+- GitHub Actions: A `GITHUB_PAT` with “public_repo” scopes.
+- Circle CI: Env var `R_CIRCLE`.
+
+## GitHub Actions
+
+#### Q-GHA-1
+
+How is {tic} different from what
+[r-lib/actions](https://github.com/r-lib/actions) does?
+
+**Answer**
+
+{tic} uses [r-lib/actions](https://github.com/r-lib/actions) as the base
+to install R in the first place. However in detail, {tic} does the
+following things differently which aim to enhance the CI experience:
+
+- Caching: {tic} caches the whole R library rather than only the direct
+  dependencies of a package. This has the advantage that packages
+  required for side actions ({pkgdown} deployment, README updates) will
+  also be cached.
+
+- `ccache`: {tic} comes with a compiler cache for source installations
+  of packages by default, speeding up repeated source installation
+  highly. The compiler cache directory (`.ccache`) will also be cached
+  (once a week). Example use case: If you installed {Rcpp} from source
+  as a dependency of your package and have it stored in your cache and
+  {Rcpp} now updates two days later, the reinstallation will make use of
+  the compiler cache and install {Rcpp} instantly rather than
+  recompiling the C code again.
+
+- Number of CPUs: {tic} uses 4 CPUs by default instead of only 1 as
+  [r-lib/actions](https://github.com/r-lib/actions) does. This speeds up
+  package installation a lot. 4 CPUs are max because all GitHub Actions
+  runners have 2 hyperthreading cores available.
+
+- Use of SSH deployment keys: Once set up via
+  [`tic::use_ghactions_deploy()`](https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.md),
+  this deployment approach makes it possible to push any file of your
+  repository to any branch of your remote. Other deployment approaches
+  often limit you to only push to `gh-pages` branch or similar.
+
+## Other
+
+#### Q-Other-1
+
+Is it possible to update the CI YAML templates installed by {tic} with
+upstream changes?
+
+**Answer**
+
+Yes! Have a look at [“Updating
+Templates”](https://docs.ropensci.org/tic/articles/updating.html) for
+more information.
+
+------------------------------------------------------------------------
+
+#### Q-Other-2
+
+Am I the only one using {tic}?
+
+**Answer**
+
+You can see who and how many people use {tic.R} on GitHub via this
+query: <https://github.com/search?p=5&q=filename%3Atic.R&type=Code>
+
+------------------------------------------------------------------------
+
+#### Q-Other-3
+
+Package {rgl} fails to install because of either
+
+- “configure: error: X11 not found but required, configure aborted.”
+- “error: X11 not found; XQuartz (from www.xquartz.org) is required to
+  run rgl.”
+
+**Answer**
+
+The first one is usually caused by a missing installation of `XQuartz`
+on macOS. Add `brew install xquartz` to the runner.
+
+The second error requires to set the `DISPLAY` env var to mimic a
+non-headless state. Add `export DISPLAY=:99` to the stage in which {rgl}
+should be installed. If the warning message during loading of {rgl}
+should be suppressed, either env var `RGL_USE_NULL = TRUE` can be set or
+R option `options(rgl.useNull = TRUE)`.

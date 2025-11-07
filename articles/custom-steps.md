@@ -1,0 +1,220 @@
+# Developer info: Writing custom steps
+
+Most important steps running on CI systems are [already
+implemented](https://docs.ropensci.org/tic/dev/articles/tic.html#steps)
+in {tic}. The following vignette shows how new steps can be created and
+how {tic} defines them. Internally, all steps are defined using the
+[R6](https://github.com/wch/R6) class system. If you are not familiar
+with object-oriented programming using R6, the [R6
+chapter](https://adv-r.hadley.nz/r6.html) in [Advanced
+R](https://adv-r.hadley.nz/) is a good place to start.
+
+In most cases there should be no need to write steps on your own,
+because
+[`step_run_code()`](https://docs.ropensci.org/tic/dev/reference/step_run_code.md)
+can be used to run arbitrary code when preparing and running the step,
+and custom conditions in `tic.R` can be used to trigger the step.
+However, if you have the need for a repeated use of specific
+combinations of
+[`add_code_step()`](https://docs.ropensci.org/tic/dev/reference/dsl.md),
+please let us know (by opening an
+[issue](https://github.com/ropensci/tic/issues)) so that we can discuss
+whether it makes sense to implement it as a custom step.
+
+## The `TicStep` class
+
+A step is a subclass of the [`TicStep`
+class](https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-base.R#L7-L38).
+The `step_...` functions in {tic} are forwarded to the `new()` methods
+of the corresponding R6 class objects (and from there to `initialize()`
+member functions). We recommend following the same pattern for your
+custom steps.
+
+The `TicStep` class implements the public methods `check()`,
+`prepare()`, and `run()`. These methods must be callable without
+arguments. This means that you only need to override the methods you
+need; if you don’t need a `check()` or `prepare()` method you can leave
+it out. The following sections describe these methods and show examples.
+
+### The `prepare()` method
+
+This method will be called by
+[`prepare_all_stages()`](https://docs.ropensci.org/tic/dev/reference/prepare_all_stages.md).
+It is intended to run in the `before_script` phase of the CI run. This
+method should install all dependent packages that the step requires,
+which then can be cached by the CI system. You also may include further
+preparation code here. For example `step_rcmdcheck` verifies that the R
+packages *rcmdcheck* and *remotes* are installed:
+
+``` r
+RCMDcheck$public_methods$prepare
+```
+
+### The `run()` method
+
+This method executes the step. When a step is added to a stage, `run()`
+will be called when the stage is executed. For example, the `run()`
+function of class `RCMDcheck` looks as follows:
+
+``` r
+RCMDcheck$public_methods$run
+```
+
+### The `check()` method
+
+This method checks whether the step is actually run. It returns a
+logical scalar. The
+[`step_write_text_file()`](https://github.com/ropensci/tic/blob/457a5d259c6861e322220ac51a0436436e5f214b/R/steps-write-text-file.R#L1-L24)
+function is an example step with the following implementation of the
+`check()` method:
+
+``` r
+WriteTextFile$public_methods$check
+```
+
+## A minimal example
+
+You can take a look at [a pull request that implements a new
+step](https://github.com/ropensci/tic/pull/75/files).
+
+The most minimalist version is the “Hello World” [example
+step](https://github.com/ropensci/tic/blob/master/R/steps-base.R). This
+class only contains a `run()` method which does nothing more than
+printing “Hello World” to the console. It is initialized by calling
+[`step_hello_world()`](https://docs.ropensci.org/tic/dev/reference/step_hello_world.md)
+which creates a new instance of this class.
+
+``` r
+HelloWorld <- R6Class(
+  "HelloWorld",
+  inherit = TicStep,
+  public = list(
+    run = function() {
+      print("Hello, world!")
+    }
+  )
+)
+
+#' Step: Hello, world!
+#'
+#' The simplest step possible: prints "Hello, world!" to the console when run, does not require
+#' any preparation.
+#' This step may be useful to test a \pkg{tic} setup or as a starting point when implementing a
+#' custom step.
+#'
+#' @family steps
+#' @export
+step_hello_world <- function() {
+  HelloWorld$new()
+}
+```
+
+## Further information on the R6 class system
+
+If you are unfamiliar with `R6` classes, here is a short guidance how
+the arguments are passed along: Consider the
+[`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+function ([link to
+source](https://github.com/ropensci/tic/blob/master/R/steps-rcmdcheck.R)):
+
+``` r
+RCMDcheck <- R6Class( # nolint
+  "RCMDcheck",
+  inherit = TicStep,
+  public = list(
+    initialize = function(warnings_are_errors = NULL, notes_are_errors = NULL,
+                          args = c("--no-manual", "--as-cran"),
+                          build_args = "--force", error_on = "warning",
+                          repos = repo_default(), timeout = Inf,
+                          check_dir = NULL) {
+      if (!is.null(notes_are_errors)) {
+        warning_once(
+          '`notes_are_errors` is deprecated, please use `error_on = "note"`'
+        )
+        if (notes_are_errors) {
+          error_on <- "note"
+        }
+      } else if (!is.null(warnings_are_errors)) {
+        warning_once(
+          "`warnings_are_errors` is deprecated, ",
+          'please use `error_on = "warning"`'
+        )
+        if (warnings_are_errors) {
+          error_on <- "warning"
+        }
+      }
+      private$args <- args
+      private$build_args <- build_args
+      private$error_on <- error_on
+      private$repos <- repos
+      private$timeout <- timeout
+      private$check_dir <- check_dir
+
+      super$initialize()
+    },
+    run = function() {
+      # Don't include vignettes if --no-build-vignettes is included
+      if ("--no-build-vignettes" %in% private$args) {
+        cat("^vignettes$\n", file = ".Rbuildignore", append = TRUE)
+      }
+
+      withr::with_envvar(
+        c(
+          # Avoid large version components
+          "_R_CHECK_CRAN_INCOMING_" = "FALSE",
+          # Don't check system clocks (because the API used there is flaky)
+          "_R_CHECK_SYSTEM_CLOCK_" = "FALSE",
+          # Don't force suggests
+          "_R_CHECK_FORCE_SUGGESTS_" = "FALSE",
+          # Work around missing qpdf executable
+          "R_QPDF" = if (Sys.which("qpdf") == "") "true"
+        ),
+        res <- rcmdcheck::rcmdcheck(
+          args = private$args, build_args = private$build_args,
+          error_on = "never",
+          repos = private$repos,
+          timeout = private$timeout,
+          check_dir = private$check_dir
+        )
+      )
+
+      print(res)
+      if (length(res$errors) > 0) {
+        stopc("Errors found in rcmdcheck::rcmdcheck().")
+      }
+      if (private$error_on %in% c("warning", "note") && length(res$warnings) > 0) {
+        stopc(
+          "Warnings found in rcmdcheck::rcmdcheck(), ",
+          'and `errors_on = "warning"` is set.'
+        )
+      }
+      if (private$error_on == "note" && length(res$notes) > 0) {
+        stopc(
+          "Notes found in rcmdcheck::rcmdcheck(), ",
+          'and `errors_on = "note"` is set.'
+        )
+      }
+    },
+    prepare = function() {
+      verify_install("rcmdcheck")
+      super$prepare()
+    }
+  ),
+  private = list(
+    args = NULL,
+    build_args = NULL,
+    error_on = NULL,
+    repos = NULL,
+    timeout = NULL,
+    check_dir = NULL
+  )
+)
+```
+
+Here, a new instance of the defined `R6` class `RCMDcheck` is initiated
+with `RCMDcheck$new()`. The arguments to
+[`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+are passed on to the `initialize()` function of the `R6` class. Here,
+the arguments are assigned to the “private” members
+(e.g. `private$args`). Next, these private members are used in the
+`run()` function which carries out the actual work.

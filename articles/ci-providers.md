@@ -1,0 +1,185 @@
+# Implementation Details of CI Providers
+
+## GitHub Actions
+
+{tic} supports running builds on GitHub Actions on all major platforms
+(Linux, macOS, Windows). The upstream support for the R language was
+developed by Jim Hester in
+[r-lib/actions](https://github.com/r-lib/actions). This repo also stores
+some usage
+[examples](https://github.com/r-lib/actions/tree/master/examples) which
+differ to the {tic} approach in the following points:
+
+- {tic} makes use of `ccache` for compiler caching enabling faster
+  source installation of packages. The `ccache` directory is cached and
+  build once a week.
+- {tic} installs packages from source on Linux by default and does not
+  use package binaries.
+- {tic} caches the complete R library and not only the direct packages
+  dependencies (`actions` does this via
+  `remotes::dev_package_deps(dependencies = TRUE)`). The cache is built
+  once per day.
+
+Making use of binaries can speed up build times substantially. This can
+be especially attractive for packages with many dependencies or
+dependencies which take a long time to install. However, binaries do oft
+run into problems when the package needs linking against system
+libraries. The most prominent example for this is {rJava}. If the binary
+was built with the same version as the user is running on the system,
+everything will work. However, often enough a different version of the
+system library is installed and the R packages needs to be installed
+from source to successfully link against it.
+
+For the case of {rJava}, one needs to
+
+- add a call to `R CMD javareconf` for **macOS** runners
+- add a call to `sudo R CMD javareconf` for **Linux** runners
+
+### macOS toolchain
+
+macOS is a bit tricky when it comes to source installation of packages.
+By default `clang` is used instead of `gcc` (Linux) because the former
+is the default for macOS. However, the default `clang` of macOS does not
+come with openMP support. Therefore, the R macOS core devs and CRAN
+currently use a [custom
+openMP-enabled](https://cran.r-project.org/bin/macosx/tools/) (old)
+version of `clang` to build the CRAN package binaries. In {tic} we
+reflect this by installing `clang7` and `clang8` for the respective R
+version during build initialization in the “ccache” stages.
+
+### rJava
+
+If Java support is required, add the following for macOS runners:
+
+``` yaml
+      - name: "[macOS] rJava"
+        if: runner.os == 'macOS'
+        run: |
+          R CMD javareconf
+          Rscript -e "install.packages('rJava', type = 'source')"
+```
+
+For Linux, add `sudo R CMD javareconf` to stage “[Linux](#linux)
+Prepare”. We currently do not support Java on Windows.
+
+### ccache
+
+If you have a huge dependency chain and compiling many packages from
+source (especially on R-devel), `ccache` can help to speed up package
+installation. It is recommended once your dependency installation time
+is higher than 30 minutes.
+
+Once the `ccache` cache is build, compilation will complete much faster.
+The `ccache` cache itself is only invalidated once a month. This means
+package installation can make use of the cache in 29/30 days in a month.
+
+The downside is that `ccache` needs to be installed and configured. This
+happens in every run, i.e. also in runs in which `ccache` is not used
+because a package cache already exists. Installation can take up to 1
+min, depending on the platform. Note that `ccache` won’t be used on
+Windows since only binaries are used on this platform.
+
+You can take the following blocks and add/replace them to your `tic.yml`
+as needed. The essential part is to prefix the compiler settings in
+`~/.R/Makevars` with `ccache`.
+
+``` yml
+      - name: "[Custom] [Cache] Prepare weekly timestamp for cache"
+        if: runner.os != 'Windows'
+        id: datew
+        run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
+
+
+      - name: "[Custom] [Cache] Cache ccache"
+        if: runner.os != 'Windows'
+        uses: pat-s/always-upload-cache@v2.0.0
+        with:
+          path: ${{ env.CCACHE_DIR}}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
+
+      # install ccache and write config file
+      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
+      - name: "[Custom] [macOS] ccache"
+        if: runner.os == 'macOS' && matrix.config.r == 'devel'
+        run: |
+          brew install ccache
+          # set compiler flags
+          mkdir -p ~/.R && echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCXX11=ccache clang++\nCXX14=ccache clang++\nCXX17=ccache clang++\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' > $HOME/.R/Makevars
+
+      # install ccache and write config file
+      - name: "[Custom] [Linux] ccache"
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install ccache libcurl4-openssl-dev
+          mkdir -p ~/.R && echo -e 'CC=ccache gcc -std=gnu99\nCXX=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
+```
+
+In addition you also need to set the following env variables:
+
+``` yml
+# setting some ccache options
+CCACHE_BASEDIR: ${{ GITHUB.WORKSPACE }}
+CCACHE_DIR: ${{ GITHUB.WORKSPACE }}/.ccache
+CCACHE_NOHASHDIR: true
+CCACHE_SLOPPINESS: include_file_ctime
+```
+
+### Spatial libraries (gdal, proj, geos)
+
+#### macOS
+
+homebrew-core has formulas for `gdal`, `geos` and `proj`. If you need
+more spatial formulas, have a look at the
+[osgeo4mac](https://github.com/OSGeo/homebrew-osgeo4mac) tap. Note
+however, that when installing formulas from the latter, these will
+conflict with the ones from homebrew-core. Either install all formulas
+from `osgeo4mac` or none.
+
+Also one needs to remove the `gfortran` build that is installed with
+`actions/setup-r`. This is due to `brew` installing `gcc` during the
+installation of `gdal`. `gcc` comes with `gfortran` included and when
+`brew` tries to link `gfortran` it will fail since there is already a
+local instance of `gfortran`. Hence, this instance needs to be removed
+so that the `brew link` step does not error and stop the build.
+
+``` yaml
+# conflicts with gfortran from r-lib/actions when linking gcc
+rm '/usr/local/bin/gfortran'
+brew install gdal proj geos
+```
+
+When spatial packages like {sf} or {terra} get updated, it takes some
+time until the binary is available. In the mean time, they must be
+installed from source. This fails for some time now due to a linking
+issue of `sqlite` or `jpeg`, see
+<https://github.com/r-spatial/sf/issues/1894> for more information. To
+fix this, one can add the following as a custom block to `tic.yml`:
+
+    mkdir ~/.R && echo -e "CPPFLAGS += -L/opt/homebrew/opt/jpeg/lib" >> ~/.R/Makevars
+
+Here’s the full block, used in {mlr3spatiotempcv}:
+
+``` yml
+      - name: "[Custom block] [macOS] Install spatial libraries"
+        if: runner.os == 'macOS'
+        run: |
+          rm '/usr/local/bin/gfortran'
+          brew install ccache gdal geos proj udunits jpeg sqlite
+          brew install xquartz
+          mkdir ~/.R && echo -e "CPPFLAGS += -L/usr/local/opt/jpeg/lib" >> ~/.R/Makevars
+```
+
+#### Linux
+
+On Linux, add `libgdal-dev libproj-dev libgeos-dev` to the `apt install`
+call in the “[Linux](#linux) Prepare” stage.
+
+### Known issues
+
+- \[Windows\] Installing {tinytex} for LaTeX availability does not
+  complete
+
+## Circle CI
+
+WIP

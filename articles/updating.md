@@ -1,0 +1,172 @@
+# Updating
+
+{tic} comes with the convenience of providing YAML templates for various
+CI providers which remove the need of studying YAML notations of CI
+providers. The provided templates aim to work for most packages that use
+plain R code. Packages that rely on system libraries (such as GDAL,
+xml2) or link to other languages (such as Java) often need manual
+additions within the YAML file.
+
+However, making manual changes to such prohibits users from simply
+updating to the latest upstream template that {tic} provides via
+[`yaml_templates()`](https://docs.ropensci.org/tic/dev/reference/yaml_templates.md)
+because custom user changes would be overwritten.
+
+This often prevents users from updating to the most recent templates
+provided by {tic} since a manual comparison between the current template
+and the latest version is needed. {tic} 0.8.0 tackles this issue: The
+new
+[`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+enables updating of templates to the latest version with **user changes
+preserved**.
+
+Currently this only works for GitHub Actions as this provider enables
+the inclusion of arbitrary custom blocks. {tic} extracts these blocks,
+updates the template and then inserts the custom blocks at the correct
+position back into the updated template. What may sound easy at first is
+in fact a very complicated task behind the scenes: indentation needs to
+preserved, some providers care about order and some do not accept
+duplicate keys. While
+[`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+supports GitHub Actions and Circle CI right now for custom environment
+variables and user blocks, the following rules need to be followed to
+ensure a smooth experience.
+
+**Shared Rules**
+
+- All templates need to have an *identifier* and a *revision date* in
+  their first two lines.
+- Comments of custom env vars may only span one line.
+- All *custom env vars* need to have a comment (above the actual env
+  var) which includes the term `[Custom env]`.
+
+**GitHub Actions & Circle CI**
+
+- All *custom blocks* need to include `[Custom block]` in their name
+  tag, e.g. `- name: "[Custom block] Test custom user block2"`.
+- Custom env vars unique to a runner need to include
+  `[Custom matrix env var]` in their tag,
+  e.g. `# [Custom matrix env var] test`.
+
+All of these tags are used by {tic} to preserve user changes and choose
+the right upstream template. During the process
+[`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+also prints how many custom blocks and env vars were found. If you have
+some in your template and nothing is printed when updating, something
+went wrong and you should double check your template. In any case, it is
+recommended to review the changes to avoid unexpected CI failures.
+
+## Deviating from the templates
+
+### `custom` and `custom-deploy` templates
+
+If you are using the `custom` or `custom-deploy` deploy template
+(e.g. via `tic::use_ghactions_yml("custom")`),
+[`tic::update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+will ignore the matrix part of the templates. This gives you the ability
+to specify your own runner config while still profiting from template
+updates.
+
+### The `# [Custom header]` tag
+
+If you want to go even more custom, you can add `# [Custom header]`
+right below the `## revision date` line. This tells
+[`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+to ignore the complete header including the the `env:` key completely.
+This can be useful if you want to insert a `service:` block between
+`env:` and `strategy` or when specifying custom build triggers in `on:`.
+
+## Examples
+
+Here are some examples for custom user blocks and custom env vars:
+
+**GitHub Actions**
+
+*Custom header*
+
+``` yml
+## tic GitHub Actions template: linux
+## revision date: 2022-08-28
+# [Custom header]
+on:
+  workflow_dispatch:
+
+[...]
+```
+
+*Runner specific environment variable*
+
+``` yml
+matrix:
+  config:
+    # use a different tic template type if you do not want to build on all listed platforms
+    - { os: windows-latest, r: "release" }
+    # [Custom matrix env var] test
+    - { os: macOS-latest, r: "release", pkgdown: "true", test: "true" }
+    - { os: ubuntu-latest, r: "devel" }
+    - { os: ubuntu-latest, r: "release" }
+```
+
+*Environment variable*
+
+``` yml
+env:
+  # [Custom env]
+  R_MAX_NUM_DLLS: 999
+```
+
+*Block*
+
+``` yml
+- name: "[Custom block] [macOS] xquartz"
+  if: runner.os == 'macOS'
+  run: |
+    brew install xquartz
+```
+
+**Circle CI**
+
+*Environment variable*
+
+``` yml
+environment:
+  # [Custom env] env var 2
+  test2: "true"
+```
+
+*Block*
+
+``` yml
+- run:
+    name: "[Custom block] test2"
+    command: |
+      echo 'test2'
+```
+
+## Automating the update process
+
+Updating {tic} YAML files can be automated further. We provide a GitHub
+Actions Workflow named
+[update-tic.yml](https://github.com/ropensci/tic/blob/master/.github/workflows/update-tic.yml)
+which can be used together with
+[`tic::update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+to update the templates whenever there are newer upstream versions
+available. The workflow will create a branch, update the files and
+commit them and even open a pull request.
+
+Just put this workflow next to any `tic.yml` file within
+`.github/workflows/` and it will silently do its job. By default it will
+run over night as a CRON job. It only runs once a day and is not being
+executed on push or pull request events. The underlying
+[`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+will match all files starting with `"tic"`. Hence you can add multiple
+YAML files with {tic} support, e.g. `"tic.yml"` and `"tic-db.yml"`.
+
+Unfortunately, GitHub does not allow GHA workflow files to be updated
+and pushed by automatic approaches. To make this work, the user needs to
+pass a GitHub Personal Access Token (PAT) with “workflow” scopes. This
+PAT need to be added as a “secret” to the repo so that it can be used
+within the build.
+[`gha_add_secret()`](https://docs.ropensci.org/tic/dev/reference/gha_add_secret.md)
+helps to automate this process. The linked workflow searches by default
+for a PAT secret named `TIC_UPDATE` when updating `tic.yml`.

@@ -1,0 +1,1131 @@
+# Changelog
+
+## tic 0.14.0 (2023-12-15)
+
+- Install {tic} via r-universe to avoid re-installation issues with
+  {pak}
+- Switch to official `actions/save` and `actions/restore` actions after
+  they support to always save and restore cache
+- Update all templates
+
+## tic 0.13.3 (2023-05-22)
+
+- Updated `actions/upload-artifact` version to v3 to silence nodejs
+  deprecation warnings
+
+## tic 0.13.2 (2022-11-23)
+
+- Bump template revision: account for GHA deprecation warnings regarding
+  `set-output` and `save-state`
+
+## tic 0.13.1 (2022-08-28)
+
+- Circle CI: install pandoc in deploy stage
+- Do not use RSPM binaries on R-devel (no binaries available)
+- Bump templates to 2022-08-28
+
+## tic 0.13.0 (2022-08-28)
+
+- Use {pak} for pkg installation and binaries on Linux
+  ([\#327](https://github.com/ropensci/tic/issues/327))
+- Update instructions for building {sf} and {terra} from source
+  ([\#326](https://github.com/ropensci/tic/issues/326))
+- `use_*_yml()`: change default template type to use only Linux runners
+- Add basic support for Drone CI
+  ([\#325](https://github.com/ropensci/tic/issues/325))
+
+## tic 0.12.0 (2022-03-01)
+
+- Update Circle CI templates to 2022-03-01
+  - Remove `ccache` parts
+  - Run nightly builds also on `main` branch
+- Update GHA and Circle CI templates to 2022-03-01
+  - Update to `setup-tinytex@v2`
+  - Update to `setup-r@v2`
+  - Update to `setup-pandoc@v2`
+  - Update to `checkout@v3`
+- Only run one set of runners in pull requests. Previously, runners were
+  triggered both by commits to a branch and the respective pull request
+- Fixed a bug in
+  [`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md)
+  which updated the wrong CI config file in certain situations
+
+## tic 0.11.4.9000 (2022-01-28)
+
+- Same as previous version.
+
+## tic 0.11.4 (2022-01-28)
+
+- Add compatibility for rlang \>= v1.0.0
+
+## tic 0.11.3 (2021-12-22)
+
+- [`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md):
+  Fix accidental deployments from pull requests
+  ([\#308](https://github.com/ropensci/tic/issues/308))
+
+## tic 0.11.2 (2021-12-05)
+
+- [`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md)
+  now always create a `.nojekyll` file for both release and development
+  deployments. Otherwise custom fonts starting with an underscore will
+  not be loaded as Jekyll ignores this pattern. A `.nojekyll` file tells
+  GitHub pages to not use Jekyll for serving the web page.
+  ([\#307](https://github.com/ropensci/tic/issues/307))
+
+## tic 0.11.1 (2021-06-27)
+
+- Templates: install required system libs for {pkgdown} conditionally
+  (accidentally removed in the previous template revision on 2021-06-26)
+- Templates: restore installation of `libcurl4-openssl-dev` and
+  `libgit2-dev`
+
+## tic 0.11.0 (2021-06-26)
+
+- Templates: On Linux, system libraries are now installed via
+  [`remotes::system_requirements()`](https://remotes.r-lib.org/reference/system_requirements.html)
+  ([\#300](https://github.com/ropensci/tic/issues/300))
+- Instead of using an exact version tag, the core GHA actions are now
+  referenced using a dynamic major version tag (e.g. v2 instead of
+  v2.3.4). This includes an update of the templates to the latest
+  revision date 2021-06-26.
+- [`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md)
+  macro now also builds the site on on branches containing the word
+  `cran`. This adds support for the {fledge} release mechanism when
+  using both a development and release site
+  ([\#303](https://github.com/ropensci/tic/issues/303))
+- `update-tic.yml`: Remove hardcoded reference to master branch
+- `update_yaml()` is not in beta state anymore
+
+## tic 0.10.0 (2020-12-11)
+
+- Drop Travis support
+  ([\#295](https://github.com/ropensci/tic/issues/295))
+- Drop Appveyor support
+  ([\#296](https://github.com/ropensci/tic/issues/296))
+- Bump templates: install required `libgit2` required by usethis v2.0.0
+  (tic dep)
+
+## tic 0.9.0.9008 (2020-11-18)
+
+- update peter-evans/create-pull-request action in `update-tic.yml`
+  template to v3.5.0
+
+## tic 0.9.0.9007 (2020-11-14)
+
+- update GitHub Actions templates
+  - update actions/checkout to v2.3.4
+  - update actions/upload-artifacts to v2.2.1
+  - update pat-s/always-upload-cache to v2.1.3
+- conditionally install pkgdown required system libs on both Linux and
+  macOS
+
+## tic 0.9.0.9006 (2020-09-19)
+
+- Replace hardcoded references to “master” by a dynamic query of the
+  default repo branch
+
+## tic 0.9.0.9005 (2020-09-04)
+
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md):
+  use GitHub Actions as the default provider for all platforms
+- Copy over GitHub authentication and SSH helpers from {travis}
+
+## tic 0.9.0.9004 (2020-08-27)
+
+- [`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md):
+  Support updating multiple YAML files
+
+## tic 0.9.0.9003 (2020-08-06)
+
+- GHA: add `workflow_dispatch` event trigger to templates
+- update instructions for spatial libs on macOS for GHA
+- improve heuristic for updating header parts of “custom” and
+  “custom-deploy” templates
+
+## tic 0.9.0.9002
+
+- DSL: Don’t add steps twice, if present in a previous macro
+  ([\#272](https://github.com/ropensci/tic/issues/272))
+- `update-tic.yml`: use <peter-evans/create-pull-request@v3> and
+  actions/checkout v2.3.1. Run on ubuntu instead of macOS
+- run r-devel on ubuntu instead of macOS
+- pin actions/upload-artifact to v2.1.1
+- update actions/checkout to v2.3.1
+- update pat-s/always-upload-cache to v2.1.0
+- [`step_setup_ssh()`](https://docs.ropensci.org/tic/dev/reference/step_setup_ssh.md)
+  now verifies that {git2r} is installed. This prevents build failures
+  for {rsconnect} deployments
+- `update-tic.yml`: install libs via `apt` on Linux instead of `brew`
+
+## tic 0.9.0.9001
+
+- gha_add_secret(): Add new upstream parameters and fix endpoint
+
+## tic 0.9.0.9000
+
+- Same as previous version.
+
+## tic 0.9.0
+
+### Features
+
+- `update_yaml()`: Account for duplicated env vars when a custom env var
+  masks a template env var
+- [`use_tic_badge()`](https://docs.ropensci.org/tic/dev/reference/use_tic_badge.md):
+  Update tic badge and default action name
+  ([\#269](https://github.com/ropensci/tic/issues/269))
+- Installing and using `ccache` for faster source package installation
+  is now optional. While using `ccache` can help a lot for installing
+  large dependency chains of certain packages, it also adds substantial
+  overhead to builds for small packages. It is now optional and needs to
+  be added as a custom block to builds.
+  ([\#264](https://github.com/ropensci/tic/issues/264))
+- Add
+  [`step_session_info()`](https://docs.ropensci.org/tic/dev/reference/step_session_info.md).
+  This step prints the session info after having installed all
+  dependencies in the “install” stage.
+  ([\#259](https://github.com/ropensci/tic/issues/259))
+- [`step_install_deps()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  and
+  [`do_package_checks()`](https://docs.ropensci.org/tic/dev/reference/do_package_checks.md)
+  gain `dependencies = TRUE` argument.
+- New
+  [`use_update_tic()`](https://docs.ropensci.org/tic/dev/reference/use_update_tic.md):
+  Adds GitHub Actions workflow `update-tic.yml` to automatically update
+  tic YAML templates
+- Support fully custom runner matrices on GitHub Actions via template
+  types `"custom"` and ´“custom-deploy”\`
+- New
+  [`gha_add_secret()`](https://docs.ropensci.org/tic/dev/reference/gha_add_secret.md)
+  to automate the process of adding a GitHub PAT to a repo as a secret.
+  This function will probably be move to {ghactions} in the future.
+
+### Bugfixes
+
+- Temporarily enforce {covr} dev version to account for timeouts on GHA,
+  see <https://github.com/r-lib/covr/issues/435>
+- Remove alert in steps-install.R
+  ([\#263](https://github.com/ropensci/tic/issues/263))
+- Pass arg `remote` to all printing instances. Previously using a
+  different remote than “origin” caused an error..
+
+### CI Provider specific
+
+#### GitHub Actions
+
+- Update versions of “tinytex” and “always-upload-cache” actions
+  ([\#267](https://github.com/ropensci/tic/issues/267))
+- Install LaTeX on only one runner
+  ([\#257](https://github.com/ropensci/tic/issues/257))
+- Switch from `main.yml` to `tic.yml`
+  ([\#260](https://github.com/ropensci/tic/issues/260))
+- Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around rate
+  limits in {remotes}
+- Update `actions/checkout` to v2.1.1
+- Update `pat-s/always-upload-cache` to v2.0.0
+- Remove old clang7 compiler setup for R \<= 3.6.3
+
+## tic 0.8.0.9009
+
+- Temporarily enforce {covr} dev version to account for timeouts on GHA,
+  see <https://github.com/r-lib/covr/issues/435>
+- [`use_tic_badge()`](https://docs.ropensci.org/tic/dev/reference/use_tic_badge.md):
+  Update tic badge and default action name
+  ([\#269](https://github.com/ropensci/tic/issues/269))
+- GHA: Update versions of “tinytex” and “always-upload-cache” actions
+  ([\#267](https://github.com/ropensci/tic/issues/267))
+
+## tic 0.8.0.9008
+
+- Make ccache optional (and more)
+  ([\#264](https://github.com/ropensci/tic/issues/264))
+- Remove alert in steps-install.R
+  ([\#263](https://github.com/ropensci/tic/issues/263))
+
+## tic 0.8.0.9007
+
+- Add
+  [`step_session_info()`](https://docs.ropensci.org/tic/dev/reference/step_session_info.md)
+  ([\#259](https://github.com/ropensci/tic/issues/259))
+- GHA: Install LaTeX on only one runner
+  ([\#257](https://github.com/ropensci/tic/issues/257))
+- GHA: Switch from main.yml to tic.yml
+  ([\#260](https://github.com/ropensci/tic/issues/260))
+
+## tic 0.8.0.9006
+
+- [`step_install_deps()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  and
+  [`do_package_checks()`](https://docs.ropensci.org/tic/dev/reference/do_package_checks.md)
+  gain `dependencies = TRUE` argument.
+
+## tic 0.8.0.9005
+
+- GHA: Set env var GITHUB_PAT from secret GITHUB_TOKEN to work around
+  rate limits in {remotes}
+
+## tic 0.8.0.9004
+
+- New
+  [`use_update_tic()`](https://docs.ropensci.org/tic/dev/reference/use_update_tic.md):
+  Adds GitHub Actions workflow `update-tic.yml` to automatically update
+  tic YAML templates
+
+## tic 0.8.0.9003
+
+- Support fully custom runner matrices on GitHub Actions via template
+  types `"custom"` and ´“custom-deploy”\`
+- bugfix: Pass arg `remote` to all printing instances. Previously using
+  a different remote than “origin” errored.
+
+## tic 0.8.0.9002
+
+- New
+  [`gha_add_secret()`](https://docs.ropensci.org/tic/dev/reference/gha_add_secret.md)
+  to automate the process of adding a GitHub PAT to a repo as a secret.
+  This function will probably be move to {ghactions} in the future.
+
+## tic 0.8.0.9001
+
+#### GitHub Actions
+
+- Update actions/checkout to v2.1.1
+- Update pat-s/always-upload-cache to v1.2.0
+- Remove old clang7 compiler setup for R \<= 3.6.3
+
+## tic 0.8.0.9000
+
+- Same as previous version.
+
+## tic 0.8.0
+
+### Features
+
+- New
+  [`update_yml()`](https://docs.ropensci.org/tic/dev/reference/update_yml.md):
+  Update your {tic} yaml templates to the latest upstream version in
+  {tic}. User changes are preserved if these are marked correctly. See
+  vignette [“Updating
+  Templates”](https://docs.ropensci.org/tic/articles/updating.html) for
+  instructions. This process can also be fully automated via a [custom
+  CI
+  job](https://docs.ropensci.org/tic/articles/updating.html#automating-the-update-process).
+- Add argument `force` to
+  [`step_do_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_do_push_deploy.md)
+  for adding the `--force` flag to git calls
+- Add solutions to {rgl} installation issues to FAQ
+- Update `.R/Makevars`
+
+### CI Provider specific
+
+#### GitHub Actions
+
+- Set CRON time to 4 am to avoid download issues with mirror updates
+- Added `-I/usr/local/include` to CPPFLAGS for macOS runners to mirror
+  CRAN setup
+
+#### Circle CI
+
+- Update r-oldrelease to R 3.6.3
+
+## tic 0.7.0.9000
+
+- GHA: added `-I/usr/local/include` to CPPFLAGS for macOS runners to
+  mirror CRAN
+- Add solutions to installation issues for package {rgl} to FAQ
+- Add argument `force` to
+  [`step_do_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_do_push_deploy.md)
+  for adding the `--force` flag to git calls
+
+## tic 0.7.0
+
+### Macros
+
+- Add
+  [`do_blogdown()`](https://docs.ropensci.org/tic/dev/reference/do_blogdown.md)
+  macro ([\#242](https://github.com/ropensci/tic/issues/242))
+
+### CI Provider specific
+
+#### GitHub Actions
+
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md):
+  Move [`cli::tree()`](https://cli.r-lib.org/reference/tree.html) calls
+  to `use_*_yml()` functions to avoid printing of false-positive trees.
+- `use_*_yml()`: Set defaults for argument `type`.
+- Fix GHA build URL and prettify deploy message
+  ([\#247](https://github.com/ropensci/tic/issues/247))
+- Adjust GH Actions templates to use the `use_*_yml()` logic
+  ([\#246](https://github.com/ropensci/tic/issues/246))
+- Bugfix: Packages on R-devel macOS are being installed in parallel
+  again.
+
+**R 4.0 toolchain**
+
+- GitHub Actions: R-devel on macOS now uses Apples default clang
+  compiler and the 10.13 SDK (High Sierra) to mimic the CRAN toolchain
+  behavior. (The 10.15 SKD causes various issues when installing
+  packages from source.)
+- Env var `SDKROOT` is now set to
+  `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk` to prevent
+  linking issues on macOS \>= 10.15.4
+
+## tic 0.6.0.9002
+
+- [`do_blogdown()`](https://docs.ropensci.org/tic/dev/reference/do_blogdown.md)
+  and
+  [`do_bookdown()`](https://docs.ropensci.org/tic/dev/reference/do_bookdown.md)
+  gain argument `cname`, making it possible to pass a CNAME URL for
+  deployments. This is useful when setting one sets `orphan = TRUE` and
+  relies on a custom URL of the published content (otherwise the
+  redirect would not work)
+- Add a better general intro about CI and explain some general CI terms
+  (fixes [\#234](https://github.com/ropensci/tic/issues/234))
+
+## tic 0.6.0.9001
+
+- Add
+  [`do_blogdown()`](https://docs.ropensci.org/tic/dev/reference/do_blogdown.md)
+  macro ([\#242](https://github.com/ropensci/tic/issues/242))
+
+## tic 0.6.0.9000
+
+- Same as previous version.
+
+## tic 0.6.0
+
+### General
+
+- `use_badge`: Refactor to use default badges from the respective
+  providers rather than from shields.io (too slow and sometimes badges
+  did not render at all)
+  ([\#240](https://github.com/ropensci/tic/issues/240))
+- Condition deployment templates on a single runner for deployment. This
+  avoids race conditions during deployment. This applies to all CI
+  providers and templates (blogdown, bookdown, package)
+  ([\#241](https://github.com/ropensci/tic/issues/241))
+- Files specified for deployment via `step_push_deploy(commit_paths = )`
+  are now force added to the index by `git`. This enables to add
+  directories like `docs/` (e.g. created by a local pkgdown build) to
+  `.gitignore` and still deploy it during CI
+  ([\#237](https://github.com/ropensci/tic/issues/237)).
+
+### CI Provider specific
+
+#### GitHub Actions
+
+- GitHub Actions: Always use option ‘–no-manual’ on Windows because
+  LaTeX is not available (because it takes ages to install)
+- [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md):
+  Test in directory “check” to simplify upload of artifacts
+- Set cron job to 4am to avoid potential download issues with R-devel on
+  macOS
+- Github Actions: Only deploy on R-release on macOS by default.
+
+### Bugfixes
+
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  fails with descriptive error message if the badges start/end sections
+  are missing in README
+- [`step_install_ssh_keys()`](https://docs.ropensci.org/tic/dev/reference/step_install_ssh_keys.md):
+  Do not use
+  [`git2r::config()`](https://docs.ropensci.org/git2r/reference/config.html)
+  when deploying on Windows to prevent build freezes
+
+### Documentation
+
+- `faq.Rmd`: Add info how to avoid git race conditions during pkgdown
+  deployment ([\#238](https://github.com/ropensci/tic/issues/238))
+
+## tic 0.5.0.9005
+
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  fails with descriptive error message if the badges start/end sections
+  are missing in README
+
+## tic 0.5.0.9004
+
+- `faq.Rmd`: Add info how to avoid git race conditions during pkgdown
+  deployment ([\#238](https://github.com/ropensci/tic/issues/238))
+- [`step_install_ssh_keys()`](https://docs.ropensci.org/tic/dev/reference/step_install_ssh_keys.md):
+  Do not use
+  [`git2r::config()`](https://docs.ropensci.org/git2r/reference/config.html)
+  when deploying on Windows to prevent build freezes
+- update blogdown templates
+- GitHub Actions: Always use option ‘–no-manual’ on Windows because
+  LaTeX is not available
+
+## tic 0.5.0.9003
+
+- Files specified for deployment via `step_push_deploy(commit_paths = )`
+  are now force added to the index by `git`. This enables to add
+  directories like `docs/` (e.g. created by a local pkgdown build) to
+  `.gitignore` and still deploy it during CI
+  ([\#237](https://github.com/ropensci/tic/issues/237)).
+- [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md):
+  Test in dir “check” to simplify upload of artifacts
+
+### Github Actions
+
+- Set cron job to 4am to avoid potential download issues with R-devel on
+  macOS
+- Github Actions: Use actions/checkout v2
+- Github Actions: Only deploy on R-release on macOS by default. This
+  avoids git race conditions between runners.
+
+## tic 0.5.0.9002
+
+- Github Actions: {covr} now supports automatic upload of codecov
+  results via their own CODECOV_TOKEN
+- [`use_tic_r()`](https://docs.ropensci.org/tic/dev/reference/use_tic_r.md):
+  Add support for conditional tic.R templates via argument `deploy_on`.
+- export
+  [`use_tic_r()`](https://docs.ropensci.org/tic/dev/reference/use_tic_r.md)
+  so that a manual workflow is possible (besides
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md))
+- GitHub Actions: use actions “pat-s/always-upload-cache” instead of
+  “actions/cache”
+
+## tic 0.5.0.9001
+
+- Add
+  [`use_tic_badge()`](https://docs.ropensci.org/tic/dev/reference/use_tic_badge.md):
+  Creation of pretty CI status badges
+
+## tic 0.5.0.9000
+
+- Same as previous version.
+
+## tic 0.5.0
+
+### Enhancements
+
+- New function
+  [`tic::use_ghactions_deploy()`](https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.md)
+  (status “experimental”) to set up a SSH key for deployment.
+- New function
+  [`use_ghactions_yml()`](https://docs.ropensci.org/tic/dev/reference/yaml_templates.md)
+  with `deploy = TRUE/FALSE` (FALSE by default).
+- New Vignette “FAQ”.
+- Added GH Actions support to
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+- new macro
+  [`do_readme_rmd()`](https://docs.ropensci.org/tic/dev/reference/do_readme_rmd.md)
+  ([\#223](https://github.com/ropensci/tic/issues/223))
+- new function
+  [`list_macros()`](https://docs.ropensci.org/tic/dev/reference/list_macros.md)
+
+### Maintenance
+
+- Change for the default of the private SSH deploy key name from
+  `TRAVIS_DEPLOY_KEY` to `TIC_DEPLOY_KEY` to have a generic name.
+- Change argument `travis_private_key_name` to `private_key_name`
+- Renamed `yaml-templates.R` to `yaml_templates.R` because the former
+  caused troubles when previewing the dev version of the docs.
+- Beautified the CLI output of
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+- Replaced all instances of `_tic_` in the docs by
+  [tic](https://docs.ropensci.org/tic)
+
+## tic 0.4.0.9000
+
+- add macro
+  [`do_readme_rmd()`](https://docs.ropensci.org/tic/dev/reference/do_readme_rmd.md)
+  ([\#223](https://github.com/ropensci/tic/issues/223))
+- new function
+  [`list_macros()`](https://docs.ropensci.org/tic/dev/reference/list_macros.md)
+
+## tic 0.4.0
+
+- add macro
+  [`do_drat()`](https://docs.ropensci.org/tic/dev/reference/do_drat.md)
+- start vignette “troubleshooting”
+- add {desc} to suggests
+- [`ci_can_push()`](https://docs.ropensci.org/tic/dev/reference/ci.md)
+  never fails.
+- templates: always upgrade dep packages during {tic} installation
+
+## tic 0.3.0.9005
+
+- Make it possible to pass the endpoint arg from {travis} funs to
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+
+- mention the difference between .com and .org -\> new vignette
+  “org-vs-com”
+
+- move package to ropensci org
+
+- `error_on = "note"` also fails on warnings.
+
+## tic 0.3.0.9004
+
+- `ci_can_Push()`: Error with descriptive error message if deployment is
+  not possible
+- [`ci_can_push()`](https://docs.ropensci.org/tic/dev/reference/ci.md):
+  Fix for Travis CI
+- optimize templates (especially matrix builds) by specifying which job
+  is used for the pkgdown build
+
+## tic 0.3.0.9003
+
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md):
+  add key_name_private and key_name_public args from
+  `travis::use_travis_deploy()`
+- [`ci_can_push()`](https://docs.ropensci.org/tic/dev/reference/ci.md):
+  Change default from `"id_rsa""` to `"TRAVIS_DEPLOY_KEY"` and also
+  support backward comp
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md):
+  Travis as default for Linux and macOS
+
+## tic 0.3.0.9002
+
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  supports running both Linux and macOS on Travis
+  ([\#202](https://github.com/ropensci/tic/issues/202)).
+- Skip `TicStep$prepare` if `prepare_call` is given in
+  [`add_code_step()`](https://docs.ropensci.org/tic/dev/reference/dsl.md)
+  ([\#211](https://github.com/ropensci/tic/issues/211)).
+- Fix preparation of
+  [`step_add_to_drat()`](https://docs.ropensci.org/tic/dev/reference/step_add_to_drat.md).
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  gains arguments that allow non-interactive use and re-running with the
+  same settings if setup fails
+  ([\#203](https://github.com/ropensci/tic/issues/203)).
+- Removed artificial sleeps with interactive setup.
+
+## tic 0.3.0.9001
+
+- Move `use_travis_deploy()` back to {travis}.
+
+## tic 0.3.0
+
+- add argument “check_dir” to step_rcmdcheck
+  ([\#179](https://github.com/ropensci/tic/issues/179))
+- use `remotes::install_cran(upgrade = TRUE)` to install packages
+  ([\#186](https://github.com/ropensci/tic/issues/186))
+- added support for Circle CI
+  ([\#177](https://github.com/ropensci/tic/issues/177))
+- All packages installed for custom steps use binary packages if
+  possible on Windows and macOS
+  ([\#178](https://github.com/ropensci/tic/issues/178)).
+- Use `TRAVIS_BUILD_WEB_URL` for the commit message.
+- [`do_package_checks()`](https://docs.ropensci.org/tic/dev/reference/do_package_checks.md)
+  gains `type` argument.
+- Tweak documentation.
+- export `use_travis_yml()`,
+  [`use_circle_yml()`](https://docs.ropensci.org/tic/dev/reference/yaml_templates.md)
+  and `use_appveyor_yml()` and add overview table of available options
+
+## tic 0.2.13.9020
+
+- Avoid building packages when installing dependencies.
+- Remove vignettes from package if checking with `--no-build-vignettes`
+  to avoid warning from `R CMD check`.
+- Fix `R CMD build` and `R CMD check` switches on AppVeyor.
+
+## tic 0.2.13.9019
+
+- Building pkgdown site succeeds if `docs/` directory is missing
+  ([\#173](https://github.com/ropensci/tic/issues/173),
+  r-lib/pkgdown#1050).
+
+## tic 0.2.13.9018
+
+- Move `use_travis_deploy()` from the travis package to here.
+- Unexport
+  [`get_public_key()`](https://docs.ropensci.org/tic/dev/reference/ssh_key_helpers.md)
+  and
+  [`encode_private_key()`](https://docs.ropensci.org/tic/dev/reference/ssh_key_helpers.md).
+
+## tic 0.2.13.9017
+
+- Test utils and printing.
+- Exclude code that can only run interactively or in a CI from coverage.
+- Add comment regarding integration test.
+- Strip long source code lines.
+- Add review badge.
+- Add `tic.R` to `.Rbuildignore` for internal tests.
+- Update wordlist.
+- Fix typos.
+- Condition example on presence of Git repository.
+
+## tic 0.2.13.9016
+
+- Fix compatibility with git 2.21 and above for race conditions
+  ([\#160](https://github.com/ropensci/tic/issues/160)).
+- [`step_build_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/step_build_pkgdown.md)
+  clean site before building.
+- AppVeyor template makes sure packages are always installed from binary
+  during bootstrapping.
+- CI templates install from GitHub if the version number indicates that
+  the package is not on CRAN yet.
+- AppVeyor doesn’t cache R packages, because this leads to update
+  problems. Binary installation is fast enough.
+- Don’t perform CRAN incoming checks, in particular the checks for large
+  version components
+  ([\#168](https://github.com/ropensci/tic/issues/168)).
+- The
+  [`step_install_deps()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md),
+  [`step_install_cran()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  and
+  [`step_install_github()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  steps install binary packages by default, even if the CRAN version is
+  ahead.
+- All files created by
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  are added to `.Rbuildignore`.
+- Package template for `tic.R` runs pkgdown only on Travis
+  ([\#167](https://github.com/ropensci/tic/issues/167)).
+- Update vignettes
+  ([\#156](https://github.com/ropensci/tic/issues/156)).
+
+## tic 0.2.13.9015
+
+- `detect_repo_type()` now prompts the user for unknown repository types
+  ([\#161](https://github.com/ropensci/tic/issues/161)).
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  loses `path` argument, now taken from
+  [`usethis::proj_get()`](https://usethis.r-lib.org/reference/proj_utils.html)
+  .
+- [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  and
+  [`do_package_checks()`](https://docs.ropensci.org/tic/dev/reference/do_package_checks.md)
+  now avoid building the vignette by default on AppVeyor
+  ([\#150](https://github.com/ropensci/tic/issues/150)).
+- [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  now uses boxes from {cli} for better structured output
+  ([\#153](https://github.com/ropensci/tic/issues/153)).
+
+## tic 0.2.13.9014
+
+- Configuration storage modeled after
+  [`usethis::proj_get()`](https://usethis.r-lib.org/reference/proj_utils.html).
+- New
+  [`dsl_load()`](https://docs.ropensci.org/tic/dev/reference/dsl_get.md),
+  renamed from `load_from_file()`.
+- New
+  [`dsl_get()`](https://docs.ropensci.org/tic/dev/reference/dsl_get.md)
+  and
+  [`dsl_init()`](https://docs.ropensci.org/tic/dev/reference/dsl_get.md).
+- Added examples to help for
+  [`get_stage()`](https://docs.ropensci.org/tic/dev/reference/dsl.md)
+  and macros ([\#77](https://github.com/ropensci/tic/issues/77)).
+
+## tic 0.2.13.9013
+
+- Using tidy evaluation for simpler code, more control and better
+  printing of steps ([\#77](https://github.com/ropensci/tic/issues/77)).
+- Fix AppVeyor builds.
+- The README is now explicit about suggesting that each repo should
+  contain only one project
+  ([\#152](https://github.com/ropensci/tic/issues/152)).
+- Documentation uses the {rotemplate} package
+  ([\#121](https://github.com/ropensci/tic/issues/121)).
+- Only install {remotes} and {curl} if not yet installed
+  ([\#97](https://github.com/ropensci/tic/issues/97)).
+- New
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md),
+  moved from {travis}
+  ([\#138](https://github.com/ropensci/tic/issues/138)).
+- Updated templates ([\#81](https://github.com/ropensci/tic/issues/81)).
+- A failing step displays a traceback generated by
+  [`rlang::trace_back()`](https://rlang.r-lib.org/reference/trace_back.html)
+  ([\#105](https://github.com/ropensci/tic/issues/105)).
+- [`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md)
+  and
+  [`do_bookdown()`](https://docs.ropensci.org/tic/dev/reference/do_bookdown.md)
+  now have a `deploy` argument and are documented on separate help
+  pages. The new
+  [`?macro`](https://docs.ropensci.org/tic/dev/reference/macro.md) help
+  page provides an overview.
+- Implement [`print()`](https://rdrr.io/r/base/print.html) methods for
+  DSL and stages ([\#77](https://github.com/ropensci/tic/issues/77)).
+- New
+  [`do_bookdown()`](https://docs.ropensci.org/tic/dev/reference/do_bookdown.md)
+  ([\#137](https://github.com/ropensci/tic/issues/137)).
+
+## tic 0.2.13.9012
+
+- New `repo_*()` functions to simplify specification of the `repos`
+  argument to installer functions
+  ([\#101](https://github.com/ropensci/tic/issues/101)).
+- Add Appveyor checks
+  ([\#147](https://github.com/ropensci/tic/issues/147),
+  [@pat-s](https://github.com/pat-s)).
+- New pkgdown macro via
+  [`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md)
+  ([\#126](https://github.com/ropensci/tic/issues/126),
+  [@pat-s](https://github.com/pat-s))
+- New example: covrpage, cc [@yonicd](https://github.com/yonicd)
+- `step_rcmdcheck(error_on = "note")` works again
+  ([\#119](https://github.com/ropensci/tic/issues/119)).
+- New
+  [`do_package_checks()`](https://docs.ropensci.org/tic/dev/reference/do_package_checks.md)
+  with `codecov = TRUE` argument
+  ([\#146](https://github.com/ropensci/tic/issues/146)), replaces
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  which stays around for compatibility
+  ([\#128](https://github.com/ropensci/tic/issues/128)).
+- [`add_step()`](https://docs.ropensci.org/tic/dev/reference/dsl.md) now
+  evaluates the `step` argument in a
+  [`tryCatch()`](https://rdrr.io/r/base/conditions.html) block and gives
+  a bit of context if this fails
+  ([\#73](https://github.com/ropensci/tic/issues/73)).
+- New
+  [`run_all_stages()`](https://docs.ropensci.org/tic/dev/reference/run_all_stages.md),
+  previously
+  [`tic()`](https://docs.ropensci.org/tic/dev/reference/tic-package.md)
+  ([\#66](https://github.com/ropensci/tic/issues/66)).
+- New
+  [`ci_get_env()`](https://docs.ropensci.org/tic/dev/reference/ci.md),
+  [`ci_has_env()`](https://docs.ropensci.org/tic/dev/reference/ci.md)
+  and [`ci_is_env()`](https://docs.ropensci.org/tic/dev/reference/ci.md)
+  functions to avoid verbose
+  [`Sys.getenv()`](https://rdrr.io/r/base/Sys.getenv.html) calls in
+  `tic.R` ([\#124](https://github.com/ropensci/tic/issues/124),
+  [@pat-s](https://github.com/pat-s)).
+- New `ci_*()` functions to avoid R6 notation in `tic.R`
+  ([\#125](https://github.com/ropensci/tic/issues/125),
+  [@pat-s](https://github.com/pat-s)).
+
+## tic 0.2.13.9011
+
+- New
+  [`step_install_deps()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md),
+  reorganizing help pages so that installer steps are on the same page.
+- [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  no longer installs dependencies. Instead,
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  includes
+  [`step_install_deps()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  ([\#74](https://github.com/ropensci/tic/issues/74)).
+- Fix two links in README
+  ([\#115](https://github.com/ropensci/tic/issues/115),
+  [@Rekyt](https://github.com/Rekyt)).
+- Vignette update ([\#80](https://github.com/ropensci/tic/issues/80),
+  [@pat-s](https://github.com/pat-s)).
+- Support `build_args` argument in
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  ([\#64](https://github.com/ropensci/tic/issues/64),
+  [@pat-s](https://github.com/pat-s)).
+
+### step_rcmdcheck()
+
+- deprecate `warnings_are_errors` and `notes_are_errors` in favor of the
+  new `error_on` argument
+- add args `timeout` and `repos`
+- call `rcmdcheck()` internally with `error_on = "never"` so that we can
+  trigger the message on found warnings and notes
+- remote outdated doc about
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  using a dedicated lib for the check
+
+## tic 0.2.13.9010
+
+- No longer using a separate library for package checks, because it
+  causes a lot of problems with various steps which are not aware of
+  this ([\#86](https://github.com/ropensci/tic/issues/86),
+  [\#88](https://github.com/ropensci/tic/issues/88)).
+- Packages coming with the R-installation are not updated anymore when
+  preparing
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md).
+  See `?step_rcmdcheck()` for detailed info.
+  ([\#103](https://github.com/ropensci/tic/issues/103))
+
+## tic 0.2.13.9009
+
+- The
+  [`step_build_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/step_build_pkgdown.md)
+  step now uses the same dedicated library as
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md).
+- Using the development version of *rcmdcheck* to work around problems
+  finding the vignette builder
+  ([\#84](https://github.com/ropensci/tic/issues/84)).
+- Draft for new “Get started” vignette
+  ([\#63](https://github.com/ropensci/tic/issues/63),
+  [@pat-s](https://github.com/pat-s)).
+
+## tic 0.2.13.9008
+
+- The
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  step now uses a dedicated library for installing the packages and
+  checking, it also updates the packages after installing dependencies.
+  The
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  macro no longer includes an
+  [`update.packages()`](https://rdrr.io/r/utils/update.packages.html)
+  call ([\#35](https://github.com/ropensci/tic/issues/35)).
+- The
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  step now installs all dependencies during preparation. The
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  macro no longer adds the code step that installs dependencies.
+
+## tic 0.2.13.9007
+
+- The
+  [`step_do_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_do_push_deploy.md)
+  and
+  [`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+  steps are not executed for builds on a tag, because this would create
+  a branch of the same name as the tag
+  ([\#27](https://github.com/ropensci/tic/issues/27)).
+
+## tic 0.2.13.9006
+
+- Support creating variables in `tic.R` by sourcing `tic.R` in a
+  modifiable environment
+  ([\#33](https://github.com/ropensci/tic/issues/33)).
+- Replaced `private` arguments with an environment that keeps track of
+  internal state, now the code from
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  can be copied to a `tic.R` file
+  ([\#74](https://github.com/ropensci/tic/issues/74)).
+
+## tic 0.2.13.9005
+
+- A failing step immediately fails the entire stage, subsequent steps
+  are not run ([\#59](https://github.com/ropensci/tic/issues/59)).
+
+## tic 0.2.13.9004
+
+- New
+  [`get_public_key()`](https://docs.ropensci.org/tic/dev/reference/ssh_key_helpers.md)
+  and
+  [`encode_private_key()`](https://docs.ropensci.org/tic/dev/reference/ssh_key_helpers.md)
+  moved from *travis*
+  ([\#71](https://github.com/ropensci/tic/issues/71),
+  [@pat-s](https://github.com/pat-s)).
+- Add
+  [`step_install_cran()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  and
+  [`step_install_github()`](https://docs.ropensci.org/tic/dev/reference/step_install_pkg.md)
+  ([\#65](https://github.com/ropensci/tic/issues/65),
+  [@pat-s](https://github.com/pat-s)).
+
+## tic 0.2.13.9003
+
+- Added integration tests for package checks and deployment, covering
+  various common cases
+  ([\#62](https://github.com/ropensci/tic/issues/62)).
+- Add integration test for deploying from a subdirectory.
+- Remove `orphan` argument from
+  [`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md),
+  because there’s no easy way to implement it reliably. If only a
+  subdirectory is deployed to a separate branch (i.e., the `path`
+  argument is set), `orphan = TRUE` is required.
+
+## tic 0.2.13.9002
+
+- Better strategy for handling race conditions during deployment, new
+  changes are no longer silently overwritten with
+  [`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+  ([\#45](https://github.com/ropensci/tic/issues/45)).
+- Add integration test for package checks and race conditions
+  ([\#62](https://github.com/ropensci/tic/issues/62)).
+- Clarify error message upon step failure.
+- [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  adds coverage checks only for non-interactive CIs.
+- Add reference to
+  [`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)
+  ([\#55](https://github.com/ropensci/tic/issues/55)).
+- Document purpose of testing steps
+  ([\#49](https://github.com/ropensci/tic/issues/49)).
+- Allow only predefined stage names
+  ([\#48](https://github.com/ropensci/tic/issues/48)).
+
+## tic 0.2.13.9001
+
+- The *pkgdown* package is installed from CRAN.
+
+## tic 0.2.13.9000
+
+- New `subdir` argument to
+  [`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+  and
+  [`step_do_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_do_push_deploy.md),
+  allows restricting the set of files to be committed to Git
+  ([\#42](https://github.com/ropensci/tic/issues/42)).
+
+## tic 0.2-13 (2018-02-01)
+
+- New
+  [`base64serialize()`](https://docs.ropensci.org/tic/dev/reference/base64serialize.md)
+  and
+  [`base64unserialize()`](https://docs.ropensci.org/tic/dev/reference/base64serialize.md)
+  ([\#37](https://github.com/ropensci/tic/issues/37)).
+- [`add_code_step()`](https://docs.ropensci.org/tic/dev/reference/dsl.md)
+  detects required packages also for complex expressions. Packages that
+  need to be installed from GitHub still need to be installed manually
+  ([\#36](https://github.com/ropensci/tic/issues/36)).
+- [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
+  now prints a summary, which also shows e.g. details on installation
+  failures.
+- New `prepare_call` argument to
+  [`step_run_code()`](https://docs.ropensci.org/tic/dev/reference/step_run_code.md)
+  and
+  [`add_code_step()`](https://docs.ropensci.org/tic/dev/reference/dsl.md).
+
+## tic 0.2-12 (2017-06-29)
+
+- Fix
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md).
+
+## tic 0.2-11 (2017-06-29)
+
+- [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  gains arguments that are passed to
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md).
+- New
+  [`step_setup_ssh()`](https://docs.ropensci.org/tic/dev/reference/step_setup_ssh.md)
+  ([\#24](https://github.com/ropensci/tic/issues/24)).
+- New
+  [`add_code_step()`](https://docs.ropensci.org/tic/dev/reference/dsl.md)
+  ([\#21](https://github.com/ropensci/tic/issues/21)).
+- New
+  [`tic()`](https://docs.ropensci.org/tic/dev/reference/tic-package.md)
+  to run all steps locally
+  ([\#23](https://github.com/ropensci/tic/issues/23)).
+- New
+  [`add_package_checks()`](https://docs.ropensci.org/tic/dev/reference/Deprecated.md)
+  ([\#25](https://github.com/ropensci/tic/issues/25)).
+
+## tic 0.2-10 (2017-06-29)
+
+- Document all exported functions and many classes
+  ([\#8](https://github.com/ropensci/tic/issues/8)).
+- [`step_add_to_drat()`](https://docs.ropensci.org/tic/dev/reference/step_add_to_drat.md)
+  will also update the overview page if it exists.
+
+## tic 0.2-9 (2017-06-28)
+
+- Fix `get_slug()` on AppVeyor to use `APPVEYOR_REPO_NAME`.
+- New
+  [`step_add_to_drat()`](https://docs.ropensci.org/tic/dev/reference/step_add_to_drat.md).
+- Split
+  [`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+  into
+  [`step_setup_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_setup_push_deploy.md)
+  and
+  [`step_do_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_do_push_deploy.md).
+- Better traceback output.
+- Use “remotes” instead of “devtools”.
+- Reduce output after preparation
+  ([\#5](https://github.com/ropensci/tic/issues/5)).
+- New
+  [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md).
+- The deparsed code is used as step name
+  ([\#5](https://github.com/ropensci/tic/issues/5)).
+
+## tic 0.2-8 (2017-06-17)
+
+- An error occurring when running a step is printed in red
+  ([\#5](https://github.com/ropensci/tic/issues/5)).
+
+## tic 0.2-7 (2017-06-13)
+
+- New
+  [`step_write_text_file()`](https://docs.ropensci.org/tic/dev/reference/step_write_text_file.md)
+  for creating arbitrary text files, including `~/.R/Makevars`
+  ([\#14](https://github.com/ropensci/tic/issues/14)).
+- pkgdown documentation is now built for tags by default
+  ([\#13](https://github.com/ropensci/tic/issues/13)).
+- The “openssl” package is now only suggested, not imported.
+- Removed `step_run_covr()` in favor of the new
+  [`step_run_code()`](https://docs.ropensci.org/tic/dev/reference/step_run_code.md)
+  ([\#18](https://github.com/ropensci/tic/issues/18)).
+- `load_from_file()` reloads the file from disk if its mtime changes
+  ([\#11](https://github.com/ropensci/tic/issues/11)).
+- All steps of a stage are run even in case of previous errors, but the
+  stage still fails if at least one of its steps failed
+  ([\#10](https://github.com/ropensci/tic/issues/10)).
+- Adding to known hosts or installing a SSH keys now requires a
+  non-interactive CI.
+- New
+  [`step_run_code()`](https://docs.ropensci.org/tic/dev/reference/step_run_code.md)
+  to run arbitrary code. If the code is a call with the `pkg::fun()`,
+  notation, pkg is installed if missing
+  ([\#1](https://github.com/ropensci/tic/issues/1),
+  [\#3](https://github.com/ropensci/tic/issues/3)). `step_run_covr()`
+  remains for compatibility but is scheduled for removal.
+- Color the start of each step in the log
+  ([\#5](https://github.com/ropensci/tic/issues/5)).
+- New
+  [`step_add_to_known_hosts()`](https://docs.ropensci.org/tic/dev/reference/step_add_to_known_hosts.md)
+  to work around configuration problems on OS X
+  ([\#16](https://github.com/ropensci/tic/issues/16)).
+- Export runner methods for all stages defined in Travis CI and AppVeyor
+  ([\#17](https://github.com/ropensci/tic/issues/17)).
+
+## tic 0.2-6 (2017-06-04)
+
+- Technical release to sync default and production branches.
+
+## tic 0.2-5 (2016-11-27)
+
+- Fix
+  [`after_success()`](https://docs.ropensci.org/tic/dev/reference/stages.md)
+  and
+  [`deploy()`](https://docs.ropensci.org/tic/dev/reference/stages.md).
+- Step names are now printed again.
+
+## tic 0.2-4 (2016-11-27)
+
+- Use new DSL with the notion of stages with arbitrary names.
+  - New `load_from_file()` replaces `get_xxx_steps()`
+  - `task_...()` has been renamed to `step_...()`
+  - A task is now something like an ad-hoc step
+  - [`before_script()`](https://docs.ropensci.org/tic/dev/reference/stages.md)
+    is now
+    [`prepare_all_stages()`](https://docs.ropensci.org/tic/dev/reference/prepare_all_stages.md)
+  - `TravisTask` is now `TicStep`
+  - [`ci()`](https://docs.ropensci.org/tic/dev/reference/ci.md) is now
+    exported
+- If environment variable `CI` is undefined, use `LocalCI` with sensible
+  inference of repository and branch.
+- Stop if `git` exits with nonzero status.
+
+## tic 0.2-3 (2016-11-06)
+
+- Install package for `task_build_pkgdown` task.
+
+## tic 0.2-2 (2016-11-05)
+
+- DSL to define steps via [`step()`](https://rdrr.io/r/stats/step.html),
+  which are tasks with a branch and/or env var filter
+  ([\#6](https://github.com/ropensci/tic/issues/6)).
+
+## tic 0.2-1 (2016-11-05)
+
+- Support environment variables from both Travis and AppVeyor
+  ([\#6](https://github.com/ropensci/tic/issues/6)).
+- Add tests.
+- Rudimentary support for multiple CI systems.
+- Clean up dependencies.
+
+## tic 0.2 (2016-11-05)
+
+Initial release.
+
+- Rudimentary configuration based on task objects. A task object is a
+  list/environment which contains at least the members `check()`,
+  `prepare()` and `run()` – functions without arguments, only `check()`
+  needs to return a `logical` scalar. These can be subclasses of the new
+  `TravisTask` R6 class, the package now contains six subclasses:
+  `HelloWorld`, `RunCovr`, `BuildPkgdown`, `InstallSSHKeys`, `TestSSH`,
+  and `PushDeploy`. The `new` methods of theses subclasses are exported
+  as `task_hello_world()`, `task_run_covr()`, `task_build_pkgdown()`
+  `task_install_ssh_keys()`, `task_test_ssh()`, and
+  `task_push_deploy()`, respectively. The three functions
+  [`before_script()`](https://docs.ropensci.org/tic/dev/reference/stages.md),
+  [`after_success()`](https://docs.ropensci.org/tic/dev/reference/stages.md)
+  and
+  [`deploy()`](https://docs.ropensci.org/tic/dev/reference/stages.md)
+  accept a semicolon-separated list of task objects, which is by default
+  taken from the `TIC_AFTER_SUCCESS_TASKS` and `TIC_DEPLOY_TASKS`
+  environment variables. These functions call the `prepare()` and
+  `run()` methods of the task objects if and only if the `check()`
+  method returns `TRUE`
+  ([\#42](https://github.com/ropensci/tic/issues/42)).

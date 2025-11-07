@@ -1,0 +1,153 @@
+# The features of tic
+
+What is the advantage of using {tic} compared to the default R setup?
+
+1.  Deployment to a Git repository is greatly simplified.
+
+2.  Support for R packages and other kinds of project (*bookdown*,
+    *blogdown*, etc.), with predefined templates. Set up your project to
+    deploy rendered versions of your book or blog with a single push.
+
+3.  Workflow specification are specified in a single R script,
+    regardless of the CI system used. No need anymore for YAML
+    configuration files that differ across CI services.
+
+Other minor advantages include the use of
+[`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md)
+for package checking (instead of `R CMD check`) and robust caching
+approach of project dependencies (via `ccache` and R package caching).
+
+## Simplified Deployment
+
+CI services can be used to automatically build and deploy files. This
+means that these services can push certain files created during the
+build to repositories (GitHub, GitLab, etc.). Possible use cases are:
+
+- Changed site contents of a {pkgdown} site
+- Updated .Rd files of a package (by calling
+  [`devtools::document()`](https://devtools.r-lib.org/reference/document.html)
+  before)
+- Automated generation of a [test summary
+  page](https://github.com/yonicd/covrpage) for a package
+
+If {tic} should be used for deployment, some preparatory work is
+required:
+
+- Setting up a SSH key pair for deployment (differs across CI services).
+- Granting permission to push to the repo on GitHub.
+
+When calling
+[`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md),
+the streamlined preparation process is run, utilizing the [R Client
+packages](https://docs.ropensci.org/tic/dev/articles/ci-client-packages.md)
+of the respective CI service under the hood. This step is needed once
+per repository.
+
+For more detailed information on deployment in {tic}, have a look
+[Deployment](https://docs.ropensci.org/tic/dev/articles/deployment.md)
+vignette.
+
+## Support for various R projects
+
+{tic} was developed with the aim to not only simplify R package
+development using CI services but also to support other R project types:
+
+- *bookdown*
+- *blogdown*
+- *drat*
+- website deployment
+- *figshare* deployment
+
+Each of these project types requires a standardized structure. {tic}
+detects this structure (assuming the user already has set it up) and
+adds CI templates tailored towards this specific project type to the
+repository when calling
+[`use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md).
+See the [Example
+projects](https://docs.ropensci.org/tic/dev/articles/tic.html#example-projects)
+section in the “Get started” article for a list of supported project
+types including links to minimal example repositories.
+
+## CI-Agnostic workflows
+
+What does “CI-Agnostic” mean and why do we need it?
+
+For to historic reasons, the R community first started on Travis CI to
+implement an easy way for R package checking. The build script for R is
+[community
+maintained](https://github.com/travis-ci/travis-build/blob/3eddda591f544a071a62fc0f713183e128cfeac1/lib/travis/build/script/r.rb).
+Theoretically, R could be run on any CI system. Travis CI is only one
+out of a bunch of providers which offer (free) CI solutions.
+
+Each CI provider has its own way how the user has to write the YAML file
+to successfully talk to the service. This setup file controls what will
+be done in each run.
+
+To give you an example how different these control files can be, take a
+look at these two examples from [Circle
+CI](https://github.com/ropensci/tic/blob/master/.circleci/config.yml)
+and [Github
+Actions](https://github.com/ropensci/tic/blob/master/.github/workflows/tic.yml).
+
+We could list way more differences - but that’s exactly the point when
+{tic} comes in!
+
+- Rather than dealing with all the CI differences, {tic} enables the
+  specification of the complete workflow in an external R script file
+  `tic.R`.
+- The calls listed in `tic.R` will work the same way on every CI service
+  that is supported by {tic}.
+- You can emulate all the stages and steps locally by calling
+  [`run_all_stages()`](https://docs.ropensci.org/tic/dev/reference/run_all_stages.md).
+- You are independent to changes made to the upstream runners of a
+  specific CI system.
+- A `tic.R` workflow is usually shorter and easier to parse than a
+  provider-specific YAML configuration file as it builds on
+  [macros](#macros).
+
+So instead of learning how to specify specific tasks on different CI
+platforms, you only apply R commands which work the same on all CI
+systems.
+
+## Enhanced R package checking
+
+As an R package developer calling
+[`devtools::check()`](https://devtools.r-lib.org/reference/check.html)
+is a common task. Usually CI workers will run `R CMD check <package>` to
+check the R package. {tic} instead makes use of
+[{rcmdcheck}](https://github.com/r-lib/rcmdcheck), a wrapper around
+`R CMD build` and `R CMD check` developed by [Gabor
+Csardi](https://github.com/gaborcsardi). {rcmdcheck} comes with several
+enhancements:
+
+- Coloring of important steps, simplifying the readability of the log.
+- Enhanced and extended tracebacks of errors, especially errors in
+  tests.
+- The whole check process is returned in a R object, making it easier to
+  inspect errors/warnings.
+
+Especially the extended log printing of errors on the CI service is a
+huge advantage - often enough, CI services cut the console log output
+early, often omitting important information about the error.
+
+## Caching of packages
+
+When using {tic}, all dependencies (the ones of the package plus the
+ones of other stages of the CI build) are installed in the
+`"before_install"` and `"install"` stage. This has the advantage that
+all packages are added to the cache (even if they are just needed for
+deployment), speeding up subsequent builds substantially.
+
+More information about the complete workflow can be found in the [Build
+lifecyle](https://docs.ropensci.org/tic/dev/articles/build-lifecycle.md)
+vignette.
+
+## Easier troubleshooting
+
+{tic} comes with the ability to [emulate a CI run
+locally](https://docs.ropensci.org/tic/dev/articles/advanced.html#emulate-a-ci-run-locally)
+and [debug problems in the config
+file](https://docs.ropensci.org/tic/dev/articles/advanced#troubleshooting-running-tic-locally)
+by calling
+[`dsl_load()`](https://docs.ropensci.org/tic/dev/reference/dsl_get.md)
+locally.

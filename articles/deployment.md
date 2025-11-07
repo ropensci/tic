@@ -1,0 +1,218 @@
+# Deployment
+
+## Introduction
+
+{tic} uses [CI client
+packages](https://docs.ropensci.org/tic/dev/articles/ci-client-packages.md)
+({circle}) for setting up deployment on the CI systems.
+
+### Circle CI
+
+On Circle CI, setting up deployment convenient as there is no need to
+create a SSH key pair for deployment.
+
+When calling
+[`circle::use_circle_deploy()`](https://docs.ropensci.org/circle/reference/use_circle_deploy.html)
+directly (or indirectly via
+[`tic::use_tic()`](https://docs.ropensci.org/tic/dev/reference/use_tic.md)),
+a so called “user-key” is created and stored in the Circle CI repo. This
+key makes it possible to deploy from Circle CI builds to your GitHub
+repo. No extra deploy key need to be stored in the GitHub repo.
+
+### GitHub Actions
+
+GitHub Actions offers multiple options related to deployment:
+
+- Deployment related actions on the GitHub marketplace
+- Supplying an `DEPLOY_PAT` secret as
+  [r-lib/actions](https://github.com/r-lib/actions/tree/master/examples#build-pkgdown-site)
+  suggests
+- Using an SSH key pair with the private key stored as a “secret” in the
+  repo and the public key as a “Deploy key” ({tic} default)
+
+To reflect a successful deployment in the repo checks, [actions from the
+GitHub marketplace](https://github.com/chrnorm/deployment-status) help.
+For the actual deployment we recommend to use a SSH key pair. A SSH key
+can be easily created, is safe to use and when browsing at the “Deploy
+key” section of a repo, one can directly see if deployment was granted
+to a CI service for the repository.
+
+To simplify the creation of a SSH key pair for deployment and adding the
+keys to the appropriate places, {tic} comes with a little helper
+function
+[`use_ghactions_deploy()`](https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.md).
+To use this function, you need a `GITHUB_PAT` with public repo scope
+defined in your `.Renviron`.
+[`usethis::create_github_token()`](https://usethis.r-lib.org/reference/github-token.html)
+helps setting one up if you haven’t done so already.
+
+#### Updating the deployment status
+
+To update the deployment status in the “environments” menu (next to
+“release” and “branches”) conditionally on the outcome of the
+“Deployment” stage, one can use the `chrnorm/deployment-status`.
+
+Add the following before the “Before Deploy” stage:
+
+``` yml
+      - uses: chrnorm/deployment-action@v1.1.1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          environment: production
+```
+
+and then this part after the “After Deploy” stage:
+
+``` yml
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target-url: http://my-app-url.com
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+```
+
+## {pkgdown} deployment
+
+[{pkgdown}](https://github.com/r-lib/pkgdown) is an R package which
+builds a documentation wrapper-site of an R package. It collects all the
+vignettes, function references and metadata information of a package and
+presents it in an eye-appealing HTML version.
+
+It has become a quasi-standard to provide a {pkgdown} site for an R
+package. However, it is tedious to update the {pkgdown} site manually on
+every commit, check whether something has changed and commit the
+changes. {tic} comes with the ability to automate this process.
+
+The following example shows how {tic} deploys a {pkgdown} site on GitHub
+Actions. Remember that you can freely choose your favorite provider for
+this task. In `tic.yml` file the “before_deploy” and “deploy” stages are
+redirected to {tic}.
+
+``` yml
+- name: "[Stage] Before Deploy"
+  run: |
+    Rscript -e "tic::before_deploy()"
+```
+
+In the “before_deploy” stage, {tic} will do the following:
+
+``` r
+if (ci_on_ghactions()) {
+  get_stage("before_deploy") %>%
+    add_step(step_setup_ssh())
+}
+```
+
+- Calls
+  [`step_setup_ssh()`](https://docs.ropensci.org/tic/dev/reference/step_setup_ssh.md)
+  if the environment variable `"BUILD_PKGDOWN"` is set in the CI build.
+  This step sets up SSH key previously added to the GitHub via
+  [`tic::use_ghactions_deploy()`](https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.md).
+  Argument `private_key_name` can be ignored as long as no custom
+  private key name was used during
+  [`tic::use_ghactions_deploy()`](https://docs.ropensci.org/tic/dev/reference/use_ghactions_deploy.md).
+  If so, then supply it via the `private_key_name` argument in
+  [`do_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/do_pkgdown.md).
+
+  For backward compatibility, the deprecated default `"id_rsa"` is
+  supported out of the box.
+
+- Calls `add_step(step_build_pkgdown())` and
+  `add_step(step_push_deploy())` in the “deploy” stage.
+
+``` r
+get_stage("deploy") %>%
+  add_step(step_build_pkgdown()) %>%
+  add_step(step_push_deploy())
+```
+
+[`step_build_pkgdown()`](https://docs.ropensci.org/tic/dev/reference/step_build_pkgdown.md)
+will build the {pkgdown} site and afterwards (note the `pipe` operator
+chaining the commands),
+[`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+takes care pushing the results to the repo. By default the site will be
+pushed to the `gh-pages` branch of your repo, keeping the history.
+
+### Deploying to `docs/` (default branch) or `gh-pages` branch
+
+By default deployment is pushed to the `gh-pages` branch. This has the
+following advantages:
+
+- No cluttering of the commit history in the default branch
+- Everything “just works” silently in the background
+
+#### Default branch deployment
+
+Deploying to the `docs/` directory of the default branch has the
+following advantages:
+
+- Per-branch versions of the {pkgdown} site (if desired)
+- Per-branch versions enable the possibility to have preview for pull
+  requests via <https://www.netlify.com/>
+
+The disadvantage is that the default branch will be cluttered by
+automatic commits that push the changes of the {pkgdown} site to the
+default branch.
+
+#### Orphaning the `gh-pages` branch
+
+By default, changes to the {pkgdown} site will be added as incremental
+commits to the `gh-pages` branch. This is useful to keep a history of
+past versions and to enable a release and dev version of the site. To
+have this feature, set
+
+``` yml
+development:
+  mode: auto
+```
+
+in your `_pkgdown.yml` file. See `?pkgdown::build_site()` for more
+information.
+
+If you only want to have one version of your {pkgdown} site and not fill
+your repo with many commits in the `gh-pages` branch, you can use
+`do_pkgdown(orphan = TRUE)`. This will wipe all commits of this branch
+on every CI run so that there is only one commit corresponding to the
+latest version of your pkgdown site.
+
+## Committing single files
+
+The
+[`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+step has the ability to restrict the files that are committed and
+pushed. This can be very useful for conditionally pushing documentation
+files like `NEWS` or `man/` and `NAMESPACE` if these are automatically
+created during the CI run.
+
+In the following example, these files are created/updated by calling
+[`devtools::document()`](https://devtools.r-lib.org/reference/document.html).
+The `commit_paths` argument in
+[`step_push_deploy()`](https://docs.ropensci.org/tic/dev/reference/step_push_deploy.md)
+decides which files are committed and pushed:
+
+``` r
+get_stage("before_deploy") %>%
+  add_step(step_setup_ssh())
+
+get_stage("deploy") %>%
+  add_code_step(devtools::document(roclets = c("rd", "collate", "namespace"))) %>%
+  add_step(step_push_deploy(commit_paths = c("NAMESPACE", "man/*")))
+```
+
+Applying this idea depends on your overall R package development
+strategy: Commit files like `/man/` and `NAMESPACE` directly or let them
+be created during the CI run?
