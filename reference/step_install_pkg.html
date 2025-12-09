@@ -84,14 +84,14 @@ but it is also possible to install dependencies manually.
 By default, binary versions of packages are installed if possible,
 even if the CRAN version is ahead.</p>
 <p>A <code>step_install_deps()</code> step installs all package dependencies declared in
-<code>DESCRIPTION</code>, using <code><a href="https://pak.r-lib.org/reference/local_install_dev_deps.html" class="external-link">pak::local_install_dev_deps()</a></code>.
+<code>DESCRIPTION</code>, using <code><a href="https://rdrr.io/pkg/pak/man/local_install_dev_deps.html" class="external-link">pak::local_install_dev_deps()</a></code>.
 This includes upgrading outdated packages.</p>
 <p>This step can only be used if a DESCRIPTION file is present in the repository
 root.</p>
 <p>A <code>step_install_cran()</code> step installs one package from CRAN via
 <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code>, but only if it's not already installed.</p>
 <p>A <code>step_install_github()</code> step installs one or more packages from GitHub
-via <code><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pak::pkg_install()</a></code>, the packages are only installed if their
+via <code><a href="https://rdrr.io/pkg/pak/man/pkg_install.html" class="external-link">pak::pkg_install()</a></code>, the packages are only installed if their
 GitHub version is different from the locally installed version.</p>
     </div>
 
@@ -115,7 +115,7 @@ one of the following values:</p><ul><li><p><code>NA</code>: only required (hard)
 dependencies,</p></li>
 <li><p><code>FALSE</code>: do not install any dependencies. (You might end up with a
 non-working package, and/or the installation might fail.)
-See <a href="https://pak.r-lib.org/reference/package-dependency-types.html" class="external-link">Package dependency types</a> for other possible values and more
+See <a href="https://rdrr.io/pkg/pak/man/package-dependency-types.html" class="external-link">Package dependency types</a> for other possible values and more
 information about package dependencies.</p></li>
 </ul></dd>
 
@@ -125,7 +125,7 @@ information about package dependencies.</p></li>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Passed on to <code><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pak::pkg_install()</a></code>.</p></dd>
+<dd><p>Passed on to <code><a href="https://rdrr.io/pkg/pak/man/pkg_install.html" class="external-link">pak::pkg_install()</a></code>.</p></dd>
 
 
 <dt id="arg-repo">repo<a class="anchor" aria-label="anchor" href="#arg-repo"></a></dt>

@@ -17,7 +17,7 @@ This macro is only available for R packages.
     `notes_are_errors`, `args`, and `build_args` arguments.
 
 4.  A call to
-    [`covr::codecov()`](http://covr.r-lib.org/reference/codecov.md) in
+    [`covr::codecov()`](https://rdrr.io/pkg/covr/man/codecov.html) in
     the `"after_success"` stage (only if the `codecov` flag is set)
 
 ## Usage
@@ -60,7 +60,7 @@ do_package_checks(
 
   `[character]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md).  
+  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html).  
 
   Default for local runs: `c("--no-manual", "--as-cran")`.
 
@@ -75,7 +75,7 @@ do_package_checks(
 
   `[character]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md).  
+  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html).  
   Default for local runs: `"--force"`.  
   Default for Windows: `c("--no-build-vignettes", "--force")`.  
 
@@ -93,7 +93,7 @@ do_package_checks(
 
   `[character]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md),
+  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html),
   default:
   [`repo_default()`](https://docs.ropensci.org/tic/dev/reference/repo.md).
 
@@ -110,7 +110,7 @@ do_package_checks(
   - `FALSE`: do not install any dependencies. (You might end up with a
     non-working package, and/or the installation might fail.) See
     [Package dependency
-    types](https://pak.r-lib.org/reference/package-dependency-types.html)
+    types](https://rdrr.io/pkg/pak/man/package-dependency-types.html)
     for other possible values and more information about package
     dependencies.
 
@@ -118,7 +118,7 @@ do_package_checks(
 
   `[numeric]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md),
+  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html),
   default: `Inf`.
 
 - check_dir:

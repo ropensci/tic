@@ -199,7 +199,7 @@ adds
 [`step_rcmdcheck()`](https://docs.ropensci.org/tic/dev/reference/step_rcmdcheck.md)
 to the “script” stage. This step performs the check of an R package.
 Afterwards, the code coverage is being checked using
-[`covr::codecov()`](http://covr.r-lib.org/reference/codecov.md). See
+[`covr::codecov()`](https://rdrr.io/pkg/covr/man/codecov.html). See
 `?do_package_checks()` for more information.
 
 ``` r

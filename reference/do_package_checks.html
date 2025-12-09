@@ -88,7 +88,7 @@ stages:</p>
 <li><p><code><a href="step_rcmdcheck.html">step_rcmdcheck()</a></code> in the <code>"script"</code> stage, using the
 <code>warnings_are_errors</code>, <code>notes_are_errors</code>, <code>args</code>, and
 <code>build_args</code> arguments.</p></li>
-<li><p>A call to <code><a href="http://covr.r-lib.org/reference/codecov.html" class="external-link">covr::codecov()</a></code> in the <code>"after_success"</code> stage
+<li><p>A call to <code><a href="https://rdrr.io/pkg/covr/man/codecov.html" class="external-link">covr::codecov()</a></code> in the <code>"after_success"</code> stage
 (only if the <code>codecov</code> flag is set)</p></li>
 </ol></div>
 
@@ -130,7 +130,7 @@ Deprecated, use <code>error_on</code>.</p></dd>
 
 <dt id="arg-args">args<a class="anchor" aria-label="anchor" href="#arg-args"></a></dt>
 <dd><p><code>[character]</code><br>
-Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>.<br></p>
+Passed to <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>.<br></p>
 <p>Default for local runs: <code>c("--no-manual", "--as-cran")</code>.</p>
 <p>Default for Windows:
 <code>c("--no-manual", "--as-cran", "--no-vignettes", "--no-build-vignettes", "--no-multiarch")</code>.</p>
@@ -141,7 +141,7 @@ consuming and error prone.<br></p></dd>
 
 <dt id="arg-build-args">build_args<a class="anchor" aria-label="anchor" href="#arg-build-args"></a></dt>
 <dd><p><code>[character]</code><br>
-Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>.<br>
+Passed to <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>.<br>
 Default for local runs: <code>"--force"</code>.<br>
 Default for Windows: <code>c("--no-build-vignettes", "--force")</code>.<br></p></dd>
 
@@ -158,7 +158,7 @@ error.</p></dd>
 
 <dt id="arg-repos">repos<a class="anchor" aria-label="anchor" href="#arg-repos"></a></dt>
 <dd><p><code>[character]</code><br>
-Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>, default:
+Passed to <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>, default:
 <code><a href="repo.html">repo_default()</a></code>.</p></dd>
 
 
@@ -169,14 +169,14 @@ one of the following values:</p><ul><li><p><code>NA</code>: only required (hard)
 dependencies,</p></li>
 <li><p><code>FALSE</code>: do not install any dependencies. (You might end up with a
 non-working package, and/or the installation might fail.)
-See <a href="https://pak.r-lib.org/reference/package-dependency-types.html" class="external-link">Package dependency types</a> for other possible values and more
+See <a href="https://rdrr.io/pkg/pak/man/package-dependency-types.html" class="external-link">Package dependency types</a> for other possible values and more
 information about package dependencies.</p></li>
 </ul></dd>
 
 
 <dt id="arg-timeout">timeout<a class="anchor" aria-label="anchor" href="#arg-timeout"></a></dt>
 <dd><p><code>[numeric]</code><br>
-Passed to <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>, default:
+Passed to <code><a href="https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>, default:
 <code>Inf</code>.</p></dd>
 
 

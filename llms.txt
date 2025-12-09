@@ -67,7 +67,7 @@ workflow:
 - Satisfying build-time dependencies of steps to be run in all CI stages
   (by scraping `pkg::fun` calls in `tic.R`)
 - Checking of package via
-  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md)
+  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html)
 - Creation of a `pkgdown` site including Github deployment
 - Running a code coverage and upload to
   [codecov.io](https://codecov.io/)

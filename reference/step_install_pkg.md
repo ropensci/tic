@@ -8,7 +8,7 @@ ahead.
 
 A `step_install_deps()` step installs all package dependencies declared
 in `DESCRIPTION`, using
-[`pak::local_install_dev_deps()`](https://pak.r-lib.org/reference/local_install_dev_deps.html).
+[`pak::local_install_dev_deps()`](https://rdrr.io/pkg/pak/man/local_install_dev_deps.html).
 This includes upgrading outdated packages.
 
 This step can only be used if a DESCRIPTION file is present in the
@@ -20,7 +20,7 @@ but only if it's not already installed.
 
 A `step_install_github()` step installs one or more packages from GitHub
 via
-[`pak::pkg_install()`](https://pak.r-lib.org/reference/pkg_install.html),
+[`pak::pkg_install()`](https://rdrr.io/pkg/pak/man/pkg_install.html),
 the packages are only installed if their GitHub version is different
 from the locally installed version.
 
@@ -49,7 +49,7 @@ step_install_github(repo = NULL, ...)
   - `FALSE`: do not install any dependencies. (You might end up with a
     non-working package, and/or the installation might fail.) See
     [Package dependency
-    types](https://pak.r-lib.org/reference/package-dependency-types.html)
+    types](https://rdrr.io/pkg/pak/man/package-dependency-types.html)
     for other possible values and more information about package
     dependencies.
 
@@ -60,7 +60,7 @@ step_install_github(repo = NULL, ...)
 - ...:
 
   Passed on to
-  [`pak::pkg_install()`](https://pak.r-lib.org/reference/pkg_install.html).
+  [`pak::pkg_install()`](https://rdrr.io/pkg/pak/man/pkg_install.html).
 
 - repo:
 

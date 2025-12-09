@@ -13,7 +13,7 @@ What is the advantage of using {tic} compared to the default R setup?
     configuration files that differ across CI services.
 
 Other minor advantages include the use of
-[`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md)
+[`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html)
 for package checking (instead of `R CMD check`) and robust caching
 approach of project dependencies (via `ccache` and R package caching).
 
