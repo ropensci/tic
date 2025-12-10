@@ -1,7 +1,7 @@
 # Step: Print the current Session Info
 
 Prints out the package information of the current session via
-[`sessioninfo::session_info()`](https://rdrr.io/pkg/sessioninfo/man/session_info.html).
+[`sessioninfo::session_info()`](https://sessioninfo.r-lib.org/reference/session_info.html).
 
 ## Usage
 

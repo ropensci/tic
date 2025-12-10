@@ -1,7 +1,7 @@
 # Step: Check a package
 
 Check a package using
-[`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html),
+[`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md),
 which ultimately calls `R CMD check`.
 
 ## Usage
@@ -35,7 +35,7 @@ step_rcmdcheck(
 
   `[character]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html).  
+  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md).  
 
   Default for local runs: `c("--no-manual", "--as-cran")`.
 
@@ -50,7 +50,7 @@ step_rcmdcheck(
 
   `[character]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html).  
+  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md).  
   Default for local runs: `"--force"`.  
   Default for Windows: `c("--no-build-vignettes", "--force")`.  
 
@@ -68,7 +68,7 @@ step_rcmdcheck(
 
   `[character]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html),
+  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md),
   default:
   [`repo_default()`](https://docs.ropensci.org/tic/dev/reference/repo.md).
 
@@ -76,7 +76,7 @@ step_rcmdcheck(
 
   `[numeric]`  
   Passed to
-  [`rcmdcheck::rcmdcheck()`](https://rdrr.io/pkg/rcmdcheck/man/rcmdcheck.html),
+  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md),
   default: `Inf`.
 
 - check_dir:
